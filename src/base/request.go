@@ -11,22 +11,18 @@ var httpClient = &http.Client{
 	Timeout: time.Second * 30,
 }
 
-type Request struct {
+type Credentials struct {
 	AccountSid string
 	AuthToken  string
+}
 
-	APIKeySid    string
-	APIKeySecret string
-
+type Request struct {
+	Credentials
 	BaseURL string
 }
 
 func (request *Request) BasicAuth() (string, string) {
-	if request.APIKeySid != "" {
-		return request.APIKeySid, request.APIKeySecret
-	}
-
-	return request.AccountSid, request.AuthToken
+	return request.Credentials.AccountSid, request.Credentials.AuthToken
 }
 
 func (request *Request) Post(uri string, data url.Values) (*http.Response, error) {
@@ -40,8 +36,8 @@ func (request *Request) Post(uri string, data url.Values) (*http.Response, error
 	return httpClient.Do(req)
 }
 
-func (request *Request) Get(url string) (*http.Response, error) {
-	req, err := http.NewRequest("GET", url, nil)
+func (request *Request) Get(uri string) (*http.Response, error) {
+	req, err := http.NewRequest("GET", request.BaseURL+uri, nil)
 	if err != nil {
 		return nil, err
 	}
