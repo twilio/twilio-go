@@ -1,22 +1,21 @@
 package twilio
 
 import (
-	. "../base"
+	"../base/backend"
 	"./chat/v2"
 )
 
-type Client struct {
-	Chat *chat.ChatService
-}
+// Twilio provides access to Twilio services.
 type Twilio struct {
 	Chat *chat.Chat
 }
 
+// NewClient provides an initialized Twilio client.
 func NewClient(AccountSid string, AuthToken string) *Twilio {
 	client := &Twilio{}
-	credentials := Credentials{AccountSid: AccountSid, AuthToken: AuthToken}
+	credentials := backend.Credentials{AccountSid: AccountSid, AuthToken: AuthToken}
 
-	client.Chat = &chat.Chat{Request: Request{Credentials: credentials, BaseURL: "https://chat.twilio.com/v2"}}
+	client.Chat = &chat.Chat{Request: backend.Request{Credentials: credentials, BaseURL: "https://chat.twilio.com/v2"}}
 
 	return client
 }
