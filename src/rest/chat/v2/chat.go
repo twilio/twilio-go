@@ -66,6 +66,10 @@ type ServiceParams struct {
 func (chat *Chat) Create(params *ServiceParams) (*Service, error) {
 	resp, err := chat.Request.Post("/Services", params)
 	defer resp.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
 	cs := &Service{}
 	json.NewDecoder(resp.Body).Decode(cs)
 	return cs, err
@@ -75,6 +79,10 @@ func (chat *Chat) Create(params *ServiceParams) (*Service, error) {
 func (chat *Chat) Read(sid string, params *ServiceParams) (*Service, error) {
 	resp, err := chat.Request.Get(fmt.Sprintf("/Services/%s", sid))
 	defer resp.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
 	cs := &Service{}
 	json.NewDecoder(resp.Body).Decode(cs)
 	return cs, err
@@ -84,6 +92,10 @@ func (chat *Chat) Read(sid string, params *ServiceParams) (*Service, error) {
 func (chat *Chat) Update(sid string, params *ServiceParams) (*Service, error) {
 	resp, err := chat.Request.Post(fmt.Sprintf("/Services/%s", sid), params)
 	defer resp.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
 	cs := &Service{}
 	json.NewDecoder(resp.Body).Decode(cs)
 	return cs, err
@@ -92,6 +104,10 @@ func (chat *Chat) Update(sid string, params *ServiceParams) (*Service, error) {
 // Delete deletes a Service.
 func (chat *Chat) Delete(sid string, params *ServiceParams) (*Service, error) {
 	resp, err := chat.Request.Delete(fmt.Sprintf("/Services/%s", sid))
+	if err != nil {
+		return nil, err
+	}
+
 	cs := &Service{}
 	json.NewDecoder(resp.Body).Decode(cs)
 	return cs, err
