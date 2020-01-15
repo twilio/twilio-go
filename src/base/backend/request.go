@@ -50,7 +50,7 @@ func doWithErr(req *http.Request) (*http.Response, error) {
 		log.Fatal(err)
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode >= 400 {
 		err = &Error{}
 		json.NewDecoder(res.Body).Decode(err)
 	}
