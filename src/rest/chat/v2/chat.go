@@ -17,7 +17,7 @@ type Chat struct {
 // A Service is the top-level scope of all other resources in the Programmable Chat REST API. All other Programmable Chat resources, such as Channels, Users, Messages, and Credentials belong to a specific Service.
 // See: https://www.twilio.com/docs/chat/rest/service-resource
 type Service struct {
-	Sid                          string            `json:"sid,omitempty,omitempty"`
+	Sid                          string            `json:"sid,omitempty"`
 	AccountSid                   string            `json:"account_sid,omitempty"`
 	FriendlyName                 string            `json:"friendly_name,omitempty"`
 	DateCreated                  time.Time         `json:"date_created,omitempty"`
