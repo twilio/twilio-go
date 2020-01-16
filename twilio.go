@@ -1,4 +1,4 @@
-package backend
+package twilio
 
 import (
 	"encoding/json"
@@ -59,7 +59,7 @@ func doWithErr(req *http.Request) (*http.Response, error) {
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL with the provided data as parameters.
-func (request *Request) Post(uri string, data interface{}) (*http.Response, error) {
+func (request Request) Post(uri string, data interface{}) (*http.Response, error) {
 	v, _ := query.Values(data)
 	valueReader := strings.NewReader(v.Encode())
 	req, err := http.NewRequest("POST", request.BaseURL+uri, valueReader)
@@ -73,7 +73,7 @@ func (request *Request) Post(uri string, data interface{}) (*http.Response, erro
 }
 
 // Get performs a GET request on the object at the provided URI in the context of the Request's BaseURL with the provided data as parameters.
-func (request *Request) Get(uri string) (*http.Response, error) {
+func (request Request) Get(uri string) (*http.Response, error) {
 	req, err := http.NewRequest("GET", request.BaseURL+uri, nil)
 	if err != nil {
 		return nil, err
@@ -84,7 +84,7 @@ func (request *Request) Get(uri string) (*http.Response, error) {
 }
 
 // Delete performs a DELETE request on the object at the provided URI in the context of the Request's BaseURL with the provided data as parameters.
-func (request *Request) Delete(uri string) (*http.Response, error) {
+func (request Request) Delete(uri string) (*http.Response, error) {
 	req, err := http.NewRequest("DELETE", request.BaseURL+uri, nil)
 	if err != nil {
 		return nil, err
