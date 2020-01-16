@@ -11,6 +11,6 @@ jobs:
         uses: docker://reviewdog/action-golangci-lint:v1
         with:
           github_token: ${{ secrets.github_token }}
-          golangci_lint_flags: "--enable-all --exclude-use-default=false ./src/..."
+          golangci_lint_flags: "--enable-all --exclude-use-default=false"
           level: error
           tool_name: golint
