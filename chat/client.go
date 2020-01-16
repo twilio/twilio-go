@@ -3,6 +3,7 @@ package chat
 import (
 	"encoding/json"
 	"fmt"
+
 	twilio "github.com/twilio/twilio-go"
 )
 
@@ -22,6 +23,7 @@ func (c Client) Create(params *twilio.ChatServiceParams) (*twilio.ChatService, e
 	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
 		return nil, decodeErr
 	}
+
 	return cs, err
 }
 
@@ -37,6 +39,7 @@ func (c Client) Read(sid string, params *twilio.ChatServiceParams) (*twilio.Chat
 	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
 		return nil, decodeErr
 	}
+
 	return cs, err
 }
 
@@ -52,6 +55,7 @@ func (c Client) Update(sid string, params *twilio.ChatServiceParams) (*twilio.Ch
 	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
 		return nil, decodeErr
 	}
+
 	return cs, err
 }
 
@@ -67,5 +71,6 @@ func (c Client) Delete(sid string, params *twilio.ChatServiceParams) (*twilio.Ch
 	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
 		return nil, decodeErr
 	}
+
 	return cs, err
 }

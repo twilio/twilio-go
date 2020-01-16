@@ -4,7 +4,8 @@ import (
 	"time"
 )
 
-// A Service is the top-level scope of all other resources in the Programmable Chat REST API. All other Programmable Chat resources, such as Channels, Users, Messages, and Credentials belong to a specific Service.
+// A Service is the top-level scope of all other resources in the Programmable Chat REST API.
+// All other Programmable Chat resources belong to a specific Service.
 // See: https://www.twilio.com/docs/chat/rest/service-resource
 type ChatService struct {
 	Sid                          string            `json:"sid,omitempty"`

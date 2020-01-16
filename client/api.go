@@ -1,6 +1,9 @@
 package twilio
 
 import (
+	"net/http"
+	"time"
+
 	twilio "github.com/twilio/twilio-go"
 	"github.com/twilio/twilio-go/chat"
 )
@@ -10,11 +13,20 @@ type Twilio struct {
 	Chat *chat.Client
 }
 
-// NewClient provides an initialized Twilio client.
-func NewClient(AccountSid string, AuthToken string) *Twilio {
-	client := &Twilio{}
-	credentials := twilio.Credentials{AccountSid: AccountSid, AuthToken: AuthToken}
+const interval = 10
 
-	client.Chat = &chat.Client{Request: twilio.Request{Credentials: credentials, BaseURL: "https://chat.twilio.com/v2"}}
+// NewClient provides an initialized Twilio client.
+func NewClient(accountSid string, authToken string) *Twilio {
+	var httpClient = &http.Client{
+		Timeout: time.Second * interval,
+	}
+
+	credentials := twilio.Credentials{AccountSid: accountSid, AuthToken: authToken}
+
+	client := &Twilio{}
+	client.Chat = &chat.Client{Request: twilio.Request{Credentials: credentials,
+		BaseURL: "https://chat.twilio.com/v2",
+		Client:  httpClient}}
+
 	return client
 }
