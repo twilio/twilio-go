@@ -1,16 +1,9 @@
 package twilio
 
 import (
-	"net/http"
-	"time"
-
 	twilio "github.com/twilio/twilio-go"
 	"github.com/twilio/twilio-go/chat"
 )
-
-var httpClient = &http.Client{
-	Timeout: time.Second * 10,
-}
 
 // Twilio provides access to Twilio services.
 type Twilio struct {

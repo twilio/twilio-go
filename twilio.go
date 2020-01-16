@@ -3,7 +3,6 @@ package twilio
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -45,17 +44,20 @@ func (request *Request) basicAuth() (string, string) {
 }
 
 func doWithErr(req *http.Request) (*http.Response, error) {
-	res, err := httpClient.Do(req)
-	if err != nil {
-		log.Fatal(err)
+	res, httpErr := httpClient.Do(req)
+	if httpErr != nil {
+		return nil, httpErr
 	}
 
 	if res.StatusCode >= 400 {
-		err = &Error{}
-		json.NewDecoder(res.Body).Decode(err)
+		apiErr := &Error{}
+		if decodeErr := json.NewDecoder(res.Body).Decode(apiErr); decodeErr != nil {
+			return nil, decodeErr
+		}
+		return nil, apiErr
 	}
 
-	return res, err
+	return res, nil
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL with the provided data as parameters.

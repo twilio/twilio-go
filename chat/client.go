@@ -13,39 +13,45 @@ type Client struct {
 // Create creates a new Service.
 func (c Client) Create(params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
 	resp, err := c.Request.Post("/Services", params)
-	defer resp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 
 	cs := &twilio.ChatService{}
-	json.NewDecoder(resp.Body).Decode(cs)
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
 	return cs, err
 }
 
 // Read returns the details of a Service.
 func (c Client) Read(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
 	resp, err := c.Request.Get(fmt.Sprintf("/Services/%s", sid))
-	defer resp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 
 	cs := &twilio.ChatService{}
-	json.NewDecoder(resp.Body).Decode(cs)
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
 	return cs, err
 }
 
 // Update updates a Service.
 func (c Client) Update(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
 	resp, err := c.Request.Post(fmt.Sprintf("/Services/%s", sid), params)
-	defer resp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 
 	cs := &twilio.ChatService{}
-	json.NewDecoder(resp.Body).Decode(cs)
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
 	return cs, err
 }
 
@@ -55,8 +61,11 @@ func (c Client) Delete(sid string, params *twilio.ChatServiceParams) (*twilio.Ch
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 
 	cs := &twilio.ChatService{}
-	json.NewDecoder(resp.Body).Decode(cs)
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
 	return cs, err
 }
