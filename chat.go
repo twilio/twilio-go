@@ -18,7 +18,7 @@ type ChatService struct {
 	DefaultChannelCreatorRoleSid string            `json:"default_channel_creator_role_sid,omitempty"`
 	ReadStatusEnabled            string            `json:"read_status_enabled,omitempty"`
 	ReachabilityEnabled          string            `json:"reachability_enabled,omitempty"`
-	TypingIndicatorTimeout       string            `json:"typing_indicator_timeout,omitempty"`
+	TypingIndicatorTimeout       int               `json:"typing_indicator_timeout,omitempty"`
 	ConsumptionReportInterval    string            `json:"consumption_report_interval,omitempty"`
 	Limits                       map[string]int    `json:"limits,omitempty"`
 	PreWebhookURL                string            `json:"pre_webhook_url,omitempty"`
