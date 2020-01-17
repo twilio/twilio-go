@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-// Media Struct to handle mixed value types
+// Media handles mixed value types
 type Media struct {
 	SizeLimitMB          int    `json:"size_limit_mb"`
 	CompatibilityMessage string `json:"compatibility_message"`
