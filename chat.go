@@ -4,33 +4,39 @@ import (
 	"time"
 )
 
+// Media Struct to handle mixed value types
+type Media struct {
+	SizeLimitMB          int    `json:"size_limit_mb"`
+	CompatibilityMessage string `json:"compatibility_message"`
+}
+
 // A Service is the top-level scope of all other resources in the Programmable Chat REST API.
 // All other Programmable Chat resources belong to a specific Service.
 // See: https://www.twilio.com/docs/chat/rest/service-resource
 type ChatService struct {
-	Sid                          string            `json:"sid,omitempty"`
-	AccountSid                   string            `json:"account_sid,omitempty"`
-	FriendlyName                 string            `json:"friendly_name,omitempty"`
-	DateCreated                  time.Time         `json:"date_created,omitempty"`
-	DateUpdated                  time.Time         `json:"date_updated,omitempty"`
-	DefaultServiceRoleSid        string            `json:"default_service_role_sid,omitempty"`
-	DefaultChannelRoleSid        string            `json:"default_channel_role_sid,omitempty"`
-	DefaultChannelCreatorRoleSid string            `json:"default_channel_creator_role_sid,omitempty"`
-	ReadStatusEnabled            bool              `json:"read_status_enabled,omitempty"`
-	ReachabilityEnabled          bool              `json:"reachability_enabled,omitempty"`
-	TypingIndicatorTimeout       int               `json:"typing_indicator_timeout,omitempty"`
-	ConsumptionReportInterval    int               `json:"consumption_report_interval,omitempty"`
-	Limits                       map[string]int    `json:"limits,omitempty"`
-	PreWebhookURL                string            `json:"pre_webhook_url,omitempty"`
-	PostWebhookURL               string            `json:"post_webhook_url,omitempty"`
-	WebhookMethod                string            `json:"webhook_method,omitempty"`
-	WebhookFilters               []string          `json:"webhook_filters,omitempty"`
-	PreWebhookRetryCount         int               `json:"pre_webhook_retry_count,omitempty"`
-	PostWebhookRetryCount        int               `json:"post_webhook_retry_count,omitempty"`
-	Notifications                map[string]string `json:"notifications,omitempty"`
-	Media                        map[string]string `json:"media,omitempty"`
-	URL                          string            `json:"url,omitempty"`
-	Links                        map[string]string `json:"links,omitempty"`
+	Sid                          string            `json:"sid"`
+	AccountSid                   string            `json:"account_sid"`
+	FriendlyName                 string            `json:"friendly_name"`
+	DateCreated                  time.Time         `json:"date_created"`
+	DateUpdated                  time.Time         `json:"date_updated"`
+	DefaultServiceRoleSid        string            `json:"default_service_role_sid"`
+	DefaultChannelRoleSid        string            `json:"default_channel_role_sid"`
+	DefaultChannelCreatorRoleSid string            `json:"default_channel_creator_role_sid"`
+	ReadStatusEnabled            bool              `json:"read_status_enabled"`
+	ReachabilityEnabled          bool              `json:"reachability_enabled"`
+	TypingIndicatorTimeout       int               `json:"typing_indicator_timeout"`
+	ConsumptionReportInterval    int               `json:"consumption_report_interval"`
+	Limits                       map[string]int    `json:"limits"`
+	PreWebhookURL                string            `json:"pre_webhook_url"`
+	PostWebhookURL               string            `json:"post_webhook_url"`
+	WebhookMethod                string            `json:"webhook_method"`
+	WebhookFilters               []string          `json:"webhook_filters"`
+	PreWebhookRetryCount         int               `json:"pre_webhook_retry_count"`
+	PostWebhookRetryCount        int               `json:"post_webhook_retry_count"`
+	Notifications                map[string]string `json:"notifications"`
+	Media                        *Media            `json:"media"`
+	URL                          string            `json:"url"`
+	Links                        map[string]string `json:"links"`
 }
 
 // ServiceParams is the set of parameters that can be used when creating or updating a service.
