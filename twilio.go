@@ -60,9 +60,9 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 	return res, nil
 }
 
-//MakeRequest make an HTTP request
+// MakeRequest makes HTTP request.
 func (request Request) MakeRequest(method string, fullyQualifiedURI string, data interface{}) (*http.Response, error) {
-	var valueReader *strings.Reader
+	var valueReader = &strings.Reader{}
 
 	if data != nil {
 		v, _ := query.Values(data)
