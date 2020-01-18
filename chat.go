@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// Media represents how the ChatService relates to the media.
 type Media struct {
 	SizeLimitMB          int    `json:"size_limit_mb"`
 	CompatibilityMessage string `json:"compatibility_message"`
