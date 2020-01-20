@@ -15,5 +15,6 @@
 # vendor/
 
 # Vim Swap Files
+/foo
 .*swp
 

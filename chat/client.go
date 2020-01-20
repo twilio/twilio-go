@@ -3,6 +3,7 @@ package chat
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 
 	twilio "github.com/twilio/twilio-go"
 )
@@ -37,6 +38,7 @@ func (c Client) Read(sid string, params *twilio.ChatServiceParams) (*twilio.Chat
 
 	cs := &twilio.ChatService{}
 	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		log.Fatal(decodeErr)
 		return nil, decodeErr
 	}
 

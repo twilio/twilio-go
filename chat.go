@@ -18,7 +18,7 @@ type Enabled struct {
 // Notifications describes the enabled notification state of the Chat Service
 type Notifications struct {
 	RemoveFromChannel *Enabled `json:"remove_from_channel"`
-	LogEnabled        *Enabled `json:"log_enabled"`
+	LogEnabled        bool     `json:"log_enabled"`
 	AddedToChannel    *Enabled `json:"added_to_channel"`
 	NewMessage        *Enabled `json:"new_message"`
 	InvitedToChannel  *Enabled `json:"invited_to_channel"`
