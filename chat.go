@@ -33,7 +33,7 @@ type ChatService struct {
 	WebhookFilters               []string          `json:"webhook_filters"`
 	PreWebhookRetryCount         int               `json:"pre_webhook_retry_count"`
 	PostWebhookRetryCount        int               `json:"post_webhook_retry_count"`
-	Notifications                map[string]string `json:"notifications"`
+	Notifications                map[string]string `json:"notifications,omitempty"`
 	Media                        *Media            `json:"media"`
 	URL                          string            `json:"url"`
 	Links                        map[string]string `json:"links"`
