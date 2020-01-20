@@ -53,7 +53,7 @@ type ChatService struct {
 	Links                        map[string]string `json:"links"`
 }
 
-// ServiceParams is the set of parameters that can be used when creating or updating a service.
+// ChatServiceParams is the set of parameters that can be used when creating or updating a service.
 type ChatServiceParams struct {
 	FriendlyName                 string            `url:"FriendlyName,omitempty"`
 	DefaultServiceRoleSid        string            `url:"DefaultServiceRoleSid,omitempty"`
@@ -63,7 +63,7 @@ type ChatServiceParams struct {
 	ReachabilityEnabled          string            `url:"ReachabilityEnabled,omitempty"`
 	TypingIndicatorTimeout       string            `url:"TypingIndicatorTimeout,omitempty"`
 	ConsumptionReportInterval    string            `url:"ConsumptionReportInterval,omitempty"`
-	Notifications                map[string]string `url:"Notifications,omitempty"`
+	Notifications                *Notifications    `url:"Notifications,omitempty"`
 	PreWebhookURL                string            `url:"PreWebhookUrl,omitempty"`
 	PostWebhookURL               string            `url:"PostWebhookUrl,omitempty"`
 	WebhookMethod                string            `url:"WebhookMethod,omitempty"`
