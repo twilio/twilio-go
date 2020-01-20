@@ -24,7 +24,7 @@ type Notifications struct {
 	InvitedToChannel  *Enabled `json:"invited_to_channel"`
 }
 
-// A Service is the top-level scope of all other resources in the Programmable Chat REST API.
+// ChatService is the top-level scope of all other resources in the Programmable Chat REST API.
 // All other Programmable Chat resources belong to a specific Service.
 // See: https://www.twilio.com/docs/chat/rest/service-resource
 type ChatService struct {
@@ -47,7 +47,7 @@ type ChatService struct {
 	WebhookFilters               []string          `json:"webhook_filters"`
 	PreWebhookRetryCount         int               `json:"pre_webhook_retry_count"`
 	PostWebhookRetryCount        int               `json:"post_webhook_retry_count"`
-	Notifications                map[string]string `json:"notifications,omitempty"`
+	Notifications                *Notifications    `json:"notifications,omitempty"`
 	Media                        *Media            `json:"media"`
 	URL                          string            `json:"url"`
 	Links                        map[string]string `json:"links"`
@@ -63,7 +63,7 @@ type ChatServiceParams struct {
 	ReachabilityEnabled          string            `url:"ReachabilityEnabled,omitempty"`
 	TypingIndicatorTimeout       string            `url:"TypingIndicatorTimeout,omitempty"`
 	ConsumptionReportInterval    string            `url:"ConsumptionReportInterval,omitempty"`
-	Notifications                *Notifications    `url:"Notifications,omitempty"`
+	Notifications                map[string]string `url:"Notifications,omitempty"`
 	PreWebhookURL                string            `url:"PreWebhookUrl,omitempty"`
 	PostWebhookURL               string            `url:"PostWebhookUrl,omitempty"`
 	WebhookMethod                string            `url:"WebhookMethod,omitempty"`
