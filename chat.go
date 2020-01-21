@@ -69,10 +69,10 @@ type ChatServiceParams struct {
 	DefaultServiceRoleSid        string            `url:"DefaultServiceRoleSid,omitempty"`
 	DefaultChannelRoleSid        string            `url:"DefaultChannelRoleSid,omitempty"`
 	DefaultChannelCreatorRoleSid string            `url:"DefaultChannelCreatorRoleSid,omitempty"`
-	ReadStatusEnabled            string            `url:"ReadStatusEnabled,omitempty"`
-	ReachabilityEnabled          string            `url:"ReachabilityEnabled,omitempty"`
-	TypingIndicatorTimeout       string            `url:"TypingIndicatorTimeout,omitempty"`
-	ConsumptionReportInterval    string            `url:"ConsumptionReportInterval,omitempty"`
+	ReadStatusEnabled            bool              `url:"ReadStatusEnabled,omitempty"`
+	ReachabilityEnabled          bool              `url:"ReachabilityEnabled,omitempty"`
+	TypingIndicatorTimeout       int               `url:"TypingIndicatorTimeout,omitempty"`
+	ConsumptionReportInterval    int               `url:"ConsumptionReportInterval,omitempty"`
 	Notifications                map[string]string `url:"Notifications,omitempty"`
 	PreWebhookURL                string            `url:"PreWebhookUrl,omitempty"`
 	PostWebhookURL               string            `url:"PostWebhookUrl,omitempty"`
@@ -80,5 +80,5 @@ type ChatServiceParams struct {
 	WebhookFilters               string            `url:"WebhookFilters,omitempty"`
 	PreWebhookRetryCount         int               `url:"PreWebhookRetryCount,omitempty"`
 	PostWebhookRetryCount        int               `url:"PostWebhookRetryCount,omitempty"`
-	Limits                       map[string]string `url:"Limits,omitempty"`
+	Limits                       map[string]int    `url:"Limits,omitempty"`
 }
