@@ -37,7 +37,7 @@ type WorkspaceParams struct {
 // constants
 const (
 	//WorkspaceDefaultFriendlyName = "Flex Task Assignment"
-	WorkspaceDefaultFriendlyName = "Flex Task Assignment5"
+	WorkspaceDefaultFriendlyName = "Flex Task Assignment"
 	WorkflowDefaultFriendlyName  = "Assign to Anyone"
 	TaskQueueDefaultFriendlyName = "Everyone"
 	ActivityDefaultFriendlyName  = "Break"
