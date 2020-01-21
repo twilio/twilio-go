@@ -62,7 +62,7 @@ func (c Client) CreateWorkspace(workspaceParams twilio.WorkspaceParams) (*twilio
 	resp, err := c.Request.Post(url, workspaceParams)
 
 	if err != nil {
-		log.Printf("error while creating workspace: %s", err)
+		log.Printf("error creating workspace: %s", err)
 	}
 
 	defer resp.Body.Close()
@@ -85,7 +85,7 @@ func (c Client) CreateNewActivity(activityParams twilio.ActivityParams, workspac
 	resp, err := c.Request.Post(url, activityParams)
 
 	if err != nil {
-		log.Printf("error decoding the output of activity create: %s", err)
+		log.Printf("error creating a new activity: %s", err)
 	}
 
 	defer resp.Body.Close()
@@ -107,7 +107,7 @@ func (c Client) FetchWorkflow(workspaceSid string, workflowSid string) (*twilio.
 	resp, err := c.Request.Get(url)
 
 	if err != nil {
-		log.Printf("error while getting workflow: %s", err)
+		log.Printf("error getting existing workflow: %s", err)
 		return nil, err
 	}
 
@@ -130,7 +130,7 @@ func (c Client) CreateTaskQueue(taskQueuParams twilio.TaskQueueParams, workspace
 	resp, err := c.Request.Post(url, taskQueuParams)
 
 	if err != nil {
-		log.Printf("error while creating taskqueue: %s", err)
+		log.Printf("error creating taskqueue: %s", err)
 		return nil, err
 	}
 
@@ -196,7 +196,7 @@ func (c Client) SetupWorkspace(workspaceParams twilio.WorkspaceParams) (*twilio.
 	ws, err := c.FindWorkspace(workspaceParams.FriendlyName)
 
 	if err != nil {
-		log.Panic("error while searching for existing workspace", err)
+		return nil, err
 	}
 
 	if ws != nil {
