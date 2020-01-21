@@ -65,20 +65,20 @@ type ChatService struct {
 
 // ChatServiceParams is the set of parameters that can be used when creating or updating a service.
 type ChatServiceParams struct {
-	FriendlyName                 *string            `url:"FriendlyName,omitempty"`
-	DefaultServiceRoleSid        *string            `url:"DefaultServiceRoleSid,omitempty"`
-	DefaultChannelRoleSid        *string            `url:"DefaultChannelRoleSid,omitempty"`
-	DefaultChannelCreatorRoleSid *string            `url:"DefaultChannelCreatorRoleSid,omitempty"`
-	ReadStatusEnabled            *bool              `url:"ReadStatusEnabled,omitempty"`
-	ReachabilityEnabled          *bool              `url:"ReachabilityEnabled,omitempty"`
-	TypingIndicatorTimeout       *int               `url:"TypingIndicatorTimeout,omitempty"`
-	ConsumptionReportInterval    *int               `url:"ConsumptionReportInterval,omitempty"`
-	Notifications                *map[string]string `url:"Notifications,omitempty"`
-	PreWebhookURL                *string            `url:"PreWebhookUrl,omitempty"`
-	PostWebhookURL               *string            `url:"PostWebhookUrl,omitempty"`
-	WebhookMethod                *string            `url:"WebhookMethod,omitempty"`
-	WebhookFilters               *[]interface{}     `url:"WebhookFilters,omitempty"`
-	PreWebhookRetryCount         *int               `url:"PreWebhookRetryCount,omitempty"`
-	PostWebhookRetryCount        *int               `url:"PostWebhookRetryCount,omitempty"`
-	Limits                       *map[string]int    `url:"Limits,omitempty"`
+	FriendlyName                 string            `url:"FriendlyName,omitempty"`
+	DefaultServiceRoleSid        string            `url:"DefaultServiceRoleSid,omitempty"`
+	DefaultChannelRoleSid        string            `url:"DefaultChannelRoleSid,omitempty"`
+	DefaultChannelCreatorRoleSid string            `url:"DefaultChannelCreatorRoleSid,omitempty"`
+	ReadStatusEnabled            bool              `url:"ReadStatusEnabled,omitempty"`
+	ReachabilityEnabled          bool              `url:"ReachabilityEnabled,omitempty"`
+	TypingIndicatorTimeout       int               `url:"TypingIndicatorTimeout,omitempty"`
+	ConsumptionReportInterval    int               `url:"ConsumptionReportInterval,omitempty"`
+	Notifications                map[string]string `url:"Notifications,omitempty"`
+	PreWebhookURL                string            `url:"PreWebhookUrl,omitempty"`
+	PostWebhookURL               string            `url:"PostWebhookUrl,omitempty"`
+	WebhookMethod                string            `url:"WebhookMethod,omitempty"`
+	WebhookFilters               []interface{}     `url:"WebhookFilters,omitempty"`
+	PreWebhookRetryCount         int               `url:"PreWebhookRetryCount,omitempty"`
+	PostWebhookRetryCount        int               `url:"PostWebhookRetryCount,omitempty"`
+	Limits                       map[string]int    `url:"Limits,omitempty"`
 }
