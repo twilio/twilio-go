@@ -69,8 +69,8 @@ type ChatServiceParams struct {
 	DefaultServiceRoleSid        string            `url:"DefaultServiceRoleSid,omitempty"`
 	DefaultChannelRoleSid        string            `url:"DefaultChannelRoleSid,omitempty"`
 	DefaultChannelCreatorRoleSid string            `url:"DefaultChannelCreatorRoleSid,omitempty"`
-	ReadStatusEnabled            bool              `url:"ReadStatusEnabled,omitempty"`
-	ReachabilityEnabled          bool              `url:"ReachabilityEnabled,omitempty"`
+	ReadStatusEnabled            bool              `url:"ReadStatusEnabled"`
+	ReachabilityEnabled          bool              `url:"ReachabilityEnabled"`
 	TypingIndicatorTimeout       int               `url:"TypingIndicatorTimeout,omitempty"`
 	ConsumptionReportInterval    int               `url:"ConsumptionReportInterval,omitempty"`
 	Notifications                map[string]string `url:"Notifications,omitempty"`
