@@ -77,7 +77,7 @@ type ChatServiceParams struct {
 	PreWebhookURL                string            `url:"PreWebhookUrl,omitempty"`
 	PostWebhookURL               string            `url:"PostWebhookUrl,omitempty"`
 	WebhookMethod                string            `url:"WebhookMethod,omitempty"`
-	WebhookFilters               []string          `url:"WebhookFilters,omitempty"`
+	WebhookFilters               []interface{}     `url:"WebhookFilters,omitempty"`
 	PreWebhookRetryCount         int               `url:"PreWebhookRetryCount,omitempty"`
 	PostWebhookRetryCount        int               `url:"PostWebhookRetryCount,omitempty"`
 	Limits                       map[string]int    `url:"Limits,omitempty"`
