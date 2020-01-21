@@ -3,7 +3,6 @@ package chat
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 
 	twilio "github.com/twilio/twilio-go"
 )
@@ -16,65 +15,62 @@ type Client struct {
 func (c Client) Create(params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
 	resp, err := c.Request.Post("/Services", params)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Error creating Chat Service: %s", err)
 	}
+
 	defer resp.Body.Close()
 
 	cs := &twilio.ChatService{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
+		return nil, err
 	}
 
 	return cs, err
 }
 
 // Read returns the details of a Service.
-func (c Client) Read(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
+func (c Client) Read(sid string) (*twilio.ChatService, error) {
 	resp, err := c.Request.Get(fmt.Sprintf("/Services/%s", sid))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Error read Chat Service: %s", err)
 	}
+
 	defer resp.Body.Close()
 
 	cs := &twilio.ChatService{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
-		log.Fatal(decodeErr)
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
+		return nil, fmt.Errorf("Error updating Chat Service: %s", err)
 	}
 
-	return cs, err
+	return cs, nil
 }
 
 // Update updates a Service.
 func (c Client) Update(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
 	resp, err := c.Request.Post(fmt.Sprintf("/Services/%s", sid), params)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Error updating Chat Service: %s", err)
 	}
+
 	defer resp.Body.Close()
 
 	cs := &twilio.ChatService{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
+		return nil, fmt.Errorf("Error decoding Chat Service JSON: %s", err)
 	}
 
-	return cs, err
+	return cs, nil
 }
 
 // Delete deletes a Service.
-func (c Client) Delete(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
+func (c Client) Delete(sid string) error {
 	resp, err := c.Request.Delete(fmt.Sprintf("/Services/%s", sid))
 
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("Error deleting Chat Service: %s", err)
 	}
 
 	defer resp.Body.Close()
 
-	// cs := &twilio.ChatService{}
-	// if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
-	// 	return nil, decodeErr
-	// }
-
-	return nil, nil
+	return nil
 }
