@@ -10,18 +10,28 @@ type Media struct {
 	CompatibilityMessage string `json:"compatibility_message"`
 }
 
-// Enabled describes whether key is toggled
-type Enabled struct {
-	Enabled bool `json:"enabled"`
+// NewMessage describes notification setting state
+type NewMessage struct {
+	Enabled           bool    `json:"enabled"`
+	Template          *string `json:"template"`
+	Sound             *string `json:"sound"`
+	BadgeCountEnabled *bool   `json:"badge_count_enabled"`
+}
+
+// BaseNotification describes notification setting state
+type BaseNotification struct {
+	Enabled  bool    `json:"enabled"`
+	Template *string `json:"template"`
+	Sound    *string `json:"sound"`
 }
 
 // Notifications describes the enabled notification state of the Chat Service
 type Notifications struct {
-	RemoveFromChannel *Enabled `json:"remove_from_channel"`
-	LogEnabled        bool     `json:"log_enabled"`
-	AddedToChannel    *Enabled `json:"added_to_channel"`
-	NewMessage        *Enabled `json:"new_message"`
-	InvitedToChannel  *Enabled `json:"invited_to_channel"`
+	RemoveFromChannel *BaseNotification `json:"remove_from_channel"`
+	LogEnabled        bool              `json:"log_enabled"`
+	AddedToChannel    *BaseNotification `json:"added_to_channel"`
+	NewMessage        *NewMessage       `json:"new_message"`
+	InvitedToChannel  *BaseNotification `json:"invited_to_channel"`
 }
 
 // ChatService is the top-level scope of all other resources in the Programmable Chat REST API.
