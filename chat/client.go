@@ -64,15 +64,17 @@ func (c Client) Update(sid string, params *twilio.ChatServiceParams) (*twilio.Ch
 // Delete deletes a Service.
 func (c Client) Delete(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
 	resp, err := c.Request.Delete(fmt.Sprintf("/Services/%s", sid))
+
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 
-	cs := &twilio.ChatService{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
-		return nil, decodeErr
-	}
+	// cs := &twilio.ChatService{}
+	// if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+	// 	return nil, decodeErr
+	// }
 
-	return cs, err
+	return nil, nil
 }
