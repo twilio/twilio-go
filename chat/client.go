@@ -7,8 +7,9 @@ import (
 	twilio "github.com/twilio/twilio-go"
 )
 
+// Client twilio chat client wrapper
 type Client struct {
-	Request twilio.Request
+	Request twilio.Client
 }
 
 // Create creates a new Service.

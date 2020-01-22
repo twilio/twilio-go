@@ -13,10 +13,10 @@ import (
 
 // NewTaskrouterClient creates and returns taskrouter client (constructor).
 func NewTaskrouterClient(accountSid string, authToken string, domain string) Client {
-	credentials := twilio.Credentials{AccountSid: accountSid,
+	credentials := twilio.Credentials{AccountSID: accountSid,
 		AuthToken: authToken,
 	}
-	request := twilio.Request{Credentials: credentials,
+	request := twilio.Client{Credentials: credentials,
 		BaseURL: "https://taskrouter." + domain,
 		Client:  &http.Client{},
 	}
@@ -26,7 +26,7 @@ func NewTaskrouterClient(accountSid string, authToken string, domain string) Cli
 
 // Client taskrouter client struct.
 type Client struct {
-	Request twilio.Request
+	Request twilio.Client
 }
 
 // WorkspaceList struct for holding list of workspaces.
