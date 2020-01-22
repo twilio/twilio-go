@@ -20,18 +20,18 @@ type NewMessage struct {
 
 // BaseNotification describes notification setting state
 type BaseNotification struct {
-	Enabled  bool    `json:"enabled"`
-	Template *string `json:"template"`
-	Sound    *string `json:"sound"`
+	Enabled  bool   `json:"enabled,omitempty"`
+	Template string `json:"template,omitempty"`
+	Sound    string `json:"sound,omitempty"`
 }
 
 // Notifications describes the enabled notification state of the Chat Service
 type Notifications struct {
-	RemovedFromChannel *BaseNotification `json:"removed_from_channel"`
-	LogEnabled         bool              `json:"log_enabled"`
-	AddedToChannel     *BaseNotification `json:"added_to_channel"`
-	NewMessage         *NewMessage       `json:"new_message"`
-	InvitedToChannel   *BaseNotification `json:"invited_to_channel"`
+	RemovedFromChannel *BaseNotification `json:"removed_from_channel,omitempty"`
+	LogEnabled         bool              `json:"log_enabled,omitempty"`
+	AddedToChannel     *BaseNotification `json:"added_to_channel,omitempty"`
+	NewMessage         *NewMessage       `json:"new_message,omitempty"`
+	InvitedToChannel   *BaseNotification `json:"invited_to_channel,omitempty"`
 }
 
 // ChatService is the top-level scope of all other resources in the Programmable Chat REST API.
