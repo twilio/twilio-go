@@ -27,40 +27,40 @@ type BaseNotification struct {
 
 // Notifications describes the enabled notification state of the Chat Service
 type Notifications struct {
-	RemoveFromChannel *BaseNotification `json:"remove_from_channel"`
-	LogEnabled        bool              `json:"log_enabled"`
-	AddedToChannel    *BaseNotification `json:"added_to_channel"`
-	NewMessage        *NewMessage       `json:"new_message"`
-	InvitedToChannel  *BaseNotification `json:"invited_to_channel"`
+	RemovedFromChannel *BaseNotification `json:"removed_from_channel"`
+	LogEnabled         bool              `json:"log_enabled"`
+	AddedToChannel     *BaseNotification `json:"added_to_channel"`
+	NewMessage         *NewMessage       `json:"new_message"`
+	InvitedToChannel   *BaseNotification `json:"invited_to_channel"`
 }
 
 // ChatService is the top-level scope of all other resources in the Programmable Chat REST API.
 // All other Programmable Chat resources belong to a specific Service.
 // See: https://www.twilio.com/docs/chat/rest/service-resource
 type ChatService struct {
-	Sid                          string            `json:"sid"`
-	AccountSid                   string            `json:"account_sid"`
-	FriendlyName                 string            `json:"friendly_name"`
-	DateCreated                  time.Time         `json:"date_created"`
-	DateUpdated                  time.Time         `json:"date_updated"`
-	DefaultServiceRoleSid        string            `json:"default_service_role_sid"`
-	DefaultChannelRoleSid        string            `json:"default_channel_role_sid"`
-	DefaultChannelCreatorRoleSid string            `json:"default_channel_creator_role_sid"`
-	ReadStatusEnabled            bool              `json:"read_status_enabled"`
-	ReachabilityEnabled          bool              `json:"reachability_enabled"`
-	TypingIndicatorTimeout       int               `json:"typing_indicator_timeout"`
-	ConsumptionReportInterval    int               `json:"consumption_report_interval"`
-	Limits                       map[string]int    `json:"limits"`
-	PreWebhookURL                string            `json:"pre_webhook_url"`
-	PostWebhookURL               string            `json:"post_webhook_url"`
-	WebhookMethod                string            `json:"webhook_method"`
-	WebhookFilters               []string          `json:"webhook_filters"`
-	PreWebhookRetryCount         int               `json:"pre_webhook_retry_count"`
-	PostWebhookRetryCount        int               `json:"post_webhook_retry_count"`
-	Notifications                *Notifications    `json:"notifications,omitempty"`
-	Media                        *Media            `json:"media"`
-	URL                          string            `json:"url"`
-	Links                        map[string]string `json:"links"`
+	Sid                          string                  `json:"sid"`
+	AccountSid                   string                  `json:"account_sid"`
+	FriendlyName                 string                  `json:"friendly_name"`
+	DateCreated                  time.Time               `json:"date_created"`
+	DateUpdated                  time.Time               `json:"date_updated"`
+	DefaultServiceRoleSid        string                  `json:"default_service_role_sid"`
+	DefaultChannelRoleSid        string                  `json:"default_channel_role_sid"`
+	DefaultChannelCreatorRoleSid string                  `json:"default_channel_creator_role_sid"`
+	ReadStatusEnabled            bool                    `json:"read_status_enabled"`
+	ReachabilityEnabled          bool                    `json:"reachability_enabled"`
+	TypingIndicatorTimeout       int                     `json:"typing_indicator_timeout"`
+	ConsumptionReportInterval    int                     `json:"consumption_report_interval"`
+	Limits                       map[string]int          `json:"limits"`
+	PreWebhookURL                string                  `json:"pre_webhook_url"`
+	PostWebhookURL               string                  `json:"post_webhook_url"`
+	WebhookMethod                string                  `json:"webhook_method"`
+	WebhookFilters               []string                `json:"webhook_filters"`
+	PreWebhookRetryCount         int                     `json:"pre_webhook_retry_count"`
+	PostWebhookRetryCount        int                     `json:"post_webhook_retry_count"`
+	Notifications                *Notifications          `json:"notifications,omitempty"`
+	Media                        *map[string]interface{} `json:"media"`
+	URL                          string                  `json:"url"`
+	Links                        map[string]string       `json:"links"`
 }
 
 // ChatServiceParams is the set of parameters that can be used when creating or updating a service.
