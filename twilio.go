@@ -60,45 +60,45 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 	return res, nil
 }
 
-// Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (request Request) Post(uri string, data interface{}) (*http.Response, error) {
-	v, _ := query.Values(data)
-	valueReader := strings.NewReader(v.Encode())
+// MakeRequest makes HTTP request.
+func (request Request) MakeRequest(method string, fullyQualifiedURI string, data interface{}) (*http.Response, error) {
+	valueReader := &strings.Reader{}
 
-	req, err := http.NewRequest("POST", request.BaseURL+uri, valueReader)
+	if data != nil {
+		v, _ := query.Values(data)
+		valueReader = strings.NewReader(v.Encode())
+	}
+
+	req, err := http.NewRequest(method, fullyQualifiedURI, valueReader)
 	if err != nil {
 		return nil, err
 	}
 
 	req.SetBasicAuth(request.basicAuth())
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	if method == http.MethodPost {
+		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	}
 
 	return doWithErr(req, request.Client)
+}
+
+// Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
+// with the provided data as parameters.
+func (request Request) Post(uri string, data interface{}) (*http.Response, error) {
+	fullyQualifiedURI := request.BaseURL + uri
+	return request.MakeRequest(http.MethodPost, fullyQualifiedURI, data)
 }
 
 // Get performs a GET request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
 func (request Request) Get(uri string) (*http.Response, error) {
-	req, err := http.NewRequest("GET", request.BaseURL+uri, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	req.SetBasicAuth(request.basicAuth())
-
-	return doWithErr(req, request.Client)
+	fullyQualifiedURI := request.BaseURL + uri
+	return request.MakeRequest(http.MethodGet, fullyQualifiedURI, nil)
 }
 
 // Delete performs a DELETE request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
 func (request Request) Delete(uri string) (*http.Response, error) {
-	req, err := http.NewRequest("DELETE", request.BaseURL+uri, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	req.SetBasicAuth(request.basicAuth())
-
-	return doWithErr(req, request.Client)
+	fullyQualifiedURI := request.BaseURL + uri
+	return request.MakeRequest(http.MethodDelete, fullyQualifiedURI, nil)
 }

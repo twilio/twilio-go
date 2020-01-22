@@ -16,15 +16,15 @@ type ChatService struct {
 	DefaultServiceRoleSid        string            `json:"default_service_role_sid,omitempty"`
 	DefaultChannelRoleSid        string            `json:"default_channel_role_sid,omitempty"`
 	DefaultChannelCreatorRoleSid string            `json:"default_channel_creator_role_sid,omitempty"`
-	ReadStatusEnabled            string            `json:"read_status_enabled,omitempty"`
-	ReachabilityEnabled          string            `json:"reachability_enabled,omitempty"`
-	TypingIndicatorTimeout       string            `json:"typing_indicator_timeout,omitempty"`
-	ConsumptionReportInterval    string            `json:"consumption_report_interval,omitempty"`
+	ReadStatusEnabled            bool              `json:"read_status_enabled,omitempty"`
+	ReachabilityEnabled          bool              `json:"reachability_enabled,omitempty"`
+	TypingIndicatorTimeout       int               `json:"typing_indicator_timeout,omitempty"`
+	ConsumptionReportInterval    int               `json:"consumption_report_interval,omitempty"`
 	Limits                       map[string]int    `json:"limits,omitempty"`
 	PreWebhookURL                string            `json:"pre_webhook_url,omitempty"`
 	PostWebhookURL               string            `json:"post_webhook_url,omitempty"`
 	WebhookMethod                string            `json:"webhook_method,omitempty"`
-	WebhookFilters               string            `json:"webhook_filters,omitempty"`
+	WebhookFilters               []string          `json:"webhook_filters,omitempty"`
 	PreWebhookRetryCount         int               `json:"pre_webhook_retry_count,omitempty"`
 	PostWebhookRetryCount        int               `json:"post_webhook_retry_count,omitempty"`
 	Notifications                map[string]string `json:"notifications,omitempty"`
