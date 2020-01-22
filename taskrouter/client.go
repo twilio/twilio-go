@@ -31,7 +31,7 @@ type Client struct {
 
 // WorkspaceList struct for holding list of workspaces.
 type WorkspaceList struct {
-	Workspaces []twilio.Workspace `json:"workspaces,omitempty"`
+	Workspaces []twilio.Workspace `json:"workspaces"`
 }
 
 // CreateWorkflow creates workflow with the given config.
@@ -148,10 +148,10 @@ func (c Client) CreateTaskQueue(taskQueuParams twilio.TaskQueueParams, workspace
 	return taskQueue, nil
 }
 
-// SetupTaskRouterWithDefaultConfig sets up taskrouter(Flex setup). steps as follows
+// SetupTaskRouterWithDefaultConfig sets up taskrouter(Flex setup).
 // 1.Checks if a workspace exists with the default friendly name, if not then creates one.
 // 2.Creates a task-queue with default friendly name for the workspace sid.
-// 3.Creates workflow with default friendly name using the created taskqueue sid and workspace sid
+// 3.Creates workflow with default friendly name using the created taskqueue sid and workspace sid.
 // 4.Creates a new activity with default friendly name using the sid of workspace.
 func (c Client) SetupTaskRouterWithDefaultConfig() (*twilio.Workspace, *twilio.TaskQueue, *twilio.Workflow,
 	*twilio.Activity, error) {
@@ -249,7 +249,7 @@ func (c Client) RetreiveAllWorkspaces() (*WorkspaceList, error) {
 		return nil, err
 	}
 
-	wslist, err := parseWorkspaceResponse(body)
+	wslist, err := workspaceListFromResponseBody(body)
 
 	if err != nil {
 		return nil, err
@@ -258,7 +258,7 @@ func (c Client) RetreiveAllWorkspaces() (*WorkspaceList, error) {
 	return wslist, err
 }
 
-func parseWorkspaceResponse(body []byte) (*WorkspaceList, error) {
+func workspaceListFromResponseBody(body []byte) (*WorkspaceList, error) {
 	var wslist = new(WorkspaceList)
 	err := json.Unmarshal(body, &wslist)
 
