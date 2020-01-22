@@ -22,7 +22,7 @@ type Credentials struct {
 // Client provides a standard HTTP backend.
 type Client struct {
 	Credentials
-	HttpClient *http.Client
+	HTTPClient *http.Client
 	BaseURL    string
 }
 
@@ -61,8 +61,8 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 	if res.StatusCode >= errorStatusCode {
 		err = &Error{}
 		if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
-			errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
-			return nil, decodeErr
+			err = errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
+			return nil, err
 		}
 
 		return nil, err
@@ -99,7 +99,7 @@ func (c Client) SendRequest(method string, path string, data interface{}) (*http
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	}
 
-	return doWithErr(req, c.HttpClient)
+	return doWithErr(req, c.HTTPClient)
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL

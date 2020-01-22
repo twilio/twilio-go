@@ -24,9 +24,9 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	credentials := twilio.Credentials{AccountSID: accountSid, AuthToken: authToken}
 
 	client := &Twilio{}
-	client.Chat = &chat.Client{Request: twilio.Client{Credentials: credentials,
-		BaseURL: "https://chat.twilio.com/v2",
-		Client:  httpClient}}
+	client.Chat = &chat.Client{Client: twilio.Client{Credentials: credentials,
+		BaseURL:    "https://chat.twilio.com/v2",
+		HTTPClient: httpClient}}
 
 	return client
 }

@@ -16,12 +16,12 @@ func NewTaskrouterClient(accountSid string, authToken string, domain string) Cli
 	credentials := twilio.Credentials{AccountSID: accountSid,
 		AuthToken: authToken,
 	}
-	request := twilio.Client{Credentials: credentials,
+	client := twilio.Client{Credentials: credentials,
 		BaseURL:    "https://taskrouter." + domain,
-		HttpClient: &http.Client{},
+		HTTPClient: &http.Client{},
 	}
 
-	return Client{Client: request}
+	return Client{Client: client}
 }
 
 // Client taskrouter client struct.
