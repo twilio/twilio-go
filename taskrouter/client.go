@@ -1,4 +1,4 @@
-// Package taskrouter - package for CRUD operations on taskrouter(workspace, workflow, taskqueues, activities)
+// Package taskrouter - package for CRUD operations on taskrouter (workspace, workflow, taskqueues, activities)
 package taskrouter
 
 import (
@@ -11,7 +11,7 @@ import (
 	twilio "github.com/twilio/twilio-go"
 )
 
-// NewTaskrouterClient creates and returns taskrouter client
+// NewTaskrouterClient creates and returns taskrouter client (constructor).
 func NewTaskrouterClient(accountSid string, authToken string, domain string) Client {
 	credentials := twilio.Credentials{AccountSid: accountSid,
 		AuthToken: authToken,
@@ -24,17 +24,17 @@ func NewTaskrouterClient(accountSid string, authToken string, domain string) Cli
 	return Client{Request: request}
 }
 
-// Client taskrouter client
+// Client taskrouter client struct.
 type Client struct {
 	Request twilio.Request
 }
 
-// WorkspaceList list of workspaces
+// WorkspaceList struct for holding list of workspaces.
 type WorkspaceList struct {
 	Workspaces []twilio.Workspace `json:"workspaces,omitempty"`
 }
 
-// CreateWorkflow create workflow with the given friendly name
+// CreateWorkflow creates workflow with the given config.
 func (c Client) CreateWorkflow(workflowParams twilio.WorkflowParams) (*twilio.Workflow, error) {
 	url := "/v1/Workspaces/" + workflowParams.WorkspaceSid + "/Workflows"
 	resp, err := c.Request.Post(url, workflowParams)
@@ -57,7 +57,7 @@ func (c Client) CreateWorkflow(workflowParams twilio.WorkflowParams) (*twilio.Wo
 	return wf, nil
 }
 
-// CreateWorkspace create workspace with the given friendly name
+// CreateWorkspace creates workspace with the given the config.
 func (c Client) CreateWorkspace(workspaceParams twilio.WorkspaceParams) (*twilio.Workspace, error) {
 	url := "/v1/Workspaces"
 	resp, err := c.Request.Post(url, workspaceParams)
@@ -79,7 +79,7 @@ func (c Client) CreateWorkspace(workspaceParams twilio.WorkspaceParams) (*twilio
 	return ws, nil
 }
 
-// CreateNewActivity create a new activity
+// CreateNewActivity creates a new activity with the given config.
 func (c Client) CreateNewActivity(activityParams twilio.ActivityParams, workspaceSid string) (*twilio.Activity, error) {
 	url := "/v1/Workspaces/" + workspaceSid + "/Activities"
 
@@ -102,7 +102,7 @@ func (c Client) CreateNewActivity(activityParams twilio.ActivityParams, workspac
 	return activity, nil
 }
 
-// FetchWorkflow fetch
+// FetchWorkflow fetches workflow with given workspace sid and workflow sid.
 func (c Client) FetchWorkflow(workspaceSid string, workflowSid string) (*twilio.Workflow, error) {
 	url := "/v1/Workspaces/" + workspaceSid + "/Workflows/" + workflowSid
 	resp, err := c.Request.Get(url)
@@ -125,7 +125,7 @@ func (c Client) FetchWorkflow(workspaceSid string, workflowSid string) (*twilio.
 	return workflow, nil
 }
 
-// CreateTaskQueue create a new activity
+// CreateTaskQueue creatse a new task-queue with the given config.
 func (c Client) CreateTaskQueue(taskQueuParams twilio.TaskQueueParams, workspaceSid string) (*twilio.TaskQueue, error) {
 	url := "/v1/Workspaces/" + workspaceSid + "/TaskQueues"
 	resp, err := c.Request.Post(url, taskQueuParams)
@@ -148,15 +148,20 @@ func (c Client) CreateTaskQueue(taskQueuParams twilio.TaskQueueParams, workspace
 	return taskQueue, nil
 }
 
-// SetupTaskRouterWithDefaultConfig sets up taskrouter
-func (c Client) SetupTaskRouterWithDefaultConfig() (*twilio.Workspace, error) {
+// SetupTaskRouterWithDefaultConfig sets up taskrouter(Flex setup). steps as follows
+// 1.Checks if a workspace exists with the default friendly name, if not then creates one.
+// 2.Creates a task-queue with default friendly name for the workspace sid.
+// 3.Creates workflow with default friendly name using the created taskqueue sid and workspace sid
+// 4.Creates a new activity with default friendly name using the sid of workspace.
+func (c Client) SetupTaskRouterWithDefaultConfig() (*twilio.Workspace, *twilio.TaskQueue, *twilio.Workflow,
+	*twilio.Activity, error) {
 	workspaceParams := twilio.WorkspaceParams{
 		FriendlyName: twilio.WorkspaceDefaultFriendlyName,
 	}
 	ws, err := c.SetupWorkspace(workspaceParams)
 
 	if err != nil {
-		return nil, err
+		return nil, nil, nil, nil, err
 	}
 
 	taskQueueParams := twilio.TaskQueueParams{
@@ -166,7 +171,7 @@ func (c Client) SetupTaskRouterWithDefaultConfig() (*twilio.Workspace, error) {
 	tq, err := c.CreateTaskQueue(taskQueueParams, ws.Sid)
 
 	if err != nil {
-		return ws, err
+		return ws, nil, nil, nil, err
 	}
 
 	conf := `{"task_routing":{"default_filter":{"task_queue_sid":"` + tq.Sid + `"}}}`
@@ -177,22 +182,22 @@ func (c Client) SetupTaskRouterWithDefaultConfig() (*twilio.Workspace, error) {
 		Configuration: conf,
 	}
 
-	_, err = c.CreateWorkflow(workflowParams)
+	wf, err := c.CreateWorkflow(workflowParams)
 
 	if err != nil {
-		return ws, err
+		return ws, tq, nil, nil, err
 	}
 
 	activityParams := twilio.ActivityParams{
 		FriendlyName: twilio.ActivityDefaultFriendlyName,
 	}
 
-	_, err = c.CreateNewActivity(activityParams, ws.Sid)
+	ac, err := c.CreateNewActivity(activityParams, ws.Sid)
 
-	return ws, err
+	return ws, tq, wf, ac, err
 }
 
-// SetupWorkspace sets up taskrouter
+// SetupWorkspace checks if workspace exists, returns if found, else creates one.
 func (c Client) SetupWorkspace(workspaceParams twilio.WorkspaceParams) (*twilio.Workspace, error) {
 	ws, err := c.FindWorkspace(workspaceParams.FriendlyName)
 
@@ -208,7 +213,7 @@ func (c Client) SetupWorkspace(workspaceParams twilio.WorkspaceParams) (*twilio.
 	return c.CreateWorkspace(workspaceParams)
 }
 
-// FindWorkspace find a workspace by a friendly name.
+// FindWorkspace finds a workspace by a friendly name.
 func (c Client) FindWorkspace(friendlyName string) (*twilio.Workspace, error) {
 	wslist, err := c.RetreiveAllWorkspaces()
 
@@ -260,7 +265,7 @@ func parseWorkspaceResponse(body []byte) (*WorkspaceList, error) {
 	return wslist, err
 }
 
-// DeleteWorkspaces delete
+// DeleteWorkspaces deletes a workspace for a given sid.
 func (c Client) DeleteWorkspaces(sid string) error {
 	url := "/v1/Workspaces/" + sid
 	resp, err := c.Request.Delete(url)

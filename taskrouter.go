@@ -1,4 +1,4 @@
-// Package twilio -
+// Package twilio - base package
 package twilio
 
 import (
@@ -7,22 +7,22 @@ import (
 
 //Workspace refer: https://www.twilio.com/docs/taskrouter/api/workspace
 type Workspace struct {
-	Sid                  string            `json:"sid,omitempty"`
-	AccountSid           string            `json:"account_sid,omitempty"`
-	DateCreated          time.Time         `json:"date_created,omitempty"`
-	DateUpdated          time.Time         `json:"date_updated,omitempty"`
-	DefaultActivityName  string            `json:"default_activity_name,omitempty"`
-	DefaultActivitySid   string            `json:"default_activity_sid,omitempty"`
-	TimeoutActivityName  string            `json:"timeout_activity_name,omitempty"`
-	TimeoutActivitySid   string            `json:"timeout_activity_sid,omitempty"`
-	URL                  string            `json:"url,omitempty"`
-	Links                map[string]string `json:"links,omitempty"`
-	FriendlyName         string            `json:"friendly_name,omitempty"`
-	EventCallbackURL     string            `json:"event_callback_url,omitempty"`
-	EventsFilter         string            `json:"events_filter,omitempty"`
-	MultitaskEnabled     bool              `json:"multi_task_enabled,omitempty"`
-	Template             string            `json:"template,omitempty"`
-	PrioritizeQueueOrder string            `json:"prioritize_queue_order,omitempty"`
+	Sid                  string            `json:"sid"`
+	AccountSid           string            `json:"account_sid"`
+	DateCreated          time.Time         `json:"date_created"`
+	DateUpdated          time.Time         `json:"date_updated"`
+	DefaultActivityName  string            `json:"default_activity_name"`
+	DefaultActivitySid   string            `json:"default_activity_sid"`
+	TimeoutActivityName  string            `json:"timeout_activity_name"`
+	TimeoutActivitySid   string            `json:"timeout_activity_sid"`
+	URL                  string            `json:"url"`
+	Links                map[string]string `json:"links"`
+	FriendlyName         string            `json:"friendly_name"`
+	EventCallbackURL     string            `json:"event_callback_url"`
+	EventsFilter         string            `json:"events_filter"`
+	MultitaskEnabled     bool              `json:"multi_task_enabled"`
+	Template             string            `json:"template"`
+	PrioritizeQueueOrder string            `json:"prioritize_queue_order"`
 }
 
 //WorkspaceParams refer: https://www.twilio.com/docs/taskrouter/api/workspace
@@ -46,19 +46,19 @@ const (
 
 // Workflow workflow refer: https://www.twilio.com/docs/taskrouter/api/workflow
 type Workflow struct {
-	AssignmentCallbackURL         string            `json:"assignment_callback_url,omitempty"`
-	Configuration                 string            `json:"configuration,omitempty"`
-	AccountSid                    string            `json:"account_sid,omitempty"`
-	DateCreated                   time.Time         `json:"date_created,omitempty"`
-	DateUpdated                   time.Time         `json:"date_updated,omitempty"`
-	DocumentContentType           string            `json:"document_content_type,omitempty"`
-	FallbackAssignmentCallbackURL string            `json:"fallback_assignment_callback_url,omitempty"`
-	FriendlyName                  string            `json:"friendly_name,omitempty"`
-	Sid                           string            `json:"sid,omitempty"`
-	TaskReservationTimeout        int               `json:"task_reservation_timeout,omitempty"`
-	WorkspaceSid                  string            `json:"workspace_sid,omitempty"`
-	URL                           string            `json:"url,omitempty"`
-	Links                         map[string]string `json:"links,omitempty"`
+	AssignmentCallbackURL         string            `json:"assignment_callback_url"`
+	Configuration                 string            `json:"configuration"`
+	AccountSid                    string            `json:"account_sid"`
+	DateCreated                   time.Time         `json:"date_created"`
+	DateUpdated                   time.Time         `json:"date_updated"`
+	DocumentContentType           string            `json:"document_content_type"`
+	FallbackAssignmentCallbackURL string            `json:"fallback_assignment_callback_url"`
+	FriendlyName                  string            `json:"friendly_name"`
+	Sid                           string            `json:"sid"`
+	TaskReservationTimeout        int               `json:"task_reservation_timeout"`
+	WorkspaceSid                  string            `json:"workspace_sid"`
+	URL                           string            `json:"url"`
+	Links                         map[string]string `json:"links"`
 }
 
 // WorkflowParams workflow parameters
@@ -73,21 +73,21 @@ type WorkflowParams struct {
 
 // TaskQueue taskqueue refer: https://www.twilio.com/docs/taskrouter/api/task-queue
 type TaskQueue struct {
-	AccountSid              string            `json:"account_sid,omitempty"`
-	AssignmentActivitySid   string            `json:"assignment_activity_sid,omitempty"`
-	AssignmentActivityName  string            `json:"assignment_activity_name,omitempty"`
-	DateCreated             time.Time         `json:"date_created,omitempty"`
-	DateUpdated             time.Time         `json:"date_updated,omitempty"`
-	FriendlyName            string            `json:"friendly_name,omitempty"`
-	MaxReservedWorkers      int               `json:"max_reserved_workers,omitempty"`
-	ReservationActivitySid  string            `json:"reservation_activity_sid,omitempty"`
-	ReservationActivityName string            `json:"reservation_activity_name,omitempty"`
-	Sid                     string            `json:"sid,omitempty"`
-	TargetWorkers           string            `json:"target_workers,omitempty"`
-	TaskOrder               string            `json:"task_order,omitempty"`
-	URI                     string            `json:"url,omitempty"`
-	WorkspaceSid            string            `json:"workspace_sid,omitempty"`
-	Links                   map[string]string `json:"links,omitempty"`
+	AccountSid              string            `json:"account_sid"`
+	AssignmentActivitySid   string            `json:"assignment_activity_sid"`
+	AssignmentActivityName  string            `json:"assignment_activity_name"`
+	DateCreated             time.Time         `json:"date_created"`
+	DateUpdated             time.Time         `json:"date_updated"`
+	FriendlyName            string            `json:"friendly_name"`
+	MaxReservedWorkers      int               `json:"max_reserved_workers"`
+	ReservationActivitySid  string            `json:"reservation_activity_sid"`
+	ReservationActivityName string            `json:"reservation_activity_name"`
+	Sid                     string            `json:"sid"`
+	TargetWorkers           string            `json:"target_workers"`
+	TaskOrder               string            `json:"task_order"`
+	URI                     string            `json:"url"`
+	WorkspaceSid            string            `json:"workspace_sid"`
+	Links                   map[string]string `json:"links"`
 }
 
 // TaskQueueParams taskQueue parameters refer: https://www.twilio.com/docs/taskrouter/api/task-queue
@@ -102,14 +102,14 @@ type TaskQueueParams struct {
 
 // Activity activity refer: https://www.twilio.com/docs/taskrouter/api/activity
 type Activity struct {
-	AccountSid   string    `json:"account_sid,omitempty"`
-	Available    string    `json:"available,omitempty"`
-	DateCreated  time.Time `json:"date_created,omitempty"`
-	DateUpdated  time.Time `json:"date_updated,omitempty"`
-	FriendlyName string    `json:"friendly_name,omitempty"`
-	Sid          string    `json:"sid,omitempty"`
-	WorkspaceSid string    `json:"workspace_sid,omitempty"`
-	URI          string    `json:"url,omitempty"`
+	AccountSid   string    `json:"account_sid"`
+	Available    string    `json:"available"`
+	DateCreated  time.Time `json:"date_created"`
+	DateUpdated  time.Time `json:"date_updated"`
+	FriendlyName string    `json:"friendly_name"`
+	Sid          string    `json:"sid"`
+	WorkspaceSid string    `json:"workspace_sid"`
+	URI          string    `json:"url"`
 }
 
 // ActivityParams activity refer: https://www.twilio.com/docs/taskrouter/api/activity
