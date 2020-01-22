@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/google/go-querystring/query"
+	"github.com/pkg/errors"
 )
 
 const errorStatusCode = 400
@@ -20,8 +22,8 @@ type Credentials struct {
 // Client provides a standard HTTP backend.
 type Client struct {
 	Credentials
-	Client  *http.Client
-	BaseURL string
+	HttpClient *http.Client
+	BaseURL    string
 }
 
 const (
@@ -51,21 +53,19 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 		client = http.DefaultClient
 	}
 
-	res, httpErr := client.Do(req)
-	if httpErr != nil {
-		return nil, httpErr
+	res, err := client.Do(req)
+	if err != nil {
+		return nil, err
 	}
 
 	if res.StatusCode >= errorStatusCode {
-		apiErr := &Error{}
-		if decodeErr := json.NewDecoder(res.Body).Decode(apiErr); decodeErr != nil {
-			apiErr.Code = res.StatusCode
-			apiErr.Message = "Error decoding response: " + decodeErr.Error()
-
-			return nil, apiErr
+		err = &Error{}
+		if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
+			errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
+			return nil, decodeErr
 		}
 
-		return nil, apiErr
+		return nil, err
 	}
 
 	return res, nil
@@ -99,7 +99,7 @@ func (c Client) SendRequest(method string, path string, data interface{}) (*http
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	}
 
-	return doWithErr(req, c.Client)
+	return doWithErr(req, c.HttpClient)
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
