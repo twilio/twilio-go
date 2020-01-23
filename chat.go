@@ -60,18 +60,18 @@ type ChatServiceParams struct {
 // Chat is the entrypoint for the Programmable Chat API.
 type Chat struct {
 	serviceURL string
-	request    *twilio.Request
+	client     *twilio.Client
 }
 
 // Create constructs a new Chat client.
-func (c Chat) Create(request *twilio.Request) {
-	c.request = request
-	c.serviceURL = fmt.Sprintf("https://chat.%s/v2", c.request.BaseURL)
+func (c Chat) Create(request *twilio.Client) {
+	c.client = request
+	c.serviceURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)
 }
 
 // CreateService creates a new Chat Service.
 func (c Chat) CreateService(params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.request.Post("/Services", params)
+	resp, err := c.client.Post("/Services", params)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c Chat) CreateService(params *ChatServiceParams) (*ChatService, error) {
 
 // ReadService returns the details of a Chat Service.
 func (c Chat) ReadService(sid string, params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.request.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (c Chat) ReadService(sid string, params *ChatServiceParams) (*ChatService, 
 
 // UpdateService updates a Service.
 func (c Chat) UpdateService(sid string, params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.request.Post(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), params)
+	resp, err := c.client.Post(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), params)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +119,7 @@ func (c Chat) UpdateService(sid string, params *ChatServiceParams) (*ChatService
 
 // DeleteService deletes a Chat Service.
 func (c Chat) DeleteService(sid string, params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.request.Delete(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	resp, err := c.client.Delete(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
 	if err != nil {
 		return nil, err
 	}
