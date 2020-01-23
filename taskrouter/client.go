@@ -13,20 +13,20 @@ import (
 
 // NewTaskrouterClient creates and returns taskrouter client (constructor).
 func NewTaskrouterClient(accountSid string, authToken string, domain string) Client {
-	credentials := twilio.Credentials{AccountSid: accountSid,
+	credentials := twilio.Credentials{AccountSID: accountSid,
 		AuthToken: authToken,
 	}
-	request := twilio.Request{Credentials: credentials,
-		BaseURL: "https://taskrouter." + domain,
-		Client:  &http.Client{},
+	client := twilio.Client{Credentials: credentials,
+		BaseURL:    "https://taskrouter." + domain,
+		HTTPClient: &http.Client{},
 	}
 
-	return Client{Request: request}
+	return Client{Client: client}
 }
 
 // Client taskrouter client struct.
 type Client struct {
-	Request twilio.Request
+	Client twilio.Client
 }
 
 // WorkspaceList struct for holding list of workspaces.
@@ -37,7 +37,7 @@ type WorkspaceList struct {
 // CreateWorkflow creates workflow with the given config.
 func (c Client) CreateWorkflow(workflowParams twilio.WorkflowParams) (*twilio.Workflow, error) {
 	url := "/v1/Workspaces/" + workflowParams.WorkspaceSid + "/Workflows"
-	resp, err := c.Request.Post(url, workflowParams)
+	resp, err := c.Client.Post(url, workflowParams)
 
 	if err != nil {
 		log.Printf("error creating workflow: %s", err)
@@ -60,7 +60,7 @@ func (c Client) CreateWorkflow(workflowParams twilio.WorkflowParams) (*twilio.Wo
 // CreateWorkspace creates workspace with the given the config.
 func (c Client) CreateWorkspace(workspaceParams twilio.WorkspaceParams) (*twilio.Workspace, error) {
 	url := "/v1/Workspaces"
-	resp, err := c.Request.Post(url, workspaceParams)
+	resp, err := c.Client.Post(url, workspaceParams)
 
 	if err != nil {
 		log.Printf("error creating workspace: %s", err)
@@ -83,7 +83,7 @@ func (c Client) CreateWorkspace(workspaceParams twilio.WorkspaceParams) (*twilio
 func (c Client) CreateNewActivity(activityParams twilio.ActivityParams, workspaceSid string) (*twilio.Activity, error) {
 	url := "/v1/Workspaces/" + workspaceSid + "/Activities"
 
-	resp, err := c.Request.Post(url, activityParams)
+	resp, err := c.Client.Post(url, activityParams)
 
 	if err != nil {
 		log.Printf("error creating a new activity: %s", err)
@@ -105,7 +105,7 @@ func (c Client) CreateNewActivity(activityParams twilio.ActivityParams, workspac
 // FetchWorkflow fetches workflow with given workspace sid and workflow sid.
 func (c Client) FetchWorkflow(workspaceSid string, workflowSid string) (*twilio.Workflow, error) {
 	url := "/v1/Workspaces/" + workspaceSid + "/Workflows/" + workflowSid
-	resp, err := c.Request.Get(url)
+	resp, err := c.Client.Get(url)
 
 	if err != nil {
 		log.Printf("error getting existing workflow: %s", err)
@@ -128,7 +128,7 @@ func (c Client) FetchWorkflow(workspaceSid string, workflowSid string) (*twilio.
 // CreateTaskQueue creatse a new task-queue with the given config.
 func (c Client) CreateTaskQueue(taskQueuParams twilio.TaskQueueParams, workspaceSid string) (*twilio.TaskQueue, error) {
 	url := "/v1/Workspaces/" + workspaceSid + "/TaskQueues"
-	resp, err := c.Request.Post(url, taskQueuParams)
+	resp, err := c.Client.Post(url, taskQueuParams)
 
 	if err != nil {
 		log.Printf("error creating taskqueue: %s", err)
@@ -235,7 +235,7 @@ func (c Client) FindWorkspace(friendlyName string) (*twilio.Workspace, error) {
 func (c Client) RetreiveAllWorkspaces() (*WorkspaceList, error) {
 	uri := "/v1/Workspaces?pagesize=1000"
 
-	resp, err := c.Request.Get(uri)
+	resp, err := c.Client.Get(uri)
 
 	if err != nil {
 		return nil, err
@@ -268,7 +268,7 @@ func workspaceListFromResponseBody(body []byte) (*WorkspaceList, error) {
 // DeleteWorkspaces deletes a workspace for a given sid.
 func (c Client) DeleteWorkspaces(sid string) error {
 	url := "/v1/Workspaces/" + sid
-	resp, err := c.Request.Delete(url)
+	resp, err := c.Client.Delete(url)
 
 	if err != nil {
 		log.Printf("Error deleting workspace %s", err)

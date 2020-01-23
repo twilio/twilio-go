@@ -7,13 +7,14 @@ import (
 	twilio "github.com/twilio/twilio-go"
 )
 
+// Client twilio chat client wrapper
 type Client struct {
-	Request twilio.Request
+	Client twilio.Client
 }
 
 // Create creates a new Service.
 func (c Client) Create(params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
-	resp, err := c.Request.Post("/Services", params)
+	resp, err := c.Client.Post("/Services", params)
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +30,7 @@ func (c Client) Create(params *twilio.ChatServiceParams) (*twilio.ChatService, e
 
 // Read returns the details of a Service.
 func (c Client) Read(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
-	resp, err := c.Request.Get(fmt.Sprintf("/Services/%s", sid))
+	resp, err := c.Client.Get(fmt.Sprintf("/Services/%s", sid))
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +46,7 @@ func (c Client) Read(sid string, params *twilio.ChatServiceParams) (*twilio.Chat
 
 // Update updates a Service.
 func (c Client) Update(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
-	resp, err := c.Request.Post(fmt.Sprintf("/Services/%s", sid), params)
+	resp, err := c.Client.Post(fmt.Sprintf("/Services/%s", sid), params)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +62,7 @@ func (c Client) Update(sid string, params *twilio.ChatServiceParams) (*twilio.Ch
 
 // Delete deletes a Service.
 func (c Client) Delete(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
-	resp, err := c.Request.Delete(fmt.Sprintf("/Services/%s", sid))
+	resp, err := c.Client.Delete(fmt.Sprintf("/Services/%s", sid))
 	if err != nil {
 		return nil, err
 	}
