@@ -20,9 +20,9 @@ type NewMessage struct {
 
 // BaseNotification describes notification setting state
 type BaseNotification struct {
-	Enabled  bool   `json:"enabled,omitempty"`
-	Template string `json:"template,omitempty"`
-	Sound    string `json:"sound,omitempty"`
+	Enabled  *bool   `json:"enabled,omitempty"`
+	Template *string `json:"template,omitempty"`
+	Sound    string  `json:"sound,omitempty"`
 }
 
 // Notifications describes the enabled notification state of the Chat Service
