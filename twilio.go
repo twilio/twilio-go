@@ -22,19 +22,6 @@ type service interface {
 
 const interval = 10
 
-// Credentials store user authentication credentials.
-type Credentials struct {
-	AccountSID string
-	AuthToken  string
-}
-
-// Client provides a standard HTTP backend.
-type Client struct {
-	Credentials
-	HTTPClient *http.Client
-	BaseURL    string
-}
-
 // NewClient provides an initialized Twilio client.
 func NewClient(accountSid string, authToken string) *Twilio {
 	var httpClient = &http.Client{
