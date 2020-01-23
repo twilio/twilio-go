@@ -63,8 +63,8 @@ type Chat struct {
 	client     *twilio.Client
 }
 
-// Create constructs a new Chat client.
-func (c Chat) Create(request *twilio.Client) {
+// Initialize constructs a new Chat client.
+func (c Chat) Initialize(request *twilio.Client) {
 	c.client = request
 	c.serviceURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)
 }

@@ -135,8 +135,8 @@ type WorkspaceList struct {
 	Workspaces []Workspace `json:"workspaces"`
 }
 
-// Create constructs a new TaskRouter client.
-func (tr TaskRouter) Create(request *twilio.Client) {
+// Initialize constructs a new TaskRouter client.
+func (tr TaskRouter) Initialize(request *twilio.Client) {
 	tr.client = request
 	tr.serviceURL = fmt.Sprintf("https://taskrouter.%s/v1", tr.client.BaseURL)
 }

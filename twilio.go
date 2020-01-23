@@ -16,7 +16,7 @@ type Twilio struct {
 }
 
 type service interface {
-	Create(*twilio.Client)
+	Initialize(*twilio.Client)
 }
 
 const interval = 10
@@ -36,9 +36,9 @@ func NewClient(accountSid string, authToken string) *Twilio {
 
 	cRef := reflect.ValueOf(client)
 	for i := 0; i < cRef.NumField(); i++ {
-		switch v := cRef.Field(i).Interface().(type) { //nolint // Avoids "one condition switch" complaint, which we ignore because (type) can only be used within switch statements.
+		switch field := cRef.Field(i).Interface().(type) { //nolint // Avoids "one condition switch" complaint, which we ignore because (type) can only be used within switch statements.
 		case service:
-			v.Create(client)
+			field.Initialize(client)
 		}
 	}
 
