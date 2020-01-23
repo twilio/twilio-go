@@ -1,10 +1,14 @@
 package twilio
 
 import (
+	"encoding/json"
+	"fmt"
 	"time"
+
+	twilio "github.com/twilio/twilio-go/internal"
 )
 
-// A Service is the top-level scope of all other resources in the Programmable Chat REST API.
+// ChatService represents the top-level scope of all other resources in the Programmable Chat REST API.
 // All other Programmable Chat resources belong to a specific Service.
 // See: https://www.twilio.com/docs/chat/rest/service-resource
 type ChatService struct {
@@ -33,7 +37,7 @@ type ChatService struct {
 	Links                        map[string]string `json:"links,omitempty"`
 }
 
-// ServiceParams is the set of parameters that can be used when creating or updating a service.
+// ChatServiceParams are the set of parameters that can be used when creating or updating a service.
 type ChatServiceParams struct {
 	FriendlyName                 string            `url:"FriendlyName,omitempty"`
 	DefaultServiceRoleSid        string            `url:"DefaultServiceRoleSid,omitempty"`
@@ -51,4 +55,80 @@ type ChatServiceParams struct {
 	PreWebhookRetryCount         int               `url:"PreWebhookRetryCount,omitempty"`
 	PostWebhookRetryCount        int               `url:"PostWebhookRetryCount,omitempty"`
 	Limits                       map[string]string `url:"Limits,omitempty"`
+}
+
+// Chat is the entrypoint for the Programmable Chat API.
+type Chat struct {
+	serviceURL string
+	request    *twilio.Request
+}
+
+// Create constructs a new Chat client.
+func (c Chat) Create(request *twilio.Request) {
+	c.request = request
+	c.serviceURL = fmt.Sprintf("https://chat.%s/v2", c.request.BaseURL)
+}
+
+// CreateService creates a new Chat Service.
+func (c Chat) CreateService(params *ChatServiceParams) (*ChatService, error) {
+	resp, err := c.request.Post("/Services", params)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatService{}
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	return cs, err
+}
+
+// ReadService returns the details of a Chat Service.
+func (c Chat) ReadService(sid string, params *ChatServiceParams) (*ChatService, error) {
+	resp, err := c.request.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatService{}
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	return cs, err
+}
+
+// UpdateService updates a Service.
+func (c Chat) UpdateService(sid string, params *ChatServiceParams) (*ChatService, error) {
+	resp, err := c.request.Post(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), params)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatService{}
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	return cs, err
+}
+
+// DeleteService deletes a Chat Service.
+func (c Chat) DeleteService(sid string, params *ChatServiceParams) (*ChatService, error) {
+	resp, err := c.request.Delete(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatService{}
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	return cs, err
 }

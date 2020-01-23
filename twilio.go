@@ -1,105 +1,47 @@
+// Package twilio provides bindings for Twilio's REST APIs.
 package twilio
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
-	"strings"
+	"reflect"
+	"time"
 
-	"github.com/google/go-querystring/query"
+	twilio "github.com/twilio/twilio-go/internal"
 )
 
-const errorStatusCode = 400
-
-// Credentials store user authentication credentials.
-type Credentials struct {
-	AccountSid string
-	AuthToken  string
+// Twilio provides access to Twilio services.
+type Twilio struct {
+	Request    *twilio.Request
+	Chat       *Chat
+	TaskRouter *TaskRouter
 }
 
-// Request provides a standard HTTP backend.
-type Request struct {
-	Credentials
-	Client  *http.Client
-	BaseURL string
+type service interface {
+	Create(*twilio.Request)
 }
 
-// Error provides information about an unsuccessful request.
-type Error struct {
-	Code     int    `json:"code"`
-	Detail   string `json:"detail"`
-	Message  string `json:"message"`
-	MoreInfo string `json:"more_info"`
-	Status   int    `json:"status"`
-}
+const interval = 10
 
-func (err *Error) Error() string {
-	return fmt.Sprintf("Status: %d - Error %d: %s (%s) More info: %s",
-		err.Status, err.Code, err.Message, err.Detail, err.MoreInfo)
-}
-
-func (request *Request) basicAuth() (string, string) {
-	return request.Credentials.AccountSid, request.Credentials.AuthToken
-}
-
-func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
-	res, httpErr := client.Do(req)
-	if httpErr != nil {
-		return nil, httpErr
+// NewClient provides an initialized Twilio client.
+func NewClient(accountSid string, authToken string) *Twilio {
+	var httpClient = &http.Client{
+		Timeout: time.Second * interval,
 	}
 
-	if res.StatusCode >= errorStatusCode {
-		apiErr := &Error{}
-		if decodeErr := json.NewDecoder(res.Body).Decode(apiErr); decodeErr != nil {
-			return nil, decodeErr
+	credentials := twilio.Credentials{AccountSid: accountSid, AuthToken: authToken}
+
+	client := &Twilio{}
+	request := &twilio.Request{Credentials: credentials, BaseURL: "twilio.com", Client: httpClient}
+	client.Chat = &Chat{}
+	client.TaskRouter = &TaskRouter{}
+
+	cRef := reflect.ValueOf(client)
+	for i := 0; i < cRef.NumField(); i++ {
+		switch v := cRef.Field(i).Interface().(type) { //nolint
+		case service:
+			v.Create(request)
 		}
-
-		return nil, apiErr
 	}
 
-	return res, nil
-}
-
-// MakeRequest makes HTTP request.
-func (request Request) MakeRequest(method string, fullyQualifiedURI string, data interface{}) (*http.Response, error) {
-	valueReader := &strings.Reader{}
-
-	if data != nil {
-		v, _ := query.Values(data)
-		valueReader = strings.NewReader(v.Encode())
-	}
-
-	req, err := http.NewRequest(method, fullyQualifiedURI, valueReader)
-	if err != nil {
-		return nil, err
-	}
-
-	req.SetBasicAuth(request.basicAuth())
-
-	if method == http.MethodPost {
-		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	}
-
-	return doWithErr(req, request.Client)
-}
-
-// Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (request Request) Post(uri string, data interface{}) (*http.Response, error) {
-	fullyQualifiedURI := request.BaseURL + uri
-	return request.MakeRequest(http.MethodPost, fullyQualifiedURI, data)
-}
-
-// Get performs a GET request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (request Request) Get(uri string) (*http.Response, error) {
-	fullyQualifiedURI := request.BaseURL + uri
-	return request.MakeRequest(http.MethodGet, fullyQualifiedURI, nil)
-}
-
-// Delete performs a DELETE request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (request Request) Delete(uri string) (*http.Response, error) {
-	fullyQualifiedURI := request.BaseURL + uri
-	return request.MakeRequest(http.MethodDelete, fullyQualifiedURI, nil)
+	return client
 }
