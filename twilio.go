@@ -11,7 +11,6 @@ import (
 
 // Twilio provides access to Twilio services.
 type Twilio struct {
-	Client     *twilio.Client
 	Chat       *Chat
 	TaskRouter *TaskRouter
 }
