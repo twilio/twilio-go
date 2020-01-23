@@ -12,7 +12,7 @@ type Media struct {
 
 // NewMessage describes notification setting state
 type NewMessage struct {
-	Enabled           bool   `json:"enabled,omitempty"`
+	Enabled           bool   `json:"enabled"`
 	Template          string `json:"template,omitempty"`
 	Sound             string `json:"sound,omitempty"`
 	BadgeCountEnabled bool   `json:"badge_count_enabled,omitempty"`
@@ -20,7 +20,7 @@ type NewMessage struct {
 
 // BaseNotification describes notification setting state
 type BaseNotification struct {
-	Enabled  *bool   `json:"enabled,omitempty"`
+	Enabled  bool    `json:"enabled"`
 	Template *string `json:"template,omitempty"`
 	Sound    string  `json:"sound,omitempty"`
 }
