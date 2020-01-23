@@ -60,6 +60,7 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 
 	if res.StatusCode >= errorStatusCode {
 		err = &Error{}
+		// if res.Body is empty or an invalid/non-conforming json then decodeErr won't be nil and will be returned to caller.
 		if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
 			err = errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
 			return nil, err
@@ -71,7 +72,7 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 	return res, nil
 }
 
-// SendRequest makes HTTP request.
+// SendRequest verifies, constructs, and authorizes an HTTP request.
 func (c Client) SendRequest(method string, path string, data interface{}) (*http.Response, error) {
 	baseURL := c.BaseURL
 
