@@ -1,7 +1,11 @@
 package twilio
 
 import (
+	"encoding/json"
+	"fmt"
 	"time"
+
+	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // Media describes the properties of media that the service supports.
@@ -81,4 +85,81 @@ type ChatServiceParams struct {
 	PreWebhookRetryCount         int            `url:"PreWebhookRetryCount,omitempty"`
 	PostWebhookRetryCount        int            `url:"PostWebhookRetryCount,omitempty"`
 	Limits                       map[string]int `url:"Limits,omitempty"`
+}
+
+// Chat is the entrypoint for the Programmable Chat API.
+type Chat struct {
+	serviceURL string
+	client     *twilio.Client
+}
+
+// Initialize constructs a new Chat client.
+func (c *Chat) Initialize(request *twilio.Client) {
+	c.client = request
+	c.serviceURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)
+	fmt.Println(c.serviceURL)
+}
+
+// Create creates a new Chat Service.
+func (c Chat) Create(params *ChatServiceParams) (*ChatService, error) {
+	resp, err := c.client.Post(fmt.Sprintf("%s/Services", c.serviceURL), params)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatService{}
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	return cs, err
+}
+
+// Read returns the details of a Chat Service.
+func (c Chat) Read(sid string, params *ChatServiceParams) (*ChatService, error) {
+	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatService{}
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	return cs, err
+}
+
+// Update updates a Service.
+func (c Chat) Update(sid string, params *ChatServiceParams) (*ChatService, error) {
+	resp, err := c.client.Post(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), params)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatService{}
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	return cs, err
+}
+
+// Delete deletes a Chat Service.
+func (c Chat) Delete(sid string, params *ChatServiceParams) (*ChatService, error) {
+	resp, err := c.client.Delete(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatService{}
+	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
+		return nil, decodeErr
+	}
+
+	return cs, err
 }

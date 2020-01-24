@@ -1,3 +1,4 @@
+// Package twilio provides internal utilities for the twilio-go client library.
 package twilio
 
 import (
@@ -9,25 +10,6 @@ import (
 
 	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
-)
-
-const errorStatusCode = 400
-
-// Credentials store user authentication credentials.
-type Credentials struct {
-	AccountSID string
-	AuthToken  string
-}
-
-// Client provides a standard HTTP backend.
-type Client struct {
-	Credentials
-	HTTPClient *http.Client
-	BaseURL    string
-}
-
-const (
-	defaultBaseURL = "https://api.twilio.com"
 )
 
 // Error provides information about an unsuccessful request.
@@ -44,9 +26,24 @@ func (err Error) Error() string {
 		err.Status, err.Code, err.Message, err.Detail, err.MoreInfo)
 }
 
-func (c *Client) basicAuth() (string, string) {
-	return c.Credentials.AccountSID, c.Credentials.AuthToken
+// Credentials store user authentication credentials.
+type Credentials struct {
+	AccountSid string
+	AuthToken  string
 }
+
+// Client encapsulates a standard HTTP backend with authorization.
+type Client struct {
+	Credentials
+	HTTPClient *http.Client
+	BaseURL    string
+}
+
+func (c *Client) basicAuth() (string, string) {
+	return c.Credentials.AccountSid, c.Credentials.AuthToken
+}
+
+const errorStatusCode = 400
 
 func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 	if client == nil {
@@ -60,7 +57,6 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 
 	if res.StatusCode >= errorStatusCode {
 		err = &Error{}
-		// if res.Body is empty or an invalid/non-conforming json then decodeErr won't be nil and will be returned to caller.
 		if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
 			err = errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
 			return nil, err
@@ -73,26 +69,15 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c Client) SendRequest(method string, path string, data interface{}) (*http.Response, error) {
-	baseURL := c.BaseURL
-
-	if len(strings.TrimSpace(baseURL)) == 0 {
-		baseURL = defaultBaseURL
-	}
-
-	fullyQualifiedURI := baseURL + path
-
+func (c Client) SendRequest(method string, url string, data interface{}) (*http.Response, error) {
 	valueReader := &strings.Reader{}
 
 	if data != nil {
 		v, _ := query.Values(data)
-		qs := v.Encode()
-		replacer := strings.NewReplacer("%5B", ".", "%5D", "")
-		dotNotationQs := replacer.Replace(qs)
-		valueReader = strings.NewReader(dotNotationQs)
+		valueReader = strings.NewReader(v.Encode())
 	}
 
-	req, err := http.NewRequest(method, fullyQualifiedURI, valueReader)
+	req, err := http.NewRequest(method, url, valueReader)
 	if err != nil {
 		return nil, err
 	}
