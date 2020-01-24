@@ -322,7 +322,7 @@ func (tr TaskRouter) SetupWorkspace(workspaceParams WorkspaceParams) (*Workspace
 
 // FindWorkspace finds a workspace by a friendly name.
 func (tr TaskRouter) FindWorkspace(friendlyName string) (*Workspace, error) {
-	wslist, err := tr.RetreiveAllWorkspaces()
+	wslist, err := tr.RetrieveAllWorkspaces()
 
 	if err != nil {
 		log.Printf("error retrieving existing workspaaces: %s", err)
@@ -338,8 +338,8 @@ func (tr TaskRouter) FindWorkspace(friendlyName string) (*Workspace, error) {
 	return nil, nil
 }
 
-// RetreiveAllWorkspaces retrieves all workspaces (upto 1000) for a given account/sid.
-func (tr TaskRouter) RetreiveAllWorkspaces() (*WorkspaceList, error) {
+// RetrieveAllWorkspaces retrieves all workspaces (upto 1000) for a given account/sid.
+func (tr TaskRouter) RetrieveAllWorkspaces() (*WorkspaceList, error) {
 	uri := tr.serviceURL + "/Workspaces?pagesize=1000"
 
 	resp, err := tr.client.Get(uri)

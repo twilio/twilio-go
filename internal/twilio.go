@@ -32,7 +32,7 @@ type Credentials struct {
 	AuthToken  string
 }
 
-// Client encapulsates a standard HTTP backend with authorization.
+// Client encapsulates a standard HTTP backend with authorization.
 type Client struct {
 	Credentials
 	HTTPClient *http.Client
@@ -49,7 +49,7 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 	if client == nil {
 		client = http.DefaultClient
 	}
-	fmt.Println(req)
+
 	res, err := client.Do(req)
 	if err != nil {
 		return nil, err
