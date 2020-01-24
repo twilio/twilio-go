@@ -6,32 +6,32 @@ import (
 
 // Media describes the properties of media that the service supports.
 type Media struct {
-	SizeLimitMB          int    `json:"size_limit_mb"`
-	CompatibilityMessage string `json:"compatibility_message"`
+	SizeLimitMB          *int    `json:"size_limit_mb"`
+	CompatibilityMessage *string `json:"compatibility_message"`
 }
 
 // NewMessage describes notification setting state
 type NewMessage struct {
-	Enabled           bool   `json:"enabled"`
-	Template          string `json:"template,omitempty"`
-	Sound             string `json:"sound,omitempty"`
-	BadgeCountEnabled bool   `json:"badge_count_enabled,omitempty"`
+	Enabled           bool    `json:"enabled"`
+	Template          *string `json:"template"`
+	Sound             *string `json:"sound"`
+	BadgeCountEnabled *bool   `json:"badge_count_enabled"`
 }
 
 // BaseNotification describes notification setting state
 type BaseNotification struct {
-	Enabled  bool   `json:"enabled"`
-	Template string `json:"template,omitempty"`
-	Sound    string `json:"sound,omitempty"`
+	Enabled  bool    `json:"enabled"`
+	Template *string `json:"template"`
+	Sound    *string `json:"sound"`
 }
 
 // Notifications describes the enabled notification state of the Chat Service
 type Notifications struct {
-	RemovedFromChannel *BaseNotification `json:"removed_from_channel,omitempty"`
-	LogEnabled         bool              `json:"log_enabled,omitempty"`
-	AddedToChannel     *BaseNotification `json:"added_to_channel,omitempty"`
-	NewMessage         *NewMessage       `json:"new_message,omitempty"`
-	InvitedToChannel   *BaseNotification `json:"invited_to_channel,omitempty"`
+	RemovedFromChannel *BaseNotification `json:"removed_from_channel"`
+	LogEnabled         bool              `json:"log_enabled"`
+	AddedToChannel     *BaseNotification `json:"added_to_channel"`
+	NewMessage         *NewMessage       `json:"new_message"`
+	InvitedToChannel   *BaseNotification `json:"invited_to_channel"`
 }
 
 // ChatService is the top-level scope of all other resources in the Programmable Chat REST API.
@@ -77,7 +77,7 @@ type ChatServiceParams struct {
 	PreWebhookURL                string         `url:"PreWebhookUrl,omitempty"`
 	PostWebhookURL               string         `url:"PostWebhookUrl,omitempty"`
 	WebhookMethod                string         `url:"WebhookMethod,omitempty"`
-	WebhookFilters               []interface{}  `url:"WebhookFilters,omitempty"`
+	WebhookFilters               []string       `url:"WebhookFilters,omitempty"`
 	PreWebhookRetryCount         int            `url:"PreWebhookRetryCount,omitempty"`
 	PostWebhookRetryCount        int            `url:"PostWebhookRetryCount,omitempty"`
 	Limits                       map[string]int `url:"Limits,omitempty"`
