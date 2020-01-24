@@ -31,9 +31,9 @@ func (c Client) Create(params *twilio.ChatServiceParams) (*twilio.ChatService, e
 
 // Read returns the details of a Service.
 func (c Client) Read(sid string) (*twilio.ChatService, error) {
-	resp, err := c.Request.Get(fmt.Sprintf("/Services/%s", sid))
+	resp, err := c.Client.Get(fmt.Sprintf("/Services/%s", sid))
 
-  if err != nil {
+	if err != nil {
 		return nil, fmt.Errorf("error read Chat Service: %s", err)
 	}
 
@@ -66,7 +66,7 @@ func (c Client) Update(sid string, params *twilio.ChatServiceParams) (*twilio.Ch
 
 // Delete deletes a Service.
 func (c Client) Delete(sid string) error {
-	resp, err := c.Request.Delete(fmt.Sprintf("/Services/%s", sid))
+	resp, err := c.Client.Delete(fmt.Sprintf("/Services/%s", sid))
 
 	if err != nil {
 		return fmt.Errorf("error deleting Chat Service: %s", err)
