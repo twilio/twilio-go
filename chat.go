@@ -64,14 +64,15 @@ type Chat struct {
 }
 
 // Initialize constructs a new Chat client.
-func (c Chat) Initialize(request *twilio.Client) {
+func (c *Chat) Initialize(request *twilio.Client) {
 	c.client = request
 	c.serviceURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)
+	fmt.Println(c.serviceURL)
 }
 
 // CreateService creates a new Chat Service.
 func (c Chat) CreateService(params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.client.Post("/Services", params)
+	resp, err := c.client.Post(fmt.Sprintf("%s/Services", c.serviceURL), params)
 	if err != nil {
 		return nil, err
 	}

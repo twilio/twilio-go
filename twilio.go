@@ -28,19 +28,17 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	}
 
 	credentials := twilio.Credentials{AccountSid: accountSid, AuthToken: authToken}
-
-	twilioClient := &Twilio{}
 	client := &twilio.Client{Credentials: credentials, BaseURL: "twilio.com", HTTPClient: httpClient}
-	twilioClient.Chat = &Chat{}
-	twilioClient.TaskRouter = &TaskRouter{}
 
-	cRef := reflect.ValueOf(client)
-	for i := 0; i < cRef.NumField(); i++ {
-		switch field := cRef.Field(i).Interface().(type) { //nolint // Avoids "one condition switch" complaint, which we ignore because (type) can only be used within switch statements.
-		case service:
-			field.Initialize(client)
-		}
+	twilioClient := Twilio{}
+	twilioClient.Chat = new(Chat)
+	twilioClient.TaskRouter = new(TaskRouter)
+
+	tcRef := reflect.ValueOf(twilioClient)
+	for i := 0; i < tcRef.NumField(); i++ {
+		s := tcRef.Field(i).Interface().(service)
+		s.Initialize(client)
 	}
 
-	return twilioClient
+	return &twilioClient
 }
