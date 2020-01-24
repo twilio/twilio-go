@@ -7,14 +7,14 @@ import (
 	twilio "github.com/twilio/twilio-go"
 )
 
-// Client embeds to Request struct to enable Chat Service based requests
+// Client sends Chat Service based requests
 type Client struct {
-	Request twilio.Request
+	Client twilio.Client
 }
 
 // Create creates a new Service.
 func (c Client) Create(params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
-	resp, err := c.Request.Post("/Services", params)
+	resp, err := c.Client.Post("/Services", params)
 	if err != nil {
 		return nil, fmt.Errorf("error creating Chat Service: %s", err)
 	}
@@ -32,7 +32,8 @@ func (c Client) Create(params *twilio.ChatServiceParams) (*twilio.ChatService, e
 // Read returns the details of a Service.
 func (c Client) Read(sid string) (*twilio.ChatService, error) {
 	resp, err := c.Request.Get(fmt.Sprintf("/Services/%s", sid))
-	if err != nil {
+
+  if err != nil {
 		return nil, fmt.Errorf("error read Chat Service: %s", err)
 	}
 
@@ -48,7 +49,7 @@ func (c Client) Read(sid string) (*twilio.ChatService, error) {
 
 // Update updates a Service.
 func (c Client) Update(sid string, params *twilio.ChatServiceParams) (*twilio.ChatService, error) {
-	resp, err := c.Request.Post(fmt.Sprintf("/Services/%s", sid), params)
+	resp, err := c.Client.Post(fmt.Sprintf("/Services/%s", sid), params)
 	if err != nil {
 		return nil, fmt.Errorf("error updating Chat Service: %s", err)
 	}
