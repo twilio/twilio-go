@@ -14,7 +14,7 @@ type Media struct {
 	CompatibilityMessage *string `json:"compatibility_message"`
 }
 
-// NewMessage describes notification setting state
+// NewMessage sets push notification settings for when a new Message is posted to the Channel.
 type NewMessage struct {
 	Enabled           bool    `json:"enabled"`
 	Template          *string `json:"template"`
@@ -22,14 +22,15 @@ type NewMessage struct {
 	BadgeCountEnabled *bool   `json:"badge_count_enabled"`
 }
 
-// BaseNotification describes notification setting state
+// BaseNotification sets push notification settings for the following types of notifications:
+// Added to Channel, Invited to Channel, Removed from Channel.
 type BaseNotification struct {
 	Enabled  bool    `json:"enabled"`
 	Template *string `json:"template"`
 	Sound    *string `json:"sound"`
 }
 
-// Notifications describes the enabled notification state of the Chat Service
+// Notifications describes the enabled notification state of the Chat Service.
 type Notifications struct {
 	RemovedFromChannel *BaseNotification `json:"removed_from_channel"`
 	LogEnabled         bool              `json:"log_enabled"`
