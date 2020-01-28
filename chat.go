@@ -11,7 +11,7 @@ import (
 // ChatService represents the top-level scope of all other resources in the Programmable Chat REST API.
 // All other Programmable Chat resources belong to a specific Service.
 // See: https://www.twilio.com/docs/chat/rest/service-resource
-type ChatService struct {
+type ChatServiceEntity struct {
 	Sid                          string            `json:"sid,omitempty"`
 	AccountSid                   string            `json:"account_sid,omitempty"`
 	FriendlyName                 string            `json:"friendly_name,omitempty"`
@@ -58,7 +58,7 @@ type ChatServiceParams struct {
 }
 
 // Chat is the entrypoint for the Programmable Chat API.
-type Chat struct {
+type ChatService struct {
 	serviceURL string
 	client     *twilio.Client
 }
