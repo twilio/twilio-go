@@ -73,9 +73,11 @@ type PhoneNumberClient struct {
 }
 
 // Initialize constructs a new TaskRouter client.
-func (pn *PhoneNumberClient) Initialize(client *twilio.Client) {
+func NewPhoneNumberClient(client *twilio.Client) *PhoneNumberClient {
+	pn := new(PhoneNumberClient)
 	pn.client = client
 	pn.serviceURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)
+	return pn
 }
 
 // ReadAvailableLocalPhoneNumbers returns available local phone numbers.
