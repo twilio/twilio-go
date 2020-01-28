@@ -3,7 +3,6 @@ package twilio
 
 import (
 	"net/http"
-	"reflect"
 	"time"
 
 	twilio "github.com/twilio/twilio-go/internal"
@@ -11,12 +10,17 @@ import (
 
 // Twilio provides access to Twilio services.
 type Twilio struct {
-	Chat       *Chat
-	TaskRouter *TaskRouter
+	Chat       *ChatClient
+	TaskRouter *TaskRouterClient
 }
 
 type service interface {
 	Initialize(*twilio.Client)
+}
+
+// ChatClient holds all chat related resources.
+type ChatClient struct {
+	Service *ChatServiceClient
 }
 
 const interval = 10
@@ -31,14 +35,10 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	client := &twilio.Client{Credentials: credentials, BaseURL: "twilio.com", HTTPClient: httpClient}
 
 	twilioClient := Twilio{}
-	twilioClient.Chat = new(Chat)
-	twilioClient.TaskRouter = new(TaskRouter)
-
-	tcRef := reflect.ValueOf(twilioClient)
-	for i := 0; i < tcRef.NumField(); i++ {
-		s := tcRef.Field(i).Interface().(service)
-		s.Initialize(client)
+	twilioClient.Chat = &ChatClient{
+		Service: NewChatServiceClient(client),
 	}
+	twilioClient.TaskRouter = NewTaskRouterClient(client)
 
 	return &twilioClient
 }
