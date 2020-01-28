@@ -11,7 +11,7 @@ import (
 type AvailablePhoneNumberLocal struct {
 	FriendlyName        string          `json:"friendly_name"`
 	PhoneNumber         string          `json:"phone_number"`
-	Lata                int             `json:"lata,string"`
+	LATA                int             `json:"lata,string"`
 	Locality            string          `json:"locality"`
 	RateCenter          string          `json:"rate_center"`
 	Latitude            float64         `json:"latitude,string"`
@@ -45,8 +45,8 @@ type AvailablePhoneNumberLocalReadParams struct {
 	// Read on AvailablePhoneNumberLocal requires account_sid in URI
 	// Read on AvailablePhoneNumberLocal requires country_code in URI
 	FaxEnabled                    bool   `url:"FaxEnabled,omitempty"`
-	SmsEnabled                    bool   `url:"SmsEnabled,omitempty"`
-	MmsEnabled                    bool   `url:"MmsEnabled,omitempty"`
+	SMSEnabled                    bool   `url:"SmsEnabled,omitempty"`
+	MMSEnabled                    bool   `url:"MmsEnabled,omitempty"`
 	VoiceEnabled                  bool   `url:"VoiceEnabled,omitempty"`
 	ExcludeAllAddressRequired     bool   `url:"ExcludeAllAddressRequired,omitempty"`
 	ExcludeLocalAddressRequired   bool   `url:"ExcludeLocalAddressRequired,omitempty"`
@@ -60,41 +60,40 @@ type AvailablePhoneNumberLocalReadParams struct {
 	Contains                      string `url:"Contains,omitempty"`
 	InRegion                      string `url:"InRegion,omitempty"`
 	InRateCenter                  string `url:"InRateCenter,omitempty"`
-	InLata                        string `url:"InLata,omitempty"`
+	InLATA                        string `url:"InLata,omitempty"`
 	InLocality                    string `url:"InLocality,omitempty"`
 }
 
-//
-// PhoneNumberClient is the entrypoint for the AvailablePhoneNumber Local resource.
+// AvailablePhoneNumbersClient is the entrypoint for the AvailablePhoneNumber Local resource.
 // See: https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource
-type PhoneNumberClient struct {
+type AvailablePhoneNumbersClient struct {
 	client     *twilio.Client
 	serviceURL string
 }
 
-// NewPhoneNumberClient constructs a new PhoneNumber client.
-func NewPhoneNumberClient(client *twilio.Client) *PhoneNumberClient {
-	pn := new(PhoneNumberClient)
+// NewAvailablePhoneNumbersClient constructs a new PhoneNumber client.
+func NewAvailablePhoneNumbersClient(client *twilio.Client) *AvailablePhoneNumbersClient {
+	pn := new(AvailablePhoneNumbersClient)
 	pn.client = client
 	pn.serviceURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)
 
 	return pn
 }
 
-// ReadAvailableLocalPhoneNumbers returns available local phone numbers.
-func (pn PhoneNumberClient) ReadAvailableLocalPhoneNumbers(
+// ReadMultiple returns available local phone numbers.
+func (c AvailablePhoneNumbersClient) ReadMultiple(
 	params *AvailablePhoneNumberLocalReadParams) (*AvailablePhoneNumbersLocal, error) {
-	url := fmt.Sprintf("%s/Accounts/%s/AvailablePhoneNumbers/US/Local.json", pn.serviceURL, pn.client.AccountSid)
+	url := fmt.Sprintf("%s/Accounts/%s/AvailablePhoneNumbers/US/Local.json", c.serviceURL, c.client.AccountSid)
 
-	resp, err := pn.client.Get(url, params)
+	resp, err := c.client.Get(url, params)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
 	avPNL := new(AvailablePhoneNumbersLocal)
-	if decodeErr := json.NewDecoder(resp.Body).Decode(avPNL); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(avPNL); err != nil {
+		return nil, err
 	}
 
 	return avPNL, err

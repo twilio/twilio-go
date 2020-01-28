@@ -10,9 +10,10 @@ import (
 
 // Twilio provides access to Twilio services.
 type Twilio struct {
-	Chat        *ChatClient
-	TaskRouter  *TaskRouterClient
-	PhoneNumber *PhoneNumberClient
+	Chat                  *ChatClient
+	TaskRouter            *TaskRouterClient
+	AvailablePhoneNumbers *AvailablePhoneNumbersClient
+	IncomingPhoneNumbers  *IncomingPhoneNumberClient
 }
 
 // ChatClient holds all chat related resources.
@@ -32,7 +33,8 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	client := &twilio.Client{Credentials: credentials, BaseURL: "twilio.com", HTTPClient: httpClient}
 
 	twilioClient := Twilio{}
-	twilioClient.PhoneNumber = NewPhoneNumberClient(client)
+	twilioClient.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(client)
+	twilioClient.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(client)
 	twilioClient.Chat = &ChatClient{
 		Service: NewChatServiceClient(client),
 	}

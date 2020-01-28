@@ -72,8 +72,8 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c Client) SendRequest(method string, rawurl string, queryParams, bodyData interface{}) (*http.Response, error) {
-	u, err := url.Parse(rawurl)
+func (c Client) SendRequest(method string, rawURL string, queryParams, formData interface{}) (*http.Response, error) {
+	u, err := url.Parse(rawURL)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -85,8 +85,8 @@ func (c Client) SendRequest(method string, rawurl string, queryParams, bodyData 
 
 	valueReader := &strings.Reader{}
 
-	if bodyData != nil {
-		v, _ := query.Values(bodyData)
+	if formData != nil {
+		v, _ := query.Values(formData)
 		qs := v.Encode()
 		// Convert "[" and "]" (%5B and %5D) to "." and "" to conform to Twilio form-urlencoded specs.
 		replacer := strings.NewReplacer("%5B", ".", "%5D", "")
