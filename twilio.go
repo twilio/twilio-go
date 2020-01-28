@@ -11,8 +11,9 @@ import (
 
 // Twilio provides access to Twilio services.
 type Twilio struct {
-	Chat       *Chat
-	TaskRouter *TaskRouter
+	Chat        *Chat
+	TaskRouter  *TaskRouter
+	PhoneNumber *PhoneNumberClient
 }
 
 type service interface {
@@ -33,6 +34,7 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	twilioClient := Twilio{}
 	twilioClient.Chat = new(Chat)
 	twilioClient.TaskRouter = new(TaskRouter)
+	twilioClient.PhoneNumber = new(PhoneNumberClient)
 
 	tcRef := reflect.ValueOf(twilioClient)
 	for i := 0; i < tcRef.NumField(); i++ {
