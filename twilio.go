@@ -12,11 +12,17 @@ import (
 type Twilio struct {
 	Chat       *ChatClient
 	TaskRouter *TaskRouterClient
+	Proxy      *ProxyClient
 }
 
 // ChatClient holds all chat related resources.
 type ChatClient struct {
 	Service *ChatServiceClient
+}
+
+// ProxyClient holds all proxy related resources.
+type ProxyClient struct {
+	Service *ProxyServiceClient
 }
 
 const interval = 10
@@ -31,9 +37,8 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	client := &twilio.Client{Credentials: credentials, BaseURL: "twilio.com", HTTPClient: httpClient}
 
 	twilioClient := Twilio{}
-	twilioClient.Chat = &ChatClient{
-		Service: NewChatServiceClient(client),
-	}
+	twilioClient.Chat = &ChatClient{Service: NewChatServiceClient(client)}
+	twilioClient.Proxy = &ProxyClient{Service: NewProxyServiceClient(client)}
 	twilioClient.TaskRouter = NewTaskRouterClient(client)
 
 	return &twilioClient
