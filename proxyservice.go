@@ -8,8 +8,8 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
-// ProxyService is the top-level scope of all other resources in the Programmable Chat REST API.
-// All other Programmable Chat resources belong to a specific Service.
+// ProxyService is the top-level scope of all other resources in the Programmable Proxy REST API.
+// All other Programmable Proxy resources belong to a specific Service.
 // See: https://www.twilio.com/docs/proxy/api/service
 type ProxyService struct {
 	Sid                     string            `json:"sid"`
@@ -46,7 +46,7 @@ type ProxyServiceClient struct {
 	client     *twilio.Client
 }
 
-// Initialize constructs a new Chat client.
+// Initialize constructs a new ProxyService Client.
 func (c *ProxyServiceClient) Initialize(request *twilio.Client) {
 	c.client = request
 	c.serviceURL = fmt.Sprintf("https://proxy.%s/v1", c.client.BaseURL)
