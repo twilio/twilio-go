@@ -25,11 +25,12 @@ type ChatRole struct {
 
 // ChatRoles represents a paginated set of Chat Role structs.
 type ChatRoles struct {
-	Meta  Meta `json:"meta"`
+	Meta  ChatRolesMeta `json:"meta"`
 	Roles []*ChatRole
 }
 
-type Meta struct {
+// ChatRolesMeta represents pagination metadata for ChatRoles.
+type ChatRolesMeta struct {
 	Page            int    `json:"page"`
 	PageSize        int    `json:"page_size"`
 	FirstPageURL    string `json:"first_page_url"`
