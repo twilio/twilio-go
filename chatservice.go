@@ -157,12 +157,8 @@ func (c *ChatServiceClient) Delete(sid string) error {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
 
-	cs := &ChatService{}
-	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
-		return err
-	}
+	defer resp.Body.Close()
 
 	return nil
 }
