@@ -74,7 +74,11 @@ func (c Client) SendRequest(method string, url string, data interface{}) (*http.
 
 	if data != nil {
 		v, _ := query.Values(data)
-		valueReader = strings.NewReader(v.Encode())
+		qs := v.Encode()
+		// Convert "[" and "]" (%5B and %5D) to "." and "" to conform to Twilio form-urlencoded specs.
+		replacer := strings.NewReplacer("%5B", ".", "%5D", "")
+		dotNotationQs := replacer.Replace(qs)
+		valueReader = strings.NewReader(dotNotationQs)
 	}
 
 	req, err := http.NewRequest(method, url, valueReader)

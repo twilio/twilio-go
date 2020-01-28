@@ -124,8 +124,8 @@ type ActivityParams struct {
 	WorkspaceSid string `url:"WorkspaceSid,omitempty"`
 }
 
-// TaskRouter is the entrypoint for the TaskRouter API.
-type TaskRouter struct {
+// TaskRouterClient is the entrypoint for the TaskRouter API.
+type TaskRouterClient struct {
 	serviceURL string
 	client     *twilio.Client
 }
@@ -135,14 +135,17 @@ type WorkspaceList struct {
 	Workspaces []Workspace `json:"workspaces"`
 }
 
-// Initialize constructs a new TaskRouter client.
-func (tr *TaskRouter) Initialize(client *twilio.Client) {
+// NewTaskRouterClient constructs a new TaskRouter client.
+func NewTaskRouterClient(client *twilio.Client) *TaskRouterClient {
+	tr := new(TaskRouterClient)
 	tr.client = client
 	tr.serviceURL = fmt.Sprintf("https://taskrouter.%s/v1", tr.client.BaseURL)
+
+	return tr
 }
 
 // CreateWorkflow creates workflow with the given config.
-func (tr TaskRouter) CreateWorkflow(workflowParams WorkflowParams) (*Workflow, error) {
+func (tr *TaskRouterClient) CreateWorkflow(workflowParams WorkflowParams) (*Workflow, error) {
 	url := tr.serviceURL + "/Workspaces/" + workflowParams.WorkspaceSid + "/Workflows"
 	resp, err := tr.client.Post(url, workflowParams)
 
@@ -165,7 +168,7 @@ func (tr TaskRouter) CreateWorkflow(workflowParams WorkflowParams) (*Workflow, e
 }
 
 // CreateWorkspace creates workspace with the given the config.
-func (tr TaskRouter) CreateWorkspace(workspaceParams WorkspaceParams) (*Workspace, error) {
+func (tr *TaskRouterClient) CreateWorkspace(workspaceParams WorkspaceParams) (*Workspace, error) {
 	url := tr.serviceURL + "/Workspaces"
 	resp, err := tr.client.Post(url, workspaceParams)
 
@@ -187,7 +190,7 @@ func (tr TaskRouter) CreateWorkspace(workspaceParams WorkspaceParams) (*Workspac
 }
 
 // CreateNewActivity creates a new activity with the given config.
-func (tr TaskRouter) CreateNewActivity(activityParams ActivityParams, workspaceSid string) (*Activity, error) {
+func (tr *TaskRouterClient) CreateNewActivity(activityParams ActivityParams, workspaceSid string) (*Activity, error) {
 	url := tr.serviceURL + "/Workspaces/" + workspaceSid + "/Activities"
 
 	resp, err := tr.client.Post(url, activityParams)
@@ -210,7 +213,7 @@ func (tr TaskRouter) CreateNewActivity(activityParams ActivityParams, workspaceS
 }
 
 // FetchWorkflow fetches workflow with given workspace sid and workflow sid.
-func (tr TaskRouter) FetchWorkflow(workspaceSid string, workflowSid string) (*Workflow, error) {
+func (tr *TaskRouterClient) FetchWorkflow(workspaceSid string, workflowSid string) (*Workflow, error) {
 	url := tr.serviceURL + "/Workspaces/" + workspaceSid + "/Workflows/" + workflowSid
 	resp, err := tr.client.Get(url)
 
@@ -233,7 +236,7 @@ func (tr TaskRouter) FetchWorkflow(workspaceSid string, workflowSid string) (*Wo
 }
 
 // CreateTaskQueue creatse a new task-queue with the given config.
-func (tr TaskRouter) CreateTaskQueue(taskQueuParams TaskQueueParams, workspaceSid string) (*TaskQueue, error) {
+func (tr *TaskRouterClient) CreateTaskQueue(taskQueuParams TaskQueueParams, workspaceSid string) (*TaskQueue, error) {
 	url := tr.serviceURL + "/Workspaces/" + workspaceSid + "/TaskQueues"
 	resp, err := tr.client.Post(url, taskQueuParams)
 
@@ -260,7 +263,7 @@ func (tr TaskRouter) CreateTaskQueue(taskQueuParams TaskQueueParams, workspaceSi
 // 2.Creates a task-queue with default friendly name for the workspace sid.
 // 3.Creates workflow with default friendly name using the created taskqueue sid and workspace sid.
 // 4.Creates a new activity with default friendly name using the sid of workspace.
-func (tr TaskRouter) SetupTaskRouterWithDefaultConfig() (*Workspace, *TaskQueue, *Workflow,
+func (tr *TaskRouterClient) SetupTaskRouterWithDefaultConfig() (*Workspace, *TaskQueue, *Workflow,
 	*Activity, error) {
 	workspaceParams := WorkspaceParams{
 		FriendlyName: WorkspaceDefaultFriendlyName,
@@ -305,7 +308,7 @@ func (tr TaskRouter) SetupTaskRouterWithDefaultConfig() (*Workspace, *TaskQueue,
 }
 
 // SetupWorkspace checks if workspace exists, returns if found, else creates one.
-func (tr TaskRouter) SetupWorkspace(workspaceParams WorkspaceParams) (*Workspace, error) {
+func (tr *TaskRouterClient) SetupWorkspace(workspaceParams WorkspaceParams) (*Workspace, error) {
 	ws, err := tr.FindWorkspace(workspaceParams.FriendlyName)
 
 	if err != nil {
@@ -321,7 +324,7 @@ func (tr TaskRouter) SetupWorkspace(workspaceParams WorkspaceParams) (*Workspace
 }
 
 // FindWorkspace finds a workspace by a friendly name.
-func (tr TaskRouter) FindWorkspace(friendlyName string) (*Workspace, error) {
+func (tr *TaskRouterClient) FindWorkspace(friendlyName string) (*Workspace, error) {
 	wslist, err := tr.RetrieveAllWorkspaces()
 
 	if err != nil {
@@ -339,7 +342,7 @@ func (tr TaskRouter) FindWorkspace(friendlyName string) (*Workspace, error) {
 }
 
 // RetrieveAllWorkspaces retrieves all workspaces (upto 1000) for a given account/sid.
-func (tr TaskRouter) RetrieveAllWorkspaces() (*WorkspaceList, error) {
+func (tr *TaskRouterClient) RetrieveAllWorkspaces() (*WorkspaceList, error) {
 	uri := tr.serviceURL + "/Workspaces?pagesize=1000"
 
 	resp, err := tr.client.Get(uri)
@@ -373,7 +376,7 @@ func workspaceListFromResponseBody(body []byte) (*WorkspaceList, error) {
 }
 
 // DeleteWorkspaces deletes a workspace for a given sid.
-func (tr TaskRouter) DeleteWorkspaces(sid string) error {
+func (tr *TaskRouterClient) DeleteWorkspaces(sid string) error {
 	url := tr.serviceURL + "/Workspaces/" + sid
 	resp, err := tr.client.Delete(url)
 
