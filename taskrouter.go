@@ -215,7 +215,7 @@ func (tr *TaskRouterClient) CreateNewActivity(activityParams ActivityParams, wor
 // FetchWorkflow fetches workflow with given workspace sid and workflow sid.
 func (tr *TaskRouterClient) FetchWorkflow(workspaceSid string, workflowSid string) (*Workflow, error) {
 	url := tr.serviceURL + "/Workspaces/" + workspaceSid + "/Workflows/" + workflowSid
-	resp, err := tr.client.Get(url)
+	resp, err := tr.client.Get(url, nil)
 
 	if err != nil {
 		log.Printf("error getting existing workflow: %s", err)
@@ -345,7 +345,7 @@ func (tr *TaskRouterClient) FindWorkspace(friendlyName string) (*Workspace, erro
 func (tr *TaskRouterClient) RetrieveAllWorkspaces() (*WorkspaceList, error) {
 	uri := tr.serviceURL + "/Workspaces?pagesize=1000"
 
-	resp, err := tr.client.Get(uri)
+	resp, err := tr.client.Get(uri, nil)
 
 	if err != nil {
 		return nil, err

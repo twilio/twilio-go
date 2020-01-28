@@ -121,7 +121,7 @@ func (c *ChatServiceClient) Create(params *ChatServiceParams) (*ChatService, err
 
 // Read returns the details of a Chat Service.
 func (c *ChatServiceClient) Read(sid string) (*ChatService, error) {
-	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), nil)
 	if err != nil {
 		return nil, err
 	}

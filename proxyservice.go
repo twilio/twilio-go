@@ -75,7 +75,7 @@ func (c *ProxyServiceClient) Create(params *ProxyServiceParams) (*ProxyService, 
 
 // Read returns the details of a ProxyService.
 func (c *ProxyServiceClient) Read(sid string, params *ProxyServiceParams) (*ProxyService, error) {
-	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), nil)
 	if err != nil {
 		return nil, err
 	}

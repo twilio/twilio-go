@@ -4,11 +4,14 @@ package twilio
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/google/go-querystring/query"
+
 	"github.com/pkg/errors"
 )
 
@@ -69,11 +72,21 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c Client) SendRequest(method string, url string, data interface{}) (*http.Response, error) {
+func (c Client) SendRequest(method string, rawURL string, queryParams, formData interface{}) (*http.Response, error) {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if queryParams != nil {
+		v, _ := query.Values(queryParams)
+		u.RawQuery = v.Encode()
+	}
+
 	valueReader := &strings.Reader{}
 
-	if data != nil {
-		v, _ := query.Values(data)
+	if formData != nil {
+		v, _ := query.Values(formData)
 		qs := v.Encode()
 		// Convert "[" and "]" (%5B and %5D) to "." and "" to conform to Twilio form-urlencoded specs.
 		replacer := strings.NewReplacer("%5B", ".", "%5D", "")
@@ -81,7 +94,7 @@ func (c Client) SendRequest(method string, url string, data interface{}) (*http.
 		valueReader = strings.NewReader(dotNotationQs)
 	}
 
-	req, err := http.NewRequest(method, url, valueReader)
+	req, err := http.NewRequest(method, u.String(), valueReader)
 	if err != nil {
 		return nil, err
 	}
@@ -97,18 +110,18 @@ func (c Client) SendRequest(method string, url string, data interface{}) (*http.
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
-func (c Client) Post(path string, data interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodPost, path, data)
+func (c Client) Post(path string, bodyData interface{}) (*http.Response, error) {
+	return c.SendRequest(http.MethodPost, path, nil, bodyData)
 }
 
 // Get performs a GET request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
-func (c Client) Get(path string) (*http.Response, error) {
-	return c.SendRequest(http.MethodGet, path, nil)
+func (c Client) Get(path string, queryData interface{}) (*http.Response, error) {
+	return c.SendRequest(http.MethodGet, path, queryData, nil)
 }
 
 // Delete performs a DELETE request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
 func (c Client) Delete(path string) (*http.Response, error) {
-	return c.SendRequest(http.MethodDelete, path, nil)
+	return c.SendRequest(http.MethodDelete, path, nil, nil)
 }
