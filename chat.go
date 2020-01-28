@@ -37,7 +37,7 @@ type ChatService struct {
 	Links                        map[string]string `json:"links,omitempty"`
 }
 
-// ChatServiceParams are the set of parameters that can be used when creating or updating a service.
+// ChatServiceParams is the set of parameters that can be used when creating or updating a service.
 type ChatServiceParams struct {
 	FriendlyName                 string            `url:"FriendlyName,omitempty"`
 	DefaultServiceRoleSid        string            `url:"DefaultServiceRoleSid,omitempty"`
@@ -67,7 +67,6 @@ type Chat struct {
 func (c *Chat) Initialize(request *twilio.Client) {
 	c.client = request
 	c.serviceURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)
-	fmt.Println(c.serviceURL)
 }
 
 // CreateService creates a new Chat Service.
@@ -88,7 +87,7 @@ func (c Chat) CreateService(params *ChatServiceParams) (*ChatService, error) {
 
 // ReadService returns the details of a Chat Service.
 func (c Chat) ReadService(sid string, params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), nil)
 	if err != nil {
 		return nil, err
 	}
