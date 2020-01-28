@@ -14,10 +14,6 @@ type Twilio struct {
 	TaskRouter *TaskRouterClient
 }
 
-type service interface {
-	Initialize(*twilio.Client)
-}
-
 // ChatClient holds all chat related resources.
 type ChatClient struct {
 	Service *ChatServiceClient

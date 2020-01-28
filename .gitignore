@@ -18,5 +18,5 @@
 .*swp
 
 # Scratch files
-/scratch
+/scratch/**
 
