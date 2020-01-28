@@ -9,7 +9,7 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
-// ChatRole represents what a user can do within a Chat Service instance.
+// Chat Roles represent what a user can do within a Chat Service instance.
 // See: https://www.twilio.com/docs/chat/rest/role-resource
 type ChatRole struct {
 	Sid          string    `json:"sid"`
@@ -125,7 +125,7 @@ func (c *ChatRoleClient) Update(serviceSid, sid string, params *ChatRoleParams) 
 	return cr, err
 }
 
-/* Delete deletes a Chat Role attached to a particular Service.*/
+// Delete deletes a Chat Role attached to a particular Service.
 func (c *ChatRoleClient) Delete(serviceSid, sid string) error {
 	resp, err := c.client.Delete(fmt.Sprintf("%s/%s/Roles/%s", c.serviceURL, serviceSid, sid))
 	if err != nil {
