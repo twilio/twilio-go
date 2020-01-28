@@ -96,8 +96,9 @@ func (c *ProxyServiceClient) Update(sid string, params *ProxyServiceParams) (*Pr
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
-	fmt.Printf("Data: %+v", resp.Body)
+
 	ps := &ProxyService{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
@@ -112,6 +113,7 @@ func (c *ProxyServiceClient) Delete(sid string, params *ProxyServiceParams) (*Pr
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 
 	ps := &ProxyService{}
