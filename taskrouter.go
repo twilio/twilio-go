@@ -124,7 +124,7 @@ type ActivityParams struct {
 	WorkspaceSid string `url:"WorkspaceSid,omitempty"`
 }
 
-// TaskRouter is the entrypoint for the TaskRouter API.
+// TaskRouterClient is the entrypoint for the TaskRouter API.
 type TaskRouterClient struct {
 	serviceURL string
 	client     *twilio.Client
