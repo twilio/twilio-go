@@ -127,19 +127,14 @@ func (pn PhoneNumberClient) UpdateIncomingPhoneNumber(sid string,
 }
 
 // DeleteIncomingPhoneNumber releases an existing IncomingPhoneNumber.
-func (pn PhoneNumberClient) DeleteIncomingPhoneNumber(sid string) (*IncomingPhoneNumber, error) {
+func (pn PhoneNumberClient) DeleteIncomingPhoneNumber(sid string) error {
 	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers/%s.json", pn.serviceURL, pn.client.AccountSid, sid)
 
 	resp, err := pn.client.Delete(uri)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer resp.Body.Close()
 
-	ipn := &IncomingPhoneNumber{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(ipn); decodeErr != nil {
-		return nil, decodeErr
-	}
-
-	return ipn, err
+	return err
 }

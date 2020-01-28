@@ -72,11 +72,12 @@ type PhoneNumberClient struct {
 	serviceURL string
 }
 
-// Initialize constructs a new TaskRouter client.
+// NewPhoneNumberClient constructs a new PhoneNumber client.
 func NewPhoneNumberClient(client *twilio.Client) *PhoneNumberClient {
 	pn := new(PhoneNumberClient)
 	pn.client = client
 	pn.serviceURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)
+
 	return pn
 }
 
