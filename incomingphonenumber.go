@@ -90,7 +90,8 @@ func NewIncomingPhoneNumberClient(client *twilio.Client) *IncomingPhoneNumberCli
 }
 
 // CreateIncomingPhoneNumber creates a new IncomingPhoneNumber.
-func (c IncomingPhoneNumberClient) CreateIncomingPhoneNumber(params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
+func (c IncomingPhoneNumberClient) CreateIncomingPhoneNumber(
+	params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
 	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers.json", c.serviceURL, c.client.AccountSid)
 
 	resp, err := c.client.Post(uri, params)

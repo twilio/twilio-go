@@ -11,6 +11,7 @@ import (
 // Twilio provides access to Twilio services.
 type Twilio struct {
 	Chat                  *ChatClient
+	Proxy                 *ProxyClient
 	TaskRouter            *TaskRouterClient
 	AvailablePhoneNumbers *AvailablePhoneNumbersClient
 	IncomingPhoneNumbers  *IncomingPhoneNumberClient
@@ -19,6 +20,11 @@ type Twilio struct {
 // ChatClient holds all chat related resources.
 type ChatClient struct {
 	Service *ChatServiceClient
+}
+
+// ProxyClient holds all proxy related resources.
+type ProxyClient struct {
+	Service *ProxyServiceClient
 }
 
 const interval = 10
@@ -38,6 +44,7 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	twilioClient.Chat = &ChatClient{
 		Service: NewChatServiceClient(client),
 	}
+	twilioClient.Proxy = &ProxyClient{Service: NewProxyServiceClient(client)}
 	twilioClient.TaskRouter = NewTaskRouterClient(client)
 
 	return &twilioClient
