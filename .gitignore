@@ -17,6 +17,6 @@
 # Vim Swap Files
 .*swp
 
-# Scratch files
-/scratch/**
+
+/scratch
 
