@@ -36,7 +36,7 @@ type ProxyServiceParams struct {
 	CallbackURL             string `url:"CallbackUrl,omitempty"`
 	GeoMatchLevel           string `url:"GeoMatchLevel,omitempty"`
 	NumberSelectionBehavior string `url:"NumberSelectionBehavior,omitempty"`
-	InterceptCallbackURL    string `url:"InterceptCallbackURL,omitempty"`
+	InterceptCallbackURL    string `url:"InterceptCallbackUrl,omitempty"`
 	OutOfSessionCallbackURL string `url:"OutOfSessionCallbackUrl,omitempty"`
 }
 
@@ -108,18 +108,13 @@ func (c *ProxyServiceClient) Update(sid string, params *ProxyServiceParams) (*Pr
 }
 
 // Delete deletes a ProxyService.
-func (c *ProxyServiceClient) Delete(sid string, params *ProxyServiceParams) (*ProxyService, error) {
+func (c *ProxyServiceClient) Delete(sid string, params *ProxyServiceParams) error {
 	resp, err := c.client.Delete(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	defer resp.Body.Close()
 
-	ps := &ProxyService{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
+	return nil
 }
