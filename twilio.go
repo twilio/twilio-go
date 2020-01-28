@@ -13,6 +13,7 @@ import (
 type Twilio struct {
 	Chat       *Chat
 	TaskRouter *TaskRouter
+	Proxy      *ProxyServiceClient
 }
 
 type service interface {
@@ -33,6 +34,7 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	twilioClient := Twilio{}
 	twilioClient.Chat = new(Chat)
 	twilioClient.TaskRouter = new(TaskRouter)
+	twilioClient.Proxy = new(ProxyServiceClient)
 
 	tcRef := reflect.ValueOf(twilioClient)
 	for i := 0; i < tcRef.NumField(); i++ {
