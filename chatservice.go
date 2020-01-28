@@ -112,15 +112,15 @@ func (c *ChatServiceClient) Create(params *ChatServiceParams) (*ChatService, err
 	defer resp.Body.Close()
 
 	cs := &ChatService{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
+		return nil, err
 	}
 
 	return cs, err
 }
 
 // Read returns the details of a Chat Service.
-func (c *ChatServiceClient) Read(sid string, params *ChatServiceParams) (*ChatService, error) {
+func (c *ChatServiceClient) Read(sid string) (*ChatService, error) {
 	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
 	if err != nil {
 		return nil, err
@@ -128,8 +128,8 @@ func (c *ChatServiceClient) Read(sid string, params *ChatServiceParams) (*ChatSe
 	defer resp.Body.Close()
 
 	cs := &ChatService{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
+		return nil, err
 	}
 
 	return cs, err
@@ -144,25 +144,21 @@ func (c *ChatServiceClient) Update(sid string, params *ChatServiceParams) (*Chat
 	defer resp.Body.Close()
 
 	cs := &ChatService{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
+		return nil, err
 	}
 
 	return cs, err
 }
 
 // Delete deletes a Chat Service.
-func (c *ChatServiceClient) Delete(sid string, params *ChatServiceParams) (*ChatService, error) {
+func (c *ChatServiceClient) Delete(sid string) error {
 	resp, err := c.client.Delete(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
 	if err != nil {
-		return nil, err
+		return err
 	}
+
 	defer resp.Body.Close()
 
-	cs := &ChatService{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cs); decodeErr != nil {
-		return nil, decodeErr
-	}
-
-	return cs, err
+	return nil
 }
