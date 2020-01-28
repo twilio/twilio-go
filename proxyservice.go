@@ -40,16 +40,19 @@ type ProxyServiceParams struct {
 	OutOfSessionCallbackURL string `url:"OutOfSessionCallbackUrl,omitempty"`
 }
 
-// ProxyServiceClient is the entrypoint for the Proxy Service API
+// ProxyServiceClient is the entrypoint for the Proxy Service API.
 type ProxyServiceClient struct {
 	serviceURL string
 	client     *twilio.Client
 }
 
-// Initialize constructs a new ProxyService Client.
-func (c *ProxyServiceClient) Initialize(request *twilio.Client) {
+// NewProxyServiceClient constructs a new ProxyService Client.
+func NewProxyServiceClient(request *twilio.Client) *ProxyServiceClient {
+	c := new(ProxyServiceClient)
 	c.client = request
 	c.serviceURL = fmt.Sprintf("https://proxy.%s/v1", c.client.BaseURL)
+
+	return c
 }
 
 // Create creates a new ProxyService.
