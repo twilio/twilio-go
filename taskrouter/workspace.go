@@ -1,3 +1,4 @@
+// Package taskrouter provides CRUD library for taskrouter subresources.
 package taskrouter
 
 import (
