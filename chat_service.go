@@ -98,14 +98,14 @@ type ChatServiceClient struct {
 func NewChatServiceClient(request *twilio.Client) *ChatServiceClient {
 	c := new(ChatServiceClient)
 	c.client = request
-	c.serviceURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)
+	c.serviceURL = fmt.Sprintf("https://chat.%s/v2/Services", c.client.BaseURL)
 
 	return c
 }
 
 // Create creates a new Chat Service.
 func (c *ChatServiceClient) Create(params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.client.Post(fmt.Sprintf("%s/Services", c.serviceURL), params)
+	resp, err := c.client.Post(c.serviceURL, params)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ func (c *ChatServiceClient) Create(params *ChatServiceParams) (*ChatService, err
 
 // Read returns the details of a Chat Service.
 func (c *ChatServiceClient) Read(sid string) (*ChatService, error) {
-	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), nil)
+	resp, err := c.client.Get(fmt.Sprintf("%s/%s", c.serviceURL, sid), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +137,7 @@ func (c *ChatServiceClient) Read(sid string) (*ChatService, error) {
 
 // Update updates a Service.
 func (c *ChatServiceClient) Update(sid string, params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.client.Post(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), params)
+	resp, err := c.client.Post(fmt.Sprintf("%s/%s", c.serviceURL, sid), params)
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (c *ChatServiceClient) Update(sid string, params *ChatServiceParams) (*Chat
 
 // Delete deletes a Chat Service.
 func (c *ChatServiceClient) Delete(sid string) error {
-	resp, err := c.client.Delete(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+	resp, err := c.client.Delete(fmt.Sprintf("%s/%s", c.serviceURL, sid))
 	if err != nil {
 		return err
 	}
