@@ -13,7 +13,7 @@ import (
 // See: https://www.twilio.com/docs/proxy/api/service
 type ProxyService struct {
 	Sid                     string            `json:"sid"`
-	AccountSID              *string           `json:"account_sid"`
+	AccountSID              string            `json:"account_sid"`
 	ChatInstanceSID         string            `json:"chat_instance_sid"`
 	UniqueName              string            `json:"unique_name"`
 	DefaultTTL              int               `json:"default_ttl"`
