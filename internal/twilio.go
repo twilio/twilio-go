@@ -4,7 +4,6 @@ package twilio
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -75,7 +74,7 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 func (c Client) SendRequest(method string, rawURL string, queryParams, formData interface{}) (*http.Response, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	if queryParams != nil {
