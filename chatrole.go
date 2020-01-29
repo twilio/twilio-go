@@ -71,8 +71,8 @@ func (c *ChatRoleClient) Create(serviceSid string, params *ChatRoleParams) (*Cha
 	defer resp.Body.Close()
 
 	cr := &ChatRole{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cr); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cr); err != nil {
+		return nil, err
 	}
 
 	return cr, err
@@ -87,8 +87,8 @@ func (c *ChatRoleClient) Fetch(serviceSid, sid string) (*ChatRole, error) {
 	defer resp.Body.Close()
 
 	cr := &ChatRole{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cr); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cr); err != nil {
+		return nil, err
 	}
 
 	return cr, err
@@ -103,8 +103,8 @@ func (c *ChatRoleClient) Read(serviceSid string) (*ChatRoles, error) {
 	defer resp.Body.Close()
 
 	cr := &ChatRoles{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cr); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cr); err != nil {
+		return nil, err
 	}
 
 	return cr, err
@@ -119,8 +119,8 @@ func (c *ChatRoleClient) Update(serviceSid, sid string, params *ChatRoleParams) 
 	defer resp.Body.Close()
 
 	cr := &ChatRole{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(cr); decodeErr != nil {
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(cr); err != nil {
+		return nil, err
 	}
 
 	return cr, err
