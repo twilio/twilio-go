@@ -9,6 +9,8 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
+// An Activity describes the current status of a Worker,
+// which determines whether they are eligible to receive task assignments.
 // refer: https://www.twilio.com/docs/taskrouter/api/activity
 
 // Activity activity.
@@ -58,7 +60,7 @@ func NewActivityClient(twilioClient *twilio.Client) *ActivityClient {
 }
 
 // Create creates activity with the given the config.
-func (ac *ActivityClient) Create(activityParams ActivityParams, workspaceSID string) (*Activity, error) {
+func (ac *ActivityClient) Create(activityParams *ActivityParams, workspaceSID string) (*Activity, error) {
 	url := fmt.Sprintf("%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities")
 
 	if len(activityParams.FriendlyName) == 0 {
@@ -122,7 +124,7 @@ func (ac *ActivityClient) Read(workspaceSID string) (*ActivityList, error) {
 }
 
 // Update updates activity with given config.
-func (ac *ActivityClient) Update(activityParams ActivityParams, workspaceSID string,
+func (ac *ActivityClient) Update(activityParams *ActivityParams, workspaceSID string,
 	activitySID string) (*Activity, error) {
 	url := fmt.Sprintf("%s/%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities", activitySID)
 

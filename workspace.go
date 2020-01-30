@@ -9,6 +9,7 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
+// A Workspace is a container for your Tasks, Workers, TaskQueues, Workflows, and Activities.
 // refer: https://www.twilio.com/docs/taskrouter/api/workspace.
 
 // Workspace struct.

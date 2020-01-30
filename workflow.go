@@ -9,6 +9,8 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
+// Workflows control how tasks will be prioritized and routed into Queues,
+// and how Tasks should escalate in priority or move across queues over time.
 // refer: https://www.twilio.com/docs/taskrouter/api/workflow.
 
 // Workflow workflow struct.
@@ -65,7 +67,7 @@ func NewWorkflowClient(twilioClient *twilio.Client) *WorkflowClient {
 }
 
 // Create creates workflow with the given the config.
-func (wf *WorkflowClient) Create(workspaceSID string, workflowParams WorkflowParams) (*Workflow, error) {
+func (wf *WorkflowClient) Create(workspaceSID string, workflowParams *WorkflowParams) (*Workflow, error) {
 	if len(workflowParams.FriendlyName) == 0 {
 		return nil, errors.New("friendly name is required in workflowParams")
 	}
@@ -114,7 +116,7 @@ func (wf *WorkflowClient) Fetch(workspaceSID string, workflowSID string) (*Workf
 }
 
 // Read returns all existing workflows.
-func (wf *WorkflowClient) Read(workspaceSID string, queryParams WorkflowQueryParams) (*[]Workflow, error) {
+func (wf *WorkflowClient) Read(workspaceSID string, queryParams *WorkflowQueryParams) (*[]Workflow, error) {
 	url := fmt.Sprintf("%s/%s/%s", wf.ServiceURL, workspaceSID, "Workflows")
 
 	resp, err := wf.Client.Get(url, queryParams)
@@ -133,7 +135,7 @@ func (wf *WorkflowClient) Read(workspaceSID string, queryParams WorkflowQueryPar
 }
 
 // Update updates workflow with given config.
-func (wf *WorkflowClient) Update(workspaceSID string, workflowParams WorkflowParams,
+func (wf *WorkflowClient) Update(workspaceSID string, workflowParams *WorkflowParams,
 	workflowSID string) (*Workflow, error) {
 	url := fmt.Sprintf("%s/%s/%s/%s", wf.ServiceURL, workspaceSID, "Workflows", workflowSID)
 

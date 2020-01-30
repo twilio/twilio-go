@@ -9,6 +9,7 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
+// TaskQueues allow you to categorize Tasks and describe which Workers are eligible to handle those Tasks.
 // refer: https://www.twilio.com/docs/taskrouter/api/task-queue
 
 // TaskQueue taskqueue struct.
@@ -69,7 +70,7 @@ func NewTaskQueueClient(twilioClient *twilio.Client) *TaskQueueClient {
 }
 
 // Create creates taskqueue with the given the config.
-func (ws *TaskQueueClient) Create(workspaceSID string, taskqueueparams TaskQueueParams) (*TaskQueue, error) {
+func (ws *TaskQueueClient) Create(workspaceSID string, taskqueueparams *TaskQueueParams) (*TaskQueue, error) {
 	url := fmt.Sprintf("%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues")
 
 	if len(taskqueueparams.FriendlyName) == 0 {
@@ -114,7 +115,7 @@ func (ws *TaskQueueClient) Fetch(workspaceSID string, taskQueueSID string) (*Tas
 }
 
 // Read returns all existing taskqueues.
-func (ws *TaskQueueClient) Read(workspaceSID string, queryParams TaskQueueQueryParams) (*TaskQueueList, error) {
+func (ws *TaskQueueClient) Read(workspaceSID string, queryParams *TaskQueueQueryParams) (*TaskQueueList, error) {
 	url := fmt.Sprintf("%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues")
 
 	resp, err := ws.Client.Get(url, queryParams)
@@ -133,7 +134,7 @@ func (ws *TaskQueueClient) Read(workspaceSID string, queryParams TaskQueueQueryP
 }
 
 // Update updates taskqueue with given config.
-func (ws *TaskQueueClient) Update(taskQueueParams TaskQueueParams, workspaceSID string,
+func (ws *TaskQueueClient) Update(taskQueueParams *TaskQueueParams, workspaceSID string,
 	taskQueueSID string) (*TaskQueue, error) {
 	url := fmt.Sprintf("%s/%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues", taskQueueSID)
 
