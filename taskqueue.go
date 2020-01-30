@@ -1,10 +1,9 @@
-// Package taskrouter provides CRUD library for taskrouter subresources.
-package taskrouter
+package twilio
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"log"
 	"time"
 
 	twilio "github.com/twilio/twilio-go/internal"
@@ -15,30 +14,43 @@ import (
 // TaskQueue taskqueue struct.
 type TaskQueue struct {
 	AccountSid              string            `json:"account_sid"`
-	AssignmentActivitySid   string            `json:"assignment_activity_sid"`
-	AssignmentActivityName  string            `json:"assignment_activity_name"`
+	AssignmentActivitySid   *string           `json:"assignment_activity_sid"`
+	AssignmentActivityName  *string           `json:"assignment_activity_name"`
 	DateCreated             time.Time         `json:"date_created"`
 	DateUpdated             time.Time         `json:"date_updated"`
 	FriendlyName            string            `json:"friendly_name"`
-	MaxReservedWorkers      int               `json:"max_reserved_workers"`
-	ReservationActivitySid  string            `json:"reservation_activity_sid"`
-	ReservationActivityName string            `json:"reservation_activity_name"`
+	MaxReservedWorkers      *int              `json:"max_reserved_workers"`
+	ReservationActivitySid  *string           `json:"reservation_activity_sid"`
+	ReservationActivityName *string           `json:"reservation_activity_name"`
 	Sid                     string            `json:"sid"`
-	TargetWorkers           string            `json:"target_workers"`
-	TaskOrder               string            `json:"task_order"`
-	URI                     string            `json:"url"`
+	TargetWorkers           *string           `json:"target_workers"`
+	TaskOrder               *string           `json:"task_order"`
+	URI                     *string           `json:"url"`
 	WorkspaceSid            string            `json:"workspace_sid"`
 	Links                   map[string]string `json:"links"`
 }
 
 // TaskQueueParams taskQueue parameters.
 type TaskQueueParams struct {
-	FriendlyName           string `url:"FriendlyName,omitempty"`
-	AssignmentActivitySid  string `url:"AssignmentActivitySid,omitempty"`
-	MaxReservedWorkers     int    `url:"MaxReservedWorkers,omitempty"`
-	TargetWorkers          string `url:"TargetWorkers,omitempty"`
-	TaskOrder              string `url:"TaskOrder,omitempty"`
-	ReservationActivitySid string `url:"ReservationActivitySid,omitempty"`
+	FriendlyName           string  `url:"FriendlyName,omitempty"`
+	AssignmentActivitySid  *string `url:"AssignmentActivitySid,omitempty"`
+	MaxReservedWorkers     *int    `url:"MaxReservedWorkers,omitempty"`
+	TargetWorkers          *string `url:"TargetWorkers,omitempty"`
+	TaskOrder              *string `url:"TaskOrder,omitempty"`
+	ReservationActivitySid *string `url:"ReservationActivitySid,omitempty"`
+}
+
+// TaskQueueList struct to parse response of taskqueue read.
+type TaskQueueList struct {
+	TaskQueues *[]TaskQueue `json:"task_queues"`
+	Meta       *Meta        `json:"meta,omitempty"`
+}
+
+// TaskQueueQueryParams query params to read taskqueues.
+type TaskQueueQueryParams struct {
+	FriendlyName             *string `url:"FriendlyName,omitempty"`
+	EvaluateWorkerAttributes *string `url:"EvaluateWorkerAttributes,omitempty"`
+	PageSize                 *int    `url:"PageSize,omitempty"`
 }
 
 // TaskQueueClient is the entrypoint for taskqueue CRUD.
@@ -60,10 +72,13 @@ func NewTaskQueueClient(twilioClient *twilio.Client) *TaskQueueClient {
 func (ws *TaskQueueClient) Create(workspaceSID string, taskqueueparams TaskQueueParams) (*TaskQueue, error) {
 	url := fmt.Sprintf("%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues")
 
+	if len(taskqueueparams.FriendlyName) == 0 {
+		return nil, errors.New("friendlyname is required in taskQqueueParams")
+	}
+
 	resp, err := ws.Client.Post(url, taskqueueparams)
 
 	if err != nil {
-		log.Printf("error creating taskqueue: %s", err)
 		return nil, err
 	}
 
@@ -71,9 +86,8 @@ func (ws *TaskQueueClient) Create(workspaceSID string, taskqueueparams TaskQueue
 
 	taskQueue := &TaskQueue{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(taskQueue); decodeErr != nil {
-		log.Printf("error decoding the output of taskqueue create: %s", decodeErr)
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(taskQueue); err != nil {
+		return nil, err
 	}
 
 	return taskQueue, nil
@@ -85,8 +99,6 @@ func (ws *TaskQueueClient) Fetch(workspaceSID string, taskQueueSID string) (*Tas
 	resp, err := ws.Client.Get(url, nil)
 
 	if err != nil {
-		log.Printf("error fetching the requested taskqueue. workflowSID:%s,taskQueue:%s error:%s",
-			workspaceSID, taskQueueSID, err)
 		return nil, err
 	}
 
@@ -94,33 +106,30 @@ func (ws *TaskQueueClient) Fetch(workspaceSID string, taskQueueSID string) (*Tas
 
 	taskqueue := &TaskQueue{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(taskqueue); decodeErr != nil {
-		log.Printf("error decoding the output of taskqueue fetch: %s", decodeErr)
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(taskqueue); err != nil {
+		return nil, err
 	}
 
 	return taskqueue, nil
 }
 
 // Read returns all existing taskqueues.
-func (ws *TaskQueueClient) Read(workspaceSID string) (*[]TaskQueue, error) {
+func (ws *TaskQueueClient) Read(workspaceSID string, queryParams TaskQueueQueryParams) (*TaskQueueList, error) {
 	url := fmt.Sprintf("%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues")
 
-	resp, err := ws.Client.Get(url, nil)
+	resp, err := ws.Client.Get(url, queryParams)
 
 	if err != nil {
-		log.Printf("error fetching taskQueues: %s", err)
 		return nil, err
 	}
 
-	taskqueues := make([]TaskQueue, 0)
+	taskqueues := &TaskQueueList{}
 
 	if decodeErr := json.NewDecoder(resp.Body).Decode(&taskqueues); decodeErr != nil {
-		log.Printf("error decoding the output of taskQueue fetch: %s", decodeErr)
 		return nil, decodeErr
 	}
 
-	return &taskqueues, nil
+	return taskqueues, nil
 }
 
 // Update updates taskqueue with given config.
@@ -131,7 +140,6 @@ func (ws *TaskQueueClient) Update(taskQueueParams TaskQueueParams, workspaceSID 
 	resp, err := ws.Client.Post(url, taskQueueParams)
 
 	if err != nil {
-		log.Printf("error updating taskQueue: %s", err)
 		return nil, err
 	}
 
@@ -139,9 +147,8 @@ func (ws *TaskQueueClient) Update(taskQueueParams TaskQueueParams, workspaceSID 
 
 	taskQueue := &TaskQueue{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(taskQueue); decodeErr != nil {
-		log.Printf("error decoding the output of taskqueue fetch: %s", decodeErr)
-		return nil, decodeErr
+	if err := json.NewDecoder(resp.Body).Decode(taskQueue); err != nil {
+		return nil, err
 	}
 
 	return taskQueue, nil
@@ -150,8 +157,12 @@ func (ws *TaskQueueClient) Update(taskQueueParams TaskQueueParams, workspaceSID 
 // Delete deletes taskQueue with the given SID.
 func (ws *TaskQueueClient) Delete(workspaceSID string, taskqueueSID string) error {
 	url := fmt.Sprintf("%s/%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues", taskqueueSID)
+	resp, err := ws.Client.Delete(url)
 
-	_, err := ws.Client.Delete(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
 
 	return err
 }

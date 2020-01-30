@@ -1,10 +1,9 @@
-// Package taskrouter provides CRUD library for taskrouter subresources.
-package taskrouter
+package twilio
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"log"
 	"time"
 
 	twilio "github.com/twilio/twilio-go/internal"
@@ -26,9 +25,21 @@ type Activity struct {
 
 // ActivityParams activity params to create/update activity.
 type ActivityParams struct {
-	Available    string `url:"Available,omitempty"`
-	FriendlyName string `url:"FriendlyName,omitempty"`
-	WorkspaceSid string `url:"WorkspaceSid,omitempty"`
+	Available    *string `url:"Available,omitempty"`
+	FriendlyName string  `url:"FriendlyName,omitempty"`
+}
+
+// ActivityList struct to parse response of activity read.
+type ActivityList struct {
+	Activities *[]Activity `json:"activities"`
+	Meta       *Meta       `json:"meta,omitempty"`
+}
+
+// ActivityQueryParams query params to read workspaces.
+type ActivityQueryParams struct {
+	FriendlyName *string `url:"FriendlyName,omitempty"`
+	Available    *string `url:"Available,omitempty"`
+	PageSize     *int    `url:"PageSize,omitempty"`
 }
 
 // ActivityClient is the entrypoint for activity CRUD.
@@ -50,10 +61,13 @@ func NewActivityClient(twilioClient *twilio.Client) *ActivityClient {
 func (ac *ActivityClient) Create(activityParams ActivityParams, workspaceSID string) (*Activity, error) {
 	url := fmt.Sprintf("%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities")
 
+	if len(activityParams.FriendlyName) == 0 {
+		return nil, errors.New("friendlyname is required in activityparams")
+	}
+
 	resp, err := ac.Client.Post(url, activityParams)
 
 	if err != nil {
-		log.Printf("error creating activity: %s", err)
 		return nil, err
 	}
 
@@ -61,9 +75,8 @@ func (ac *ActivityClient) Create(activityParams ActivityParams, workspaceSID str
 
 	activity := &Activity{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(activity); decodeErr != nil {
-		log.Printf("error decoding the output of activity create: %s", decodeErr)
-		return nil, decodeErr
+	if err = json.NewDecoder(resp.Body).Decode(activity); err != nil {
+		return nil, err
 	}
 
 	return activity, nil
@@ -75,7 +88,6 @@ func (ac *ActivityClient) Fetch(workspaceSID string, activitySID string) (*Activ
 	resp, err := ac.Client.Get(url, nil)
 
 	if err != nil {
-		log.Printf("error fetching activity: %s", err)
 		return nil, err
 	}
 
@@ -83,33 +95,30 @@ func (ac *ActivityClient) Fetch(workspaceSID string, activitySID string) (*Activ
 
 	activity := &Activity{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(activity); decodeErr != nil {
-		log.Printf("error decoding the output of activity fetch: %s", decodeErr)
-		return nil, decodeErr
+	if err = json.NewDecoder(resp.Body).Decode(activity); err != nil {
+		return nil, err
 	}
 
 	return activity, nil
 }
 
 // Read returns all existing activities for a workspace.
-func (ac *ActivityClient) Read(workspaceSID string) (*[]Activity, error) {
+func (ac *ActivityClient) Read(workspaceSID string) (*ActivityList, error) {
 	url := fmt.Sprintf("%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities")
 
 	resp, err := ac.Client.Get(url, nil)
 
 	if err != nil {
-		log.Printf("error reading activities: %s", err)
 		return nil, err
 	}
 
-	activities := make([]Activity, 0)
+	activities := &ActivityList{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(&activities); decodeErr != nil {
-		log.Printf("error decoding the output of activity read: %s", decodeErr)
-		return nil, decodeErr
+	if err = json.NewDecoder(resp.Body).Decode(&activities); err != nil {
+		return nil, err
 	}
 
-	return &activities, nil
+	return activities, nil
 }
 
 // Update updates activity with given config.
@@ -120,7 +129,6 @@ func (ac *ActivityClient) Update(activityParams ActivityParams, workspaceSID str
 	resp, err := ac.Client.Post(url, activityParams)
 
 	if err != nil {
-		log.Printf("error updating activity: %s", err)
 		return nil, err
 	}
 
@@ -128,9 +136,8 @@ func (ac *ActivityClient) Update(activityParams ActivityParams, workspaceSID str
 
 	activity := &Activity{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(activity); decodeErr != nil {
-		log.Printf("error decoding the output of activity update: %s", decodeErr)
-		return nil, decodeErr
+	if err = json.NewDecoder(resp.Body).Decode(activity); err != nil {
+		return nil, err
 	}
 
 	return activity, nil
@@ -140,7 +147,12 @@ func (ac *ActivityClient) Update(activityParams ActivityParams, workspaceSID str
 func (ac *ActivityClient) Delete(workspaceSID string, activitySID string) error {
 	url := fmt.Sprintf("%s/%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities", activitySID)
 
-	_, err := ac.Client.Delete(url)
+	resp, err := ac.Client.Delete(url)
+
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
 
 	return err
 }

@@ -1,10 +1,9 @@
-// Package taskrouter provides CRUD library for taskrouter subresources.
-package taskrouter
+package twilio
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"log"
 	"time"
 
 	twilio "github.com/twilio/twilio-go/internal"
@@ -18,28 +17,40 @@ type Workspace struct {
 	AccountSid           string            `json:"account_sid"`
 	DateCreated          time.Time         `json:"date_created"`
 	DateUpdated          time.Time         `json:"date_updated"`
-	DefaultActivityName  string            `json:"default_activity_name"`
-	DefaultActivitySid   string            `json:"default_activity_sid"`
-	TimeoutActivityName  string            `json:"timeout_activity_name"`
-	TimeoutActivitySid   string            `json:"timeout_activity_sid"`
-	URL                  string            `json:"url"`
+	DefaultActivityName  *string           `json:"default_activity_name"`
+	DefaultActivitySid   *string           `json:"default_activity_sid"`
+	TimeoutActivityName  *string           `json:"timeout_activity_name"`
+	TimeoutActivitySid   *string           `json:"timeout_activity_sid"`
+	URL                  *string           `json:"url"`
 	Links                map[string]string `json:"links"`
 	FriendlyName         string            `json:"friendly_name"`
-	EventCallbackURL     string            `json:"event_callback_url"`
-	EventsFilter         string            `json:"events_filter"`
-	MultitaskEnabled     bool              `json:"multi_task_enabled"`
-	Template             string            `json:"template"`
-	PrioritizeQueueOrder string            `json:"prioritize_queue_order"`
+	EventCallbackURL     *string           `json:"event_callback_url"`
+	EventsFilter         *string           `json:"events_filter"`
+	MultitaskEnabled     *bool             `json:"multi_task_enabled"`
+	Template             *string           `json:"template"`
+	PrioritizeQueueOrder *string           `json:"prioritize_queue_order"`
 }
 
-// WorkspaceParams workspace params for CRUD
+// WorkspaceParams workspace params for CRUD.
 type WorkspaceParams struct {
-	FriendlyName         string `url:"FriendlyName,omitempty"`
-	EventCallbackURL     string `url:"EventCallbackUrl,omitempty"`
-	EventsFilter         string `url:"EventsFilter,omitempty"`
-	MultitaskEnabled     bool   `url:"MultitaskEnabled,omitempty"`
-	Template             string `url:"Template,omitempty"`
-	PrioritizeQueueOrder string `url:"PrioritizeQueueOrder,omitempty"`
+	FriendlyName         string  `url:"FriendlyName,omitempty"`
+	EventCallbackURL     *string `url:"EventCallbackUrl,omitempty"`
+	EventsFilter         *string `url:"EventsFilter,omitempty"`
+	MultitaskEnabled     *bool   `url:"MultitaskEnabled,omitempty"`
+	Template             *string `url:"Template,omitempty"`
+	PrioritizeQueueOrder *string `url:"PrioritizeQueueOrder,omitempty"`
+}
+
+// WorkspaceList struct to parse response of workspace read.
+type WorkspaceList struct {
+	Workspaces *[]Workspace `json:"workspaces"`
+	Meta       *Meta        `json:"meta,omitempty"`
+}
+
+// WorkspaceQueryParams query params to read workspaces.
+type WorkspaceQueryParams struct {
+	FriendlyName *string `url:"FriendlyName,omitempty"`
+	PageSize     *int    `url:"PageSize,omitempty"`
 }
 
 // WorkspaceClient is the entrypoint for the workspace CRUD.
@@ -59,12 +70,15 @@ func NewWorkspaceClient(twilioClient *twilio.Client) *WorkspaceClient {
 
 // Create creates workspace with the given the config.
 func (ws *WorkspaceClient) Create(workspaceParams WorkspaceParams) (*Workspace, error) {
+	if len(workspaceParams.FriendlyName) == 0 {
+		return nil, errors.New("friendlyname is required in workspaceParams")
+	}
+
 	url := ws.ServiceURL
 
 	resp, err := ws.Client.Post(url, workspaceParams)
 
 	if err != nil {
-		log.Printf("error creating workspace: %s", err)
 		return nil, err
 	}
 
@@ -72,9 +86,8 @@ func (ws *WorkspaceClient) Create(workspaceParams WorkspaceParams) (*Workspace, 
 
 	workspace := &Workspace{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(workspace); decodeErr != nil {
-		log.Printf("error decoding the output of workspace create: %s", decodeErr)
-		return nil, decodeErr
+	if err = json.NewDecoder(resp.Body).Decode(workspace); err != nil {
+		return nil, err
 	}
 
 	return workspace, nil
@@ -86,7 +99,6 @@ func (ws *WorkspaceClient) Fetch(workspaceSID string) (*Workspace, error) {
 	resp, err := ws.Client.Get(url, nil)
 
 	if err != nil {
-		log.Printf("error fetching workspace: %s", err)
 		return nil, err
 	}
 
@@ -94,33 +106,30 @@ func (ws *WorkspaceClient) Fetch(workspaceSID string) (*Workspace, error) {
 
 	workspace := &Workspace{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(workspace); decodeErr != nil {
-		log.Printf("error decoding the output of workspace fetch: %s", decodeErr)
-		return nil, decodeErr
+	if err = json.NewDecoder(resp.Body).Decode(workspace); err != nil {
+		return nil, err
 	}
 
 	return workspace, nil
 }
 
 // Read returns all existing workspaces.
-func (ws *WorkspaceClient) Read() (*[]Workspace, error) {
+func (ws *WorkspaceClient) Read(queryParams *WorkspaceQueryParams) (*WorkspaceList, error) {
 	url := ws.ServiceURL
 
-	resp, err := ws.Client.Get(url, nil)
+	resp, err := ws.Client.Get(url, queryParams)
 
 	if err != nil {
-		log.Printf("error reading workspaces: %s", err)
 		return nil, err
 	}
 
-	workspaces := make([]Workspace, 0)
+	workspaces := &WorkspaceList{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(&workspaces); decodeErr != nil {
-		log.Printf("error decoding the output of workspace read: %s", decodeErr)
-		return nil, decodeErr
+	if err = json.NewDecoder(resp.Body).Decode(&workspaces); err != nil {
+		return nil, err
 	}
 
-	return &workspaces, nil
+	return workspaces, nil
 }
 
 // Update updates workspace with given config.
@@ -130,7 +139,6 @@ func (ws *WorkspaceClient) Update(workspaceParams WorkspaceParams, workspaceSID 
 	resp, err := ws.Client.Post(url, workspaceParams)
 
 	if err != nil {
-		log.Printf("error updating workspace: %s", err)
 		return nil, err
 	}
 
@@ -138,9 +146,8 @@ func (ws *WorkspaceClient) Update(workspaceParams WorkspaceParams, workspaceSID 
 
 	workspace := &Workspace{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(workspace); decodeErr != nil {
-		log.Printf("error decoding the output of workspace update: %s", decodeErr)
-		return nil, decodeErr
+	if err = json.NewDecoder(resp.Body).Decode(workspace); err != nil {
+		return nil, err
 	}
 
 	return workspace, nil
@@ -150,7 +157,12 @@ func (ws *WorkspaceClient) Update(workspaceParams WorkspaceParams, workspaceSID 
 func (ws *WorkspaceClient) Delete(workspaceSID string) error {
 	url := fmt.Sprintf("%s/%s", ws.ServiceURL, workspaceSID)
 
-	_, err := ws.Client.Delete(url)
+	resp, err := ws.Client.Delete(url)
+
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
 
 	return err
 }
