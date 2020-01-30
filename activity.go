@@ -12,8 +12,6 @@ import (
 // An Activity describes the current status of a Worker,
 // which determines whether they are eligible to receive task assignments.
 // refer: https://www.twilio.com/docs/taskrouter/api/activity
-
-// Activity activity.
 type Activity struct {
 	AccountSid   string    `json:"account_sid"`
 	Available    string    `json:"available"`

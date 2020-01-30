@@ -9,11 +9,9 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
-// Workflows control how tasks will be prioritized and routed into Queues,
+// Workflow controls how tasks will be prioritized and routed into Queues,
 // and how Tasks should escalate in priority or move across queues over time.
 // refer: https://www.twilio.com/docs/taskrouter/api/workflow.
-
-// Workflow workflow struct.
 type Workflow struct {
 	AssignmentCallbackURL         *string           `json:"assignment_callback_url"`
 	Configuration                 *string           `json:"configuration"`

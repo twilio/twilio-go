@@ -11,8 +11,6 @@ import (
 
 // A Workspace is a container for your Tasks, Workers, TaskQueues, Workflows, and Activities.
 // refer: https://www.twilio.com/docs/taskrouter/api/workspace.
-
-// Workspace struct.
 type Workspace struct {
 	Sid                  string            `json:"sid"`
 	AccountSid           string            `json:"account_sid"`

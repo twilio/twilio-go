@@ -9,10 +9,8 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
-// TaskQueues allow you to categorize Tasks and describe which Workers are eligible to handle those Tasks.
+// TaskQueue allow you to categorize Tasks and describe which Workers are eligible to handle those Tasks.
 // refer: https://www.twilio.com/docs/taskrouter/api/task-queue
-
-// TaskQueue taskqueue struct.
 type TaskQueue struct {
 	AccountSid              string            `json:"account_sid"`
 	AssignmentActivitySid   *string           `json:"assignment_activity_sid"`
