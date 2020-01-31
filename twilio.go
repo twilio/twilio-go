@@ -20,6 +20,7 @@ type Twilio struct {
 // ChatClient holds all chat related resources.
 type ChatClient struct {
 	Service *ChatServiceClient
+	Role    *ChatRoleClient
 }
 
 // ProxyClient holds all proxy related resources.
@@ -44,6 +45,7 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	twilioClient.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(client)
 	twilioClient.Chat = &ChatClient{
 		Service: NewChatServiceClient(client),
+		Role:    NewChatRoleClient(client),
 	}
 	twilioClient.Proxy = &ProxyClient{
 		Service:     NewProxyServiceClient(client),
