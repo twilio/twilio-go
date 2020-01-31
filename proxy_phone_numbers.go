@@ -13,7 +13,7 @@ import (
 type ProxyPhoneNumber struct {
 	SID             string          `json:"sid"`
 	AccountSID      string          `json:"account_sid"`
-	proxyServiceSID string          `json:"service_sid"`
+	ProxyServiceSID string          `json:"service_sid"`
 	DateCreated     time.Time       `json:"date_created"`
 	DateUpdated     time.Time       `json:"date_updated"`
 	PhoneNumber     string          `json:"phone_number"`
@@ -35,9 +35,9 @@ type ProxyPhoneNumberUpdateParams struct {
 // ProxyPhoneNumberCreateParams is the set of parameters that can
 // be used when creating an Proxy Phone Number.
 type ProxyPhoneNumberCreateParams struct {
-	PhoneNumberSIDSID *string `url:"Sid,omitempty"`
-	IsReserved        *bool   `url:"IsReserved,omitempty"`
-	PhoneNumber       *string `url:"PhoneNumber,omitempty"`
+	PhoneNumberSID *string `url:"Sid,omitempty"`
+	IsReserved     *bool   `url:"IsReserved,omitempty"`
+	PhoneNumber    *string `url:"PhoneNumber,omitempty"`
 }
 
 // ProxyPhoneNumberClient is the entrypoint for the Proxy Phone Number resource.
