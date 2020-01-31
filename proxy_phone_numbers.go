@@ -57,12 +57,17 @@ func NewProxyPhoneNumberClient(client *twilio.Client) *ProxyPhoneNumberClient {
 }
 
 // Create creates a new ProxyPhoneNumber.
-func (c ProxyPhoneNumberClient) Create(proxyServiceSID string, params *ProxyPhoneNumberCreateParams) (*ProxyPhoneNumber, error) {
+func (c ProxyPhoneNumberClient) Create(
+	proxyServiceSID string,
+	params *ProxyPhoneNumberCreateParams,
+) (*ProxyPhoneNumber, error) {
 	uri := fmt.Sprintf("%s/%s/PhoneNumbers", c.serviceURL, proxyServiceSID)
 	resp, err := c.client.Post(uri, params)
+
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 
 	p := &ProxyPhoneNumber{}
@@ -77,9 +82,11 @@ func (c ProxyPhoneNumberClient) Create(proxyServiceSID string, params *ProxyPhon
 func (c ProxyPhoneNumberClient) Read(proxyServiceSID string, sid string) (*ProxyPhoneNumber, error) {
 	uri := fmt.Sprintf("%s/%s/PhoneNumbers/%s", c.serviceURL, proxyServiceSID, sid)
 	resp, err := c.client.Get(uri, nil)
+
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 
 	p := &ProxyPhoneNumber{}
@@ -91,12 +98,18 @@ func (c ProxyPhoneNumberClient) Read(proxyServiceSID string, sid string) (*Proxy
 }
 
 // Update updates an ProxyPhoneNumber.
-func (c ProxyPhoneNumberClient) Update(proxyServiceSID string, sid string, params *ProxyPhoneNumberUpdateParams) (*ProxyPhoneNumber, error) {
+func (c ProxyPhoneNumberClient) Update(
+	proxyServiceSID string,
+	sid string,
+	params *ProxyPhoneNumberUpdateParams,
+) (*ProxyPhoneNumber, error) {
 	uri := fmt.Sprintf("%s/%s/PhoneNumbers/%s", c.serviceURL, proxyServiceSID, sid)
 	resp, err := c.client.Post(uri, params)
+
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 
 	p := &ProxyPhoneNumber{}
@@ -111,9 +124,11 @@ func (c ProxyPhoneNumberClient) Update(proxyServiceSID string, sid string, param
 func (c ProxyPhoneNumberClient) Delete(proxyServiceSID string, sid string) error {
 	uri := fmt.Sprintf("%s/%s/PhoneNumbers/%s", c.serviceURL, proxyServiceSID, sid)
 	resp, err := c.client.Delete(uri)
+
 	if err != nil {
 		return err
 	}
+
 	defer resp.Body.Close()
 
 	return err
