@@ -26,14 +26,14 @@ type ProxyPhoneNumber struct {
 }
 
 // ProxyPhoneNumberUpdateParams is the set of parameters that can
-// be used when updating updating an Proxy Phone Number.
+// be used when updating updating a Proxy Phone Number.
 type ProxyPhoneNumberUpdateParams struct {
 	PhoneNumberSID *string `url:"Sid,omitempty"`
 	IsReserved     *bool   `url:"IsReserved,omitempty"`
 }
 
 // ProxyPhoneNumberCreateParams is the set of parameters that can
-// be used when creating an Proxy Phone Number.
+// be used when creating a Proxy Phone Number.
 type ProxyPhoneNumberCreateParams struct {
 	PhoneNumberSID *string `url:"Sid,omitempty"`
 	IsReserved     *bool   `url:"IsReserved,omitempty"`
@@ -41,7 +41,7 @@ type ProxyPhoneNumberCreateParams struct {
 }
 
 // ProxyPhoneNumberClient is the entrypoint for the Proxy Phone Number resource.
-// See: https://www.twilio.com/docs/phone-numbers/api/ProxyPhoneNumber-resource
+// See: https://www.twilio.com/docs/proxy/api/phone-number
 type ProxyPhoneNumberClient struct {
 	client     *twilio.Client
 	serviceURL func(*path) string
