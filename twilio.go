@@ -24,7 +24,8 @@ type ChatClient struct {
 
 // ProxyClient holds all proxy related resources.
 type ProxyClient struct {
-	Service *ProxyServiceClient
+	Service     *ProxyServiceClient
+	PhoneNumber *ProxyPhoneNumberClient
 }
 
 const interval = 10
@@ -44,7 +45,10 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	twilioClient.Chat = &ChatClient{
 		Service: NewChatServiceClient(client),
 	}
-	twilioClient.Proxy = &ProxyClient{Service: NewProxyServiceClient(client)}
+	twilioClient.Proxy = &ProxyClient{
+		Service:     NewProxyServiceClient(client),
+		PhoneNumber: NewProxyPhoneNumberClient(client),
+	}
 	twilioClient.TaskRouter = NewTaskRouterClient(client)
 
 	return &twilioClient
