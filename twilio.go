@@ -15,12 +15,18 @@ type Twilio struct {
 	TaskRouter            *TaskRouterClient
 	AvailablePhoneNumbers *AvailablePhoneNumbersClient
 	IncomingPhoneNumbers  *IncomingPhoneNumberClient
+	Studio                *StudioClient
 }
 
 // ChatClient holds all chat related resources.
 type ChatClient struct {
 	Service *ChatServiceClient
 	Role    *ChatRoleClient
+}
+
+// StudioClient holds all studio related resources.
+type StudioClient struct {
+	Flow *StudioFlowClient
 }
 
 // ProxyClient holds all proxy related resources.
@@ -48,6 +54,7 @@ func NewClient(accountSid string, authToken string) *Twilio {
 	}
 	twilioClient.Proxy = &ProxyClient{Service: NewProxyServiceClient(client)}
 	twilioClient.TaskRouter = NewTaskRouterClient(client)
+	twilioClient.Studio = &StudioClient{Flow: NewStudioFlowClient(client)}
 
 	return &twilioClient
 }
