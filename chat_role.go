@@ -1,4 +1,3 @@
-// nolint
 package twilio
 
 import (
@@ -9,7 +8,7 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
-// Chat Roles represent what a user can do within a Chat Service instance.
+// ChatRole represents what a user can do within a Chat Service instance.
 // See: https://www.twilio.com/docs/chat/rest/role-resource
 type ChatRole struct {
 	Sid          string    `json:"sid"`
@@ -40,7 +39,7 @@ type ChatRolesMeta struct {
 	Key             string `json:"key"`
 }
 
-// ChatServiceParams is the set of parameters that can be used when creating or updating a Chat Role.
+// ChatRoleParams is the set of parameters that can be used when creating or updating a Chat Role.
 type ChatRoleParams struct {
 	FriendlyName string   `url:"FriendlyName,omitempty"`
 	Type         string   `url:"Type,omitempty"`
@@ -53,7 +52,7 @@ type ChatRoleClient struct {
 	client     *twilio.Client
 }
 
-// NewChatServiceClient constructs a new Chat Role client.
+// NewChatRoleClient constructs a new Chat Role client.
 func NewChatRoleClient(request *twilio.Client) *ChatRoleClient {
 	c := new(ChatRoleClient)
 	c.client = request
