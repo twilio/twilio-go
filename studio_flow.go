@@ -27,10 +27,10 @@ type StudioFlow struct {
 
 // StudioFlowParams is the set of parameters that can be used when creating or updating a service.
 type StudioFlowParams struct {
-	FriendlyName  *string `url:"FriendlyName,omitempty"`
-	Status        *string `url:"Status,omitempty"`
-	Definition    *string `url:"Definition,omitempty"`
-	CommitMessage *string `url:"CommitMessage,omitempty"`
+	FriendlyName  *string `form:"FriendlyName,omitempty"`
+	Status        *string `form:"Status,omitempty"`
+	Definition    *string `form:"Definition,omitempty"`
+	CommitMessage *string `form:"CommitMessage,omitempty"`
 }
 
 // StudioFlowClient is the entrypoint for the Proxy Service API.

@@ -86,9 +86,11 @@ func (c Client) SendRequest(method string, rawURL string, queryParams, formData 
 
 	if formData != nil {
 		f, err := form.EncodeToString(formData)
+		fmt.Printf("SSSS: %s", f)
 		if err != nil {
 			return nil, fmt.Errorf("error encoding form data: %v", err)
 		}
+
 		valueReader = strings.NewReader(f)
 	}
 
