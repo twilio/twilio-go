@@ -14,7 +14,7 @@ import (
 // refer: https://www.twilio.com/docs/taskrouter/api/activity
 type Activity struct {
 	AccountSid   string    `json:"account_sid"`
-	Available    string    `json:"available"`
+	Available    bool      `json:"available"`
 	DateCreated  time.Time `json:"date_created"`
 	DateUpdated  time.Time `json:"date_updated"`
 	FriendlyName string    `json:"friendly_name"`
