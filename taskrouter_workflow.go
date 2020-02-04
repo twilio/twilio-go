@@ -133,8 +133,8 @@ func (wf *WorkflowClient) Read(workspaceSID string, queryParams *WorkflowQueryPa
 }
 
 // Update updates workflow with given config.
-func (wf *WorkflowClient) Update(workspaceSID string, workflowParams *WorkflowParams,
-	workflowSID string) (*Workflow, error) {
+func (wf *WorkflowClient) Update(workspaceSID string,
+	workflowSID string, workflowParams *WorkflowParams) (*Workflow, error) {
 	url := fmt.Sprintf("%s/%s/%s/%s", wf.ServiceURL, workspaceSID, "Workflows", workflowSID)
 
 	resp, err := wf.Client.Post(url, workflowParams)
