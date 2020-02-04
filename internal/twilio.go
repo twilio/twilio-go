@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/ajg/form"
 	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
 )
@@ -84,12 +85,11 @@ func (c Client) SendRequest(method string, rawURL string, queryParams, formData 
 	valueReader := &strings.Reader{}
 
 	if formData != nil {
-		v, _ := query.Values(formData)
-		qs := v.Encode()
-		// Convert "[" and "]" (%5B and %5D) to "." and "" to conform to Twilio form-urlencoded specs.
-		// replacer := strings.NewReplacer("%5B", ".", "%5D", "")
-		// dotNotationQs := replacer.Replace(qs)
-		valueReader = strings.NewReader(qs)
+		f, err := form.EncodeToString(formData)
+		if err != nil {
+			return nil, fmt.Errorf("error encoding form data: %v", err)
+		}
+		valueReader = strings.NewReader(f)
 	}
 
 	req, err := http.NewRequest(method, u.String(), valueReader)
