@@ -65,7 +65,7 @@ func NewWorkflowClient(twilioClient *twilio.Client) *WorkflowClient {
 }
 
 // Create creates workflow with the given the config.
-func (wf *WorkflowClient) Create(workflowParams *WorkflowParams, workspaceSID string) (*Workflow, error) {
+func (wf *WorkflowClient) Create(workspaceSID string, workflowParams *WorkflowParams) (*Workflow, error) {
 	if len(workflowParams.FriendlyName) == 0 {
 		return nil, errors.New("friendly name is required in workflowParams")
 	}
@@ -133,8 +133,8 @@ func (wf *WorkflowClient) Read(workspaceSID string, queryParams *WorkflowQueryPa
 }
 
 // Update updates workflow with given config.
-func (wf *WorkflowClient) Update(workflowParams *WorkflowParams, workspaceSID string,
-	workflowSID string) (*Workflow, error) {
+func (wf *WorkflowClient) Update(workspaceSID string,
+	workflowSID string, workflowParams *WorkflowParams) (*Workflow, error) {
 	url := fmt.Sprintf("%s/%s/%s/%s", wf.ServiceURL, workspaceSID, "Workflows", workflowSID)
 
 	resp, err := wf.Client.Post(url, workflowParams)

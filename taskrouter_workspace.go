@@ -132,7 +132,7 @@ func (ws *WorkspaceClient) Read(queryParams *WorkspaceQueryParams) (*WorkspaceLi
 }
 
 // Update updates workspace with given config.
-func (ws *WorkspaceClient) Update(workspaceParams *WorkspaceParams, workspaceSID string) (*Workspace, error) {
+func (ws *WorkspaceClient) Update(workspaceSID string, workspaceParams *WorkspaceParams) (*Workspace, error) {
 	url := fmt.Sprintf("%s/%s", ws.ServiceURL, workspaceSID)
 
 	resp, err := ws.Client.Post(url, workspaceParams)
