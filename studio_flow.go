@@ -3,9 +3,8 @@ package twilio
 import (
 	"encoding/json"
 	"fmt"
-	"time"
-
 	twilio "github.com/twilio/twilio-go/internal"
+	"time"
 )
 
 // StudioFlow is the top-level scope of all other resources in the Programmable Proxy REST API.
@@ -28,10 +27,10 @@ type StudioFlow struct {
 
 // StudioFlowParams is the set of parameters that can be used when creating or updating a service.
 type StudioFlowParams struct {
-	FriendlyName  *string     `url:"FriendlyName"`
-	Status        *string     `url:"UniqueName,omitempty"`
-	Definition    interface{} `url:"Definition"`
-	CommitMessage *string     `url:"CommitMessage"`
+	FriendlyName  *string `url:"FriendlyName,omitempty"`
+	Status        *string `url:"Status,omitempty"`
+	Definition    *string `url:"Definition,omitempty"`
+	CommitMessage *string `url:"CommitMessage,omitempty"`
 }
 
 // StudioFlowClient is the entrypoint for the Proxy Service API.
