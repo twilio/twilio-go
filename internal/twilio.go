@@ -6,12 +6,13 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strconv"
 	"strings"
 
-	"github.com/ajg/form"
 	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
+	"github.com/twilio/twilio-go/form"
 )
 
 // Error provides information about an unsuccessful request.
@@ -46,6 +47,11 @@ func (c *Client) basicAuth() (string, string) {
 }
 
 const errorStatusCode = 400
+const (
+	keepZeros = true
+	delimiter = '.'
+	escape    = '\\'
+)
 
 func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 	if client == nil {
@@ -85,13 +91,14 @@ func (c Client) SendRequest(method string, rawURL string, queryParams, formData 
 	valueReader := &strings.Reader{}
 
 	if formData != nil {
-		f, err := form.EncodeToString(formData)
-		fmt.Printf("SSSS: %s", f)
-		if err != nil {
-			return nil, fmt.Errorf("error encoding form data: %v", err)
-		}
+		v, _ := form.EncodeToStringWith(formData, delimiter, escape, keepZeros)
+		// Arrays should not express heirarchy for Twilio APIs
+		// For example, Permission.0=sendMessage&Permission.1="leaveChannel"
+		// Becomes: Permission=sendMessage&Permission="leaveChannel"
+		regex := regexp.MustCompile("\\.\\d+")
+		s := regex.ReplaceAllString(v, "")
 
-		valueReader = strings.NewReader(f)
+		valueReader = strings.NewReader(s)
 	}
 
 	req, err := http.NewRequest(method, u.String(), valueReader)

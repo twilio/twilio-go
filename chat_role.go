@@ -11,15 +11,15 @@ import (
 // ChatRole represents what a user can do within a Chat Service instance.
 // See: https://www.twilio.com/docs/chat/rest/role-resource
 type ChatRole struct {
-	Sid          string    `json:"sid"`
-	AccountSid   string    `json:"account_sid"`
-	ServiceSid   string    `json:"service_sid"`
-	FriendlyName string    `json:"friendly_name"`
-	Type         string    `json:"type"`
-	Permissions  []string  `json:"permissions"`
-	DateCreated  time.Time `json:"date_created"`
-	DateUpdated  time.Time `json:"date_updated"`
-	URL          string    `json:"url"`
+	Sid          *string    `json:"sid"`
+	AccountSid   *string    `json:"account_sid"`
+	ServiceSid   *string    `json:"service_sid"`
+	FriendlyName *string    `json:"friendly_name"`
+	Type         *string    `json:"type"`
+	Permissions  []*string  `json:"permissions"`
+	DateCreated  *time.Time `json:"date_created"`
+	DateUpdated  *time.Time `json:"date_updated"`
+	URL          *string    `json:"url"`
 }
 
 // ChatRoles represents a paginated set of Chat Role structs.
@@ -30,20 +30,20 @@ type ChatRoles struct {
 
 // ChatRolesMeta represents pagination metadata for ChatRoles.
 type ChatRolesMeta struct {
-	Page            int    `json:"page"`
-	PageSize        int    `json:"page_size"`
-	FirstPageURL    string `json:"first_page_url"`
-	PreviousPageURL string `json:"previous_page_url"`
-	URL             string `json:"url"`
-	NextPageURL     string `json:"next_page_url"`
-	Key             string `json:"key"`
+	Page            *int    `json:"page"`
+	PageSize        *int    `json:"page_size"`
+	FirstPageURL    *string `json:"first_page_url"`
+	PreviousPageURL *string `json:"previous_page_url"`
+	URL             *string `json:"url"`
+	NextPageURL     *string `json:"next_page_url"`
+	Key             *string `json:"key"`
 }
 
 // ChatRoleParams is the set of parameters that can be used when creating or updating a Chat Role.
 type ChatRoleParams struct {
-	FriendlyName string   `url:"FriendlyName,omitempty"`
-	Type         string   `url:"Type,omitempty"`
-	Permission   []string `url:"Permission,omitempty"`
+	FriendlyName *string   `url:",omitempty"`
+	Type         *string   `url:",omitempty"`
+	Permission   []*string `url:",omitempty"`
 }
 
 // ChatRoleClient is the entrypoint for the Programmable Chat Role API.

@@ -11,18 +11,18 @@ import (
 // ProxyPhoneNumber represents a Twilio phone number provisioned from Twilio, ported or hosted to Twilio.
 // See: https://www.twilio.com/docs/proxy/api/phone-number
 type ProxyPhoneNumber struct {
-	SID             string          `json:"sid"`
-	AccountSID      string          `json:"account_sid"`
-	ProxyServiceSID string          `json:"service_sid"`
-	DateCreated     time.Time       `json:"date_created"`
-	DateUpdated     time.Time       `json:"date_updated"`
-	PhoneNumber     string          `json:"phone_number"`
-	FriendlyName    string          `json:"friendly_name"`
-	ISOCountry      string          `json:"iso_country"`
-	Capabilities    map[string]bool `json:"capabilities"`
-	URL             string          `json:"url"`
-	IsReserved      bool            `json:"is_reserved"`
-	InUse           int             `json:"in_use"`
+	SID             *string          `json:"sid"`
+	AccountSID      *string          `json:"account_sid"`
+	ProxyServiceSID *string          `json:"service_sid"`
+	DateCreated     *time.Time       `json:"date_created"`
+	DateUpdated     *time.Time       `json:"date_updated"`
+	PhoneNumber     *string          `json:"phone_number"`
+	FriendlyName    *string          `json:"friendly_name"`
+	ISOCountry      *string          `json:"iso_country"`
+	Capabilities    map[string]*bool `json:"capabilities"`
+	URL             *string          `json:"url"`
+	IsReserved      *bool            `json:"is_reserved"`
+	InUse           *int             `json:"in_use"`
 }
 
 // ProxyPhoneNumberUpdateParams is the set of parameters that can
@@ -35,9 +35,9 @@ type ProxyPhoneNumberUpdateParams struct {
 // ProxyPhoneNumberCreateParams is the set of parameters that can
 // be used when creating a Proxy Phone Number.
 type ProxyPhoneNumberCreateParams struct {
-	PhoneNumberSID *string `url:"Sid,omitempty"`
-	IsReserved     *bool   `url:"IsReserved,omitempty"`
-	PhoneNumber    *string `url:"PhoneNumber,omitempty"`
+	PhoneNumberSID *string `form:"Sid,omitempty"`
+	IsReserved     *bool   `form:"IsReserved,omitempty"`
+	PhoneNumber    *string `form:"PhoneNumber,omitempty"`
 }
 
 // ProxyPhoneNumberClient is the entrypoint for the Proxy Phone Number resource.

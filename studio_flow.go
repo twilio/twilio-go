@@ -11,26 +11,26 @@ import (
 // All other Programmable Proxy resources belong to a specific Service.
 // See: https://www.twilio.com/docs/studio/rest-api/v2
 type StudioFlow struct {
-	Sid           string            `json:"sid"`
-	AccountSID    string            `json:"account_sid"`
-	FriendlyName  string            `json:"friendly_name"`
-	Definition    interface{}       `json:"definition"`
-	Status        string            `json:"status"`
-	Revision      int               `json:"revision"`
-	CommitMessage *string           `json:"commit_message"`
-	Errors        interface{}       `json:"errors"`
-	DateCreated   time.Time         `json:"date_created"`
-	DateUpdated   time.Time         `json:"date_updated"`
-	URL           string            `json:"url"`
-	Links         map[string]string `json:"links"`
+	Sid           *string            `json:"sid"`
+	AccountSID    *string            `json:"account_sid"`
+	FriendlyName  *string            `json:"friendly_name"`
+	Definition    *interface{}       `json:"definition"`
+	Status        *string            `json:"status"`
+	Revision      *int               `json:"revision"`
+	CommitMessage *string            `json:"commit_message"`
+	Errors        *interface{}       `json:"errors"`
+	DateCreated   *time.Time         `json:"date_created"`
+	DateUpdated   *time.Time         `json:"date_updated"`
+	URL           *string            `json:"url"`
+	Links         map[string]*string `json:"links"`
 }
 
 // StudioFlowParams is the set of parameters that can be used when creating or updating a service.
 type StudioFlowParams struct {
-	FriendlyName  *string `form:"FriendlyName,omitempty"`
-	Status        *string `form:"Status,omitempty"`
-	Definition    *string `form:"Definition,omitempty"`
-	CommitMessage *string `form:"CommitMessage,omitempty"`
+	FriendlyName  *string `form:",omitempty"`
+	Status        *string `form:",omitempty"`
+	Definition    *string `form:",omitempty"`
+	CommitMessage *string `form:",omitempty"`
 }
 
 // StudioFlowClient is the entrypoint for the Proxy Service API.
