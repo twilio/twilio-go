@@ -13,7 +13,6 @@ import (
 // which determines whether they are eligible to receive task assignments.
 // refer: https://www.twilio.com/docs/taskrouter/api/activity
 type Activity struct {
-<<<<<<< HEAD
 	AccountSid   *string    `json:"account_sid"`
 	Available    *string    `json:"available"`
 	DateCreated  *time.Time `json:"date_created"`
@@ -22,16 +21,6 @@ type Activity struct {
 	Sid          *string    `json:"sid"`
 	WorkspaceSid *string    `json:"workspace_sid"`
 	URI          *string    `json:"url"`
-=======
-	AccountSid   string    `json:"account_sid"`
-	Available    bool      `json:"available"`
-	DateCreated  time.Time `json:"date_created"`
-	DateUpdated  time.Time `json:"date_updated"`
-	FriendlyName string    `json:"friendly_name"`
-	Sid          string    `json:"sid"`
-	WorkspaceSid string    `json:"workspace_sid"`
-	URI          string    `json:"url"`
->>>>>>> 290069fd5faa6913a80f233a53586df2dd08688b
 }
 
 // ActivityParams activity params to create/update activity.

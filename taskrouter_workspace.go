@@ -68,13 +68,8 @@ func NewWorkspaceClient(twilioClient *twilio.Client) *WorkspaceClient {
 }
 
 // Create creates workspace with the given the config.
-<<<<<<< HEAD
 func (ws *WorkspaceClient) Create(workspaceParams WorkspaceParams) (*Workspace, error) {
 	if len(*workspaceParams.FriendlyName) == 0 {
-=======
-func (ws *WorkspaceClient) Create(workspaceParams *WorkspaceParams) (*Workspace, error) {
-	if len(workspaceParams.FriendlyName) == 0 {
->>>>>>> 290069fd5faa6913a80f233a53586df2dd08688b
 		return nil, errors.New("friendlyname is required in workspaceParams")
 	}
 
