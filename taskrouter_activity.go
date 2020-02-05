@@ -13,6 +13,7 @@ import (
 // which determines whether they are eligible to receive task assignments.
 // refer: https://www.twilio.com/docs/taskrouter/api/activity
 type Activity struct {
+<<<<<<< HEAD
 	AccountSid   *string    `json:"account_sid"`
 	Available    *string    `json:"available"`
 	DateCreated  *time.Time `json:"date_created"`
@@ -21,6 +22,16 @@ type Activity struct {
 	Sid          *string    `json:"sid"`
 	WorkspaceSid *string    `json:"workspace_sid"`
 	URI          *string    `json:"url"`
+=======
+	AccountSid   string    `json:"account_sid"`
+	Available    bool      `json:"available"`
+	DateCreated  time.Time `json:"date_created"`
+	DateUpdated  time.Time `json:"date_updated"`
+	FriendlyName string    `json:"friendly_name"`
+	Sid          string    `json:"sid"`
+	WorkspaceSid string    `json:"workspace_sid"`
+	URI          string    `json:"url"`
+>>>>>>> 290069fd5faa6913a80f233a53586df2dd08688b
 }
 
 // ActivityParams activity params to create/update activity.
@@ -58,7 +69,7 @@ func NewActivityClient(twilioClient *twilio.Client) *ActivityClient {
 }
 
 // Create creates activity with the given the config.
-func (ac *ActivityClient) Create(activityParams *ActivityParams, workspaceSID string) (*Activity, error) {
+func (ac *ActivityClient) Create(workspaceSID string, activityParams *ActivityParams) (*Activity, error) {
 	url := fmt.Sprintf("%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities")
 
 	if len(*activityParams.FriendlyName) == 0 {
@@ -122,8 +133,8 @@ func (ac *ActivityClient) Read(workspaceSID string) (*ActivityList, error) {
 }
 
 // Update updates activity with given config.
-func (ac *ActivityClient) Update(activityParams *ActivityParams, workspaceSID string,
-	activitySID string) (*Activity, error) {
+func (ac *ActivityClient) Update(workspaceSID string,
+	activitySID string, activityParams *ActivityParams) (*Activity, error) {
 	url := fmt.Sprintf("%s/%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities", activitySID)
 
 	resp, err := ac.Client.Post(url, activityParams)

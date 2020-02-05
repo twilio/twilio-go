@@ -68,8 +68,13 @@ func NewWorkspaceClient(twilioClient *twilio.Client) *WorkspaceClient {
 }
 
 // Create creates workspace with the given the config.
+<<<<<<< HEAD
 func (ws *WorkspaceClient) Create(workspaceParams WorkspaceParams) (*Workspace, error) {
 	if len(*workspaceParams.FriendlyName) == 0 {
+=======
+func (ws *WorkspaceClient) Create(workspaceParams *WorkspaceParams) (*Workspace, error) {
+	if len(workspaceParams.FriendlyName) == 0 {
+>>>>>>> 290069fd5faa6913a80f233a53586df2dd08688b
 		return nil, errors.New("friendlyname is required in workspaceParams")
 	}
 
@@ -132,7 +137,7 @@ func (ws *WorkspaceClient) Read(queryParams *WorkspaceQueryParams) (*WorkspaceLi
 }
 
 // Update updates workspace with given config.
-func (ws *WorkspaceClient) Update(workspaceParams WorkspaceParams, workspaceSID string) (*Workspace, error) {
+func (ws *WorkspaceClient) Update(workspaceSID string, workspaceParams *WorkspaceParams) (*Workspace, error) {
 	url := fmt.Sprintf("%s/%s", ws.ServiceURL, workspaceSID)
 
 	resp, err := ws.Client.Post(url, workspaceParams)

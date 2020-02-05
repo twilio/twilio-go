@@ -132,8 +132,8 @@ func (ws *TaskQueueClient) Read(workspaceSID string, queryParams *TaskQueueQuery
 }
 
 // Update updates taskqueue with given config.
-func (ws *TaskQueueClient) Update(taskQueueParams *TaskQueueParams, workspaceSID string,
-	taskQueueSID string) (*TaskQueue, error) {
+func (ws *TaskQueueClient) Update(workspaceSID string,
+	taskQueueSID string, taskQueueParams *TaskQueueParams) (*TaskQueue, error) {
 	url := fmt.Sprintf("%s/%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues", taskQueueSID)
 
 	resp, err := ws.Client.Post(url, taskQueueParams)
