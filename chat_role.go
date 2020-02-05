@@ -131,6 +131,8 @@ func (c *ChatRoleClient) Delete(serviceSid, sid string) error {
 	if err != nil {
 		return err
 	}
+
 	defer resp.Body.Close()
+
 	return err
 }

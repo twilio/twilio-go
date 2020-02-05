@@ -3,8 +3,9 @@ package twilio
 import (
 	"encoding/json"
 	"fmt"
-	twilio "github.com/twilio/twilio-go/internal"
 	"time"
+
+	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // StudioFlow is the top-level scope of all other resources in the Programmable Proxy REST API.
