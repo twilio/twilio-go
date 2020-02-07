@@ -10,11 +10,19 @@ import (
 
 // Twilio provides access to Twilio services.
 type Twilio struct {
+	*twilio.Credentials
+	*twilio.Client
+	defaultBaseURL        *string
+	common                service
 	Chat                  *ChatClient
 	Proxy                 *ProxyClient
 	TaskRouter            *TaskRouterClient
 	AvailablePhoneNumbers *AvailablePhoneNumbersClient
 	IncomingPhoneNumbers  *IncomingPhoneNumberClient
+}
+
+type service struct {
+	client *Twilio
 }
 
 // ChatClient holds all chat related resources.
@@ -37,21 +45,25 @@ func NewClient(accountSid string, authToken string) *Twilio {
 		Timeout: time.Second * interval,
 	}
 
-	credentials := twilio.Credentials{AccountSid: accountSid, AuthToken: authToken}
-	client := &twilio.Client{Credentials: credentials, BaseURL: "twilio.com", HTTPClient: httpClient}
+	credentials := &twilio.Credentials{AccountSid: accountSid, AuthToken: authToken}
 
-	twilioClient := Twilio{}
-	twilioClient.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(client)
-	twilioClient.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(client)
-	twilioClient.Chat = &ChatClient{
-		Service: NewChatServiceClient(client),
-		Role:    NewChatRoleClient(client),
+	c := &Twilio{
+		Credentials: credentials,
+		Client:      &twilio.Client{credentials, httpClient, "twilio.com"},
 	}
-	twilioClient.Proxy = &ProxyClient{
-		Service:     NewProxyServiceClient(client),
-		PhoneNumber: NewProxyPhoneNumberClient(client),
+	c.common.client = c
+	// twilioClient.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(client)
+	// twilioClient.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(client)
+	// twilioClient.Chat = &ChatClient{
+	// 	Service: NewChatServiceClient(client),
+	// 	Role:    NewChatRoleClient(client),
+	// }
+	c.Proxy = &ProxyClient{
+		Service: NewProxyServiceClient(c),
 	}
-	twilioClient.TaskRouter = NewTaskRouterClient(client)
+	// PhoneNumber: NewProxyPhoneNumberClient(client),
 
-	return &twilioClient
+	// twilioClient.TaskRouter = NewTaskRouterClient(client)
+
+	return c
 }

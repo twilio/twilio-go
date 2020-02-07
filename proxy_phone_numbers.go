@@ -44,10 +44,10 @@ type ProxyPhoneNumberCreateParams struct {
 // See: https://www.twilio.com/docs/proxy/api/phone-number
 type ProxyPhoneNumberClient struct {
 	client     *twilio.Client
-	serviceURL func(*path) string
+	serviceURL func(*pathParams) string
 }
 
-type path struct {
+type pathParams struct {
 	serviceSid string
 	sid        string
 }
@@ -56,7 +56,7 @@ type path struct {
 func NewProxyPhoneNumberClient(client *twilio.Client) *ProxyPhoneNumberClient {
 	pn := new(ProxyPhoneNumberClient)
 	pn.client = client
-	pn.serviceURL = func(p *path) string {
+	pn.serviceURL = func(p *pathParams) string {
 		return fmt.Sprintf("https://proxy.%s/v1/Services/%s/PhoneNumbers/%s", pn.client.BaseURL, p.serviceSid, p.sid)
 	}
 
@@ -68,7 +68,7 @@ func (c ProxyPhoneNumberClient) Create(
 	proxyServiceSID string,
 	params *ProxyPhoneNumberCreateParams,
 ) (*ProxyPhoneNumber, error) {
-	uri := c.serviceURL(&path{serviceSid: proxyServiceSID})
+	uri := c.serviceURL(&pathParams{serviceSid: proxyServiceSID})
 	resp, err := c.client.Post(uri, params)
 
 	if err != nil {
@@ -87,7 +87,7 @@ func (c ProxyPhoneNumberClient) Create(
 
 // Read returns the details of a ProxyPhoneNumber.
 func (c ProxyPhoneNumberClient) Read(proxyServiceSID string, sid string) (*ProxyPhoneNumber, error) {
-	uri := c.serviceURL(&path{proxyServiceSID, sid})
+	uri := c.serviceURL(&pathParams{proxyServiceSID, sid})
 	resp, err := c.client.Get(uri, nil)
 
 	if err != nil {
@@ -110,7 +110,7 @@ func (c ProxyPhoneNumberClient) Update(
 	sid string,
 	params *ProxyPhoneNumberUpdateParams,
 ) (*ProxyPhoneNumber, error) {
-	uri := c.serviceURL(&path{proxyServiceSID, sid})
+	uri := c.serviceURL(&pathParams{proxyServiceSID, sid})
 	resp, err := c.client.Post(uri, params)
 
 	if err != nil {
@@ -129,7 +129,7 @@ func (c ProxyPhoneNumberClient) Update(
 
 // Delete releases an existing ProxyPhoneNumber.
 func (c ProxyPhoneNumberClient) Delete(proxyServiceSID string, sid string) error {
-	uri := c.serviceURL(&path{proxyServiceSID, sid})
+	uri := c.serviceURL(&pathParams{proxyServiceSID, sid})
 	resp, err := c.client.Delete(uri)
 
 	if err != nil {
