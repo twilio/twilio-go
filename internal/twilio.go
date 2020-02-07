@@ -73,7 +73,6 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 // SendRequest verifies, constructs, and authorizes an HTTP request.
 func (c Client) SendRequest(method string, rawURL string, queryParams, formData interface{}) (*http.Response, error) {
 	u, err := url.Parse(rawURL)
-	fmt.Printf("\n RAWURL: %s", u)
 	if err != nil {
 		return nil, err
 	}

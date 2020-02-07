@@ -2,7 +2,6 @@ package twilio
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 )
 
@@ -119,7 +118,6 @@ func (c *ProxyServiceClient) Delete(sid string, params *ProxyServiceParams) erro
 
 func (c *ProxyServiceClient) url(path string) string {
 	if c.client.defaultBaseURL != nil {
-		fmt.Printf(*c.client.defaultBaseURL + path)
 		return *c.client.defaultBaseURL + path
 	}
 

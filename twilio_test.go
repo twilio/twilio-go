@@ -16,7 +16,7 @@ import (
 // setup sets up a test HTTP server along with a github.Client that is
 // configured to talk to that test server. Tests should register handlers on
 // mux which provide mock responses for the API method being tested.
-func setup() (client *Twilio, mux *http.ServeMux, serverURL string, teardown func()) {
+func setup() (client *Twilio, mux *http.ServeMux, teardown func()) {
 	// mux is the HTTP request multiplexer used with the test server.
 	mux = http.NewServeMux()
 
@@ -29,7 +29,7 @@ func setup() (client *Twilio, mux *http.ServeMux, serverURL string, teardown fun
 	client = NewClient("AcountSid", "AuthToken")
 	client.defaultBaseURL = String(url.String())
 
-	return client, mux, server.URL, server.Close
+	return client, mux, server.Close
 }
 
 // openTestFile creates a new file with the given name and content for testing.

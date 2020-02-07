@@ -3,7 +3,6 @@ package twilio
 
 import (
 	"net/http"
-	"time"
 
 	twilio "github.com/twilio/twilio-go/internal"
 )
@@ -41,9 +40,7 @@ const interval = 10
 
 // NewClient provides an initialized Twilio client.
 func NewClient(accountSid string, authToken string) *Twilio {
-	var httpClient = &http.Client{
-		Timeout: time.Second * interval,
-	}
+	var httpClient = http.DefaultClient
 
 	credentials := &twilio.Credentials{AccountSid: accountSid, AuthToken: authToken}
 
