@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // Media describes the properties of media that the service supports.
@@ -91,13 +89,13 @@ type ChatServiceParams struct {
 // ChatServiceClient is the entrypoint for the Programmable Chat API.
 type ChatServiceClient struct {
 	serviceURL string
-	client     *twilio.Client
+	client     *Twilio
 }
 
 // NewChatServiceClient constructs a new Chat Service client.
-func NewChatServiceClient(request *twilio.Client) *ChatServiceClient {
+func NewChatServiceClient(client *Twilio) *ChatServiceClient {
 	c := new(ChatServiceClient)
-	c.client = request
+	c.client = client
 	c.serviceURL = fmt.Sprintf("https://chat.%s/v2/Services", c.client.BaseURL)
 
 	return c

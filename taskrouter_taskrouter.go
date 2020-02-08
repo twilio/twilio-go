@@ -2,8 +2,6 @@ package twilio
 
 import (
 	"fmt"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // TaskRouterClient is the entrypoint for the TaskRouter API.
@@ -36,27 +34,27 @@ const (
 )
 
 // NewTaskRouterClient constructs a new TaskRouter Client.
-func NewTaskRouterClient(twilioClient *twilio.Client) *TaskRouterClient {
+func NewTaskRouterClient(twilioClient *Twilio) *TaskRouterClient {
 	c := new(TaskRouterClient)
 	serviceURL := fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", twilioClient.BaseURL)
 
 	c.WorkflowClient = &WorkflowClient{
-		Client:     twilioClient,
+		client:     twilioClient,
 		ServiceURL: serviceURL,
 	}
 
 	c.ActivityClient = &ActivityClient{
-		Client:     twilioClient,
+		client:     twilioClient,
 		ServiceURL: serviceURL,
 	}
 
 	c.WorkspaceClient = &WorkspaceClient{
-		Client:     twilioClient,
+		client:     twilioClient,
 		ServiceURL: serviceURL,
 	}
 
 	c.TaskQueueClient = &TaskQueueClient{
-		Client:     twilioClient,
+		client:     twilioClient,
 		ServiceURL: serviceURL,
 	}
 

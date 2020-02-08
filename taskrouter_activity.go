@@ -5,8 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"time"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // An Activity describes the current status of a Worker,
@@ -45,27 +43,27 @@ type ActivityQueryParams struct {
 // ActivityClient is the entrypoint for activity CRUD.
 type ActivityClient struct {
 	ServiceURL string
-	Client     *twilio.Client
+	client     *Twilio
 }
 
 // NewActivityClient constructs a new Activity Client.
-func NewActivityClient(twilioClient *twilio.Client) *ActivityClient {
+func NewActivityClient(client *Twilio) *ActivityClient {
 	c := new(ActivityClient)
-	c.Client = twilioClient
-	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", twilioClient.BaseURL)
+	c.client = client
+	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", client.BaseURL)
 
 	return c
 }
 
 // Create creates activity with the given the config.
-func (ac *ActivityClient) Create(workspaceSID string, activityParams *ActivityParams) (*Activity, error) {
-	url := fmt.Sprintf("%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities")
+func (c *ActivityClient) Create(workspaceSID string, activityParams *ActivityParams) (*Activity, error) {
+	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "Activities")
 
 	if len(activityParams.FriendlyName) == 0 {
 		return nil, errors.New("friendlyname is required in activityparams")
 	}
 
-	resp, err := ac.Client.Post(url, activityParams)
+	resp, err := c.client.Post(url, activityParams)
 
 	if err != nil {
 		return nil, err
@@ -83,9 +81,9 @@ func (ac *ActivityClient) Create(workspaceSID string, activityParams *ActivityPa
 }
 
 // Fetch fetches activity for the given activity SID.
-func (ac *ActivityClient) Fetch(workspaceSID string, activitySID string) (*Activity, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities", activitySID)
-	resp, err := ac.Client.Get(url, nil)
+func (c *ActivityClient) Fetch(workspaceSID string, activitySID string) (*Activity, error) {
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "Activities", activitySID)
+	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
 		return nil, err
@@ -103,10 +101,10 @@ func (ac *ActivityClient) Fetch(workspaceSID string, activitySID string) (*Activ
 }
 
 // Read returns all existing activities for a workspace.
-func (ac *ActivityClient) Read(workspaceSID string) (*ActivityList, error) {
-	url := fmt.Sprintf("%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities")
+func (c *ActivityClient) Read(workspaceSID string) (*ActivityList, error) {
+	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "Activities")
 
-	resp, err := ac.Client.Get(url, nil)
+	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
 		return nil, err
@@ -122,11 +120,11 @@ func (ac *ActivityClient) Read(workspaceSID string) (*ActivityList, error) {
 }
 
 // Update updates activity with given config.
-func (ac *ActivityClient) Update(workspaceSID string,
+func (c *ActivityClient) Update(workspaceSID string,
 	activitySID string, activityParams *ActivityParams) (*Activity, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities", activitySID)
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "Activities", activitySID)
 
-	resp, err := ac.Client.Post(url, activityParams)
+	resp, err := c.client.Post(url, activityParams)
 
 	if err != nil {
 		return nil, err
@@ -144,10 +142,10 @@ func (ac *ActivityClient) Update(workspaceSID string,
 }
 
 // Delete deletes workflow for given SID.
-func (ac *ActivityClient) Delete(workspaceSID string, activitySID string) error {
-	url := fmt.Sprintf("%s/%s/%s/%s", ac.ServiceURL, workspaceSID, "Activities", activitySID)
+func (c *ActivityClient) Delete(workspaceSID string, activitySID string) error {
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "Activities", activitySID)
 
-	resp, err := ac.Client.Delete(url)
+	resp, err := c.client.Delete(url)
 
 	if err != nil {
 		return err

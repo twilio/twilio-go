@@ -62,12 +62,12 @@ func (c *ProxyServiceClient) Create(params *ProxyServiceParams) (*ProxyService, 
 
 	defer resp.Body.Close()
 
-	ps := &ProxyService{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+	p := &ProxyService{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
 		return nil, err
 	}
 
-	return ps, err
+	return p, err
 }
 
 // Read returns the details of a ProxyService.
@@ -79,12 +79,12 @@ func (c *ProxyServiceClient) Read(sid string, params *ProxyServiceParams) (*Prox
 
 	defer resp.Body.Close()
 
-	ps := &ProxyService{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+	p := &ProxyService{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
 		return nil, err
 	}
 
-	return ps, err
+	return p, err
 }
 
 // Update updates a ProxyService.
@@ -96,12 +96,12 @@ func (c *ProxyServiceClient) Update(sid string, params *ProxyServiceParams) (*Pr
 
 	defer resp.Body.Close()
 
-	ps := &ProxyService{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+	p := &ProxyService{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
 		return nil, err
 	}
 
-	return ps, err
+	return p, err
 }
 
 // Delete deletes a ProxyService.

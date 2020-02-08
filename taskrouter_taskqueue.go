@@ -5,8 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"time"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // TaskQueue allow you to categorize Tasks and describe which Workers are eligible to handle those Tasks.
@@ -55,27 +53,27 @@ type TaskQueueQueryParams struct {
 // TaskQueueClient is the entrypoint for taskqueue CRUD.
 type TaskQueueClient struct {
 	ServiceURL string
-	Client     *twilio.Client
+	client     *Twilio
 }
 
 // NewTaskQueueClient constructs a new TaskQueue Client.
-func NewTaskQueueClient(twilioClient *twilio.Client) *TaskQueueClient {
+func NewTaskQueueClient(client *Twilio) *TaskQueueClient {
 	c := new(TaskQueueClient)
-	c.Client = twilioClient
-	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", twilioClient.BaseURL)
+	c.client = client
+	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", client.BaseURL)
 
 	return c
 }
 
 // Create creates taskqueue with the given the config.
-func (ws *TaskQueueClient) Create(workspaceSID string, taskqueueparams *TaskQueueParams) (*TaskQueue, error) {
-	url := fmt.Sprintf("%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues")
+func (c *TaskQueueClient) Create(workspaceSID string, taskqueueparams *TaskQueueParams) (*TaskQueue, error) {
+	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues")
 
 	if len(taskqueueparams.FriendlyName) == 0 {
 		return nil, errors.New("friendlyname is required in taskQqueueParams")
 	}
 
-	resp, err := ws.Client.Post(url, taskqueueparams)
+	resp, err := c.client.Post(url, taskqueueparams)
 
 	if err != nil {
 		return nil, err
@@ -93,9 +91,9 @@ func (ws *TaskQueueClient) Create(workspaceSID string, taskqueueparams *TaskQueu
 }
 
 // Fetch fetches taskqueue for the given SID.
-func (ws *TaskQueueClient) Fetch(workspaceSID string, taskQueueSID string) (*TaskQueue, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues", taskQueueSID)
-	resp, err := ws.Client.Get(url, nil)
+func (c *TaskQueueClient) Fetch(workspaceSID string, taskQueueSID string) (*TaskQueue, error) {
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues", taskQueueSID)
+	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
 		return nil, err
@@ -113,10 +111,10 @@ func (ws *TaskQueueClient) Fetch(workspaceSID string, taskQueueSID string) (*Tas
 }
 
 // Read returns all existing taskqueues.
-func (ws *TaskQueueClient) Read(workspaceSID string, queryParams *TaskQueueQueryParams) (*TaskQueueList, error) {
-	url := fmt.Sprintf("%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues")
+func (c *TaskQueueClient) Read(workspaceSID string, queryParams *TaskQueueQueryParams) (*TaskQueueList, error) {
+	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues")
 
-	resp, err := ws.Client.Get(url, queryParams)
+	resp, err := c.client.Get(url, queryParams)
 
 	if err != nil {
 		return nil, err
@@ -132,11 +130,11 @@ func (ws *TaskQueueClient) Read(workspaceSID string, queryParams *TaskQueueQuery
 }
 
 // Update updates taskqueue with given config.
-func (ws *TaskQueueClient) Update(workspaceSID string,
+func (c *TaskQueueClient) Update(workspaceSID string,
 	taskQueueSID string, taskQueueParams *TaskQueueParams) (*TaskQueue, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues", taskQueueSID)
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues", taskQueueSID)
 
-	resp, err := ws.Client.Post(url, taskQueueParams)
+	resp, err := c.client.Post(url, taskQueueParams)
 
 	if err != nil {
 		return nil, err
@@ -154,9 +152,9 @@ func (ws *TaskQueueClient) Update(workspaceSID string,
 }
 
 // Delete deletes taskQueue with the given SID.
-func (ws *TaskQueueClient) Delete(workspaceSID string, taskqueueSID string) error {
-	url := fmt.Sprintf("%s/%s/%s/%s", ws.ServiceURL, workspaceSID, "TaskQueues", taskqueueSID)
-	resp, err := ws.Client.Delete(url)
+func (c *TaskQueueClient) Delete(workspaceSID string, taskqueueSID string) error {
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues", taskqueueSID)
+	resp, err := c.client.Delete(url)
 
 	if err != nil {
 		return err

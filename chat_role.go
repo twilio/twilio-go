@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // ChatRole represents what a user can do within a Chat Service instance.
@@ -49,13 +47,13 @@ type ChatRoleParams struct {
 // ChatRoleClient is the entrypoint for the Programmable Chat Role API.
 type ChatRoleClient struct {
 	serviceURL string
-	client     *twilio.Client
+	client     *Twilio
 }
 
 // NewChatRoleClient constructs a new Chat Role client.
-func NewChatRoleClient(request *twilio.Client) *ChatRoleClient {
+func NewChatRoleClient(client *Twilio) *ChatRoleClient {
 	c := new(ChatRoleClient)
-	c.client = request
+	c.client = client
 	c.serviceURL = fmt.Sprintf("https://chat.%s/v2/Services", c.client.BaseURL)
 
 	return c

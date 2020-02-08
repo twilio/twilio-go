@@ -5,8 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"time"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // A Workspace is a container for your Tasks, Workers, TaskQueues, Workflows, and Activities.
@@ -55,27 +53,27 @@ type WorkspaceQueryParams struct {
 // WorkspaceClient is the entrypoint for the workspace CRUD.
 type WorkspaceClient struct {
 	ServiceURL string
-	Client     *twilio.Client
+	client     *Twilio
 }
 
 // NewWorkspaceClient constructs a new workspace Client.
-func NewWorkspaceClient(twilioClient *twilio.Client) *WorkspaceClient {
+func NewWorkspaceClient(client *Twilio) *WorkspaceClient {
 	c := new(WorkspaceClient)
-	c.Client = twilioClient
-	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", twilioClient.BaseURL)
+	c.client = client
+	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", client.BaseURL)
 
 	return c
 }
 
 // Create creates workspace with the given the config.
-func (ws *WorkspaceClient) Create(workspaceParams *WorkspaceParams) (*Workspace, error) {
+func (c *WorkspaceClient) Create(workspaceParams *WorkspaceParams) (*Workspace, error) {
 	if len(workspaceParams.FriendlyName) == 0 {
 		return nil, errors.New("friendlyname is required in workspaceParams")
 	}
 
-	url := ws.ServiceURL
+	url := c.ServiceURL
 
-	resp, err := ws.Client.Post(url, workspaceParams)
+	resp, err := c.client.Post(url, workspaceParams)
 
 	if err != nil {
 		return nil, err
@@ -93,9 +91,9 @@ func (ws *WorkspaceClient) Create(workspaceParams *WorkspaceParams) (*Workspace,
 }
 
 // Fetch fetches workspace for the given workspace SID.
-func (ws *WorkspaceClient) Fetch(workspaceSID string) (*Workspace, error) {
-	url := fmt.Sprintf("%s/%s", ws.ServiceURL, workspaceSID)
-	resp, err := ws.Client.Get(url, nil)
+func (c *WorkspaceClient) Fetch(workspaceSID string) (*Workspace, error) {
+	url := fmt.Sprintf("%s/%s", c.ServiceURL, workspaceSID)
+	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
 		return nil, err
@@ -113,10 +111,10 @@ func (ws *WorkspaceClient) Fetch(workspaceSID string) (*Workspace, error) {
 }
 
 // Read returns all existing workspaces.
-func (ws *WorkspaceClient) Read(queryParams *WorkspaceQueryParams) (*WorkspaceList, error) {
-	url := ws.ServiceURL
+func (c *WorkspaceClient) Read(queryParams *WorkspaceQueryParams) (*WorkspaceList, error) {
+	url := c.ServiceURL
 
-	resp, err := ws.Client.Get(url, queryParams)
+	resp, err := c.client.Get(url, queryParams)
 
 	if err != nil {
 		return nil, err
@@ -132,10 +130,10 @@ func (ws *WorkspaceClient) Read(queryParams *WorkspaceQueryParams) (*WorkspaceLi
 }
 
 // Update updates workspace with given config.
-func (ws *WorkspaceClient) Update(workspaceSID string, workspaceParams *WorkspaceParams) (*Workspace, error) {
-	url := fmt.Sprintf("%s/%s", ws.ServiceURL, workspaceSID)
+func (c *WorkspaceClient) Update(workspaceSID string, workspaceParams *WorkspaceParams) (*Workspace, error) {
+	url := fmt.Sprintf("%s/%s", c.ServiceURL, workspaceSID)
 
-	resp, err := ws.Client.Post(url, workspaceParams)
+	resp, err := c.client.Post(url, workspaceParams)
 
 	if err != nil {
 		return nil, err
@@ -153,10 +151,10 @@ func (ws *WorkspaceClient) Update(workspaceSID string, workspaceParams *Workspac
 }
 
 // Delete deletes workspace for given SID.
-func (ws *WorkspaceClient) Delete(workspaceSID string) error {
-	url := fmt.Sprintf("%s/%s", ws.ServiceURL, workspaceSID)
+func (c *WorkspaceClient) Delete(workspaceSID string) error {
+	url := fmt.Sprintf("%s/%s", c.ServiceURL, workspaceSID)
 
-	resp, err := ws.Client.Delete(url)
+	resp, err := c.client.Delete(url)
 
 	if err != nil {
 		return err

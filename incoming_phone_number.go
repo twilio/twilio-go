@@ -3,8 +3,6 @@ package twilio
 import (
 	"encoding/json"
 	"fmt"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // IncomingPhoneNumber represents a Twilio phone number provisioned from Twilio, ported or hosted to Twilio.
@@ -76,12 +74,12 @@ type IncomingPhoneNumberParams struct {
 // IncomingPhoneNumberClient is the entrypoint for the Incoming Phone Number resource.
 // See: https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource
 type IncomingPhoneNumberClient struct {
-	client     *twilio.Client
+	client     *Twilio
 	serviceURL string
 }
 
 // NewIncomingPhoneNumberClient constructs a new IncomingPhoneNumber client.
-func NewIncomingPhoneNumberClient(client *twilio.Client) *IncomingPhoneNumberClient {
+func NewIncomingPhoneNumberClient(client *Twilio) *IncomingPhoneNumberClient {
 	pn := new(IncomingPhoneNumberClient)
 	pn.client = client
 	pn.serviceURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)

@@ -5,8 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"time"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // Workflow controls how tasks will be prioritized and routed into Queues,
@@ -52,20 +50,20 @@ type WorkflowQueryParams struct {
 // WorkflowClient is the entrypoint for the workflow CRUD.
 type WorkflowClient struct {
 	ServiceURL string
-	Client     *twilio.Client
+	client     *Twilio
 }
 
 // NewWorkflowClient constructs a new workflow Client.
-func NewWorkflowClient(twilioClient *twilio.Client) *WorkflowClient {
+func NewWorkflowClient(client *Twilio) *WorkflowClient {
 	c := new(WorkflowClient)
-	c.Client = twilioClient
-	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", twilioClient.BaseURL)
+	c.client = client
+	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", client.BaseURL)
 
 	return c
 }
 
 // Create creates workflow with the given the config.
-func (wf *WorkflowClient) Create(workspaceSID string, workflowParams *WorkflowParams) (*Workflow, error) {
+func (c *WorkflowClient) Create(workspaceSID string, workflowParams *WorkflowParams) (*Workflow, error) {
 	if len(workflowParams.FriendlyName) == 0 {
 		return nil, errors.New("friendly name is required in workflowParams")
 	}
@@ -74,9 +72,9 @@ func (wf *WorkflowClient) Create(workspaceSID string, workflowParams *WorkflowPa
 		return nil, errors.New("configuration is required in workflowParams")
 	}
 
-	url := fmt.Sprintf("%s/%s/%s", wf.ServiceURL, workspaceSID, "Workflows")
+	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "Workflows")
 
-	resp, err := wf.Client.Post(url, workflowParams)
+	resp, err := c.client.Post(url, workflowParams)
 
 	if err != nil {
 		return nil, err
@@ -94,9 +92,9 @@ func (wf *WorkflowClient) Create(workspaceSID string, workflowParams *WorkflowPa
 }
 
 // Fetch fetches workflow for the given workspace SID.
-func (wf *WorkflowClient) Fetch(workspaceSID string, workflowSID string) (*Workflow, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", wf.ServiceURL, workspaceSID, "Workflows", workflowSID)
-	resp, err := wf.Client.Get(url, nil)
+func (c *WorkflowClient) Fetch(workspaceSID string, workflowSID string) (*Workflow, error) {
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "Workflows", workflowSID)
+	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
 		return nil, err
@@ -114,10 +112,10 @@ func (wf *WorkflowClient) Fetch(workspaceSID string, workflowSID string) (*Workf
 }
 
 // Read returns all existing workflows.
-func (wf *WorkflowClient) Read(workspaceSID string, queryParams *WorkflowQueryParams) (*[]Workflow, error) {
-	url := fmt.Sprintf("%s/%s/%s", wf.ServiceURL, workspaceSID, "Workflows")
+func (c *WorkflowClient) Read(workspaceSID string, queryParams *WorkflowQueryParams) (*[]Workflow, error) {
+	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "Workflows")
 
-	resp, err := wf.Client.Get(url, queryParams)
+	resp, err := c.client.Get(url, queryParams)
 
 	if err != nil {
 		return nil, err
@@ -133,11 +131,11 @@ func (wf *WorkflowClient) Read(workspaceSID string, queryParams *WorkflowQueryPa
 }
 
 // Update updates workflow with given config.
-func (wf *WorkflowClient) Update(workspaceSID string,
+func (c *WorkflowClient) Update(workspaceSID string,
 	workflowSID string, workflowParams *WorkflowParams) (*Workflow, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", wf.ServiceURL, workspaceSID, "Workflows", workflowSID)
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "Workflows", workflowSID)
 
-	resp, err := wf.Client.Post(url, workflowParams)
+	resp, err := c.client.Post(url, workflowParams)
 
 	if err != nil {
 		return nil, err
@@ -155,10 +153,10 @@ func (wf *WorkflowClient) Update(workspaceSID string,
 }
 
 // Delete deletes workflow for given SID.
-func (wf *WorkflowClient) Delete(workspaceSID string, workflowSID string) error {
-	url := fmt.Sprintf("%s/%s/%s/%s", wf.ServiceURL, workspaceSID, "Workflows", workflowSID)
+func (c *WorkflowClient) Delete(workspaceSID string, workflowSID string) error {
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "Workflows", workflowSID)
 
-	resp, err := wf.Client.Delete(url)
+	resp, err := c.client.Delete(url)
 
 	if err != nil {
 		return err

@@ -3,8 +3,6 @@ package twilio
 import (
 	"encoding/json"
 	"fmt"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // AvailablePhoneNumberLocal represents an available local phone number.
@@ -67,12 +65,12 @@ type AvailablePhoneNumberLocalReadParams struct {
 // AvailablePhoneNumbersClient is the entrypoint for the AvailablePhoneNumber Local resource.
 // See: https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource
 type AvailablePhoneNumbersClient struct {
-	client     *twilio.Client
+	client     *Twilio
 	serviceURL string
 }
 
 // NewAvailablePhoneNumbersClient constructs a new PhoneNumber client.
-func NewAvailablePhoneNumbersClient(client *twilio.Client) *AvailablePhoneNumbersClient {
+func NewAvailablePhoneNumbersClient(client *Twilio) *AvailablePhoneNumbersClient {
 	pn := new(AvailablePhoneNumbersClient)
 	pn.client = client
 	pn.serviceURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)

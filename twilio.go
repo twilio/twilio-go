@@ -46,21 +46,25 @@ func NewClient(accountSid string, authToken string) *Twilio {
 
 	c := &Twilio{
 		Credentials: credentials,
-		Client:      &twilio.Client{credentials, httpClient, "twilio.com"},
+		Client: &twilio.Client{
+			Credentials: credentials,
+			HTTPClient:  httpClient,
+			BaseURL:     "twilio.com",
+		},
 	}
 	c.common.client = c
-	// twilioClient.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(client)
-	// twilioClient.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(client)
-	// twilioClient.Chat = &ChatClient{
-	// 	Service: NewChatServiceClient(client),
-	// 	Role:    NewChatRoleClient(client),
-	// }
-	c.Proxy = &ProxyClient{
-		Service: NewProxyServiceClient(c),
+	c.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(c)
+	c.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(c)
+	c.Chat = &ChatClient{
+		Service: NewChatServiceClient(c),
+		Role:    NewChatRoleClient(c),
 	}
-	// PhoneNumber: NewProxyPhoneNumberClient(client),
+	c.Proxy = &ProxyClient{
+		Service:     NewProxyServiceClient(c),
+		PhoneNumber: NewProxyPhoneNumberClient(c),
+	}
 
-	// twilioClient.TaskRouter = NewTaskRouterClient(client)
+	c.TaskRouter = NewTaskRouterClient(c)
 
 	return c
 }
