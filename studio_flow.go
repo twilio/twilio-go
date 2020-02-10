@@ -69,7 +69,7 @@ func (c *StudioFlowClient) Create(params *StudioFlowParams) (*StudioFlow, error)
 }
 
 // Read returns the details of a StudioFlow.
-func (c *StudioFlowClient) Read(sid strin (*StudioFlow, error) {
+func (c *StudioFlowClient) Read(sid string) (*StudioFlow, error) {
 	resp, err := c.client.Get(fmt.Sprintf("%s/%s", c.serviceURL, sid), nil)
 	if err != nil {
 		return nil, err
