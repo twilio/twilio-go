@@ -30,6 +30,7 @@ type ProxyClient struct {
 	PhoneNumber *ProxyPhoneNumberClient
 }
 
+// StudioClient holds all studio related resources.
 type StudioClient struct {
 	Flow *StudioFlowClient
 }
