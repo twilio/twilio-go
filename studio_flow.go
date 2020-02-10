@@ -8,9 +8,8 @@ import (
 	twilio "github.com/twilio/twilio-go/internal"
 )
 
-// StudioFlow is the top-level scope of all other resources in the Programmable Proxy REST API.
-// All other Programmable Proxy resources belong to a specific Service.
-// See: https://www.twilio.com/docs/studio/rest-api/v2
+// StudioFlow  are individual workflows that you create. Flow definitions are expressed as instances of a JSON schema.
+// See: https://www.twilio.com/docs/studio/rest-api/v2/flow
 type StudioFlow struct {
 	Sid           *string            `json:"sid"`
 	AccountSID    *string            `json:"account_sid"`
@@ -23,6 +22,8 @@ type StudioFlow struct {
 	DateCreated   *time.Time         `json:"date_created"`
 	DateUpdated   *time.Time         `json:"date_updated"`
 	URL           *string            `json:"url"`
+	Valid         *bool              `json:"valid"`
+	WebhookURL    *string            `json:"webhook_url"`
 	Links         map[string]*string `json:"links"`
 }
 
@@ -85,8 +86,8 @@ func (c *StudioFlowClient) Read(sid string, params *StudioFlowParams) (*StudioFl
 }
 
 // Update updates a StudioFlow.
-func (c *StudioFlowClient) Update(sid string, params *StudioFlowParams) (*StudioFlow, error) {
-	resp, err := c.client.Post(fmt.Sprintf("%s/%s", c.serviceURL, sid), params)
+func (c *StudioFlowClient) Update(sid string) (*StudioFlow, error) {
+	resp, err := c.client.Post(fmt.Sprintf("%s/%s", c.serviceURL, sid), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +103,7 @@ func (c *StudioFlowClient) Update(sid string, params *StudioFlowParams) (*Studio
 }
 
 // Delete deletes a StudioFlow.
-func (c *StudioFlowClient) Delete(sid string, params *StudioFlowParams) error {
+func (c *StudioFlowClient) Delete(sid string) error {
 	resp, err := c.client.Delete(fmt.Sprintf("%s/%s", c.serviceURL, sid))
 	if err != nil {
 		return err
