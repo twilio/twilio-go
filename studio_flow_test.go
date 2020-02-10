@@ -7,101 +7,100 @@ import (
 	"testing"
 )
 
-func TestProxyService_Create(t *testing.T) {
+func TestStudioFlow_Create(t *testing.T) {
 	client, mux, teardown := setup()
 
 	defer teardown()
 
-	mux.HandleFunc("/Services", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Flows", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		testFormValues(t, r, values{"UniqueName": "ProxyChatService"})
-		response := `{"unique_name":"ProxyChatService"}`
+		testFormValues(t, r, values{"FriendlyName": "StudioFlow"})
+		response := `{"friendly_name":"StudioFlow"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Proxy.Service.Create(&ProxyServiceParams{UniqueName: String("ProxyChatService")})
+	got, err := client.Studio.Flow.Create(&StudioFlowParams{FriendlyName: String("StudioFlow")})
 
 	if err != nil {
-		t.Errorf("ProxyService.Create returned error: %v", err)
+		t.Errorf("StudioFlow.Create returned error: %v", err)
 	}
 
-	expected := &ProxyService{UniqueName: String("ProxyChatService")}
+	expected := &StudioFlow{FriendlyName: String("StudioFlow")}
 
 	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ProxyService.Create returned %+v, expected %+v", got, expected)
+		t.Errorf("StudioFlow.Create returned %+v, expected %+v", got, expected)
 	}
 
 }
 
-func TestProxyService_Read(t *testing.T) {
+func TestStudioFlow_Read(t *testing.T) {
 	client, mux, teardown := setup()
 
 	defer teardown()
 
-	mux.HandleFunc("/Services/KS123", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Flows/FW123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		response := `{"sid":"KS123"}`
+		response := `{"sid":"FW123"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Proxy.Service.Read("KS123", nil)
+	got, err := client.Studio.Flow.Read("FW123")
 
 	if err != nil {
-		t.Errorf("ProxyService.Read returned error: %v", err)
+		t.Errorf("StudioFlow.Read returned error: %v", err)
 	}
 
-	expected := &ProxyService{Sid: String("KS123")}
+	expected := &StudioFlow{SID: String("FW123")}
 
 	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ProxyService.Read returned %+v, expected %+v", got, expected)
+		t.Errorf("StudioFlow.Read returned %+v, expected %+v", got, expected)
 	}
 
 }
 
-func TestProxyService_Update(t *testing.T) {
+func TestStudioFlow_Update(t *testing.T) {
 	client, mux, teardown := setup()
 
 	defer teardown()
 
-	mux.HandleFunc("/Services/KS123", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Flows/FW123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		response := `{"sid":"KS123","unique_name":"NewName","default_ttl":10}`
+		response := `{"sid":"FW123","friendly_name":"NewName"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Proxy.Service.Update("KS123", &ProxyServiceParams{
-		UniqueName: String("NewName"),
-		DefaultTTL: Int(10),
+	got, err := client.Studio.Flow.Update("FW123", &StudioFlowParams{
+		FriendlyName: String("NewName"),
 	})
 
 	if err != nil {
-		t.Errorf("ProxyService.Update returned error: %v", err)
+		t.Errorf("StudioFlow.Update returned error: %v", err)
 	}
 
-	expected := &ProxyService{Sid: String("KS123"), UniqueName: String("NewName"), DefaultTTL: Int(10)}
+	expected := &StudioFlow{SID: String("FW123"), FriendlyName: String("NewName")}
 
 	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ProxyService.Update returned %+v, expected %+v", got, expected)
+		t.Errorf("StudioFlow.Update returned %+v, expected %+v", got, expected)
 	}
 
 }
 
-func TestProxyService_Delete(t *testing.T) {
+func TestStudioFlow_Delete(t *testing.T) {
 	client, mux, teardown := setup()
 
 	defer teardown()
 
-	mux.HandleFunc("/Services/KS123", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Flows/FW123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "DELETE")
 
 	})
 
-	err := client.Proxy.Service.Delete("KS123", nil)
+	err := client.Studio.Flow.Delete("FW123")
 
 	if err != nil {
-		t.Errorf("ProxyService.Delete returned error: %v", err)
+		t.Errorf("StudioFlow.Delete returned error: %v", err)
 	}
 }

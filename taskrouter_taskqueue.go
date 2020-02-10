@@ -7,9 +7,9 @@ import (
 	"time"
 )
 
-// TaskQueue allow you to categorize Tasks and describe which Workers are eligible to handle those Tasks.
+// TaskRouterTaskQueue allow you to categorize Tasks and describe which Workers are eligible to handle those Tasks.
 // refer: https://www.twilio.com/docs/taskrouter/api/task-queue
-type TaskQueue struct {
+type TaskRouterTaskQueue struct {
 	AccountSid              *string            `json:"account_sid"`
 	AssignmentActivitySid   *string            `json:"assignment_activity_sid"`
 	AssignmentActivityName  *string            `json:"assignment_activity_name"`
@@ -27,8 +27,8 @@ type TaskQueue struct {
 	Links                   map[string]*string `json:"links"`
 }
 
-// TaskQueueParams taskQueue parameters.
-type TaskQueueParams struct {
+// TaskRouterTaskQueueParams taskRouterTaskQueue parameters.
+type TaskRouterTaskQueueParams struct {
 	FriendlyName           *string `form:",omitempty"`
 	AssignmentActivitySID  *string `form:"AssignmentActivitySid,omitempty"`
 	MaxReservedWorkers     *int    `form:",omitempty"`
@@ -37,43 +37,43 @@ type TaskQueueParams struct {
 	ReservationActivitySID *string `form:"ReservationActivitySid,omitempty"`
 }
 
-// TaskQueueList struct to parse response of taskqueue read.
-type TaskQueueList struct {
-	TaskQueues *[]TaskQueue `json:"task_queues"`
-	Meta       *Meta        `json:"meta,omitempty"`
+// TaskRouterTaskQueueList struct to parse response of taskRouterTaskqueue read.
+type TaskRouterTaskQueueList struct {
+	TaskRouterTaskQueues *[]TaskRouterTaskQueue `json:"task_queuess"`
+	Meta                 *Meta                  `json:"meta,omitempty"`
 }
 
-// TaskQueueQueryParams query params to read taskqueues.
-type TaskQueueQueryParams struct {
+// TaskRouterTaskQueueQueryParams query params to read taskRouterTaskqueues.
+type TaskRouterTaskQueueQueryParams struct {
 	FriendlyName             *string `form:"FriendlyName,omitempty"`
 	EvaluateWorkerAttributes *string `form:"EvaluateWorkerAttributes,omitempty"`
 	PageSize                 *int    `form:"PageSize,omitempty"`
 }
 
-// TaskQueueClient is the entrypoint for taskqueue CRUD.
-type TaskQueueClient struct {
+// TaskRouterTaskQueueClient is the entrypoint for taskRouterTaskqueue CRUD.
+type TaskRouterTaskQueueClient struct {
 	ServiceURL string
 	client     *Twilio
 }
 
-// NewTaskQueueClient constructs a new TaskQueue Client.
-func NewTaskQueueClient(client *Twilio) *TaskQueueClient {
-	c := new(TaskQueueClient)
+// NewTaskRouterTaskQueueClient constructs a new TaskRouterTaskQueue Client.
+func NewTaskRouterTaskQueueClient(client *Twilio) *TaskRouterTaskQueueClient {
+	c := new(TaskRouterTaskQueueClient)
 	c.client = client
 	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", client.BaseURL)
 
 	return c
 }
 
-// Create creates taskqueue with the given the config.
-func (c *TaskQueueClient) Create(workspaceSID string, taskqueueparams *TaskQueueParams) (*TaskQueue, error) {
-	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues")
+// Create creates taskRouterTaskqueue with the given the config.
+func (c *TaskRouterTaskQueueClient) Create(workspaceSID string, taskRouterTaskqueueparams *TaskRouterTaskQueueParams) (*TaskRouterTaskQueue, error) {
+	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues")
 
-	if len(*taskqueueparams.FriendlyName) == 0 {
-		return nil, errors.New("friendlyname is required in taskQqueueParams")
+	if len(*taskRouterTaskqueueparams.FriendlyName) == 0 {
+		return nil, errors.New("friendlyname is required in taskQqueuesParams")
 	}
 
-	resp, err := c.client.Post(url, taskqueueparams)
+	resp, err := c.client.Post(url, taskRouterTaskqueueparams)
 
 	if err != nil {
 		return nil, err
@@ -81,18 +81,18 @@ func (c *TaskQueueClient) Create(workspaceSID string, taskqueueparams *TaskQueue
 
 	defer resp.Body.Close()
 
-	taskQueue := &TaskQueue{}
+	taskRouterTaskQueue := &TaskRouterTaskQueue{}
 
-	if err := json.NewDecoder(resp.Body).Decode(taskQueue); err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(taskRouterTaskQueue); err != nil {
 		return nil, err
 	}
 
-	return taskQueue, nil
+	return taskRouterTaskQueue, nil
 }
 
-// Fetch fetches taskqueue for the given SID.
-func (c *TaskQueueClient) Fetch(workspaceSID string, taskQueueSID string) (*TaskQueue, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues", taskQueueSID)
+// Fetch fetches taskRouterTaskqueue for the given SID.
+func (c *TaskRouterTaskQueueClient) Fetch(workspaceSID string, taskRouterTaskQueueSID string) (*TaskRouterTaskQueue, error) {
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues", taskRouterTaskQueueSID)
 	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
@@ -101,18 +101,18 @@ func (c *TaskQueueClient) Fetch(workspaceSID string, taskQueueSID string) (*Task
 
 	defer resp.Body.Close()
 
-	taskqueue := &TaskQueue{}
+	taskRouterTaskqueue := &TaskRouterTaskQueue{}
 
-	if err := json.NewDecoder(resp.Body).Decode(taskqueue); err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(taskRouterTaskqueue); err != nil {
 		return nil, err
 	}
 
-	return taskqueue, nil
+	return taskRouterTaskqueue, nil
 }
 
-// Read returns all existing taskqueues.
-func (c *TaskQueueClient) Read(workspaceSID string, queryParams *TaskQueueQueryParams) (*TaskQueueList, error) {
-	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues")
+// Read returns all existing taskRouterTaskqueues.
+func (c *TaskRouterTaskQueueClient) Read(workspaceSID string, queryParams *TaskRouterTaskQueueQueryParams) (*TaskRouterTaskQueueList, error) {
+	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues")
 
 	resp, err := c.client.Get(url, queryParams)
 
@@ -120,21 +120,21 @@ func (c *TaskQueueClient) Read(workspaceSID string, queryParams *TaskQueueQueryP
 		return nil, err
 	}
 
-	taskqueues := &TaskQueueList{}
+	taskRouterTaskqueues := &TaskRouterTaskQueueList{}
 
-	if decodeErr := json.NewDecoder(resp.Body).Decode(&taskqueues); decodeErr != nil {
+	if decodeErr := json.NewDecoder(resp.Body).Decode(&taskRouterTaskqueues); decodeErr != nil {
 		return nil, decodeErr
 	}
 
-	return taskqueues, nil
+	return taskRouterTaskqueues, nil
 }
 
-// Update updates taskqueue with given config.
-func (c *TaskQueueClient) Update(workspaceSID string,
-	taskQueueSID string, taskQueueParams *TaskQueueParams) (*TaskQueue, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues", taskQueueSID)
+// Update updates taskRouterTaskqueue with given config.
+func (c *TaskRouterTaskQueueClient) Update(workspaceSID string,
+	taskRouterTaskQueueSID string, taskRouterTaskQueueParams *TaskRouterTaskQueueParams) (*TaskRouterTaskQueue, error) {
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues", taskRouterTaskQueueSID)
 
-	resp, err := c.client.Post(url, taskQueueParams)
+	resp, err := c.client.Post(url, taskRouterTaskQueueParams)
 
 	if err != nil {
 		return nil, err
@@ -142,18 +142,18 @@ func (c *TaskQueueClient) Update(workspaceSID string,
 
 	defer resp.Body.Close()
 
-	taskQueue := &TaskQueue{}
+	taskRouterTaskQueue := &TaskRouterTaskQueue{}
 
-	if err := json.NewDecoder(resp.Body).Decode(taskQueue); err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(taskRouterTaskQueue); err != nil {
 		return nil, err
 	}
 
-	return taskQueue, nil
+	return taskRouterTaskQueue, nil
 }
 
-// Delete deletes taskQueue with the given SID.
-func (c *TaskQueueClient) Delete(workspaceSID string, taskqueueSID string) error {
-	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues", taskqueueSID)
+// Delete deletes taskRouterTaskQueue with the given SID.
+func (c *TaskRouterTaskQueueClient) Delete(workspaceSID string, taskRouterTaskqueueSID string) error {
+	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues", taskRouterTaskqueueSID)
 	resp, err := c.client.Delete(url)
 
 	if err != nil {

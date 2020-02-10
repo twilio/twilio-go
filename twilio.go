@@ -42,6 +42,25 @@ type StudioClient struct {
 	Flow *StudioFlowClient
 }
 
+type TaskRouterClient struct {
+	Workflows  *TaskRouterWorkflowClient
+	Activities *TaskRouterActivityClient
+	Workspaces *TaskRouterWorkspaceClient
+	TaskQueues *TaskRouterTaskQueueClient
+}
+
+type Meta struct {
+	FirstPageURL    *string `json:"first_page_url"`
+	Key             *string `json:"key"`
+	LastPageURL     *string `json:"last_page_url"`
+	NextPageURL     *string `json:"next_page_url"`
+	Page            *int    `json:"page"`
+	PageSize        *int    `json:"page_size"`
+	PreviousPageURL *string `json:"previous_page_url"`
+	URL             *string `json:"url"`
+}
+
+// constants
 const interval = 10
 
 // NewClient provides an initialized Twilio client.
@@ -69,9 +88,14 @@ func NewClient(accountSid string, authToken string) *Twilio {
 		Service:     NewProxyServiceClient(c),
 		PhoneNumber: NewProxyPhoneNumberClient(c),
 	}
-	c.TaskRouter = NewTaskRouterClient(c)
 	c.Studio = &StudioClient{
 		Flow: NewStudioFlowClient(c),
+	}
+	c.TaskRouter = &TaskRouterClient{
+		Activities: NewTaskRouterActivityClient(c),
+		TaskQueues: NewTaskRouterTaskQueueClient(c),
+		Workspaces: NewTaskRouterWorkspaceClient(c),
+		Workflows:  NewTaskRouterWorkflowClient(c),
 	}
 
 	return c
