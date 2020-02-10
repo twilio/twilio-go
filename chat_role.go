@@ -39,9 +39,9 @@ type ChatRolesMeta struct {
 
 // ChatRoleParams is the set of parameters that can be used when creating or updating a Chat Role.
 type ChatRoleParams struct {
-	FriendlyName *string   `url:",omitempty"`
-	Type         *string   `url:",omitempty"`
-	Permission   []*string `url:",omitempty"`
+	FriendlyName *string   `form:",omitempty"`
+	Type         *string   `form:",omitempty"`
+	Permission   []*string `form:",omitempty"`
 }
 
 // ChatRoleClient is the entrypoint for the Programmable Chat Role API.

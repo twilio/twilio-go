@@ -74,22 +74,22 @@ type IncomingPhoneNumberParams struct {
 // IncomingPhoneNumberClient is the entrypoint for the Incoming Phone Number resource.
 // See: https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource
 type IncomingPhoneNumberClient struct {
-	client     *Twilio
-	serviceURL string
+	client  *Twilio
+	baseURL string
 }
 
 // NewIncomingPhoneNumberClient constructs a new IncomingPhoneNumber client.
 func NewIncomingPhoneNumberClient(client *Twilio) *IncomingPhoneNumberClient {
 	pn := new(IncomingPhoneNumberClient)
 	pn.client = client
-	pn.serviceURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)
+	pn.baseURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)
 
 	return pn
 }
 
 // Create creates a new IncomingPhoneNumber.
-func (c IncomingPhoneNumberClient) Create(params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
-	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers.json", c.serviceURL, c.client.AccountSid)
+func (c *IncomingPhoneNumberClient) Create(params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers.json", c.client.AccountSid))
 
 	resp, err := c.client.Post(uri, params)
 	if err != nil {
@@ -106,8 +106,8 @@ func (c IncomingPhoneNumberClient) Create(params *IncomingPhoneNumberParams) (*I
 }
 
 // Read returns the details of an IncomingPhoneNumber.
-func (c IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, error) {
-	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers/%s.json", c.serviceURL, c.client.AccountSid, sid)
+func (c *IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, error) {
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSid, sid))
 
 	resp, err := c.client.Get(uri, nil)
 	if err != nil {
@@ -124,8 +124,8 @@ func (c IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, error
 }
 
 // Update updates an IncomingPhoneNumber.
-func (c IncomingPhoneNumberClient) Update(sid string, params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
-	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers/%s.json", c.serviceURL, c.client.AccountSid, sid)
+func (c *IncomingPhoneNumberClient) Update(sid string, params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSid, sid))
 
 	resp, err := c.client.Post(uri, params)
 	if err != nil {
@@ -142,8 +142,8 @@ func (c IncomingPhoneNumberClient) Update(sid string, params *IncomingPhoneNumbe
 }
 
 // Delete releases an existing IncomingPhoneNumber.
-func (c IncomingPhoneNumberClient) Delete(sid string) error {
-	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers/%s.json", c.serviceURL, c.client.AccountSid, sid)
+func (c *IncomingPhoneNumberClient) Delete(sid string) error {
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSid, sid))
 
 	resp, err := c.client.Delete(uri)
 	if err != nil {
@@ -152,4 +152,12 @@ func (c IncomingPhoneNumberClient) Delete(sid string) error {
 	defer resp.Body.Close()
 
 	return err
+}
+
+func (c *IncomingPhoneNumberClient) url(path string) string {
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
+	}
+
+	return c.baseURL + path
 }

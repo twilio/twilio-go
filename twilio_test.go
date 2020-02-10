@@ -26,7 +26,7 @@ func setup() (client *Twilio, mux *http.ServeMux, teardown func()) {
 	url, _ := url.Parse(server.URL)
 	// client is the GitHub client being tested and is
 	// configured to use test server.
-	client = NewClient("AcountSid", "AuthToken")
+	client = NewClient("AC123", "AuthToken")
 	client.defaultbaseURL = String(url.String())
 
 	return client, mux, server.Close
