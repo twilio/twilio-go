@@ -76,7 +76,6 @@ func EncodeToString(dst interface{}) (string, error) {
 func EncodeToStringWith(dst interface{}, d rune, e rune, z bool) (string, error) {
 	v := reflect.ValueOf(dst)
 	n, err := encodeToNode(v, z)
-	fmt.Printf("\n easdfasdf: %+v", n)
 	if err != nil {
 		return "", err
 	}
