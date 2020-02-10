@@ -11,28 +11,28 @@ import (
 // and how Tasks should escalate in priority or move across queues over time.
 // refer: https://www.twilio.com/docs/taskrouter/api/workflow.
 type Workflow struct {
-	AssignmentCallbackURL         *string           `json:"assignment_callback_url"`
-	Configuration                 *string           `json:"configuration"`
-	AccountSid                    string            `json:"account_sid"`
-	DateCreated                   time.Time         `json:"date_created"`
-	DateUpdated                   time.Time         `json:"date_updated"`
-	DocumentContentType           *string           `json:"document_content_type"`
-	FallbackAssignmentCallbackURL *string           `json:"fallback_assignment_callback_url"`
-	FriendlyName                  string            `json:"friendly_name"`
-	Sid                           string            `json:"sid"`
-	TaskReservationTimeout        *int              `json:"task_reservation_timeout"`
-	WorkspaceSid                  string            `json:"workspace_sid"`
-	URL                           *string           `json:"url"`
-	Links                         map[string]string `json:"links"`
+	AssignmentCallbackURL         *string            `json:"assignment_callback_url"`
+	Configuration                 *string            `json:"configuration"`
+	AccountSid                    *string            `json:"account_sid"`
+	DateCreated                   *time.Time         `json:"date_created"`
+	DateUpdated                   *time.Time         `json:"date_updated"`
+	DocumentContentType           *string            `json:"document_content_type"`
+	FallbackAssignmentCallbackURL *string            `json:"fallback_assignment_callback_url"`
+	FriendlyName                  *string            `json:"friendly_name"`
+	Sid                           *string            `json:"sid"`
+	TaskReservationTimeout        *int               `json:"task_reservation_timeout"`
+	WorkspaceSid                  *string            `json:"workspace_sid"`
+	URL                           *string            `json:"url"`
+	Links                         map[string]*string `json:"links"`
 }
 
 // WorkflowParams workflow parameters.
 type WorkflowParams struct {
-	FriendlyName                  string  `url:"FriendlyName,omitempty"`
-	Configuration                 string  `url:"Configuration,omitempty"`
-	AssignmentCallbackURL         *string `url:"AssignmentCallbackURL,omitempty"`
-	FallbackAssignmentCallbackURL *string `url:"FallbackAssignmentCallbackURL,omitempty"`
-	TaskReservationTimeout        *int    `url:"TaskReservationTimeout,omitempty"`
+	FriendlyName                  *string `form:",omitempty"`
+	Configuration                 *string `form:",omitempty"`
+	AssignmentCallbackURL         *string `form:"AssignmentCallbackUrl,omitempty"`
+	FallbackAssignmentCallbackURL *string `form:"FallbackAssignmentCallbackUrl,omitempty"`
+	TaskReservationTimeout        *int    `form:",omitempty"`
 }
 
 // WorkflowList struct to parse response of workspace read.
@@ -43,8 +43,8 @@ type WorkflowList struct {
 
 // WorkflowQueryParams query params to read workspaces.
 type WorkflowQueryParams struct {
-	FriendlyName *string `url:"FriendlyName,omitempty"`
-	PageSize     *int    `url:"PageSize,omitempty"`
+	FriendlyName *string `form:",omitempty"`
+	PageSize     *int    `form:",omitempty"`
 }
 
 // WorkflowClient is the entrypoint for the workflow CRUD.
@@ -64,11 +64,11 @@ func NewWorkflowClient(client *Twilio) *WorkflowClient {
 
 // Create creates workflow with the given the config.
 func (c *WorkflowClient) Create(workspaceSID string, workflowParams *WorkflowParams) (*Workflow, error) {
-	if len(workflowParams.FriendlyName) == 0 {
+	if len(*workflowParams.FriendlyName) == 0 {
 		return nil, errors.New("friendly name is required in workflowParams")
 	}
 
-	if len(workflowParams.Configuration) == 0 {
+	if len(*workflowParams.Configuration) == 0 {
 		return nil, errors.New("configuration is required in workflowParams")
 	}
 

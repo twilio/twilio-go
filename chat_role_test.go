@@ -20,13 +20,13 @@ func TestChatRole_Create(t *testing.T) {
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Chat.Role.Create("AC123", &ChatRoleParams{FriendlyName: "ChatRole"})
+	got, err := client.Chat.Role.Create("AC123", &ChatRoleParams{FriendlyName: String("ChatRole")})
 
 	if err != nil {
 		t.Errorf("ChatRole.Create returned error: %v", err)
 	}
 
-	expected := &ChatRole{FriendlyName: "ChatRole"}
+	expected := &ChatRole{FriendlyName: String("ChatRole")}
 
 	if !reflect.DeepEqual(got, expected) {
 		t.Errorf("ChatRole.Create returned %+v, expected %+v", got, expected)
@@ -52,7 +52,7 @@ func TestChatRole_Fetch(t *testing.T) {
 		t.Errorf("ChatRole.Fetch returned error: %v", err)
 	}
 
-	expected := &ChatRole{Sid: "AC123"}
+	expected := &ChatRole{Sid: String("AC123")}
 
 	if !reflect.DeepEqual(got, expected) {
 		t.Errorf("ChatRole.Fetch returned %+v, expected %+v", got, expected)
@@ -77,7 +77,7 @@ func TestChatRole_Read(t *testing.T) {
 		t.Errorf("ChatRole.Read returned error: %v", err)
 	}
 
-	c := &ChatRole{Sid: "RL1"}
+	c := &ChatRole{Sid: String("RL1")}
 	expected := &ChatRoles{Roles: []*ChatRole{c}}
 
 	if !reflect.DeepEqual(got, expected) {
@@ -99,14 +99,14 @@ func TestChatRole_Update(t *testing.T) {
 	})
 
 	got, err := client.Chat.Role.Update("AC123", "RL1", &ChatRoleParams{
-		FriendlyName: "NewName",
+		FriendlyName: String("NewName"),
 	})
 
 	if err != nil {
 		t.Errorf("ChatRole.Update returned error: %v", err)
 	}
 
-	expected := &ChatRole{Sid: "RL1", FriendlyName: "NewName"}
+	expected := &ChatRole{Sid: String("RL1"), FriendlyName: String("NewName")}
 
 	if !reflect.DeepEqual(got, expected) {
 		t.Errorf("ChatRole.Update returned %+v, expected %+v", got, expected)

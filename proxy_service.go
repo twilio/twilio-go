@@ -9,32 +9,32 @@ import (
 // All other Programmable Proxy resources belong to a specific Service.
 // See: https://www.twilio.com/docs/proxy/api/service
 type ProxyService struct {
-	Sid                     string            `json:"sid"`
-	AccountSID              string            `json:"account_sid"`
-	ChatInstanceSID         string            `json:"chat_instance_sid"`
-	UniqueName              string            `json:"unique_name"`
-	DefaultTTL              int               `json:"default_ttl"`
-	CallbackURL             *string           `json:"callback_url"`
-	GeoMatchLevel           string            `json:"geo_match_level"`
-	NumberSelectionBehavior string            `json:"number_selection_behavior"`
-	InterceptCallbackURL    *string           `json:"intercept_callback_url"`
-	OutOfSessionCallbackURL *string           `json:"out_of_session_callback_url"`
-	DateCreated             time.Time         `json:"date_created"`
-	DateUpdated             time.Time         `json:"date_updated"`
-	URL                     string            `json:"url"`
-	Links                   map[string]string `json:"links"`
+	Sid                     *string            `json:"sid"`
+	AccountSID              *string            `json:"account_sid"`
+	ChatInstanceSID         *string            `json:"chat_instance_sid"`
+	UniqueName              *string            `json:"unique_name"`
+	DefaultTTL              *int               `json:"default_ttl"`
+	CallbackURL             *string            `json:"callback_url"`
+	GeoMatchLevel           *string            `json:"geo_match_level"`
+	NumberSelectionBehavior *string            `json:"number_selection_behavior"`
+	InterceptCallbackURL    *string            `json:"intercept_callback_url"`
+	OutOfSessionCallbackURL *string            `json:"out_of_session_callback_url"`
+	DateCreated             *time.Time         `json:"date_created"`
+	DateUpdated             *time.Time         `json:"date_updated"`
+	URL                     *string            `json:"url"`
+	Links                   map[string]*string `json:"links"`
 }
 
 // ProxyServiceParams is the set of parameters that can be used when creating or updating a service.
 type ProxyServiceParams struct {
-	ChatInstanceSID         *string `url:"ChatInstanceSid,omitempty"`
-	UniqueName              *string `url:"UniqueName,omitempty"`
-	DefaultTTL              *int    `url:"DefaultTtl,omitempty"`
-	CallbackURL             *string `url:"CallbackUrl,omitempty"`
-	GeoMatchLevel           *string `url:"GeoMatchLevel,omitempty"`
-	NumberSelectionBehavior *string `url:"NumberSelectionBehavior,omitempty"`
-	InterceptCallbackURL    *string `url:"InterceptCallbackUrl,omitempty"`
-	OutOfSessionCallbackURL *string `url:"OutOfSessionCallbackUrl,omitempty"`
+	ChatInstanceSID         *string `form:"ChatInstanceSid,omitempty"`
+	UniqueName              *string `form:",omitempty"`
+	DefaultTTL              *int    `form:"DefaultTtl,omitempty"`
+	CallbackURL             *string `form:"CallbackUrl,omitempty"`
+	GeoMatchLevel           *string `form:",omitempty"`
+	NumberSelectionBehavior *string `form:",omitempty"`
+	InterceptCallbackURL    *string `form:"InterceptCallbackUrl,omitempty"`
+	OutOfSessionCallbackURL *string `form:"OutOfSessionCallbackUrl,omitempty"`
 }
 
 // ProxyServiceClient is the entrypoint for the Proxy Service API.

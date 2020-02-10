@@ -26,7 +26,7 @@ func TestProxyPhoneNumber_Create(t *testing.T) {
 		t.Errorf("ProxyService.Create returned error: %v", err)
 	}
 
-	expected := &ProxyPhoneNumber{SID: "PN123"}
+	expected := &ProxyPhoneNumber{SID: String("PN123")}
 
 	if !reflect.DeepEqual(got, expected) {
 		t.Errorf("ProxyService.Create returned %+v, expected %+v", got, expected)
@@ -52,7 +52,7 @@ func TestProxyPhoneNumber_Read(t *testing.T) {
 		t.Errorf("ProxyService.Read returned error: %v", err)
 	}
 
-	expected := &ProxyPhoneNumber{SID: "KS123"}
+	expected := &ProxyPhoneNumber{SID: String("KS123")}
 
 	if !reflect.DeepEqual(got, expected) {
 		t.Errorf("ProxyService.Read returned %+v, expected %+v", got, expected)
@@ -80,7 +80,7 @@ func TestProxyPhoneNumber_Update(t *testing.T) {
 		t.Errorf("ProxyService.Update returned error: %v", err)
 	}
 
-	expected := &ProxyPhoneNumber{SID: "PN123", FriendlyName: "NewName"}
+	expected := &ProxyPhoneNumber{SID: String("PN123"), FriendlyName: String("NewName")}
 
 	if !reflect.DeepEqual(got, expected) {
 		t.Errorf("ProxyService.Update returned %+v, expected %+v", got, expected)

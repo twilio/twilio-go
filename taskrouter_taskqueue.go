@@ -10,31 +10,31 @@ import (
 // TaskQueue allow you to categorize Tasks and describe which Workers are eligible to handle those Tasks.
 // refer: https://www.twilio.com/docs/taskrouter/api/task-queue
 type TaskQueue struct {
-	AccountSid              string            `json:"account_sid"`
-	AssignmentActivitySid   *string           `json:"assignment_activity_sid"`
-	AssignmentActivityName  *string           `json:"assignment_activity_name"`
-	DateCreated             time.Time         `json:"date_created"`
-	DateUpdated             time.Time         `json:"date_updated"`
-	FriendlyName            string            `json:"friendly_name"`
-	MaxReservedWorkers      *int              `json:"max_reserved_workers"`
-	ReservationActivitySid  *string           `json:"reservation_activity_sid"`
-	ReservationActivityName *string           `json:"reservation_activity_name"`
-	Sid                     string            `json:"sid"`
-	TargetWorkers           *string           `json:"target_workers"`
-	TaskOrder               *string           `json:"task_order"`
-	URI                     *string           `json:"url"`
-	WorkspaceSid            string            `json:"workspace_sid"`
-	Links                   map[string]string `json:"links"`
+	AccountSid              *string            `json:"account_sid"`
+	AssignmentActivitySid   *string            `json:"assignment_activity_sid"`
+	AssignmentActivityName  *string            `json:"assignment_activity_name"`
+	DateCreated             *time.Time         `json:"date_created"`
+	DateUpdated             *time.Time         `json:"date_updated"`
+	FriendlyName            *string            `json:"friendly_name"`
+	MaxReservedWorkers      *int               `json:"max_reserved_workers"`
+	ReservationActivitySid  *string            `json:"reservation_activity_sid"`
+	ReservationActivityName *string            `json:"reservation_activity_name"`
+	Sid                     *string            `json:"sid"`
+	TargetWorkers           *string            `json:"target_workers"`
+	TaskOrder               *string            `json:"task_order"`
+	URI                     *string            `json:"url"`
+	WorkspaceSid            *string            `json:"workspace_sid"`
+	Links                   map[string]*string `json:"links"`
 }
 
 // TaskQueueParams taskQueue parameters.
 type TaskQueueParams struct {
-	FriendlyName           string  `url:"FriendlyName,omitempty"`
-	AssignmentActivitySid  *string `url:"AssignmentActivitySid,omitempty"`
-	MaxReservedWorkers     *int    `url:"MaxReservedWorkers,omitempty"`
-	TargetWorkers          *string `url:"TargetWorkers,omitempty"`
-	TaskOrder              *string `url:"TaskOrder,omitempty"`
-	ReservationActivitySid *string `url:"ReservationActivitySid,omitempty"`
+	FriendlyName           *string `form:",omitempty"`
+	AssignmentActivitySID  *string `form:"AssignmentActivitySid,omitempty"`
+	MaxReservedWorkers     *int    `form:",omitempty"`
+	TargetWorkers          *string `form:",omitempty"`
+	TaskOrder              *string `form:"TaskOrder,omitempty"`
+	ReservationActivitySID *string `form:"ReservationActivitySid,omitempty"`
 }
 
 // TaskQueueList struct to parse response of taskqueue read.
@@ -45,9 +45,9 @@ type TaskQueueList struct {
 
 // TaskQueueQueryParams query params to read taskqueues.
 type TaskQueueQueryParams struct {
-	FriendlyName             *string `url:"FriendlyName,omitempty"`
-	EvaluateWorkerAttributes *string `url:"EvaluateWorkerAttributes,omitempty"`
-	PageSize                 *int    `url:"PageSize,omitempty"`
+	FriendlyName             *string `form:"FriendlyName,omitempty"`
+	EvaluateWorkerAttributes *string `form:"EvaluateWorkerAttributes,omitempty"`
+	PageSize                 *int    `form:"PageSize,omitempty"`
 }
 
 // TaskQueueClient is the entrypoint for taskqueue CRUD.
@@ -69,7 +69,7 @@ func NewTaskQueueClient(client *Twilio) *TaskQueueClient {
 func (c *TaskQueueClient) Create(workspaceSID string, taskqueueparams *TaskQueueParams) (*TaskQueue, error) {
 	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskQueues")
 
-	if len(taskqueueparams.FriendlyName) == 0 {
+	if len(*taskqueueparams.FriendlyName) == 0 {
 		return nil, errors.New("friendlyname is required in taskQqueueParams")
 	}
 

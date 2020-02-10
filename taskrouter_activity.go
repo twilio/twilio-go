@@ -11,20 +11,20 @@ import (
 // which determines whether they are eligible to receive task assignments.
 // refer: https://www.twilio.com/docs/taskrouter/api/activity
 type Activity struct {
-	AccountSid   string    `json:"account_sid"`
-	Available    bool      `json:"available"`
-	DateCreated  time.Time `json:"date_created"`
-	DateUpdated  time.Time `json:"date_updated"`
-	FriendlyName string    `json:"friendly_name"`
-	Sid          string    `json:"sid"`
-	WorkspaceSid string    `json:"workspace_sid"`
-	URI          string    `json:"url"`
+	AccountSid   *string    `json:"account_sid"`
+	Available    *bool      `json:"available"`
+	DateCreated  *time.Time `json:"date_created"`
+	DateUpdated  *time.Time `json:"date_updated"`
+	FriendlyName *string    `json:"friendly_name"`
+	Sid          *string    `json:"sid"`
+	WorkspaceSid *string    `json:"workspace_sid"`
+	URI          *string    `json:"url"`
 }
 
 // ActivityParams activity params to create/update activity.
 type ActivityParams struct {
-	Available    *string `url:"Available,omitempty"`
-	FriendlyName string  `url:"FriendlyName,omitempty"`
+	Available    *bool   `form:",omitempty"`
+	FriendlyName *string `form:",omitempty"`
 }
 
 // ActivityList struct to parse response of activity read.
@@ -35,9 +35,9 @@ type ActivityList struct {
 
 // ActivityQueryParams query params to read workspaces.
 type ActivityQueryParams struct {
-	FriendlyName *string `url:"FriendlyName,omitempty"`
-	Available    *string `url:"Available,omitempty"`
-	PageSize     *int    `url:"PageSize,omitempty"`
+	FriendlyName *string `form:",omitempty"`
+	Available    *string `form:",omitempty"`
+	PageSize     *int    `form:",omitempty"`
 }
 
 // ActivityClient is the entrypoint for activity CRUD.
@@ -59,7 +59,7 @@ func NewActivityClient(client *Twilio) *ActivityClient {
 func (c *ActivityClient) Create(workspaceSID string, activityParams *ActivityParams) (*Activity, error) {
 	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "Activities")
 
-	if len(activityParams.FriendlyName) == 0 {
+	if len(*activityParams.FriendlyName) == 0 {
 		return nil, errors.New("friendlyname is required in activityparams")
 	}
 
