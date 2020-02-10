@@ -86,8 +86,8 @@ func (c *StudioFlowClient) Read(sid string) (*StudioFlow, error) {
 }
 
 // Update updates a StudioFlow.
-func (c *StudioFlowClient) Update(sid string) (*StudioFlow, error) {
-	resp, err := c.client.Post(fmt.Sprintf("%s/%s", c.serviceURL, sid), nil)
+func (c *StudioFlowClient) Update(sid string, params *StudioFlowParams) (*StudioFlow, error) {
+	resp, err := c.client.Post(fmt.Sprintf("%s/%s", c.serviceURL, sid), params)
 	if err != nil {
 		return nil, err
 	}

@@ -13,6 +13,7 @@ type Twilio struct {
 	Chat                  *ChatClient
 	Proxy                 *ProxyClient
 	TaskRouter            *TaskRouterClient
+	Studio                *StudioClient
 	AvailablePhoneNumbers *AvailablePhoneNumbersClient
 	IncomingPhoneNumbers  *IncomingPhoneNumberClient
 }
@@ -27,6 +28,10 @@ type ChatClient struct {
 type ProxyClient struct {
 	Service     *ProxyServiceClient
 	PhoneNumber *ProxyPhoneNumberClient
+}
+
+type StudioClient struct {
+	Flow *StudioFlowClient
 }
 
 const interval = 10
@@ -52,6 +57,9 @@ func NewClient(accountSid string, authToken string) *Twilio {
 		PhoneNumber: NewProxyPhoneNumberClient(client),
 	}
 	twilioClient.TaskRouter = NewTaskRouterClient(client)
+	twilioClient.Studio = &StudioClient{
+		Flow: NewStudioFlowClient(client),
+	}
 
 	return &twilioClient
 }
