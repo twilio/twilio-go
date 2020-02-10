@@ -12,32 +12,32 @@ import (
 // A Workspace is a container for your Tasks, Workers, TaskQueues, Workflows, and Activities.
 // refer: https://www.twilio.com/docs/taskrouter/api/workspace.
 type Workspace struct {
-	Sid                  string            `json:"sid"`
-	AccountSid           string            `json:"account_sid"`
-	DateCreated          time.Time         `json:"date_created"`
-	DateUpdated          time.Time         `json:"date_updated"`
-	DefaultActivityName  *string           `json:"default_activity_name"`
-	DefaultActivitySid   *string           `json:"default_activity_sid"`
-	TimeoutActivityName  *string           `json:"timeout_activity_name"`
-	TimeoutActivitySid   *string           `json:"timeout_activity_sid"`
-	URL                  *string           `json:"url"`
-	Links                map[string]string `json:"links"`
-	FriendlyName         string            `json:"friendly_name"`
-	EventCallbackURL     *string           `json:"event_callback_url"`
-	EventsFilter         *string           `json:"events_filter"`
-	MultitaskEnabled     *bool             `json:"multi_task_enabled"`
-	Template             *string           `json:"template"`
-	PrioritizeQueueOrder *string           `json:"prioritize_queue_order"`
+	Sid                  *string            `json:"sid"`
+	AccountSid           *string            `json:"account_sid"`
+	DateCreated          *time.Time         `json:"date_created"`
+	DateUpdated          *time.Time         `json:"date_updated"`
+	DefaultActivityName  *string            `json:"default_activity_name"`
+	DefaultActivitySid   *string            `json:"default_activity_sid"`
+	TimeoutActivityName  *string            `json:"timeout_activity_name"`
+	TimeoutActivitySid   *string            `json:"timeout_activity_sid"`
+	URL                  *string            `json:"url"`
+	Links                map[string]*string `json:"links"`
+	FriendlyName         *string            `json:"friendly_name"`
+	EventCallbackURL     *string            `json:"event_callback_url"`
+	EventsFilter         *string            `json:"events_filter"`
+	MultitaskEnabled     *bool              `json:"multi_task_enabled"`
+	Template             *string            `json:"template"`
+	PrioritizeQueueOrder *string            `json:"prioritize_queue_order"`
 }
 
 // WorkspaceParams workspace params for CRUD.
 type WorkspaceParams struct {
-	FriendlyName         string  `url:"FriendlyName,omitempty"`
-	EventCallbackURL     *string `url:"EventCallbackUrl,omitempty"`
-	EventsFilter         *string `url:"EventsFilter,omitempty"`
-	MultitaskEnabled     *bool   `url:"MultitaskEnabled,omitempty"`
-	Template             *string `url:"Template,omitempty"`
-	PrioritizeQueueOrder *string `url:"PrioritizeQueueOrder,omitempty"`
+	FriendlyName         *string `form:"FriendlyName,omitempty"`
+	EventCallbackURL     *string `form:"EventCallbackUrl,omitempty"`
+	EventsFilter         *string `form:"EventsFilter,omitempty"`
+	MultitaskEnabled     *bool   `form:"MultitaskEnabled,omitempty"`
+	Template             *string `form:"Template,omitempty"`
+	PrioritizeQueueOrder *string `form:"PrioritizeQueueOrder,omitempty"`
 }
 
 // WorkspaceList struct to parse response of workspace read.
@@ -48,8 +48,8 @@ type WorkspaceList struct {
 
 // WorkspaceQueryParams query params to read workspaces.
 type WorkspaceQueryParams struct {
-	FriendlyName *string `url:"FriendlyName,omitempty"`
-	PageSize     *int    `url:"PageSize,omitempty"`
+	FriendlyName *string `form:"FriendlyName,omitempty"`
+	PageSize     *int    `form:"PageSize,omitempty"`
 }
 
 // WorkspaceClient is the entrypoint for the workspace CRUD.
@@ -68,8 +68,8 @@ func NewWorkspaceClient(twilioClient *twilio.Client) *WorkspaceClient {
 }
 
 // Create creates workspace with the given the config.
-func (ws *WorkspaceClient) Create(workspaceParams *WorkspaceParams) (*Workspace, error) {
-	if len(workspaceParams.FriendlyName) == 0 {
+func (ws *WorkspaceClient) Create(workspaceParams WorkspaceParams) (*Workspace, error) {
+	if len(*workspaceParams.FriendlyName) == 0 {
 		return nil, errors.New("friendlyname is required in workspaceParams")
 	}
 
