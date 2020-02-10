@@ -42,6 +42,7 @@ type StudioClient struct {
 	Flow *StudioFlowClient
 }
 
+// TaskRouterClient holds all studio related resources.
 type TaskRouterClient struct {
 	Workflows  *TaskRouterWorkflowClient
 	Activities *TaskRouterActivityClient
@@ -49,6 +50,7 @@ type TaskRouterClient struct {
 	TaskQueues *TaskRouterTaskQueueClient
 }
 
+// Meta holds relevant pagination resources.
 type Meta struct {
 	FirstPageURL    *string `json:"first_page_url"`
 	Key             *string `json:"key"`

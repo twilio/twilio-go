@@ -39,7 +39,7 @@ type TaskRouterTaskQueueParams struct {
 
 // TaskRouterTaskQueueList struct to parse response of taskRouterTaskqueue read.
 type TaskRouterTaskQueueList struct {
-	TaskRouterTaskQueues *[]TaskRouterTaskQueue `json:"task_queuess"`
+	TaskRouterTaskQueues []*TaskRouterTaskQueue `json:"task_queues"`
 	Meta                 *Meta                  `json:"meta,omitempty"`
 }
 
@@ -52,28 +52,28 @@ type TaskRouterTaskQueueQueryParams struct {
 
 // TaskRouterTaskQueueClient is the entrypoint for taskRouterTaskqueue CRUD.
 type TaskRouterTaskQueueClient struct {
-	ServiceURL string
-	client     *Twilio
+	baseURL string
+	client  *Twilio
 }
 
 // NewTaskRouterTaskQueueClient constructs a new TaskRouterTaskQueue Client.
 func NewTaskRouterTaskQueueClient(client *Twilio) *TaskRouterTaskQueueClient {
 	c := new(TaskRouterTaskQueueClient)
 	c.client = client
-	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", client.BaseURL)
+	c.baseURL = c.url(fmt.Sprintf("https://taskrouter.%s/v1", client.BaseURL))
 
 	return c
 }
 
 // Create creates taskRouterTaskqueue with the given the config.
-func (c *TaskRouterTaskQueueClient) Create(workspaceSID string, taskRouterTaskqueueparams *TaskRouterTaskQueueParams) (*TaskRouterTaskQueue, error) {
-	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues")
+func (c *TaskRouterTaskQueueClient) Create(workspaceSID string, params *TaskRouterTaskQueueParams) (*TaskRouterTaskQueue, error) {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues", workspaceSID))
 
-	if len(*taskRouterTaskqueueparams.FriendlyName) == 0 {
+	if len(*params.FriendlyName) == 0 {
 		return nil, errors.New("friendlyname is required in taskQqueuesParams")
 	}
 
-	resp, err := c.client.Post(url, taskRouterTaskqueueparams)
+	resp, err := c.client.Post(url, params)
 
 	if err != nil {
 		return nil, err
@@ -91,8 +91,8 @@ func (c *TaskRouterTaskQueueClient) Create(workspaceSID string, taskRouterTaskqu
 }
 
 // Fetch fetches taskRouterTaskqueue for the given SID.
-func (c *TaskRouterTaskQueueClient) Fetch(workspaceSID string, taskRouterTaskQueueSID string) (*TaskRouterTaskQueue, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues", taskRouterTaskQueueSID)
+func (c *TaskRouterTaskQueueClient) Fetch(workspaceSID string, SID string) (*TaskRouterTaskQueue, error) {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues/%s", workspaceSID, SID))
 	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
@@ -111,30 +111,31 @@ func (c *TaskRouterTaskQueueClient) Fetch(workspaceSID string, taskRouterTaskQue
 }
 
 // Read returns all existing taskRouterTaskqueues.
-func (c *TaskRouterTaskQueueClient) Read(workspaceSID string, queryParams *TaskRouterTaskQueueQueryParams) (*TaskRouterTaskQueueList, error) {
-	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues")
+func (c *TaskRouterTaskQueueClient) Read(workspaceSID string, params *TaskRouterTaskQueueQueryParams) (*TaskRouterTaskQueueList, error) {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues", workspaceSID))
 
-	resp, err := c.client.Get(url, queryParams)
+	resp, err := c.client.Get(url, params)
 
 	if err != nil {
 		return nil, err
 	}
 
-	taskRouterTaskqueues := &TaskRouterTaskQueueList{}
-
-	if decodeErr := json.NewDecoder(resp.Body).Decode(&taskRouterTaskqueues); decodeErr != nil {
-		return nil, decodeErr
+	q := &TaskRouterTaskQueueList{}
+	if err := json.NewDecoder(resp.Body).Decode(q); err != nil {
+		return nil, err
 	}
 
-	return taskRouterTaskqueues, nil
+	return q, nil
 }
 
 // Update updates taskRouterTaskqueue with given config.
-func (c *TaskRouterTaskQueueClient) Update(workspaceSID string,
-	taskRouterTaskQueueSID string, taskRouterTaskQueueParams *TaskRouterTaskQueueParams) (*TaskRouterTaskQueue, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues", taskRouterTaskQueueSID)
-
-	resp, err := c.client.Post(url, taskRouterTaskQueueParams)
+func (c *TaskRouterTaskQueueClient) Update(
+	workspaceSID string,
+	SID string,
+	params *TaskRouterTaskQueueParams,
+) (*TaskRouterTaskQueue, error) {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues/%s", workspaceSID, SID))
+	resp, err := c.client.Post(url, params)
 
 	if err != nil {
 		return nil, err
@@ -152,8 +153,8 @@ func (c *TaskRouterTaskQueueClient) Update(workspaceSID string,
 }
 
 // Delete deletes taskRouterTaskQueue with the given SID.
-func (c *TaskRouterTaskQueueClient) Delete(workspaceSID string, taskRouterTaskqueueSID string) error {
-	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterTaskQueues", taskRouterTaskqueueSID)
+func (c *TaskRouterTaskQueueClient) Delete(workspaceSID string, SID string) error {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues/%s", workspaceSID, SID))
 	resp, err := c.client.Delete(url)
 
 	if err != nil {
@@ -162,4 +163,12 @@ func (c *TaskRouterTaskQueueClient) Delete(workspaceSID string, taskRouterTaskqu
 	defer resp.Body.Close()
 
 	return err
+}
+
+func (c *TaskRouterTaskQueueClient) url(path string) string {
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
+	}
+
+	return c.baseURL + path
 }

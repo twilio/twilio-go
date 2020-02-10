@@ -40,8 +40,8 @@ type TaskRouterWorkspaceParams struct {
 
 // TaskRouterWorkspaceList struct to parse response of TaskRouterWorkspace read.
 type TaskRouterWorkspaceList struct {
-	TaskRouterWorkspaces *[]TaskRouterWorkspace `json:"TaskRouterWorkspaces"`
-	Meta                 *Meta                  `json:"meta,omitempty"`
+	Workspaces []*TaskRouterWorkspace `json:"workspaces"`
+	Meta       *Meta                  `json:"meta,omitempty"`
 }
 
 // TaskRouterWorkspaceQueryParams query params to read TaskRouterWorkspaces.
@@ -52,28 +52,28 @@ type TaskRouterWorkspaceQueryParams struct {
 
 // TaskRouterWorkspaceClient is the entrypoint for the TaskRouterWorkspace CRUD.
 type TaskRouterWorkspaceClient struct {
-	ServiceURL string
-	client     *Twilio
+	baseURL string
+	client  *Twilio
 }
 
 // NewTaskRouterWorkspaceClient constructs a new TaskRouterWorkspace Client.
 func NewTaskRouterWorkspaceClient(client *Twilio) *TaskRouterWorkspaceClient {
 	c := new(TaskRouterWorkspaceClient)
 	c.client = client
-	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/TaskRouterWorkspaces", client.BaseURL)
+	c.baseURL = fmt.Sprintf("https://taskrouter.%s/v1/TaskRouterWorkspaces", client.BaseURL)
 
 	return c
 }
 
 // Create creates TaskRouterWorkspace with the given the config.
-func (c *TaskRouterWorkspaceClient) Create(TaskRouterWorkspaceParams TaskRouterWorkspaceParams) (*TaskRouterWorkspace, error) {
-	if len(*TaskRouterWorkspaceParams.FriendlyName) == 0 {
-		return nil, errors.New("friendlyname is required in TaskRouterWorkspaceParams")
+func (c *TaskRouterWorkspaceClient) Create(params *TaskRouterWorkspaceParams) (*TaskRouterWorkspace, error) {
+	if len(*params.FriendlyName) == 0 {
+		return nil, errors.New("friendlyname is required in params")
 	}
 
-	url := c.ServiceURL
+	url := c.baseURL
 
-	resp, err := c.client.Post(url, TaskRouterWorkspaceParams)
+	resp, err := c.client.Post(url, params)
 
 	if err != nil {
 		return nil, err
@@ -91,8 +91,8 @@ func (c *TaskRouterWorkspaceClient) Create(TaskRouterWorkspaceParams TaskRouterW
 }
 
 // Fetch fetches TaskRouterWorkspace for the given TaskRouterWorkspace SID.
-func (c *TaskRouterWorkspaceClient) Fetch(TaskRouterWorkspaceSID string) (*TaskRouterWorkspace, error) {
-	url := fmt.Sprintf("%s/%s", c.ServiceURL, TaskRouterWorkspaceSID)
+func (c *TaskRouterWorkspaceClient) Fetch(SID string) (*TaskRouterWorkspace, error) {
+	url := fmt.Sprintf("%s/%s", c.baseURL, SID)
 	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
@@ -111,10 +111,10 @@ func (c *TaskRouterWorkspaceClient) Fetch(TaskRouterWorkspaceSID string) (*TaskR
 }
 
 // Read returns all existing TaskRouterWorkspaces.
-func (c *TaskRouterWorkspaceClient) Read(queryParams *TaskRouterWorkspaceQueryParams) (*TaskRouterWorkspaceList, error) {
-	url := c.ServiceURL
+func (c *TaskRouterWorkspaceClient) Read(params *TaskRouterWorkspaceQueryParams) (*TaskRouterWorkspaceList, error) {
+	url := c.baseURL
 
-	resp, err := c.client.Get(url, queryParams)
+	resp, err := c.client.Get(url, params)
 
 	if err != nil {
 		return nil, err
@@ -130,10 +130,10 @@ func (c *TaskRouterWorkspaceClient) Read(queryParams *TaskRouterWorkspaceQueryPa
 }
 
 // Update updates TaskRouterWorkspace with given config.
-func (c *TaskRouterWorkspaceClient) Update(TaskRouterWorkspaceSID string, TaskRouterWorkspaceParams *TaskRouterWorkspaceParams) (*TaskRouterWorkspace, error) {
-	url := fmt.Sprintf("%s/%s", c.ServiceURL, TaskRouterWorkspaceSID)
+func (c *TaskRouterWorkspaceClient) Update(SID string, params *TaskRouterWorkspaceParams) (*TaskRouterWorkspace, error) {
+	url := fmt.Sprintf("%s/%s", c.baseURL, SID)
 
-	resp, err := c.client.Post(url, TaskRouterWorkspaceParams)
+	resp, err := c.client.Post(url, params)
 
 	if err != nil {
 		return nil, err
@@ -151,8 +151,8 @@ func (c *TaskRouterWorkspaceClient) Update(TaskRouterWorkspaceSID string, TaskRo
 }
 
 // Delete deletes TaskRouterWorkspace for given SID.
-func (c *TaskRouterWorkspaceClient) Delete(TaskRouterWorkspaceSID string) error {
-	url := fmt.Sprintf("%s/%s", c.ServiceURL, TaskRouterWorkspaceSID)
+func (c *TaskRouterWorkspaceClient) Delete(SID string) error {
+	url := fmt.Sprintf("%s/%s", c.baseURL, SID)
 
 	resp, err := c.client.Delete(url)
 
@@ -162,4 +162,12 @@ func (c *TaskRouterWorkspaceClient) Delete(TaskRouterWorkspaceSID string) error 
 	defer resp.Body.Close()
 
 	return err
+}
+
+func (c *TaskRouterWorkspaceClient) url(path string) string {
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
+	}
+
+	return c.baseURL + path
 }

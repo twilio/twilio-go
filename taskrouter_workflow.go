@@ -37,8 +37,8 @@ type TaskRouterWorkflowParams struct {
 
 // TaskRouterWorkflowList struct to parse response of workspace read.
 type TaskRouterWorkflowList struct {
-	TaskRouterWorkflows *[]TaskRouterWorkflow `json:"TaskRouterworkflows"`
-	Meta                *Meta                 `json:"meta,omitempty"`
+	Workflows []*TaskRouterWorkflow `json:"workflows"`
+	Meta      *Meta                 `json:"meta,omitempty"`
 }
 
 // TaskRouterWorkflowQueryParams query params to read workspaces.
@@ -49,32 +49,32 @@ type TaskRouterWorkflowQueryParams struct {
 
 // TaskRouterWorkflowClient is the entrypoint for the TaskRouterworkflow CRUD.
 type TaskRouterWorkflowClient struct {
-	ServiceURL string
-	client     *Twilio
+	baseURL string
+	client  *Twilio
 }
 
 // NewTaskRouterWorkflowClient constructs a new TaskRouterworkflow Client.
 func NewTaskRouterWorkflowClient(client *Twilio) *TaskRouterWorkflowClient {
 	c := new(TaskRouterWorkflowClient)
 	c.client = client
-	c.ServiceURL = fmt.Sprintf("https://taskrouter.%s/v1/Workspaces", client.BaseURL)
+	c.baseURL = c.url(fmt.Sprintf("https://taskrouter.%s/v1", client.BaseURL))
 
 	return c
 }
 
 // Create creates TaskRouterworkflow with the given the config.
-func (c *TaskRouterWorkflowClient) Create(workspaceSID string, TaskRouterworkflowParams *TaskRouterWorkflowParams) (*TaskRouterWorkflow, error) {
-	if len(*TaskRouterworkflowParams.FriendlyName) == 0 {
-		return nil, errors.New("friendly name is required in TaskRouterworkflowParams")
+func (c *TaskRouterWorkflowClient) Create(workspaceSID string, params *TaskRouterWorkflowParams) (*TaskRouterWorkflow, error) {
+	if params.FriendlyName == nil {
+		return nil, errors.New("friendly name is required in params")
 	}
 
-	if len(*TaskRouterworkflowParams.Configuration) == 0 {
-		return nil, errors.New("configuration is required in TaskRouterworkflowParams")
+	if params.Configuration == nil {
+		return nil, errors.New("configuration is required in params")
 	}
 
-	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterWorkflows")
+	url := c.url(fmt.Sprintf("/Workspaces/%s/Workflows", workspaceSID))
 
-	resp, err := c.client.Post(url, TaskRouterworkflowParams)
+	resp, err := c.client.Post(url, params)
 
 	if err != nil {
 		return nil, err
@@ -92,8 +92,8 @@ func (c *TaskRouterWorkflowClient) Create(workspaceSID string, TaskRouterworkflo
 }
 
 // Fetch fetches TaskRouterworkflow for the given workspace SID.
-func (c *TaskRouterWorkflowClient) Fetch(workspaceSID string, TaskRouterworkflowSID string) (*TaskRouterWorkflow, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterWorkflows", TaskRouterworkflowSID)
+func (c *TaskRouterWorkflowClient) Fetch(workspaceSID string, SID string) (*TaskRouterWorkflow, error) {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/Workflows/%s", workspaceSID, SID))
 	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
@@ -111,29 +111,29 @@ func (c *TaskRouterWorkflowClient) Fetch(workspaceSID string, TaskRouterworkflow
 	return TaskRouterworkflow, nil
 }
 
-// Read returns all existing TaskRouterworkflows.
-func (c *TaskRouterWorkflowClient) Read(workspaceSID string, queryParams *TaskRouterWorkflowQueryParams) (*[]TaskRouterWorkflow, error) {
-	url := fmt.Sprintf("%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterWorkflows")
+// Read returns all existing Workflows.
+func (c *TaskRouterWorkflowClient) Read(workspaceSID string, params *TaskRouterWorkflowQueryParams) (*TaskRouterWorkflowList, error) {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/Workflows", workspaceSID))
 
-	resp, err := c.client.Get(url, queryParams)
+	resp, err := c.client.Get(url, params)
 
 	if err != nil {
 		return nil, err
 	}
 
-	TaskRouterworkflows := make([]TaskRouterWorkflow, 0)
+	w := &TaskRouterWorkflowList{}
 
-	if err = json.NewDecoder(resp.Body).Decode(&TaskRouterworkflows); err != nil {
+	if err = json.NewDecoder(resp.Body).Decode(w); err != nil {
 		return nil, err
 	}
 
-	return &TaskRouterworkflows, nil
+	return w, nil
 }
 
 // Update updates TaskRouterworkflow with given config.
 func (c *TaskRouterWorkflowClient) Update(workspaceSID string,
-	TaskRouterworkflowSID string, TaskRouterworkflowParams *TaskRouterWorkflowParams) (*TaskRouterWorkflow, error) {
-	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterWorkflows", TaskRouterworkflowSID)
+	SID string, TaskRouterworkflowParams *TaskRouterWorkflowParams) (*TaskRouterWorkflow, error) {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/Workflows/%s", workspaceSID, SID))
 
 	resp, err := c.client.Post(url, TaskRouterworkflowParams)
 
@@ -153,8 +153,8 @@ func (c *TaskRouterWorkflowClient) Update(workspaceSID string,
 }
 
 // Delete deletes TaskRouterworkflow for given SID.
-func (c *TaskRouterWorkflowClient) Delete(workspaceSID string, TaskRouterworkflowSID string) error {
-	url := fmt.Sprintf("%s/%s/%s/%s", c.ServiceURL, workspaceSID, "TaskRouterWorkflows", TaskRouterworkflowSID)
+func (c *TaskRouterWorkflowClient) Delete(workspaceSID string, SID string) error {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/Workflows/%s", workspaceSID, SID))
 
 	resp, err := c.client.Delete(url)
 
@@ -164,4 +164,12 @@ func (c *TaskRouterWorkflowClient) Delete(workspaceSID string, TaskRouterworkflo
 	defer resp.Body.Close()
 
 	return err
+}
+
+func (c *TaskRouterWorkflowClient) url(path string) string {
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
+	}
+
+	return c.baseURL + path
 }
