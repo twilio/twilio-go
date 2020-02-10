@@ -11,7 +11,7 @@ import (
 type Twilio struct {
 	*twilio.Credentials
 	*twilio.Client
-	defaultBaseURL        *string
+	defaultbaseURL        *string
 	common                service
 	Chat                  *ChatClient
 	Proxy                 *ProxyClient

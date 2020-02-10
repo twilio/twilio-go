@@ -42,7 +42,7 @@ type ProxyPhoneNumberCreateParams struct {
 // See: https://www.twilio.com/docs/proxy/api/phone-number
 type ProxyPhoneNumberClient struct {
 	client  *Twilio
-	baseUrl string
+	baseURL string
 }
 
 type pathParams struct {
@@ -54,7 +54,7 @@ type pathParams struct {
 func NewProxyPhoneNumberClient(client *Twilio) *ProxyPhoneNumberClient {
 	c := new(ProxyPhoneNumberClient)
 	c.client = client
-	c.baseUrl = "https://proxy.twilio.com/v1"
+	c.baseURL = "https://proxy.twilio.com/v1"
 
 	return c
 }
@@ -140,8 +140,8 @@ func (c *ProxyPhoneNumberClient) Delete(proxyServiceSID string, sid string) erro
 func (c *ProxyPhoneNumberClient) url(p *pathParams) string {
 	path := fmt.Sprintf("/Services/%s/PhoneNumbers/%s", p.serviceSid, p.sid)
 
-	if c.client.defaultBaseURL != nil {
-		return *c.client.defaultBaseURL + path
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
 	}
 
 	return "https://proxy.twilio.com/v1" + path

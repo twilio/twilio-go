@@ -160,8 +160,8 @@ func (c *ChatServiceClient) Delete(sid string) error {
 }
 
 func (c *ChatServiceClient) url(path string) string {
-	if c.client.defaultBaseURL != nil {
-		return *c.client.defaultBaseURL + path
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
 	}
 
 	return c.baseURL + path

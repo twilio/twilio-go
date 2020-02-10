@@ -117,8 +117,8 @@ func (c *ProxyServiceClient) Delete(sid string, params *ProxyServiceParams) erro
 }
 
 func (c *ProxyServiceClient) url(path string) string {
-	if c.client.defaultBaseURL != nil {
-		return *c.client.defaultBaseURL + path
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
 	}
 
 	return c.baseURL + path
