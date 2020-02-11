@@ -54,7 +54,7 @@ type TaskRouterClient struct {
 type Meta struct {
 	FirstPageURL    *string `json:"first_page_url"`
 	Key             *string `json:"key"`
-	LastPageURL     *string `json:"last_page_url"`
+	LastPageURL     *string `json:"last_page_url,omitempty"`
 	NextPageURL     *string `json:"next_page_url"`
 	Page            *int    `json:"page"`
 	PageSize        *int    `json:"page_size"`

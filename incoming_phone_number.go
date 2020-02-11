@@ -3,6 +3,7 @@ package twilio
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // IncomingPhoneNumber represents a Twilio phone number provisioned from Twilio, ported or hosted to Twilio.
@@ -15,8 +16,8 @@ type IncomingPhoneNumber struct {
 	AddressRequirements  *string          `json:"address_requirements"`
 	APIVersion           *string          `json:"api_version"`
 	Capabilities         map[string]*bool `json:"capabilities"`
-	DateCreated          *string          `json:"date_created"`
-	DateUpdated          *string          `json:"date_updated"`
+	DateCreated          *time.Time       `json:"date_created"`
+	DateUpdated          *time.Time       `json:"date_updated"`
 	FriendlyName         *string          `json:"friendly_name"`
 	IdentitySID          *string          `json:"identity_sid"`
 	PhoneNumber          *string          `json:"phone_number"`

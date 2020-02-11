@@ -23,6 +23,12 @@ type ProxyPhoneNumber struct {
 	InUse           *int             `json:"in_use"`
 }
 
+// ProxyPhoneNumberList is the API response for reading multiple Proxy Phone Numbers
+type ProxyPhoneNumberList struct {
+	PhoneNumbers []*ProxyPhoneNumber `json:"phone_numbers"`
+	Meta         *Meta               `json:"meta"`
+}
+
 // ProxyPhoneNumberUpdateParams is the set of parameters that can
 // be used when updating updating a Proxy Phone Number.
 type ProxyPhoneNumberUpdateParams struct {
@@ -81,8 +87,8 @@ func (c *ProxyPhoneNumberClient) Create(
 	return p, err
 }
 
-// Read returns the details of a ProxyPhoneNumber.
-func (c *ProxyPhoneNumberClient) Read(proxyServiceSID string, sid string) (*ProxyPhoneNumber, error) {
+// Fetch returns the details of a ProxyPhoneNumber.
+func (c *ProxyPhoneNumberClient) Fetch(proxyServiceSID string, sid string) (*ProxyPhoneNumber, error) {
 	uri := c.url(&pathParams{proxyServiceSID, sid})
 	resp, err := c.client.Get(uri, nil)
 
@@ -93,6 +99,25 @@ func (c *ProxyPhoneNumberClient) Read(proxyServiceSID string, sid string) (*Prox
 	defer resp.Body.Close()
 
 	p := &ProxyPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
+		return nil, err
+	}
+
+	return p, err
+}
+
+// Read returns the details of a ProxyPhoneNumber.
+func (c *ProxyPhoneNumberClient) Read(proxyServiceSID string) (*ProxyPhoneNumberList, error) {
+	uri := c.url(&pathParams{serviceSID: proxyServiceSID})
+	resp, err := c.client.Get(uri, nil)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	p := &ProxyPhoneNumberList{}
 	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
 		return nil, err
 	}

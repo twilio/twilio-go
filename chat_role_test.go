@@ -5,7 +5,68 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+	"time"
 )
+
+func TestChatRole_marshall(t *testing.T) {
+	testJSONMarshal(t, &AvailablePhoneNumberLocal{}, "{}")
+
+	c := &ChatRole{
+		SID:          String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		AccountSID:   String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		ServiceSID:   String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		FriendlyName: String("channel user"),
+		Type:         String("channel"),
+		Permissions:  []*string{String("sendMessage"), String("leaveChannel"), String("editOwnMessage"), String("deleteOwnMessage")},
+		DateCreated:  &time.Time{},
+		DateUpdated:  &time.Time{},
+		URL:          String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+	}
+
+	got := &ChatRoles{
+		Roles: []*ChatRole{c},
+		Meta: &Meta{
+			Page:            Int(0),
+			PageSize:        Int(50),
+			FirstPageURL:    String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0"),
+			PreviousPageURL: String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0"),
+			URL:             String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0"),
+			NextPageURL:     String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=1"),
+			Key:             String("roles"),
+		},
+	}
+
+	want := `{
+		"roles": [
+			{
+				"sid": "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				"service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				"friendly_name": "channel user",
+				"type": "channel",
+				"permissions": [
+					"sendMessage",
+					"leaveChannel",
+					"editOwnMessage",
+					"deleteOwnMessage"
+				],
+				"date_created": "0001-01-01T00:00:00Z",
+				"date_updated": "0001-01-01T00:00:00Z",
+				"url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+			}
+		],
+		"meta": {
+			"page": 0,
+			"page_size": 50,
+			"first_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0",
+			"previous_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0",
+			"url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0",
+			"next_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=1",
+			"key": "roles"
+		}
+	}`
+	testJSONMarshal(t, got, want)
+}
 
 func TestChatRole_Create(t *testing.T) {
 	client, mux, teardown := setup()

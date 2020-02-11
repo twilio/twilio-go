@@ -22,19 +22,8 @@ type ChatRole struct {
 
 // ChatRoles represents a paginated set of Chat Role structs.
 type ChatRoles struct {
-	Meta  ChatRolesMeta `json:"meta"`
+	Meta  *Meta `json:"meta"`
 	Roles []*ChatRole
-}
-
-// ChatRolesMeta represents pagination metadata for ChatRoles.
-type ChatRolesMeta struct {
-	Page            *int    `json:"page"`
-	PageSize        *int    `json:"page_size"`
-	FirstPageURL    *string `json:"first_page_url"`
-	PreviousPageURL *string `json:"previous_page_url"`
-	URL             *string `json:"url"`
-	NextPageURL     *string `json:"next_page_url"`
-	Key             *string `json:"key"`
 }
 
 // ChatRoleParams is the set of parameters that can be used when creating or updating a Chat Role.

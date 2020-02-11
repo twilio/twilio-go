@@ -85,6 +85,12 @@ type ChatServiceParams struct {
 	Limits                       map[string]*int `form:",omitempty"`
 }
 
+// ChatServiceList is the API response for reading multiple Chat Services
+type ChatServiceList struct {
+	Meta     *Meta          `json:"meta"`
+	Services []*ChatService `json:"services"`
+}
+
 // ChatServiceClient is the entrypoint for the Programmable Chat API.
 type ChatServiceClient struct {
 	baseURL string
@@ -115,8 +121,8 @@ func (c *ChatServiceClient) Create(params *ChatServiceParams) (*ChatService, err
 	return cs, err
 }
 
-// Read returns the details of a Chat Service.
-func (c *ChatServiceClient) Read(sid string) (*ChatService, error) {
+// Fetch returns the details of a Chat Service.
+func (c *ChatServiceClient) Fetch(sid string) (*ChatService, error) {
 	resp, err := c.client.Get(c.url("/Services/"+sid), nil)
 	if err != nil {
 		return nil, err
@@ -124,6 +130,22 @@ func (c *ChatServiceClient) Read(sid string) (*ChatService, error) {
 	defer resp.Body.Close()
 
 	cs := &ChatService{}
+	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
+		return nil, err
+	}
+
+	return cs, err
+}
+
+// Read returns a paginated list of Chat Services.
+func (c *ChatServiceClient) Read() (*ChatServiceList, error) {
+	resp, err := c.client.Get(c.url("/Services"), nil)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatServiceList{}
 	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
 		return nil, err
 	}

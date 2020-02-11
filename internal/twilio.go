@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
 	"github.com/twilio/twilio-go/form"
 )
@@ -83,18 +82,26 @@ func (c Client) SendRequest(method string, rawURL string, queryParams, formData 
 		return nil, err
 	}
 
+	valueReader := &strings.Reader{}
+
 	if queryParams != nil {
-		v, _ := query.Values(queryParams)
-		u.RawQuery = v.Encode()
+		v, _ := form.EncodeToStringWith(queryParams, delimiter, escape, keepZeros)
+		// fmt.Printf("\n FORMDATA: %+v \n", v)
+		regex := regexp.MustCompile(`\.\d+`)
+		s := regex.ReplaceAllString(v, "")
+
+		valueReader = strings.NewReader(s)
 	}
 
-	valueReader := &strings.Reader{}
+	// valueReader := &strings.Reader{}
 
 	if formData != nil {
 		v, _ := form.EncodeToStringWith(formData, delimiter, escape, keepZeros)
 		// Arrays should not express hierarchy for Twilio APIs
 		// For example, Permission.0=sendMessage&Permission.1="leaveChannel"
 		// Becomes: Permission=sendMessage&Permission="leaveChannel"
+		// fmt.Printf("\n ERROR: %+v \n", err)
+		// fmt.Printf("\n FORMDATA: %+v \n", v)
 		regex := regexp.MustCompile(`\.\d+`)
 		s := regex.ReplaceAllString(v, "")
 

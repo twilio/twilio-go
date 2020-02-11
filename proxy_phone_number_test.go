@@ -5,7 +5,49 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+	"time"
 )
+
+func TestProxyPhoneNumber_marshall(t *testing.T) {
+	testJSONMarshal(t, &AvailablePhoneNumberLocal{}, "{}")
+
+	got := &ProxyPhoneNumber{
+		SID:             String("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		AccountSID:      String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		ProxyServiceSID: String("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		DateCreated:     &time.Time{},
+		DateUpdated:     &time.Time{},
+		PhoneNumber:     String("+1987654321"),
+		ISOCountry:      String("US"),
+		Capabilities: map[string]*bool{
+			"sms_outbound":  Bool(true),
+			"voice_inbound": Bool(false),
+		},
+		URL:        String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		IsReserved: Bool(false),
+		InUse:      Int(0),
+	}
+
+	want := `{
+		"sid": "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"service_sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"date_created": "0001-01-01T00:00:00Z",
+		"date_updated": "0001-01-01T00:00:00Z",
+		"phone_number": "+1987654321",
+		"friendly_name": "Friendly Name",
+		"iso_country": "US",
+		"capabilities": {
+			"sms_outbound": true,
+			"voice_inbound": false
+		},
+		"url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"is_reserved": false,
+		"in_use": 0
+	}`
+
+	testJSONMarshal(t, got, want)
+}
 
 func TestProxyPhoneNumber_Create(t *testing.T) {
 	client, mux, teardown := setup()
@@ -34,7 +76,7 @@ func TestProxyPhoneNumber_Create(t *testing.T) {
 
 }
 
-func TestProxyPhoneNumber_Read(t *testing.T) {
+func TestProxyPhoneNumber_Fetch(t *testing.T) {
 	client, mux, teardown := setup()
 
 	defer teardown()
@@ -46,16 +88,16 @@ func TestProxyPhoneNumber_Read(t *testing.T) {
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Proxy.PhoneNumber.Read("KS123", "PN123")
+	got, err := client.Proxy.PhoneNumber.Fetch("KS123", "PN123")
 
 	if err != nil {
-		t.Errorf("ProxyService.Read returned error: %v", err)
+		t.Errorf("ProxyService.Fetch returned error: %v", err)
 	}
 
 	want := &ProxyPhoneNumber{SID: String("KS123")}
 
 	if !reflect.DeepEqual(got, want) {
-		t.Errorf("ProxyService.Read returned %+v, want %+v", got, want)
+		t.Errorf("ProxyService.Fetch returned %+v, want %+v", got, want)
 	}
 
 }

@@ -7,6 +7,79 @@ import (
 	"testing"
 )
 
+func TestAvailablePhoneNumberLocal_marshall(t *testing.T) {
+	testJSONMarshal(t, &AvailablePhoneNumberLocal{}, "{}")
+	a := &AvailablePhoneNumberLocal{
+		AddressRequirements: String("none"),
+		Beta:                Bool(false),
+		Capabilities: map[string]*bool{
+			"mms":   Bool(true),
+			"sms":   Bool(false),
+			"voice": Bool(true),
+		},
+		FriendlyName: String("(808) 925-1571"),
+		ISOCountry:   String("US"),
+		LATA:         Int(834),
+		Latitude:     Float64(19.720000),
+		Locality:     String("Hilo"),
+		Longitude:    Float64(-155.090000),
+		PhoneNumber:  String("+18089251571"),
+		PostalCode:   String("96720"),
+		RateCenter:   String("HILO"),
+		Region:       String("HI"),
+	}
+
+	got := &AvailablePhoneNumbersLocal{
+		AvailablePhoneNumbers: []*AvailablePhoneNumberLocal{a},
+		End:                   Int(1),
+		FirstPageURI:          String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0"),
+		LastPageURI:           String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0"),
+		NextPageURI:           String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=50"),
+		NumPages:              Int(1),
+		Page:                  Int(0),
+		PageSize:              Int(50),
+		PreviousPageURI:       String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0"),
+		Start:                 Int(0),
+		Total:                 Int(1),
+		URI:                   String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=1"),
+	}
+	want := `{
+		"available_phone_numbers": [
+		  {
+			"address_requirements": "none",
+			"beta": false,
+			"capabilities": {
+			  "mms": true,
+			  "sms": false,
+			  "voice": true
+			},
+			"friendly_name": "(808) 925-1571",
+			"iso_country": "US",
+			"lata": "834",
+			"latitude": "19.720000",
+			"locality": "Hilo",
+			"longitude": "-155.090000",
+			"phone_number": "+18089251571",
+			"postal_code": "96720",
+			"rate_center": "HILO",
+			"region": "HI"
+		  }
+		],
+		"end": 1,
+		"first_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0",
+		"last_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0",
+		"next_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=50",
+		"num_pages": 1,
+		"page": 0,
+		"page_size": 50,
+		"previous_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0",
+		"start": 0,
+		"total": 1,
+		"uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=1"
+	}`
+	testJSONMarshal(t, got, want)
+}
+
 func TestAvailablePhoneNumberLocal_Read(t *testing.T) {
 	client, mux, teardown := setup()
 
@@ -15,13 +88,9 @@ func TestAvailablePhoneNumberLocal_Read(t *testing.T) {
 	mux.HandleFunc("/Accounts/AC123/AvailablePhoneNumbers/US/Local.json", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		response := `{"available_phone_numbers": [{"phone_number":"+18089251571"}]}`
-
 		fmt.Fprint(w, response)
 	})
-
-	got, err := client.AvailablePhoneNumbers.Read(&AvailablePhoneNumberLocalReadParams{
-		SMSEnabled: Bool(true),
-	})
+	got, err := client.AvailablePhoneNumbers.Read(&AvailablePhoneNumberLocalReadParams{})
 	if err != nil {
 		t.Errorf("AvailablePhoneNumberLocal.Read returned error: %v", err)
 	}
