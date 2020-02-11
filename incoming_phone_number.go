@@ -10,35 +10,35 @@ import (
 type IncomingPhoneNumber struct {
 	Beta                 *bool            `json:"beta"`
 	VoiceCallerIDLookup  *bool            `json:"voice_caller_id_lookup"`
-	AccountSid           *string          `json:"account_sid"`
-	AddressSid           *string          `json:"address_sid"`
+	AccountSID           *string          `json:"account_sid"`
+	AddressSID           *string          `json:"address_sid"`
 	AddressRequirements  *string          `json:"address_requirements"`
 	APIVersion           *string          `json:"api_version"`
 	Capabilities         map[string]*bool `json:"capabilities"`
 	DateCreated          *string          `json:"date_created"`
 	DateUpdated          *string          `json:"date_updated"`
 	FriendlyName         *string          `json:"friendly_name"`
-	IdentitySid          *string          `json:"identity_sid"`
+	IdentitySID          *string          `json:"identity_sid"`
 	PhoneNumber          *string          `json:"phone_number"`
 	Origin               *string          `json:"origin"`
-	Sid                  *string          `json:"sid"`
-	SMSApplicationSid    *string          `json:"sms_application_sid"`
+	SID                  *string          `json:"sid"`
+	SMSApplicationSID    *string          `json:"sms_application_sid"`
 	SMSFallbackMethod    *string          `json:"sms_fallback_method"`
 	SMSFallbackURL       *string          `json:"sms_fallback_url"`
 	SMSMethod            *string          `json:"sms_method"`
 	SMSURL               *string          `json:"sms_url"`
 	StatusCallback       *string          `json:"status_callback"`
 	StatusCallbackMethod *string          `json:"status_callback_method"`
-	TrunkSid             *string          `json:"trunk_sid"`
+	TrunkSID             *string          `json:"trunk_sid"`
 	URI                  *string          `json:"uri"`
-	VoiceApplicationSid  *string          `json:"voice_application_sid"`
+	VoiceApplicationSID  *string          `json:"voice_application_sid"`
 	VoiceFallbackMethod  *string          `json:"voice_fallback_method"`
 	VoiceFallbackURL     *string          `json:"voice_fallback_url"`
 	VoiceMethod          *string          `json:"voice_method"`
 	VoiceURL             *string          `json:"voice_url"`
 	EmergencyStatus      *string          `json:"emergency_status"`
-	EmergencyAddressSid  *string          `json:"emergency_address_sid"`
-	BundleSid            *string          `json:"bundle_sid"`
+	EmergencyAddressSID  *string          `json:"emergency_address_sid"`
+	BundleSID            *string          `json:"bundle_sid"`
 }
 
 // IncomingPhoneNumberParams is the set of parameters that can
@@ -47,7 +47,7 @@ type IncomingPhoneNumberParams struct {
 	AccountSID           *string `form:"AccountSid,omitempty"`
 	APIVersion           *string `form:"ApiVersion,omitempty"`
 	FriendlyName         *string `form:",omitempty"`
-	SMSApplicationSid    *string `form:"SmsApplicationSid,omitempty"`
+	SMSApplicationSID    *string `form:"SmsApplicationSid,omitempty"`
 	SMSFallbackMethod    *string `form:"SmsApplicationMethod,omitempty"`
 	PhoneNumber          *string `form:",omitempty"`
 	AreaCode             *string `form:",omitempty"`
@@ -89,7 +89,7 @@ func NewIncomingPhoneNumberClient(client *Twilio) *IncomingPhoneNumberClient {
 
 // Create creates a new IncomingPhoneNumber.
 func (c *IncomingPhoneNumberClient) Create(params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
-	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers.json", c.client.AccountSid))
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers.json", c.client.AccountSID))
 
 	resp, err := c.client.Post(uri, params)
 	if err != nil {
@@ -97,17 +97,17 @@ func (c *IncomingPhoneNumberClient) Create(params *IncomingPhoneNumberParams) (*
 	}
 	defer resp.Body.Close()
 
-	ipn := &IncomingPhoneNumber{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(ipn); decodeErr != nil {
-		return nil, decodeErr
+	p := &IncomingPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
+		return nil, err
 	}
 
-	return ipn, err
+	return p, err
 }
 
 // Read returns the details of an IncomingPhoneNumber.
 func (c *IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, error) {
-	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSid, sid))
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSID, sid))
 
 	resp, err := c.client.Get(uri, nil)
 	if err != nil {
@@ -115,17 +115,17 @@ func (c *IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, erro
 	}
 	defer resp.Body.Close()
 
-	ipn := &IncomingPhoneNumber{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(ipn); decodeErr != nil {
-		return nil, decodeErr
+	p := &IncomingPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
+		return nil, err
 	}
 
-	return ipn, err
+	return p, err
 }
 
 // Update updates an IncomingPhoneNumber.
 func (c *IncomingPhoneNumberClient) Update(sid string, params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
-	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSid, sid))
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSID, sid))
 
 	resp, err := c.client.Post(uri, params)
 	if err != nil {
@@ -133,17 +133,17 @@ func (c *IncomingPhoneNumberClient) Update(sid string, params *IncomingPhoneNumb
 	}
 	defer resp.Body.Close()
 
-	ipn := &IncomingPhoneNumber{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(ipn); decodeErr != nil {
-		return nil, decodeErr
+	p := &IncomingPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
+		return nil, err
 	}
 
-	return ipn, err
+	return p, err
 }
 
 // Delete releases an existing IncomingPhoneNumber.
 func (c *IncomingPhoneNumberClient) Delete(sid string) error {
-	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSid, sid))
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSID, sid))
 
 	resp, err := c.client.Delete(uri)
 	if err != nil {

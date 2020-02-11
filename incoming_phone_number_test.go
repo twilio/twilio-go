@@ -26,10 +26,10 @@ func TestIncomingPhoneNumber_Create(t *testing.T) {
 		t.Errorf("IncomingPhoneNumber.Create returned error: %v", err)
 	}
 
-	expected := &IncomingPhoneNumber{FriendlyName: String("IncomingPhoneNumber")}
+	want := &IncomingPhoneNumber{FriendlyName: String("IncomingPhoneNumber")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("IncomingPhoneNumber.Create returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("IncomingPhoneNumber.Create returned %+v, want %+v", got, want)
 	}
 
 }
@@ -52,10 +52,10 @@ func TestIncomingPhoneNumber_Read(t *testing.T) {
 		t.Errorf("IncomingPhoneNumber.Read returned error: %v", err)
 	}
 
-	expected := &IncomingPhoneNumber{Sid: String("PN1")}
+	want := &IncomingPhoneNumber{SID: String("PN1")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("IncomingPhoneNumber.Read returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("IncomingPhoneNumber.Read returned %+v, want %+v", got, want)
 	}
 
 }
@@ -80,10 +80,10 @@ func TestIncomingPhoneNumber_Update(t *testing.T) {
 		t.Errorf("IncomingPhoneNumber.Update returned error: %v", err)
 	}
 
-	expected := &IncomingPhoneNumber{Sid: String("PN1"), FriendlyName: String("NewName")}
+	want := &IncomingPhoneNumber{SID: String("PN1"), FriendlyName: String("NewName")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("IncomingPhoneNumber.Update returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("IncomingPhoneNumber.Update returned %+v, want %+v", got, want)
 	}
 
 }

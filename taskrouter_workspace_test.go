@@ -28,9 +28,9 @@ func TestTaskrouterWorkspace_Create(t *testing.T) {
 		t.Errorf("TaskRouterWorkspace.Create returned error: %v", err)
 	}
 
-	expected := &TaskRouterWorkspace{FriendlyName: String("TaskRouterWorkspace")}
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterWorkspace.Create returned %+v, expected %+v", got, expected)
+	want := &TaskRouterWorkspace{FriendlyName: String("TaskRouterWorkspace")}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterWorkspace.Create returned %+v, want %+v", got, want)
 	}
 
 }
@@ -42,7 +42,7 @@ func TestTaskRouterWorkspace_Fetch(t *testing.T) {
 
 	mux.HandleFunc("/Workspaces/WS123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		response := `{"sid":"WF123"}`
+		response := `{"sid":"WS123"}`
 
 		fmt.Fprint(w, response)
 	})
@@ -53,10 +53,10 @@ func TestTaskRouterWorkspace_Fetch(t *testing.T) {
 		t.Errorf("TaskRouterWorkspace.Fetch returned error: %v", err)
 	}
 
-	expected := &TaskRouterWorkspace{Sid: String("WF123")}
+	want := &TaskRouterWorkspace{SID: String("WS123")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterWorkspace.Fetch returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterWorkspace.Fetch returned %+v, want %+v", got, want)
 	}
 }
 
@@ -67,21 +67,20 @@ func TestTaskRouterWorkspace_Read(t *testing.T) {
 
 	mux.HandleFunc("/Workspaces", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		response := `{"workspaces":[{"sid": "WF123"}]}`
+		response := `{"workspaces":[{"sid": "WS123"}]}`
 		fmt.Fprint(w, response)
 	})
 
 	got, err := client.TaskRouter.Workspaces.Read(nil)
-
 	if err != nil {
 		t.Errorf("TaskRouterWorkspace.Read returned error: %v", err)
 	}
 
-	workflow := &TaskRouterWorkspace{Sid: String("WF123")}
-	expected := &TaskRouterWorkspaceList{Workspaces: []*TaskRouterWorkspace{workflow}}
+	workspace := &TaskRouterWorkspace{SID: String("WS123")}
+	want := &TaskRouterWorkspaceList{Workspaces: []*TaskRouterWorkspace{workspace}}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterWorkspace.Read returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterWorkspace.Read returned %+v, want %+v", got, want)
 	}
 }
 
@@ -92,7 +91,7 @@ func TestTaskRouterWorkspace_Update(t *testing.T) {
 
 	mux.HandleFunc("/Workspaces/WS123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		response := `{"sid":"WF123","friendly_name":"NewName"}`
+		response := `{"sid":"WS123","friendly_name":"NewName"}`
 
 		fmt.Fprint(w, response)
 	})
@@ -105,10 +104,10 @@ func TestTaskRouterWorkspace_Update(t *testing.T) {
 		t.Errorf("TaskRouterWorkspace.Update returned error: %v", err)
 	}
 
-	expected := &TaskRouterWorkspace{Sid: String("WF123"), FriendlyName: String("NewName")}
+	want := &TaskRouterWorkspace{SID: String("WS123"), FriendlyName: String("NewName")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterWorkspace.Update returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterWorkspace.Update returned %+v, want %+v", got, want)
 	}
 
 }

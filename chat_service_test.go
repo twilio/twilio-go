@@ -26,10 +26,10 @@ func TestChatService_Create(t *testing.T) {
 		t.Errorf("ChatService.Create returned error: %v", err)
 	}
 
-	expected := &ChatService{FriendlyName: String("ChatService")}
+	want := &ChatService{FriendlyName: String("ChatService")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ChatService.Create returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ChatService.Create returned %+v, want %+v", got, want)
 	}
 
 }
@@ -52,10 +52,10 @@ func TestChatService_Read(t *testing.T) {
 		t.Errorf("ChatService.Read returned error: %v", err)
 	}
 
-	expected := &ChatService{Sid: String("AC123")}
+	want := &ChatService{SID: String("AC123")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ChatService.Read returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ChatService.Read returned %+v, want %+v", got, want)
 	}
 
 }
@@ -81,10 +81,10 @@ func TestChatService_Update(t *testing.T) {
 		t.Errorf("ChatService.Update returned error: %v", err)
 	}
 
-	expected := &ChatService{Sid: String("AC123"), FriendlyName: String("NewName"), TypingIndicatorTimeout: Int(10)}
+	want := &ChatService{SID: String("AC123"), FriendlyName: String("NewName"), TypingIndicatorTimeout: Int(10)}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ChatService.Update returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ChatService.Update returned %+v, want %+v", got, want)
 	}
 
 }

@@ -9,7 +9,7 @@ import (
 // All other Programmable Proxy resources belong to a specific Service.
 // See: https://www.twilio.com/docs/proxy/api/service
 type ProxyService struct {
-	Sid                     *string            `json:"sid"`
+	SID                     *string            `json:"sid"`
 	AccountSID              *string            `json:"account_sid"`
 	ChatInstanceSID         *string            `json:"chat_instance_sid"`
 	UniqueName              *string            `json:"unique_name"`

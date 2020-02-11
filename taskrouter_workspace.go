@@ -10,14 +10,14 @@ import (
 // A TaskRouterWorkspace is a container for your Tasks, Workers, TaskQueues, Workflows, and Activities.
 // refer: https://www.twilio.com/docs/taskrouter/api/workspace.
 type TaskRouterWorkspace struct {
-	Sid                  *string            `json:"sid"`
-	AccountSid           *string            `json:"account_sid"`
+	SID                  *string            `json:"sid"`
+	AccountSID           *string            `json:"account_sid"`
 	DateCreated          *time.Time         `json:"date_created"`
 	DateUpdated          *time.Time         `json:"date_updated"`
 	DefaultActivityName  *string            `json:"default_activity_name"`
-	DefaultActivitySid   *string            `json:"default_activity_sid"`
+	DefaultActivitySID   *string            `json:"default_activity_sid"`
 	TimeoutActivityName  *string            `json:"timeout_activity_name"`
-	TimeoutActivitySid   *string            `json:"timeout_activity_sid"`
+	TimeoutActivitySID   *string            `json:"timeout_activity_sid"`
 	URL                  *string            `json:"url"`
 	Links                map[string]*string `json:"links"`
 	FriendlyName         *string            `json:"friendly_name"`
@@ -60,7 +60,7 @@ type TaskRouterWorkspaceClient struct {
 func NewTaskRouterWorkspaceClient(client *Twilio) *TaskRouterWorkspaceClient {
 	c := new(TaskRouterWorkspaceClient)
 	c.client = client
-	c.baseURL = fmt.Sprintf("https://taskrouter.%s/v1/TaskRouterWorkspaces", client.BaseURL)
+	c.baseURL = c.url(fmt.Sprintf("https://taskrouter.%s/v1", client.BaseURL))
 
 	return c
 }
@@ -71,9 +71,7 @@ func (c *TaskRouterWorkspaceClient) Create(params *TaskRouterWorkspaceParams) (*
 		return nil, errors.New("friendlyname is required in params")
 	}
 
-	url := c.baseURL
-
-	resp, err := c.client.Post(url, params)
+	resp, err := c.client.Post(c.url("/Workspaces"), params)
 
 	if err != nil {
 		return nil, err
@@ -91,9 +89,8 @@ func (c *TaskRouterWorkspaceClient) Create(params *TaskRouterWorkspaceParams) (*
 }
 
 // Fetch fetches TaskRouterWorkspace for the given TaskRouterWorkspace SID.
-func (c *TaskRouterWorkspaceClient) Fetch(SID string) (*TaskRouterWorkspace, error) {
-	url := fmt.Sprintf("%s/%s", c.baseURL, SID)
-	resp, err := c.client.Get(url, nil)
+func (c *TaskRouterWorkspaceClient) Fetch(sid string) (*TaskRouterWorkspace, error) {
+	resp, err := c.client.Get(c.url("/Workspaces/"+sid), nil)
 
 	if err != nil {
 		return nil, err
@@ -112,10 +109,8 @@ func (c *TaskRouterWorkspaceClient) Fetch(SID string) (*TaskRouterWorkspace, err
 
 // Read returns all existing TaskRouterWorkspaces.
 func (c *TaskRouterWorkspaceClient) Read(params *TaskRouterWorkspaceQueryParams) (*TaskRouterWorkspaceList, error) {
-	url := c.baseURL
 
-	resp, err := c.client.Get(url, params)
-
+	resp, err := c.client.Get(c.url("/Workspaces"), params)
 	if err != nil {
 		return nil, err
 	}
@@ -130,8 +125,8 @@ func (c *TaskRouterWorkspaceClient) Read(params *TaskRouterWorkspaceQueryParams)
 }
 
 // Update updates TaskRouterWorkspace with given config.
-func (c *TaskRouterWorkspaceClient) Update(SID string, params *TaskRouterWorkspaceParams) (*TaskRouterWorkspace, error) {
-	url := fmt.Sprintf("%s/%s", c.baseURL, SID)
+func (c *TaskRouterWorkspaceClient) Update(sid string, params *TaskRouterWorkspaceParams) (*TaskRouterWorkspace, error) {
+	url := c.url("/Workspaces/" + sid)
 
 	resp, err := c.client.Post(url, params)
 
@@ -151,10 +146,8 @@ func (c *TaskRouterWorkspaceClient) Update(SID string, params *TaskRouterWorkspa
 }
 
 // Delete deletes TaskRouterWorkspace for given SID.
-func (c *TaskRouterWorkspaceClient) Delete(SID string) error {
-	url := fmt.Sprintf("%s/%s", c.baseURL, SID)
-
-	resp, err := c.client.Delete(url)
+func (c *TaskRouterWorkspaceClient) Delete(sid string) error {
+	resp, err := c.client.Delete(c.url("/Workspaces/" + sid))
 
 	if err != nil {
 		return err

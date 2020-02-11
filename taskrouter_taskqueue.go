@@ -10,31 +10,31 @@ import (
 // TaskRouterTaskQueue allow you to categorize Tasks and describe which Workers are eligible to handle those Tasks.
 // refer: https://www.twilio.com/docs/taskrouter/api/task-queue
 type TaskRouterTaskQueue struct {
-	AccountSid              *string            `json:"account_sid"`
-	AssignmentActivitySid   *string            `json:"assignment_activity_sid"`
+	AccountSID              *string            `json:"account_sid"`
+	AssignmentActivitySID   *string            `json:"assignment_activity_sid"`
 	AssignmentActivityName  *string            `json:"assignment_activity_name"`
 	DateCreated             *time.Time         `json:"date_created"`
 	DateUpdated             *time.Time         `json:"date_updated"`
 	FriendlyName            *string            `json:"friendly_name"`
 	MaxReservedWorkers      *int               `json:"max_reserved_workers"`
-	ReservationActivitySid  *string            `json:"reservation_activity_sid"`
+	ReservationActivitySID  *string            `json:"reservation_activity_sid"`
 	ReservationActivityName *string            `json:"reservation_activity_name"`
-	Sid                     *string            `json:"sid"`
+	SID                     *string            `json:"sid"`
 	TargetWorkers           *string            `json:"target_workers"`
 	TaskOrder               *string            `json:"task_order"`
 	URI                     *string            `json:"url"`
-	WorkspaceSid            *string            `json:"workspace_sid"`
+	WorkspaceSID            *string            `json:"workspace_sid"`
 	Links                   map[string]*string `json:"links"`
 }
 
 // TaskRouterTaskQueueParams taskRouterTaskQueue parameters.
 type TaskRouterTaskQueueParams struct {
 	FriendlyName           *string `form:",omitempty"`
-	AssignmentActivitySID  *string `form:"AssignmentActivitySid,omitempty"`
+	AssignmentActivitySID  *string `form:"AssignmentActivitySID,omitempty"`
 	MaxReservedWorkers     *int    `form:",omitempty"`
 	TargetWorkers          *string `form:",omitempty"`
 	TaskOrder              *string `form:"TaskOrder,omitempty"`
-	ReservationActivitySID *string `form:"ReservationActivitySid,omitempty"`
+	ReservationActivitySID *string `form:"ReservationActivitySID,omitempty"`
 }
 
 // TaskRouterTaskQueueList struct to parse response of taskRouterTaskqueue read.
@@ -91,8 +91,8 @@ func (c *TaskRouterTaskQueueClient) Create(workspaceSID string, params *TaskRout
 }
 
 // Fetch fetches taskRouterTaskqueue for the given SID.
-func (c *TaskRouterTaskQueueClient) Fetch(workspaceSID string, SID string) (*TaskRouterTaskQueue, error) {
-	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues/%s", workspaceSID, SID))
+func (c *TaskRouterTaskQueueClient) Fetch(workspaceSID string, sid string) (*TaskRouterTaskQueue, error) {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues/%s", workspaceSID, sid))
 	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
@@ -131,10 +131,10 @@ func (c *TaskRouterTaskQueueClient) Read(workspaceSID string, params *TaskRouter
 // Update updates taskRouterTaskqueue with given config.
 func (c *TaskRouterTaskQueueClient) Update(
 	workspaceSID string,
-	SID string,
+	sid string,
 	params *TaskRouterTaskQueueParams,
 ) (*TaskRouterTaskQueue, error) {
-	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues/%s", workspaceSID, SID))
+	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues/%s", workspaceSID, sid))
 	resp, err := c.client.Post(url, params)
 
 	if err != nil {
@@ -153,8 +153,8 @@ func (c *TaskRouterTaskQueueClient) Update(
 }
 
 // Delete deletes taskRouterTaskQueue with the given SID.
-func (c *TaskRouterTaskQueueClient) Delete(workspaceSID string, SID string) error {
-	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues/%s", workspaceSID, SID))
+func (c *TaskRouterTaskQueueClient) Delete(workspaceSID string, sid string) error {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues/%s", workspaceSID, sid))
 	resp, err := c.client.Delete(url)
 
 	if err != nil {

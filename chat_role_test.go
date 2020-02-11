@@ -26,10 +26,10 @@ func TestChatRole_Create(t *testing.T) {
 		t.Errorf("ChatRole.Create returned error: %v", err)
 	}
 
-	expected := &ChatRole{FriendlyName: String("ChatRole")}
+	want := &ChatRole{FriendlyName: String("ChatRole")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ChatRole.Create returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ChatRole.Create returned %+v, want %+v", got, want)
 	}
 
 }
@@ -52,10 +52,10 @@ func TestChatRole_Fetch(t *testing.T) {
 		t.Errorf("ChatRole.Fetch returned error: %v", err)
 	}
 
-	expected := &ChatRole{Sid: String("IS123")}
+	want := &ChatRole{SID: String("IS123")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ChatRole.Fetch returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ChatRole.Fetch returned %+v, want %+v", got, want)
 	}
 
 }
@@ -77,11 +77,11 @@ func TestChatRole_Read(t *testing.T) {
 		t.Errorf("ChatRole.Read returned error: %v", err)
 	}
 
-	c := &ChatRole{Sid: String("RL1")}
-	expected := &ChatRoles{Roles: []*ChatRole{c}}
+	c := &ChatRole{SID: String("RL1")}
+	want := &ChatRoles{Roles: []*ChatRole{c}}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ChatRole.Read returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ChatRole.Read returned %+v, want %+v", got, want)
 	}
 
 }
@@ -106,10 +106,10 @@ func TestChatRole_Update(t *testing.T) {
 		t.Errorf("ChatRole.Update returned error: %v", err)
 	}
 
-	expected := &ChatRole{Sid: String("RL1"), FriendlyName: String("NewName")}
+	want := &ChatRole{SID: String("RL1"), FriendlyName: String("NewName")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ChatRole.Update returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ChatRole.Update returned %+v, want %+v", got, want)
 	}
 
 }

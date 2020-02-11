@@ -11,13 +11,13 @@ import (
 // which determines whether they are eligible to receive task assignments.
 // refer: https://www.twilio.com/docs/taskrouter/api/activity
 type TaskRouterActivity struct {
-	AccountSid   *string    `json:"account_sid"`
+	AccountSID   *string    `json:"account_sid"`
 	Available    *bool      `json:"available"`
 	DateCreated  *time.Time `json:"date_created"`
 	DateUpdated  *time.Time `json:"date_updated"`
 	FriendlyName *string    `json:"friendly_name"`
-	Sid          *string    `json:"sid"`
-	WorkspaceSid *string    `json:"workspace_sid"`
+	SID          *string    `json:"sid"`
+	WorkspaceSID *string    `json:"workspace_sid"`
 	URI          *string    `json:"url"`
 }
 
@@ -81,8 +81,8 @@ func (c *TaskRouterActivityClient) Create(workspaceSID string, activityParams *T
 }
 
 // Fetch fetches activity for the given activity SID.
-func (c *TaskRouterActivityClient) Fetch(workspaceSID string, SID string) (*TaskRouterActivity, error) {
-	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities/%s", workspaceSID, SID))
+func (c *TaskRouterActivityClient) Fetch(workspaceSID string, sid string) (*TaskRouterActivity, error) {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities/%s", workspaceSID, sid))
 	resp, err := c.client.Get(url, nil)
 
 	if err != nil {
@@ -122,10 +122,10 @@ func (c *TaskRouterActivityClient) Read(workspaceSID string) (*TaskRouterActivit
 // Update updates activity with given config.
 func (c *TaskRouterActivityClient) Update(
 	workspaceSID string,
-	SID string,
+	sid string,
 	activityParams *TaskRouterActivityParams,
 ) (*TaskRouterActivity, error) {
-	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities/%s", workspaceSID, SID))
+	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities/%s", workspaceSID, sid))
 
 	resp, err := c.client.Post(url, activityParams)
 
@@ -145,8 +145,8 @@ func (c *TaskRouterActivityClient) Update(
 }
 
 // Delete deletes workflow for given SID.
-func (c *TaskRouterActivityClient) Delete(workspaceSID string, SID string) error {
-	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities/%s", workspaceSID, SID))
+func (c *TaskRouterActivityClient) Delete(workspaceSID string, sid string) error {
+	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities/%s", workspaceSID, sid))
 
 	resp, err := c.client.Delete(url)
 

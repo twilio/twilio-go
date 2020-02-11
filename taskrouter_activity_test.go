@@ -26,10 +26,10 @@ func TestTaskrouterActivity_Create(t *testing.T) {
 		t.Errorf("TaskRouterActivity.Create returned error: %v", err)
 	}
 
-	expected := &TaskRouterActivity{FriendlyName: String("TaskRouterActivity")}
+	want := &TaskRouterActivity{FriendlyName: String("TaskRouterActivity")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterActivity.Create returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterActivity.Create returned %+v, want %+v", got, want)
 	}
 
 }
@@ -52,10 +52,10 @@ func TestTaskRouterActivity_Fetch(t *testing.T) {
 		t.Errorf("TaskRouterActivity.Fetch returned error: %v", err)
 	}
 
-	expected := &TaskRouterActivity{Sid: String("WA123")}
+	want := &TaskRouterActivity{SID: String("WA123")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterActivity.Fetch returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterActivity.Fetch returned %+v, want %+v", got, want)
 	}
 }
 
@@ -77,11 +77,11 @@ func TestTaskRouterActivity_Read(t *testing.T) {
 		t.Errorf("TaskRouterActivity.Read returned error: %v", err)
 	}
 
-	activity := &TaskRouterActivity{Sid: String("WA123")}
-	expected := &TaskRouterActivityList{Activities: []*TaskRouterActivity{activity}}
+	activity := &TaskRouterActivity{SID: String("WA123")}
+	want := &TaskRouterActivityList{Activities: []*TaskRouterActivity{activity}}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterActivity.Read returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterActivity.Read returned %+v, want %+v", got, want)
 	}
 }
 
@@ -105,10 +105,10 @@ func TestTaskRouterActivity_Update(t *testing.T) {
 		t.Errorf("TaskRouterActivity.Update returned error: %v", err)
 	}
 
-	expected := &TaskRouterActivity{Sid: String("WA123"), FriendlyName: String("NewName")}
+	want := &TaskRouterActivity{SID: String("WA123"), FriendlyName: String("NewName")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterActivity.Update returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterActivity.Update returned %+v, want %+v", got, want)
 	}
 
 }

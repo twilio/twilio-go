@@ -66,10 +66,10 @@ type Meta struct {
 const interval = 10
 
 // NewClient provides an initialized Twilio client.
-func NewClient(accountSid string, authToken string) *Twilio {
+func NewClient(accountSID string, authToken string) *Twilio {
 	var httpClient = http.DefaultClient
 
-	credentials := &twilio.Credentials{AccountSid: accountSid, AuthToken: authToken}
+	credentials := &twilio.Credentials{AccountSID: accountSID, AuthToken: authToken}
 
 	c := &Twilio{
 		Credentials: credentials,

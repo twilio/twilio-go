@@ -9,9 +9,9 @@ import (
 // ChatRole represents what a user can do within a Chat Service instance.
 // See: https://www.twilio.com/docs/chat/rest/role-resource
 type ChatRole struct {
-	Sid          *string    `json:"sid"`
-	AccountSid   *string    `json:"account_sid"`
-	ServiceSid   *string    `json:"service_sid"`
+	SID          *string    `json:"sid"`
+	AccountSID   *string    `json:"account_sid"`
+	ServiceSID   *string    `json:"service_sid"`
 	FriendlyName *string    `json:"friendly_name"`
 	Type         *string    `json:"type"`
 	Permissions  []*string  `json:"permissions"`
@@ -60,8 +60,8 @@ func NewChatRoleClient(client *Twilio) *ChatRoleClient {
 }
 
 // Create creates a new Chat Role attached to a particular service.
-func (c *ChatRoleClient) Create(serviceSid string, params *ChatRoleParams) (*ChatRole, error) {
-	path := fmt.Sprintf("/Services/%s/Roles", serviceSid)
+func (c *ChatRoleClient) Create(serviceSID string, params *ChatRoleParams) (*ChatRole, error) {
+	path := fmt.Sprintf("/Services/%s/Roles", serviceSID)
 	resp, err := c.client.Post(c.url(path), params)
 	if err != nil {
 		return nil, err
@@ -77,8 +77,8 @@ func (c *ChatRoleClient) Create(serviceSid string, params *ChatRoleParams) (*Cha
 }
 
 // Fetch returns the details of a Chat Role attached to a particular Service.
-func (c *ChatRoleClient) Fetch(serviceSid, sid string) (*ChatRole, error) {
-	path := fmt.Sprintf("/Services/%s/Roles/%s", serviceSid, sid)
+func (c *ChatRoleClient) Fetch(serviceSID, sid string) (*ChatRole, error) {
+	path := fmt.Sprintf("/Services/%s/Roles/%s", serviceSID, sid)
 	resp, err := c.client.Get(c.url(path), nil)
 	if err != nil {
 		return nil, err
@@ -94,8 +94,8 @@ func (c *ChatRoleClient) Fetch(serviceSid, sid string) (*ChatRole, error) {
 }
 
 // Read returns a paginated list of the roles attached to a particular Service.
-func (c *ChatRoleClient) Read(serviceSid string) (*ChatRoles, error) {
-	path := fmt.Sprintf("/Services/%s/Roles", serviceSid)
+func (c *ChatRoleClient) Read(serviceSID string) (*ChatRoles, error) {
+	path := fmt.Sprintf("/Services/%s/Roles", serviceSID)
 	resp, err := c.client.Get(c.url(path), nil)
 	if err != nil {
 		return nil, err
@@ -111,8 +111,8 @@ func (c *ChatRoleClient) Read(serviceSid string) (*ChatRoles, error) {
 }
 
 // Update updates a Chat Role attached to a particular Service.
-func (c *ChatRoleClient) Update(serviceSid, sid string, params *ChatRoleParams) (*ChatRole, error) {
-	path := fmt.Sprintf("/Services/%s/Roles/%s", serviceSid, sid)
+func (c *ChatRoleClient) Update(serviceSID, sid string, params *ChatRoleParams) (*ChatRole, error) {
+	path := fmt.Sprintf("/Services/%s/Roles/%s", serviceSID, sid)
 	resp, err := c.client.Post(c.url(path), params)
 	if err != nil {
 		return nil, err
@@ -128,8 +128,8 @@ func (c *ChatRoleClient) Update(serviceSid, sid string, params *ChatRoleParams) 
 }
 
 // Delete deletes a Chat Role attached to a particular Service.
-func (c *ChatRoleClient) Delete(serviceSid, sid string) error {
-	path := fmt.Sprintf("/Services/%s/Roles/%s", serviceSid, sid)
+func (c *ChatRoleClient) Delete(serviceSID, sid string) error {
+	path := fmt.Sprintf("/Services/%s/Roles/%s", serviceSID, sid)
 	resp, err := c.client.Delete(c.url(path))
 	if err != nil {
 		return err

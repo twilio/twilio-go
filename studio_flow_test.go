@@ -26,10 +26,10 @@ func TestStudioFlow_Create(t *testing.T) {
 		t.Errorf("StudioFlow.Create returned error: %v", err)
 	}
 
-	expected := &StudioFlow{FriendlyName: String("StudioFlow")}
+	want := &StudioFlow{FriendlyName: String("StudioFlow")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("StudioFlow.Create returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("StudioFlow.Create returned %+v, want %+v", got, want)
 	}
 
 }
@@ -52,10 +52,10 @@ func TestStudioFlow_Read(t *testing.T) {
 		t.Errorf("StudioFlow.Read returned error: %v", err)
 	}
 
-	expected := &StudioFlow{SID: String("FW123")}
+	want := &StudioFlow{SID: String("FW123")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("StudioFlow.Read returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("StudioFlow.Read returned %+v, want %+v", got, want)
 	}
 
 }
@@ -80,10 +80,10 @@ func TestStudioFlow_Update(t *testing.T) {
 		t.Errorf("StudioFlow.Update returned error: %v", err)
 	}
 
-	expected := &StudioFlow{SID: String("FW123"), FriendlyName: String("NewName")}
+	want := &StudioFlow{SID: String("FW123"), FriendlyName: String("NewName")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("StudioFlow.Update returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("StudioFlow.Update returned %+v, want %+v", got, want)
 	}
 
 }

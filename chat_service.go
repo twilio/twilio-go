@@ -40,14 +40,14 @@ type Notifications struct {
 // All other Programmable Chat resources belong to a specific Service.
 // See: https://www.twilio.com/docs/chat/rest/service-resource
 type ChatService struct {
-	Sid                          *string            `json:"sid"`
-	AccountSid                   *string            `json:"account_sid"`
+	SID                          *string            `json:"sid"`
+	AccountSID                   *string            `json:"account_sid"`
 	FriendlyName                 *string            `json:"friendly_name"`
 	DateCreated                  *time.Time         `json:"date_created"`
 	DateUpdated                  *time.Time         `json:"date_updated"`
-	DefaultServiceRoleSid        *string            `json:"default_service_role_sid"`
-	DefaultChannelRoleSid        *string            `json:"default_channel_role_sid"`
-	DefaultChannelCreatorRoleSid *string            `json:"default_channel_creator_role_sid"`
+	DefaultServiceRoleSID        *string            `json:"default_service_role_sid"`
+	DefaultChannelRoleSID        *string            `json:"default_channel_role_sid"`
+	DefaultChannelCreatorRoleSID *string            `json:"default_channel_creator_role_sid"`
 	ReadStatusEnabled            *bool              `json:"read_status_enabled"`
 	ReachabilityEnabled          *bool              `json:"reachability_enabled"`
 	TypingIndicatorTimeout       *int               `json:"typing_indicator_timeout"`

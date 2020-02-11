@@ -65,34 +65,41 @@ type AvailablePhoneNumberLocalReadParams struct {
 // AvailablePhoneNumbersClient is the entrypoint for the AvailablePhoneNumber Local resource.
 // See: https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource
 type AvailablePhoneNumbersClient struct {
-	client     *Twilio
-	serviceURL string
+	client  *Twilio
+	baseURL string
 }
 
 // NewAvailablePhoneNumbersClient constructs a new PhoneNumber client.
 func NewAvailablePhoneNumbersClient(client *Twilio) *AvailablePhoneNumbersClient {
-	pn := new(AvailablePhoneNumbersClient)
-	pn.client = client
-	pn.serviceURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)
+	c := new(AvailablePhoneNumbersClient)
+	c.client = client
+	c.baseURL = fmt.Sprintf("https://api.%s/2010-04-01", c.client.BaseURL)
 
-	return pn
+	return c
 }
 
-// ReadMultiple returns available local phone numbers.
-func (c AvailablePhoneNumbersClient) ReadMultiple(
-	params *AvailablePhoneNumberLocalReadParams) (*AvailablePhoneNumbersLocal, error) {
-	url := fmt.Sprintf("%s/Accounts/%s/AvailablePhoneNumbers/US/Local.json", c.serviceURL, c.client.AccountSid)
+// Read returns available local phone numbers.
+func (c *AvailablePhoneNumbersClient) Read(params *AvailablePhoneNumberLocalReadParams) (*AvailablePhoneNumbersLocal, error) {
+	path := fmt.Sprintf("/Accounts/%s/AvailablePhoneNumbers/US/Local.json", c.client.AccountSID)
 
-	resp, err := c.client.Get(url, params)
+	resp, err := c.client.Get(c.url(path), params)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	avPNL := new(AvailablePhoneNumbersLocal)
-	if err := json.NewDecoder(resp.Body).Decode(avPNL); err != nil {
+	p := new(AvailablePhoneNumbersLocal)
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
 		return nil, err
 	}
 
-	return avPNL, err
+	return p, err
+}
+
+func (c *AvailablePhoneNumbersClient) url(path string) string {
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
+	}
+
+	return c.baseURL + path
 }

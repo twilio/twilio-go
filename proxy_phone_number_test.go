@@ -26,10 +26,10 @@ func TestProxyPhoneNumber_Create(t *testing.T) {
 		t.Errorf("ProxyService.Create returned error: %v", err)
 	}
 
-	expected := &ProxyPhoneNumber{SID: String("PN123")}
+	want := &ProxyPhoneNumber{SID: String("PN123")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ProxyService.Create returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ProxyService.Create returned %+v, want %+v", got, want)
 	}
 
 }
@@ -52,10 +52,10 @@ func TestProxyPhoneNumber_Read(t *testing.T) {
 		t.Errorf("ProxyService.Read returned error: %v", err)
 	}
 
-	expected := &ProxyPhoneNumber{SID: String("KS123")}
+	want := &ProxyPhoneNumber{SID: String("KS123")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ProxyService.Read returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ProxyService.Read returned %+v, want %+v", got, want)
 	}
 
 }
@@ -80,10 +80,10 @@ func TestProxyPhoneNumber_Update(t *testing.T) {
 		t.Errorf("ProxyService.Update returned error: %v", err)
 	}
 
-	expected := &ProxyPhoneNumber{SID: String("PN123"), FriendlyName: String("NewName")}
+	want := &ProxyPhoneNumber{SID: String("PN123"), FriendlyName: String("NewName")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("ProxyService.Update returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("ProxyService.Update returned %+v, want %+v", got, want)
 	}
 
 }

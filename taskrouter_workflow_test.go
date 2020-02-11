@@ -29,9 +29,9 @@ func TestTaskrouterWorkflow_Create(t *testing.T) {
 		t.Errorf("TaskRouterWorkflow.Create returned error: %v", err)
 	}
 
-	expected := &TaskRouterWorkflow{FriendlyName: String("TaskRouterWorkflow"), Configuration: String(`{"task_routing":"JSON"}`)}
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterWorkflow.Create returned %+v, expected %+v", got, expected)
+	want := &TaskRouterWorkflow{FriendlyName: String("TaskRouterWorkflow"), Configuration: String(`{"task_routing":"JSON"}`)}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterWorkflow.Create returned %+v, want %+v", got, want)
 	}
 
 }
@@ -54,10 +54,10 @@ func TestTaskRouterWorkflow_Fetch(t *testing.T) {
 		t.Errorf("TaskRouterWorkflow.Fetch returned error: %v", err)
 	}
 
-	expected := &TaskRouterWorkflow{Sid: String("WF123")}
+	want := &TaskRouterWorkflow{SID: String("WF123")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterWorkflow.Fetch returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterWorkflow.Fetch returned %+v, want %+v", got, want)
 	}
 }
 
@@ -78,11 +78,11 @@ func TestTaskRouterWorkflow_Read(t *testing.T) {
 		t.Errorf("TaskRouterWorkflow.Read returned error: %v", err)
 	}
 
-	workflow := &TaskRouterWorkflow{Sid: String("WF123")}
-	expected := &TaskRouterWorkflowList{Workflows: []*TaskRouterWorkflow{workflow}}
+	workflow := &TaskRouterWorkflow{SID: String("WF123")}
+	want := &TaskRouterWorkflowList{Workflows: []*TaskRouterWorkflow{workflow}}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterWorkflow.Read returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterWorkflow.Read returned %+v, want %+v", got, want)
 	}
 }
 
@@ -106,10 +106,10 @@ func TestTaskRouterWorkflow_Update(t *testing.T) {
 		t.Errorf("TaskRouterWorkflow.Update returned error: %v", err)
 	}
 
-	expected := &TaskRouterWorkflow{Sid: String("WF123"), FriendlyName: String("NewName")}
+	want := &TaskRouterWorkflow{SID: String("WF123"), FriendlyName: String("NewName")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterWorkflow.Update returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterWorkflow.Update returned %+v, want %+v", got, want)
 	}
 
 }

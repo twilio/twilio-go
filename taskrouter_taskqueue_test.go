@@ -26,10 +26,10 @@ func TestTaskrouterTaskQueue_Create(t *testing.T) {
 		t.Errorf("TaskRouterTaskQueue.Create returned error: %v", err)
 	}
 
-	expected := &TaskRouterTaskQueue{FriendlyName: String("TaskRouterTaskQueue")}
+	want := &TaskRouterTaskQueue{FriendlyName: String("TaskRouterTaskQueue")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterTaskQueue.Create returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterTaskQueue.Create returned %+v, want %+v", got, want)
 	}
 
 }
@@ -52,10 +52,10 @@ func TestTaskRouterTaskQueue_Fetch(t *testing.T) {
 		t.Errorf("TaskRouterTaskQueue.Fetch returned error: %v", err)
 	}
 
-	expected := &TaskRouterTaskQueue{Sid: String("WA123")}
+	want := &TaskRouterTaskQueue{SID: String("WA123")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterTaskQueue.Fetch returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterTaskQueue.Fetch returned %+v, want %+v", got, want)
 	}
 }
 
@@ -77,11 +77,11 @@ func TestTaskRouterTaskQueue_Read(t *testing.T) {
 		t.Errorf("TaskRouterTaskQueue.Read returned error: %v", err)
 	}
 
-	TaskQueue := &TaskRouterTaskQueue{Sid: String("WA123")}
-	expected := &TaskRouterTaskQueueList{TaskRouterTaskQueues: []*TaskRouterTaskQueue{TaskQueue}}
+	TaskQueue := &TaskRouterTaskQueue{SID: String("WA123")}
+	want := &TaskRouterTaskQueueList{TaskRouterTaskQueues: []*TaskRouterTaskQueue{TaskQueue}}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterTaskQueue.Read returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterTaskQueue.Read returned %+v, want %+v", got, want)
 	}
 }
 
@@ -105,10 +105,10 @@ func TestTaskRouterTaskQueue_Update(t *testing.T) {
 		t.Errorf("TaskRouterTaskQueue.Update returned error: %v", err)
 	}
 
-	expected := &TaskRouterTaskQueue{Sid: String("WA123"), FriendlyName: String("NewName")}
+	want := &TaskRouterTaskQueue{SID: String("WA123"), FriendlyName: String("NewName")}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("TaskRouterTaskQueue.Update returned %+v, expected %+v", got, expected)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TaskRouterTaskQueue.Update returned %+v, want %+v", got, want)
 	}
 
 }

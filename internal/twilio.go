@@ -31,7 +31,7 @@ func (err Error) Error() string {
 
 // Credentials store user authentication credentials.
 type Credentials struct {
-	AccountSid string
+	AccountSID string
 	AuthToken  string
 }
 
@@ -43,7 +43,7 @@ type Client struct {
 }
 
 func (c *Client) basicAuth() (string, string) {
-	return c.Credentials.AccountSid, c.Credentials.AuthToken
+	return c.Credentials.AccountSID, c.Credentials.AuthToken
 }
 
 const errorStatusCode = 400

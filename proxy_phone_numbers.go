@@ -46,7 +46,7 @@ type ProxyPhoneNumberClient struct {
 }
 
 type pathParams struct {
-	serviceSid string
+	serviceSID string
 	sid        string
 }
 
@@ -64,7 +64,7 @@ func (c *ProxyPhoneNumberClient) Create(
 	proxyServiceSID string,
 	params *ProxyPhoneNumberCreateParams,
 ) (*ProxyPhoneNumber, error) {
-	uri := c.url(&pathParams{serviceSid: proxyServiceSID})
+	uri := c.url(&pathParams{serviceSID: proxyServiceSID})
 	resp, err := c.client.Post(uri, params)
 
 	if err != nil {
@@ -138,7 +138,7 @@ func (c *ProxyPhoneNumberClient) Delete(proxyServiceSID string, sid string) erro
 }
 
 func (c *ProxyPhoneNumberClient) url(p *pathParams) string {
-	path := fmt.Sprintf("/Services/%s/PhoneNumbers/%s", p.serviceSid, p.sid)
+	path := fmt.Sprintf("/Services/%s/PhoneNumbers/%s", p.serviceSID, p.sid)
 
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
