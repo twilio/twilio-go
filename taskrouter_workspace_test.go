@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -61,14 +62,26 @@ func TestTaskrouterWorkspace_Create(t *testing.T) {
 
 	mux.HandleFunc("/Workspaces", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		// testFormValues(t, r, values{"FriendlyName": "TaskRouterWorkspace"})
+		f := url.Values{}
+		f.Add("FriendlyName", "a")
+		f.Add("EventCallbackUrl", "b")
+		f.Add("EventsFilter", "c")
+		f.Add("MultitaskEnabled", "true")
+		f.Add("Template", "d")
+		f.Add("PrioritizeQueueOrder", "e")
+		testFormValues(t, r, f)
 		response := `{"friendly_name":"TaskRouterWorkspace"}`
 
 		fmt.Fprint(w, response)
 	})
 
 	got, err := client.TaskRouter.Workspaces.Create(&TaskRouterWorkspaceParams{
-		FriendlyName: String("TaskRouterWorkspace"),
+		FriendlyName:         String("a"),
+		EventCallbackURL:     String("b"),
+		EventsFilter:         String("c"),
+		MultitaskEnabled:     Bool(true),
+		Template:             String("d"),
+		PrioritizeQueueOrder: String("e"),
 	})
 
 	if err != nil {

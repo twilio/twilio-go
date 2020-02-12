@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -57,15 +58,24 @@ func TestTaskrouterWorkflow_Create(t *testing.T) {
 
 	mux.HandleFunc("/Workspaces/WS123/Workflows", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		// testFormValues(t, r, values{"FriendlyName": "TaskRouterWorkflow", "Configuration": `"{\"task_routing\":\"JSON\"}"`})
+		f := url.Values{}
+		f.Add("FriendlyName", "TaskRouterWorkflow")
+		f.Add("Configuration", `"{\"task_routing\":\"JSON\"}"`)
+		f.Add("AssignmentCallbackUrl", "a")
+		f.Add("FallbackAssignmentCallbackUrl", "b")
+		f.Add("TaskReservationTimeout", "10")
+		testFormValues(t, r, f)
 		response := `{"friendly_name":"TaskRouterWorkflow", "configuration": "{\"task_routing\":\"JSON\"}"} }`
 
 		fmt.Fprint(w, response)
 	})
 
 	got, err := client.TaskRouter.Workflows.Create("WS123", &TaskRouterWorkflowParams{
-		FriendlyName:  String("TaskRouterWorkflow"),
-		Configuration: String(`"{\"task_routing\":\"JSON\"}"`),
+		FriendlyName:                  String("TaskRouterWorkflow"),
+		Configuration:                 String(`"{\"task_routing\":\"JSON\"}"`),
+		AssignmentCallbackURL:         String("a"),
+		FallbackAssignmentCallbackURL: String("b"),
+		TaskReservationTimeout:        Int(10),
 	})
 
 	if err != nil {
