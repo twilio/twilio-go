@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -75,13 +76,23 @@ func TestChatRole_Create(t *testing.T) {
 
 	mux.HandleFunc("/Services/IS123/Roles", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		testFormValues(t, r, values{"FriendlyName": "ChatRole"})
+		f := url.Values{}
+		f.Add("FriendlyName", "ChatRole")
+		f.Add("Type", "channel")
+		f.Add("Permission", "sendMessage")
+		f.Add("Permission", "leaveChannel")
+
+		testFormValues(t, r, f)
 		response := `{"friendly_name":"ChatRole"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Chat.Role.Create("IS123", &ChatRoleParams{FriendlyName: String("ChatRole")})
+	got, err := client.Chat.Role.Create("IS123", &ChatRoleParams{
+		FriendlyName: String("ChatRole"),
+		Type:         String("channel"),
+		Permission:   []*string{String("sendMessage"), String("leaveChannel")},
+	})
 
 	if err != nil {
 		t.Errorf("ChatRole.Create returned error: %v", err)

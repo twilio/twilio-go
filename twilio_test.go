@@ -38,17 +38,31 @@ func testMethod(t *testing.T, r *http.Request, want string) {
 
 type values map[string]string
 
-func testFormValues(t *testing.T, r *http.Request, values values) {
+func testFormValues(t *testing.T, r *http.Request, want url.Values) {
 	t.Helper()
 	r.ParseForm()
 
+	// foo, _ := json.MarshalIndent(values, "", "\t")
+	// fee, _ := json.MarshalIndent(r.Form, "", "\t")
+	// if err != nil {
+	// 	fmt.Printf("Err: %v", err)
+	// }
+	// fmt.Printf("JSON: %s \n SECOND: %s \n ", string(foo), string(fee))
+
+	if got := r.Form; !reflect.DeepEqual(got, want) {
+		t.Errorf("Request parameters: %v, want %v", got, want)
+	}
+}
+
+func testQueryValues(t *testing.T, r *http.Request, values values) {
+	t.Helper()
 	want := url.Values{}
 	for k, v := range values {
 		want.Set(k, v)
 	}
 
-	if got := r.Form; !reflect.DeepEqual(got, want) {
-		t.Errorf("Request parameters: %v, want %v", got, want)
+	if got := r.URL.Query(); !reflect.DeepEqual(got, want) {
+		t.Errorf("Request query: %v, want %v", got, want)
 	}
 }
 

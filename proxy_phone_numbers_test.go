@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -57,13 +58,22 @@ func TestProxyPhoneNumber_Create(t *testing.T) {
 
 	mux.HandleFunc("/Services/KS123/PhoneNumbers/", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		testFormValues(t, r, values{"Sid": "PN123"})
+		f := url.Values{}
+		f.Add("Sid", "PN123")
+		f.Add("IsReserved", "false")
+		f.Add("PhoneNumber", "+1111111111")
+		testFormValues(t, r, f)
+
 		response := `{"sid":"PN123"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Proxy.PhoneNumber.Create("KS123", &ProxyPhoneNumberCreateParams{PhoneNumberSID: String("PN123")})
+	got, err := client.Proxy.PhoneNumber.Create("KS123", &ProxyPhoneNumberCreateParams{
+		PhoneNumberSID: String("PN123"),
+		IsReserved:     Bool(false),
+		PhoneNumber:    String("+1111111111"),
+	})
 
 	if err != nil {
 		t.Errorf("ProxyService.Create returned error: %v", err)

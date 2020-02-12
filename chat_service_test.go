@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -139,13 +140,45 @@ func TestChatService_Create(t *testing.T) {
 
 	mux.HandleFunc("/Services", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		testFormValues(t, r, values{"FriendlyName": "ChatService"})
+		f := url.Values{}
+		f.Add("FriendlyName", "ChatService")
+		f.Add("DefaultServiceRoleSid", "RL1")
+		f.Add("DefaultChannelRoleSid", "RL2")
+		f.Add("DefaultChannelCreatorRoleSid", "RL3")
+		f.Add("ReadStatusEnabled", "true")
+		f.Add("ReachabilityEnabled", "false")
+		f.Add("TypingIndicatorTimeout", "0")
+		f.Add("ConsumptionReportInterval", "10")
+		f.Add("PreWebhookUrl", "pre_webhook_url")
+		f.Add("PostWebhookUrl", "post_webhook_url")
+		f.Add("WebhookMethod", "POST")
+		f.Add("WebhookFilters", "filter")
+		f.Add("WebhookFilters", "hook")
+		f.Add("PreWebhookRetryCount", "10")
+		f.Add("PostWebhookRetryCount", "1")
+
+		testFormValues(t, r, f)
 		response := `{"friendly_name":"ChatService"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Chat.Service.Create(&ChatServiceParams{FriendlyName: String("ChatService")})
+	got, err := client.Chat.Service.Create(&ChatServiceParams{
+		FriendlyName:                 String("ChatService"),
+		DefaultServiceRoleSID:        String("RL1"),
+		DefaultChannelRoleSID:        String("RL2"),
+		DefaultChannelCreatorRoleSID: String("RL3"),
+		ReadStatusEnabled:            Bool(true),
+		ReachabilityEnabled:          Bool(false),
+		TypingIndicatorTimeout:       Int(0),
+		ConsumptionReportInterval:    Int(10),
+		PreWebhookURL:                String("pre_webhook_url"),
+		PostWebhookURL:               String("post_webhook_url"),
+		WebhookMethod:                String("POST"),
+		WebhookFilters:               []*string{String("filter"), String("hook")},
+		PreWebhookRetryCount:         Int(10),
+		PostWebhookRetryCount:        Int(1),
+	})
 
 	if err != nil {
 		t.Errorf("ChatService.Create returned error: %v", err)

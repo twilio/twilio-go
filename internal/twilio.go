@@ -86,22 +86,17 @@ func (c Client) SendRequest(method string, rawURL string, queryParams, formData 
 
 	if queryParams != nil {
 		v, _ := form.EncodeToStringWith(queryParams, delimiter, escape, keepZeros)
-		// fmt.Printf("\n FORMDATA: %+v \n", v)
 		regex := regexp.MustCompile(`\.\d+`)
 		s := regex.ReplaceAllString(v, "")
 
-		valueReader = strings.NewReader(s)
+		u.RawQuery = s
 	}
-
-	// valueReader := &strings.Reader{}
 
 	if formData != nil {
 		v, _ := form.EncodeToStringWith(formData, delimiter, escape, keepZeros)
 		// Arrays should not express hierarchy for Twilio APIs
 		// For example, Permission.0=sendMessage&Permission.1="leaveChannel"
 		// Becomes: Permission=sendMessage&Permission="leaveChannel"
-		// fmt.Printf("\n ERROR: %+v \n", err)
-		// fmt.Printf("\n FORMDATA: %+v \n", v)
 		regex := regexp.MustCompile(`\.\d+`)
 		s := regex.ReplaceAllString(v, "")
 

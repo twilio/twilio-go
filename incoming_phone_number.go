@@ -45,20 +45,19 @@ type IncomingPhoneNumber struct {
 // IncomingPhoneNumberParams is the set of parameters that can
 // be used when creating or updating an Incoming Phone Number.
 type IncomingPhoneNumberParams struct {
-	AccountSID           *string `form:"AccountSid,omitempty"`
 	APIVersion           *string `form:"ApiVersion,omitempty"`
 	FriendlyName         *string `form:",omitempty"`
 	SMSApplicationSID    *string `form:"SmsApplicationSid,omitempty"`
-	SMSFallbackMethod    *string `form:"SmsApplicationMethod,omitempty"`
+	SMSFallbackMethod    *string `form:"SmsFallbackMethod,omitempty"`
 	PhoneNumber          *string `form:",omitempty"`
 	AreaCode             *string `form:",omitempty"`
 	SMSFallbackURL       *string `form:"SmsFallbackUrl,omitempty"`
 	SMSMethod            *string `form:"SmsMethod,omitempty"`
 	SMSURL               *string `form:"SmsUrl,omitempty"`
 	StatusCallback       *string `form:",omitempty"`
-	AddressSID           *string `form:",omitempty"`
+	AddressSID           *string `form:"AddressSid,omitempty"`
 	StatusCallbackMethod *string `form:",omitempty"`
-	VoiceApplicationSID  *string `form:",omitempty"`
+	VoiceApplicationSID  *string `form:"VoiceApplicationSid,omitempty"`
 	VoiceCallerIDLookup  *bool   `form:"VoiceCallerIdLookup,omitempty"`
 	VoiceFallbackMethod  *string `form:",omitempty"`
 	VoiceFallbackURL     *string `form:"VoiceFallbackUrl,omitempty"`

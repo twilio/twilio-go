@@ -87,10 +87,50 @@ func TestAvailablePhoneNumberLocal_Read(t *testing.T) {
 
 	mux.HandleFunc("/Accounts/AC123/AvailablePhoneNumbers/US/Local.json", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
+		r.ParseForm()
+		testQueryValues(t, r, values{
+			"FaxEnabled":                    "true",
+			"SmsEnabled":                    "true",
+			"MmsEnabled":                    "true",
+			"VoiceEnabled":                  "true",
+			"ExcludeAllAddressRequired":     "true",
+			"ExcludeLocalAddressRequired":   "true",
+			"ExcludeForeignAddressRequired": "true",
+			"Beta":                          "false",
+			"Distance":                      "10",
+			"AreaCode":                      "0",
+			"InPostalCode":                  "a",
+			"NearNumber":                    "b",
+			"NearLatLong":                   "c",
+			"Contains":                      "d",
+			"InRegion":                      "e",
+			"InRateCenter":                  "f",
+			"InLata":                        "g",
+			"InLocality":                    "h",
+		})
 		response := `{"available_phone_numbers": [{"phone_number":"+18089251571"}]}`
 		fmt.Fprint(w, response)
 	})
-	got, err := client.AvailablePhoneNumbers.Read(&AvailablePhoneNumberLocalReadParams{})
+	got, err := client.AvailablePhoneNumbers.Read(&AvailablePhoneNumberLocalReadParams{
+		FaxEnabled:                    Bool(true),
+		SMSEnabled:                    Bool(true),
+		MMSEnabled:                    Bool(true),
+		VoiceEnabled:                  Bool(true),
+		ExcludeAllAddressRequired:     Bool(true),
+		ExcludeLocalAddressRequired:   Bool(true),
+		ExcludeForeignAddressRequired: Bool(true),
+		Beta:                          Bool(false),
+		Distance:                      Int(10),
+		AreaCode:                      Int(0),
+		InPostalCode:                  String("a"),
+		NearNumber:                    String("b"),
+		NearLatLong:                   String("c"),
+		Contains:                      String("d"),
+		InRegion:                      String("e"),
+		InRateCenter:                  String("f"),
+		InLATA:                        String("g"),
+		InLocality:                    String("h"),
+	})
 	if err != nil {
 		t.Errorf("AvailablePhoneNumberLocal.Read returned error: %v", err)
 	}

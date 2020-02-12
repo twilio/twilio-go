@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -97,13 +98,64 @@ func TestIncomingPhoneNumber_Create(t *testing.T) {
 
 	mux.HandleFunc("/Accounts/AC123/IncomingPhoneNumbers.json", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		testFormValues(t, r, values{"FriendlyName": "IncomingPhoneNumber"})
+		f := url.Values{}
+		f.Add("ApiVersion", "v1")
+		f.Add("FriendlyName", "a")
+		f.Add("SmsApplicationSid", "b")
+		f.Add("SmsFallbackMethod", "c")
+		f.Add("PhoneNumber", "d")
+		f.Add("AreaCode", "e")
+		f.Add("SmsFallbackUrl", "f")
+		f.Add("SmsMethod", "g")
+		f.Add("SmsUrl", "h")
+		f.Add("StatusCallback", "i")
+		f.Add("AddressSid", "j")
+		f.Add("StatusCallbackMethod", "k")
+		f.Add("VoiceApplicationSid", "l")
+		f.Add("VoiceCallerIdLookup", "true")
+		f.Add("VoiceFallbackMethod", "m")
+		f.Add("VoiceFallbackUrl", "n")
+		f.Add("VoiceMethod", "o")
+		f.Add("VoiceUrl", "p")
+		f.Add("VoiceReceiveMode", "q")
+		f.Add("EmergencyStatus", "r")
+		f.Add("EmergencyAddressSid", "s")
+		f.Add("BundleSid", "t")
+		f.Add("IdentitySid", "u")
+		f.Add("TrunkSid", "v")
+
+		testFormValues(t, r, f)
 		response := `{"friendly_name":"IncomingPhoneNumber"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.IncomingPhoneNumbers.Create(&IncomingPhoneNumberParams{FriendlyName: String("IncomingPhoneNumber")})
+	got, err := client.IncomingPhoneNumbers.Create(&IncomingPhoneNumberParams{
+		APIVersion:           String("v1"),
+		FriendlyName:         String("a"),
+		SMSApplicationSID:    String("b"),
+		SMSFallbackMethod:    String("c"),
+		PhoneNumber:          String("d"),
+		AreaCode:             String("e"),
+		SMSFallbackURL:       String("f"),
+		SMSMethod:            String("g"),
+		SMSURL:               String("h"),
+		StatusCallback:       String("i"),
+		AddressSID:           String("j"),
+		StatusCallbackMethod: String("k"),
+		VoiceApplicationSID:  String("l"),
+		VoiceCallerIDLookup:  Bool(true),
+		VoiceFallbackMethod:  String("m"),
+		VoiceFallbackURL:     String("n"),
+		VoiceMethod:          String("o"),
+		VoiceURL:             String("p"),
+		VoiceReceiveMode:     String("q"),
+		EmergencyStatus:      String("r"),
+		EmergencyAddressSID:  String("s"),
+		BundleSID:            String("t"),
+		IdentitySID:          String("u"),
+		TrunkSID:             String("v"),
+	})
 
 	if err != nil {
 		t.Errorf("IncomingPhoneNumber.Create returned error: %v", err)
