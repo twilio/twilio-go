@@ -64,11 +64,11 @@ func TestTaskrouterTaskQueue_Create(t *testing.T) {
 		testMethod(t, r, "POST")
 		f := url.Values{}
 		f.Add("FriendlyName", "a")
-		f.Add("AssignmentActivitySID", "b")
+		f.Add("AssignmentActivitySid", "b")
 		f.Add("MaxReservedWorkers", "10")
 		f.Add("TargetWorkers", "c")
 		f.Add("TaskOrder", "d")
-		f.Add("ReservationActivitySID", "e")
+		f.Add("ReservationActivitySid", "e")
 
 		testFormValues(t, r, f)
 		response := `{"friendly_name":"TaskRouterTaskQueue"}`

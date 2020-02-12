@@ -30,11 +30,11 @@ type TaskRouterTaskQueue struct {
 // TaskRouterTaskQueueParams taskRouterTaskQueue parameters.
 type TaskRouterTaskQueueParams struct {
 	FriendlyName           *string `form:",omitempty"`
-	AssignmentActivitySID  *string `form:"AssignmentActivitySID,omitempty"`
+	AssignmentActivitySID  *string `form:"AssignmentActivitySid,omitempty"`
 	MaxReservedWorkers     *int    `form:",omitempty"`
 	TargetWorkers          *string `form:",omitempty"`
 	TaskOrder              *string `form:"TaskOrder,omitempty"`
-	ReservationActivitySID *string `form:"ReservationActivitySID,omitempty"`
+	ReservationActivitySID *string `form:"ReservationActivitySid,omitempty"`
 }
 
 // TaskRouterTaskQueueList struct to parse response of taskRouterTaskqueue read.
