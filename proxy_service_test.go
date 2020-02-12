@@ -5,12 +5,54 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestProxyService_marshall(t *testing.T) {
 	testJSONMarshal(t, ProxyService{}, "{}")
 
-	// testJSONMarshal(t, got, want)
+	got := &ProxyService{
+		SID:                     String("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		AccountSID:              String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		ChatInstanceSID:         String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		UniqueName:              String("My Service"),
+		DefaultTTL:              Int(3600),
+		CallbackURL:             String("http://www.example.com"),
+		GeoMatchLevel:           String("country"),
+		NumberSelectionBehavior: String("prefer_sticky"),
+		InterceptCallbackURL:    String("http://www.example.com"),
+		OutOfSessionCallbackURL: String("http://www.example.com"),
+		DateCreated:             &time.Time{},
+		DateUpdated:             &time.Time{},
+		URL:                     String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		Links: map[string]*string{
+			"sessions":      String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions"),
+			"phone_numbers": String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers"),
+			"short_codes":   String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes"),
+		},
+	}
+
+	want := `{
+		"sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"chat_instance_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"unique_name": "My Service",
+		"default_ttl": 3600,
+		"callback_url": "http://www.example.com",
+		"geo_match_level": "country",
+		"number_selection_behavior": "prefer_sticky",
+		"intercept_callback_url": "http://www.example.com",
+		"out_of_session_callback_url": "http://www.example.com",
+		"date_created": "0001-01-01T00:00:00Z",
+		"date_updated": "0001-01-01T00:00:00Z",
+		"url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"links": {
+			"sessions": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions",
+			"phone_numbers": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers",
+			"short_codes": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes"
+		}
+	}`
+	testJSONMarshal(t, got, want)
 }
 
 func TestProxyService_Create(t *testing.T) {
