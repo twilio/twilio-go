@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -61,13 +62,28 @@ func TestTaskrouterTaskQueue_Create(t *testing.T) {
 
 	mux.HandleFunc("/Workspaces/WS123/TaskRouterTaskQueues", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		// testFormValues(t, r, values{"FriendlyName": "TaskRouterTaskQueue"})
+		f := url.Values{}
+		f.Add("FriendlyName", "a")
+		f.Add("AssignmentActivitySID", "b")
+		f.Add("MaxReservedWorkers", "10")
+		f.Add("TargetWorkers", "c")
+		f.Add("TaskOrder", "d")
+		f.Add("ReservationActivitySID", "e")
+
+		testFormValues(t, r, f)
 		response := `{"friendly_name":"TaskRouterTaskQueue"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.TaskRouter.TaskQueues.Create("WS123", &TaskRouterTaskQueueParams{FriendlyName: String("TaskRouterTaskQueue")})
+	got, err := client.TaskRouter.TaskQueues.Create("WS123", &TaskRouterTaskQueueParams{
+		FriendlyName:           String("a"),
+		AssignmentActivitySID:  String("b"),
+		MaxReservedWorkers:     Int(10),
+		TargetWorkers:          String("c"),
+		TaskOrder:              String("d"),
+		ReservationActivitySID: String("e"),
+	})
 
 	if err != nil {
 		t.Errorf("TaskRouterTaskQueue.Create returned error: %v", err)

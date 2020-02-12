@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -43,13 +44,19 @@ func TestTaskrouterActivity_Create(t *testing.T) {
 
 	mux.HandleFunc("/Workspaces/WS123/Activities", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		// testFormValues(t, r, values{"FriendlyName": "TaskRouterActivity"})
+		f := url.Values{}
+		f.Add("Available", "true")
+		f.Add("FriendlyName", "a")
+		testFormValues(t, r, f)
 		response := `{"friendly_name":"TaskRouterActivity"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.TaskRouter.Activities.Create("WS123", &TaskRouterActivityParams{FriendlyName: String("TaskRouterActivity")})
+	got, err := client.TaskRouter.Activities.Create("WS123", &TaskRouterActivityParams{
+		Available:    Bool(true),
+		FriendlyName: String("a"),
+	})
 
 	if err != nil {
 		t.Errorf("TaskRouterActivity.Create returned error: %v", err)
