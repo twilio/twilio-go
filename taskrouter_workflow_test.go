@@ -5,7 +5,50 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+	"time"
 )
+
+func TestTaskRouterWorkflow_marshall(t *testing.T) {
+	testJSONMarshal(t, TaskRouterWorkflow{}, "{}")
+
+	got := &TaskRouterWorkflow{
+		AccountSID:                    String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		AssignmentCallbackURL:         String("https://example.com/"),
+		Configuration:                 nil,
+		DateCreated:                   &time.Time{},
+		DateUpdated:                   &time.Time{},
+		DocumentContentType:           String("application/json"),
+		FallbackAssignmentCallbackURL: String("https://example2.com/"),
+		FriendlyName:                  String("Sales, Marketing, Support Workflow"),
+		SID:                           String("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		TaskReservationTimeout:        Int(120),
+		URL:                           String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		Links: map[string]*string{
+			"statistics": String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics"),
+		},
+		WorkspaceSID: String("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+	}
+
+	want := `{
+		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"assignment_callback_url": "https://example.com/",
+		"configuration": null,
+		"date_created": "0001-01-01T00:00:00Z",
+		"date_updated": "0001-01-01T00:00:00Z",
+		"document_content_type": "application/json",
+		"fallback_assignment_callback_url": "https://example2.com/",
+		"friendly_name": "Sales, Marketing, Support Workflow",
+		"sid": "WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"task_reservation_timeout": 120,
+		"url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"links": {
+		  "statistics": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics"
+		}
+	  }`
+
+	testJSONMarshal(t, got, want)
+}
 
 func TestTaskrouterWorkflow_Create(t *testing.T) {
 	client, mux, teardown := setup()

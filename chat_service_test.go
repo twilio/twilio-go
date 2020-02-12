@@ -9,7 +9,7 @@ import (
 )
 
 func TestChatService_marshall(t *testing.T) {
-	testJSONMarshal(t, &AvailablePhoneNumberLocal{}, "{}")
+	testJSONMarshal(t, &ChatService{}, "{}")
 
 	c := &ChatService{
 		AccountSID:                   String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),

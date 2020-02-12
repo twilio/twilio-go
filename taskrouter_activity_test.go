@@ -5,7 +5,36 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+	"time"
 )
+
+func TestTaskRouterActivity_marshall(t *testing.T) {
+	testJSONMarshal(t, TaskRouterActivity{}, "{}")
+
+	got := &TaskRouterActivity{
+		AccountSID:   String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		Available:    Bool(true),
+		DateCreated:  &time.Time{},
+		DateUpdated:  &time.Time{},
+		FriendlyName: String("NewAvailableActivity"),
+		SID:          String("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		URL:          String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		WorkspaceSID: String("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+	}
+
+	want := `{
+		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"available": true,
+		"date_created": "0001-01-01T00:00:00Z",
+		"date_updated": "0001-01-01T00:00:00Z",
+		"friendly_name": "NewAvailableActivity",
+		"sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+	  }`
+
+	testJSONMarshal(t, got, want)
+}
 
 func TestTaskrouterActivity_Create(t *testing.T) {
 	client, mux, teardown := setup()

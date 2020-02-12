@@ -18,7 +18,7 @@ type TaskRouterActivity struct {
 	FriendlyName *string    `json:"friendly_name"`
 	SID          *string    `json:"sid"`
 	WorkspaceSID *string    `json:"workspace_sid"`
-	URI          *string    `json:"url"`
+	URL          *string    `json:"url"`
 }
 
 // TaskRouterActivityParams activity params to create/update activity.

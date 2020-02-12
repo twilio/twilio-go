@@ -22,7 +22,7 @@ type TaskRouterTaskQueue struct {
 	SID                     *string            `json:"sid"`
 	TargetWorkers           *string            `json:"target_workers"`
 	TaskOrder               *string            `json:"task_order"`
-	URI                     *string            `json:"url"`
+	URL                     *string            `json:"url"`
 	WorkspaceSID            *string            `json:"workspace_sid"`
 	Links                   map[string]*string `json:"links"`
 }

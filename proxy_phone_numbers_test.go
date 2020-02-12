@@ -9,7 +9,7 @@ import (
 )
 
 func TestProxyPhoneNumber_marshall(t *testing.T) {
-	testJSONMarshal(t, &AvailablePhoneNumberLocal{}, "{}")
+	testJSONMarshal(t, &ProxyPhoneNumber{}, "{}")
 
 	got := &ProxyPhoneNumber{
 		SID:             String("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),

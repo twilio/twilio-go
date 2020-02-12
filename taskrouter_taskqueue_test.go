@@ -5,7 +5,54 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+	"time"
 )
+
+func TestTaskRouterTaskQueue_marshall(t *testing.T) {
+	testJSONMarshal(t, TaskRouterTaskQueue{}, "{}")
+
+	got := &TaskRouterTaskQueue{
+		AccountSID:             String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		AssignmentActivityName: String("817ca1c5-3a05-11e5-9292-98e0d9a1eb73"),
+		AssignmentActivitySID:  String("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		DateCreated:            &time.Time{},
+		DateUpdated:            &time.Time{},
+		FriendlyName:           String("English"),
+		MaxReservedWorkers:     Int(1),
+		Links: map[string]*string{
+			"assignment_activity": String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		},
+		ReservationActivityName: String("80fa2beb-3a05-11e5-8fc8-98e0d9a1eb73"),
+		ReservationActivitySID:  String("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		SID:                     String("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		TargetWorkers:           String("languages HAS \"english\""),
+		TaskOrder:               String("FIFO"),
+		URL:                     String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		WorkspaceSID:            String("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+	}
+
+	want := `{
+		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"assignment_activity_name": "817ca1c5-3a05-11e5-9292-98e0d9a1eb73",
+		"assignment_activity_sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"date_created": "0001-01-01T00:00:00Z",
+		"date_updated": "0001-01-01T00:00:00Z",
+		"friendly_name": "English",
+		"max_reserved_workers": 1,
+		"links": {
+		  "assignment_activity": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+		},
+		"reservation_activity_name": "80fa2beb-3a05-11e5-8fc8-98e0d9a1eb73",
+		"reservation_activity_sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"sid": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"target_workers": "languages HAS \"english\"",
+		"task_order": "FIFO",
+		"url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+	  }`
+
+	testJSONMarshal(t, got, want)
+}
 
 func TestTaskrouterTaskQueue_Create(t *testing.T) {
 	client, mux, teardown := setup()

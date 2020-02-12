@@ -5,7 +5,54 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+	"time"
 )
+
+func TestTaskRouterWorkspace_marshall(t *testing.T) {
+	testJSONMarshal(t, TaskRouterWorkspace{}, "{}")
+
+	got := &TaskRouterWorkspace{
+		AccountSID:          String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		DateCreated:         &time.Time{},
+		DateUpdated:         &time.Time{},
+		DefaultActivityName: String("Offline"),
+		DefaultActivitySID:  String("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		EventCallbackURL:    String("https://workspace-example.free.beeceptor.com"),
+		EventsFilter:        nil,
+		FriendlyName:        String("NewWorkspace"),
+		Links: map[string]*string{
+			"events": String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Events"),
+		},
+		MultitaskEnabled:     Bool(false),
+		PrioritizeQueueOrder: String("FIFO"),
+		SID:                  String("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		TimeoutActivityName:  String("Offline"),
+		TimeoutActivitySID:   String("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		URL:                  String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+	}
+
+	want := `{
+		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"date_created": "0001-01-01T00:00:00Z",
+		"date_updated": "0001-01-01T00:00:00Z",
+		"default_activity_name": "Offline",
+		"default_activity_sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"event_callback_url": "https://workspace-example.free.beeceptor.com",
+		"events_filter": null,
+		"friendly_name": "NewWorkspace",
+		"links": {
+			"events": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Events"
+		},
+		"multi_task_enabled": false,
+		"prioritize_queue_order": "FIFO",
+		"sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"timeout_activity_name": "Offline",
+		"timeout_activity_sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+	  }`
+
+	testJSONMarshal(t, got, want)
+}
 
 func TestTaskrouterWorkspace_Create(t *testing.T) {
 	client, mux, teardown := setup()

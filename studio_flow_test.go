@@ -5,7 +5,51 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+	"time"
 )
+
+func TestStudioFlow_marshall(t *testing.T) {
+	testJSONMarshal(t, StudioFlow{}, "{}")
+
+	got := &StudioFlow{
+		SID:           String("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		AccountSID:    String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		FriendlyName:  String("Main IVR"),
+		Status:        String("draft"),
+		Revision:      Int(1),
+		CommitMessage: String("First draft"),
+		Valid:         Bool(true),
+		WebhookURL:    String("http://webhooks.twilio.com/v1/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		DateCreated:   &time.Time{},
+		DateUpdated:   nil,
+		URL:           String("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		Links: map[string]*string{
+			"test_users": String("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TestUsers"),
+			"revisions":  String("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions"),
+		},
+	}
+
+	want := `{
+		"sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"definition": null,
+		"friendly_name": "Main IVR",
+		"status": "draft",
+		"revision": 1,
+		"commit_message": "First draft",
+		"valid": true,
+		"errors": null,
+		"webhook_url": "http://webhooks.twilio.com/v1/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"date_created": "0001-01-01T00:00:00Z",
+		"date_updated": null,
+		"url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"links": {
+		  "test_users": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TestUsers",
+		  "revisions": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions"
+		}
+	  }`
+	testJSONMarshal(t, got, want)
+}
 
 func TestStudioFlow_Create(t *testing.T) {
 	client, mux, teardown := setup()

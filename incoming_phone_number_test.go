@@ -9,7 +9,7 @@ import (
 )
 
 func TestIncomingPhoneNumber_marshall(t *testing.T) {
-	testJSONMarshal(t, &AvailablePhoneNumberLocal{}, "{}")
+	testJSONMarshal(t, &IncomingPhoneNumber{}, "{}")
 
 	got := &IncomingPhoneNumber{
 		AccountSID:          String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),

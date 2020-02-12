@@ -9,7 +9,7 @@ import (
 )
 
 func TestChatRole_marshall(t *testing.T) {
-	testJSONMarshal(t, &AvailablePhoneNumberLocal{}, "{}")
+	testJSONMarshal(t, &ChatRoles{}, "{}")
 
 	c := &ChatRole{
 		SID:          String("RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
