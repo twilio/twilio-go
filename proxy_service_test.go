@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -62,15 +63,32 @@ func TestProxyService_Create(t *testing.T) {
 
 	mux.HandleFunc("/Services", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		// f := url.Values{}
+		f := url.Values{}
+		f.Add("ChatInstanceSid", "a")
+		f.Add("UniqueName", "b")
+		f.Add("DefaultTtl", "10")
+		f.Add("CallbackUrl", "c")
+		f.Add("GeoMatchLevel", "d")
+		f.Add("NumberSelectionBehavior", "e")
+		f.Add("InterceptCallbackUrl", "f")
+		f.Add("OutOfSessionCallbackUrl", "g")
 
-		// testFormValues(t, r, f)
+		testFormValues(t, r, f)
 		response := `{"unique_name":"ProxyService"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Proxy.Service.Create(&ProxyServiceParams{})
+	got, err := client.Proxy.Service.Create(&ProxyServiceParams{
+		ChatInstanceSID:         String("a"),
+		UniqueName:              String("b"),
+		DefaultTTL:              Int(10),
+		CallbackURL:             String("c"),
+		GeoMatchLevel:           String("d"),
+		NumberSelectionBehavior: String("e"),
+		InterceptCallbackURL:    String("f"),
+		OutOfSessionCallbackURL: String("g"),
+	})
 
 	if err != nil {
 		t.Errorf("ProxyService.Create returned error: %v", err)

@@ -3,6 +3,7 @@ package twilio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -58,13 +59,23 @@ func TestStudioFlow_Create(t *testing.T) {
 
 	mux.HandleFunc("/Flows", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		// testFormValues(t, r, values{"FriendlyName": "StudioFlow"})
+		f := url.Values{}
+		f.Add("FriendlyName", "a")
+		f.Add("Status", "b")
+		f.Add("Definition", "c")
+		f.Add("CommitMessage", "d")
+		testFormValues(t, r, f)
 		response := `{"friendly_name":"StudioFlow"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Studio.Flow.Create(&StudioFlowParams{FriendlyName: String("StudioFlow")})
+	got, err := client.Studio.Flow.Create(&StudioFlowParams{
+		FriendlyName:  String("a"),
+		Status:        String("b"),
+		Definition:    String("c"),
+		CommitMessage: String("d"),
+	})
 
 	if err != nil {
 		t.Errorf("StudioFlow.Create returned error: %v", err)
