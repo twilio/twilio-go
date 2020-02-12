@@ -15,6 +15,7 @@ func TestProxyPhoneNumber_marshall(t *testing.T) {
 		SID:             String("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		AccountSID:      String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		ProxyServiceSID: String("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		FriendlyName:    String("Friendly Name"),
 		DateCreated:     &time.Time{},
 		DateUpdated:     &time.Time{},
 		PhoneNumber:     String("+1987654321"),

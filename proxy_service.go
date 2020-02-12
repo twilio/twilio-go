@@ -25,6 +25,12 @@ type ProxyService struct {
 	Links                   map[string]*string `json:"links"`
 }
 
+// ProxyServiceList is the API response for reading multiple Proxy Services
+type ProxyServiceList struct {
+	Service []*ProxyService `json:"service"`
+	Meta    *Meta           `json:"meta"`
+}
+
 // ProxyServiceParams is the set of parameters that can be used when creating or updating a service.
 type ProxyServiceParams struct {
 	ChatInstanceSID         *string `form:"ChatInstanceSid,omitempty"`
@@ -70,8 +76,8 @@ func (c *ProxyServiceClient) Create(params *ProxyServiceParams) (*ProxyService, 
 	return p, err
 }
 
-// Read returns the details of a ProxyService.
-func (c *ProxyServiceClient) Read(sid string, params *ProxyServiceParams) (*ProxyService, error) {
+// Fetch returns the details of a ProxyService.
+func (c *ProxyServiceClient) Fetch(sid string) (*ProxyService, error) {
 	resp, err := c.client.Get(c.url("/Services/"+sid), nil)
 	if err != nil {
 		return nil, err
@@ -80,6 +86,22 @@ func (c *ProxyServiceClient) Read(sid string, params *ProxyServiceParams) (*Prox
 	defer resp.Body.Close()
 
 	p := &ProxyService{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
+		return nil, err
+	}
+
+	return p, err
+}
+
+func (c *ProxyServiceClient) Read(sid string, params *ProxyServiceParams) (*ProxyServiceList, error) {
+	resp, err := c.client.Get(c.url("/Services"), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	p := &ProxyServiceList{}
 	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
 		return nil, err
 	}
@@ -105,7 +127,7 @@ func (c *ProxyServiceClient) Update(sid string, params *ProxyServiceParams) (*Pr
 }
 
 // Delete deletes a ProxyService.
-func (c *ProxyServiceClient) Delete(sid string, params *ProxyServiceParams) error {
+func (c *ProxyServiceClient) Delete(sid string) error {
 	resp, err := c.client.Delete(c.url("/Services/" + sid))
 	if err != nil {
 		return err
