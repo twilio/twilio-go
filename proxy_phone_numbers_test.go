@@ -56,7 +56,7 @@ func TestProxyPhoneNumber_Create(t *testing.T) {
 
 	defer teardown()
 
-	mux.HandleFunc("/Services/KS123/PhoneNumbers/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Services/KS123/PhoneNumbers", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
 		f := url.Values{}
 		f.Add("Sid", "PN123")
