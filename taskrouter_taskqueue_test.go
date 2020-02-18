@@ -60,7 +60,7 @@ func TestTaskrouterTaskQueue_Create(t *testing.T) {
 
 	defer teardown()
 
-	mux.HandleFunc("/Workspaces/WS123/TaskRouterTaskQueues", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Workspaces/WS123/TaskQueues", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
 		f := url.Values{}
 		f.Add("FriendlyName", "a")
@@ -101,7 +101,7 @@ func TestTaskRouterTaskQueue_Fetch(t *testing.T) {
 
 	defer teardown()
 
-	mux.HandleFunc("/Workspaces/WS123/TaskRouterTaskQueues/WA123", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Workspaces/WS123/TaskQueues/WA123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		response := `{"sid":"WA123"}`
 
@@ -126,7 +126,7 @@ func TestTaskRouterTaskQueue_Read(t *testing.T) {
 
 	defer teardown()
 
-	mux.HandleFunc("/Workspaces/WS123/TaskRouterTaskQueues", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Workspaces/WS123/TaskQueues", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		response := `{"task_queues":[{"sid": "WA123"}]}`
 
@@ -140,7 +140,7 @@ func TestTaskRouterTaskQueue_Read(t *testing.T) {
 	}
 
 	TaskQueue := &TaskRouterTaskQueue{SID: String("WA123")}
-	want := &TaskRouterTaskQueueList{TaskRouterTaskQueues: []*TaskRouterTaskQueue{TaskQueue}}
+	want := &TaskRouterTaskQueueList{TaskQueues: []*TaskRouterTaskQueue{TaskQueue}}
 
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("TaskRouterTaskQueue.Read returned %+v, want %+v", got, want)
@@ -152,7 +152,7 @@ func TestTaskRouterTaskQueue_Update(t *testing.T) {
 
 	defer teardown()
 
-	mux.HandleFunc("/Workspaces/WS123/TaskRouterTaskQueues/WA123", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Workspaces/WS123/TaskQueues/WA123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
 		response := `{"sid":"WA123","friendly_name":"NewName"}`
 
@@ -179,7 +179,7 @@ func TestTaskRouterTaskQueue_Delete(t *testing.T) {
 
 	defer teardown()
 
-	mux.HandleFunc("/Workspaces/WS123/TaskRouterTaskQueues/WA123", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Workspaces/WS123/TaskQueues/WA123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "DELETE")
 	})
 

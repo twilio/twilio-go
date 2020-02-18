@@ -6,7 +6,6 @@ import (
 	"net/url"
 	"reflect"
 	"testing"
-	"time"
 )
 
 func TestIncomingPhoneNumber_marshall(t *testing.T) { //nolint
@@ -23,8 +22,8 @@ func TestIncomingPhoneNumber_marshall(t *testing.T) { //nolint
 			"sms":   Bool(false),
 			"voice": Bool(true),
 		},
-		DateCreated:          &time.Time{},
-		DateUpdated:          &time.Time{},
+		DateCreated:          String("0001-01-01T00:00:00Z"),
+		DateUpdated:          String("0001-01-01T00:00:00Z"),
 		EmergencyStatus:      String("Active"),
 		EmergencyAddressSID:  String("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		FriendlyName:         String("(808) 925-5327"),
