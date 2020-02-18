@@ -2,6 +2,7 @@ package twilio
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -101,7 +102,7 @@ type ChatServiceClient struct {
 func NewChatServiceClient(client *Twilio) *ChatServiceClient {
 	c := new(ChatServiceClient)
 	c.client = client
-	c.baseURL = "https://chat.twilio.com/v2"
+	c.baseURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)
 
 	return c
 }

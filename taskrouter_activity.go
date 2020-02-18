@@ -50,7 +50,7 @@ type TaskRouterActivityClient struct {
 func NewTaskRouterActivityClient(client *Twilio) *TaskRouterActivityClient {
 	c := new(TaskRouterActivityClient)
 	c.client = client
-	c.baseURL = fmt.Sprintf("https://taskrouter.%s/v1/", client.BaseURL)
+	c.baseURL = fmt.Sprintf("https://taskrouter.%s/v1", client.BaseURL)
 
 	return c
 }

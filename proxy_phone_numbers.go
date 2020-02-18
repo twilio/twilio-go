@@ -60,7 +60,7 @@ type pathParams struct {
 func NewProxyPhoneNumberClient(client *Twilio) *ProxyPhoneNumberClient {
 	c := new(ProxyPhoneNumberClient)
 	c.client = client
-	c.baseURL = "https://proxy.twilio.com/v1"
+	c.baseURL = fmt.Sprintf("https://proxy.%s/v1", c.client.BaseURL)
 
 	return c
 }

@@ -2,6 +2,7 @@ package twilio
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -53,7 +54,7 @@ type ProxyServiceClient struct {
 func NewProxyServiceClient(client *Twilio) *ProxyServiceClient {
 	c := new(ProxyServiceClient)
 	c.client = client
-	c.baseURL = "https://proxy.twilio.com/v1"
+	c.baseURL = fmt.Sprintf("https://proxy.%s/v1", c.client.BaseURL)
 
 	return c
 }
