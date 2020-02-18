@@ -2,6 +2,7 @@ package twilio
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -40,14 +41,11 @@ type values map[string]string
 
 func testFormValues(t *testing.T, r *http.Request, want url.Values) {
 	t.Helper()
-	r.ParseForm()
+	err := r.ParseForm()
 
-	// foo, _ := json.MarshalIndent(values, "", "\t")
-	// fee, _ := json.MarshalIndent(r.Form, "", "\t")
-	// if err != nil {
-	// 	fmt.Printf("Err: %v", err)
-	// }
-	// fmt.Printf("JSON: %s \n SECOND: %s \n ", string(foo), string(fee))
+	if err != nil {
+		fmt.Printf("Err: %v", err)
+	}
 
 	if got := r.Form; !reflect.DeepEqual(got, want) {
 		t.Errorf("Request parameters: %v, want %v", got, want)

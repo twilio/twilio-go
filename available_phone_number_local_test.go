@@ -88,7 +88,6 @@ func TestAvailablePhoneNumberLocal_Read(t *testing.T) { //nolint
 
 	mux.HandleFunc("/Accounts/AC123/AvailablePhoneNumbers/US/Local.json", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		r.ParseForm()
 		testQueryValues(t, r, values{
 			"FaxEnabled":                    "true",
 			"SmsEnabled":                    "true",
