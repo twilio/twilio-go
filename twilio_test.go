@@ -30,6 +30,7 @@ func setup() (client *Twilio, mux *http.ServeMux, teardown func()) {
 
 func testMethod(t *testing.T, r *http.Request, want string) {
 	t.Helper()
+
 	if got := r.Method; got != want {
 		t.Errorf("Request method: %v, want %v", got, want)
 	}
@@ -55,7 +56,9 @@ func testFormValues(t *testing.T, r *http.Request, want url.Values) {
 
 func testQueryValues(t *testing.T, r *http.Request, values values) {
 	t.Helper()
+
 	want := url.Values{}
+
 	for k, v := range values {
 		want.Set(k, v)
 	}
@@ -75,6 +78,7 @@ func testJSONMarshal(t *testing.T, v interface{}, want string) {
 	if err := json.Unmarshal([]byte(want), &u); err != nil {
 		t.Errorf("Unable to unmarshal JSON for %v: %v", want, err)
 	}
+
 	w, err := json.Marshal(u)
 	if err != nil {
 		t.Errorf("Unable to marshal JSON for %#v", u)

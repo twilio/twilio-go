@@ -70,6 +70,7 @@ func (c *ChatRoleClient) Create(serviceSID string, params *ChatRoleParams) (*Cha
 func (c *ChatRoleClient) Fetch(serviceSID, sid string) (*ChatRole, error) {
 	path := fmt.Sprintf("/Services/%s/Roles/%s", serviceSID, sid)
 	resp, err := c.client.Get(c.url(path), nil)
+
 	if err != nil {
 		return nil, err
 	}
@@ -105,6 +106,7 @@ func (c *ChatRoleClient) Read(serviceSID string) (*ChatRoles, error) {
 func (c *ChatRoleClient) Update(serviceSID, sid string, params *ChatRoleParams) (*ChatRole, error) {
 	path := fmt.Sprintf("/Services/%s/Roles/%s", serviceSID, sid)
 	resp, err := c.client.Post(c.url(path), params)
+
 	if err != nil {
 		return nil, err
 	}
@@ -122,6 +124,7 @@ func (c *ChatRoleClient) Update(serviceSID, sid string, params *ChatRoleParams) 
 func (c *ChatRoleClient) Delete(serviceSID, sid string) error {
 	path := fmt.Sprintf("/Services/%s/Roles/%s", serviceSID, sid)
 	resp, err := c.client.Delete(c.url(path))
+
 	if err != nil {
 		return err
 	}

@@ -109,7 +109,6 @@ func (c *TaskRouterWorkspaceClient) Fetch(sid string) (*TaskRouterWorkspace, err
 
 // Read returns all existing TaskRouterWorkspaces.
 func (c *TaskRouterWorkspaceClient) Read(params *TaskRouterWorkspaceQueryParams) (*TaskRouterWorkspaceList, error) {
-
 	resp, err := c.client.Get(c.url("/Workspaces"), params)
 	if err != nil {
 		return nil, err

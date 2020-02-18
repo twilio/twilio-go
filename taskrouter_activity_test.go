@@ -19,7 +19,7 @@ func TestTaskRouterActivity_marshall(t *testing.T) {
 		DateUpdated:  &time.Time{},
 		FriendlyName: String("NewAvailableActivity"),
 		SID:          String("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
-		URL:          String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		URL:          String("/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		WorkspaceSID: String("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 	}
 
@@ -30,7 +30,7 @@ func TestTaskRouterActivity_marshall(t *testing.T) {
 		"date_updated": "0001-01-01T00:00:00Z",
 		"friendly_name": "NewAvailableActivity",
 		"sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"url": "/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 	  }`
 
@@ -67,7 +67,6 @@ func TestTaskrouterActivity_Create(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("TaskRouterActivity.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestTaskRouterActivity_Fetch(t *testing.T) {
@@ -146,7 +145,6 @@ func TestTaskRouterActivity_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("TaskRouterActivity.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestTaskRouterActivity_Delete(t *testing.T) {

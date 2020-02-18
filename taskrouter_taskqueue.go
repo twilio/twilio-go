@@ -114,7 +114,10 @@ func (c *TaskRouterTaskQueueClient) Fetch(workspaceSID string, sid string) (*Tas
 }
 
 // Read returns all existing taskRouterTaskqueues.
-func (c *TaskRouterTaskQueueClient) Read(workspaceSID string, params *TaskRouterTaskQueueQueryParams) (*TaskRouterTaskQueueList, error) {
+func (c *TaskRouterTaskQueueClient) Read(
+	workspaceSID string,
+	params *TaskRouterTaskQueueQueryParams,
+) (*TaskRouterTaskQueueList, error) {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues", workspaceSID))
 
 	resp, err := c.client.Get(url, params)

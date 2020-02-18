@@ -21,14 +21,14 @@ func TestTaskRouterTaskQueue_marshall(t *testing.T) {
 		FriendlyName:           String("English"),
 		MaxReservedWorkers:     Int(1),
 		Links: map[string]*string{
-			"assignment_activity": String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+			"assignment_activity": String("/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		},
 		ReservationActivityName: String("80fa2beb-3a05-11e5-8fc8-98e0d9a1eb73"),
 		ReservationActivitySID:  String("WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		SID:                     String("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		TargetWorkers:           String("languages HAS \"english\""),
 		TaskOrder:               String("FIFO"),
-		URL:                     String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		URL:                     String("/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		WorkspaceSID:            String("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 	}
 
@@ -41,14 +41,14 @@ func TestTaskRouterTaskQueue_marshall(t *testing.T) {
 		"friendly_name": "English",
 		"max_reserved_workers": 1,
 		"links": {
-		  "assignment_activity": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+		  "assignment_activity": "/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 		},
 		"reservation_activity_name": "80fa2beb-3a05-11e5-8fc8-98e0d9a1eb73",
 		"reservation_activity_sid": "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"sid": "WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"target_workers": "languages HAS \"english\"",
 		"task_order": "FIFO",
-		"url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"url": "/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 	  }`
 
@@ -94,7 +94,6 @@ func TestTaskrouterTaskQueue_Create(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("TaskRouterTaskQueue.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestTaskRouterTaskQueue_Fetch(t *testing.T) {
@@ -173,7 +172,6 @@ func TestTaskRouterTaskQueue_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("TaskRouterTaskQueue.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestTaskRouterTaskQueue_Delete(t *testing.T) {

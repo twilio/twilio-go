@@ -23,9 +23,9 @@ func TestTaskRouterWorkflow_marshall(t *testing.T) {
 		FriendlyName:                  String("Sales, Marketing, Support Workflow"),
 		SID:                           String("WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		TaskReservationTimeout:        Int(120),
-		URL:                           String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		URL:                           String("/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		Links: map[string]*string{
-			"statistics": String("https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics"),
+			"statistics": String("/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics"),
 		},
 		WorkspaceSID: String("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 	}
@@ -41,10 +41,10 @@ func TestTaskRouterWorkflow_marshall(t *testing.T) {
 		"friendly_name": "Sales, Marketing, Support Workflow",
 		"sid": "WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"task_reservation_timeout": 120,
-		"url": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"url": "/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"workspace_sid": "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"links": {
-		  "statistics": "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics"
+		  "statistics": "/Workflows/WFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics"
 		}
 	  }`
 
@@ -82,11 +82,13 @@ func TestTaskrouterWorkflow_Create(t *testing.T) {
 		t.Errorf("TaskRouterWorkflow.Create returned error: %v", err)
 	}
 
-	want := &TaskRouterWorkflow{FriendlyName: String("TaskRouterWorkflow"), Configuration: String(`{"task_routing":"JSON"}`)}
+	want := &TaskRouterWorkflow{
+		FriendlyName:  String("TaskRouterWorkflow"),
+		Configuration: String(`{"task_routing":"JSON"}`),
+	}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("TaskRouterWorkflow.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestTaskRouterWorkflow_Fetch(t *testing.T) {
@@ -164,7 +166,6 @@ func TestTaskRouterWorkflow_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("TaskRouterWorkflow.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestTaskRouterWorkflow_Delete(t *testing.T) {

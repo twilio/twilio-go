@@ -99,7 +99,6 @@ func TestProxyService_Create(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ProxyService.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestProxyService_Fetch(t *testing.T) {
@@ -125,7 +124,6 @@ func TestProxyService_Fetch(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ProxyService.Fetch returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestProxyService_Update(t *testing.T) {
@@ -153,7 +151,6 @@ func TestProxyService_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ProxyService.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestProxyService_Delete(t *testing.T) {
@@ -163,7 +160,6 @@ func TestProxyService_Delete(t *testing.T) {
 
 	mux.HandleFunc("/Services/KS123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "DELETE")
-
 	})
 
 	err := client.Proxy.Service.Delete("KS123")

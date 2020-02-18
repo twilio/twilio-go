@@ -102,6 +102,7 @@ func NewChatServiceClient(client *Twilio) *ChatServiceClient {
 	c := new(ChatServiceClient)
 	c.client = client
 	c.baseURL = "https://chat.twilio.com/v2"
+
 	return c
 }
 

@@ -62,9 +62,6 @@ type Meta struct {
 	URL             *string `json:"url"`
 }
 
-// constants
-const interval = 10
-
 // NewClient provides an initialized Twilio client.
 func NewClient(accountSID string, authToken string) *Twilio {
 	var httpClient = http.DefaultClient

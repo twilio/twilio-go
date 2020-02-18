@@ -125,9 +125,9 @@ func (c *IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, erro
 
 // Update updates an IncomingPhoneNumber.
 func (c *IncomingPhoneNumberClient) Update(
-	sid string, 
+	sid string,
 	params *IncomingPhoneNumberParams,
-) (*IncomingPhoneNumber, error) 
+) (*IncomingPhoneNumber, error) {
 	url := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSID, sid))
 
 	resp, err := c.client.Post(url, params)

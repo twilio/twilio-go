@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func TestChatRole_marshall(t *testing.T) {
+func TestChatRole_marshall(t *testing.T) { //nolint
 	testJSONMarshal(t, &ChatRoles{}, "{}")
 
 	c := &ChatRole{
@@ -18,10 +18,15 @@ func TestChatRole_marshall(t *testing.T) {
 		ServiceSID:   String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		FriendlyName: String("channel user"),
 		Type:         String("channel"),
-		Permissions:  []*string{String("sendMessage"), String("leaveChannel"), String("editOwnMessage"), String("deleteOwnMessage")},
-		DateCreated:  &time.Time{},
-		DateUpdated:  &time.Time{},
-		URL:          String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		Permissions: []*string{
+			String("sendMessage"),
+			String("leaveChannel"),
+			String("editOwnMessage"),
+			String("deleteOwnMessage"),
+		},
+		DateCreated: &time.Time{},
+		DateUpdated: &time.Time{},
+		URL:         String("/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 	}
 
 	got := &ChatRoles{
@@ -29,10 +34,10 @@ func TestChatRole_marshall(t *testing.T) {
 		Meta: &Meta{
 			Page:            Int(0),
 			PageSize:        Int(50),
-			FirstPageURL:    String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0"),
-			PreviousPageURL: String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0"),
-			URL:             String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0"),
-			NextPageURL:     String("https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=1"),
+			FirstPageURL:    String("/Roles?PageSize=50&Page=0"),
+			PreviousPageURL: String("/Roles?PageSize=50&Page=0"),
+			URL:             String("/Roles?PageSize=50&Page=0"),
+			NextPageURL:     String("/Roles?PageSize=50&Page=1"),
 			Key:             String("roles"),
 		},
 	}
@@ -53,16 +58,16 @@ func TestChatRole_marshall(t *testing.T) {
 				],
 				"date_created": "0001-01-01T00:00:00Z",
 				"date_updated": "0001-01-01T00:00:00Z",
-				"url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+				"url": "/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 			}
 		],
 		"meta": {
 			"page": 0,
 			"page_size": 50,
-			"first_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0",
-			"previous_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0",
-			"url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=0",
-			"next_page_url": "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles?PageSize=50&Page=1",
+			"first_page_url": "/Roles?PageSize=50&Page=0",
+			"previous_page_url": "/Roles?PageSize=50&Page=0",
+			"url": "/Roles?PageSize=50&Page=0",
+			"next_page_url": "/Roles?PageSize=50&Page=1",
 			"key": "roles"
 		}
 	}`
@@ -180,7 +185,6 @@ func TestChatRole_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ChatRole.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestChatRole_Delete(t *testing.T) {
@@ -190,7 +194,6 @@ func TestChatRole_Delete(t *testing.T) {
 
 	mux.HandleFunc("/Services/IS123/Roles/RL1", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "DELETE")
-
 	})
 
 	err := client.Chat.Role.Delete("IS123", "RL1")

@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func TestIncomingPhoneNumber_marshall(t *testing.T) {
+func TestIncomingPhoneNumber_marshall(t *testing.T) { //nolint
 	testJSONMarshal(t, &IncomingPhoneNumber{}, "{}")
 
 	got := &IncomingPhoneNumber{
@@ -40,7 +40,7 @@ func TestIncomingPhoneNumber_marshall(t *testing.T) {
 		StatusCallback:       String(""),
 		StatusCallbackMethod: String("POST"),
 		TrunkSID:             nil,
-		URI:                  String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json"),
+		URI:                  String("/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json"),
 		VoiceApplicationSID:  nil,
 		VoiceCallerIDLookup:  Bool(false),
 		VoiceFallbackMethod:  String("POST"),
@@ -78,7 +78,7 @@ func TestIncomingPhoneNumber_marshall(t *testing.T) {
 		"status_callback": "",
 		"status_callback_method": "POST",
 		"trunk_sid": null,
-		"uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+		"uri": "/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
 		"voice_application_sid": null,
 		"voice_caller_id_lookup": false,
 		"voice_fallback_method": "POST",
@@ -91,7 +91,7 @@ func TestIncomingPhoneNumber_marshall(t *testing.T) {
 	testJSONMarshal(t, got, want)
 }
 
-func TestIncomingPhoneNumber_Create(t *testing.T) {
+func TestIncomingPhoneNumber_Create(t *testing.T) { //nolint
 	client, mux, teardown := setup()
 
 	defer teardown()
@@ -166,7 +166,6 @@ func TestIncomingPhoneNumber_Create(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("IncomingPhoneNumber.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestIncomingPhoneNumber_Read(t *testing.T) {
@@ -192,7 +191,6 @@ func TestIncomingPhoneNumber_Read(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("IncomingPhoneNumber.Read returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestIncomingPhoneNumber_Update(t *testing.T) {
@@ -220,7 +218,6 @@ func TestIncomingPhoneNumber_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("IncomingPhoneNumber.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestIncomingPhoneNumber_Delete(t *testing.T) {

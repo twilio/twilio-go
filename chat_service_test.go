@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func TestChatService_marshall(t *testing.T) {
+func TestChatService_marshall(t *testing.T) { //nolint
 	testJSONMarshal(t, &ChatService{}, "{}")
 
 	c := &ChatService{
@@ -189,7 +189,6 @@ func TestChatService_Create(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ChatService.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestChatService_Fetch(t *testing.T) {
@@ -215,7 +214,6 @@ func TestChatService_Fetch(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ChatService.Fetch returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestChatService_Update(t *testing.T) {
@@ -244,7 +242,6 @@ func TestChatService_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ChatService.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestChatService_Delete(t *testing.T) {
@@ -254,7 +251,6 @@ func TestChatService_Delete(t *testing.T) {
 
 	mux.HandleFunc("/Services/AC123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "DELETE")
-
 	})
 
 	err := client.Chat.Service.Delete("AC123")

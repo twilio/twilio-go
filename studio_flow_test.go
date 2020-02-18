@@ -20,13 +20,13 @@ func TestStudioFlow_marshall(t *testing.T) {
 		Revision:      Int(1),
 		CommitMessage: String("First draft"),
 		Valid:         Bool(true),
-		WebhookURL:    String("http://webhooks.twilio.com/v1/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		WebhookURL:    String("/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		DateCreated:   &time.Time{},
 		DateUpdated:   nil,
-		URL:           String("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		URL:           String("/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		Links: map[string]*string{
-			"test_users": String("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TestUsers"),
-			"revisions":  String("https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions"),
+			"test_users": String("/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TestUsers"),
+			"revisions":  String("/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions"),
 		},
 	}
 
@@ -40,13 +40,13 @@ func TestStudioFlow_marshall(t *testing.T) {
 		"commit_message": "First draft",
 		"valid": true,
 		"errors": null,
-		"webhook_url": "http://webhooks.twilio.com/v1/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"webhook_url": "/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"date_created": "0001-01-01T00:00:00Z",
 		"date_updated": null,
-		"url": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"url": "/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"links": {
-		  "test_users": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TestUsers",
-		  "revisions": "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions"
+		  "test_users": "/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TestUsers",
+		  "revisions": "/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions"
 		}
 	  }`
 	testJSONMarshal(t, got, want)
@@ -86,7 +86,6 @@ func TestStudioFlow_Create(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("StudioFlow.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestStudioFlow_Read(t *testing.T) {
@@ -112,7 +111,6 @@ func TestStudioFlow_Read(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("StudioFlow.Read returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestStudioFlow_Update(t *testing.T) {
@@ -140,7 +138,6 @@ func TestStudioFlow_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("StudioFlow.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestStudioFlow_Delete(t *testing.T) {
@@ -150,7 +147,6 @@ func TestStudioFlow_Delete(t *testing.T) {
 
 	mux.HandleFunc("/Flows/FW123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "DELETE")
-
 	})
 
 	err := client.Studio.Flow.Delete("FW123")

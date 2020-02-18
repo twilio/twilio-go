@@ -9,6 +9,7 @@ import (
 
 func TestAvailablePhoneNumberLocal_marshall(t *testing.T) { //nolint
 	testJSONMarshal(t, &AvailablePhoneNumberLocal{}, "{}")
+
 	a := &AvailablePhoneNumberLocal{
 		AddressRequirements: String("none"),
 		Beta:                Bool(false),
@@ -32,16 +33,16 @@ func TestAvailablePhoneNumberLocal_marshall(t *testing.T) { //nolint
 	got := &AvailablePhoneNumbersLocal{
 		AvailablePhoneNumbers: []*AvailablePhoneNumberLocal{a},
 		End:                   Int(1),
-		FirstPageURI:          String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0"),
-		LastPageURI:           String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0"),
-		NextPageURI:           String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=50"),
+		FirstPageURI:          String("/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0"),
+		LastPageURI:           String("/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0"),
+		NextPageURI:           String("/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=50"),
 		NumPages:              Int(1),
 		Page:                  Int(0),
 		PageSize:              Int(50),
-		PreviousPageURI:       String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0"),
+		PreviousPageURI:       String("/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0"),
 		Start:                 Int(0),
 		Total:                 Int(1),
-		URI:                   String("/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=1"),
+		URI:                   String("/AvailablePhoneNumbers/US/Local.json?PageSize=1"),
 	}
 	want := `{
 		"available_phone_numbers": [
@@ -66,21 +67,21 @@ func TestAvailablePhoneNumberLocal_marshall(t *testing.T) { //nolint
 		  }
 		],
 		"end": 1,
-		"first_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0",
-		"last_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0",
-		"next_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=50",
+		"first_page_uri": "/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0",
+		"last_page_uri": "/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0",
+		"next_page_uri": "/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=50",
 		"num_pages": 1,
 		"page": 0,
 		"page_size": 50,
-		"previous_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0",
+		"previous_page_uri": "/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0",
 		"start": 0,
 		"total": 1,
-		"uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json?PageSize=1"
+		"uri": "/AvailablePhoneNumbers/US/Local.json?PageSize=1"
 	}`
 	testJSONMarshal(t, got, want)
 }
 
-func TestAvailablePhoneNumberLocal_Read(t *testing.T) {
+func TestAvailablePhoneNumberLocal_Read(t *testing.T) { //nolint
 	client, mux, teardown := setup()
 
 	defer teardown()
@@ -111,6 +112,7 @@ func TestAvailablePhoneNumberLocal_Read(t *testing.T) {
 		response := `{"available_phone_numbers": [{"phone_number":"+18089251571"}]}`
 		fmt.Fprint(w, response)
 	})
+
 	got, err := client.AvailablePhoneNumbers.Read(&AvailablePhoneNumberLocalReadParams{
 		FaxEnabled:                    Bool(true),
 		SMSEnabled:                    Bool(true),

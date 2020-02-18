@@ -92,7 +92,6 @@ func TestTaskrouterWorkspace_Create(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("TaskRouterWorkspace.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestTaskRouterWorkspace_Fetch(t *testing.T) {
@@ -169,7 +168,6 @@ func TestTaskRouterWorkspace_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("TaskRouterWorkspace.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestTaskRouterWorkspace_Delete(t *testing.T) {

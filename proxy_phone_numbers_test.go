@@ -25,7 +25,7 @@ func TestProxyPhoneNumber_marshall(t *testing.T) {
 			"sms_outbound":  Bool(true),
 			"voice_inbound": Bool(false),
 		},
-		URL:        String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		URL:        String("/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		IsReserved: Bool(false),
 		InUse:      Int(0),
 	}
@@ -43,7 +43,7 @@ func TestProxyPhoneNumber_marshall(t *testing.T) {
 			"sms_outbound": true,
 			"voice_inbound": false
 		},
-		"url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"url": "/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"is_reserved": false,
 		"in_use": 0
 	}`
@@ -84,7 +84,6 @@ func TestProxyPhoneNumber_Create(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ProxyService.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestProxyPhoneNumber_Fetch(t *testing.T) {
@@ -110,7 +109,6 @@ func TestProxyPhoneNumber_Fetch(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ProxyService.Fetch returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestProxyPhoneNumber_Update(t *testing.T) {
@@ -138,7 +136,6 @@ func TestProxyPhoneNumber_Update(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ProxyService.Update returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestProxyPhoneNumber_Delete(t *testing.T) {
@@ -148,7 +145,6 @@ func TestProxyPhoneNumber_Delete(t *testing.T) {
 
 	mux.HandleFunc("/Services/KS123/PhoneNumbers/PN123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "DELETE")
-
 	})
 
 	err := client.Proxy.PhoneNumber.Delete("KS123", "PN123")
