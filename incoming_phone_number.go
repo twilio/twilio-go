@@ -124,10 +124,13 @@ func (c *IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, erro
 }
 
 // Update updates an IncomingPhoneNumber.
-func (c *IncomingPhoneNumberClient) Update(sid string, params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
-	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSID, sid))
+func (c *IncomingPhoneNumberClient) Update(
+	sid string, 
+	params *IncomingPhoneNumberParams,
+) (*IncomingPhoneNumber, error) 
+	url := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSID, sid))
 
-	resp, err := c.client.Post(uri, params)
+	resp, err := c.client.Post(url, params)
 	if err != nil {
 		return nil, err
 	}

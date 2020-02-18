@@ -125,7 +125,10 @@ func (c *TaskRouterWorkspaceClient) Read(params *TaskRouterWorkspaceQueryParams)
 }
 
 // Update updates TaskRouterWorkspace with given config.
-func (c *TaskRouterWorkspaceClient) Update(sid string, params *TaskRouterWorkspaceParams) (*TaskRouterWorkspace, error) {
+func (c *TaskRouterWorkspaceClient) Update(
+	sid string,
+	params *TaskRouterWorkspaceParams,
+) (*TaskRouterWorkspace, error) {
 	url := c.url("/Workspaces/" + sid)
 
 	resp, err := c.client.Post(url, params)

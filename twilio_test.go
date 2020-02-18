@@ -2,7 +2,6 @@ package twilio
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -63,34 +62,6 @@ func testQueryValues(t *testing.T, r *http.Request, values values) {
 
 	if got := r.URL.Query(); !reflect.DeepEqual(got, want) {
 		t.Errorf("Request query: %v, want %v", got, want)
-	}
-}
-
-func testHeader(t *testing.T, r *http.Request, header string, want string) {
-	t.Helper()
-	if got := r.Header.Get(header); got != want {
-		t.Errorf("Header.Get(%q) returned %q, want %q", header, got, want)
-	}
-}
-
-func testURLParseError(t *testing.T, err error) {
-	t.Helper()
-	if err == nil {
-		t.Errorf("Expected error to be returned")
-	}
-	if err, ok := err.(*url.Error); !ok || err.Op != "parse" {
-		t.Errorf("Expected URL parse error, got %+v", err)
-	}
-}
-
-func testBody(t *testing.T, r *http.Request, want string) {
-	t.Helper()
-	b, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		t.Errorf("Error reading request body: %v", err)
-	}
-	if got := string(b); got != want {
-		t.Errorf("request Body is %s, want %s", got, want)
 	}
 }
 

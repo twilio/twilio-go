@@ -63,7 +63,10 @@ func NewTaskRouterWorkflowClient(client *Twilio) *TaskRouterWorkflowClient {
 }
 
 // Create creates TaskRouterworkflow with the given the config.
-func (c *TaskRouterWorkflowClient) Create(workspaceSID string, params *TaskRouterWorkflowParams) (*TaskRouterWorkflow, error) {
+func (c *TaskRouterWorkflowClient) Create(
+	workspaceSID string,
+	params *TaskRouterWorkflowParams,
+) (*TaskRouterWorkflow, error) {
 	if params.FriendlyName == nil {
 		return nil, errors.New("friendly name is required in params")
 	}
@@ -112,7 +115,10 @@ func (c *TaskRouterWorkflowClient) Fetch(workspaceSID string, sid string) (*Task
 }
 
 // Read returns all existing Workflows.
-func (c *TaskRouterWorkflowClient) Read(workspaceSID string, params *TaskRouterWorkflowQueryParams) (*TaskRouterWorkflowList, error) {
+func (c *TaskRouterWorkflowClient) Read(
+	workspaceSID string,
+	params *TaskRouterWorkflowQueryParams,
+) (*TaskRouterWorkflowList, error) {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/Workflows", workspaceSID))
 
 	resp, err := c.client.Get(url, params)

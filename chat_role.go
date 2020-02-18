@@ -52,6 +52,7 @@ func NewChatRoleClient(client *Twilio) *ChatRoleClient {
 func (c *ChatRoleClient) Create(serviceSID string, params *ChatRoleParams) (*ChatRole, error) {
 	path := fmt.Sprintf("/Services/%s/Roles", serviceSID)
 	resp, err := c.client.Post(c.url(path), params)
+
 	if err != nil {
 		return nil, err
 	}
@@ -86,6 +87,7 @@ func (c *ChatRoleClient) Fetch(serviceSID, sid string) (*ChatRole, error) {
 func (c *ChatRoleClient) Read(serviceSID string) (*ChatRoles, error) {
 	path := fmt.Sprintf("/Services/%s/Roles", serviceSID)
 	resp, err := c.client.Get(c.url(path), nil)
+
 	if err != nil {
 		return nil, err
 	}

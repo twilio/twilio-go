@@ -56,7 +56,10 @@ func NewTaskRouterActivityClient(client *Twilio) *TaskRouterActivityClient {
 }
 
 // Create creates activity with the given the config.
-func (c *TaskRouterActivityClient) Create(workspaceSID string, activityParams *TaskRouterActivityParams) (*TaskRouterActivity, error) {
+func (c *TaskRouterActivityClient) Create(
+	workspaceSID string,
+	activityParams *TaskRouterActivityParams,
+) (*TaskRouterActivity, error) {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities", workspaceSID))
 
 	if len(*activityParams.FriendlyName) == 0 {

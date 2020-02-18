@@ -79,7 +79,9 @@ func NewAvailablePhoneNumbersClient(client *Twilio) *AvailablePhoneNumbersClient
 }
 
 // Read returns available local phone numbers.
-func (c *AvailablePhoneNumbersClient) Read(params *AvailablePhoneNumberLocalReadParams) (*AvailablePhoneNumbersLocal, error) {
+func (c *AvailablePhoneNumbersClient) Read(
+	params *AvailablePhoneNumberLocalReadParams,
+) (*AvailablePhoneNumbersLocal, error) {
 	path := fmt.Sprintf("/Accounts/%s/AvailablePhoneNumbers/US/Local.json", c.client.AccountSID)
 
 	resp, err := c.client.Get(c.url(path), params)

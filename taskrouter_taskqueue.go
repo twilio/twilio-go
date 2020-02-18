@@ -66,7 +66,10 @@ func NewTaskRouterTaskQueueClient(client *Twilio) *TaskRouterTaskQueueClient {
 }
 
 // Create creates taskRouterTaskqueue with the given the config.
-func (c *TaskRouterTaskQueueClient) Create(workspaceSID string, params *TaskRouterTaskQueueParams) (*TaskRouterTaskQueue, error) {
+func (c *TaskRouterTaskQueueClient) Create(
+	workspaceSID string,
+	params *TaskRouterTaskQueueParams,
+) (*TaskRouterTaskQueue, error) {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskRouterTaskQueues", workspaceSID))
 
 	if len(*params.FriendlyName) == 0 {

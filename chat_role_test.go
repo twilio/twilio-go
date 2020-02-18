@@ -103,7 +103,6 @@ func TestChatRole_Create(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ChatRole.Create returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestChatRole_Fetch(t *testing.T) {
@@ -129,7 +128,6 @@ func TestChatRole_Fetch(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ChatRole.Fetch returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestChatRole_Read(t *testing.T) {
@@ -155,7 +153,6 @@ func TestChatRole_Read(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("ChatRole.Read returned %+v, want %+v", got, want)
 	}
-
 }
 
 func TestChatRole_Update(t *testing.T) {

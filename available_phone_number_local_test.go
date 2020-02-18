@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestAvailablePhoneNumberLocal_marshall(t *testing.T) {
+func TestAvailablePhoneNumberLocal_marshall(t *testing.T) { //nolint
 	testJSONMarshal(t, &AvailablePhoneNumberLocal{}, "{}")
 	a := &AvailablePhoneNumberLocal{
 		AddressRequirements: String("none"),
