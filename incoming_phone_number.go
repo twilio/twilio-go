@@ -3,8 +3,6 @@ package twilio
 import (
 	"encoding/json"
 	"fmt"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // IncomingPhoneNumber represents a Twilio phone number provisioned from Twilio, ported or hosted to Twilio.
@@ -12,54 +10,53 @@ import (
 type IncomingPhoneNumber struct {
 	Beta                 *bool            `json:"beta"`
 	VoiceCallerIDLookup  *bool            `json:"voice_caller_id_lookup"`
-	AccountSid           *string          `json:"account_sid"`
-	AddressSid           *string          `json:"address_sid"`
+	AccountSID           *string          `json:"account_sid"`
+	AddressSID           *string          `json:"address_sid"`
 	AddressRequirements  *string          `json:"address_requirements"`
 	APIVersion           *string          `json:"api_version"`
 	Capabilities         map[string]*bool `json:"capabilities"`
 	DateCreated          *string          `json:"date_created"`
 	DateUpdated          *string          `json:"date_updated"`
 	FriendlyName         *string          `json:"friendly_name"`
-	IdentitySid          *string          `json:"identity_sid"`
+	IdentitySID          *string          `json:"identity_sid"`
 	PhoneNumber          *string          `json:"phone_number"`
 	Origin               *string          `json:"origin"`
-	Sid                  *string          `json:"sid"`
-	SMSApplicationSid    *string          `json:"sms_application_sid"`
+	SID                  *string          `json:"sid"`
+	SMSApplicationSID    *string          `json:"sms_application_sid"`
 	SMSFallbackMethod    *string          `json:"sms_fallback_method"`
 	SMSFallbackURL       *string          `json:"sms_fallback_url"`
 	SMSMethod            *string          `json:"sms_method"`
 	SMSURL               *string          `json:"sms_url"`
 	StatusCallback       *string          `json:"status_callback"`
 	StatusCallbackMethod *string          `json:"status_callback_method"`
-	TrunkSid             *string          `json:"trunk_sid"`
+	TrunkSID             *string          `json:"trunk_sid"`
 	URI                  *string          `json:"uri"`
-	VoiceApplicationSid  *string          `json:"voice_application_sid"`
+	VoiceApplicationSID  *string          `json:"voice_application_sid"`
 	VoiceFallbackMethod  *string          `json:"voice_fallback_method"`
 	VoiceFallbackURL     *string          `json:"voice_fallback_url"`
 	VoiceMethod          *string          `json:"voice_method"`
 	VoiceURL             *string          `json:"voice_url"`
 	EmergencyStatus      *string          `json:"emergency_status"`
-	EmergencyAddressSid  *string          `json:"emergency_address_sid"`
-	BundleSid            *string          `json:"bundle_sid"`
+	EmergencyAddressSID  *string          `json:"emergency_address_sid"`
+	BundleSID            *string          `json:"bundle_sid"`
 }
 
 // IncomingPhoneNumberParams is the set of parameters that can
 // be used when creating or updating an Incoming Phone Number.
 type IncomingPhoneNumberParams struct {
-	AccountSID           *string `form:"AccountSid,omitempty"`
 	APIVersion           *string `form:"ApiVersion,omitempty"`
 	FriendlyName         *string `form:",omitempty"`
-	SMSApplicationSid    *string `form:"SmsApplicationSid,omitempty"`
-	SMSFallbackMethod    *string `form:"SmsApplicationMethod,omitempty"`
+	SMSApplicationSID    *string `form:"SmsApplicationSid,omitempty"`
+	SMSFallbackMethod    *string `form:"SmsFallbackMethod,omitempty"`
 	PhoneNumber          *string `form:",omitempty"`
 	AreaCode             *string `form:",omitempty"`
 	SMSFallbackURL       *string `form:"SmsFallbackUrl,omitempty"`
 	SMSMethod            *string `form:"SmsMethod,omitempty"`
 	SMSURL               *string `form:"SmsUrl,omitempty"`
 	StatusCallback       *string `form:",omitempty"`
-	AddressSID           *string `form:",omitempty"`
+	AddressSID           *string `form:"AddressSid,omitempty"`
 	StatusCallbackMethod *string `form:",omitempty"`
-	VoiceApplicationSID  *string `form:",omitempty"`
+	VoiceApplicationSID  *string `form:"VoiceApplicationSid,omitempty"`
 	VoiceCallerIDLookup  *bool   `form:"VoiceCallerIdLookup,omitempty"`
 	VoiceFallbackMethod  *string `form:",omitempty"`
 	VoiceFallbackURL     *string `form:"VoiceFallbackUrl,omitempty"`
@@ -76,22 +73,22 @@ type IncomingPhoneNumberParams struct {
 // IncomingPhoneNumberClient is the entrypoint for the Incoming Phone Number resource.
 // See: https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource
 type IncomingPhoneNumberClient struct {
-	client     *twilio.Client
-	serviceURL string
+	client  *Twilio
+	baseURL string
 }
 
 // NewIncomingPhoneNumberClient constructs a new IncomingPhoneNumber client.
-func NewIncomingPhoneNumberClient(client *twilio.Client) *IncomingPhoneNumberClient {
+func NewIncomingPhoneNumberClient(client *Twilio) *IncomingPhoneNumberClient {
 	pn := new(IncomingPhoneNumberClient)
 	pn.client = client
-	pn.serviceURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)
+	pn.baseURL = fmt.Sprintf("https://api.%s/2010-04-01", pn.client.BaseURL)
 
 	return pn
 }
 
 // Create creates a new IncomingPhoneNumber.
-func (c IncomingPhoneNumberClient) Create(params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
-	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers.json", c.serviceURL, c.client.AccountSid)
+func (c *IncomingPhoneNumberClient) Create(params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers.json", c.client.AccountSID))
 
 	resp, err := c.client.Post(uri, params)
 	if err != nil {
@@ -99,17 +96,17 @@ func (c IncomingPhoneNumberClient) Create(params *IncomingPhoneNumberParams) (*I
 	}
 	defer resp.Body.Close()
 
-	ipn := &IncomingPhoneNumber{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(ipn); decodeErr != nil {
-		return nil, decodeErr
+	p := &IncomingPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
+		return nil, err
 	}
 
-	return ipn, err
+	return p, err
 }
 
 // Read returns the details of an IncomingPhoneNumber.
-func (c IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, error) {
-	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers/%s.json", c.serviceURL, c.client.AccountSid, sid)
+func (c *IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, error) {
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSID, sid))
 
 	resp, err := c.client.Get(uri, nil)
 	if err != nil {
@@ -117,35 +114,38 @@ func (c IncomingPhoneNumberClient) Read(sid string) (*IncomingPhoneNumber, error
 	}
 	defer resp.Body.Close()
 
-	ipn := &IncomingPhoneNumber{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(ipn); decodeErr != nil {
-		return nil, decodeErr
+	p := &IncomingPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
+		return nil, err
 	}
 
-	return ipn, err
+	return p, err
 }
 
 // Update updates an IncomingPhoneNumber.
-func (c IncomingPhoneNumberClient) Update(sid string, params *IncomingPhoneNumberParams) (*IncomingPhoneNumber, error) {
-	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers/%s.json", c.serviceURL, c.client.AccountSid, sid)
+func (c *IncomingPhoneNumberClient) Update(
+	sid string,
+	params *IncomingPhoneNumberParams,
+) (*IncomingPhoneNumber, error) {
+	url := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSID, sid))
 
-	resp, err := c.client.Post(uri, params)
+	resp, err := c.client.Post(url, params)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	ipn := &IncomingPhoneNumber{}
-	if decodeErr := json.NewDecoder(resp.Body).Decode(ipn); decodeErr != nil {
-		return nil, decodeErr
+	p := &IncomingPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
+		return nil, err
 	}
 
-	return ipn, err
+	return p, err
 }
 
 // Delete releases an existing IncomingPhoneNumber.
-func (c IncomingPhoneNumberClient) Delete(sid string) error {
-	uri := fmt.Sprintf("%s/Accounts/%s/IncomingPhoneNumbers/%s.json", c.serviceURL, c.client.AccountSid, sid)
+func (c *IncomingPhoneNumberClient) Delete(sid string) error {
+	uri := c.url(fmt.Sprintf("/Accounts/%s/IncomingPhoneNumbers/%s.json", c.client.AccountSID, sid))
 
 	resp, err := c.client.Delete(uri)
 	if err != nil {
@@ -154,4 +154,12 @@ func (c IncomingPhoneNumberClient) Delete(sid string) error {
 	defer resp.Body.Close()
 
 	return err
+}
+
+func (c *IncomingPhoneNumberClient) url(path string) string {
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
+	}
+
+	return c.baseURL + path
 }

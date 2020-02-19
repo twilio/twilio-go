@@ -4,15 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // ProxyService is the top-level scope of all other resources in the Programmable Proxy REST API.
 // All other Programmable Proxy resources belong to a specific Service.
 // See: https://www.twilio.com/docs/proxy/api/service
 type ProxyService struct {
-	Sid                     *string            `json:"sid"`
+	SID                     *string            `json:"sid"`
 	AccountSID              *string            `json:"account_sid"`
 	ChatInstanceSID         *string            `json:"chat_instance_sid"`
 	UniqueName              *string            `json:"unique_name"`
@@ -26,6 +24,12 @@ type ProxyService struct {
 	DateUpdated             *time.Time         `json:"date_updated"`
 	URL                     *string            `json:"url"`
 	Links                   map[string]*string `json:"links"`
+}
+
+// ProxyServiceList is the API response for reading multiple Proxy Services
+type ProxyServiceList struct {
+	Service []*ProxyService `json:"service"`
+	Meta    *Meta           `json:"meta"`
 }
 
 // ProxyServiceParams is the set of parameters that can be used when creating or updating a service.
@@ -42,22 +46,22 @@ type ProxyServiceParams struct {
 
 // ProxyServiceClient is the entrypoint for the Proxy Service API.
 type ProxyServiceClient struct {
-	serviceURL string
-	client     *twilio.Client
+	client  *Twilio
+	baseURL string
 }
 
 // NewProxyServiceClient constructs a new ProxyService Client.
-func NewProxyServiceClient(request *twilio.Client) *ProxyServiceClient {
+func NewProxyServiceClient(client *Twilio) *ProxyServiceClient {
 	c := new(ProxyServiceClient)
-	c.client = request
-	c.serviceURL = fmt.Sprintf("https://proxy.%s/v1", c.client.BaseURL)
+	c.client = client
+	c.baseURL = fmt.Sprintf("https://proxy.%s/v1", c.client.BaseURL)
 
 	return c
 }
 
 // Create creates a new ProxyService.
 func (c *ProxyServiceClient) Create(params *ProxyServiceParams) (*ProxyService, error) {
-	resp, err := c.client.Post(fmt.Sprintf("%s/Services", c.serviceURL), params)
+	resp, err := c.client.Post(c.url("/Services"), params)
 
 	if err != nil {
 		return nil, err
@@ -65,51 +69,67 @@ func (c *ProxyServiceClient) Create(params *ProxyServiceParams) (*ProxyService, 
 
 	defer resp.Body.Close()
 
-	ps := &ProxyService{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+	p := &ProxyService{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
 		return nil, err
 	}
 
-	return ps, err
+	return p, err
 }
 
-// Read returns the details of a ProxyService.
-func (c *ProxyServiceClient) Read(sid string, params *ProxyServiceParams) (*ProxyService, error) {
-	resp, err := c.client.Get(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), nil)
+// Fetch returns the details of a ProxyService.
+func (c *ProxyServiceClient) Fetch(sid string) (*ProxyService, error) {
+	resp, err := c.client.Get(c.url("/Services/"+sid), nil)
 	if err != nil {
 		return nil, err
 	}
 
 	defer resp.Body.Close()
 
-	ps := &ProxyService{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+	p := &ProxyService{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
 		return nil, err
 	}
 
-	return ps, err
+	return p, err
+}
+
+func (c *ProxyServiceClient) Read(sid string, params *ProxyServiceParams) (*ProxyServiceList, error) {
+	resp, err := c.client.Get(c.url("/Services"), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	p := &ProxyServiceList{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
+		return nil, err
+	}
+
+	return p, err
 }
 
 // Update updates a ProxyService.
 func (c *ProxyServiceClient) Update(sid string, params *ProxyServiceParams) (*ProxyService, error) {
-	resp, err := c.client.Post(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid), params)
+	resp, err := c.client.Post(c.url("/Services/"+sid), params)
 	if err != nil {
 		return nil, err
 	}
 
 	defer resp.Body.Close()
 
-	ps := &ProxyService{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+	p := &ProxyService{}
+	if err := json.NewDecoder(resp.Body).Decode(p); err != nil {
 		return nil, err
 	}
 
-	return ps, err
+	return p, err
 }
 
 // Delete deletes a ProxyService.
-func (c *ProxyServiceClient) Delete(sid string, params *ProxyServiceParams) error {
-	resp, err := c.client.Delete(fmt.Sprintf("%s/Services/%s", c.serviceURL, sid))
+func (c *ProxyServiceClient) Delete(sid string) error {
+	resp, err := c.client.Delete(c.url("/Services/" + sid))
 	if err != nil {
 		return err
 	}
@@ -117,4 +137,12 @@ func (c *ProxyServiceClient) Delete(sid string, params *ProxyServiceParams) erro
 	defer resp.Body.Close()
 
 	return nil
+}
+
+func (c *ProxyServiceClient) url(path string) string {
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
+	}
+
+	return c.baseURL + path
 }

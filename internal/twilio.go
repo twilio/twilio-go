@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
 	"github.com/twilio/twilio-go/form"
 )
@@ -31,19 +30,19 @@ func (err Error) Error() string {
 
 // Credentials store user authentication credentials.
 type Credentials struct {
-	AccountSid string
+	AccountSID string
 	AuthToken  string
 }
 
 // Client encapsulates a standard HTTP backend with authorization.
 type Client struct {
-	Credentials
+	*Credentials
 	HTTPClient *http.Client
 	BaseURL    string
 }
 
 func (c *Client) basicAuth() (string, string) {
-	return c.Credentials.AccountSid, c.Credentials.AuthToken
+	return c.Credentials.AccountSID, c.Credentials.AuthToken
 }
 
 const errorStatusCode = 400
@@ -83,12 +82,15 @@ func (c Client) SendRequest(method string, rawURL string, queryParams, formData 
 		return nil, err
 	}
 
-	if queryParams != nil {
-		v, _ := query.Values(queryParams)
-		u.RawQuery = v.Encode()
-	}
-
 	valueReader := &strings.Reader{}
+
+	if queryParams != nil {
+		v, _ := form.EncodeToStringWith(queryParams, delimiter, escape, keepZeros)
+		regex := regexp.MustCompile(`\.\d+`)
+		s := regex.ReplaceAllString(v, "")
+
+		u.RawQuery = s
+	}
 
 	if formData != nil {
 		v, _ := form.EncodeToStringWith(formData, delimiter, escape, keepZeros)

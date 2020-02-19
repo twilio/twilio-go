@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
-	twilio "github.com/twilio/twilio-go/internal"
 )
 
 // Media describes the properties of media that the service supports.
@@ -43,14 +41,14 @@ type Notifications struct {
 // All other Programmable Chat resources belong to a specific Service.
 // See: https://www.twilio.com/docs/chat/rest/service-resource
 type ChatService struct {
-	Sid                          *string            `json:"sid"`
-	AccountSid                   *string            `json:"account_sid"`
+	SID                          *string            `json:"sid"`
+	AccountSID                   *string            `json:"account_sid"`
 	FriendlyName                 *string            `json:"friendly_name"`
 	DateCreated                  *time.Time         `json:"date_created"`
 	DateUpdated                  *time.Time         `json:"date_updated"`
-	DefaultServiceRoleSid        *string            `json:"default_service_role_sid"`
-	DefaultChannelRoleSid        *string            `json:"default_channel_role_sid"`
-	DefaultChannelCreatorRoleSid *string            `json:"default_channel_creator_role_sid"`
+	DefaultServiceRoleSID        *string            `json:"default_service_role_sid"`
+	DefaultChannelRoleSID        *string            `json:"default_channel_role_sid"`
+	DefaultChannelCreatorRoleSID *string            `json:"default_channel_creator_role_sid"`
 	ReadStatusEnabled            *bool              `json:"read_status_enabled"`
 	ReachabilityEnabled          *bool              `json:"reachability_enabled"`
 	TypingIndicatorTimeout       *int               `json:"typing_indicator_timeout"`
@@ -88,24 +86,30 @@ type ChatServiceParams struct {
 	Limits                       map[string]*int `form:",omitempty"`
 }
 
+// ChatServiceList is the API response for reading multiple Chat Services
+type ChatServiceList struct {
+	Meta     *Meta          `json:"meta"`
+	Services []*ChatService `json:"services"`
+}
+
 // ChatServiceClient is the entrypoint for the Programmable Chat API.
 type ChatServiceClient struct {
-	serviceURL string
-	client     *twilio.Client
+	baseURL string
+	client  *Twilio
 }
 
 // NewChatServiceClient constructs a new Chat Service client.
-func NewChatServiceClient(request *twilio.Client) *ChatServiceClient {
+func NewChatServiceClient(client *Twilio) *ChatServiceClient {
 	c := new(ChatServiceClient)
-	c.client = request
-	c.serviceURL = fmt.Sprintf("https://chat.%s/v2/Services", c.client.BaseURL)
+	c.client = client
+	c.baseURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)
 
 	return c
 }
 
 // Create creates a new Chat Service.
 func (c *ChatServiceClient) Create(params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.client.Post(c.serviceURL, params)
+	resp, err := c.client.Post(c.url("/Services"), params)
 	if err != nil {
 		return nil, err
 	}
@@ -119,15 +123,31 @@ func (c *ChatServiceClient) Create(params *ChatServiceParams) (*ChatService, err
 	return cs, err
 }
 
-// Read returns the details of a Chat Service.
-func (c *ChatServiceClient) Read(sid string) (*ChatService, error) {
-	resp, err := c.client.Get(fmt.Sprintf("%s/%s", c.serviceURL, sid), nil)
+// Fetch returns the details of a Chat Service.
+func (c *ChatServiceClient) Fetch(sid string) (*ChatService, error) {
+	resp, err := c.client.Get(c.url("/Services/"+sid), nil)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
 	cs := &ChatService{}
+	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
+		return nil, err
+	}
+
+	return cs, err
+}
+
+// Read returns a paginated list of Chat Services.
+func (c *ChatServiceClient) Read() (*ChatServiceList, error) {
+	resp, err := c.client.Get(c.url("/Services"), nil)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	cs := &ChatServiceList{}
 	if err := json.NewDecoder(resp.Body).Decode(cs); err != nil {
 		return nil, err
 	}
@@ -137,7 +157,7 @@ func (c *ChatServiceClient) Read(sid string) (*ChatService, error) {
 
 // Update updates a Service.
 func (c *ChatServiceClient) Update(sid string, params *ChatServiceParams) (*ChatService, error) {
-	resp, err := c.client.Post(fmt.Sprintf("%s/%s", c.serviceURL, sid), params)
+	resp, err := c.client.Post(c.url("/Services/"+sid), params)
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +173,7 @@ func (c *ChatServiceClient) Update(sid string, params *ChatServiceParams) (*Chat
 
 // Delete deletes a Chat Service.
 func (c *ChatServiceClient) Delete(sid string) error {
-	resp, err := c.client.Delete(fmt.Sprintf("%s/%s", c.serviceURL, sid))
+	resp, err := c.client.Delete(c.url("/Services/" + sid))
 	if err != nil {
 		return err
 	}
@@ -161,4 +181,12 @@ func (c *ChatServiceClient) Delete(sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+func (c *ChatServiceClient) url(path string) string {
+	if c.client.defaultbaseURL != nil {
+		return *c.client.defaultbaseURL + path
+	}
+
+	return c.baseURL + path
 }

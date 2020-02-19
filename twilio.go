@@ -10,12 +10,20 @@ import (
 
 // Twilio provides access to Twilio services.
 type Twilio struct {
+	*twilio.Credentials
+	*twilio.Client
+	defaultbaseURL        *string
+	common                service
 	Chat                  *ChatClient
 	Proxy                 *ProxyClient
 	TaskRouter            *TaskRouterClient
 	Studio                *StudioClient
 	AvailablePhoneNumbers *AvailablePhoneNumbersClient
 	IncomingPhoneNumbers  *IncomingPhoneNumberClient
+}
+
+type service struct {
+	client *Twilio
 }
 
 // ChatClient holds all chat related resources.
@@ -35,32 +43,62 @@ type StudioClient struct {
 	Flow *StudioFlowClient
 }
 
-const interval = 10
+// TaskRouterClient holds all studio related resources.
+type TaskRouterClient struct {
+	Workflows  *TaskRouterWorkflowClient
+	Activities *TaskRouterActivityClient
+	Workspaces *TaskRouterWorkspaceClient
+	TaskQueues *TaskRouterTaskQueueClient
+}
+
+// Meta holds relevant pagination resources.
+type Meta struct {
+	FirstPageURL    *string `json:"first_page_url"`
+	Key             *string `json:"key"`
+	LastPageURL     *string `json:"last_page_url,omitempty"`
+	NextPageURL     *string `json:"next_page_url"`
+	Page            *int    `json:"page"`
+	PageSize        *int    `json:"page_size"`
+	PreviousPageURL *string `json:"previous_page_url"`
+	URL             *string `json:"url"`
+}
 
 // NewClient provides an initialized Twilio client.
-func NewClient(accountSid string, authToken string) *Twilio {
+func NewClient(accountSID string, authToken string) *Twilio {
 	var httpClient = &http.Client{
-		Timeout: time.Second * interval,
+		Timeout: time.Second * 10,
 	}
 
-	credentials := twilio.Credentials{AccountSid: accountSid, AuthToken: authToken}
-	client := &twilio.Client{Credentials: credentials, BaseURL: "twilio.com", HTTPClient: httpClient}
+	credentials := &twilio.Credentials{AccountSID: accountSID, AuthToken: authToken}
 
-	twilioClient := Twilio{}
-	twilioClient.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(client)
-	twilioClient.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(client)
-	twilioClient.Chat = &ChatClient{
-		Service: NewChatServiceClient(client),
-		Role:    NewChatRoleClient(client),
+	c := &Twilio{
+		Credentials: credentials,
+		Client: &twilio.Client{
+			Credentials: credentials,
+			HTTPClient:  httpClient,
+			BaseURL:     "twilio.com",
+		},
 	}
-	twilioClient.Proxy = &ProxyClient{
-		Service:     NewProxyServiceClient(client),
-		PhoneNumber: NewProxyPhoneNumberClient(client),
+	c.common.client = c
+	c.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(c)
+	c.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(c)
+	c.Chat = &ChatClient{
+		Service: NewChatServiceClient(c),
+		Role:    NewChatRoleClient(c),
 	}
-	twilioClient.TaskRouter = NewTaskRouterClient(client)
-	twilioClient.Studio = &StudioClient{
-		Flow: NewStudioFlowClient(client),
+	c.Proxy = &ProxyClient{
+		Service:     NewProxyServiceClient(c),
+		PhoneNumber: NewProxyPhoneNumberClient(c),
+	}
+	c.Studio = &StudioClient{
+		Flow: NewStudioFlowClient(c),
+	}
+	c.TaskRouter = &TaskRouterClient{
+		Activities: NewTaskRouterActivityClient(c),
+		TaskQueues: NewTaskRouterTaskQueueClient(c),
+		Workspaces: NewTaskRouterWorkspaceClient(c),
+		Workflows:  NewTaskRouterWorkflowClient(c),
 	}
 
-	return &twilioClient
+	return c
 }
