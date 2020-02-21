@@ -13,44 +13,36 @@ func TestRuntimeService_marshall(t *testing.T) {
 	testJSONMarshal(t, RuntimeService{}, "{}")
 
 	got := &RuntimeService{
-		SID:                     String("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
-		AccountSID:              String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
-		ChatInstanceSID:         String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
-		UniqueName:              String("My Service"),
-		DefaultTTL:              Int(3600),
-		CallbackURL:             String("http://www.example.com"),
-		GeoMatchLevel:           String("country"),
-		NumberSelectionBehavior: String("prefer_sticky"),
-		InterceptCallbackURL:    String("http://www.example.com"),
-		OutOfSessionCallbackURL: String("http://www.example.com"),
-		DateCreated:             &time.Time{},
-		DateUpdated:             &time.Time{},
-		URL:                     String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		SID:                String("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		AccountSID:         String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		FriendlyName:       String("My New App"),
+		UniqueName:         String("my-new-app"),
+		IncludeCredentials: Bool(true),
+		DateCreated:        &time.Time{},
+		DateUpdated:        &time.Time{},
+		URL:                String("https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000"),
 		Links: map[string]*string{
-			"sessions":      String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions"),
-			"phone_numbers": String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers"),
-			"short_codes":   String("https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes"),
+			"environments": String("https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments"),
+			"functions":    String("https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions"),
+			"assets":       String("https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets"),
+			"builds":       String("https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds"),
 		},
 	}
 
 	want := `{
-		"sid": "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"sid": "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"chat_instance_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"unique_name": "My Service",
-		"default_ttl": 3600,
-		"callback_url": "http://www.example.com",
-		"geo_match_level": "country",
-		"number_selection_behavior": "prefer_sticky",
-		"intercept_callback_url": "http://www.example.com",
-		"out_of_session_callback_url": "http://www.example.com",
+		"friendly_name": "My New App",
+		"unique_name": "my-new-app",
+		"include_credentials": true,
 		"date_created": "0001-01-01T00:00:00Z",
 		"date_updated": "0001-01-01T00:00:00Z",
-		"url": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000",
 		"links": {
-			"sessions": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions",
-			"phone_numbers": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers",
-			"short_codes": "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes"
+			"environments": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments",
+			"functions": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions",
+			"assets": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets",
+			"builds": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds"
 		}
 	}`
 	testJSONMarshal(t, got, want)
@@ -64,14 +56,9 @@ func TestRuntimeService_Create(t *testing.T) {
 	mux.HandleFunc("/Services", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
 		f := url.Values{}
-		f.Add("ChatInstanceSid", "a")
+		f.Add("FriendlyName", "a")
 		f.Add("UniqueName", "b")
-		f.Add("DefaultTtl", "10")
-		f.Add("CallbackUrl", "c")
-		f.Add("GeoMatchLevel", "d")
-		f.Add("NumberSelectionBehavior", "e")
-		f.Add("InterceptCallbackUrl", "f")
-		f.Add("OutOfSessionCallbackUrl", "g")
+		f.Add("IncludeCredentials", "true")
 
 		testFormValues(t, r, f)
 		response := `{"unique_name":"RuntimeService"}`
@@ -79,15 +66,10 @@ func TestRuntimeService_Create(t *testing.T) {
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Proxy.Service.Create(&RuntimeServiceParams{
-		ChatInstanceSID:         String("a"),
-		UniqueName:              String("b"),
-		DefaultTTL:              Int(10),
-		CallbackURL:             String("c"),
-		GeoMatchLevel:           String("d"),
-		NumberSelectionBehavior: String("e"),
-		InterceptCallbackURL:    String("f"),
-		OutOfSessionCallbackURL: String("g"),
+	got, err := client.Serverless.Service.Create(&RuntimeServiceParams{
+		FriendlyName:       String("a"),
+		UniqueName:         String("b"),
+		IncludeCredentials: Bool(true),
 	})
 
 	if err != nil {
@@ -106,20 +88,20 @@ func TestRuntimeService_Fetch(t *testing.T) {
 
 	defer teardown()
 
-	mux.HandleFunc("/Services/KS123", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Services/ZS123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		response := `{"sid":"KS123"}`
+		response := `{"sid":"ZS123"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Proxy.Service.Fetch("KS123")
+	got, err := client.Serverless.Service.Fetch("ZS123")
 
 	if err != nil {
 		t.Errorf("RuntimeService.Fetch returned error: %v", err)
 	}
 
-	want := &RuntimeService{SID: String("KS123")}
+	want := &RuntimeService{SID: String("ZS123")}
 
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("RuntimeService.Fetch returned %+v, want %+v", got, want)
@@ -131,14 +113,14 @@ func TestRuntimeService_Update(t *testing.T) {
 
 	defer teardown()
 
-	mux.HandleFunc("/Services/KS123", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Services/ZS123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		response := `{"sid":"KS123","unique_name":"NewName"}`
+		response := `{"sid":"ZS123","unique_name":"NewName"}`
 
 		fmt.Fprint(w, response)
 	})
 
-	got, err := client.Proxy.Service.Update("KS123", &RuntimeServiceParams{
+	got, err := client.Serverless.Service.Update("ZS123", &RuntimeServiceParams{
 		UniqueName: String("NewName"),
 	})
 
@@ -146,7 +128,7 @@ func TestRuntimeService_Update(t *testing.T) {
 		t.Errorf("RuntimeService.Update returned error: %v", err)
 	}
 
-	want := &RuntimeService{SID: String("KS123"), UniqueName: String("NewName")}
+	want := &RuntimeService{SID: String("ZS123"), UniqueName: String("NewName")}
 
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("RuntimeService.Update returned %+v, want %+v", got, want)
@@ -158,11 +140,11 @@ func TestRuntimeService_Delete(t *testing.T) {
 
 	defer teardown()
 
-	mux.HandleFunc("/Services/KS123", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/Services/ZS123", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "DELETE")
 	})
 
-	err := client.Proxy.Service.Delete("KS123")
+	err := client.Serverless.Service.Delete("ZS123")
 
 	if err != nil {
 		t.Errorf("RuntimeService.Delete returned error: %v", err)

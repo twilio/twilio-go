@@ -38,8 +38,8 @@ func TestRuntimeEnvironment_marshall(t *testing.T) {
 		"unique_name": "staging",
 		"domain_suffix": "stage",
 		"domain_name": "foobar-1234-stage.twil.io",
-		"date_created": "2018-11-10T20:00:00Z",
-		"date_updated": "2018-11-10T20:00:00Z",
+		"date_created": "0001-01-01T00:00:00Z",
+		"date_updated": "0001-01-01T00:00:00Z",
 		"url": "/Environments/ZE00000000000000000000000000000000",
 		"links": {
 			"variables": "/Environments/ZE00000000000000000000000000000000/Variables",
