@@ -52,6 +52,7 @@ type TaskRouterClient struct {
 	TaskQueues *TaskRouterTaskQueueClient
 }
 
+// ServerlessClient holds all runtime related resources.
 type ServerlessClient struct {
 	Service     *RuntimeServiceClient
 	Environment *RuntimeEnvironmentClient
