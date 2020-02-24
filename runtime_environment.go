@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// RuntimeEnvironment represents a Twilio phone number provisioned from Twilio, ported or hosted to Twilio.
+// RuntimeEnvironment defines the different domains your Functions and Assets are available under.
 // See: https://www.twilio.com/docs/runtime/functions-assets-api/api/environment
 type RuntimeEnvironment struct {
 	SID          *string            `json:"sid"`
