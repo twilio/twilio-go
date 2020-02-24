@@ -84,6 +84,7 @@ func (c *RuntimeServiceClient) Fetch(sid string) (*RuntimeService, error) {
 	return p, err
 }
 
+// Read returns the details of a single Runtime Service.
 func (c *RuntimeServiceClient) Read(sid string, params *RuntimeServiceParams) (*RuntimeServiceList, error) {
 	resp, err := c.client.Get(c.url("/Services"), nil)
 	if err != nil {
