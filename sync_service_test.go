@@ -13,7 +13,7 @@ func TestSyncService_marshall(t *testing.T) {
 	testJSONMarshal(t, SyncService{}, "{}")
 
 	got := &SyncService{
-		SID:          String("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
+		SID:          String("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		AccountSID:   String("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"),
 		FriendlyName: String("friendly_name"),
 		UniqueName:   String("my-new-app"),
@@ -35,12 +35,12 @@ func TestSyncService_marshall(t *testing.T) {
 		"sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"friendly_name": "friendly_name",
-		"friendly_name": "my-new-app",
+		"unique_name": "my-new-app",
 		"date_created": "0001-01-01T00:00:00Z",
 		"date_updated": "0001-01-01T00:00:00Z",
 		"url": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"links": {
-			"documents": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents",
+			"documents": "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents"
 		},
 		"webhook_url": "http://www.example.com",
 		"webhooks_from_rest_enabled": false,
