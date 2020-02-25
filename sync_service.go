@@ -25,7 +25,7 @@ type SyncService struct {
 	ReachabilityDebouncingWindow  *int               `json:"reachability_debouncing_window"`
 }
 
-// SyncServiceList is the API response for reading multiple Sync Services
+// SyncServiceList is the API response for reading multiple Sync Services.
 type SyncServiceList struct {
 	Service []*SyncService `json:"services"`
 	Meta    *Meta          `json:"meta"`
@@ -92,6 +92,7 @@ func (c *SyncServiceClient) Fetch(sid string) (*SyncService, error) {
 	return p, err
 }
 
+// Read returns the details of multiple SyncService.
 func (c *SyncServiceClient) Read(sid string, params *SyncServiceParams) (*SyncServiceList, error) {
 	resp, err := c.client.Get(c.url("/Services"), nil)
 	if err != nil {
