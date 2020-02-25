@@ -20,6 +20,7 @@ type Twilio struct {
 	Studio                *StudioClient
 	AvailablePhoneNumbers *AvailablePhoneNumbersClient
 	IncomingPhoneNumbers  *IncomingPhoneNumberClient
+	FlexFlow              *FlexFlowClient
 }
 
 type service struct {
@@ -82,6 +83,7 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	c.common.client = c
 	c.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(c)
 	c.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(c)
+	c.FlexFlow = NewFlexFlowClient(c)
 	c.Chat = &ChatClient{
 		Service: NewChatServiceClient(c),
 		Role:    NewChatRoleClient(c),
