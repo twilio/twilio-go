@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-// RuntimeEnvironment represents a Twilio phone number provisioned from Twilio, ported or hosted to Twilio.
-// See: https://www.twilio.com/docs/proxy/api/phone-number
+// RuntimeEnvironment defines the different domains your Functions and Assets are available under.
+// See: https://www.twilio.com/docs/runtime/functions-assets-api/api/environment
 type RuntimeEnvironment struct {
 	SID          *string            `json:"sid"`
 	AccountSID   *string            `json:"account_sid"`
@@ -22,21 +22,21 @@ type RuntimeEnvironment struct {
 	Links        map[string]*string `json:"links"`
 }
 
-// RuntimeEnvironmentList is the API response for reading multiple Proxy Phone Numbers
+// RuntimeEnvironmentList is the API response for reading multiple Runtime Environments.
 type RuntimeEnvironmentList struct {
 	Environments []*RuntimeEnvironment `json:"environments"`
 	Meta         *Meta                 `json:"meta"`
 }
 
 // RuntimeEnvironmentParams is the set of parameters that can
-// be used when creating a Proxy Phone Number.
+// be used when creating a Runtime Environment.
 type RuntimeEnvironmentParams struct {
 	UniqueName   *string `form:",omitempty"`
 	DomainSuffix *string `form:",omitempty"`
 }
 
-// RuntimeEnvironmentClient is the entrypoint for the Proxy Phone Number resource.
-// See: https://www.twilio.com/docs/proxy/api/phone-number
+// RuntimeEnvironmentClient is the entrypoint for the Runtime Environment resource.
+// See: https://www.twilio.com/docs/runtime/functions-assets-api/api/environment
 type RuntimeEnvironmentClient struct {
 	client  *Twilio
 	baseURL string

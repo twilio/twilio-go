@@ -21,7 +21,7 @@ type RuntimeService struct {
 	Links              map[string]*string `json:"links"`
 }
 
-// RuntimeServiceList is the API response for reading multiple Runtime Services
+// RuntimeServiceList is the API response for reading multiple Runtime Services.
 type RuntimeServiceList struct {
 	Service []*RuntimeService `json:"services"`
 	Meta    *Meta             `json:"meta"`
@@ -84,6 +84,7 @@ func (c *RuntimeServiceClient) Fetch(sid string) (*RuntimeService, error) {
 	return p, err
 }
 
+// Read returns the details of a multiple Runtime Service.
 func (c *RuntimeServiceClient) Read(sid string, params *RuntimeServiceParams) (*RuntimeServiceList, error) {
 	resp, err := c.client.Get(c.url("/Services"), nil)
 	if err != nil {
