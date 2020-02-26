@@ -92,7 +92,7 @@ func (c *SyncServiceClient) Fetch(sid string) (*SyncService, error) {
 	return p, err
 }
 
-// Read returns the details of multiple SyncService.
+// Read returns the details of multiple SyncServices.
 func (c *SyncServiceClient) Read(sid string, params *SyncServiceParams) (*SyncServiceList, error) {
 	resp, err := c.client.Get(c.url("/Services"), nil)
 	if err != nil {

@@ -156,6 +156,7 @@ func TestChatService_Create(t *testing.T) {
 		f.Add("WebhookFilters", "hook")
 		f.Add("PreWebhookRetryCount", "10")
 		f.Add("PostWebhookRetryCount", "1")
+		f.Add("Notifications.RemovedFromChannel.Enabled", "true")
 
 		testFormValues(t, r, f)
 		response := `{"friendly_name":"ChatService"}`
@@ -178,6 +179,9 @@ func TestChatService_Create(t *testing.T) {
 		WebhookFilters:               []*string{String("filter"), String("hook")},
 		PreWebhookRetryCount:         Int(10),
 		PostWebhookRetryCount:        Int(1),
+		Notifications: &Notifications{RemovedFromChannel: &BaseNotification{
+			Enabled: Bool(true),
+		}},
 	})
 
 	if err != nil {
