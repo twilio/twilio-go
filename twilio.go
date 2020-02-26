@@ -20,6 +20,7 @@ type Twilio struct {
 	Studio                *StudioClient
 	AvailablePhoneNumbers *AvailablePhoneNumbersClient
 	IncomingPhoneNumbers  *IncomingPhoneNumberClient
+	Sync                  *SyncClient
 	Serverless            *ServerlessClient
 }
 
@@ -56,6 +57,11 @@ type TaskRouterClient struct {
 type ServerlessClient struct {
 	Service     *RuntimeServiceClient
 	Environment *RuntimeEnvironmentClient
+}
+
+// SyncClient holds all sync related resources.
+type SyncClient struct {
+	Service *SyncServiceClient
 }
 
 // Meta holds relevant pagination resources.
@@ -111,6 +117,10 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	c.Serverless = &ServerlessClient{
 		Service:     NewRuntimeServiceClient(c),
 		Environment: NewRuntimeEnvironmentClient(c),
+	}
+
+	c.Sync = &SyncClient{
+		Service: NewSyncServiceClient(c),
 	}
 
 	return c
