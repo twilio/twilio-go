@@ -45,36 +45,34 @@ func TestFlexFlow_marshall(t *testing.T) { //nolint
 	}
 
 	want := `{
-    "flex_flows": [
-        {
-            "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-			"date_created": "0001-01-01T00:00:00Z",
-			"date_updated": "0001-01-01T00:00:00Z",
-            "friendly_name": "friendly_name",
-            "sid": "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            "url": "https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            "chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            "channel_type": "sms",
-            "contact_identity": "+15555555555",
-            "enabled": false,
-            "integration_type": "studio",
-            "integration": {
-                "retry_count": 3,
-                "flow_sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-            },
-            "long_lived": false,
-            "janitor_enabled": false
-        }
-    ],
-    "meta": {
-        "page": 0,
-        "page_size": 20,
-        "first_page_url": "https://flex-api.twilio.com/v1/FlexFlows?PageSize=20&Page=0",
-        "previous_page_url": null,
-        "url": "https://flex-api.twilio.com/v1/FlexFlows?PageSize=20&Page=0",
-        "next_page_url": null,
-        "key": "flex_flows"
-    }
+	"flex_flows": [{
+		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"date_created": "0001-01-01T00:00:00Z",
+		"date_updated": "0001-01-01T00:00:00Z",
+		"friendly_name": "friendly_name",
+		"sid": "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"url": "https://flex-api.twilio.com/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"chat_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"channel_type": "sms",
+		"contact_identity": "+15555555555",
+		"enabled": false,
+		"integration_type": "studio",
+		"integration": {
+			"retry_count": 3,
+			"flow_sid": "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+		},
+		"long_lived": false,
+		"janitor_enabled": false	
+	}],
+	"meta": {
+		"page": 0,
+		"page_size": 20,
+		"first_page_url": "https://flex-api.twilio.com/v1/FlexFlows?PageSize=20&Page=0",
+		"previous_page_url": null,
+		"url": "https://flex-api.twilio.com/v1/FlexFlows?PageSize=20&Page=0",
+		"next_page_url": null,
+		"key": "flex_flows"
+	}
 	}`
 	testJSONMarshal(t, got, want)
 }
