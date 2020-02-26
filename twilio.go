@@ -21,6 +21,8 @@ type Twilio struct {
 	AvailablePhoneNumbers *AvailablePhoneNumbersClient
 	IncomingPhoneNumbers  *IncomingPhoneNumberClient
 	FlexFlow              *FlexFlowClient
+	Sync                  *SyncClient
+	Serverless            *ServerlessClient
 }
 
 type service struct {
@@ -52,6 +54,17 @@ type TaskRouterClient struct {
 	TaskQueues *TaskRouterTaskQueueClient
 }
 
+// ServerlessClient holds all runtime related resources.
+type ServerlessClient struct {
+	Service     *RuntimeServiceClient
+	Environment *RuntimeEnvironmentClient
+}
+
+// SyncClient holds all sync related resources.
+type SyncClient struct {
+	Service *SyncServiceClient
+}
+
 // Meta holds relevant pagination resources.
 type Meta struct {
 	FirstPageURL    *string `json:"first_page_url"`
@@ -80,6 +93,7 @@ func NewClient(accountSID string, authToken string) *Twilio {
 			BaseURL:     "twilio.com",
 		},
 	}
+
 	c.common.client = c
 	c.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(c)
 	c.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(c)
@@ -100,6 +114,15 @@ func NewClient(accountSID string, authToken string) *Twilio {
 		TaskQueues: NewTaskRouterTaskQueueClient(c),
 		Workspaces: NewTaskRouterWorkspaceClient(c),
 		Workflows:  NewTaskRouterWorkflowClient(c),
+	}
+
+	c.Serverless = &ServerlessClient{
+		Service:     NewRuntimeServiceClient(c),
+		Environment: NewRuntimeEnvironmentClient(c),
+	}
+
+	c.Sync = &SyncClient{
+		Service: NewSyncServiceClient(c),
 	}
 
 	return c
