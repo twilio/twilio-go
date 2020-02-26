@@ -33,6 +33,7 @@ type Integration struct {
 	Timeout           *int    `json:"timeout" form:",omitempty"`
 	FlowSID           *string `json:"flow_sid" form:"FlowSid,omitempty"`
 	RetryCount        *int    `json:"retry_count" form:",omitempty"`
+	Priority          *int    `json:"priority" form:",omitempty"`
 	CreationOnMessage *bool   `json:"creation_on_message" form:",omitempty"`
 }
 
