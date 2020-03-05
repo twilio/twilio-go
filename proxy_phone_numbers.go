@@ -51,8 +51,8 @@ type ProxyPhoneNumberClient struct {
 	baseURL string
 }
 
-// NewProxyPhoneNumberClient constructs a new ProxyPhoneNumber client.
-func NewProxyPhoneNumberClient(client *Twilio) *ProxyPhoneNumberClient {
+// newProxyPhoneNumberClient constructs a new ProxyPhoneNumber client.
+func newProxyPhoneNumberClient(client *Twilio) *ProxyPhoneNumberClient {
 	c := new(ProxyPhoneNumberClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://proxy.%s/v1", c.client.BaseURL)

@@ -69,8 +69,8 @@ type AvailablePhoneNumbersClient struct {
 	baseURL string
 }
 
-// NewAvailablePhoneNumbersClient constructs a new PhoneNumber client.
-func NewAvailablePhoneNumbersClient(client *Twilio) *AvailablePhoneNumbersClient {
+// newAvailablePhoneNumbersClient constructs a new PhoneNumber client.
+func newAvailablePhoneNumbersClient(client *Twilio) *AvailablePhoneNumbersClient {
 	c := new(AvailablePhoneNumbersClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://api.%s/2010-04-01", c.client.BaseURL)

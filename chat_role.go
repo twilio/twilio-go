@@ -39,8 +39,8 @@ type ChatRoleClient struct {
 	client  *Twilio
 }
 
-// NewChatRoleClient constructs a new Chat Role client.
-func NewChatRoleClient(client *Twilio) *ChatRoleClient {
+// newChatRoleClient constructs a new Chat Role client.
+func newChatRoleClient(client *Twilio) *ChatRoleClient {
 	c := new(ChatRoleClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)

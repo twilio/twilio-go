@@ -98,8 +98,8 @@ type ChatServiceClient struct {
 	client  *Twilio
 }
 
-// NewChatServiceClient constructs a new Chat Service client.
-func NewChatServiceClient(client *Twilio) *ChatServiceClient {
+// newChatServiceClient constructs a new Chat Service client.
+func newChatServiceClient(client *Twilio) *ChatServiceClient {
 	c := new(ChatServiceClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)

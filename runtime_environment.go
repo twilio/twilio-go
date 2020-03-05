@@ -42,8 +42,8 @@ type RuntimeEnvironmentClient struct {
 	baseURL string
 }
 
-// NewRuntimeEnvironmentClient constructs a new RuntimeEnvironment client.
-func NewRuntimeEnvironmentClient(client *Twilio) *RuntimeEnvironmentClient {
+// newRuntimeEnvironmentClient constructs a new RuntimeEnvironment client.
+func newRuntimeEnvironmentClient(client *Twilio) *RuntimeEnvironmentClient {
 	c := new(RuntimeEnvironmentClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://serverless.%s/v1", c.client.BaseURL)

@@ -53,8 +53,8 @@ type TaskRouterWorkflowClient struct {
 	client  *Twilio
 }
 
-// NewTaskRouterWorkflowClient constructs a new TaskRouterWorkflow Client.
-func NewTaskRouterWorkflowClient(client *Twilio) *TaskRouterWorkflowClient {
+// newTaskRouterWorkflowClient constructs a new TaskRouterWorkflow Client.
+func newTaskRouterWorkflowClient(client *Twilio) *TaskRouterWorkflowClient {
 	c := new(TaskRouterWorkflowClient)
 	c.client = client
 	c.baseURL = c.url(fmt.Sprintf("https://taskrouter.%s/v1", client.BaseURL))

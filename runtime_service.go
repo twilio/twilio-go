@@ -40,8 +40,8 @@ type RuntimeServiceClient struct {
 	baseURL string
 }
 
-// NewRuntimeServiceClient constructs a new RuntimeService Client.
-func NewRuntimeServiceClient(client *Twilio) *RuntimeServiceClient {
+// newRuntimeServiceClient constructs a new RuntimeService Client.
+func newRuntimeServiceClient(client *Twilio) *RuntimeServiceClient {
 	c := new(RuntimeServiceClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://serverless.%s/v1", c.client.BaseURL)

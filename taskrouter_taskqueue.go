@@ -56,8 +56,8 @@ type TaskRouterTaskQueueClient struct {
 	client  *Twilio
 }
 
-// NewTaskRouterTaskQueueClient constructs a new TaskRouterTaskQueue Client.
-func NewTaskRouterTaskQueueClient(client *Twilio) *TaskRouterTaskQueueClient {
+// newTaskRouterTaskQueueClient constructs a new TaskRouterTaskQueue Client.
+func newTaskRouterTaskQueueClient(client *Twilio) *TaskRouterTaskQueueClient {
 	c := new(TaskRouterTaskQueueClient)
 	c.client = client
 	c.baseURL = c.url(fmt.Sprintf("https://taskrouter.%s/v1", client.BaseURL))

@@ -39,8 +39,8 @@ type StudioFlowClient struct {
 	client  *Twilio
 }
 
-// NewStudioFlowClient constructs a new StudioFlow Client.
-func NewStudioFlowClient(client *Twilio) *StudioFlowClient {
+// newStudioFlowClient constructs a new StudioFlow Client.
+func newStudioFlowClient(client *Twilio) *StudioFlowClient {
 	c := new(StudioFlowClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://studio.%s/v2", c.client.BaseURL)

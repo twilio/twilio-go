@@ -65,8 +65,8 @@ type FlexFlowClient struct {
 	client  *Twilio
 }
 
-// NewFlexFlowClient constructs a new Flex Flow client.
-func NewFlexFlowClient(client *Twilio) *FlexFlowClient {
+// newFlexFlowClient constructs a new Flex Flow client.
+func newFlexFlowClient(client *Twilio) *FlexFlowClient {
 	c := new(FlexFlowClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://flex-api.%s/v1/FlexFlows", c.client.BaseURL)

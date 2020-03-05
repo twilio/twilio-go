@@ -48,8 +48,8 @@ type SyncServiceClient struct {
 	baseURL string
 }
 
-// NewSyncServiceClient constructs a new SyncService Client.
-func NewSyncServiceClient(client *Twilio) *SyncServiceClient {
+// newSyncServiceClient constructs a new SyncService Client.
+func newSyncServiceClient(client *Twilio) *SyncServiceClient {
 	c := new(SyncServiceClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://sync.%s/v1", c.client.BaseURL)

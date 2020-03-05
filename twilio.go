@@ -10,8 +10,8 @@ import (
 
 // Twilio provides access to Twilio services.
 type Twilio struct {
-	credentials *twilio.Credentials
-	client *twilio.Client
+	*twilio.Credentials
+	*twilio.Client
 	defaultbaseURL        *string
 	common                service
 	Chat                  *ChatClient
@@ -86,8 +86,8 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	credentials := &twilio.Credentials{AccountSID: accountSID, AuthToken: authToken}
 
 	c := &Twilio{
-		credentials: credentials,
-		client: &twilio.Client{
+		Credentials: credentials,
+		Client: &twilio.Client{
 			Credentials: credentials,
 			HTTPClient:  httpClient,
 			BaseURL:     "twilio.com",
@@ -95,34 +95,34 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	}
 
 	c.common.client = c
-	c.AvailablePhoneNumbers = NewAvailablePhoneNumbersClient(c)
-	c.IncomingPhoneNumbers = NewIncomingPhoneNumberClient(c)
-	c.FlexFlow = NewFlexFlowClient(c)
+	c.AvailablePhoneNumbers = newAvailablePhoneNumbersClient(c)
+	c.IncomingPhoneNumbers = newIncomingPhoneNumberClient(c)
+	c.FlexFlow = newFlexFlowClient(c)
 	c.Chat = &ChatClient{
-		Service: NewChatServiceClient(c),
-		Role:    NewChatRoleClient(c),
+		Service: newChatServiceClient(c),
+		Role:    newChatRoleClient(c),
 	}
 	c.Proxy = &ProxyClient{
-		Service:     NewProxyServiceClient(c),
-		PhoneNumber: NewProxyPhoneNumberClient(c),
+		Service:     newProxyServiceClient(c),
+		PhoneNumber: newProxyPhoneNumberClient(c),
 	}
 	c.Studio = &StudioClient{
-		Flow: NewStudioFlowClient(c),
+		Flow: newStudioFlowClient(c),
 	}
 	c.TaskRouter = &TaskRouterClient{
-		Activities: NewTaskRouterActivityClient(c),
-		TaskQueues: NewTaskRouterTaskQueueClient(c),
-		Workspaces: NewTaskRouterWorkspaceClient(c),
-		Workflows:  NewTaskRouterWorkflowClient(c),
+		Activities: newTaskRouterActivityClient(c),
+		TaskQueues: newTaskRouterTaskQueueClient(c),
+		Workspaces: newTaskRouterWorkspaceClient(c),
+		Workflows:  newTaskRouterWorkflowClient(c),
 	}
 
 	c.Serverless = &ServerlessClient{
-		Service:     NewRuntimeServiceClient(c),
-		Environment: NewRuntimeEnvironmentClient(c),
+		Service:     newRuntimeServiceClient(c),
+		Environment: newRuntimeEnvironmentClient(c),
 	}
 
 	c.Sync = &SyncClient{
-		Service: NewSyncServiceClient(c),
+		Service: newSyncServiceClient(c),
 	}
 
 	return c
