@@ -10,8 +10,8 @@ import (
 
 // Twilio provides access to Twilio services.
 type Twilio struct {
-	*twilio.Credentials
-	*twilio.Client
+	credentials *twilio.Credentials
+	client *twilio.Client
 	defaultbaseURL        *string
 	common                service
 	Chat                  *ChatClient
@@ -86,8 +86,8 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	credentials := &twilio.Credentials{AccountSID: accountSID, AuthToken: authToken}
 
 	c := &Twilio{
-		Credentials: credentials,
-		Client: &twilio.Client{
+		credentials: credentials,
+		client: &twilio.Client{
 			Credentials: credentials,
 			HTTPClient:  httpClient,
 			BaseURL:     "twilio.com",
