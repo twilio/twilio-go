@@ -47,15 +47,15 @@ type TaskRouterWorkflowQueryParams struct {
 	PageSize     *int    `form:",omitempty"`
 }
 
-// TaskRouterWorkflowClient is the entrypoint for the TaskRouterWorkflow CRUD.
-type TaskRouterWorkflowClient struct {
+// taskRouterWorkflowClient is the entrypoint for the TaskRouterWorkflow CRUD.
+type taskRouterWorkflowClient struct {
 	baseURL string
 	client  *Twilio
 }
 
 // newTaskRouterWorkflowClient constructs a new TaskRouterWorkflow Client.
-func newTaskRouterWorkflowClient(client *Twilio) *TaskRouterWorkflowClient {
-	c := new(TaskRouterWorkflowClient)
+func newTaskRouterWorkflowClient(client *Twilio) *taskRouterWorkflowClient {
+	c := new(taskRouterWorkflowClient)
 	c.client = client
 	c.baseURL = c.url(fmt.Sprintf("https://taskrouter.%s/v1", client.BaseURL))
 
@@ -63,7 +63,7 @@ func newTaskRouterWorkflowClient(client *Twilio) *TaskRouterWorkflowClient {
 }
 
 // Create creates TaskRouterWorkflow with the given the config.
-func (c *TaskRouterWorkflowClient) Create(
+func (c *taskRouterWorkflowClient) Create(
 	workspaceSID string,
 	params *TaskRouterWorkflowParams,
 ) (*TaskRouterWorkflow, error) {
@@ -95,7 +95,7 @@ func (c *TaskRouterWorkflowClient) Create(
 }
 
 // Fetch fetches TaskRouterWorkflow for the given workspace SID.
-func (c *TaskRouterWorkflowClient) Fetch(workspaceSID string, sid string) (*TaskRouterWorkflow, error) {
+func (c *taskRouterWorkflowClient) Fetch(workspaceSID string, sid string) (*TaskRouterWorkflow, error) {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/Workflows/%s", workspaceSID, sid))
 	resp, err := c.client.Get(url, nil)
 
@@ -115,7 +115,7 @@ func (c *TaskRouterWorkflowClient) Fetch(workspaceSID string, sid string) (*Task
 }
 
 // Read returns all existing Workflows.
-func (c *TaskRouterWorkflowClient) Read(
+func (c *taskRouterWorkflowClient) Read(
 	workspaceSID string,
 	params *TaskRouterWorkflowQueryParams,
 ) (*TaskRouterWorkflowList, error) {
@@ -137,7 +137,7 @@ func (c *TaskRouterWorkflowClient) Read(
 }
 
 // Update updates TaskRouterWorkflow with given config.
-func (c *TaskRouterWorkflowClient) Update(
+func (c *taskRouterWorkflowClient) Update(
 	workspaceSID string,
 	sid string,
 	params *TaskRouterWorkflowParams,
@@ -162,7 +162,7 @@ func (c *TaskRouterWorkflowClient) Update(
 }
 
 // Delete deletes TaskRouterWorkflow for given SID.
-func (c *TaskRouterWorkflowClient) Delete(workspaceSID string, sid string) error {
+func (c *taskRouterWorkflowClient) Delete(workspaceSID string, sid string) error {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/Workflows/%s", workspaceSID, sid))
 
 	resp, err := c.client.Delete(url)
@@ -175,7 +175,7 @@ func (c *TaskRouterWorkflowClient) Delete(workspaceSID string, sid string) error
 	return err
 }
 
-func (c *TaskRouterWorkflowClient) url(path string) string {
+func (c *taskRouterWorkflowClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

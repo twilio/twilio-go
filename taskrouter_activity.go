@@ -40,15 +40,15 @@ type TaskRouterActivityQueryParams struct {
 	PageSize     *int    `form:",omitempty"`
 }
 
-// TaskRouterActivityClient is the entrypoint for activity CRUD.
-type TaskRouterActivityClient struct {
+// taskRouterActivityClient is the entrypoint for activity CRUD.
+type taskRouterActivityClient struct {
 	baseURL string
 	client  *Twilio
 }
 
 // newTaskRouterActivityClient constructs a new Activity Client.
-func newTaskRouterActivityClient(client *Twilio) *TaskRouterActivityClient {
-	c := new(TaskRouterActivityClient)
+func newTaskRouterActivityClient(client *Twilio) *taskRouterActivityClient {
+	c := new(taskRouterActivityClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://taskrouter.%s/v1", client.BaseURL)
 
@@ -56,7 +56,7 @@ func newTaskRouterActivityClient(client *Twilio) *TaskRouterActivityClient {
 }
 
 // Create creates activity with the given the config.
-func (c *TaskRouterActivityClient) Create(
+func (c *taskRouterActivityClient) Create(
 	workspaceSID string,
 	activityParams *TaskRouterActivityParams,
 ) (*TaskRouterActivity, error) {
@@ -84,7 +84,7 @@ func (c *TaskRouterActivityClient) Create(
 }
 
 // Fetch fetches activity for the given activity SID.
-func (c *TaskRouterActivityClient) Fetch(workspaceSID string, sid string) (*TaskRouterActivity, error) {
+func (c *taskRouterActivityClient) Fetch(workspaceSID string, sid string) (*TaskRouterActivity, error) {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities/%s", workspaceSID, sid))
 	resp, err := c.client.Get(url, nil)
 
@@ -104,7 +104,7 @@ func (c *TaskRouterActivityClient) Fetch(workspaceSID string, sid string) (*Task
 }
 
 // Read returns all existing activities for a workspace.
-func (c *TaskRouterActivityClient) Read(workspaceSID string) (*TaskRouterActivityList, error) {
+func (c *taskRouterActivityClient) Read(workspaceSID string) (*TaskRouterActivityList, error) {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities", workspaceSID))
 
 	resp, err := c.client.Get(url, nil)
@@ -123,7 +123,7 @@ func (c *TaskRouterActivityClient) Read(workspaceSID string) (*TaskRouterActivit
 }
 
 // Update updates activity with given config.
-func (c *TaskRouterActivityClient) Update(
+func (c *taskRouterActivityClient) Update(
 	workspaceSID string,
 	sid string,
 	activityParams *TaskRouterActivityParams,
@@ -148,7 +148,7 @@ func (c *TaskRouterActivityClient) Update(
 }
 
 // Delete deletes workflow for given SID.
-func (c *TaskRouterActivityClient) Delete(workspaceSID string, sid string) error {
+func (c *taskRouterActivityClient) Delete(workspaceSID string, sid string) error {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/Activities/%s", workspaceSID, sid))
 
 	resp, err := c.client.Delete(url)
@@ -161,7 +161,7 @@ func (c *TaskRouterActivityClient) Delete(workspaceSID string, sid string) error
 	return err
 }
 
-func (c *TaskRouterActivityClient) url(path string) string {
+func (c *taskRouterActivityClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

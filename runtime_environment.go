@@ -35,16 +35,16 @@ type RuntimeEnvironmentParams struct {
 	DomainSuffix *string `form:",omitempty"`
 }
 
-// RuntimeEnvironmentClient is the entrypoint for the Runtime Environment resource.
+// runtimeEnvironmentClient is the entrypoint for the Runtime Environment resource.
 // See: https://www.twilio.com/docs/runtime/functions-assets-api/api/environment
-type RuntimeEnvironmentClient struct {
+type runtimeEnvironmentClient struct {
 	client  *Twilio
 	baseURL string
 }
 
 // newRuntimeEnvironmentClient constructs a new RuntimeEnvironment client.
-func newRuntimeEnvironmentClient(client *Twilio) *RuntimeEnvironmentClient {
-	c := new(RuntimeEnvironmentClient)
+func newRuntimeEnvironmentClient(client *Twilio) *runtimeEnvironmentClient {
+	c := new(runtimeEnvironmentClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://serverless.%s/v1", c.client.BaseURL)
 
@@ -52,7 +52,7 @@ func newRuntimeEnvironmentClient(client *Twilio) *RuntimeEnvironmentClient {
 }
 
 // Create creates a new RuntimeEnvironment.
-func (c *RuntimeEnvironmentClient) Create(
+func (c *runtimeEnvironmentClient) Create(
 	serviceSID string,
 	params *RuntimeEnvironmentParams,
 ) (*RuntimeEnvironment, error) {
@@ -74,7 +74,7 @@ func (c *RuntimeEnvironmentClient) Create(
 }
 
 // Fetch returns the details of a RuntimeEnvironment.
-func (c *RuntimeEnvironmentClient) Fetch(serviceSID string, sid string) (*RuntimeEnvironment, error) {
+func (c *runtimeEnvironmentClient) Fetch(serviceSID string, sid string) (*RuntimeEnvironment, error) {
 	uri := c.url(fmt.Sprintf("/Services/%s/Environments/%s", serviceSID, sid))
 	resp, err := c.client.Get(uri, nil)
 
@@ -93,7 +93,7 @@ func (c *RuntimeEnvironmentClient) Fetch(serviceSID string, sid string) (*Runtim
 }
 
 // Read returns the details of a RuntimeEnvironment.
-func (c *RuntimeEnvironmentClient) Read(serviceSID string) (*RuntimeEnvironmentList, error) {
+func (c *runtimeEnvironmentClient) Read(serviceSID string) (*RuntimeEnvironmentList, error) {
 	uri := c.url(fmt.Sprintf("/Services/%s/Environments", serviceSID))
 	resp, err := c.client.Get(uri, nil)
 
@@ -112,7 +112,7 @@ func (c *RuntimeEnvironmentClient) Read(serviceSID string) (*RuntimeEnvironmentL
 }
 
 // Delete releases an existing RuntimeEnvironment.
-func (c *RuntimeEnvironmentClient) Delete(serviceSID string, sid string) error {
+func (c *runtimeEnvironmentClient) Delete(serviceSID string, sid string) error {
 	uri := c.url(fmt.Sprintf("/Services/%s/Environments/%s", serviceSID, sid))
 	resp, err := c.client.Delete(uri)
 
@@ -125,7 +125,7 @@ func (c *RuntimeEnvironmentClient) Delete(serviceSID string, sid string) error {
 	return err
 }
 
-func (c *RuntimeEnvironmentClient) url(path string) string {
+func (c *runtimeEnvironmentClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

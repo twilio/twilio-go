@@ -50,15 +50,15 @@ type TaskRouterTaskQueueQueryParams struct {
 	PageSize                 *int    `form:"PageSize,omitempty"`
 }
 
-// TaskRouterTaskQueueClient is the entrypoint for taskRouterTaskqueue CRUD.
-type TaskRouterTaskQueueClient struct {
+// taskRouterTaskQueueClient is the entrypoint for taskRouterTaskqueue CRUD.
+type taskRouterTaskQueueClient struct {
 	baseURL string
 	client  *Twilio
 }
 
 // newTaskRouterTaskQueueClient constructs a new TaskRouterTaskQueue Client.
-func newTaskRouterTaskQueueClient(client *Twilio) *TaskRouterTaskQueueClient {
-	c := new(TaskRouterTaskQueueClient)
+func newTaskRouterTaskQueueClient(client *Twilio) *taskRouterTaskQueueClient {
+	c := new(taskRouterTaskQueueClient)
 	c.client = client
 	c.baseURL = c.url(fmt.Sprintf("https://taskrouter.%s/v1", client.BaseURL))
 
@@ -66,7 +66,7 @@ func newTaskRouterTaskQueueClient(client *Twilio) *TaskRouterTaskQueueClient {
 }
 
 // Create creates taskRouterTaskqueue with the given the config.
-func (c *TaskRouterTaskQueueClient) Create(
+func (c *taskRouterTaskQueueClient) Create(
 	workspaceSID string,
 	params *TaskRouterTaskQueueParams,
 ) (*TaskRouterTaskQueue, error) {
@@ -94,7 +94,7 @@ func (c *TaskRouterTaskQueueClient) Create(
 }
 
 // Fetch fetches taskRouterTaskqueue for the given SID.
-func (c *TaskRouterTaskQueueClient) Fetch(workspaceSID string, sid string) (*TaskRouterTaskQueue, error) {
+func (c *taskRouterTaskQueueClient) Fetch(workspaceSID string, sid string) (*TaskRouterTaskQueue, error) {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskQueues/%s", workspaceSID, sid))
 	resp, err := c.client.Get(url, nil)
 
@@ -114,7 +114,7 @@ func (c *TaskRouterTaskQueueClient) Fetch(workspaceSID string, sid string) (*Tas
 }
 
 // Read returns all existing TaskQueues.
-func (c *TaskRouterTaskQueueClient) Read(
+func (c *taskRouterTaskQueueClient) Read(
 	workspaceSID string,
 	params *TaskRouterTaskQueueQueryParams,
 ) (*TaskRouterTaskQueueList, error) {
@@ -135,7 +135,7 @@ func (c *TaskRouterTaskQueueClient) Read(
 }
 
 // Update updates taskRouterTaskqueue with given config.
-func (c *TaskRouterTaskQueueClient) Update(
+func (c *taskRouterTaskQueueClient) Update(
 	workspaceSID string,
 	sid string,
 	params *TaskRouterTaskQueueParams,
@@ -159,7 +159,7 @@ func (c *TaskRouterTaskQueueClient) Update(
 }
 
 // Delete deletes taskRouterTaskQueue with the given SID.
-func (c *TaskRouterTaskQueueClient) Delete(workspaceSID string, sid string) error {
+func (c *taskRouterTaskQueueClient) Delete(workspaceSID string, sid string) error {
 	url := c.url(fmt.Sprintf("/Workspaces/%s/TaskQueues/%s", workspaceSID, sid))
 	resp, err := c.client.Delete(url)
 
@@ -171,7 +171,7 @@ func (c *TaskRouterTaskQueueClient) Delete(workspaceSID string, sid string) erro
 	return err
 }
 
-func (c *TaskRouterTaskQueueClient) url(path string) string {
+func (c *taskRouterTaskQueueClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

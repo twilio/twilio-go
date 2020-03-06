@@ -42,15 +42,15 @@ type SyncServiceParams struct {
 	WebhooksFromRestEnabled       *bool   `form:",omitempty"`
 }
 
-// SyncServiceClient is the entrypoint for the Sync Service API.
-type SyncServiceClient struct {
+// syncServiceClient is the entrypoint for the Sync Service API.
+type syncServiceClient struct {
 	client  *Twilio
 	baseURL string
 }
 
 // newSyncServiceClient constructs a new SyncService Client.
-func newSyncServiceClient(client *Twilio) *SyncServiceClient {
-	c := new(SyncServiceClient)
+func newSyncServiceClient(client *Twilio) *syncServiceClient {
+	c := new(syncServiceClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://sync.%s/v1", c.client.BaseURL)
 
@@ -58,7 +58,7 @@ func newSyncServiceClient(client *Twilio) *SyncServiceClient {
 }
 
 // Create creates a new SyncService.
-func (c *SyncServiceClient) Create(params *SyncServiceParams) (*SyncService, error) {
+func (c *syncServiceClient) Create(params *SyncServiceParams) (*SyncService, error) {
 	resp, err := c.client.Post(c.url("/Services"), params)
 
 	if err != nil {
@@ -76,7 +76,7 @@ func (c *SyncServiceClient) Create(params *SyncServiceParams) (*SyncService, err
 }
 
 // Fetch returns the details of a SyncService.
-func (c *SyncServiceClient) Fetch(sid string) (*SyncService, error) {
+func (c *syncServiceClient) Fetch(sid string) (*SyncService, error) {
 	resp, err := c.client.Get(c.url("/Services/"+sid), nil)
 	if err != nil {
 		return nil, err
@@ -93,7 +93,7 @@ func (c *SyncServiceClient) Fetch(sid string) (*SyncService, error) {
 }
 
 // Read returns the details of multiple SyncServices.
-func (c *SyncServiceClient) Read(sid string, params *SyncServiceParams) (*SyncServiceList, error) {
+func (c *syncServiceClient) Read(sid string, params *SyncServiceParams) (*SyncServiceList, error) {
 	resp, err := c.client.Get(c.url("/Services"), nil)
 	if err != nil {
 		return nil, err
@@ -110,7 +110,7 @@ func (c *SyncServiceClient) Read(sid string, params *SyncServiceParams) (*SyncSe
 }
 
 // Update updates a SyncService.
-func (c *SyncServiceClient) Update(sid string, params *SyncServiceParams) (*SyncService, error) {
+func (c *syncServiceClient) Update(sid string, params *SyncServiceParams) (*SyncService, error) {
 	resp, err := c.client.Post(c.url("/Services/"+sid), params)
 	if err != nil {
 		return nil, err
@@ -127,7 +127,7 @@ func (c *SyncServiceClient) Update(sid string, params *SyncServiceParams) (*Sync
 }
 
 // Delete deletes a SyncService.
-func (c *SyncServiceClient) Delete(sid string) error {
+func (c *syncServiceClient) Delete(sid string) error {
 	resp, err := c.client.Delete(c.url("/Services/" + sid))
 	if err != nil {
 		return err
@@ -138,7 +138,7 @@ func (c *SyncServiceClient) Delete(sid string) error {
 	return nil
 }
 
-func (c *SyncServiceClient) url(path string) string {
+func (c *syncServiceClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

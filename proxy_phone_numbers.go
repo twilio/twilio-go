@@ -44,16 +44,16 @@ type ProxyPhoneNumberCreateParams struct {
 	PhoneNumber    *string `form:"PhoneNumber,omitempty"`
 }
 
-// ProxyPhoneNumberClient is the entrypoint for the Proxy Phone Number resource.
+// proxyPhoneNumberClient is the entrypoint for the Proxy Phone Number resource.
 // See: https://www.twilio.com/docs/proxy/api/phone-number
-type ProxyPhoneNumberClient struct {
+type proxyPhoneNumberClient struct {
 	client  *Twilio
 	baseURL string
 }
 
 // newProxyPhoneNumberClient constructs a new ProxyPhoneNumber client.
-func newProxyPhoneNumberClient(client *Twilio) *ProxyPhoneNumberClient {
-	c := new(ProxyPhoneNumberClient)
+func newProxyPhoneNumberClient(client *Twilio) *proxyPhoneNumberClient {
+	c := new(proxyPhoneNumberClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://proxy.%s/v1", c.client.BaseURL)
 
@@ -61,7 +61,7 @@ func newProxyPhoneNumberClient(client *Twilio) *ProxyPhoneNumberClient {
 }
 
 // Create creates a new ProxyPhoneNumber.
-func (c *ProxyPhoneNumberClient) Create(
+func (c *proxyPhoneNumberClient) Create(
 	proxyServiceSID string,
 	params *ProxyPhoneNumberCreateParams,
 ) (*ProxyPhoneNumber, error) {
@@ -83,7 +83,7 @@ func (c *ProxyPhoneNumberClient) Create(
 }
 
 // Fetch returns the details of a ProxyPhoneNumber.
-func (c *ProxyPhoneNumberClient) Fetch(proxyServiceSID string, sid string) (*ProxyPhoneNumber, error) {
+func (c *proxyPhoneNumberClient) Fetch(proxyServiceSID string, sid string) (*ProxyPhoneNumber, error) {
 	uri := c.url(fmt.Sprintf("/Services/%s/PhoneNumbers/%s", proxyServiceSID, sid))
 	resp, err := c.client.Get(uri, nil)
 
@@ -102,7 +102,7 @@ func (c *ProxyPhoneNumberClient) Fetch(proxyServiceSID string, sid string) (*Pro
 }
 
 // Read returns the details of a ProxyPhoneNumber.
-func (c *ProxyPhoneNumberClient) Read(proxyServiceSID string) (*ProxyPhoneNumberList, error) {
+func (c *proxyPhoneNumberClient) Read(proxyServiceSID string) (*ProxyPhoneNumberList, error) {
 	uri := c.url(fmt.Sprintf("/Services/%s/PhoneNumbers", proxyServiceSID))
 	resp, err := c.client.Get(uri, nil)
 
@@ -121,7 +121,7 @@ func (c *ProxyPhoneNumberClient) Read(proxyServiceSID string) (*ProxyPhoneNumber
 }
 
 // Update updates a ProxyPhoneNumber.
-func (c *ProxyPhoneNumberClient) Update(
+func (c *proxyPhoneNumberClient) Update(
 	proxyServiceSID string,
 	sid string,
 	params *ProxyPhoneNumberUpdateParams,
@@ -144,7 +144,7 @@ func (c *ProxyPhoneNumberClient) Update(
 }
 
 // Delete releases an existing ProxyPhoneNumber.
-func (c *ProxyPhoneNumberClient) Delete(proxyServiceSID string, sid string) error {
+func (c *proxyPhoneNumberClient) Delete(proxyServiceSID string, sid string) error {
 	uri := c.url(fmt.Sprintf("/Services/%s/PhoneNumbers/%s", proxyServiceSID, sid))
 	resp, err := c.client.Delete(uri)
 
@@ -157,7 +157,7 @@ func (c *ProxyPhoneNumberClient) Delete(proxyServiceSID string, sid string) erro
 	return err
 }
 
-func (c *ProxyPhoneNumberClient) url(path string) string {
+func (c *proxyPhoneNumberClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

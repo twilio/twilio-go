@@ -34,15 +34,15 @@ type RuntimeServiceParams struct {
 	IncludeCredentials *bool   `form:",omitempty"`
 }
 
-// RuntimeServiceClient is the entrypoint for the Runtime Service API.
-type RuntimeServiceClient struct {
+// runtimeServiceClient is the entrypoint for the Runtime Service API.
+type runtimeServiceClient struct {
 	client  *Twilio
 	baseURL string
 }
 
 // newRuntimeServiceClient constructs a new RuntimeService Client.
-func newRuntimeServiceClient(client *Twilio) *RuntimeServiceClient {
-	c := new(RuntimeServiceClient)
+func newRuntimeServiceClient(client *Twilio) *runtimeServiceClient {
+	c := new(runtimeServiceClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://serverless.%s/v1", c.client.BaseURL)
 
@@ -50,7 +50,7 @@ func newRuntimeServiceClient(client *Twilio) *RuntimeServiceClient {
 }
 
 // Create creates a new RuntimeService.
-func (c *RuntimeServiceClient) Create(params *RuntimeServiceParams) (*RuntimeService, error) {
+func (c *runtimeServiceClient) Create(params *RuntimeServiceParams) (*RuntimeService, error) {
 	resp, err := c.client.Post(c.url("/Services"), params)
 
 	if err != nil {
@@ -68,7 +68,7 @@ func (c *RuntimeServiceClient) Create(params *RuntimeServiceParams) (*RuntimeSer
 }
 
 // Fetch returns the details of a RuntimeService.
-func (c *RuntimeServiceClient) Fetch(sid string) (*RuntimeService, error) {
+func (c *runtimeServiceClient) Fetch(sid string) (*RuntimeService, error) {
 	resp, err := c.client.Get(c.url("/Services/"+sid), nil)
 	if err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func (c *RuntimeServiceClient) Fetch(sid string) (*RuntimeService, error) {
 }
 
 // Read returns the details of multiple Runtime Service.
-func (c *RuntimeServiceClient) Read(sid string, params *RuntimeServiceParams) (*RuntimeServiceList, error) {
+func (c *runtimeServiceClient) Read(sid string, params *RuntimeServiceParams) (*RuntimeServiceList, error) {
 	resp, err := c.client.Get(c.url("/Services"), nil)
 	if err != nil {
 		return nil, err
@@ -102,7 +102,7 @@ func (c *RuntimeServiceClient) Read(sid string, params *RuntimeServiceParams) (*
 }
 
 // Update updates a RuntimeService.
-func (c *RuntimeServiceClient) Update(sid string, params *RuntimeServiceParams) (*RuntimeService, error) {
+func (c *runtimeServiceClient) Update(sid string, params *RuntimeServiceParams) (*RuntimeService, error) {
 	resp, err := c.client.Post(c.url("/Services/"+sid), params)
 	if err != nil {
 		return nil, err
@@ -119,7 +119,7 @@ func (c *RuntimeServiceClient) Update(sid string, params *RuntimeServiceParams) 
 }
 
 // Delete deletes a RuntimeService.
-func (c *RuntimeServiceClient) Delete(sid string) error {
+func (c *runtimeServiceClient) Delete(sid string) error {
 	resp, err := c.client.Delete(c.url("/Services/" + sid))
 	if err != nil {
 		return err
@@ -130,7 +130,7 @@ func (c *RuntimeServiceClient) Delete(sid string) error {
 	return nil
 }
 
-func (c *RuntimeServiceClient) url(path string) string {
+func (c *runtimeServiceClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

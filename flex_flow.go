@@ -58,16 +58,16 @@ type FlexFlowParams struct {
 	URL             *string      `form:"Url,omitempty"`
 }
 
-// FlexFlowClient is the entrypoint for the Flex Flow API.
+// flexFlowClient is the entrypoint for the Flex Flow API.
 // See: https://www.twilio.com/docs/flex/flow
-type FlexFlowClient struct {
+type flexFlowClient struct {
 	baseURL string
 	client  *Twilio
 }
 
 // newFlexFlowClient constructs a new Flex Flow client.
-func newFlexFlowClient(client *Twilio) *FlexFlowClient {
-	c := new(FlexFlowClient)
+func newFlexFlowClient(client *Twilio) *flexFlowClient {
+	c := new(flexFlowClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://flex-api.%s/v1/FlexFlows", c.client.BaseURL)
 
@@ -75,7 +75,7 @@ func newFlexFlowClient(client *Twilio) *FlexFlowClient {
 }
 
 // Create creates a new Flex Flow.
-func (c *FlexFlowClient) Create(params *FlexFlowParams) (*FlexFlow, error) {
+func (c *flexFlowClient) Create(params *FlexFlowParams) (*FlexFlow, error) {
 	resp, err := c.client.Post(c.url("/"), params)
 	if err != nil {
 		return nil, err
@@ -91,7 +91,7 @@ func (c *FlexFlowClient) Create(params *FlexFlowParams) (*FlexFlow, error) {
 }
 
 // Fetch returns the details of a Flex Flow.
-func (c *FlexFlowClient) Fetch(sid string) (*FlexFlow, error) {
+func (c *flexFlowClient) Fetch(sid string) (*FlexFlow, error) {
 	resp, err := c.client.Get(c.url("/"+sid), nil)
 	if err != nil {
 		return nil, err
@@ -107,7 +107,7 @@ func (c *FlexFlowClient) Fetch(sid string) (*FlexFlow, error) {
 }
 
 // Read returns a paginated list of Flex Flows.
-func (c *FlexFlowClient) Read(friendlyName string) (*FlexFlowList, error) {
+func (c *flexFlowClient) Read(friendlyName string) (*FlexFlowList, error) {
 	v := url.Values{"FriendlyName": []string{friendlyName}}
 
 	resp, err := c.client.Get(c.url("/"), v)
@@ -125,7 +125,7 @@ func (c *FlexFlowClient) Read(friendlyName string) (*FlexFlowList, error) {
 }
 
 // Update updates a Flex Flow.
-func (c *FlexFlowClient) Update(sid string, params *FlexFlowParams) (*FlexFlow, error) {
+func (c *flexFlowClient) Update(sid string, params *FlexFlowParams) (*FlexFlow, error) {
 	resp, err := c.client.Post(c.url("/"+sid), params)
 	if err != nil {
 		return nil, err
@@ -141,7 +141,7 @@ func (c *FlexFlowClient) Update(sid string, params *FlexFlowParams) (*FlexFlow, 
 }
 
 // Delete deletes a Flex Flow.
-func (c *FlexFlowClient) Delete(sid string) error {
+func (c *flexFlowClient) Delete(sid string) error {
 	resp, err := c.client.Delete(c.url("/" + sid))
 	if err != nil {
 		return err
@@ -152,7 +152,7 @@ func (c *FlexFlowClient) Delete(sid string) error {
 	return nil
 }
 
-func (c *FlexFlowClient) url(path string) string {
+func (c *flexFlowClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

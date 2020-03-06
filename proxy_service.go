@@ -44,15 +44,15 @@ type ProxyServiceParams struct {
 	OutOfSessionCallbackURL *string `form:"OutOfSessionCallbackUrl,omitempty"`
 }
 
-// ProxyServiceClient is the entrypoint for the Proxy Service API.
-type ProxyServiceClient struct {
+// proxyServiceClient is the entrypoint for the Proxy Service API.
+type proxyServiceClient struct {
 	client  *Twilio
 	baseURL string
 }
 
 // newProxyServiceClient constructs a new ProxyService Client.
-func newProxyServiceClient(client *Twilio) *ProxyServiceClient {
-	c := new(ProxyServiceClient)
+func newProxyServiceClient(client *Twilio) *proxyServiceClient {
+	c := new(proxyServiceClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://proxy.%s/v1", c.client.BaseURL)
 
@@ -60,7 +60,7 @@ func newProxyServiceClient(client *Twilio) *ProxyServiceClient {
 }
 
 // Create creates a new ProxyService.
-func (c *ProxyServiceClient) Create(params *ProxyServiceParams) (*ProxyService, error) {
+func (c *proxyServiceClient) Create(params *ProxyServiceParams) (*ProxyService, error) {
 	resp, err := c.client.Post(c.url("/Services"), params)
 
 	if err != nil {
@@ -78,7 +78,7 @@ func (c *ProxyServiceClient) Create(params *ProxyServiceParams) (*ProxyService, 
 }
 
 // Fetch returns the details of a ProxyService.
-func (c *ProxyServiceClient) Fetch(sid string) (*ProxyService, error) {
+func (c *proxyServiceClient) Fetch(sid string) (*ProxyService, error) {
 	resp, err := c.client.Get(c.url("/Services/"+sid), nil)
 	if err != nil {
 		return nil, err
@@ -94,7 +94,7 @@ func (c *ProxyServiceClient) Fetch(sid string) (*ProxyService, error) {
 	return p, err
 }
 
-func (c *ProxyServiceClient) Read(sid string, params *ProxyServiceParams) (*ProxyServiceList, error) {
+func (c *proxyServiceClient) Read(sid string, params *ProxyServiceParams) (*ProxyServiceList, error) {
 	resp, err := c.client.Get(c.url("/Services"), nil)
 	if err != nil {
 		return nil, err
@@ -111,7 +111,7 @@ func (c *ProxyServiceClient) Read(sid string, params *ProxyServiceParams) (*Prox
 }
 
 // Update updates a ProxyService.
-func (c *ProxyServiceClient) Update(sid string, params *ProxyServiceParams) (*ProxyService, error) {
+func (c *proxyServiceClient) Update(sid string, params *ProxyServiceParams) (*ProxyService, error) {
 	resp, err := c.client.Post(c.url("/Services/"+sid), params)
 	if err != nil {
 		return nil, err
@@ -128,7 +128,7 @@ func (c *ProxyServiceClient) Update(sid string, params *ProxyServiceParams) (*Pr
 }
 
 // Delete deletes a ProxyService.
-func (c *ProxyServiceClient) Delete(sid string) error {
+func (c *proxyServiceClient) Delete(sid string) error {
 	resp, err := c.client.Delete(c.url("/Services/" + sid))
 	if err != nil {
 		return err
@@ -139,7 +139,7 @@ func (c *ProxyServiceClient) Delete(sid string) error {
 	return nil
 }
 
-func (c *ProxyServiceClient) url(path string) string {
+func (c *proxyServiceClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

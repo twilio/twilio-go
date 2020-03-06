@@ -14,55 +14,55 @@ type Twilio struct {
 	*twilio.Client
 	defaultbaseURL        *string
 	common                service
-	Chat                  *ChatClient
-	Proxy                 *ProxyClient
-	TaskRouter            *TaskRouterClient
-	Studio                *StudioClient
-	AvailablePhoneNumbers *AvailablePhoneNumbersClient
-	IncomingPhoneNumbers  *IncomingPhoneNumberClient
-	FlexFlow              *FlexFlowClient
-	Sync                  *SyncClient
-	Serverless            *ServerlessClient
+	Chat                  *chatClient
+	Proxy                 *proxyClient
+	TaskRouter            *taskRouterClient
+	Studio                *studioClient
+	AvailablePhoneNumbers *availablePhoneNumbersClient
+	IncomingPhoneNumbers  *incomingPhoneNumberClient
+	FlexFlow              *flexFlowClient
+	Sync                  *syncClient
+	Serverless            *serverlessClient
 }
 
 type service struct {
 	client *Twilio
 }
 
-// ChatClient holds all chat related resources.
-type ChatClient struct {
-	Service *ChatServiceClient
-	Role    *ChatRoleClient
+// chatClient holds all chat related resources.
+type chatClient struct {
+	Service *chatServiceClient
+	Role    *chatRoleClient
 }
 
-// ProxyClient holds all proxy related resources.
-type ProxyClient struct {
-	Service     *ProxyServiceClient
-	PhoneNumber *ProxyPhoneNumberClient
+// proxyClient holds all proxy related resources.
+type proxyClient struct {
+	Service     *proxyServiceClient
+	PhoneNumber *proxyPhoneNumberClient
 }
 
-// StudioClient holds all studio related resources.
-type StudioClient struct {
-	Flow *StudioFlowClient
+// studioClient holds all studio related resources.
+type studioClient struct {
+	Flow *studioFlowClient
 }
 
-// TaskRouterClient holds all studio related resources.
-type TaskRouterClient struct {
-	Workflows  *TaskRouterWorkflowClient
-	Activities *TaskRouterActivityClient
-	Workspaces *TaskRouterWorkspaceClient
-	TaskQueues *TaskRouterTaskQueueClient
+// taskRouterClient holds all studio related resources.
+type taskRouterClient struct {
+	Workflows  *taskRouterWorkflowClient
+	Activities *taskRouterActivityClient
+	Workspaces *taskRouterWorkspaceClient
+	TaskQueues *taskRouterTaskQueueClient
 }
 
-// ServerlessClient holds all runtime related resources.
-type ServerlessClient struct {
-	Service     *RuntimeServiceClient
-	Environment *RuntimeEnvironmentClient
+// serverlessClient holds all runtime related resources.
+type serverlessClient struct {
+	Service     *runtimeServiceClient
+	Environment *runtimeEnvironmentClient
 }
 
-// SyncClient holds all sync related resources.
-type SyncClient struct {
-	Service *SyncServiceClient
+// syncClient holds all sync related resources.
+type syncClient struct {
+	Service *syncServiceClient
 }
 
 // Meta holds relevant pagination resources.
@@ -98,30 +98,30 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	c.AvailablePhoneNumbers = newAvailablePhoneNumbersClient(c)
 	c.IncomingPhoneNumbers = newIncomingPhoneNumberClient(c)
 	c.FlexFlow = newFlexFlowClient(c)
-	c.Chat = &ChatClient{
+	c.Chat = &chatClient{
 		Service: newChatServiceClient(c),
 		Role:    newChatRoleClient(c),
 	}
-	c.Proxy = &ProxyClient{
+	c.Proxy = &proxyClient{
 		Service:     newProxyServiceClient(c),
 		PhoneNumber: newProxyPhoneNumberClient(c),
 	}
-	c.Studio = &StudioClient{
+	c.Studio = &studioClient{
 		Flow: newStudioFlowClient(c),
 	}
-	c.TaskRouter = &TaskRouterClient{
+	c.TaskRouter = &taskRouterClient{
 		Activities: newTaskRouterActivityClient(c),
 		TaskQueues: newTaskRouterTaskQueueClient(c),
 		Workspaces: newTaskRouterWorkspaceClient(c),
 		Workflows:  newTaskRouterWorkflowClient(c),
 	}
 
-	c.Serverless = &ServerlessClient{
+	c.Serverless = &serverlessClient{
 		Service:     newRuntimeServiceClient(c),
 		Environment: newRuntimeEnvironmentClient(c),
 	}
 
-	c.Sync = &SyncClient{
+	c.Sync = &syncClient{
 		Service: newSyncServiceClient(c),
 	}
 
