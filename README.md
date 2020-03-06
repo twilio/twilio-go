@@ -60,6 +60,13 @@ func main() {
 }
 ```
 
+### Building
+To build *twilio-go* run:
+
+```bash
+go build
+```
+
 ### Testing
 
 To execute the test suite run:
