@@ -8,6 +8,7 @@ import (
 )
 
 // A FlexFlow is the logic linking a Messaging Channel, like SMS, to Flex.
+// See: https://www.twilio.com/docs/flex/flow
 type FlexFlow struct {
 	AccountSID      *string      `json:"account_sid"`
 	DateCreated     *time.Time   `json:"date_created"`
@@ -59,7 +60,6 @@ type FlexFlowParams struct {
 }
 
 // flexFlowClient is the entrypoint for the Flex Flow API.
-// See: https://www.twilio.com/docs/flex/flow
 type flexFlowClient struct {
 	baseURL string
 	client  *Twilio

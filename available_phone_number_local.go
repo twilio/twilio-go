@@ -6,6 +6,7 @@ import (
 )
 
 // AvailablePhoneNumberLocal represents an available local phone number.
+// See: https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource
 type AvailablePhoneNumberLocal struct {
 	FriendlyName        *string          `json:"friendly_name"`
 	PhoneNumber         *string          `json:"phone_number"`
@@ -63,7 +64,6 @@ type AvailablePhoneNumberLocalReadParams struct {
 }
 
 // availablePhoneNumbersClient is the entrypoint for the AvailablePhoneNumber Local resource.
-// See: https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource
 type availablePhoneNumbersClient struct {
 	client  *Twilio
 	baseURL string

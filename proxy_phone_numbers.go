@@ -45,7 +45,6 @@ type ProxyPhoneNumberCreateParams struct {
 }
 
 // proxyPhoneNumberClient is the entrypoint for the Proxy Phone Number resource.
-// See: https://www.twilio.com/docs/proxy/api/phone-number
 type proxyPhoneNumberClient struct {
 	client  *Twilio
 	baseURL string

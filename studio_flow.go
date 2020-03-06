@@ -33,7 +33,7 @@ type StudioFlowParams struct {
 	CommitMessage *string `form:",omitempty"`
 }
 
-// studioFlowClient is the entrypoint for the Proxy Service API.
+// studioFlowClient is the entrypoint for the Studio Flow API.
 type studioFlowClient struct {
 	baseURL string
 	client  *Twilio

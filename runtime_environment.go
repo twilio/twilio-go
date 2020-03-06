@@ -36,7 +36,6 @@ type RuntimeEnvironmentParams struct {
 }
 
 // runtimeEnvironmentClient is the entrypoint for the Runtime Environment resource.
-// See: https://www.twilio.com/docs/runtime/functions-assets-api/api/environment
 type runtimeEnvironmentClient struct {
 	client  *Twilio
 	baseURL string

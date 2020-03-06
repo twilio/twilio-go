@@ -74,6 +74,24 @@ To execute the test suite run:
 ```bash
 go test [-v]
 ```
+
+### Service Coverage
+*twilio-go* provides clients for: 
+ - [Available Phone Number Local](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource)
+ - [Chat Role](https://www.twilio.com/docs/chat/rest/role-resource)
+ - [Chat Service](https://www.twilio.com/docs/chat/rest/service-resource)
+ - [Flex Flow](https://www.twilio.com/docs/flex/flow)
+ - [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource)
+ - [Proxy Phone Number](https://www.twilio.com/docs/proxy/api/phone-number)
+ - [Proxy Service](https://www.twilio.com/docs/proxy/api/service)
+ - [Runtime Environment](https://www.twilio.com/docs/runtime/functions-assets-api/api/environment)
+ - [Runtime Service](https://www.twilio.com/docs/runtime/functions-assets-api/api/service)
+ - [Studio Flow](https://www.twilio.com/docs/studio/rest-api/v2/flow)
+ - [Sync Service](https://www.twilio.com/docs/sync/api/service)
+ - [TaskRouter Activity](https://www.twilio.com/docs/taskrouter/api/activity)
+ - [TaskRouter TaskQueue](https://www.twilio.com/docs/taskrouter/api/task-queue)
+ - [TaskRouter Workflow](https://www.twilio.com/docs/taskrouter/api/workflow)
+ - [TaskRouter Workspace](https://www.twilio.com/docs/taskrouter/api/workspace)
  
  ### Code Organization
  In general each service's client is implemented in a namesake file (e.g. [Chat Service](https://www.twilio.com/docs/chat/rest/service-resource) is in **chat_service.go**)
@@ -94,7 +112,6 @@ The `error` returned by `doWithErr` may be the `Error` object, which is meant to
 One of the main behavioral considerations of *twilio-go* is that there is no built-in parameter validation.
 This includes the lack of parameter enumeration types that certain services expect, where instead we allow the user to provide any string.
 There is a 10 second timeout for requests and there is no retry functionality.
-
 
 ### Code Style
 The code is styled with `go fmt` and adheres to [Go's Style Guide](https://github.com/golang/go/wiki/CodeReviewComments) wherever possible.

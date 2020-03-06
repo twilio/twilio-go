@@ -71,7 +71,6 @@ type IncomingPhoneNumberParams struct {
 }
 
 // incomingPhoneNumberClient is the entrypoint for the Incoming Phone Number resource.
-// See: https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource
 type incomingPhoneNumberClient struct {
 	client  *Twilio
 	baseURL string
