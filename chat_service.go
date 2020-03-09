@@ -92,15 +92,15 @@ type ChatServiceList struct {
 	Services []*ChatService `json:"services"`
 }
 
-// ChatServiceClient is the entrypoint for the Programmable Chat API.
-type ChatServiceClient struct {
+// chatServiceClient is the entrypoint for the Programmable Chat API.
+type chatServiceClient struct {
 	baseURL string
 	client  *Twilio
 }
 
-// NewChatServiceClient constructs a new Chat Service client.
-func NewChatServiceClient(client *Twilio) *ChatServiceClient {
-	c := new(ChatServiceClient)
+// newChatServiceClient constructs a new Chat Service client.
+func newChatServiceClient(client *Twilio) *chatServiceClient {
+	c := new(chatServiceClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://chat.%s/v2", c.client.BaseURL)
 
@@ -108,7 +108,7 @@ func NewChatServiceClient(client *Twilio) *ChatServiceClient {
 }
 
 // Create creates a new Chat Service.
-func (c *ChatServiceClient) Create(params *ChatServiceParams) (*ChatService, error) {
+func (c *chatServiceClient) Create(params *ChatServiceParams) (*ChatService, error) {
 	resp, err := c.client.Post(c.url("/Services"), params)
 	if err != nil {
 		return nil, err
@@ -124,7 +124,7 @@ func (c *ChatServiceClient) Create(params *ChatServiceParams) (*ChatService, err
 }
 
 // Fetch returns the details of a Chat Service.
-func (c *ChatServiceClient) Fetch(sid string) (*ChatService, error) {
+func (c *chatServiceClient) Fetch(sid string) (*ChatService, error) {
 	resp, err := c.client.Get(c.url("/Services/"+sid), nil)
 	if err != nil {
 		return nil, err
@@ -140,7 +140,7 @@ func (c *ChatServiceClient) Fetch(sid string) (*ChatService, error) {
 }
 
 // Read returns a paginated list of Chat Services.
-func (c *ChatServiceClient) Read() (*ChatServiceList, error) {
+func (c *chatServiceClient) Read() (*ChatServiceList, error) {
 	resp, err := c.client.Get(c.url("/Services"), nil)
 	if err != nil {
 		return nil, err
@@ -156,7 +156,7 @@ func (c *ChatServiceClient) Read() (*ChatServiceList, error) {
 }
 
 // Update updates a Service.
-func (c *ChatServiceClient) Update(sid string, params *ChatServiceParams) (*ChatService, error) {
+func (c *chatServiceClient) Update(sid string, params *ChatServiceParams) (*ChatService, error) {
 	resp, err := c.client.Post(c.url("/Services/"+sid), params)
 	if err != nil {
 		return nil, err
@@ -172,7 +172,7 @@ func (c *ChatServiceClient) Update(sid string, params *ChatServiceParams) (*Chat
 }
 
 // Delete deletes a Chat Service.
-func (c *ChatServiceClient) Delete(sid string) error {
+func (c *chatServiceClient) Delete(sid string) error {
 	resp, err := c.client.Delete(c.url("/Services/" + sid))
 	if err != nil {
 		return err
@@ -183,7 +183,7 @@ func (c *ChatServiceClient) Delete(sid string) error {
 	return nil
 }
 
-func (c *ChatServiceClient) url(path string) string {
+func (c *chatServiceClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

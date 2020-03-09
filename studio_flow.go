@@ -33,15 +33,15 @@ type StudioFlowParams struct {
 	CommitMessage *string `form:",omitempty"`
 }
 
-// StudioFlowClient is the entrypoint for the Proxy Service API.
-type StudioFlowClient struct {
+// studioFlowClient is the entrypoint for the Studio Flow API.
+type studioFlowClient struct {
 	baseURL string
 	client  *Twilio
 }
 
-// NewStudioFlowClient constructs a new StudioFlow Client.
-func NewStudioFlowClient(client *Twilio) *StudioFlowClient {
-	c := new(StudioFlowClient)
+// newStudioFlowClient constructs a new StudioFlow Client.
+func newStudioFlowClient(client *Twilio) *studioFlowClient {
+	c := new(studioFlowClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://studio.%s/v2", c.client.BaseURL)
 
@@ -49,7 +49,7 @@ func NewStudioFlowClient(client *Twilio) *StudioFlowClient {
 }
 
 // Create creates a new StudioFlow.
-func (c *StudioFlowClient) Create(params *StudioFlowParams) (*StudioFlow, error) {
+func (c *studioFlowClient) Create(params *StudioFlowParams) (*StudioFlow, error) {
 	resp, err := c.client.Post(c.url("/Flows"), params)
 
 	if err != nil {
@@ -67,7 +67,7 @@ func (c *StudioFlowClient) Create(params *StudioFlowParams) (*StudioFlow, error)
 }
 
 // Read returns the details of a StudioFlow.
-func (c *StudioFlowClient) Read(sid string) (*StudioFlow, error) {
+func (c *studioFlowClient) Read(sid string) (*StudioFlow, error) {
 	resp, err := c.client.Get(c.url("/Flows/"+sid), nil)
 	if err != nil {
 		return nil, err
@@ -84,7 +84,7 @@ func (c *StudioFlowClient) Read(sid string) (*StudioFlow, error) {
 }
 
 // Update updates a StudioFlow.
-func (c *StudioFlowClient) Update(sid string, params *StudioFlowParams) (*StudioFlow, error) {
+func (c *studioFlowClient) Update(sid string, params *StudioFlowParams) (*StudioFlow, error) {
 	resp, err := c.client.Post(c.url("/Flows/"+sid), params)
 	if err != nil {
 		return nil, err
@@ -101,7 +101,7 @@ func (c *StudioFlowClient) Update(sid string, params *StudioFlowParams) (*Studio
 }
 
 // Delete deletes a StudioFlow.
-func (c *StudioFlowClient) Delete(sid string) error {
+func (c *studioFlowClient) Delete(sid string) error {
 	resp, err := c.client.Delete(c.url("/Flows/" + sid))
 	if err != nil {
 		return err
@@ -112,7 +112,7 @@ func (c *StudioFlowClient) Delete(sid string) error {
 	return nil
 }
 
-func (c *StudioFlowClient) url(path string) string {
+func (c *studioFlowClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}

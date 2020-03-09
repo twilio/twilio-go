@@ -6,6 +6,7 @@ import (
 )
 
 // AvailablePhoneNumberLocal represents an available local phone number.
+// See: https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource
 type AvailablePhoneNumberLocal struct {
 	FriendlyName        *string          `json:"friendly_name"`
 	PhoneNumber         *string          `json:"phone_number"`
@@ -62,16 +63,15 @@ type AvailablePhoneNumberLocalReadParams struct {
 	InLocality                    *string `form:",omitempty"`
 }
 
-// AvailablePhoneNumbersClient is the entrypoint for the AvailablePhoneNumber Local resource.
-// See: https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource
-type AvailablePhoneNumbersClient struct {
+// availablePhoneNumbersClient is the entrypoint for the AvailablePhoneNumber Local resource.
+type availablePhoneNumbersClient struct {
 	client  *Twilio
 	baseURL string
 }
 
-// NewAvailablePhoneNumbersClient constructs a new PhoneNumber client.
-func NewAvailablePhoneNumbersClient(client *Twilio) *AvailablePhoneNumbersClient {
-	c := new(AvailablePhoneNumbersClient)
+// newAvailablePhoneNumbersClient constructs a new PhoneNumber client.
+func newAvailablePhoneNumbersClient(client *Twilio) *availablePhoneNumbersClient {
+	c := new(availablePhoneNumbersClient)
 	c.client = client
 	c.baseURL = fmt.Sprintf("https://api.%s/2010-04-01", c.client.BaseURL)
 
@@ -79,7 +79,7 @@ func NewAvailablePhoneNumbersClient(client *Twilio) *AvailablePhoneNumbersClient
 }
 
 // Read returns available local phone numbers.
-func (c *AvailablePhoneNumbersClient) Read(
+func (c *availablePhoneNumbersClient) Read(
 	params *AvailablePhoneNumberLocalReadParams,
 ) (*AvailablePhoneNumbersLocal, error) {
 	path := fmt.Sprintf("/Accounts/%s/AvailablePhoneNumbers/US/Local.json", c.client.AccountSID)
@@ -98,7 +98,7 @@ func (c *AvailablePhoneNumbersClient) Read(
 	return p, err
 }
 
-func (c *AvailablePhoneNumbersClient) url(path string) string {
+func (c *availablePhoneNumbersClient) url(path string) string {
 	if c.client.defaultbaseURL != nil {
 		return *c.client.defaultbaseURL + path
 	}
