@@ -125,9 +125,9 @@ Users who have worked with protocol buffers should find this pattern familiar.
 
 ### Inspirations and References ###
 While the overall code structure and client interface is modeled after existing Twilio SDKs, we found additional inspiration in some of the following Go SDKs:
-- [https://github.com/google/go-github](Github)
-- [https://github.com/digitalocean/godo](DigitalOcean)
-- [https://github.com/hashicorp/go-tfe](Terraform)
+- [Github](https://github.com/google/go-github)
+- [DigitalOcean](https://github.com/digitalocean/godo)
+- [Terraform](https://github.com/hashicorp/go-tfe)
 
 These existing SDKs influenced things like our module pattern (using one module instead of breaking everything into separate resource modules) and unit testing strategy. 
 
