@@ -49,7 +49,7 @@ import (
 func main() {
     accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    client := twilio.NewClient(sid, at)
+    client := twilio.NewClient(accountSID, authToken)
     params := &twilio.IncomingPhoneNumberParams{PhoneNumber:twilio.String("+15017122661")}
     pn, err := client.IncomingPhoneNumbers.Create(params)
     if err != nil {
