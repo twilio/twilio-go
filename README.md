@@ -19,7 +19,6 @@ go get github.com/twilio/twilio-go@latest
 ``` 
 
 
-
 ## Getting Started
 
 Getting started with the Twilio API couldn't be easier. Create a
@@ -33,9 +32,9 @@ directly to the constructor (see the code below).
 ```go
 import "github.com/twilio/twilio-go"
 
-sid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-at := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-c := twilio.NewClient(s, a)
+accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+client := twilio.NewClient(s, a)
 ```
 
 ### Buy a phone number
@@ -48,11 +47,11 @@ import (
 )
 
 func main() {
-    sid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    at := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    c := twilio.NewClient(sid, at)
+    accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    client := twilio.NewClient(sid, at)
     params := &twilio.IncomingPhoneNumberParams{PhoneNumber:twilio.String("+15017122661")}
-    pn, err := c.IncomingPhoneNumbers.Create(params)
+    pn, err := client.IncomingPhoneNumbers.Create(params)
     if err != nil {
         fmt.Println(err)
     }
@@ -108,10 +107,35 @@ Go's built in struct marshalling is not compatible with Twilio's requirements fo
 `doWithErr` executes the request from `SendRequest`, parses the error (if any), and returns the result.
 The `error` returned by `doWithErr` may be the `Error` object, which is meant to parse Twilio-specific error messages from the body of responses to failed requests.
 
-### Behavioral Notes
-One of the main behavioral considerations of *twilio-go* is that there is no built-in parameter validation.
-This includes the lack of parameter enumeration types that certain services expect, where instead we allow the user to provide any string.
-There is a 10 second timeout for requests and there is no retry functionality.
+### Creating and Updating Resources ###
+
+All structs for Twilio resources use pointer values for all non-repeated fields.
+This allows distinguishing between unset fields (`null`) and those set to a zero-value.
+Helper functions have been provided to easily create these pointers for string,
+bool, and int values. For example:
+
+```go
+// create a new incoming phone number
+params := &twilio.IncomingPhoneNumberParams{
+    PhoneNumber: twilio.String("+15017122661")
+}
+p, err := client.IncomingPhoneNumbers.Create(params)
+```
+Users who have worked with protocol buffers should find this pattern familiar.
+
+### Inspirations and References ###
+While the overall code structure and client interface is modeled after existing Twilio SDKs, we found additional inspiration in some of the following Go SDKs:
+- [https://github.com/google/go-github](Github)
+- [https://github.com/digitalocean/godo](DigitalOcean)
+- [https://github.com/hashicorp/go-tfe](Terraform)
+
+These existing SDKs influenced things like our module pattern (using one module instead of breaking everything into separate resource modules) and unit testing strategy. 
+
+### Behavioral Notes and Future Improvements 
+Things that we wanted to address had we been given more time:
+- [ ] **Parameter Validation** - One of the main behavioral considerations of *twilio-go* is that there is no built-in parameter validation.
+- [ ] **Enums**- Properties that are of an enumberable type are defaulted to a string
+- [ ] **Retry functionality** - There is a 10 second timeout for requests with no retry functionality.
 
 ### Code Style
 The code is styled with `go fmt` and adheres to [Go's Style Guide](https://github.com/golang/go/wiki/CodeReviewComments) wherever possible.
