@@ -110,9 +110,9 @@ The `error` returned by `doWithErr` may be the `Error` object, which is meant to
 ### Creating and Updating Resources ###
 
 All structs for Twilio resources use pointer values for all non-repeated fields.
-This allows distinguishing between unset fields (`null`) and those set to a zero-value.
-Helper functions have been provided to easily create these pointers for string,
-bool, and int values. For example:
+Pointer values allow users to distinguish between unset fields (`null`) and those set to a zero-value.
+`twilio-go` provides helper functions that easily create these pointers for string,
+bool, float, time, and int values. For example:
 
 ```go
 // create a new incoming phone number
@@ -133,7 +133,7 @@ These existing SDKs influenced things like our module pattern (using one module 
 
 ### Behavioral Notes and Future Improvements 
 Things that we wanted to address had we been given more time:
-- [ ] **Parameter Validation** - One of the main behavioral considerations of *twilio-go* is that there is no built-in parameter validation.
+- [ ] **Parameter Validation** - *twilio-go* provides no built-in parameter validation.
 - [ ] **Enums**- Properties that are of an enumberable type are defaulted to a string
 - [ ] **Retry functionality** - There is a 10 second timeout for requests with no retry functionality.
 
