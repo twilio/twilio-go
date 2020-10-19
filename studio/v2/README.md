@@ -1,4 +1,4 @@
-# Go API client for twilio
+# Go API client for openapi
 
 This is the public Twilio REST API.
 
@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import "./twilio"
+import "./openapi"
 ```
 
 ## Documentation for API Endpoints
@@ -31,14 +31,11 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*V1Api* | [**V1FlowsCreate**](docs/V1Api.md#v1flowscreate) | **Get** /v1/Flows/{Sid} | 
-*V1Api* | [**V1FlowsDelete**](docs/V1Api.md#v1flowsdelete) | **Delete** /v1/Flows/{Sid} | 
-*V1Api* | [**V1FlowsList**](docs/V1Api.md#v1flowslist) | **Get** /v1/Flows | 
-*V2Api* | [**V2FlowsCreate**](docs/V2Api.md#v2flowscreate) | **Post** /v2/Flows | 
-*V2Api* | [**V2FlowsDelete**](docs/V2Api.md#v2flowsdelete) | **Delete** /v2/Flows/{Sid} | 
-*V2Api* | [**V2FlowsList**](docs/V2Api.md#v2flowslist) | **Get** /v2/Flows | 
-*V2Api* | [**V2FlowsRead**](docs/V2Api.md#v2flowsread) | **Get** /v2/Flows/{Sid} | 
-*V2Api* | [**V2FlowsUpdate**](docs/V2Api.md#v2flowsupdate) | **Post** /v2/Flows/{Sid} | 
+*DefaultApi* | [**FlowsCreate**](docs/DefaultApi.md#flowscreate) | **Post** /v2/Flows | 
+*DefaultApi* | [**FlowsDelete**](docs/DefaultApi.md#flowsdelete) | **Delete** /v2/Flows/{Sid} | 
+*DefaultApi* | [**FlowsList**](docs/DefaultApi.md#flowslist) | **Get** /v2/Flows | 
+*DefaultApi* | [**FlowsRead**](docs/DefaultApi.md#flowsread) | **Get** /v2/Flows/{Sid} | 
+*DefaultApi* | [**FlowsUpdate**](docs/DefaultApi.md#flowsupdate) | **Post** /v2/Flows/{Sid} | 
 
 
 ## Documentation For Models
@@ -46,9 +43,7 @@ Class | Method | HTTP request | Description
  - [InlineObject](docs/InlineObject.md)
  - [InlineObject1](docs/InlineObject1.md)
  - [InlineResponse200](docs/InlineResponse200.md)
- - [InlineResponse2001](docs/InlineResponse2001.md)
  - [InlineResponse200Meta](docs/InlineResponse200Meta.md)
- - [StudioV1Flow](docs/StudioV1Flow.md)
  - [StudioV2Flow](docs/StudioV2Flow.md)
 
 

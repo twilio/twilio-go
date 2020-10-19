@@ -6,7 +6,7 @@ import (
 	"time"
 
 	client "github.com/twilio/twilio-go/client"
-	studio "github.com/twilio/twilio-go/studio"
+	studioV2 "github.com/twilio/twilio-go/studio/v2"
 )
 
 // Twilio provides access to Twilio services.
@@ -15,7 +15,7 @@ type Twilio struct {
 	*client.Client
 	defaultbaseURL *string
 	common         service
-	Studio         *studio.ApiService
+	StudioV2       *studioV2.DefaultApiService
 }
 
 type service struct {
@@ -52,7 +52,7 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	}
 
 	c.common.client = c
-	c.Studio = studio.NewApiService(c.Client)
+	c.StudioV2 = studioV2.NewDefaultApiService(c.Client)
 
 	return c
 }

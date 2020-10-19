@@ -1,20 +1,20 @@
-# \V2Api
+# \DefaultApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**V2FlowsCreate**](V2Api.md#V2FlowsCreate) | **Post** /v2/Flows | 
-[**V2FlowsDelete**](V2Api.md#V2FlowsDelete) | **Delete** /v2/Flows/{Sid} | 
-[**V2FlowsList**](V2Api.md#V2FlowsList) | **Get** /v2/Flows | 
-[**V2FlowsRead**](V2Api.md#V2FlowsRead) | **Get** /v2/Flows/{Sid} | 
-[**V2FlowsUpdate**](V2Api.md#V2FlowsUpdate) | **Post** /v2/Flows/{Sid} | 
+[**FlowsCreate**](DefaultApi.md#FlowsCreate) | **Post** /v2/Flows | 
+[**FlowsDelete**](DefaultApi.md#FlowsDelete) | **Delete** /v2/Flows/{Sid} | 
+[**FlowsList**](DefaultApi.md#FlowsList) | **Get** /v2/Flows | 
+[**FlowsRead**](DefaultApi.md#FlowsRead) | **Get** /v2/Flows/{Sid} | 
+[**FlowsUpdate**](DefaultApi.md#FlowsUpdate) | **Post** /v2/Flows/{Sid} | 
 
 
 
-## V2FlowsCreate
+## FlowsCreate
 
-> StudioV2Flow V2FlowsCreate(ctx, optional)
+> StudioV2Flow FlowsCreate(ctx, optional)
 
 
 
@@ -26,11 +26,11 @@ Create a Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***V2FlowsCreateOpts** | optional parameters | nil if no parameters
+ **optional** | ***FlowsCreateOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a V2FlowsCreateOpts struct
+Optional parameters are passed through a pointer to a FlowsCreateOpts struct
 
 
 Name | Type | Description  | Notes
@@ -58,9 +58,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## V2FlowsDelete
+## FlowsDelete
 
-> V2FlowsDelete(ctx, sid)
+> FlowsDelete(ctx, sid)
 
 
 
@@ -92,9 +92,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## V2FlowsList
+## FlowsList
 
-> InlineResponse2001 V2FlowsList(ctx, optional)
+> InlineResponse200 FlowsList(ctx, optional)
 
 
 
@@ -106,11 +106,11 @@ Retrieve a list of all Flows.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***V2FlowsListOpts** | optional parameters | nil if no parameters
+ **optional** | ***FlowsListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a V2FlowsListOpts struct
+Optional parameters are passed through a pointer to a FlowsListOpts struct
 
 
 Name | Type | Description  | Notes
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](inline_response_200_1.md)
+[**InlineResponse200**](inline_response_200.md)
 
 ### Authorization
 
@@ -135,9 +135,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## V2FlowsRead
+## FlowsRead
 
-> StudioV2Flow V2FlowsRead(ctx, sid)
+> StudioV2Flow FlowsRead(ctx, sid)
 
 
 
@@ -169,9 +169,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## V2FlowsUpdate
+## FlowsUpdate
 
-> StudioV2Flow V2FlowsUpdate(ctx, sid, optional)
+> StudioV2Flow FlowsUpdate(ctx, sid, optional)
 
 
 
@@ -184,11 +184,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **sid** | **string**| The SID of the Flow resource to fetch. | 
- **optional** | ***V2FlowsUpdateOpts** | optional parameters | nil if no parameters
+ **optional** | ***FlowsUpdateOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a V2FlowsUpdateOpts struct
+Optional parameters are passed through a pointer to a FlowsUpdateOpts struct
 
 
 Name | Type | Description  | Notes
