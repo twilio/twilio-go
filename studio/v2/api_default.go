@@ -13,27 +13,28 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "strings"
+	twilio "github.com/twilio/twilio-go/client"
+	"strings"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService{
+		client:  client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
+
 // FlowsCreateParams Optional parameters for the method 'FlowsCreate'
 type FlowsCreateParams struct {
-    CommitMessage *string `json:"CommitMessage,omitempty"`
-    Definition *string `json:"Definition,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	CommitMessage *string `json:"CommitMessage,omitempty"`
+	Definition    *string `json:"Definition,omitempty"`
+	FriendlyName  *string `json:"FriendlyName,omitempty"`
+	Status        *string `json:"Status,omitempty"`
 }
 
 /*
@@ -47,38 +48,37 @@ Create a Flow.
 @return StudioV2Flow
 */
 func (c *DefaultApiService) FlowsCreate(params *FlowsCreateParams) (*StudioV2Flow, error) {
-    path := "/v2/Flows"
+	path := "/v2/Flows"
 
-    data := make(map[string]interface{})
-    headers := 0
+	data := make(map[string]interface{})
+	headers := 0
 
-    if params != nil && params.CommitMessage != nil {
-        data["CommitMessage"] = *params.CommitMessage
-    }
-    if params != nil && params.Definition != nil {
-        data["Definition"] = *params.Definition
-    }
-    if params != nil && params.FriendlyName != nil {
-        data["FriendlyName"] = *params.FriendlyName
-    }
-    if params != nil && params.Status != nil {
-        data["Status"] = *params.Status
-    }
+	if params != nil && params.CommitMessage != nil {
+		data["CommitMessage"] = *params.CommitMessage
+	}
+	if params != nil && params.Definition != nil {
+		data["Definition"] = *params.Definition
+	}
+	if params != nil && params.FriendlyName != nil {
+		data["FriendlyName"] = *params.FriendlyName
+	}
+	if params != nil && params.Status != nil {
+		data["Status"] = *params.Status
+	}
 
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	defer resp.Body.Close()
 
-    defer resp.Body.Close()
+	ps := &StudioV2Flow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    ps := &StudioV2Flow{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
-
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -86,27 +86,26 @@ FlowsDelete Method for FlowsDelete
 Delete a specific Flow.
  * @param sid The SID of the Flow resource to delete.
 */
-func (c *DefaultApiService) FlowsDelete(sid string) (error) {
-    path := "/v2/Flows/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+func (c *DefaultApiService) FlowsDelete(sid string) error {
+	path := "/v2/Flows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
+	defer resp.Body.Close()
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
-
-    defer resp.Body.Close()
-
-    return nil
+	return nil
 }
+
 // FlowsListParams Optional parameters for the method 'FlowsList'
 type FlowsListParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -117,29 +116,28 @@ Retrieve a list of all Flows.
 @return InlineResponse200
 */
 func (c *DefaultApiService) FlowsList(params *FlowsListParams) (*InlineResponse200, error) {
-    path := "/v2/Flows"
+	path := "/v2/Flows"
 
-    data := make(map[string]interface{})
-    headers := 0
+	data := make(map[string]interface{})
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data["PageSize"] = *params.PageSize
-    }
+	if params != nil && params.PageSize != nil {
+		data["PageSize"] = *params.PageSize
+	}
 
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	defer resp.Body.Close()
 
-    defer resp.Body.Close()
+	ps := &InlineResponse200{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    ps := &InlineResponse200{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
-
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -149,34 +147,33 @@ Retrieve a specific Flow.
 @return StudioV2Flow
 */
 func (c *DefaultApiService) FlowsRead(sid string) (*StudioV2Flow, error) {
-    path := "/v2/Flows/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Flows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
+	defer resp.Body.Close()
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	ps := &StudioV2Flow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
-
-    ps := &StudioV2Flow{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
-
-    return ps, err
+	return ps, err
 }
+
 // FlowsUpdateParams Optional parameters for the method 'FlowsUpdate'
 type FlowsUpdateParams struct {
-    CommitMessage *string `json:"CommitMessage,omitempty"`
-    Definition *string `json:"Definition,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	CommitMessage *string `json:"CommitMessage,omitempty"`
+	Definition    *string `json:"Definition,omitempty"`
+	FriendlyName  *string `json:"FriendlyName,omitempty"`
+	Status        *string `json:"Status,omitempty"`
 }
 
 /*
@@ -191,37 +188,36 @@ Update a Flow.
 @return StudioV2Flow
 */
 func (c *DefaultApiService) FlowsUpdate(sid string, params *FlowsUpdateParams) (*StudioV2Flow, error) {
-    path := "/v2/Flows/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Flows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := make(map[string]interface{})
-    headers := 0
+	data := make(map[string]interface{})
+	headers := 0
 
-    if params != nil && params.CommitMessage != nil {
-        data["CommitMessage"] = *params.CommitMessage
-    }
-    if params != nil && params.Definition != nil {
-        data["Definition"] = *params.Definition
-    }
-    if params != nil && params.FriendlyName != nil {
-        data["FriendlyName"] = *params.FriendlyName
-    }
-    if params != nil && params.Status != nil {
-        data["Status"] = *params.Status
-    }
+	if params != nil && params.CommitMessage != nil {
+		data["CommitMessage"] = *params.CommitMessage
+	}
+	if params != nil && params.Definition != nil {
+		data["Definition"] = *params.Definition
+	}
+	if params != nil && params.FriendlyName != nil {
+		data["FriendlyName"] = *params.FriendlyName
+	}
+	if params != nil && params.Status != nil {
+		data["Status"] = *params.Status
+	}
 
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	defer resp.Body.Close()
 
-    defer resp.Body.Close()
+	ps := &StudioV2Flow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    ps := &StudioV2Flow{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
-
-    return ps, err
+	return ps, err
 }
