@@ -36,7 +36,7 @@ Optional parameters are passed through a pointer to a FlowsCreateOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **commitMessage** | **optional.**| Description on change made in the revision. | 
- **definition** | [**optional.Interface of string**](string.md)| JSON representation of flow definition. | 
+ **definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
  **friendlyName** | **optional.**| The string that you assigned to describe the Flow. | 
  **status** | **optional.**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
 
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **commitMessage** | **optional.**| Description on change made in the revision. | 
- **definition** | [**optional.Interface of string**](string.md)| JSON representation of flow definition. | 
+ **definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
  **friendlyName** | **optional.**| The string that you assigned to describe the Flow. | 
  **status** | **optional.**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
 

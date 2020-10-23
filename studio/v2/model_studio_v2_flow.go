@@ -18,15 +18,15 @@ type StudioV2Flow struct {
 	CommitMessage string `json:"commit_message,omitempty"`
 	DateCreated time.Time `json:"date_created,omitempty"`
 	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Definition string `json:"definition,omitempty"`
-	Errors []string `json:"errors,omitempty"`
+	Definition map[string]interface{} `json:"definition,omitempty"`
+	Errors []map[string]interface{} `json:"errors,omitempty"`
 	FriendlyName string `json:"friendly_name,omitempty"`
-	Links string `json:"links,omitempty"`
+	Links map[string]interface{} `json:"links,omitempty"`
 	Revision int32 `json:"revision,omitempty"`
 	Sid string `json:"sid,omitempty"`
 	Status string `json:"status,omitempty"`
 	Url string `json:"url,omitempty"`
 	Valid bool `json:"valid,omitempty"`
-	Warnings []string `json:"warnings,omitempty"`
+	Warnings []map[string]interface{} `json:"warnings,omitempty"`
 	WebhookUrl string `json:"webhook_url,omitempty"`
 }

@@ -4,13 +4,12 @@ package client
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/pkg/errors"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strconv"
 	"strings"
-
-	"github.com/pkg/errors"
 )
 
 // Error provides information about an unsuccessful request.
@@ -48,7 +47,7 @@ const errorStatusCode = 400
 const (
 	keepZeros = true
 	delimiter = '.'
-	escapee    = '\\'
+	escapee   = '\\'
 )
 
 func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
@@ -75,7 +74,7 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c Client) SendRequest(method string, rawURL string, queryParams, formData interface{}) (*http.Response, error) {
+func (c Client) SendRequest(method string, rawURL string, queryParams interface{}, formData url.Values) (*http.Response, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
 		return nil, err
@@ -92,14 +91,7 @@ func (c Client) SendRequest(method string, rawURL string, queryParams, formData 
 	}
 
 	if formData != nil {
-		v, _ := EncodeToStringWith(formData, delimiter, escapee, keepZeros)
-		// Arrays should not express hierarchy for Twilio APIs
-		// For example, Permission.0=sendMessage&Permission.1="leaveChannel"
-		// Becomes: Permission=sendMessage&Permission="leaveChannel"
-		regex := regexp.MustCompile(`\.\d+`)
-		s := regex.ReplaceAllString(v, "")
-
-		valueReader = strings.NewReader(s)
+		valueReader = strings.NewReader(formData.Encode())
 	}
 
 	req, err := http.NewRequest(method, u.String(), valueReader)
@@ -118,7 +110,7 @@ func (c Client) SendRequest(method string, rawURL string, queryParams, formData 
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
-func (c Client) Post(path string, bodyData interface{}, header interface{}) (*http.Response, error) {
+func (c Client) Post(path string, bodyData url.Values, headers interface{}) (*http.Response, error) {
 	return c.SendRequest(http.MethodPost, path, nil, bodyData)
 }
 

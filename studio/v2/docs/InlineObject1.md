@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CommitMessage** | **string** | Description on change made in the revision. | [optional] 
-**Definition** | **string** | JSON representation of flow definition. | [optional] 
+**Definition** | **map[string]interface{}** | JSON representation of flow definition. | [optional] 
 **FriendlyName** | **string** | The string that you assigned to describe the Flow. | [optional] 
 **Status** | **string** | The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
 

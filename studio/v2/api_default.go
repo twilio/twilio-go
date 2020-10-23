@@ -14,6 +14,7 @@ import (
 	"encoding/json"
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 	"strings"
 )
 
@@ -31,10 +32,10 @@ func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
 
 // FlowsCreateParams Optional parameters for the method 'FlowsCreate'
 type FlowsCreateParams struct {
-	CommitMessage *string `json:"CommitMessage,omitempty"`
-	Definition    *string `json:"Definition,omitempty"`
-	FriendlyName  *string `json:"FriendlyName,omitempty"`
-	Status        *string `json:"Status,omitempty"`
+	CommitMessage *string                 `json:"CommitMessage,omitempty"`
+	Definition    *map[string]interface{} `json:"Definition,omitempty"`
+	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
+	Status        *string                 `json:"Status,omitempty"`
 }
 
 /*
@@ -42,7 +43,7 @@ FlowsCreate Method for FlowsCreate
 Create a Flow.
  * @param optional nil or *FlowsCreateOpts - Optional Parameters:
  * @param "CommitMessage" (string) - Description on change made in the revision.
- * @param "Definition" (string) - JSON representation of flow definition.
+ * @param "Definition" (map[string]interface{}) - JSON representation of flow definition.
  * @param "FriendlyName" (string) - The string that you assigned to describe the Flow.
  * @param "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
 @return StudioV2Flow
@@ -50,20 +51,26 @@ Create a Flow.
 func (c *DefaultApiService) FlowsCreate(params *FlowsCreateParams) (*StudioV2Flow, error) {
 	path := "/v2/Flows"
 
-	data := make(map[string]interface{})
+	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CommitMessage != nil {
-		data["CommitMessage"] = *params.CommitMessage
+		data.Set("CommitMessage", *params.CommitMessage)
 	}
 	if params != nil && params.Definition != nil {
-		data["Definition"] = *params.Definition
+		v, err := json.Marshal(params.Definition)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Definition", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data["FriendlyName"] = *params.FriendlyName
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data["Status"] = *params.Status
+		data.Set("Status", *params.Status)
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -118,11 +125,11 @@ Retrieve a list of all Flows.
 func (c *DefaultApiService) FlowsList(params *FlowsListParams) (*InlineResponse200, error) {
 	path := "/v2/Flows"
 
-	data := make(map[string]interface{})
+	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data["PageSize"] = *params.PageSize
+		data.Set("PageSize", string(*params.PageSize))
 	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
@@ -170,10 +177,10 @@ func (c *DefaultApiService) FlowsRead(sid string) (*StudioV2Flow, error) {
 
 // FlowsUpdateParams Optional parameters for the method 'FlowsUpdate'
 type FlowsUpdateParams struct {
-	CommitMessage *string `json:"CommitMessage,omitempty"`
-	Definition    *string `json:"Definition,omitempty"`
-	FriendlyName  *string `json:"FriendlyName,omitempty"`
-	Status        *string `json:"Status,omitempty"`
+	CommitMessage *string                 `json:"CommitMessage,omitempty"`
+	Definition    *map[string]interface{} `json:"Definition,omitempty"`
+	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
+	Status        *string                 `json:"Status,omitempty"`
 }
 
 /*
@@ -182,7 +189,7 @@ Update a Flow.
  * @param sid The SID of the Flow resource to fetch.
  * @param optional nil or *FlowsUpdateOpts - Optional Parameters:
  * @param "CommitMessage" (string) - Description on change made in the revision.
- * @param "Definition" (string) - JSON representation of flow definition.
+ * @param "Definition" (map[string]interface{}) - JSON representation of flow definition.
  * @param "FriendlyName" (string) - The string that you assigned to describe the Flow.
  * @param "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
 @return StudioV2Flow
@@ -191,20 +198,26 @@ func (c *DefaultApiService) FlowsUpdate(sid string, params *FlowsUpdateParams) (
 	path := "/v2/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-	data := make(map[string]interface{})
+	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CommitMessage != nil {
-		data["CommitMessage"] = *params.CommitMessage
+		data.Set("CommitMessage", *params.CommitMessage)
 	}
 	if params != nil && params.Definition != nil {
-		data["Definition"] = *params.Definition
+		v, err := json.Marshal(params.Definition)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Definition", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data["FriendlyName"] = *params.FriendlyName
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data["Status"] = *params.Status
+		data.Set("Status", *params.Status)
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
