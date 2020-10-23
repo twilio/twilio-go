@@ -14,7 +14,7 @@ type InlineObject1 struct {
 	// Description on change made in the revision.
 	CommitMessage string `json:"CommitMessage,omitempty"`
 	// JSON representation of flow definition.
-	Definition map[string]interface{} `json:"Definition,omitempty"`
+	Definition string `json:"Definition,omitempty"`
 	// The string that you assigned to describe the Flow.
 	FriendlyName string `json:"FriendlyName,omitempty"`
 	// The status of the Flow. Can be: `draft` or `published`.

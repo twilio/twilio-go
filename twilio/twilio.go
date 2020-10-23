@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	client "github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client"
 	studioV2 "github.com/twilio/twilio-go/studio/v2"
 )
 

@@ -13,7 +13,7 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    "github.com/twilio/twilio-go/client"
+    twilio "github.com/twilio/twilio-go/client"
     "strings"
 )
 
@@ -31,7 +31,7 @@ func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
 // FlowsCreateParams Optional parameters for the method 'FlowsCreate'
 type FlowsCreateParams struct {
     CommitMessage *string `json:"CommitMessage,omitempty"`
-    Definition *map[string]interface{} `json:"Definition,omitempty"`
+    Definition *string `json:"Definition,omitempty"`
     FriendlyName *string `json:"FriendlyName,omitempty"`
     Status *string `json:"Status,omitempty"`
 }
@@ -41,7 +41,7 @@ FlowsCreate Method for FlowsCreate
 Create a Flow.
  * @param optional nil or *FlowsCreateOpts - Optional Parameters:
  * @param "CommitMessage" (string) - Description on change made in the revision.
- * @param "Definition" (map[string]interface{}) - JSON representation of flow definition.
+ * @param "Definition" (string) - JSON representation of flow definition.
  * @param "FriendlyName" (string) - The string that you assigned to describe the Flow.
  * @param "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
 @return StudioV2Flow
@@ -174,7 +174,7 @@ func (c *DefaultApiService) FlowsRead(sid string) (*StudioV2Flow, error) {
 // FlowsUpdateParams Optional parameters for the method 'FlowsUpdate'
 type FlowsUpdateParams struct {
     CommitMessage *string `json:"CommitMessage,omitempty"`
-    Definition *map[string]interface{} `json:"Definition,omitempty"`
+    Definition *string `json:"Definition,omitempty"`
     FriendlyName *string `json:"FriendlyName,omitempty"`
     Status *string `json:"Status,omitempty"`
 }
@@ -185,7 +185,7 @@ Update a Flow.
  * @param sid The SID of the Flow resource to fetch.
  * @param optional nil or *FlowsUpdateOpts - Optional Parameters:
  * @param "CommitMessage" (string) - Description on change made in the revision.
- * @param "Definition" (map[string]interface{}) - JSON representation of flow definition.
+ * @param "Definition" (string) - JSON representation of flow definition.
  * @param "FriendlyName" (string) - The string that you assigned to describe the Flow.
  * @param "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
 @return StudioV2Flow

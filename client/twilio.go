@@ -1,5 +1,5 @@
 // Package twilio provides internal utilities for the twilio-go client library.
-package twilio
+package client
 
 import (
 	"encoding/json"

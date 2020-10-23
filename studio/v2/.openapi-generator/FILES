@@ -7,8 +7,6 @@ docs/InlineObject1.md
 docs/InlineResponse200.md
 docs/InlineResponse200Meta.md
 docs/StudioV2Flow.md
-go.mod
-go.sum
 model_inline_object.go
 model_inline_object_1.go
 model_inline_response_200.go
