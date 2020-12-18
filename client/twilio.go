@@ -1,30 +1,17 @@
-// Package twilio provides internal utilities for the twilio-go client library.
+// Package client provides internal utilities for the twilio-go client library.
 package client
 
 import (
 	"encoding/json"
-	"fmt"
-	"github.com/pkg/errors"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/pkg/errors"
+	twilioError "github.com/twilio/twilio-go/framework/error"
 )
-
-// Error provides information about an unsuccessful request.
-type Error struct {
-	Code     int    `json:"code"`
-	Detail   string `json:"detail"`
-	Message  string `json:"message"`
-	MoreInfo string `json:"more_info"`
-	Status   int    `json:"status"`
-}
-
-func (err Error) Error() string {
-	return fmt.Sprintf("Status: %d - Error %d: %s (%s) More info: %s",
-		err.Status, err.Code, err.Message, err.Detail, err.MoreInfo)
-}
 
 // Credentials store user authentication credentials.
 type Credentials struct {
@@ -37,6 +24,13 @@ type Client struct {
 	*Credentials
 	HTTPClient *http.Client
 	BaseURL    string
+}
+
+func NewClient(accountSid string, authToken string) *Client {
+	c := &Client{}
+	creds := &Credentials{AccountSID: accountSid, AuthToken: authToken}
+	c.Credentials = creds
+	return c
 }
 
 func (c *Client) basicAuth() (string, string) {
@@ -61,7 +55,7 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 	}
 
 	if res.StatusCode >= errorStatusCode {
-		err = &Error{}
+		err = &twilioError.TwilioRestError{}
 		if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
 			err = errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
 			return nil, err
