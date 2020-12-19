@@ -105,7 +105,7 @@ The main functionality is captured by `SendRequest` and `doWithErr`.
 `SendRequest` performs the required encoding and request configuration to comply with Twilio's HTTP standards.
 Go's built in struct marshalling is not compatible with Twilio's requirements for form encoding so encoding is performed by the `form` package forked from https://github.com/ajg/form.
 `doWithErr` executes the request from `SendRequest`, parses the error (if any), and returns the result.
-The `error` returned by `doWithErr` may be the `Error` object, which is meant to parse Twilio-specific error messages from the body of responses to failed requests.
+The `error` returned by `doWithErr` may be the `TwilioRestError` object, which is meant to parse Twilio-specific error messages from the body of responses to failed requests.
 
 ### Creating and Updating Resources ###
 
