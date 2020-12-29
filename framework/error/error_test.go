@@ -1,11 +1,11 @@
-package error
+package error_test
 
 import (
 	"encoding/json"
+	assert "github.com/stretchr/testify/require"
+	"github.com/twilio/twilio-go/framework/error"
 	"strings"
 	"testing"
-
-	assert "github.com/stretchr/testify/require"
 )
 
 const errorCode = 20001
@@ -16,7 +16,7 @@ const errorStatus = 400
 func TestTwilioRestError_Error(t *testing.T) {
 	details := make(map[string]interface{})
 	details["foo"] = "bar"
-	err := &TwilioRestError{
+	err := &error.TwilioRestError{
 		Code: errorCode,
 		Details: details,
 		Message: errorMessage,
@@ -28,7 +28,7 @@ func TestTwilioRestError_Error(t *testing.T) {
 }
 
 func TestTwilioRestError_NoDetails(t *testing.T) {
-	err := &TwilioRestError{}
+	err := &error.TwilioRestError{}
 	response := `{"code":20001,"message":"Bad request","more_info":"https://www.twilio.com/docs/errors/20001","status":400}`
 	responseReader := strings.NewReader(response)
 	decodeErr := json.NewDecoder(responseReader).Decode(err)

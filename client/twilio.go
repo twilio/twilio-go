@@ -26,6 +26,7 @@ type Client struct {
 	BaseURL    string
 }
 
+// NewClient initializes a new Client with the given credentials
 func NewClient(accountSid string, authToken string) *Client {
 	c := &Client{}
 	creds := &Credentials{AccountSID: accountSid, AuthToken: authToken}
@@ -63,7 +64,7 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 
 		return nil, err
 	}
-
+	defer res.Body.Close()
 	return res, nil
 }
 

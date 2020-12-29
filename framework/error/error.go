@@ -1,3 +1,4 @@
+// Package error provides the interface for Twilio specfic errors.
 package error
 
 import (
@@ -15,7 +16,7 @@ type TwilioRestError struct {
 }
 
 func (err *TwilioRestError) Error() string {
-	detailsJson, _ := json.Marshal(err.Details)
+	detailsJSON, _ := json.Marshal(err.Details)
 	return fmt.Sprintf("Status: %d - ApiError %d: %s (%s) More info: %s",
-		err.Status, err.Code, err.Message, detailsJson, err.MoreInfo)
+		err.Status, err.Code, err.Message, detailsJSON, err.MoreInfo)
 }

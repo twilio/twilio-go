@@ -1,7 +1,8 @@
-package client
+package client_test
 
 import (
 	"github.com/stretchr/testify/assert"
+	twilio "github.com/twilio/twilio-go/client"
 	"github.com/twilio/twilio-go/framework/error"
 	"net/http"
 	"net/http/httptest"
@@ -22,7 +23,7 @@ func TestClient_SendRequestError(t *testing.T) {
 		}))
 	defer mockServer.Close()
 
-	client := NewClient("user", "pass")
+	client := twilio.NewClient("user", "pass")
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil)
 	twilioError := err.(*error.TwilioRestError)
 	assert.Nil(t, resp)
@@ -50,7 +51,7 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 		}))
 	defer mockServer.Close()
 
-	client := NewClient("user", "pass")
+	client := twilio.NewClient("user", "pass")
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil)
 	twilioError := err.(*error.TwilioRestError)
 	details := make(map[string]interface{})
