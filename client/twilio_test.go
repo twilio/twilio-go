@@ -63,3 +63,16 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 	assert.Equal(t, "Bad request", twilioError.Message)
 	assert.Equal(t, details, twilioError.Details)
 }
+
+func TestClient_SendRequestWithRedirect(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			writer.WriteHeader(307)
+			writer.Write([]byte(`{"redirect_to": "some_place"}`))
+		}))
+	defer mockServer.Close()
+
+	client := NewClient("user", "pass")
+	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil)
+	assert.Equal(t, 307, resp.StatusCode)
+}
