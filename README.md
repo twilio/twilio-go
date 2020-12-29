@@ -18,7 +18,6 @@ To use twilio-go in your project initialize go modules then run:
 go get github.com/twilio/twilio-go@latest
 ``` 
 
-
 ## Getting Started
 
 Getting started with the Twilio API couldn't be easier. Create a
@@ -43,7 +42,7 @@ client := twilio.NewClient(s, a)
 package main
 import (
 	"fmt"
-	"github.com/twilio/twilio-go"
+	"github.com/twilio/twilio-go/twilio"
 )
 
 func main() {
@@ -54,6 +53,29 @@ func main() {
     pn, err := client.IncomingPhoneNumbers.Create(params)
     if err != nil {
         fmt.Println(err)
+    }
+    fmt.Println(pn)
+}
+```
+
+### Handling Exceptions
+```go
+package main
+import (
+    "fmt"
+    "github.com/twilio/twilio-go/framework/error"
+    "github.com/twilio/twilio-go/twilio"
+)
+
+func main() {
+    accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    client := twilio.NewClient(accountSID, authToken)
+    params := &twilio.IncomingPhoneNumberParams{PhoneNumber:twilio.String("+15017122661")}
+    pn, err := client.IncomingPhoneNumbers.Create(params)
+    if err != nil {
+        twilioError := err.(*error.TwilioRestError)
+        fmt.Println(twilioError.Error())
     }
     fmt.Println(pn)
 }

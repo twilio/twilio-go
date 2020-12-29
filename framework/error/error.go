@@ -3,8 +3,6 @@ package error
 import (
 	"encoding/json"
 	"fmt"
-
-	//"github.com/pkg/errors"
 )
 
 // TwilioRestError provides information about an unsuccessful request.
