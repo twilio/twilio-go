@@ -72,7 +72,7 @@ func TestClient_SendRequestWithRedirect(t *testing.T) {
 		}))
 	defer mockServer.Close()
 
-	client := NewClient("user", "pass")
+	client := twilio.NewClient("user", "pass")
 	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil)
 	assert.Equal(t, 307, resp.StatusCode)
 }
