@@ -75,7 +75,6 @@ func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 
 		return nil, err
 	}
-	defer res.Body.Close()
 	return res, nil
 }
 
