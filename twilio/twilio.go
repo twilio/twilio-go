@@ -2,9 +2,6 @@
 package twilio
 
 import (
-	"net/http"
-	"time"
-
 	"github.com/twilio/twilio-go/client"
 	studioV2 "github.com/twilio/twilio-go/studio/v2"
 )
@@ -36,17 +33,12 @@ type Meta struct {
 
 // NewClient provides an initialized Twilio client.
 func NewClient(accountSID string, authToken string) *Twilio {
-	var httpClient = &http.Client{
-		Timeout: time.Second * 10,
-	}
-
 	credentials := &client.Credentials{AccountSID: accountSID, AuthToken: authToken}
 
 	c := &Twilio{
 		Credentials: credentials,
 		Client: &client.Client{
 			Credentials: credentials,
-			HTTPClient:  httpClient,
 			BaseURL:     "twilio.com",
 		},
 	}
