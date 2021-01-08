@@ -51,6 +51,11 @@ func (c *Client) basicAuth() (string, string) {
 	return c.Credentials.AccountSID, c.Credentials.AuthToken
 }
 
+// SetTimeout sets the Timeout for HTTP requests.
+func (c *Client) SetTimeout(timeout time.Duration) {
+	c.HTTPClient.Timeout = timeout
+}
+
 const (
 	keepZeros = true
 	delimiter = '.'

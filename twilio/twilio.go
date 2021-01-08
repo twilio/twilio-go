@@ -4,6 +4,7 @@ package twilio
 import (
 	"github.com/twilio/twilio-go/client"
 	studioV2 "github.com/twilio/twilio-go/studio/v2"
+	"time"
 )
 
 // Twilio provides access to Twilio services.
@@ -47,4 +48,9 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	c.StudioV2 = studioV2.NewDefaultApiService(c.Client)
 
 	return c
+}
+
+// SetTimeout sets the Timeout for Twilio HTTP requests.
+func (c *Twilio) SetTimeout(timeout time.Duration) {
+	c.Client.SetTimeout(timeout)
 }
