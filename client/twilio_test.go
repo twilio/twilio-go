@@ -1,12 +1,14 @@
 package client_test
 
 import (
+	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	twilio "github.com/twilio/twilio-go/client"
 	"github.com/twilio/twilio-go/framework/error"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 )
 
 func TestClient_SendRequestError(t *testing.T) {
@@ -75,4 +77,51 @@ func TestClient_SendRequestWithRedirect(t *testing.T) {
 	client := twilio.NewClient("user", "pass")
 	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil)
 	assert.Equal(t, 307, resp.StatusCode)
+}
+
+func TestClient_SetTimeoutTimesOut(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			d := map[string]interface{}{
+				"response": "ok",
+			}
+			time.Sleep(100 * time.Microsecond)
+			encoder := json.NewEncoder(writer)
+			err := encoder.Encode(&d)
+
+			if err != nil {
+				t.Error(err)
+			}
+			writer.WriteHeader(http.StatusOK)
+		}))
+	defer mockServer.Close()
+
+	client := twilio.NewClient("user", "pass")
+	client.SetTimeout(10 * time.Microsecond)
+	_, err := client.SendRequest("get", mockServer.URL, nil, nil)
+	assert.Error(t, err)
+}
+
+func TestClient_SetTimeoutSucceeds(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			d := map[string]interface{}{
+				"response": "ok",
+			}
+			time.Sleep(100 * time.Microsecond)
+			encoder := json.NewEncoder(writer)
+			err := encoder.Encode(&d)
+
+			if err != nil {
+				t.Error(err)
+			}
+			writer.WriteHeader(http.StatusOK)
+		}))
+	defer mockServer.Close()
+
+	client := twilio.NewClient("user", "pass")
+	client.SetTimeout(10 * time.Second)
+	resp, err := client.SendRequest("get", mockServer.URL, nil, nil)
+	assert.NoError(t, err)
+	assert.Equal(t, 200, resp.StatusCode)
 }

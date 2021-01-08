@@ -8,6 +8,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/pkg/errors"
 	twilioError "github.com/twilio/twilio-go/framework/error"
@@ -32,6 +33,7 @@ func defaultHTTPClient() *http.Client {
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
+		Timeout: time.Second * 10,
 	}
 }
 
@@ -47,6 +49,11 @@ func NewClient(accountSid string, authToken string) *Client {
 
 func (c *Client) basicAuth() (string, string) {
 	return c.Credentials.AccountSID, c.Credentials.AuthToken
+}
+
+// SetTimeout sets the Timeout for HTTP requests.
+func (c *Client) SetTimeout(timeout time.Duration) {
+	c.HTTPClient.Timeout = timeout
 }
 
 const (
