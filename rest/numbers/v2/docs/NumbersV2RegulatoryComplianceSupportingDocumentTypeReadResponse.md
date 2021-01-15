@@ -1,0 +1,12 @@
+# NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Meta** | [**NumbersV2RegulatoryComplianceBundleReadResponseMeta**](numbers_v2_regulatory_compliance_bundleReadResponse_meta.md) |  | [optional] 
+**SupportingDocumentTypes** | [**[]NumbersV2RegulatoryComplianceSupportingDocumentType**](numbers.v2.regulatory_compliance.supporting_document_type.md) |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
