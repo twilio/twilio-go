@@ -26,6 +26,8 @@ jobs:
 
     - name: Build
       run: go build -v ./...
+      with:
+        github_token: ${{ secrets.github_token }}
 
     - name: Test
       run: go test ./...
