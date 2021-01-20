@@ -13,26 +13,24 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateCredentialListParams Optional parameters for the method 'CreateCredentialList'
 type CreateCredentialListParams struct {
-    CredentialListSid *string `json:"CredentialListSid,omitempty"`
+	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
 /*
@@ -43,34 +41,34 @@ CreateCredentialList Method for CreateCredentialList
 @return TrunkingV1TrunkCredentialList
 */
 func (c *DefaultApiService) CreateCredentialList(trunkSid string, params *CreateCredentialListParams) (*TrunkingV1TrunkCredentialList, error) {
-    path := "/v1/Trunks/{TrunkSid}/CredentialLists"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CredentialListSid != nil {
-        data.Set("CredentialListSid", *params.CredentialListSid)
-    }
+	if params != nil && params.CredentialListSid != nil {
+		data.Set("CredentialListSid", *params.CredentialListSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkCredentialList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkCredentialList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateIpAccessControlListParams Optional parameters for the method 'CreateIpAccessControlList'
 type CreateIpAccessControlListParams struct {
-    IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
+	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
 /*
@@ -82,38 +80,38 @@ Associate an IP Access Control List with a Trunk
 @return TrunkingV1TrunkIpAccessControlList
 */
 func (c *DefaultApiService) CreateIpAccessControlList(trunkSid string, params *CreateIpAccessControlListParams) (*TrunkingV1TrunkIpAccessControlList, error) {
-    path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.IpAccessControlListSid != nil {
-        data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
-    }
+	if params != nil && params.IpAccessControlListSid != nil {
+		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkIpAccessControlList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkIpAccessControlList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateOriginationUrlParams Optional parameters for the method 'CreateOriginationUrl'
 type CreateOriginationUrlParams struct {
-    Enabled *bool `json:"Enabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Priority *int32 `json:"Priority,omitempty"`
-    SipUrl *string `json:"SipUrl,omitempty"`
-    Weight *int32 `json:"Weight,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Priority *int32 `json:"Priority,omitempty"`
+	SipUrl *string `json:"SipUrl,omitempty"`
+	Weight *int32 `json:"Weight,omitempty"`
 }
 
 /*
@@ -128,46 +126,46 @@ CreateOriginationUrl Method for CreateOriginationUrl
 @return TrunkingV1TrunkOriginationUrl
 */
 func (c *DefaultApiService) CreateOriginationUrl(trunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1TrunkOriginationUrl, error) {
-    path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Priority != nil {
-        data.Set("Priority", string(*params.Priority))
-    }
-    if params != nil && params.SipUrl != nil {
-        data.Set("SipUrl", *params.SipUrl)
-    }
-    if params != nil && params.Weight != nil {
-        data.Set("Weight", string(*params.Weight))
-    }
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Priority != nil {
+		data.Set("Priority", string(*params.Priority))
+	}
+	if params != nil && params.SipUrl != nil {
+		data.Set("SipUrl", *params.SipUrl)
+	}
+	if params != nil && params.Weight != nil {
+		data.Set("Weight", string(*params.Weight))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkOriginationUrl{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkOriginationUrl{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreatePhoneNumberParams Optional parameters for the method 'CreatePhoneNumber'
 type CreatePhoneNumberParams struct {
-    PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
+	PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
 }
 
 /*
@@ -178,40 +176,40 @@ CreatePhoneNumber Method for CreatePhoneNumber
 @return TrunkingV1TrunkPhoneNumber
 */
 func (c *DefaultApiService) CreatePhoneNumber(trunkSid string, params *CreatePhoneNumberParams) (*TrunkingV1TrunkPhoneNumber, error) {
-    path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PhoneNumberSid != nil {
-        data.Set("PhoneNumberSid", *params.PhoneNumberSid)
-    }
+	if params != nil && params.PhoneNumberSid != nil {
+		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkPhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateTrunkParams Optional parameters for the method 'CreateTrunk'
 type CreateTrunkParams struct {
-    CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
-    DisasterRecoveryMethod *string `json:"DisasterRecoveryMethod,omitempty"`
-    DisasterRecoveryUrl *string `json:"DisasterRecoveryUrl,omitempty"`
-    DomainName *string `json:"DomainName,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Secure *bool `json:"Secure,omitempty"`
-    TransferMode *string `json:"TransferMode,omitempty"`
+	CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
+	DisasterRecoveryMethod *string `json:"DisasterRecoveryMethod,omitempty"`
+	DisasterRecoveryUrl *string `json:"DisasterRecoveryUrl,omitempty"`
+	DomainName *string `json:"DomainName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Secure *bool `json:"Secure,omitempty"`
+	TransferMode *string `json:"TransferMode,omitempty"`
 }
 
 /*
@@ -227,47 +225,47 @@ CreateTrunk Method for CreateTrunk
 @return TrunkingV1Trunk
 */
 func (c *DefaultApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, error) {
-    path := "/v1/Trunks"
+	path := "/v1/Trunks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CnamLookupEnabled != nil {
-        data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
-    }
-    if params != nil && params.DisasterRecoveryMethod != nil {
-        data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
-    }
-    if params != nil && params.DisasterRecoveryUrl != nil {
-        data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
-    }
-    if params != nil && params.DomainName != nil {
-        data.Set("DomainName", *params.DomainName)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Secure != nil {
-        data.Set("Secure", string(*params.Secure))
-    }
-    if params != nil && params.TransferMode != nil {
-        data.Set("TransferMode", *params.TransferMode)
-    }
+	if params != nil && params.CnamLookupEnabled != nil {
+		data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
+	}
+	if params != nil && params.DisasterRecoveryMethod != nil {
+		data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
+	}
+	if params != nil && params.DisasterRecoveryUrl != nil {
+		data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
+	}
+	if params != nil && params.DomainName != nil {
+		data.Set("DomainName", *params.DomainName)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", string(*params.Secure))
+	}
+	if params != nil && params.TransferMode != nil {
+		data.Set("TransferMode", *params.TransferMode)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1Trunk{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1Trunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -276,23 +274,23 @@ DeleteCredentialList Method for DeleteCredentialList
  * @param sid The unique string that we created to identify the CredentialList resource to delete.
 */
 func (c *DefaultApiService) DeleteCredentialList(trunkSid string, sid string) (error) {
-    path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -302,23 +300,23 @@ Remove an associated IP Access Control List from a Trunk
  * @param sid The unique string that we created to identify the IpAccessControlList resource to delete.
 */
 func (c *DefaultApiService) DeleteIpAccessControlList(trunkSid string, sid string) (error) {
-    path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -327,23 +325,23 @@ DeleteOriginationUrl Method for DeleteOriginationUrl
  * @param sid The unique string that we created to identify the OriginationUrl resource to delete.
 */
 func (c *DefaultApiService) DeleteOriginationUrl(trunkSid string, sid string) (error) {
-    path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -352,23 +350,23 @@ DeletePhoneNumber Method for DeletePhoneNumber
  * @param sid The unique string that we created to identify the PhoneNumber resource to delete.
 */
 func (c *DefaultApiService) DeletePhoneNumber(trunkSid string, sid string) (error) {
-    path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -376,22 +374,22 @@ DeleteTrunk Method for DeleteTrunk
  * @param sid The unique string that we created to identify the Trunk resource to delete.
 */
 func (c *DefaultApiService) DeleteTrunk(sid string) (error) {
-    path := "/v1/Trunks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -401,28 +399,28 @@ FetchCredentialList Method for FetchCredentialList
 @return TrunkingV1TrunkCredentialList
 */
 func (c *DefaultApiService) FetchCredentialList(trunkSid string, sid string) (*TrunkingV1TrunkCredentialList, error) {
-    path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkCredentialList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkCredentialList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -432,28 +430,28 @@ FetchIpAccessControlList Method for FetchIpAccessControlList
 @return TrunkingV1TrunkIpAccessControlList
 */
 func (c *DefaultApiService) FetchIpAccessControlList(trunkSid string, sid string) (*TrunkingV1TrunkIpAccessControlList, error) {
-    path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkIpAccessControlList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkIpAccessControlList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -463,28 +461,28 @@ FetchOriginationUrl Method for FetchOriginationUrl
 @return TrunkingV1TrunkOriginationUrl
 */
 func (c *DefaultApiService) FetchOriginationUrl(trunkSid string, sid string) (*TrunkingV1TrunkOriginationUrl, error) {
-    path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkOriginationUrl{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkOriginationUrl{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -494,28 +492,28 @@ FetchPhoneNumber Method for FetchPhoneNumber
 @return TrunkingV1TrunkPhoneNumber
 */
 func (c *DefaultApiService) FetchPhoneNumber(trunkSid string, sid string) (*TrunkingV1TrunkPhoneNumber, error) {
-    path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkPhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -524,27 +522,27 @@ FetchRecording Method for FetchRecording
 @return TrunkingV1TrunkRecording
 */
 func (c *DefaultApiService) FetchRecording(trunkSid string) (*TrunkingV1TrunkRecording, error) {
-    path := "/v1/Trunks/{TrunkSid}/Recording"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/Recording"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkRecording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -553,31 +551,31 @@ FetchTrunk Method for FetchTrunk
 @return TrunkingV1Trunk
 */
 func (c *DefaultApiService) FetchTrunk(sid string) (*TrunkingV1Trunk, error) {
-    path := "/v1/Trunks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1Trunk{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1Trunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCredentialListParams Optional parameters for the method 'ListCredentialList'
 type ListCredentialListParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -588,34 +586,34 @@ ListCredentialList Method for ListCredentialList
 @return TrunkingV1TrunkCredentialListReadResponse
 */
 func (c *DefaultApiService) ListCredentialList(trunkSid string, params *ListCredentialListParams) (*TrunkingV1TrunkCredentialListReadResponse, error) {
-    path := "/v1/Trunks/{TrunkSid}/CredentialLists"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkCredentialListReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkCredentialListReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListIpAccessControlListParams Optional parameters for the method 'ListIpAccessControlList'
 type ListIpAccessControlListParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -627,34 +625,34 @@ List all IP Access Control Lists for a Trunk
 @return TrunkingV1TrunkIpAccessControlListReadResponse
 */
 func (c *DefaultApiService) ListIpAccessControlList(trunkSid string, params *ListIpAccessControlListParams) (*TrunkingV1TrunkIpAccessControlListReadResponse, error) {
-    path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkIpAccessControlListReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkIpAccessControlListReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListOriginationUrlParams Optional parameters for the method 'ListOriginationUrl'
 type ListOriginationUrlParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -665,34 +663,34 @@ ListOriginationUrl Method for ListOriginationUrl
 @return TrunkingV1TrunkOriginationUrlReadResponse
 */
 func (c *DefaultApiService) ListOriginationUrl(trunkSid string, params *ListOriginationUrlParams) (*TrunkingV1TrunkOriginationUrlReadResponse, error) {
-    path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkOriginationUrlReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkOriginationUrlReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListPhoneNumberParams Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -703,34 +701,34 @@ ListPhoneNumber Method for ListPhoneNumber
 @return TrunkingV1TrunkPhoneNumberReadResponse
 */
 func (c *DefaultApiService) ListPhoneNumber(trunkSid string, params *ListPhoneNumberParams) (*TrunkingV1TrunkPhoneNumberReadResponse, error) {
-    path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkPhoneNumberReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkPhoneNumberReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListTrunkParams Optional parameters for the method 'ListTrunk'
 type ListTrunkParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -740,37 +738,37 @@ ListTrunk Method for ListTrunk
 @return TrunkingV1TrunkReadResponse
 */
 func (c *DefaultApiService) ListTrunk(params *ListTrunkParams) (*TrunkingV1TrunkReadResponse, error) {
-    path := "/v1/Trunks"
+	path := "/v1/Trunks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateOriginationUrlParams Optional parameters for the method 'UpdateOriginationUrl'
 type UpdateOriginationUrlParams struct {
-    Enabled *bool `json:"Enabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Priority *int32 `json:"Priority,omitempty"`
-    SipUrl *string `json:"SipUrl,omitempty"`
-    Weight *int32 `json:"Weight,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Priority *int32 `json:"Priority,omitempty"`
+	SipUrl *string `json:"SipUrl,omitempty"`
+	Weight *int32 `json:"Weight,omitempty"`
 }
 
 /*
@@ -786,48 +784,48 @@ UpdateOriginationUrl Method for UpdateOriginationUrl
 @return TrunkingV1TrunkOriginationUrl
 */
 func (c *DefaultApiService) UpdateOriginationUrl(trunkSid string, sid string, params *UpdateOriginationUrlParams) (*TrunkingV1TrunkOriginationUrl, error) {
-    path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Priority != nil {
-        data.Set("Priority", string(*params.Priority))
-    }
-    if params != nil && params.SipUrl != nil {
-        data.Set("SipUrl", *params.SipUrl)
-    }
-    if params != nil && params.Weight != nil {
-        data.Set("Weight", string(*params.Weight))
-    }
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Priority != nil {
+		data.Set("Priority", string(*params.Priority))
+	}
+	if params != nil && params.SipUrl != nil {
+		data.Set("SipUrl", *params.SipUrl)
+	}
+	if params != nil && params.Weight != nil {
+		data.Set("Weight", string(*params.Weight))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkOriginationUrl{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkOriginationUrl{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRecordingParams Optional parameters for the method 'UpdateRecording'
 type UpdateRecordingParams struct {
-    Mode *string `json:"Mode,omitempty"`
-    Trim *string `json:"Trim,omitempty"`
+	Mode *string `json:"Mode,omitempty"`
+	Trim *string `json:"Trim,omitempty"`
 }
 
 /*
@@ -839,43 +837,43 @@ UpdateRecording Method for UpdateRecording
 @return TrunkingV1TrunkRecording
 */
 func (c *DefaultApiService) UpdateRecording(trunkSid string, params *UpdateRecordingParams) (*TrunkingV1TrunkRecording, error) {
-    path := "/v1/Trunks/{TrunkSid}/Recording"
-    path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
+	path := "/v1/Trunks/{TrunkSid}/Recording"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", trunkSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Mode != nil {
-        data.Set("Mode", *params.Mode)
-    }
-    if params != nil && params.Trim != nil {
-        data.Set("Trim", *params.Trim)
-    }
+	if params != nil && params.Mode != nil {
+		data.Set("Mode", *params.Mode)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", *params.Trim)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1TrunkRecording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1TrunkRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateTrunkParams Optional parameters for the method 'UpdateTrunk'
 type UpdateTrunkParams struct {
-    CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
-    DisasterRecoveryMethod *string `json:"DisasterRecoveryMethod,omitempty"`
-    DisasterRecoveryUrl *string `json:"DisasterRecoveryUrl,omitempty"`
-    DomainName *string `json:"DomainName,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Secure *bool `json:"Secure,omitempty"`
-    TransferMode *string `json:"TransferMode,omitempty"`
+	CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
+	DisasterRecoveryMethod *string `json:"DisasterRecoveryMethod,omitempty"`
+	DisasterRecoveryUrl *string `json:"DisasterRecoveryUrl,omitempty"`
+	DomainName *string `json:"DomainName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Secure *bool `json:"Secure,omitempty"`
+	TransferMode *string `json:"TransferMode,omitempty"`
 }
 
 /*
@@ -892,46 +890,46 @@ UpdateTrunk Method for UpdateTrunk
 @return TrunkingV1Trunk
 */
 func (c *DefaultApiService) UpdateTrunk(sid string, params *UpdateTrunkParams) (*TrunkingV1Trunk, error) {
-    path := "/v1/Trunks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Trunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CnamLookupEnabled != nil {
-        data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
-    }
-    if params != nil && params.DisasterRecoveryMethod != nil {
-        data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
-    }
-    if params != nil && params.DisasterRecoveryUrl != nil {
-        data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
-    }
-    if params != nil && params.DomainName != nil {
-        data.Set("DomainName", *params.DomainName)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Secure != nil {
-        data.Set("Secure", string(*params.Secure))
-    }
-    if params != nil && params.TransferMode != nil {
-        data.Set("TransferMode", *params.TransferMode)
-    }
+	if params != nil && params.CnamLookupEnabled != nil {
+		data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
+	}
+	if params != nil && params.DisasterRecoveryMethod != nil {
+		data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
+	}
+	if params != nil && params.DisasterRecoveryUrl != nil {
+		data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
+	}
+	if params != nil && params.DomainName != nil {
+		data.Set("DomainName", *params.DomainName)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", string(*params.Secure))
+	}
+	if params != nil && params.TransferMode != nil {
+		data.Set("TransferMode", *params.TransferMode)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &TrunkingV1Trunk{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &TrunkingV1Trunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

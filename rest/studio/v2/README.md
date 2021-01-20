@@ -32,7 +32,6 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**CreateExecution**](docs/DefaultApi.md#createexecution) | **Post** /v2/Flows/{FlowSid}/Executions | 
-*DefaultApi* | [**CreateFlow**](docs/DefaultApi.md#createflow) | **Post** /v2/Flows | 
 *DefaultApi* | [**DeleteExecution**](docs/DefaultApi.md#deleteexecution) | **Delete** /v2/Flows/{FlowSid}/Executions/{Sid} | 
 *DefaultApi* | [**DeleteFlow**](docs/DefaultApi.md#deleteflow) | **Delete** /v2/Flows/{Sid} | 
 *DefaultApi* | [**FetchExecution**](docs/DefaultApi.md#fetchexecution) | **Get** /v2/Flows/{FlowSid}/Executions/{Sid} | 
@@ -44,12 +43,13 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**FetchTestUser**](docs/DefaultApi.md#fetchtestuser) | **Get** /v2/Flows/{Sid}/TestUsers | 
 *DefaultApi* | [**ListExecution**](docs/DefaultApi.md#listexecution) | **Get** /v2/Flows/{FlowSid}/Executions | 
 *DefaultApi* | [**ListExecutionStep**](docs/DefaultApi.md#listexecutionstep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | 
-*DefaultApi* | [**ListFlow**](docs/DefaultApi.md#listflow) | **Get** /v2/Flows | 
 *DefaultApi* | [**ListFlowRevision**](docs/DefaultApi.md#listflowrevision) | **Get** /v2/Flows/{Sid}/Revisions | 
 *DefaultApi* | [**UpdateExecution**](docs/DefaultApi.md#updateexecution) | **Post** /v2/Flows/{FlowSid}/Executions/{Sid} | 
 *DefaultApi* | [**UpdateFlow**](docs/DefaultApi.md#updateflow) | **Post** /v2/Flows/{Sid} | 
 *DefaultApi* | [**UpdateFlowValidate**](docs/DefaultApi.md#updateflowvalidate) | **Post** /v2/Flows/Validate | 
 *DefaultApi* | [**UpdateTestUser**](docs/DefaultApi.md#updatetestuser) | **Post** /v2/Flows/{Sid}/TestUsers | 
+*FlowsApi* | [**CreateFlow**](docs/FlowsApi.md#createflow) | **Post** /v2/Flows | 
+*FlowsApi* | [**ListFlow**](docs/FlowsApi.md#listflow) | **Get** /v2/Flows | 
 
 
 ## Documentation For Models

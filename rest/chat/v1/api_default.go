@@ -13,30 +13,27 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
-    "reflect"
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateChannelParams Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Type *string `json:"Type,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Type *string `json:"Type,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -50,49 +47,49 @@ CreateChannel Method for CreateChannel
 @return ChatV1ServiceChannel
 */
 func (c *DefaultApiService) CreateChannel(serviceSid string, params *CreateChannelParams) (*ChatV1ServiceChannel, error) {
-    path := "/v1/Services/{ServiceSid}/Channels"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCredentialParams Optional parameters for the method 'CreateCredential'
 type CreateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -108,52 +105,52 @@ CreateCredential Method for CreateCredential
 @return ChatV1Credential
 */
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*ChatV1Credential, error) {
-    path := "/v1/Credentials"
+	path := "/v1/Credentials"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiKey != nil {
-        data.Set("ApiKey", *params.ApiKey)
-    }
-    if params != nil && params.Certificate != nil {
-        data.Set("Certificate", *params.Certificate)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PrivateKey != nil {
-        data.Set("PrivateKey", *params.PrivateKey)
-    }
-    if params != nil && params.Sandbox != nil {
-        data.Set("Sandbox", string(*params.Sandbox))
-    }
-    if params != nil && params.Secret != nil {
-        data.Set("Secret", *params.Secret)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", string(*params.Sandbox))
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateInviteParams Optional parameters for the method 'CreateInvite'
 type CreateInviteParams struct {
-    Identity *string `json:"Identity,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -166,39 +163,39 @@ CreateInvite Method for CreateInvite
 @return ChatV1ServiceChannelInvite
 */
 func (c *DefaultApiService) CreateInvite(serviceSid string, channelSid string, params *CreateInviteParams) (*ChatV1ServiceChannelInvite, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelInvite{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelInvite{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateMemberParams Optional parameters for the method 'CreateMember'
 type CreateMemberParams struct {
-    Identity *string `json:"Identity,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -211,40 +208,40 @@ CreateMember Method for CreateMember
 @return ChatV1ServiceChannelMember
 */
 func (c *DefaultApiService) CreateMember(serviceSid string, channelSid string, params *CreateMemberParams) (*ChatV1ServiceChannelMember, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelMember{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelMember{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateMessageParams Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
-    Attributes *string `json:"Attributes,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    From *string `json:"From,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	From *string `json:"From,omitempty"`
 }
 
 /*
@@ -258,43 +255,43 @@ CreateMessage Method for CreateMessage
 @return ChatV1ServiceChannelMessage
 */
 func (c *DefaultApiService) CreateMessage(serviceSid string, channelSid string, params *CreateMessageParams) (*ChatV1ServiceChannelMessage, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateRoleParams Optional parameters for the method 'CreateRole'
 type CreateRoleParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Permission *[]string `json:"Permission,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -307,40 +304,40 @@ CreateRole Method for CreateRole
 @return ChatV1ServiceRole
 */
 func (c *DefaultApiService) CreateRole(serviceSid string, params *CreateRoleParams) (*ChatV1ServiceRole, error) {
-    path := "/v1/Services/{ServiceSid}/Roles"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Roles"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Permission != nil {
-        data.Set("Permission", *params.Permission)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Permission != nil {
+		data.Set("Permission", *params.Permission)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceRole{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceRole{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -350,36 +347,36 @@ CreateService Method for CreateService
 @return ChatV1Service
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ChatV1Service, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateUserParams Optional parameters for the method 'CreateUser'
 type CreateUserParams struct {
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -393,39 +390,39 @@ CreateUser Method for CreateUser
 @return ChatV1ServiceUser
 */
 func (c *DefaultApiService) CreateUser(serviceSid string, params *CreateUserParams) (*ChatV1ServiceUser, error) {
-    path := "/v1/Services/{ServiceSid}/Users"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Users"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -434,23 +431,23 @@ DeleteChannel Method for DeleteChannel
  * @param sid The Twilio-provided string that uniquely identifies the Channel resource to delete.
 */
 func (c *DefaultApiService) DeleteChannel(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -458,22 +455,22 @@ DeleteCredential Method for DeleteCredential
  * @param sid The Twilio-provided string that uniquely identifies the Credential resource to delete.
 */
 func (c *DefaultApiService) DeleteCredential(sid string) (error) {
-    path := "/v1/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -483,24 +480,24 @@ DeleteInvite Method for DeleteInvite
  * @param sid The Twilio-provided string that uniquely identifies the Invite resource to delete.
 */
 func (c *DefaultApiService) DeleteInvite(serviceSid string, channelSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -510,24 +507,24 @@ DeleteMember Method for DeleteMember
  * @param sid The Twilio-provided string that uniquely identifies the Member resource to delete.
 */
 func (c *DefaultApiService) DeleteMember(serviceSid string, channelSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -537,24 +534,24 @@ DeleteMessage Method for DeleteMessage
  * @param sid The Twilio-provided string that uniquely identifies the Message resource to delete.
 */
 func (c *DefaultApiService) DeleteMessage(serviceSid string, channelSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -563,23 +560,23 @@ DeleteRole Method for DeleteRole
  * @param sid The Twilio-provided string that uniquely identifies the Role resource to delete.
 */
 func (c *DefaultApiService) DeleteRole(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -587,22 +584,22 @@ DeleteService Method for DeleteService
  * @param sid The Twilio-provided string that uniquely identifies the Service resource to delete.
 */
 func (c *DefaultApiService) DeleteService(sid string) (error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -611,23 +608,23 @@ DeleteUser Method for DeleteUser
  * @param sid The Twilio-provided string that uniquely identifies the User resource to delete.
 */
 func (c *DefaultApiService) DeleteUser(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Users/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -637,28 +634,28 @@ FetchChannel Method for FetchChannel
 @return ChatV1ServiceChannel
 */
 func (c *DefaultApiService) FetchChannel(serviceSid string, sid string) (*ChatV1ServiceChannel, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -667,27 +664,27 @@ FetchCredential Method for FetchCredential
 @return ChatV1Credential
 */
 func (c *DefaultApiService) FetchCredential(sid string) (*ChatV1Credential, error) {
-    path := "/v1/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -698,29 +695,29 @@ FetchInvite Method for FetchInvite
 @return ChatV1ServiceChannelInvite
 */
 func (c *DefaultApiService) FetchInvite(serviceSid string, channelSid string, sid string) (*ChatV1ServiceChannelInvite, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelInvite{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelInvite{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -731,29 +728,29 @@ FetchMember Method for FetchMember
 @return ChatV1ServiceChannelMember
 */
 func (c *DefaultApiService) FetchMember(serviceSid string, channelSid string, sid string) (*ChatV1ServiceChannelMember, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelMember{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelMember{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -764,29 +761,29 @@ FetchMessage Method for FetchMessage
 @return ChatV1ServiceChannelMessage
 */
 func (c *DefaultApiService) FetchMessage(serviceSid string, channelSid string, sid string) (*ChatV1ServiceChannelMessage, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -796,28 +793,28 @@ FetchRole Method for FetchRole
 @return ChatV1ServiceRole
 */
 func (c *DefaultApiService) FetchRole(serviceSid string, sid string) (*ChatV1ServiceRole, error) {
-    path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceRole{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceRole{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -826,27 +823,27 @@ FetchService Method for FetchService
 @return ChatV1Service
 */
 func (c *DefaultApiService) FetchService(sid string) (*ChatV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -856,33 +853,33 @@ FetchUser Method for FetchUser
 @return ChatV1ServiceUser
 */
 func (c *DefaultApiService) FetchUser(serviceSid string, sid string) (*ChatV1ServiceUser, error) {
-    path := "/v1/Services/{ServiceSid}/Users/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListChannelParams Optional parameters for the method 'ListChannel'
 type ListChannelParams struct {
-    Type *[]string `json:"Type,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Type *[]string `json:"Type,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -894,37 +891,37 @@ ListChannel Method for ListChannel
 @return ChatV1ServiceChannelReadResponse
 */
 func (c *DefaultApiService) ListChannel(serviceSid string, params *ListChannelParams) (*ChatV1ServiceChannelReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Channels"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Type != nil {
-        data.Set("Type", string(*params.Type))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Type != nil {
+		data.Set("Type", string(*params.Type))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCredentialParams Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -934,34 +931,34 @@ ListCredential Method for ListCredential
 @return ChatV1CredentialReadResponse
 */
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ChatV1CredentialReadResponse, error) {
-    path := "/v1/Credentials"
+	path := "/v1/Credentials"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1CredentialReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1CredentialReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListInviteParams Optional parameters for the method 'ListInvite'
 type ListInviteParams struct {
-    Identity *[]string `json:"Identity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -974,39 +971,39 @@ ListInvite Method for ListInvite
 @return ChatV1ServiceChannelInviteReadResponse
 */
 func (c *DefaultApiService) ListInvite(serviceSid string, channelSid string, params *ListInviteParams) (*ChatV1ServiceChannelInviteReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", string(*params.Identity))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", string(*params.Identity))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelInviteReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelInviteReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListMemberParams Optional parameters for the method 'ListMember'
 type ListMemberParams struct {
-    Identity *[]string `json:"Identity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1019,39 +1016,39 @@ ListMember Method for ListMember
 @return ChatV1ServiceChannelMemberReadResponse
 */
 func (c *DefaultApiService) ListMember(serviceSid string, channelSid string, params *ListMemberParams) (*ChatV1ServiceChannelMemberReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", string(*params.Identity))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", string(*params.Identity))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelMemberReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelMemberReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListMessageParams Optional parameters for the method 'ListMessage'
 type ListMessageParams struct {
-    Order *string `json:"Order,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Order *string `json:"Order,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1064,38 +1061,38 @@ ListMessage Method for ListMessage
 @return ChatV1ServiceChannelMessageReadResponse
 */
 func (c *DefaultApiService) ListMessage(serviceSid string, channelSid string, params *ListMessageParams) (*ChatV1ServiceChannelMessageReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Order != nil {
-        data.Set("Order", *params.Order)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Order != nil {
+		data.Set("Order", *params.Order)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelMessageReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelMessageReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRoleParams Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1106,34 +1103,34 @@ ListRole Method for ListRole
 @return ChatV1ServiceRoleReadResponse
 */
 func (c *DefaultApiService) ListRole(serviceSid string, params *ListRoleParams) (*ChatV1ServiceRoleReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Roles"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Roles"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceRoleReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceRoleReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1143,33 +1140,33 @@ ListService Method for ListService
 @return ChatV1ServiceReadResponse
 */
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ChatV1ServiceReadResponse, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUserParams Optional parameters for the method 'ListUser'
 type ListUserParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1180,34 +1177,34 @@ ListUser Method for ListUser
 @return ChatV1ServiceUserReadResponse
 */
 func (c *DefaultApiService) ListUser(serviceSid string, params *ListUserParams) (*ChatV1ServiceUserReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Users"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Users"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceUserReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceUserReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUserChannelParams Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1220,37 +1217,37 @@ List all Channels for a given User.
 @return ChatV1ServiceUserUserChannelReadResponse
 */
 func (c *DefaultApiService) ListUserChannel(serviceSid string, userSid string, params *ListUserChannelParams) (*ChatV1ServiceUserUserChannelReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
+	path := "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceUserUserChannelReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceUserUserChannelReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateChannelParams Optional parameters for the method 'UpdateChannel'
 type UpdateChannelParams struct {
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1264,46 +1261,46 @@ UpdateChannel Method for UpdateChannel
 @return ChatV1ServiceChannel
 */
 func (c *DefaultApiService) UpdateChannel(serviceSid string, sid string, params *UpdateChannelParams) (*ChatV1ServiceChannel, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateCredentialParams Optional parameters for the method 'UpdateCredential'
 type UpdateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
 }
 
 /*
@@ -1319,50 +1316,50 @@ UpdateCredential Method for UpdateCredential
 @return ChatV1Credential
 */
 func (c *DefaultApiService) UpdateCredential(sid string, params *UpdateCredentialParams) (*ChatV1Credential, error) {
-    path := "/v1/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiKey != nil {
-        data.Set("ApiKey", *params.ApiKey)
-    }
-    if params != nil && params.Certificate != nil {
-        data.Set("Certificate", *params.Certificate)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PrivateKey != nil {
-        data.Set("PrivateKey", *params.PrivateKey)
-    }
-    if params != nil && params.Sandbox != nil {
-        data.Set("Sandbox", string(*params.Sandbox))
-    }
-    if params != nil && params.Secret != nil {
-        data.Set("Secret", *params.Secret)
-    }
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", string(*params.Sandbox))
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateMemberParams Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
-    LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -1376,40 +1373,40 @@ UpdateMember Method for UpdateMember
 @return ChatV1ServiceChannelMember
 */
 func (c *DefaultApiService) UpdateMember(serviceSid string, channelSid string, sid string, params *UpdateMemberParams) (*ChatV1ServiceChannelMember, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.LastConsumedMessageIndex != nil {
-        data.Set("LastConsumedMessageIndex", string(*params.LastConsumedMessageIndex))
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.LastConsumedMessageIndex != nil {
+		data.Set("LastConsumedMessageIndex", string(*params.LastConsumedMessageIndex))
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelMember{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelMember{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateMessageParams Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
-    Attributes *string `json:"Attributes,omitempty"`
-    Body *string `json:"Body,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Body *string `json:"Body,omitempty"`
 }
 
 /*
@@ -1423,39 +1420,39 @@ UpdateMessage Method for UpdateMessage
 @return ChatV1ServiceChannelMessage
 */
 func (c *DefaultApiService) UpdateMessage(serviceSid string, channelSid string, sid string, params *UpdateMessageParams) (*ChatV1ServiceChannelMessage, error) {
-    path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceChannelMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceChannelMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRoleParams Optional parameters for the method 'UpdateRole'
 type UpdateRoleParams struct {
-    Permission *[]string `json:"Permission,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
 }
 
 /*
@@ -1467,88 +1464,88 @@ UpdateRole Method for UpdateRole
 @return ChatV1ServiceRole
 */
 func (c *DefaultApiService) UpdateRole(serviceSid string, sid string, params *UpdateRoleParams) (*ChatV1ServiceRole, error) {
-    path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Permission != nil {
-        data.Set("Permission", *params.Permission)
-    }
+	if params != nil && params.Permission != nil {
+		data.Set("Permission", *params.Permission)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceRole{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceRole{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-    ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
-    DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
-    DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
-    DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Limits.ChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
-    Limits.UserChannels *int32 `json:"Limits.UserChannels,omitempty"`
-    Notifications.AddedToChannel.Enabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
-    Notifications.AddedToChannel.Template *string `json:"Notifications.AddedToChannel.Template,omitempty"`
-    Notifications.InvitedToChannel.Enabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
-    Notifications.InvitedToChannel.Template *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
-    Notifications.NewMessage.Enabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
-    Notifications.NewMessage.Template *string `json:"Notifications.NewMessage.Template,omitempty"`
-    Notifications.RemovedFromChannel.Enabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
-    Notifications.RemovedFromChannel.Template *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
-    PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
-    PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
-    ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
-    ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
-    TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
-    WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
-    WebhookMethod *string `json:"WebhookMethod,omitempty"`
-    Webhooks.OnChannelAdd.Method *string `json:"Webhooks.OnChannelAdd.Method,omitempty"`
-    Webhooks.OnChannelAdd.Url *string `json:"Webhooks.OnChannelAdd.Url,omitempty"`
-    Webhooks.OnChannelAdded.Method *string `json:"Webhooks.OnChannelAdded.Method,omitempty"`
-    Webhooks.OnChannelAdded.Url *string `json:"Webhooks.OnChannelAdded.Url,omitempty"`
-    Webhooks.OnChannelDestroy.Method *string `json:"Webhooks.OnChannelDestroy.Method,omitempty"`
-    Webhooks.OnChannelDestroy.Url *string `json:"Webhooks.OnChannelDestroy.Url,omitempty"`
-    Webhooks.OnChannelDestroyed.Method *string `json:"Webhooks.OnChannelDestroyed.Method,omitempty"`
-    Webhooks.OnChannelDestroyed.Url *string `json:"Webhooks.OnChannelDestroyed.Url,omitempty"`
-    Webhooks.OnChannelUpdate.Method *string `json:"Webhooks.OnChannelUpdate.Method,omitempty"`
-    Webhooks.OnChannelUpdate.Url *string `json:"Webhooks.OnChannelUpdate.Url,omitempty"`
-    Webhooks.OnChannelUpdated.Method *string `json:"Webhooks.OnChannelUpdated.Method,omitempty"`
-    Webhooks.OnChannelUpdated.Url *string `json:"Webhooks.OnChannelUpdated.Url,omitempty"`
-    Webhooks.OnMemberAdd.Method *string `json:"Webhooks.OnMemberAdd.Method,omitempty"`
-    Webhooks.OnMemberAdd.Url *string `json:"Webhooks.OnMemberAdd.Url,omitempty"`
-    Webhooks.OnMemberAdded.Method *string `json:"Webhooks.OnMemberAdded.Method,omitempty"`
-    Webhooks.OnMemberAdded.Url *string `json:"Webhooks.OnMemberAdded.Url,omitempty"`
-    Webhooks.OnMemberRemove.Method *string `json:"Webhooks.OnMemberRemove.Method,omitempty"`
-    Webhooks.OnMemberRemove.Url *string `json:"Webhooks.OnMemberRemove.Url,omitempty"`
-    Webhooks.OnMemberRemoved.Method *string `json:"Webhooks.OnMemberRemoved.Method,omitempty"`
-    Webhooks.OnMemberRemoved.Url *string `json:"Webhooks.OnMemberRemoved.Url,omitempty"`
-    Webhooks.OnMessageRemove.Method *string `json:"Webhooks.OnMessageRemove.Method,omitempty"`
-    Webhooks.OnMessageRemove.Url *string `json:"Webhooks.OnMessageRemove.Url,omitempty"`
-    Webhooks.OnMessageRemoved.Method *string `json:"Webhooks.OnMessageRemoved.Method,omitempty"`
-    Webhooks.OnMessageRemoved.Url *string `json:"Webhooks.OnMessageRemoved.Url,omitempty"`
-    Webhooks.OnMessageSend.Method *string `json:"Webhooks.OnMessageSend.Method,omitempty"`
-    Webhooks.OnMessageSend.Url *string `json:"Webhooks.OnMessageSend.Url,omitempty"`
-    Webhooks.OnMessageSent.Method *string `json:"Webhooks.OnMessageSent.Method,omitempty"`
-    Webhooks.OnMessageSent.Url *string `json:"Webhooks.OnMessageSent.Url,omitempty"`
-    Webhooks.OnMessageUpdate.Method *string `json:"Webhooks.OnMessageUpdate.Method,omitempty"`
-    Webhooks.OnMessageUpdate.Url *string `json:"Webhooks.OnMessageUpdate.Url,omitempty"`
-    Webhooks.OnMessageUpdated.Method *string `json:"Webhooks.OnMessageUpdated.Method,omitempty"`
-    Webhooks.OnMessageUpdated.Url *string `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
+	ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
+	DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
+	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
+	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Limits.ChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	Limits.UserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	Notifications.AddedToChannel.Enabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	Notifications.AddedToChannel.Template *string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	Notifications.InvitedToChannel.Enabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	Notifications.InvitedToChannel.Template *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	Notifications.NewMessage.Enabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	Notifications.NewMessage.Template *string `json:"Notifications.NewMessage.Template,omitempty"`
+	Notifications.RemovedFromChannel.Enabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	Notifications.RemovedFromChannel.Template *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
+	ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
+	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
+	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	Webhooks.OnChannelAdd.Method *string `json:"Webhooks.OnChannelAdd.Method,omitempty"`
+	Webhooks.OnChannelAdd.Url *string `json:"Webhooks.OnChannelAdd.Url,omitempty"`
+	Webhooks.OnChannelAdded.Method *string `json:"Webhooks.OnChannelAdded.Method,omitempty"`
+	Webhooks.OnChannelAdded.Url *string `json:"Webhooks.OnChannelAdded.Url,omitempty"`
+	Webhooks.OnChannelDestroy.Method *string `json:"Webhooks.OnChannelDestroy.Method,omitempty"`
+	Webhooks.OnChannelDestroy.Url *string `json:"Webhooks.OnChannelDestroy.Url,omitempty"`
+	Webhooks.OnChannelDestroyed.Method *string `json:"Webhooks.OnChannelDestroyed.Method,omitempty"`
+	Webhooks.OnChannelDestroyed.Url *string `json:"Webhooks.OnChannelDestroyed.Url,omitempty"`
+	Webhooks.OnChannelUpdate.Method *string `json:"Webhooks.OnChannelUpdate.Method,omitempty"`
+	Webhooks.OnChannelUpdate.Url *string `json:"Webhooks.OnChannelUpdate.Url,omitempty"`
+	Webhooks.OnChannelUpdated.Method *string `json:"Webhooks.OnChannelUpdated.Method,omitempty"`
+	Webhooks.OnChannelUpdated.Url *string `json:"Webhooks.OnChannelUpdated.Url,omitempty"`
+	Webhooks.OnMemberAdd.Method *string `json:"Webhooks.OnMemberAdd.Method,omitempty"`
+	Webhooks.OnMemberAdd.Url *string `json:"Webhooks.OnMemberAdd.Url,omitempty"`
+	Webhooks.OnMemberAdded.Method *string `json:"Webhooks.OnMemberAdded.Method,omitempty"`
+	Webhooks.OnMemberAdded.Url *string `json:"Webhooks.OnMemberAdded.Url,omitempty"`
+	Webhooks.OnMemberRemove.Method *string `json:"Webhooks.OnMemberRemove.Method,omitempty"`
+	Webhooks.OnMemberRemove.Url *string `json:"Webhooks.OnMemberRemove.Url,omitempty"`
+	Webhooks.OnMemberRemoved.Method *string `json:"Webhooks.OnMemberRemoved.Method,omitempty"`
+	Webhooks.OnMemberRemoved.Url *string `json:"Webhooks.OnMemberRemoved.Url,omitempty"`
+	Webhooks.OnMessageRemove.Method *string `json:"Webhooks.OnMessageRemove.Method,omitempty"`
+	Webhooks.OnMessageRemove.Url *string `json:"Webhooks.OnMessageRemove.Url,omitempty"`
+	Webhooks.OnMessageRemoved.Method *string `json:"Webhooks.OnMessageRemoved.Method,omitempty"`
+	Webhooks.OnMessageRemoved.Url *string `json:"Webhooks.OnMessageRemoved.Url,omitempty"`
+	Webhooks.OnMessageSend.Method *string `json:"Webhooks.OnMessageSend.Method,omitempty"`
+	Webhooks.OnMessageSend.Url *string `json:"Webhooks.OnMessageSend.Url,omitempty"`
+	Webhooks.OnMessageSent.Method *string `json:"Webhooks.OnMessageSent.Method,omitempty"`
+	Webhooks.OnMessageSent.Url *string `json:"Webhooks.OnMessageSent.Url,omitempty"`
+	Webhooks.OnMessageUpdate.Method *string `json:"Webhooks.OnMessageUpdate.Method,omitempty"`
+	Webhooks.OnMessageUpdate.Url *string `json:"Webhooks.OnMessageUpdate.Url,omitempty"`
+	Webhooks.OnMessageUpdated.Method *string `json:"Webhooks.OnMessageUpdated.Method,omitempty"`
+	Webhooks.OnMessageUpdated.Url *string `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
 }
 
 /*
@@ -1612,195 +1609,195 @@ UpdateService Method for UpdateService
 @return ChatV1Service
 */
 func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*ChatV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ConsumptionReportInterval != nil {
-        data.Set("ConsumptionReportInterval", string(*params.ConsumptionReportInterval))
-    }
-    if params != nil && params.DefaultChannelCreatorRoleSid != nil {
-        data.Set("DefaultChannelCreatorRoleSid", *params.DefaultChannelCreatorRoleSid)
-    }
-    if params != nil && params.DefaultChannelRoleSid != nil {
-        data.Set("DefaultChannelRoleSid", *params.DefaultChannelRoleSid)
-    }
-    if params != nil && params.DefaultServiceRoleSid != nil {
-        data.Set("DefaultServiceRoleSid", *params.DefaultServiceRoleSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Limits.ChannelMembers != nil {
-        data.Set("Limits.ChannelMembers", string(*params.Limits.ChannelMembers))
-    }
-    if params != nil && params.Limits.UserChannels != nil {
-        data.Set("Limits.UserChannels", string(*params.Limits.UserChannels))
-    }
-    if params != nil && params.Notifications.AddedToChannel.Enabled != nil {
-        data.Set("Notifications.AddedToChannel.Enabled", string(*params.Notifications.AddedToChannel.Enabled))
-    }
-    if params != nil && params.Notifications.AddedToChannel.Template != nil {
-        data.Set("Notifications.AddedToChannel.Template", *params.Notifications.AddedToChannel.Template)
-    }
-    if params != nil && params.Notifications.InvitedToChannel.Enabled != nil {
-        data.Set("Notifications.InvitedToChannel.Enabled", string(*params.Notifications.InvitedToChannel.Enabled))
-    }
-    if params != nil && params.Notifications.InvitedToChannel.Template != nil {
-        data.Set("Notifications.InvitedToChannel.Template", *params.Notifications.InvitedToChannel.Template)
-    }
-    if params != nil && params.Notifications.NewMessage.Enabled != nil {
-        data.Set("Notifications.NewMessage.Enabled", string(*params.Notifications.NewMessage.Enabled))
-    }
-    if params != nil && params.Notifications.NewMessage.Template != nil {
-        data.Set("Notifications.NewMessage.Template", *params.Notifications.NewMessage.Template)
-    }
-    if params != nil && params.Notifications.RemovedFromChannel.Enabled != nil {
-        data.Set("Notifications.RemovedFromChannel.Enabled", string(*params.Notifications.RemovedFromChannel.Enabled))
-    }
-    if params != nil && params.Notifications.RemovedFromChannel.Template != nil {
-        data.Set("Notifications.RemovedFromChannel.Template", *params.Notifications.RemovedFromChannel.Template)
-    }
-    if params != nil && params.PostWebhookUrl != nil {
-        data.Set("PostWebhookUrl", *params.PostWebhookUrl)
-    }
-    if params != nil && params.PreWebhookUrl != nil {
-        data.Set("PreWebhookUrl", *params.PreWebhookUrl)
-    }
-    if params != nil && params.ReachabilityEnabled != nil {
-        data.Set("ReachabilityEnabled", string(*params.ReachabilityEnabled))
-    }
-    if params != nil && params.ReadStatusEnabled != nil {
-        data.Set("ReadStatusEnabled", string(*params.ReadStatusEnabled))
-    }
-    if params != nil && params.TypingIndicatorTimeout != nil {
-        data.Set("TypingIndicatorTimeout", string(*params.TypingIndicatorTimeout))
-    }
-    if params != nil && params.WebhookFilters != nil {
-        data.Set("WebhookFilters", *params.WebhookFilters)
-    }
-    if params != nil && params.WebhookMethod != nil {
-        data.Set("WebhookMethod", *params.WebhookMethod)
-    }
-    if params != nil && params.Webhooks.OnChannelAdd.Method != nil {
-        data.Set("Webhooks.OnChannelAdd.Method", *params.Webhooks.OnChannelAdd.Method)
-    }
-    if params != nil && params.Webhooks.OnChannelAdd.Url != nil {
-        data.Set("Webhooks.OnChannelAdd.Url", *params.Webhooks.OnChannelAdd.Url)
-    }
-    if params != nil && params.Webhooks.OnChannelAdded.Method != nil {
-        data.Set("Webhooks.OnChannelAdded.Method", *params.Webhooks.OnChannelAdded.Method)
-    }
-    if params != nil && params.Webhooks.OnChannelAdded.Url != nil {
-        data.Set("Webhooks.OnChannelAdded.Url", *params.Webhooks.OnChannelAdded.Url)
-    }
-    if params != nil && params.Webhooks.OnChannelDestroy.Method != nil {
-        data.Set("Webhooks.OnChannelDestroy.Method", *params.Webhooks.OnChannelDestroy.Method)
-    }
-    if params != nil && params.Webhooks.OnChannelDestroy.Url != nil {
-        data.Set("Webhooks.OnChannelDestroy.Url", *params.Webhooks.OnChannelDestroy.Url)
-    }
-    if params != nil && params.Webhooks.OnChannelDestroyed.Method != nil {
-        data.Set("Webhooks.OnChannelDestroyed.Method", *params.Webhooks.OnChannelDestroyed.Method)
-    }
-    if params != nil && params.Webhooks.OnChannelDestroyed.Url != nil {
-        data.Set("Webhooks.OnChannelDestroyed.Url", *params.Webhooks.OnChannelDestroyed.Url)
-    }
-    if params != nil && params.Webhooks.OnChannelUpdate.Method != nil {
-        data.Set("Webhooks.OnChannelUpdate.Method", *params.Webhooks.OnChannelUpdate.Method)
-    }
-    if params != nil && params.Webhooks.OnChannelUpdate.Url != nil {
-        data.Set("Webhooks.OnChannelUpdate.Url", *params.Webhooks.OnChannelUpdate.Url)
-    }
-    if params != nil && params.Webhooks.OnChannelUpdated.Method != nil {
-        data.Set("Webhooks.OnChannelUpdated.Method", *params.Webhooks.OnChannelUpdated.Method)
-    }
-    if params != nil && params.Webhooks.OnChannelUpdated.Url != nil {
-        data.Set("Webhooks.OnChannelUpdated.Url", *params.Webhooks.OnChannelUpdated.Url)
-    }
-    if params != nil && params.Webhooks.OnMemberAdd.Method != nil {
-        data.Set("Webhooks.OnMemberAdd.Method", *params.Webhooks.OnMemberAdd.Method)
-    }
-    if params != nil && params.Webhooks.OnMemberAdd.Url != nil {
-        data.Set("Webhooks.OnMemberAdd.Url", *params.Webhooks.OnMemberAdd.Url)
-    }
-    if params != nil && params.Webhooks.OnMemberAdded.Method != nil {
-        data.Set("Webhooks.OnMemberAdded.Method", *params.Webhooks.OnMemberAdded.Method)
-    }
-    if params != nil && params.Webhooks.OnMemberAdded.Url != nil {
-        data.Set("Webhooks.OnMemberAdded.Url", *params.Webhooks.OnMemberAdded.Url)
-    }
-    if params != nil && params.Webhooks.OnMemberRemove.Method != nil {
-        data.Set("Webhooks.OnMemberRemove.Method", *params.Webhooks.OnMemberRemove.Method)
-    }
-    if params != nil && params.Webhooks.OnMemberRemove.Url != nil {
-        data.Set("Webhooks.OnMemberRemove.Url", *params.Webhooks.OnMemberRemove.Url)
-    }
-    if params != nil && params.Webhooks.OnMemberRemoved.Method != nil {
-        data.Set("Webhooks.OnMemberRemoved.Method", *params.Webhooks.OnMemberRemoved.Method)
-    }
-    if params != nil && params.Webhooks.OnMemberRemoved.Url != nil {
-        data.Set("Webhooks.OnMemberRemoved.Url", *params.Webhooks.OnMemberRemoved.Url)
-    }
-    if params != nil && params.Webhooks.OnMessageRemove.Method != nil {
-        data.Set("Webhooks.OnMessageRemove.Method", *params.Webhooks.OnMessageRemove.Method)
-    }
-    if params != nil && params.Webhooks.OnMessageRemove.Url != nil {
-        data.Set("Webhooks.OnMessageRemove.Url", *params.Webhooks.OnMessageRemove.Url)
-    }
-    if params != nil && params.Webhooks.OnMessageRemoved.Method != nil {
-        data.Set("Webhooks.OnMessageRemoved.Method", *params.Webhooks.OnMessageRemoved.Method)
-    }
-    if params != nil && params.Webhooks.OnMessageRemoved.Url != nil {
-        data.Set("Webhooks.OnMessageRemoved.Url", *params.Webhooks.OnMessageRemoved.Url)
-    }
-    if params != nil && params.Webhooks.OnMessageSend.Method != nil {
-        data.Set("Webhooks.OnMessageSend.Method", *params.Webhooks.OnMessageSend.Method)
-    }
-    if params != nil && params.Webhooks.OnMessageSend.Url != nil {
-        data.Set("Webhooks.OnMessageSend.Url", *params.Webhooks.OnMessageSend.Url)
-    }
-    if params != nil && params.Webhooks.OnMessageSent.Method != nil {
-        data.Set("Webhooks.OnMessageSent.Method", *params.Webhooks.OnMessageSent.Method)
-    }
-    if params != nil && params.Webhooks.OnMessageSent.Url != nil {
-        data.Set("Webhooks.OnMessageSent.Url", *params.Webhooks.OnMessageSent.Url)
-    }
-    if params != nil && params.Webhooks.OnMessageUpdate.Method != nil {
-        data.Set("Webhooks.OnMessageUpdate.Method", *params.Webhooks.OnMessageUpdate.Method)
-    }
-    if params != nil && params.Webhooks.OnMessageUpdate.Url != nil {
-        data.Set("Webhooks.OnMessageUpdate.Url", *params.Webhooks.OnMessageUpdate.Url)
-    }
-    if params != nil && params.Webhooks.OnMessageUpdated.Method != nil {
-        data.Set("Webhooks.OnMessageUpdated.Method", *params.Webhooks.OnMessageUpdated.Method)
-    }
-    if params != nil && params.Webhooks.OnMessageUpdated.Url != nil {
-        data.Set("Webhooks.OnMessageUpdated.Url", *params.Webhooks.OnMessageUpdated.Url)
-    }
+	if params != nil && params.ConsumptionReportInterval != nil {
+		data.Set("ConsumptionReportInterval", string(*params.ConsumptionReportInterval))
+	}
+	if params != nil && params.DefaultChannelCreatorRoleSid != nil {
+		data.Set("DefaultChannelCreatorRoleSid", *params.DefaultChannelCreatorRoleSid)
+	}
+	if params != nil && params.DefaultChannelRoleSid != nil {
+		data.Set("DefaultChannelRoleSid", *params.DefaultChannelRoleSid)
+	}
+	if params != nil && params.DefaultServiceRoleSid != nil {
+		data.Set("DefaultServiceRoleSid", *params.DefaultServiceRoleSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Limits.ChannelMembers != nil {
+		data.Set("Limits.ChannelMembers", string(*params.Limits.ChannelMembers))
+	}
+	if params != nil && params.Limits.UserChannels != nil {
+		data.Set("Limits.UserChannels", string(*params.Limits.UserChannels))
+	}
+	if params != nil && params.Notifications.AddedToChannel.Enabled != nil {
+		data.Set("Notifications.AddedToChannel.Enabled", string(*params.Notifications.AddedToChannel.Enabled))
+	}
+	if params != nil && params.Notifications.AddedToChannel.Template != nil {
+		data.Set("Notifications.AddedToChannel.Template", *params.Notifications.AddedToChannel.Template)
+	}
+	if params != nil && params.Notifications.InvitedToChannel.Enabled != nil {
+		data.Set("Notifications.InvitedToChannel.Enabled", string(*params.Notifications.InvitedToChannel.Enabled))
+	}
+	if params != nil && params.Notifications.InvitedToChannel.Template != nil {
+		data.Set("Notifications.InvitedToChannel.Template", *params.Notifications.InvitedToChannel.Template)
+	}
+	if params != nil && params.Notifications.NewMessage.Enabled != nil {
+		data.Set("Notifications.NewMessage.Enabled", string(*params.Notifications.NewMessage.Enabled))
+	}
+	if params != nil && params.Notifications.NewMessage.Template != nil {
+		data.Set("Notifications.NewMessage.Template", *params.Notifications.NewMessage.Template)
+	}
+	if params != nil && params.Notifications.RemovedFromChannel.Enabled != nil {
+		data.Set("Notifications.RemovedFromChannel.Enabled", string(*params.Notifications.RemovedFromChannel.Enabled))
+	}
+	if params != nil && params.Notifications.RemovedFromChannel.Template != nil {
+		data.Set("Notifications.RemovedFromChannel.Template", *params.Notifications.RemovedFromChannel.Template)
+	}
+	if params != nil && params.PostWebhookUrl != nil {
+		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+	}
+	if params != nil && params.PreWebhookUrl != nil {
+		data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+	}
+	if params != nil && params.ReachabilityEnabled != nil {
+		data.Set("ReachabilityEnabled", string(*params.ReachabilityEnabled))
+	}
+	if params != nil && params.ReadStatusEnabled != nil {
+		data.Set("ReadStatusEnabled", string(*params.ReadStatusEnabled))
+	}
+	if params != nil && params.TypingIndicatorTimeout != nil {
+		data.Set("TypingIndicatorTimeout", string(*params.TypingIndicatorTimeout))
+	}
+	if params != nil && params.WebhookFilters != nil {
+		data.Set("WebhookFilters", *params.WebhookFilters)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+	if params != nil && params.Webhooks.OnChannelAdd.Method != nil {
+		data.Set("Webhooks.OnChannelAdd.Method", *params.Webhooks.OnChannelAdd.Method)
+	}
+	if params != nil && params.Webhooks.OnChannelAdd.Url != nil {
+		data.Set("Webhooks.OnChannelAdd.Url", *params.Webhooks.OnChannelAdd.Url)
+	}
+	if params != nil && params.Webhooks.OnChannelAdded.Method != nil {
+		data.Set("Webhooks.OnChannelAdded.Method", *params.Webhooks.OnChannelAdded.Method)
+	}
+	if params != nil && params.Webhooks.OnChannelAdded.Url != nil {
+		data.Set("Webhooks.OnChannelAdded.Url", *params.Webhooks.OnChannelAdded.Url)
+	}
+	if params != nil && params.Webhooks.OnChannelDestroy.Method != nil {
+		data.Set("Webhooks.OnChannelDestroy.Method", *params.Webhooks.OnChannelDestroy.Method)
+	}
+	if params != nil && params.Webhooks.OnChannelDestroy.Url != nil {
+		data.Set("Webhooks.OnChannelDestroy.Url", *params.Webhooks.OnChannelDestroy.Url)
+	}
+	if params != nil && params.Webhooks.OnChannelDestroyed.Method != nil {
+		data.Set("Webhooks.OnChannelDestroyed.Method", *params.Webhooks.OnChannelDestroyed.Method)
+	}
+	if params != nil && params.Webhooks.OnChannelDestroyed.Url != nil {
+		data.Set("Webhooks.OnChannelDestroyed.Url", *params.Webhooks.OnChannelDestroyed.Url)
+	}
+	if params != nil && params.Webhooks.OnChannelUpdate.Method != nil {
+		data.Set("Webhooks.OnChannelUpdate.Method", *params.Webhooks.OnChannelUpdate.Method)
+	}
+	if params != nil && params.Webhooks.OnChannelUpdate.Url != nil {
+		data.Set("Webhooks.OnChannelUpdate.Url", *params.Webhooks.OnChannelUpdate.Url)
+	}
+	if params != nil && params.Webhooks.OnChannelUpdated.Method != nil {
+		data.Set("Webhooks.OnChannelUpdated.Method", *params.Webhooks.OnChannelUpdated.Method)
+	}
+	if params != nil && params.Webhooks.OnChannelUpdated.Url != nil {
+		data.Set("Webhooks.OnChannelUpdated.Url", *params.Webhooks.OnChannelUpdated.Url)
+	}
+	if params != nil && params.Webhooks.OnMemberAdd.Method != nil {
+		data.Set("Webhooks.OnMemberAdd.Method", *params.Webhooks.OnMemberAdd.Method)
+	}
+	if params != nil && params.Webhooks.OnMemberAdd.Url != nil {
+		data.Set("Webhooks.OnMemberAdd.Url", *params.Webhooks.OnMemberAdd.Url)
+	}
+	if params != nil && params.Webhooks.OnMemberAdded.Method != nil {
+		data.Set("Webhooks.OnMemberAdded.Method", *params.Webhooks.OnMemberAdded.Method)
+	}
+	if params != nil && params.Webhooks.OnMemberAdded.Url != nil {
+		data.Set("Webhooks.OnMemberAdded.Url", *params.Webhooks.OnMemberAdded.Url)
+	}
+	if params != nil && params.Webhooks.OnMemberRemove.Method != nil {
+		data.Set("Webhooks.OnMemberRemove.Method", *params.Webhooks.OnMemberRemove.Method)
+	}
+	if params != nil && params.Webhooks.OnMemberRemove.Url != nil {
+		data.Set("Webhooks.OnMemberRemove.Url", *params.Webhooks.OnMemberRemove.Url)
+	}
+	if params != nil && params.Webhooks.OnMemberRemoved.Method != nil {
+		data.Set("Webhooks.OnMemberRemoved.Method", *params.Webhooks.OnMemberRemoved.Method)
+	}
+	if params != nil && params.Webhooks.OnMemberRemoved.Url != nil {
+		data.Set("Webhooks.OnMemberRemoved.Url", *params.Webhooks.OnMemberRemoved.Url)
+	}
+	if params != nil && params.Webhooks.OnMessageRemove.Method != nil {
+		data.Set("Webhooks.OnMessageRemove.Method", *params.Webhooks.OnMessageRemove.Method)
+	}
+	if params != nil && params.Webhooks.OnMessageRemove.Url != nil {
+		data.Set("Webhooks.OnMessageRemove.Url", *params.Webhooks.OnMessageRemove.Url)
+	}
+	if params != nil && params.Webhooks.OnMessageRemoved.Method != nil {
+		data.Set("Webhooks.OnMessageRemoved.Method", *params.Webhooks.OnMessageRemoved.Method)
+	}
+	if params != nil && params.Webhooks.OnMessageRemoved.Url != nil {
+		data.Set("Webhooks.OnMessageRemoved.Url", *params.Webhooks.OnMessageRemoved.Url)
+	}
+	if params != nil && params.Webhooks.OnMessageSend.Method != nil {
+		data.Set("Webhooks.OnMessageSend.Method", *params.Webhooks.OnMessageSend.Method)
+	}
+	if params != nil && params.Webhooks.OnMessageSend.Url != nil {
+		data.Set("Webhooks.OnMessageSend.Url", *params.Webhooks.OnMessageSend.Url)
+	}
+	if params != nil && params.Webhooks.OnMessageSent.Method != nil {
+		data.Set("Webhooks.OnMessageSent.Method", *params.Webhooks.OnMessageSent.Method)
+	}
+	if params != nil && params.Webhooks.OnMessageSent.Url != nil {
+		data.Set("Webhooks.OnMessageSent.Url", *params.Webhooks.OnMessageSent.Url)
+	}
+	if params != nil && params.Webhooks.OnMessageUpdate.Method != nil {
+		data.Set("Webhooks.OnMessageUpdate.Method", *params.Webhooks.OnMessageUpdate.Method)
+	}
+	if params != nil && params.Webhooks.OnMessageUpdate.Url != nil {
+		data.Set("Webhooks.OnMessageUpdate.Url", *params.Webhooks.OnMessageUpdate.Url)
+	}
+	if params != nil && params.Webhooks.OnMessageUpdated.Method != nil {
+		data.Set("Webhooks.OnMessageUpdated.Method", *params.Webhooks.OnMessageUpdated.Method)
+	}
+	if params != nil && params.Webhooks.OnMessageUpdated.Url != nil {
+		data.Set("Webhooks.OnMessageUpdated.Url", *params.Webhooks.OnMessageUpdated.Url)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateUserParams Optional parameters for the method 'UpdateUser'
 type UpdateUserParams struct {
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -1814,35 +1811,35 @@ UpdateUser Method for UpdateUser
 @return ChatV1ServiceUser
 */
 func (c *DefaultApiService) UpdateUser(serviceSid string, sid string, params *UpdateUserParams) (*ChatV1ServiceUser, error) {
-    path := "/v1/Services/{ServiceSid}/Users/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ChatV1ServiceUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ChatV1ServiceUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

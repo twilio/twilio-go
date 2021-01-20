@@ -13,27 +13,25 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateMessageInteractionParams Optional parameters for the method 'CreateMessageInteraction'
 type CreateMessageInteractionParams struct {
-    Body *string `json:"Body,omitempty"`
-    MediaUrl *[]string `json:"MediaUrl,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	MediaUrl *[]string `json:"MediaUrl,omitempty"`
 }
 
 /*
@@ -48,43 +46,43 @@ Create a new message Interaction to send directly from your system to one [Parti
 @return ProxyV1ServiceSessionParticipantMessageInteraction
 */
 func (c *DefaultApiService) CreateMessageInteraction(serviceSid string, sessionSid string, participantSid string, params *CreateMessageInteractionParams) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-    path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.MediaUrl != nil {
-        data.Set("MediaUrl", *params.MediaUrl)
-    }
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.MediaUrl != nil {
+		data.Set("MediaUrl", *params.MediaUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSessionParticipantMessageInteraction{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSessionParticipantMessageInteraction{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateParticipantParams Optional parameters for the method 'CreateParticipant'
 type CreateParticipantParams struct {
-    FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Identifier *string `json:"Identifier,omitempty"`
-    ProxyIdentifier *string `json:"ProxyIdentifier,omitempty"`
-    ProxyIdentifierSid *string `json:"ProxyIdentifierSid,omitempty"`
+	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Identifier *string `json:"Identifier,omitempty"`
+	ProxyIdentifier *string `json:"ProxyIdentifier,omitempty"`
+	ProxyIdentifierSid *string `json:"ProxyIdentifierSid,omitempty"`
 }
 
 /*
@@ -101,49 +99,49 @@ Add a new Participant to the Session
 @return ProxyV1ServiceSessionParticipant
 */
 func (c *DefaultApiService) CreateParticipant(serviceSid string, sessionSid string, params *CreateParticipantParams) (*ProxyV1ServiceSessionParticipant, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FailOnParticipantConflict != nil {
-        data.Set("FailOnParticipantConflict", string(*params.FailOnParticipantConflict))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Identifier != nil {
-        data.Set("Identifier", *params.Identifier)
-    }
-    if params != nil && params.ProxyIdentifier != nil {
-        data.Set("ProxyIdentifier", *params.ProxyIdentifier)
-    }
-    if params != nil && params.ProxyIdentifierSid != nil {
-        data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid)
-    }
+	if params != nil && params.FailOnParticipantConflict != nil {
+		data.Set("FailOnParticipantConflict", string(*params.FailOnParticipantConflict))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Identifier != nil {
+		data.Set("Identifier", *params.Identifier)
+	}
+	if params != nil && params.ProxyIdentifier != nil {
+		data.Set("ProxyIdentifier", *params.ProxyIdentifier)
+	}
+	if params != nil && params.ProxyIdentifierSid != nil {
+		data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSessionParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSessionParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreatePhoneNumberParams Optional parameters for the method 'CreatePhoneNumber'
 type CreatePhoneNumberParams struct {
-    IsReserved *bool `json:"IsReserved,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    Sid *string `json:"Sid,omitempty"`
+	IsReserved *bool `json:"IsReserved,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Sid *string `json:"Sid,omitempty"`
 }
 
 /*
@@ -157,47 +155,47 @@ Add a Phone Number to a Service&#39;s Proxy Number Pool.
 @return ProxyV1ServicePhoneNumber
 */
 func (c *DefaultApiService) CreatePhoneNumber(serviceSid string, params *CreatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
-    path := "/v1/Services/{ServiceSid}/PhoneNumbers"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.IsReserved != nil {
-        data.Set("IsReserved", string(*params.IsReserved))
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.Sid != nil {
-        data.Set("Sid", *params.Sid)
-    }
+	if params != nil && params.IsReserved != nil {
+		data.Set("IsReserved", string(*params.IsReserved))
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.Sid != nil {
+		data.Set("Sid", *params.Sid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServicePhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServicePhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
-    DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
-    GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
-    InterceptCallbackUrl *string `json:"InterceptCallbackUrl,omitempty"`
-    NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
-    OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
+	DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
+	GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
+	InterceptCallbackUrl *string `json:"InterceptCallbackUrl,omitempty"`
+	NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
+	OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -215,60 +213,60 @@ Create a new Service for Twilio Proxy
 @return ProxyV1Service
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ProxyV1Service, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.ChatInstanceSid != nil {
-        data.Set("ChatInstanceSid", *params.ChatInstanceSid)
-    }
-    if params != nil && params.DefaultTtl != nil {
-        data.Set("DefaultTtl", string(*params.DefaultTtl))
-    }
-    if params != nil && params.GeoMatchLevel != nil {
-        data.Set("GeoMatchLevel", *params.GeoMatchLevel)
-    }
-    if params != nil && params.InterceptCallbackUrl != nil {
-        data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
-    }
-    if params != nil && params.NumberSelectionBehavior != nil {
-        data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
-    }
-    if params != nil && params.OutOfSessionCallbackUrl != nil {
-        data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.ChatInstanceSid != nil {
+		data.Set("ChatInstanceSid", *params.ChatInstanceSid)
+	}
+	if params != nil && params.DefaultTtl != nil {
+		data.Set("DefaultTtl", string(*params.DefaultTtl))
+	}
+	if params != nil && params.GeoMatchLevel != nil {
+		data.Set("GeoMatchLevel", *params.GeoMatchLevel)
+	}
+	if params != nil && params.InterceptCallbackUrl != nil {
+		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
+	}
+	if params != nil && params.NumberSelectionBehavior != nil {
+		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
+	}
+	if params != nil && params.OutOfSessionCallbackUrl != nil {
+		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSessionParams Optional parameters for the method 'CreateSession'
 type CreateSessionParams struct {
-    DateExpiry *time.Time `json:"DateExpiry,omitempty"`
-    FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
-    Mode *string `json:"Mode,omitempty"`
-    Participants *[]map[string]interface{} `json:"Participants,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	DateExpiry *time.Time `json:"DateExpiry,omitempty"`
+	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
+	Mode *string `json:"Mode,omitempty"`
+	Participants *[]map[string]interface{} `json:"Participants,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -286,58 +284,58 @@ Create a new Session
 @return ProxyV1ServiceSession
 */
 func (c *DefaultApiService) CreateSession(serviceSid string, params *CreateSessionParams) (*ProxyV1ServiceSession, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DateExpiry != nil {
-        data.Set("DateExpiry", string(*params.DateExpiry))
-    }
-    if params != nil && params.FailOnParticipantConflict != nil {
-        data.Set("FailOnParticipantConflict", string(*params.FailOnParticipantConflict))
-    }
-    if params != nil && params.Mode != nil {
-        data.Set("Mode", *params.Mode)
-    }
-    if params != nil && params.Participants != nil {
-        v, err := json.Marshal(params.Participants)
+	if params != nil && params.DateExpiry != nil {
+		data.Set("DateExpiry", string(*params.DateExpiry))
+	}
+	if params != nil && params.FailOnParticipantConflict != nil {
+		data.Set("FailOnParticipantConflict", string(*params.FailOnParticipantConflict))
+	}
+	if params != nil && params.Mode != nil {
+		data.Set("Mode", *params.Mode)
+	}
+	if params != nil && params.Participants != nil {
+		v, err := json.Marshal(params.Participants)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Participants", string(v))
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("Participants", string(v))
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSession{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSession{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateShortCodeParams Optional parameters for the method 'CreateShortCode'
 type CreateShortCodeParams struct {
-    Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"Sid,omitempty"`
 }
 
 /*
@@ -349,30 +347,30 @@ Add a Short Code to the Proxy Number Pool for the Service.
 @return ProxyV1ServiceShortCode
 */
 func (c *DefaultApiService) CreateShortCode(serviceSid string, params *CreateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
-    path := "/v1/Services/{ServiceSid}/ShortCodes"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/ShortCodes"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Sid != nil {
-        data.Set("Sid", *params.Sid)
-    }
+	if params != nil && params.Sid != nil {
+		data.Set("Sid", *params.Sid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceShortCode{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -383,24 +381,24 @@ Delete a specific Interaction.
  * @param sid The Twilio-provided string that uniquely identifies the Interaction resource to delete.
 */
 func (c *DefaultApiService) DeleteInteraction(serviceSid string, sessionSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -411,24 +409,24 @@ Delete a specific Participant. This is a soft-delete. The participant remains as
  * @param sid The Twilio-provided string that uniquely identifies the Participant resource to delete.
 */
 func (c *DefaultApiService) DeleteParticipant(serviceSid string, sessionSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -438,23 +436,23 @@ Delete a specific Phone Number from a Service.
  * @param sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to delete.
 */
 func (c *DefaultApiService) DeletePhoneNumber(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -463,22 +461,22 @@ Delete a specific Service.
  * @param sid The Twilio-provided string that uniquely identifies the Service resource to delete.
 */
 func (c *DefaultApiService) DeleteService(sid string) (error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -488,23 +486,23 @@ Delete a specific Session.
  * @param sid The Twilio-provided string that uniquely identifies the Session resource to delete.
 */
 func (c *DefaultApiService) DeleteSession(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -514,23 +512,23 @@ Delete a specific Short Code from a Service.
  * @param sid The Twilio-provided string that uniquely identifies the ShortCode resource to delete.
 */
 func (c *DefaultApiService) DeleteShortCode(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -542,29 +540,29 @@ Retrieve a list of Interactions for a given [Session](https://www.twilio.com/doc
 @return ProxyV1ServiceSessionInteraction
 */
 func (c *DefaultApiService) FetchInteraction(serviceSid string, sessionSid string, sid string) (*ProxyV1ServiceSessionInteraction, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSessionInteraction{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSessionInteraction{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -576,30 +574,30 @@ FetchMessageInteraction Method for FetchMessageInteraction
 @return ProxyV1ServiceSessionParticipantMessageInteraction
 */
 func (c *DefaultApiService) FetchMessageInteraction(serviceSid string, sessionSid string, participantSid string, sid string) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-    path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSessionParticipantMessageInteraction{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSessionParticipantMessageInteraction{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -611,29 +609,29 @@ Fetch a specific Participant.
 @return ProxyV1ServiceSessionParticipant
 */
 func (c *DefaultApiService) FetchParticipant(serviceSid string, sessionSid string, sid string) (*ProxyV1ServiceSessionParticipant, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSessionParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSessionParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -644,28 +642,28 @@ Fetch a specific Phone Number.
 @return ProxyV1ServicePhoneNumber
 */
 func (c *DefaultApiService) FetchPhoneNumber(serviceSid string, sid string) (*ProxyV1ServicePhoneNumber, error) {
-    path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServicePhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServicePhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -675,27 +673,27 @@ Fetch a specific Service.
 @return ProxyV1Service
 */
 func (c *DefaultApiService) FetchService(sid string) (*ProxyV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -706,28 +704,28 @@ Fetch a specific Session.
 @return ProxyV1ServiceSession
 */
 func (c *DefaultApiService) FetchSession(serviceSid string, sid string) (*ProxyV1ServiceSession, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSession{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSession{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -738,32 +736,32 @@ Fetch a specific Short Code.
 @return ProxyV1ServiceShortCode
 */
 func (c *DefaultApiService) FetchShortCode(serviceSid string, sid string) (*ProxyV1ServiceShortCode, error) {
-    path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceShortCode{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListInteractionParams Optional parameters for the method 'ListInteraction'
 type ListInteractionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -776,35 +774,35 @@ Retrieve a list of all Interactions for a Session. A maximum of 100 records will
 @return ProxyV1ServiceSessionInteractionReadResponse
 */
 func (c *DefaultApiService) ListInteraction(serviceSid string, sessionSid string, params *ListInteractionParams) (*ProxyV1ServiceSessionInteractionReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSessionInteractionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSessionInteractionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListMessageInteractionParams Optional parameters for the method 'ListMessageInteraction'
 type ListMessageInteractionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -817,36 +815,36 @@ ListMessageInteraction Method for ListMessageInteraction
 @return ProxyV1ServiceSessionParticipantMessageInteractionReadResponse
 */
 func (c *DefaultApiService) ListMessageInteraction(serviceSid string, sessionSid string, participantSid string, params *ListMessageInteractionParams) (*ProxyV1ServiceSessionParticipantMessageInteractionReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-    path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSessionParticipantMessageInteractionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSessionParticipantMessageInteractionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListParticipantParams Optional parameters for the method 'ListParticipant'
 type ListParticipantParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -859,35 +857,35 @@ Retrieve a list of all Participants in a Session.
 @return ProxyV1ServiceSessionParticipantReadResponse
 */
 func (c *DefaultApiService) ListParticipant(serviceSid string, sessionSid string, params *ListParticipantParams) (*ProxyV1ServiceSessionParticipantReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSessionParticipantReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSessionParticipantReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListPhoneNumberParams Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -899,34 +897,34 @@ Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A m
 @return ProxyV1ServicePhoneNumberReadResponse
 */
 func (c *DefaultApiService) ListPhoneNumber(serviceSid string, params *ListPhoneNumberParams) (*ProxyV1ServicePhoneNumberReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/PhoneNumbers"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServicePhoneNumberReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServicePhoneNumberReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -937,33 +935,33 @@ Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will 
 @return ProxyV1ServiceReadResponse
 */
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ProxyV1ServiceReadResponse, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSessionParams Optional parameters for the method 'ListSession'
 type ListSessionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -975,34 +973,34 @@ Retrieve a list of all Sessions for the Service. A maximum of 100 records will b
 @return ProxyV1ServiceSessionReadResponse
 */
 func (c *DefaultApiService) ListSession(serviceSid string, params *ListSessionParams) (*ProxyV1ServiceSessionReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSessionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSessionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListShortCodeParams Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1014,34 +1012,34 @@ Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A m
 @return ProxyV1ServiceShortCodeReadResponse
 */
 func (c *DefaultApiService) ListShortCode(serviceSid string, params *ListShortCodeParams) (*ProxyV1ServiceShortCodeReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/ShortCodes"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/ShortCodes"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceShortCodeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceShortCodeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdatePhoneNumberParams Optional parameters for the method 'UpdatePhoneNumber'
 type UpdatePhoneNumberParams struct {
-    IsReserved *bool `json:"IsReserved,omitempty"`
+	IsReserved *bool `json:"IsReserved,omitempty"`
 }
 
 /*
@@ -1054,42 +1052,42 @@ Update a specific Proxy Number.
 @return ProxyV1ServicePhoneNumber
 */
 func (c *DefaultApiService) UpdatePhoneNumber(serviceSid string, sid string, params *UpdatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
-    path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.IsReserved != nil {
-        data.Set("IsReserved", string(*params.IsReserved))
-    }
+	if params != nil && params.IsReserved != nil {
+		data.Set("IsReserved", string(*params.IsReserved))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServicePhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServicePhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
-    DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
-    GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
-    InterceptCallbackUrl *string `json:"InterceptCallbackUrl,omitempty"`
-    NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
-    OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
+	DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
+	GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
+	InterceptCallbackUrl *string `json:"InterceptCallbackUrl,omitempty"`
+	NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
+	OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1108,58 +1106,58 @@ Update a specific Service.
 @return ProxyV1Service
 */
 func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*ProxyV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.ChatInstanceSid != nil {
-        data.Set("ChatInstanceSid", *params.ChatInstanceSid)
-    }
-    if params != nil && params.DefaultTtl != nil {
-        data.Set("DefaultTtl", string(*params.DefaultTtl))
-    }
-    if params != nil && params.GeoMatchLevel != nil {
-        data.Set("GeoMatchLevel", *params.GeoMatchLevel)
-    }
-    if params != nil && params.InterceptCallbackUrl != nil {
-        data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
-    }
-    if params != nil && params.NumberSelectionBehavior != nil {
-        data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
-    }
-    if params != nil && params.OutOfSessionCallbackUrl != nil {
-        data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.ChatInstanceSid != nil {
+		data.Set("ChatInstanceSid", *params.ChatInstanceSid)
+	}
+	if params != nil && params.DefaultTtl != nil {
+		data.Set("DefaultTtl", string(*params.DefaultTtl))
+	}
+	if params != nil && params.GeoMatchLevel != nil {
+		data.Set("GeoMatchLevel", *params.GeoMatchLevel)
+	}
+	if params != nil && params.InterceptCallbackUrl != nil {
+		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
+	}
+	if params != nil && params.NumberSelectionBehavior != nil {
+		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
+	}
+	if params != nil && params.OutOfSessionCallbackUrl != nil {
+		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSessionParams Optional parameters for the method 'UpdateSession'
 type UpdateSessionParams struct {
-    DateExpiry *time.Time `json:"DateExpiry,omitempty"`
-    FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	DateExpiry *time.Time `json:"DateExpiry,omitempty"`
+	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -1175,44 +1173,44 @@ Update a specific Session.
 @return ProxyV1ServiceSession
 */
 func (c *DefaultApiService) UpdateSession(serviceSid string, sid string, params *UpdateSessionParams) (*ProxyV1ServiceSession, error) {
-    path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DateExpiry != nil {
-        data.Set("DateExpiry", string(*params.DateExpiry))
-    }
-    if params != nil && params.FailOnParticipantConflict != nil {
-        data.Set("FailOnParticipantConflict", string(*params.FailOnParticipantConflict))
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+	if params != nil && params.DateExpiry != nil {
+		data.Set("DateExpiry", string(*params.DateExpiry))
+	}
+	if params != nil && params.FailOnParticipantConflict != nil {
+		data.Set("FailOnParticipantConflict", string(*params.FailOnParticipantConflict))
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceSession{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceSession{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateShortCodeParams Optional parameters for the method 'UpdateShortCode'
 type UpdateShortCodeParams struct {
-    IsReserved *bool `json:"IsReserved,omitempty"`
+	IsReserved *bool `json:"IsReserved,omitempty"`
 }
 
 /*
@@ -1225,29 +1223,29 @@ Update a specific Short Code.
 @return ProxyV1ServiceShortCode
 */
 func (c *DefaultApiService) UpdateShortCode(serviceSid string, sid string, params *UpdateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
-    path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.IsReserved != nil {
-        data.Set("IsReserved", string(*params.IsReserved))
-    }
+	if params != nil && params.IsReserved != nil {
+		data.Set("IsReserved", string(*params.IsReserved))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ProxyV1ServiceShortCode{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ProxyV1ServiceShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

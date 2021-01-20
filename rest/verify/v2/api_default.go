@@ -13,27 +13,25 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateAccessTokenParams Optional parameters for the method 'CreateAccessToken'
 type CreateAccessTokenParams struct {
-    FactorType *string `json:"FactorType,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
+	FactorType *string `json:"FactorType,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
 }
 
 /*
@@ -46,38 +44,38 @@ Create a new enrollment Access Token for the Entity
 @return VerifyV2ServiceAccessToken
 */
 func (c *DefaultApiService) CreateAccessToken(serviceSid string, params *CreateAccessTokenParams) (*VerifyV2ServiceAccessToken, error) {
-    path := "/v2/Services/{ServiceSid}/AccessTokens"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/AccessTokens"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FactorType != nil {
-        data.Set("FactorType", *params.FactorType)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
+	if params != nil && params.FactorType != nil {
+		data.Set("FactorType", *params.FactorType)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceAccessToken{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceAccessToken{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateBucketParams Optional parameters for the method 'CreateBucket'
 type CreateBucketParams struct {
-    Interval *int32 `json:"Interval,omitempty"`
-    Max *int32 `json:"Max,omitempty"`
+	Interval *int32 `json:"Interval,omitempty"`
+	Max *int32 `json:"Max,omitempty"`
 }
 
 /*
@@ -91,42 +89,42 @@ Create a new Bucket for a Rate Limit
 @return VerifyV2ServiceRateLimitBucket
 */
 func (c *DefaultApiService) CreateBucket(serviceSid string, rateLimitSid string, params *CreateBucketParams) (*VerifyV2ServiceRateLimitBucket, error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Interval != nil {
-        data.Set("Interval", string(*params.Interval))
-    }
-    if params != nil && params.Max != nil {
-        data.Set("Max", string(*params.Max))
-    }
+	if params != nil && params.Interval != nil {
+		data.Set("Interval", string(*params.Interval))
+	}
+	if params != nil && params.Max != nil {
+		data.Set("Max", string(*params.Max))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceRateLimitBucket{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceRateLimitBucket{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateChallengeParams Optional parameters for the method 'CreateChallenge'
 type CreateChallengeParams struct {
-    Details.Fields *[]map[string]interface{} `json:"Details.Fields,omitempty"`
-    Details.Message *string `json:"Details.Message,omitempty"`
-    ExpirationDate *time.Time `json:"ExpirationDate,omitempty"`
-    FactorSid *string `json:"FactorSid,omitempty"`
-    HiddenDetails *map[string]interface{} `json:"HiddenDetails,omitempty"`
+	Details.Fields *[]map[string]interface{} `json:"Details.Fields,omitempty"`
+	Details.Message *string `json:"Details.Message,omitempty"`
+	ExpirationDate *time.Time `json:"ExpirationDate,omitempty"`
+	FactorSid *string `json:"FactorSid,omitempty"`
+	HiddenDetails *map[string]interface{} `json:"HiddenDetails,omitempty"`
 }
 
 /*
@@ -143,59 +141,59 @@ Create a new Challenge for the Factor
 @return VerifyV2ServiceEntityChallenge
 */
 func (c *DefaultApiService) CreateChallenge(serviceSid string, identity string, params *CreateChallengeParams) (*VerifyV2ServiceEntityChallenge, error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Details.Fields != nil {
-        v, err := json.Marshal(params.Details.Fields)
+	if params != nil && params.Details.Fields != nil {
+		v, err := json.Marshal(params.Details.Fields)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Details.Fields", string(v))
-    }
-    if params != nil && params.Details.Message != nil {
-        data.Set("Details.Message", *params.Details.Message)
-    }
-    if params != nil && params.ExpirationDate != nil {
-        data.Set("ExpirationDate", string(*params.ExpirationDate))
-    }
-    if params != nil && params.FactorSid != nil {
-        data.Set("FactorSid", *params.FactorSid)
-    }
-    if params != nil && params.HiddenDetails != nil {
-        v, err := json.Marshal(params.HiddenDetails)
+		data.Set("Details.Fields", string(v))
+	}
+	if params != nil && params.Details.Message != nil {
+		data.Set("Details.Message", *params.Details.Message)
+	}
+	if params != nil && params.ExpirationDate != nil {
+		data.Set("ExpirationDate", string(*params.ExpirationDate))
+	}
+	if params != nil && params.FactorSid != nil {
+		data.Set("FactorSid", *params.FactorSid)
+	}
+	if params != nil && params.HiddenDetails != nil {
+		v, err := json.Marshal(params.HiddenDetails)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("HiddenDetails", string(v))
-    }
+		data.Set("HiddenDetails", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntityChallenge{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntityChallenge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateEntityParams Optional parameters for the method 'CreateEntity'
 type CreateEntityParams struct {
-    Identity *string `json:"Identity,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
 }
 
 /*
@@ -207,41 +205,41 @@ Create a new Entity for the Service
 @return VerifyV2ServiceEntity
 */
 func (c *DefaultApiService) CreateEntity(serviceSid string, params *CreateEntityParams) (*VerifyV2ServiceEntity, error) {
-    path := "/v2/Services/{ServiceSid}/Entities"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Entities"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntity{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntity{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFactorParams Optional parameters for the method 'CreateFactor'
 type CreateFactorParams struct {
-    Binding.Alg *string `json:"Binding.Alg,omitempty"`
-    Binding.PublicKey *string `json:"Binding.PublicKey,omitempty"`
-    Config.AppId *string `json:"Config.AppId,omitempty"`
-    Config.NotificationPlatform *string `json:"Config.NotificationPlatform,omitempty"`
-    Config.NotificationToken *string `json:"Config.NotificationToken,omitempty"`
-    Config.SdkVersion *string `json:"Config.SdkVersion,omitempty"`
-    FactorType *string `json:"FactorType,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	Binding.Alg *string `json:"Binding.Alg,omitempty"`
+	Binding.PublicKey *string `json:"Binding.PublicKey,omitempty"`
+	Config.AppId *string `json:"Config.AppId,omitempty"`
+	Config.NotificationPlatform *string `json:"Config.NotificationPlatform,omitempty"`
+	Config.NotificationToken *string `json:"Config.NotificationToken,omitempty"`
+	Config.SdkVersion *string `json:"Config.SdkVersion,omitempty"`
+	FactorType *string `json:"FactorType,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -261,57 +259,57 @@ Create a new Factor for the Entity
 @return VerifyV2ServiceEntityFactor
 */
 func (c *DefaultApiService) CreateFactor(serviceSid string, identity string, params *CreateFactorParams) (*VerifyV2ServiceEntityFactor, error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Binding.Alg != nil {
-        data.Set("Binding.Alg", *params.Binding.Alg)
-    }
-    if params != nil && params.Binding.PublicKey != nil {
-        data.Set("Binding.PublicKey", *params.Binding.PublicKey)
-    }
-    if params != nil && params.Config.AppId != nil {
-        data.Set("Config.AppId", *params.Config.AppId)
-    }
-    if params != nil && params.Config.NotificationPlatform != nil {
-        data.Set("Config.NotificationPlatform", *params.Config.NotificationPlatform)
-    }
-    if params != nil && params.Config.NotificationToken != nil {
-        data.Set("Config.NotificationToken", *params.Config.NotificationToken)
-    }
-    if params != nil && params.Config.SdkVersion != nil {
-        data.Set("Config.SdkVersion", *params.Config.SdkVersion)
-    }
-    if params != nil && params.FactorType != nil {
-        data.Set("FactorType", *params.FactorType)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.Binding.Alg != nil {
+		data.Set("Binding.Alg", *params.Binding.Alg)
+	}
+	if params != nil && params.Binding.PublicKey != nil {
+		data.Set("Binding.PublicKey", *params.Binding.PublicKey)
+	}
+	if params != nil && params.Config.AppId != nil {
+		data.Set("Config.AppId", *params.Config.AppId)
+	}
+	if params != nil && params.Config.NotificationPlatform != nil {
+		data.Set("Config.NotificationPlatform", *params.Config.NotificationPlatform)
+	}
+	if params != nil && params.Config.NotificationToken != nil {
+		data.Set("Config.NotificationToken", *params.Config.NotificationToken)
+	}
+	if params != nil && params.Config.SdkVersion != nil {
+		data.Set("Config.SdkVersion", *params.Config.SdkVersion)
+	}
+	if params != nil && params.FactorType != nil {
+		data.Set("FactorType", *params.FactorType)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntityFactor{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntityFactor{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateMessagingConfigurationParams Optional parameters for the method 'CreateMessagingConfiguration'
 type CreateMessagingConfigurationParams struct {
-    Country *string `json:"Country,omitempty"`
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	Country *string `json:"Country,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 
 /*
@@ -324,38 +322,38 @@ Create a new MessagingConfiguration for a service.
 @return VerifyV2ServiceMessagingConfiguration
 */
 func (c *DefaultApiService) CreateMessagingConfiguration(serviceSid string, params *CreateMessagingConfigurationParams) (*VerifyV2ServiceMessagingConfiguration, error) {
-    path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Country != nil {
-        data.Set("Country", *params.Country)
-    }
-    if params != nil && params.MessagingServiceSid != nil {
-        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-    }
+	if params != nil && params.Country != nil {
+		data.Set("Country", *params.Country)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceMessagingConfiguration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceMessagingConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateRateLimitParams Optional parameters for the method 'CreateRateLimit'
 type CreateRateLimitParams struct {
-    Description *string `json:"Description,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Description *string `json:"Description,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -368,48 +366,48 @@ Create a new Rate Limit for a Service
 @return VerifyV2ServiceRateLimit
 */
 func (c *DefaultApiService) CreateRateLimit(serviceSid string, params *CreateRateLimitParams) (*VerifyV2ServiceRateLimit, error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Description != nil {
-        data.Set("Description", *params.Description)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceRateLimit{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceRateLimit{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    CodeLength *int32 `json:"CodeLength,omitempty"`
-    CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
-    DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
-    DtmfInputRequired *bool `json:"DtmfInputRequired,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    LookupEnabled *bool `json:"LookupEnabled,omitempty"`
-    Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
-    Push.ApnCredentialSid *string `json:"Push.ApnCredentialSid,omitempty"`
-    Push.FcmCredentialSid *string `json:"Push.FcmCredentialSid,omitempty"`
-    Push.IncludeDate *bool `json:"Push.IncludeDate,omitempty"`
-    SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`
-    TtsName *string `json:"TtsName,omitempty"`
+	CodeLength *int32 `json:"CodeLength,omitempty"`
+	CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
+	DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
+	DtmfInputRequired *bool `json:"DtmfInputRequired,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	LookupEnabled *bool `json:"LookupEnabled,omitempty"`
+	Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
+	Push.ApnCredentialSid *string `json:"Push.ApnCredentialSid,omitempty"`
+	Push.FcmCredentialSid *string `json:"Push.FcmCredentialSid,omitempty"`
+	Push.IncludeDate *bool `json:"Push.IncludeDate,omitempty"`
+	SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`
+	TtsName *string `json:"TtsName,omitempty"`
 }
 
 /*
@@ -431,77 +429,77 @@ Create a new Verification Service.
 @return VerifyV2Service
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*VerifyV2Service, error) {
-    path := "/v2/Services"
+	path := "/v2/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CodeLength != nil {
-        data.Set("CodeLength", string(*params.CodeLength))
-    }
-    if params != nil && params.CustomCodeEnabled != nil {
-        data.Set("CustomCodeEnabled", string(*params.CustomCodeEnabled))
-    }
-    if params != nil && params.DoNotShareWarningEnabled != nil {
-        data.Set("DoNotShareWarningEnabled", string(*params.DoNotShareWarningEnabled))
-    }
-    if params != nil && params.DtmfInputRequired != nil {
-        data.Set("DtmfInputRequired", string(*params.DtmfInputRequired))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.LookupEnabled != nil {
-        data.Set("LookupEnabled", string(*params.LookupEnabled))
-    }
-    if params != nil && params.Psd2Enabled != nil {
-        data.Set("Psd2Enabled", string(*params.Psd2Enabled))
-    }
-    if params != nil && params.Push.ApnCredentialSid != nil {
-        data.Set("Push.ApnCredentialSid", *params.Push.ApnCredentialSid)
-    }
-    if params != nil && params.Push.FcmCredentialSid != nil {
-        data.Set("Push.FcmCredentialSid", *params.Push.FcmCredentialSid)
-    }
-    if params != nil && params.Push.IncludeDate != nil {
-        data.Set("Push.IncludeDate", string(*params.Push.IncludeDate))
-    }
-    if params != nil && params.SkipSmsToLandlines != nil {
-        data.Set("SkipSmsToLandlines", string(*params.SkipSmsToLandlines))
-    }
-    if params != nil && params.TtsName != nil {
-        data.Set("TtsName", *params.TtsName)
-    }
+	if params != nil && params.CodeLength != nil {
+		data.Set("CodeLength", string(*params.CodeLength))
+	}
+	if params != nil && params.CustomCodeEnabled != nil {
+		data.Set("CustomCodeEnabled", string(*params.CustomCodeEnabled))
+	}
+	if params != nil && params.DoNotShareWarningEnabled != nil {
+		data.Set("DoNotShareWarningEnabled", string(*params.DoNotShareWarningEnabled))
+	}
+	if params != nil && params.DtmfInputRequired != nil {
+		data.Set("DtmfInputRequired", string(*params.DtmfInputRequired))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.LookupEnabled != nil {
+		data.Set("LookupEnabled", string(*params.LookupEnabled))
+	}
+	if params != nil && params.Psd2Enabled != nil {
+		data.Set("Psd2Enabled", string(*params.Psd2Enabled))
+	}
+	if params != nil && params.Push.ApnCredentialSid != nil {
+		data.Set("Push.ApnCredentialSid", *params.Push.ApnCredentialSid)
+	}
+	if params != nil && params.Push.FcmCredentialSid != nil {
+		data.Set("Push.FcmCredentialSid", *params.Push.FcmCredentialSid)
+	}
+	if params != nil && params.Push.IncludeDate != nil {
+		data.Set("Push.IncludeDate", string(*params.Push.IncludeDate))
+	}
+	if params != nil && params.SkipSmsToLandlines != nil {
+		data.Set("SkipSmsToLandlines", string(*params.SkipSmsToLandlines))
+	}
+	if params != nil && params.TtsName != nil {
+		data.Set("TtsName", *params.TtsName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateVerificationParams Optional parameters for the method 'CreateVerification'
 type CreateVerificationParams struct {
-    Amount *string `json:"Amount,omitempty"`
-    AppHash *string `json:"AppHash,omitempty"`
-    Channel *string `json:"Channel,omitempty"`
-    ChannelConfiguration *map[string]interface{} `json:"ChannelConfiguration,omitempty"`
-    CustomCode *string `json:"CustomCode,omitempty"`
-    CustomFriendlyName *string `json:"CustomFriendlyName,omitempty"`
-    CustomMessage *string `json:"CustomMessage,omitempty"`
-    Locale *string `json:"Locale,omitempty"`
-    Payee *string `json:"Payee,omitempty"`
-    RateLimits *map[string]interface{} `json:"RateLimits,omitempty"`
-    SendDigits *string `json:"SendDigits,omitempty"`
-    To *string `json:"To,omitempty"`
+	Amount *string `json:"Amount,omitempty"`
+	AppHash *string `json:"AppHash,omitempty"`
+	Channel *string `json:"Channel,omitempty"`
+	ChannelConfiguration *map[string]interface{} `json:"ChannelConfiguration,omitempty"`
+	CustomCode *string `json:"CustomCode,omitempty"`
+	CustomFriendlyName *string `json:"CustomFriendlyName,omitempty"`
+	CustomMessage *string `json:"CustomMessage,omitempty"`
+	Locale *string `json:"Locale,omitempty"`
+	Payee *string `json:"Payee,omitempty"`
+	RateLimits *map[string]interface{} `json:"RateLimits,omitempty"`
+	SendDigits *string `json:"SendDigits,omitempty"`
+	To *string `json:"To,omitempty"`
 }
 
 /*
@@ -524,83 +522,83 @@ Create a new Verification using a Service
 @return VerifyV2ServiceVerification
 */
 func (c *DefaultApiService) CreateVerification(serviceSid string, params *CreateVerificationParams) (*VerifyV2ServiceVerification, error) {
-    path := "/v2/Services/{ServiceSid}/Verifications"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Verifications"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Amount != nil {
-        data.Set("Amount", *params.Amount)
-    }
-    if params != nil && params.AppHash != nil {
-        data.Set("AppHash", *params.AppHash)
-    }
-    if params != nil && params.Channel != nil {
-        data.Set("Channel", *params.Channel)
-    }
-    if params != nil && params.ChannelConfiguration != nil {
-        v, err := json.Marshal(params.ChannelConfiguration)
+	if params != nil && params.Amount != nil {
+		data.Set("Amount", *params.Amount)
+	}
+	if params != nil && params.AppHash != nil {
+		data.Set("AppHash", *params.AppHash)
+	}
+	if params != nil && params.Channel != nil {
+		data.Set("Channel", *params.Channel)
+	}
+	if params != nil && params.ChannelConfiguration != nil {
+		v, err := json.Marshal(params.ChannelConfiguration)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("ChannelConfiguration", string(v))
-    }
-    if params != nil && params.CustomCode != nil {
-        data.Set("CustomCode", *params.CustomCode)
-    }
-    if params != nil && params.CustomFriendlyName != nil {
-        data.Set("CustomFriendlyName", *params.CustomFriendlyName)
-    }
-    if params != nil && params.CustomMessage != nil {
-        data.Set("CustomMessage", *params.CustomMessage)
-    }
-    if params != nil && params.Locale != nil {
-        data.Set("Locale", *params.Locale)
-    }
-    if params != nil && params.Payee != nil {
-        data.Set("Payee", *params.Payee)
-    }
-    if params != nil && params.RateLimits != nil {
-        v, err := json.Marshal(params.RateLimits)
+		data.Set("ChannelConfiguration", string(v))
+	}
+	if params != nil && params.CustomCode != nil {
+		data.Set("CustomCode", *params.CustomCode)
+	}
+	if params != nil && params.CustomFriendlyName != nil {
+		data.Set("CustomFriendlyName", *params.CustomFriendlyName)
+	}
+	if params != nil && params.CustomMessage != nil {
+		data.Set("CustomMessage", *params.CustomMessage)
+	}
+	if params != nil && params.Locale != nil {
+		data.Set("Locale", *params.Locale)
+	}
+	if params != nil && params.Payee != nil {
+		data.Set("Payee", *params.Payee)
+	}
+	if params != nil && params.RateLimits != nil {
+		v, err := json.Marshal(params.RateLimits)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("RateLimits", string(v))
-    }
-    if params != nil && params.SendDigits != nil {
-        data.Set("SendDigits", *params.SendDigits)
-    }
-    if params != nil && params.To != nil {
-        data.Set("To", *params.To)
-    }
+		data.Set("RateLimits", string(v))
+	}
+	if params != nil && params.SendDigits != nil {
+		data.Set("SendDigits", *params.SendDigits)
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceVerification{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceVerification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateVerificationCheckParams Optional parameters for the method 'CreateVerificationCheck'
 type CreateVerificationCheckParams struct {
-    Amount *string `json:"Amount,omitempty"`
-    Code *string `json:"Code,omitempty"`
-    Payee *string `json:"Payee,omitempty"`
-    To *string `json:"To,omitempty"`
-    VerificationSid *string `json:"VerificationSid,omitempty"`
+	Amount *string `json:"Amount,omitempty"`
+	Code *string `json:"Code,omitempty"`
+	Payee *string `json:"Payee,omitempty"`
+	To *string `json:"To,omitempty"`
+	VerificationSid *string `json:"VerificationSid,omitempty"`
 }
 
 /*
@@ -616,49 +614,49 @@ challenge a specific Verification Check.
 @return VerifyV2ServiceVerificationCheck
 */
 func (c *DefaultApiService) CreateVerificationCheck(serviceSid string, params *CreateVerificationCheckParams) (*VerifyV2ServiceVerificationCheck, error) {
-    path := "/v2/Services/{ServiceSid}/VerificationCheck"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/VerificationCheck"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Amount != nil {
-        data.Set("Amount", *params.Amount)
-    }
-    if params != nil && params.Code != nil {
-        data.Set("Code", *params.Code)
-    }
-    if params != nil && params.Payee != nil {
-        data.Set("Payee", *params.Payee)
-    }
-    if params != nil && params.To != nil {
-        data.Set("To", *params.To)
-    }
-    if params != nil && params.VerificationSid != nil {
-        data.Set("VerificationSid", *params.VerificationSid)
-    }
+	if params != nil && params.Amount != nil {
+		data.Set("Amount", *params.Amount)
+	}
+	if params != nil && params.Code != nil {
+		data.Set("Code", *params.Code)
+	}
+	if params != nil && params.Payee != nil {
+		data.Set("Payee", *params.Payee)
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.VerificationSid != nil {
+		data.Set("VerificationSid", *params.VerificationSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceVerificationCheck{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceVerificationCheck{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateWebhookParams Optional parameters for the method 'CreateWebhook'
 type CreateWebhookParams struct {
-    EventTypes *[]string `json:"EventTypes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	EventTypes *[]string `json:"EventTypes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -673,39 +671,39 @@ Create a new Webhook for the Service
 @return VerifyV2ServiceWebhook
 */
 func (c *DefaultApiService) CreateWebhook(serviceSid string, params *CreateWebhookParams) (*VerifyV2ServiceWebhook, error) {
-    path := "/v2/Services/{ServiceSid}/Webhooks"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.EventTypes != nil {
-        data.Set("EventTypes", *params.EventTypes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.EventTypes != nil {
+		data.Set("EventTypes", *params.EventTypes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -716,24 +714,24 @@ Delete a specific Bucket.
  * @param sid A 34 character string that uniquely identifies this Bucket.
 */
 func (c *DefaultApiService) DeleteBucket(serviceSid string, rateLimitSid string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -743,23 +741,23 @@ Delete a specific Entity.
  * @param identity The unique external identifier for the Entity of the Service
 */
 func (c *DefaultApiService) DeleteEntity(serviceSid string, identity string) (error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -770,24 +768,24 @@ Delete a specific Factor.
  * @param sid A 34 character string that uniquely identifies this Factor.
 */
 func (c *DefaultApiService) DeleteFactor(serviceSid string, identity string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -797,23 +795,23 @@ Delete a specific MessagingConfiguration.
  * @param country The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
 */
 func (c *DefaultApiService) DeleteMessagingConfiguration(serviceSid string, country string) (error) {
-    path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Country"+"}", country, -1)
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Country"+"}", country, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -823,23 +821,23 @@ Delete a specific Rate Limit.
  * @param sid The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
 */
 func (c *DefaultApiService) DeleteRateLimit(serviceSid string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -848,22 +846,22 @@ Delete a specific Verification Service Instance.
  * @param sid The Twilio-provided string that uniquely identifies the Verification Service resource to delete.
 */
 func (c *DefaultApiService) DeleteService(sid string) (error) {
-    path := "/v2/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -873,23 +871,23 @@ Delete a specific Webhook.
  * @param sid The Twilio-provided string that uniquely identifies the Webhook resource to delete.
 */
 func (c *DefaultApiService) DeleteWebhook(serviceSid string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -901,29 +899,29 @@ Fetch a specific Bucket.
 @return VerifyV2ServiceRateLimitBucket
 */
 func (c *DefaultApiService) FetchBucket(serviceSid string, rateLimitSid string, sid string) (*VerifyV2ServiceRateLimitBucket, error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceRateLimitBucket{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceRateLimitBucket{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -935,29 +933,29 @@ Fetch a specific Challenge.
 @return VerifyV2ServiceEntityChallenge
 */
 func (c *DefaultApiService) FetchChallenge(serviceSid string, identity string, sid string) (*VerifyV2ServiceEntityChallenge, error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntityChallenge{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntityChallenge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -968,28 +966,28 @@ Fetch a specific Entity.
 @return VerifyV2ServiceEntity
 */
 func (c *DefaultApiService) FetchEntity(serviceSid string, identity string) (*VerifyV2ServiceEntity, error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntity{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntity{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1001,29 +999,29 @@ Fetch a specific Factor.
 @return VerifyV2ServiceEntityFactor
 */
 func (c *DefaultApiService) FetchFactor(serviceSid string, identity string, sid string) (*VerifyV2ServiceEntityFactor, error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntityFactor{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntityFactor{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1033,27 +1031,27 @@ Fetch the forms for a specific Form Type.
 @return VerifyV2Form
 */
 func (c *DefaultApiService) FetchForm(formType string) (*VerifyV2Form, error) {
-    path := "/v2/Forms/{FormType}"
-    path = strings.Replace(path, "{"+"FormType"+"}", formType, -1)
+	path := "/v2/Forms/{FormType}"
+	path = strings.Replace(path, "{"+"FormType"+"}", formType, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2Form{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2Form{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1064,28 +1062,28 @@ Fetch a specific MessagingConfiguration.
 @return VerifyV2ServiceMessagingConfiguration
 */
 func (c *DefaultApiService) FetchMessagingConfiguration(serviceSid string, country string) (*VerifyV2ServiceMessagingConfiguration, error) {
-    path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Country"+"}", country, -1)
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Country"+"}", country, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceMessagingConfiguration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceMessagingConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1096,28 +1094,28 @@ Fetch a specific Rate Limit.
 @return VerifyV2ServiceRateLimit
 */
 func (c *DefaultApiService) FetchRateLimit(serviceSid string, sid string) (*VerifyV2ServiceRateLimit, error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceRateLimit{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceRateLimit{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1127,27 +1125,27 @@ Fetch specific Verification Service Instance.
 @return VerifyV2Service
 */
 func (c *DefaultApiService) FetchService(sid string) (*VerifyV2Service, error) {
-    path := "/v2/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1158,28 +1156,28 @@ Fetch a specific Verification
 @return VerifyV2ServiceVerification
 */
 func (c *DefaultApiService) FetchVerification(serviceSid string, sid string) (*VerifyV2ServiceVerification, error) {
-    path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceVerification{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceVerification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1190,32 +1188,32 @@ Fetch a specific Webhook.
 @return VerifyV2ServiceWebhook
 */
 func (c *DefaultApiService) FetchWebhook(serviceSid string, sid string) (*VerifyV2ServiceWebhook, error) {
-    path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListBucketParams Optional parameters for the method 'ListBucket'
 type ListBucketParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1228,37 +1226,37 @@ Retrieve a list of all Buckets for a Rate Limit.
 @return VerifyV2ServiceRateLimitBucketReadResponse
 */
 func (c *DefaultApiService) ListBucket(serviceSid string, rateLimitSid string, params *ListBucketParams) (*VerifyV2ServiceRateLimitBucketReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceRateLimitBucketReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceRateLimitBucketReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListChallengeParams Optional parameters for the method 'ListChallenge'
 type ListChallengeParams struct {
-    FactorSid *string `json:"FactorSid,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	FactorSid *string `json:"FactorSid,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1273,41 +1271,41 @@ Retrieve a list of all Challenges for a Factor.
 @return VerifyV2ServiceEntityChallengeReadResponse
 */
 func (c *DefaultApiService) ListChallenge(serviceSid string, identity string, params *ListChallengeParams) (*VerifyV2ServiceEntityChallengeReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FactorSid != nil {
-        data.Set("FactorSid", *params.FactorSid)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.FactorSid != nil {
+		data.Set("FactorSid", *params.FactorSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntityChallengeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntityChallengeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListEntityParams Optional parameters for the method 'ListEntity'
 type ListEntityParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1319,34 +1317,34 @@ Retrieve a list of all Entities for a Service.
 @return VerifyV2ServiceEntityReadResponse
 */
 func (c *DefaultApiService) ListEntity(serviceSid string, params *ListEntityParams) (*VerifyV2ServiceEntityReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Entities"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Entities"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntityReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntityReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFactorParams Optional parameters for the method 'ListFactor'
 type ListFactorParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1359,35 +1357,35 @@ Retrieve a list of all Factors for an Entity.
 @return VerifyV2ServiceEntityFactorReadResponse
 */
 func (c *DefaultApiService) ListFactor(serviceSid string, identity string, params *ListFactorParams) (*VerifyV2ServiceEntityFactorReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntityFactorReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntityFactorReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListMessagingConfigurationParams Optional parameters for the method 'ListMessagingConfiguration'
 type ListMessagingConfigurationParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1399,34 +1397,34 @@ Retrieve a list of all Messaging Configurations for a Service.
 @return VerifyV2ServiceMessagingConfigurationReadResponse
 */
 func (c *DefaultApiService) ListMessagingConfiguration(serviceSid string, params *ListMessagingConfigurationParams) (*VerifyV2ServiceMessagingConfigurationReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceMessagingConfigurationReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceMessagingConfigurationReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRateLimitParams Optional parameters for the method 'ListRateLimit'
 type ListRateLimitParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1438,34 +1436,34 @@ Retrieve a list of all Rate Limits for a service.
 @return VerifyV2ServiceRateLimitReadResponse
 */
 func (c *DefaultApiService) ListRateLimit(serviceSid string, params *ListRateLimitParams) (*VerifyV2ServiceRateLimitReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceRateLimitReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceRateLimitReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1476,33 +1474,33 @@ Retrieve a list of all Verification Services for an account.
 @return VerifyV2ServiceReadResponse
 */
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*VerifyV2ServiceReadResponse, error) {
-    path := "/v2/Services"
+	path := "/v2/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListWebhookParams Optional parameters for the method 'ListWebhook'
 type ListWebhookParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1514,35 +1512,35 @@ Retrieve a list of all Webhooks for a Service.
 @return VerifyV2ServiceWebhookReadResponse
 */
 func (c *DefaultApiService) ListWebhook(serviceSid string, params *ListWebhookParams) (*VerifyV2ServiceWebhookReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Webhooks"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceWebhookReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceWebhookReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateBucketParams Optional parameters for the method 'UpdateBucket'
 type UpdateBucketParams struct {
-    Interval *int32 `json:"Interval,omitempty"`
-    Max *int32 `json:"Max,omitempty"`
+	Interval *int32 `json:"Interval,omitempty"`
+	Max *int32 `json:"Max,omitempty"`
 }
 
 /*
@@ -1557,39 +1555,39 @@ Update a specific Bucket.
 @return VerifyV2ServiceRateLimitBucket
 */
 func (c *DefaultApiService) UpdateBucket(serviceSid string, rateLimitSid string, sid string, params *UpdateBucketParams) (*VerifyV2ServiceRateLimitBucket, error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"RateLimitSid"+"}", rateLimitSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Interval != nil {
-        data.Set("Interval", string(*params.Interval))
-    }
-    if params != nil && params.Max != nil {
-        data.Set("Max", string(*params.Max))
-    }
+	if params != nil && params.Interval != nil {
+		data.Set("Interval", string(*params.Interval))
+	}
+	if params != nil && params.Max != nil {
+		data.Set("Max", string(*params.Max))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceRateLimitBucket{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceRateLimitBucket{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateChallengeParams Optional parameters for the method 'UpdateChallenge'
 type UpdateChallengeParams struct {
-    AuthPayload *string `json:"AuthPayload,omitempty"`
+	AuthPayload *string `json:"AuthPayload,omitempty"`
 }
 
 /*
@@ -1603,39 +1601,39 @@ Verify a specific Challenge.
 @return VerifyV2ServiceEntityChallenge
 */
 func (c *DefaultApiService) UpdateChallenge(serviceSid string, identity string, sid string, params *UpdateChallengeParams) (*VerifyV2ServiceEntityChallenge, error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AuthPayload != nil {
-        data.Set("AuthPayload", *params.AuthPayload)
-    }
+	if params != nil && params.AuthPayload != nil {
+		data.Set("AuthPayload", *params.AuthPayload)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntityChallenge{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntityChallenge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateFactorParams Optional parameters for the method 'UpdateFactor'
 type UpdateFactorParams struct {
-    AuthPayload *string `json:"AuthPayload,omitempty"`
-    Config.NotificationToken *string `json:"Config.NotificationToken,omitempty"`
-    Config.SdkVersion *string `json:"Config.SdkVersion,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	AuthPayload *string `json:"AuthPayload,omitempty"`
+	Config.NotificationToken *string `json:"Config.NotificationToken,omitempty"`
+	Config.SdkVersion *string `json:"Config.SdkVersion,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1652,45 +1650,45 @@ Update a specific Factor. This endpoint can be used to Verify a Factor if passed
 @return VerifyV2ServiceEntityFactor
 */
 func (c *DefaultApiService) UpdateFactor(serviceSid string, identity string, sid string, params *UpdateFactorParams) (*VerifyV2ServiceEntityFactor, error) {
-    path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AuthPayload != nil {
-        data.Set("AuthPayload", *params.AuthPayload)
-    }
-    if params != nil && params.Config.NotificationToken != nil {
-        data.Set("Config.NotificationToken", *params.Config.NotificationToken)
-    }
-    if params != nil && params.Config.SdkVersion != nil {
-        data.Set("Config.SdkVersion", *params.Config.SdkVersion)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.AuthPayload != nil {
+		data.Set("AuthPayload", *params.AuthPayload)
+	}
+	if params != nil && params.Config.NotificationToken != nil {
+		data.Set("Config.NotificationToken", *params.Config.NotificationToken)
+	}
+	if params != nil && params.Config.SdkVersion != nil {
+		data.Set("Config.SdkVersion", *params.Config.SdkVersion)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceEntityFactor{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceEntityFactor{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateMessagingConfigurationParams Optional parameters for the method 'UpdateMessagingConfiguration'
 type UpdateMessagingConfigurationParams struct {
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 
 /*
@@ -1703,35 +1701,35 @@ Update a specific MessagingConfiguration
 @return VerifyV2ServiceMessagingConfiguration
 */
 func (c *DefaultApiService) UpdateMessagingConfiguration(serviceSid string, country string, params *UpdateMessagingConfigurationParams) (*VerifyV2ServiceMessagingConfiguration, error) {
-    path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Country"+"}", country, -1)
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Country"+"}", country, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.MessagingServiceSid != nil {
-        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-    }
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceMessagingConfiguration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceMessagingConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRateLimitParams Optional parameters for the method 'UpdateRateLimit'
 type UpdateRateLimitParams struct {
-    Description *string `json:"Description,omitempty"`
+	Description *string `json:"Description,omitempty"`
 }
 
 /*
@@ -1744,46 +1742,46 @@ Update a specific Rate Limit.
 @return VerifyV2ServiceRateLimit
 */
 func (c *DefaultApiService) UpdateRateLimit(serviceSid string, sid string, params *UpdateRateLimitParams) (*VerifyV2ServiceRateLimit, error) {
-    path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Description != nil {
-        data.Set("Description", *params.Description)
-    }
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceRateLimit{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceRateLimit{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-    CodeLength *int32 `json:"CodeLength,omitempty"`
-    CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
-    DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
-    DtmfInputRequired *bool `json:"DtmfInputRequired,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    LookupEnabled *bool `json:"LookupEnabled,omitempty"`
-    Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
-    Push.ApnCredentialSid *string `json:"Push.ApnCredentialSid,omitempty"`
-    Push.FcmCredentialSid *string `json:"Push.FcmCredentialSid,omitempty"`
-    Push.IncludeDate *bool `json:"Push.IncludeDate,omitempty"`
-    SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`
-    TtsName *string `json:"TtsName,omitempty"`
+	CodeLength *int32 `json:"CodeLength,omitempty"`
+	CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
+	DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
+	DtmfInputRequired *bool `json:"DtmfInputRequired,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	LookupEnabled *bool `json:"LookupEnabled,omitempty"`
+	Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
+	Push.ApnCredentialSid *string `json:"Push.ApnCredentialSid,omitempty"`
+	Push.FcmCredentialSid *string `json:"Push.FcmCredentialSid,omitempty"`
+	Push.IncludeDate *bool `json:"Push.IncludeDate,omitempty"`
+	SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`
+	TtsName *string `json:"TtsName,omitempty"`
 }
 
 /*
@@ -1806,67 +1804,67 @@ Update a specific Verification Service.
 @return VerifyV2Service
 */
 func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*VerifyV2Service, error) {
-    path := "/v2/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CodeLength != nil {
-        data.Set("CodeLength", string(*params.CodeLength))
-    }
-    if params != nil && params.CustomCodeEnabled != nil {
-        data.Set("CustomCodeEnabled", string(*params.CustomCodeEnabled))
-    }
-    if params != nil && params.DoNotShareWarningEnabled != nil {
-        data.Set("DoNotShareWarningEnabled", string(*params.DoNotShareWarningEnabled))
-    }
-    if params != nil && params.DtmfInputRequired != nil {
-        data.Set("DtmfInputRequired", string(*params.DtmfInputRequired))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.LookupEnabled != nil {
-        data.Set("LookupEnabled", string(*params.LookupEnabled))
-    }
-    if params != nil && params.Psd2Enabled != nil {
-        data.Set("Psd2Enabled", string(*params.Psd2Enabled))
-    }
-    if params != nil && params.Push.ApnCredentialSid != nil {
-        data.Set("Push.ApnCredentialSid", *params.Push.ApnCredentialSid)
-    }
-    if params != nil && params.Push.FcmCredentialSid != nil {
-        data.Set("Push.FcmCredentialSid", *params.Push.FcmCredentialSid)
-    }
-    if params != nil && params.Push.IncludeDate != nil {
-        data.Set("Push.IncludeDate", string(*params.Push.IncludeDate))
-    }
-    if params != nil && params.SkipSmsToLandlines != nil {
-        data.Set("SkipSmsToLandlines", string(*params.SkipSmsToLandlines))
-    }
-    if params != nil && params.TtsName != nil {
-        data.Set("TtsName", *params.TtsName)
-    }
+	if params != nil && params.CodeLength != nil {
+		data.Set("CodeLength", string(*params.CodeLength))
+	}
+	if params != nil && params.CustomCodeEnabled != nil {
+		data.Set("CustomCodeEnabled", string(*params.CustomCodeEnabled))
+	}
+	if params != nil && params.DoNotShareWarningEnabled != nil {
+		data.Set("DoNotShareWarningEnabled", string(*params.DoNotShareWarningEnabled))
+	}
+	if params != nil && params.DtmfInputRequired != nil {
+		data.Set("DtmfInputRequired", string(*params.DtmfInputRequired))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.LookupEnabled != nil {
+		data.Set("LookupEnabled", string(*params.LookupEnabled))
+	}
+	if params != nil && params.Psd2Enabled != nil {
+		data.Set("Psd2Enabled", string(*params.Psd2Enabled))
+	}
+	if params != nil && params.Push.ApnCredentialSid != nil {
+		data.Set("Push.ApnCredentialSid", *params.Push.ApnCredentialSid)
+	}
+	if params != nil && params.Push.FcmCredentialSid != nil {
+		data.Set("Push.FcmCredentialSid", *params.Push.FcmCredentialSid)
+	}
+	if params != nil && params.Push.IncludeDate != nil {
+		data.Set("Push.IncludeDate", string(*params.Push.IncludeDate))
+	}
+	if params != nil && params.SkipSmsToLandlines != nil {
+		data.Set("SkipSmsToLandlines", string(*params.SkipSmsToLandlines))
+	}
+	if params != nil && params.TtsName != nil {
+		data.Set("TtsName", *params.TtsName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateVerificationParams Optional parameters for the method 'UpdateVerification'
 type UpdateVerificationParams struct {
-    Status *string `json:"Status,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -1879,38 +1877,38 @@ Update a Verification status
 @return VerifyV2ServiceVerification
 */
 func (c *DefaultApiService) UpdateVerification(serviceSid string, sid string, params *UpdateVerificationParams) (*VerifyV2ServiceVerification, error) {
-    path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceVerification{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceVerification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateWebhookParams Optional parameters for the method 'UpdateWebhook'
 type UpdateWebhookParams struct {
-    EventTypes *[]string `json:"EventTypes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	EventTypes *[]string `json:"EventTypes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -1925,38 +1923,38 @@ UpdateWebhook Method for UpdateWebhook
 @return VerifyV2ServiceWebhook
 */
 func (c *DefaultApiService) UpdateWebhook(serviceSid string, sid string, params *UpdateWebhookParams) (*VerifyV2ServiceWebhook, error) {
-    path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.EventTypes != nil {
-        data.Set("EventTypes", *params.EventTypes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.EventTypes != nil {
+		data.Set("EventTypes", *params.EventTypes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VerifyV2ServiceWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VerifyV2ServiceWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

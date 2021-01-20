@@ -5,7 +5,6 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateExecution**](DefaultApi.md#CreateExecution) | **Post** /v2/Flows/{FlowSid}/Executions | 
-[**CreateFlow**](DefaultApi.md#CreateFlow) | **Post** /v2/Flows | 
 [**DeleteExecution**](DefaultApi.md#DeleteExecution) | **Delete** /v2/Flows/{FlowSid}/Executions/{Sid} | 
 [**DeleteFlow**](DefaultApi.md#DeleteFlow) | **Delete** /v2/Flows/{Sid} | 
 [**FetchExecution**](DefaultApi.md#FetchExecution) | **Get** /v2/Flows/{FlowSid}/Executions/{Sid} | 
@@ -17,7 +16,6 @@ Method | HTTP request | Description
 [**FetchTestUser**](DefaultApi.md#FetchTestUser) | **Get** /v2/Flows/{Sid}/TestUsers | 
 [**ListExecution**](DefaultApi.md#ListExecution) | **Get** /v2/Flows/{FlowSid}/Executions | 
 [**ListExecutionStep**](DefaultApi.md#ListExecutionStep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | 
-[**ListFlow**](DefaultApi.md#ListFlow) | **Get** /v2/Flows | 
 [**ListFlowRevision**](DefaultApi.md#ListFlowRevision) | **Get** /v2/Flows/{Sid}/Revisions | 
 [**UpdateExecution**](DefaultApi.md#UpdateExecution) | **Post** /v2/Flows/{FlowSid}/Executions/{Sid} | 
 [**UpdateFlow**](DefaultApi.md#UpdateFlow) | **Post** /v2/Flows/{Sid} | 
@@ -58,52 +56,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StudioV2FlowExecution**](studio.v2.flow.execution.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateFlow
-
-> StudioV2Flow CreateFlow(ctx, optional)
-
-
-
-Create a Flow.
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateFlowOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateFlowOpts struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **commitMessage** | **optional.String**| Description on change made in the revision. | 
- **definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the Flow. | 
- **status** | **optional.String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
-
-### Return type
-
-[**StudioV2Flow**](studio.v2.flow.md)
 
 ### Authorization
 
@@ -510,49 +462,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StudioV2FlowExecutionExecutionStepReadResponse**](studio_v2_flow_execution_execution_stepReadResponse.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListFlow
-
-> StudioV2FlowReadResponse ListFlow(ctx, optional)
-
-
-
-Retrieve a list of all Flows.
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListFlowOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListFlowOpts struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
-
-### Return type
-
-[**StudioV2FlowReadResponse**](studio_v2_flowReadResponse.md)
 
 ### Authorization
 

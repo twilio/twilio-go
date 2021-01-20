@@ -13,28 +13,26 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateSinkParams Optional parameters for the method 'CreateSink'
 type CreateSinkParams struct {
-    Description *string `json:"Description,omitempty"`
-    SinkConfiguration *map[string]interface{} `json:"SinkConfiguration,omitempty"`
-    SinkType *string `json:"SinkType,omitempty"`
+	Description *string `json:"Description,omitempty"`
+	SinkConfiguration *map[string]interface{} `json:"SinkConfiguration,omitempty"`
+	SinkType *string `json:"SinkType,omitempty"`
 }
 
 /*
@@ -47,41 +45,41 @@ Create a new Sink
 @return EventsV1Sink
 */
 func (c *DefaultApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error) {
-    path := "/v1/Sinks"
+	path := "/v1/Sinks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Description != nil {
-        data.Set("Description", *params.Description)
-    }
-    if params != nil && params.SinkConfiguration != nil {
-        v, err := json.Marshal(params.SinkConfiguration)
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.SinkConfiguration != nil {
+		v, err := json.Marshal(params.SinkConfiguration)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("SinkConfiguration", string(v))
-    }
-    if params != nil && params.SinkType != nil {
-        data.Set("SinkType", *params.SinkType)
-    }
+		data.Set("SinkConfiguration", string(v))
+	}
+	if params != nil && params.SinkType != nil {
+		data.Set("SinkType", *params.SinkType)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1Sink{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1Sink{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -91,31 +89,31 @@ Create a new Sink Test Event for the given Sink.
 @return EventsV1SinkSinkTest
 */
 func (c *DefaultApiService) CreateSinkTest(sid string) (*EventsV1SinkSinkTest, error) {
-    path := "/v1/Sinks/{Sid}/Test"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Sinks/{Sid}/Test"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1SinkSinkTest{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1SinkSinkTest{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSinkValidateParams Optional parameters for the method 'CreateSinkValidate'
 type CreateSinkValidateParams struct {
-    TestId *string `json:"TestId,omitempty"`
+	TestId *string `json:"TestId,omitempty"`
 }
 
 /*
@@ -127,36 +125,36 @@ Validate that a test event for a Sink was received.
 @return EventsV1SinkSinkValidate
 */
 func (c *DefaultApiService) CreateSinkValidate(sid string, params *CreateSinkValidateParams) (*EventsV1SinkSinkValidate, error) {
-    path := "/v1/Sinks/{Sid}/Validate"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Sinks/{Sid}/Validate"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.TestId != nil {
-        data.Set("TestId", *params.TestId)
-    }
+	if params != nil && params.TestId != nil {
+		data.Set("TestId", *params.TestId)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1SinkSinkValidate{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1SinkSinkValidate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSubscriptionParams Optional parameters for the method 'CreateSubscription'
 type CreateSubscriptionParams struct {
-    Description *string `json:"Description,omitempty"`
-    SinkSid *string `json:"SinkSid,omitempty"`
-    Types *[]map[string]interface{} `json:"Types,omitempty"`
+	Description *string `json:"Description,omitempty"`
+	SinkSid *string `json:"SinkSid,omitempty"`
+	Types *[]map[string]interface{} `json:"Types,omitempty"`
 }
 
 /*
@@ -169,41 +167,41 @@ Create a new Subscription.
 @return EventsV1Subscription
 */
 func (c *DefaultApiService) CreateSubscription(params *CreateSubscriptionParams) (*EventsV1Subscription, error) {
-    path := "/v1/Subscriptions"
+	path := "/v1/Subscriptions"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Description != nil {
-        data.Set("Description", *params.Description)
-    }
-    if params != nil && params.SinkSid != nil {
-        data.Set("SinkSid", *params.SinkSid)
-    }
-    if params != nil && params.Types != nil {
-        v, err := json.Marshal(params.Types)
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.SinkSid != nil {
+		data.Set("SinkSid", *params.SinkSid)
+	}
+	if params != nil && params.Types != nil {
+		v, err := json.Marshal(params.Types)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Types", string(v))
-    }
+		data.Set("Types", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1Subscription{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1Subscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -212,22 +210,22 @@ Delete a specific Sink.
  * @param sid A 34 character string that uniquely identifies this Sink.
 */
 func (c *DefaultApiService) DeleteSink(sid string) (error) {
-    path := "/v1/Sinks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Sinks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -236,22 +234,22 @@ Delete a specific Subscription.
  * @param sid A 34 character string that uniquely identifies this Subscription.
 */
 func (c *DefaultApiService) DeleteSubscription(sid string) (error) {
-    path := "/v1/Subscriptions/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Subscriptions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -261,27 +259,27 @@ Fetch a specific Event Type.
 @return EventsV1EventType
 */
 func (c *DefaultApiService) FetchEventType(type_ string) (*EventsV1EventType, error) {
-    path := "/v1/Types/{Type}"
-    path = strings.Replace(path, "{"+"Type"+"}", type_, -1)
+	path := "/v1/Types/{Type}"
+	path = strings.Replace(path, "{"+"Type"+"}", type_, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1EventType{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1EventType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -291,27 +289,27 @@ Fetch a specific schema with its nested versions.
 @return EventsV1Schema
 */
 func (c *DefaultApiService) FetchSchema(id string) (*EventsV1Schema, error) {
-    path := "/v1/Schemas/{Id}"
-    path = strings.Replace(path, "{"+"Id"+"}", id, -1)
+	path := "/v1/Schemas/{Id}"
+	path = strings.Replace(path, "{"+"Id"+"}", id, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1Schema{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1Schema{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -321,27 +319,27 @@ Fetch a specific Sink.
 @return EventsV1Sink
 */
 func (c *DefaultApiService) FetchSink(sid string) (*EventsV1Sink, error) {
-    path := "/v1/Sinks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Sinks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1Sink{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1Sink{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -351,27 +349,27 @@ Fetch a specific Subscription.
 @return EventsV1Subscription
 */
 func (c *DefaultApiService) FetchSubscription(sid string) (*EventsV1Subscription, error) {
-    path := "/v1/Subscriptions/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Subscriptions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1Subscription{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1Subscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -382,32 +380,32 @@ Fetch a specific schema and version.
 @return EventsV1SchemaVersion
 */
 func (c *DefaultApiService) FetchVersion(id string, schemaVersion int32) (*EventsV1SchemaVersion, error) {
-    path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
-    path = strings.Replace(path, "{"+"Id"+"}", id, -1)
-    path = strings.Replace(path, "{"+"SchemaVersion"+"}", schemaVersion, -1)
+	path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
+	path = strings.Replace(path, "{"+"Id"+"}", id, -1)
+	path = strings.Replace(path, "{"+"SchemaVersion"+"}", schemaVersion, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1SchemaVersion{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1SchemaVersion{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListEventTypeParams Optional parameters for the method 'ListEventType'
 type ListEventTypeParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -418,33 +416,33 @@ Retrieve a paginated list of all the available Event Types.
 @return EventsV1EventTypeReadResponse
 */
 func (c *DefaultApiService) ListEventType(params *ListEventTypeParams) (*EventsV1EventTypeReadResponse, error) {
-    path := "/v1/Types"
+	path := "/v1/Types"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1EventTypeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1EventTypeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSinkParams Optional parameters for the method 'ListSink'
 type ListSinkParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -455,33 +453,33 @@ Retrieve a paginated list of Sinks belonging to the account used to make the req
 @return EventsV1SinkReadResponse
 */
 func (c *DefaultApiService) ListSink(params *ListSinkParams) (*EventsV1SinkReadResponse, error) {
-    path := "/v1/Sinks"
+	path := "/v1/Sinks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1SinkReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1SinkReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSubscribedEventParams Optional parameters for the method 'ListSubscribedEvent'
 type ListSubscribedEventParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -493,35 +491,35 @@ Retrieve a list of all Subscribed Event types for a Subscription.
 @return EventsV1SubscriptionSubscribedEventReadResponse
 */
 func (c *DefaultApiService) ListSubscribedEvent(subscriptionSid string, params *ListSubscribedEventParams) (*EventsV1SubscriptionSubscribedEventReadResponse, error) {
-    path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
-    path = strings.Replace(path, "{"+"SubscriptionSid"+"}", subscriptionSid, -1)
+	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
+	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", subscriptionSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1SubscriptionSubscribedEventReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1SubscriptionSubscribedEventReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSubscriptionParams Optional parameters for the method 'ListSubscription'
 type ListSubscriptionParams struct {
-    SinkSid *string `json:"SinkSid,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	SinkSid *string `json:"SinkSid,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -533,36 +531,36 @@ Retrieve a paginated list of Subscriptions belonging to the account used to make
 @return EventsV1SubscriptionReadResponse
 */
 func (c *DefaultApiService) ListSubscription(params *ListSubscriptionParams) (*EventsV1SubscriptionReadResponse, error) {
-    path := "/v1/Subscriptions"
+	path := "/v1/Subscriptions"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.SinkSid != nil {
-        data.Set("SinkSid", *params.SinkSid)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.SinkSid != nil {
+		data.Set("SinkSid", *params.SinkSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1SubscriptionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1SubscriptionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListVersionParams Optional parameters for the method 'ListVersion'
 type ListVersionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -574,35 +572,35 @@ Retrieve a paginated list of versions of the schema.
 @return EventsV1SchemaVersionReadResponse
 */
 func (c *DefaultApiService) ListVersion(id string, params *ListVersionParams) (*EventsV1SchemaVersionReadResponse, error) {
-    path := "/v1/Schemas/{Id}/Versions"
-    path = strings.Replace(path, "{"+"Id"+"}", id, -1)
+	path := "/v1/Schemas/{Id}/Versions"
+	path = strings.Replace(path, "{"+"Id"+"}", id, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1SchemaVersionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1SchemaVersionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSubscriptionParams Optional parameters for the method 'UpdateSubscription'
 type UpdateSubscriptionParams struct {
-    Description *string `json:"Description,omitempty"`
-    SinkSid *string `json:"SinkSid,omitempty"`
+	Description *string `json:"Description,omitempty"`
+	SinkSid *string `json:"SinkSid,omitempty"`
 }
 
 /*
@@ -615,31 +613,31 @@ Update a Subscription.
 @return EventsV1Subscription
 */
 func (c *DefaultApiService) UpdateSubscription(sid string, params *UpdateSubscriptionParams) (*EventsV1Subscription, error) {
-    path := "/v1/Subscriptions/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Subscriptions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Description != nil {
-        data.Set("Description", *params.Description)
-    }
-    if params != nil && params.SinkSid != nil {
-        data.Set("SinkSid", *params.SinkSid)
-    }
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.SinkSid != nil {
+		data.Set("SinkSid", *params.SinkSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &EventsV1Subscription{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &EventsV1Subscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

@@ -13,29 +13,27 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateCommandParams Optional parameters for the method 'CreateCommand'
 type CreateCommandParams struct {
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    Command *string `json:"Command,omitempty"`
-    Sim *string `json:"Sim,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	Command *string `json:"Command,omitempty"`
+	Sim *string `json:"Sim,omitempty"`
 }
 
 /*
@@ -49,48 +47,48 @@ Send a Command to a Sim.
 @return SupersimV1Command
 */
 func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*SupersimV1Command, error) {
-    path := "/v1/Commands"
+	path := "/v1/Commands"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackMethod != nil {
-        data.Set("CallbackMethod", *params.CallbackMethod)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.Command != nil {
-        data.Set("Command", *params.Command)
-    }
-    if params != nil && params.Sim != nil {
-        data.Set("Sim", *params.Sim)
-    }
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.Command != nil {
+		data.Set("Command", *params.Command)
+	}
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1Command{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1Command{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFleetParams Optional parameters for the method 'CreateFleet'
 type CreateFleetParams struct {
-    CommandsEnabled *bool `json:"CommandsEnabled,omitempty"`
-    CommandsMethod *string `json:"CommandsMethod,omitempty"`
-    CommandsUrl *string `json:"CommandsUrl,omitempty"`
-    DataEnabled *bool `json:"DataEnabled,omitempty"`
-    DataLimit *int32 `json:"DataLimit,omitempty"`
-    NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	CommandsEnabled *bool `json:"CommandsEnabled,omitempty"`
+	CommandsMethod *string `json:"CommandsMethod,omitempty"`
+	CommandsUrl *string `json:"CommandsUrl,omitempty"`
+	DataEnabled *bool `json:"DataEnabled,omitempty"`
+	DataLimit *int32 `json:"DataLimit,omitempty"`
+	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -107,52 +105,52 @@ Create a Fleet
 @return SupersimV1Fleet
 */
 func (c *DefaultApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, error) {
-    path := "/v1/Fleets"
+	path := "/v1/Fleets"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CommandsEnabled != nil {
-        data.Set("CommandsEnabled", string(*params.CommandsEnabled))
-    }
-    if params != nil && params.CommandsMethod != nil {
-        data.Set("CommandsMethod", *params.CommandsMethod)
-    }
-    if params != nil && params.CommandsUrl != nil {
-        data.Set("CommandsUrl", *params.CommandsUrl)
-    }
-    if params != nil && params.DataEnabled != nil {
-        data.Set("DataEnabled", string(*params.DataEnabled))
-    }
-    if params != nil && params.DataLimit != nil {
-        data.Set("DataLimit", string(*params.DataLimit))
-    }
-    if params != nil && params.NetworkAccessProfile != nil {
-        data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.CommandsEnabled != nil {
+		data.Set("CommandsEnabled", string(*params.CommandsEnabled))
+	}
+	if params != nil && params.CommandsMethod != nil {
+		data.Set("CommandsMethod", *params.CommandsMethod)
+	}
+	if params != nil && params.CommandsUrl != nil {
+		data.Set("CommandsUrl", *params.CommandsUrl)
+	}
+	if params != nil && params.DataEnabled != nil {
+		data.Set("DataEnabled", string(*params.DataEnabled))
+	}
+	if params != nil && params.DataLimit != nil {
+		data.Set("DataLimit", string(*params.DataLimit))
+	}
+	if params != nil && params.NetworkAccessProfile != nil {
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1Fleet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1Fleet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateNetworkAccessProfileParams Optional parameters for the method 'CreateNetworkAccessProfile'
 type CreateNetworkAccessProfileParams struct {
-    Networks *[]string `json:"Networks,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Networks *[]string `json:"Networks,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -164,36 +162,36 @@ Create a new Network Access Profile
 @return SupersimV1NetworkAccessProfile
 */
 func (c *DefaultApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
-    path := "/v1/NetworkAccessProfiles"
+	path := "/v1/NetworkAccessProfiles"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Networks != nil {
-        data.Set("Networks", *params.Networks)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Networks != nil {
+		data.Set("Networks", *params.Networks)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1NetworkAccessProfile{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1NetworkAccessProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateNetworkAccessProfileNetworkParams Optional parameters for the method 'CreateNetworkAccessProfileNetwork'
 type CreateNetworkAccessProfileNetworkParams struct {
-    Network *string `json:"Network,omitempty"`
+	Network *string `json:"Network,omitempty"`
 }
 
 /*
@@ -205,30 +203,30 @@ Add a Network resource to the Network Access Profile resource.
 @return SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
 */
 func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(networkAccessProfileSid string, params *CreateNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
-    path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
-    path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
+	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
+	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Network != nil {
-        data.Set("Network", *params.Network)
-    }
+	if params != nil && params.Network != nil {
+		data.Set("Network", *params.Network)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -238,23 +236,23 @@ Remove a Network resource from the Network Access Profile resource&#39;s.
  * @param sid
 */
 func (c *DefaultApiService) DeleteNetworkAccessProfileNetwork(networkAccessProfileSid string, sid string) (error) {
-    path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
-    path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
+	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -264,27 +262,27 @@ Fetch a Command instance from your account.
 @return SupersimV1Command
 */
 func (c *DefaultApiService) FetchCommand(sid string) (*SupersimV1Command, error) {
-    path := "/v1/Commands/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Commands/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1Command{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1Command{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -294,27 +292,27 @@ Fetch a Fleet instance from your account.
 @return SupersimV1Fleet
 */
 func (c *DefaultApiService) FetchFleet(sid string) (*SupersimV1Fleet, error) {
-    path := "/v1/Fleets/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Fleets/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1Fleet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1Fleet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -324,27 +322,27 @@ Fetch a Network resource.
 @return SupersimV1Network
 */
 func (c *DefaultApiService) FetchNetwork(sid string) (*SupersimV1Network, error) {
-    path := "/v1/Networks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Networks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1Network{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1Network{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -354,27 +352,27 @@ Fetch a Network Access Profile instance from your account.
 @return SupersimV1NetworkAccessProfile
 */
 func (c *DefaultApiService) FetchNetworkAccessProfile(sid string) (*SupersimV1NetworkAccessProfile, error) {
-    path := "/v1/NetworkAccessProfiles/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/NetworkAccessProfiles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1NetworkAccessProfile{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1NetworkAccessProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -385,28 +383,28 @@ Fetch a Network Access Profile resource&#39;s Network resource.
 @return SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
 */
 func (c *DefaultApiService) FetchNetworkAccessProfileNetwork(networkAccessProfileSid string, sid string) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
-    path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
-    path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
+	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -416,34 +414,34 @@ Fetch a Super SIM instance from your account.
 @return SupersimV1Sim
 */
 func (c *DefaultApiService) FetchSim(sid string) (*SupersimV1Sim, error) {
-    path := "/v1/Sims/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Sims/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1Sim{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1Sim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCommandParams Optional parameters for the method 'ListCommand'
 type ListCommandParams struct {
-    Sim *string `json:"Sim,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    Direction *string `json:"Direction,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Sim *string `json:"Sim,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	Direction *string `json:"Direction,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -457,43 +455,43 @@ Retrieve a list of Commands from your account.
 @return SupersimV1CommandReadResponse
 */
 func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*SupersimV1CommandReadResponse, error) {
-    path := "/v1/Commands"
+	path := "/v1/Commands"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Sim != nil {
-        data.Set("Sim", *params.Sim)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.Direction != nil {
-        data.Set("Direction", *params.Direction)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Direction != nil {
+		data.Set("Direction", *params.Direction)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1CommandReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1CommandReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFleetParams Optional parameters for the method 'ListFleet'
 type ListFleetParams struct {
-    NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -505,39 +503,39 @@ Retrieve a list of Fleets from your account.
 @return SupersimV1FleetReadResponse
 */
 func (c *DefaultApiService) ListFleet(params *ListFleetParams) (*SupersimV1FleetReadResponse, error) {
-    path := "/v1/Fleets"
+	path := "/v1/Fleets"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.NetworkAccessProfile != nil {
-        data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.NetworkAccessProfile != nil {
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1FleetReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1FleetReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListNetworkParams Optional parameters for the method 'ListNetwork'
 type ListNetworkParams struct {
-    IsoCountry *string `json:"IsoCountry,omitempty"`
-    Mcc *string `json:"Mcc,omitempty"`
-    Mnc *string `json:"Mnc,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	Mcc *string `json:"Mcc,omitempty"`
+	Mnc *string `json:"Mnc,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -551,42 +549,42 @@ Retrieve a list of Network resources.
 @return SupersimV1NetworkReadResponse
 */
 func (c *DefaultApiService) ListNetwork(params *ListNetworkParams) (*SupersimV1NetworkReadResponse, error) {
-    path := "/v1/Networks"
+	path := "/v1/Networks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.IsoCountry != nil {
-        data.Set("IsoCountry", *params.IsoCountry)
-    }
-    if params != nil && params.Mcc != nil {
-        data.Set("Mcc", *params.Mcc)
-    }
-    if params != nil && params.Mnc != nil {
-        data.Set("Mnc", *params.Mnc)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.Mcc != nil {
+		data.Set("Mcc", *params.Mcc)
+	}
+	if params != nil && params.Mnc != nil {
+		data.Set("Mnc", *params.Mnc)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1NetworkReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1NetworkReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListNetworkAccessProfileParams Optional parameters for the method 'ListNetworkAccessProfile'
 type ListNetworkAccessProfileParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -597,33 +595,33 @@ Retrieve a list of Network Access Profiles from your account.
 @return SupersimV1NetworkAccessProfileReadResponse
 */
 func (c *DefaultApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfileReadResponse, error) {
-    path := "/v1/NetworkAccessProfiles"
+	path := "/v1/NetworkAccessProfiles"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1NetworkAccessProfileReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1NetworkAccessProfileReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListNetworkAccessProfileNetworkParams Optional parameters for the method 'ListNetworkAccessProfileNetwork'
 type ListNetworkAccessProfileNetworkParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -635,37 +633,37 @@ Retrieve a list of Network Access Profile resource&#39;s Network resource.
 @return SupersimV1NetworkAccessProfileNetworkAccessProfileNetworkReadResponse
 */
 func (c *DefaultApiService) ListNetworkAccessProfileNetwork(networkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetworkReadResponse, error) {
-    path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
-    path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
+	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
+	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetworkReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetworkReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSimParams Optional parameters for the method 'ListSim'
 type ListSimParams struct {
-    Status *string `json:"Status,omitempty"`
-    Fleet *string `json:"Fleet,omitempty"`
-    Iccid *string `json:"Iccid,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	Fleet *string `json:"Fleet,omitempty"`
+	Iccid *string `json:"Iccid,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -679,50 +677,50 @@ Retrieve a list of Super SIMs from your account.
 @return SupersimV1SimReadResponse
 */
 func (c *DefaultApiService) ListSim(params *ListSimParams) (*SupersimV1SimReadResponse, error) {
-    path := "/v1/Sims"
+	path := "/v1/Sims"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.Fleet != nil {
-        data.Set("Fleet", *params.Fleet)
-    }
-    if params != nil && params.Iccid != nil {
-        data.Set("Iccid", *params.Iccid)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Fleet != nil {
+		data.Set("Fleet", *params.Fleet)
+	}
+	if params != nil && params.Iccid != nil {
+		data.Set("Iccid", *params.Iccid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1SimReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1SimReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordParams Optional parameters for the method 'ListUsageRecord'
 type ListUsageRecordParams struct {
-    Sim *string `json:"Sim,omitempty"`
-    Fleet *string `json:"Fleet,omitempty"`
-    Network *string `json:"Network,omitempty"`
-    IsoCountry *string `json:"IsoCountry,omitempty"`
-    Group *string `json:"Group,omitempty"`
-    Granularity *string `json:"Granularity,omitempty"`
-    StartTime *time.Time `json:"StartTime,omitempty"`
-    EndTime *time.Time `json:"EndTime,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Sim *string `json:"Sim,omitempty"`
+	Fleet *string `json:"Fleet,omitempty"`
+	Network *string `json:"Network,omitempty"`
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	Group *string `json:"Group,omitempty"`
+	Granularity *string `json:"Granularity,omitempty"`
+	StartTime *time.Time `json:"StartTime,omitempty"`
+	EndTime *time.Time `json:"EndTime,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -741,58 +739,58 @@ List UsageRecords
 @return SupersimV1UsageRecordReadResponse
 */
 func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*SupersimV1UsageRecordReadResponse, error) {
-    path := "/v1/UsageRecords"
+	path := "/v1/UsageRecords"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Sim != nil {
-        data.Set("Sim", *params.Sim)
-    }
-    if params != nil && params.Fleet != nil {
-        data.Set("Fleet", *params.Fleet)
-    }
-    if params != nil && params.Network != nil {
-        data.Set("Network", *params.Network)
-    }
-    if params != nil && params.IsoCountry != nil {
-        data.Set("IsoCountry", *params.IsoCountry)
-    }
-    if params != nil && params.Group != nil {
-        data.Set("Group", *params.Group)
-    }
-    if params != nil && params.Granularity != nil {
-        data.Set("Granularity", *params.Granularity)
-    }
-    if params != nil && params.StartTime != nil {
-        data.Set("StartTime", string(*params.StartTime))
-    }
-    if params != nil && params.EndTime != nil {
-        data.Set("EndTime", string(*params.EndTime))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Fleet != nil {
+		data.Set("Fleet", *params.Fleet)
+	}
+	if params != nil && params.Network != nil {
+		data.Set("Network", *params.Network)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.Group != nil {
+		data.Set("Group", *params.Group)
+	}
+	if params != nil && params.Granularity != nil {
+		data.Set("Granularity", *params.Granularity)
+	}
+	if params != nil && params.StartTime != nil {
+		data.Set("StartTime", string(*params.StartTime))
+	}
+	if params != nil && params.EndTime != nil {
+		data.Set("EndTime", string(*params.EndTime))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1UsageRecordReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1UsageRecordReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateFleetParams Optional parameters for the method 'UpdateFleet'
 type UpdateFleetParams struct {
-    NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -805,37 +803,37 @@ Updates the given properties of a Super SIM Fleet instance from your account.
 @return SupersimV1Fleet
 */
 func (c *DefaultApiService) UpdateFleet(sid string, params *UpdateFleetParams) (*SupersimV1Fleet, error) {
-    path := "/v1/Fleets/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Fleets/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.NetworkAccessProfile != nil {
-        data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.NetworkAccessProfile != nil {
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1Fleet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1Fleet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateNetworkAccessProfileParams Optional parameters for the method 'UpdateNetworkAccessProfile'
 type UpdateNetworkAccessProfileParams struct {
-    UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -847,39 +845,39 @@ Updates the given properties of a Network Access Profile in your account.
 @return SupersimV1NetworkAccessProfile
 */
 func (c *DefaultApiService) UpdateNetworkAccessProfile(sid string, params *UpdateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
-    path := "/v1/NetworkAccessProfiles/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/NetworkAccessProfiles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1NetworkAccessProfile{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1NetworkAccessProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSimParams Optional parameters for the method 'UpdateSim'
 type UpdateSimParams struct {
-    AccountSid *string `json:"AccountSid,omitempty"`
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    Fleet *string `json:"Fleet,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	Fleet *string `json:"Fleet,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -896,43 +894,43 @@ Updates the given properties of a Super SIM instance from your account.
 @return SupersimV1Sim
 */
 func (c *DefaultApiService) UpdateSim(sid string, params *UpdateSimParams) (*SupersimV1Sim, error) {
-    path := "/v1/Sims/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Sims/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AccountSid != nil {
-        data.Set("AccountSid", *params.AccountSid)
-    }
-    if params != nil && params.CallbackMethod != nil {
-        data.Set("CallbackMethod", *params.CallbackMethod)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.Fleet != nil {
-        data.Set("Fleet", *params.Fleet)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.Fleet != nil {
+		data.Set("Fleet", *params.Fleet)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SupersimV1Sim{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SupersimV1Sim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

@@ -13,34 +13,32 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateFaxParams Optional parameters for the method 'CreateFax'
 type CreateFaxParams struct {
-    From *string `json:"From,omitempty"`
-    MediaUrl *string `json:"MediaUrl,omitempty"`
-    Quality *string `json:"Quality,omitempty"`
-    SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-    SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StoreMedia *bool `json:"StoreMedia,omitempty"`
-    To *string `json:"To,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	From *string `json:"From,omitempty"`
+	MediaUrl *string `json:"MediaUrl,omitempty"`
+	Quality *string `json:"Quality,omitempty"`
+	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
+	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StoreMedia *bool `json:"StoreMedia,omitempty"`
+	To *string `json:"To,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -59,53 +57,53 @@ Create a new fax to send to a phone number or SIP endpoint.
 @return FaxV1Fax
 */
 func (c *DefaultApiService) CreateFax(params *CreateFaxParams) (*FaxV1Fax, error) {
-    path := "/v1/Faxes"
+	path := "/v1/Faxes"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.MediaUrl != nil {
-        data.Set("MediaUrl", *params.MediaUrl)
-    }
-    if params != nil && params.Quality != nil {
-        data.Set("Quality", *params.Quality)
-    }
-    if params != nil && params.SipAuthPassword != nil {
-        data.Set("SipAuthPassword", *params.SipAuthPassword)
-    }
-    if params != nil && params.SipAuthUsername != nil {
-        data.Set("SipAuthUsername", *params.SipAuthUsername)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StoreMedia != nil {
-        data.Set("StoreMedia", string(*params.StoreMedia))
-    }
-    if params != nil && params.To != nil {
-        data.Set("To", *params.To)
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.MediaUrl != nil {
+		data.Set("MediaUrl", *params.MediaUrl)
+	}
+	if params != nil && params.Quality != nil {
+		data.Set("Quality", *params.Quality)
+	}
+	if params != nil && params.SipAuthPassword != nil {
+		data.Set("SipAuthPassword", *params.SipAuthPassword)
+	}
+	if params != nil && params.SipAuthUsername != nil {
+		data.Set("SipAuthUsername", *params.SipAuthUsername)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StoreMedia != nil {
+		data.Set("StoreMedia", string(*params.StoreMedia))
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FaxV1Fax{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FaxV1Fax{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -114,22 +112,22 @@ Delete a specific fax and its associated media.
  * @param sid The Twilio-provided string that uniquely identifies the Fax resource to delete.
 */
 func (c *DefaultApiService) DeleteFax(sid string) (error) {
-    path := "/v1/Faxes/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Faxes/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -139,23 +137,23 @@ Delete a specific fax media instance.
  * @param sid The Twilio-provided string that uniquely identifies the FaxMedia resource to delete.
 */
 func (c *DefaultApiService) DeleteFaxMedia(faxSid string, sid string) (error) {
-    path := "/v1/Faxes/{FaxSid}/Media/{Sid}"
-    path = strings.Replace(path, "{"+"FaxSid"+"}", faxSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Faxes/{FaxSid}/Media/{Sid}"
+	path = strings.Replace(path, "{"+"FaxSid"+"}", faxSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -165,27 +163,27 @@ Fetch a specific fax.
 @return FaxV1Fax
 */
 func (c *DefaultApiService) FetchFax(sid string) (*FaxV1Fax, error) {
-    path := "/v1/Faxes/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Faxes/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FaxV1Fax{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FaxV1Fax{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -196,36 +194,36 @@ Fetch a specific fax media instance.
 @return FaxV1FaxFaxMedia
 */
 func (c *DefaultApiService) FetchFaxMedia(faxSid string, sid string) (*FaxV1FaxFaxMedia, error) {
-    path := "/v1/Faxes/{FaxSid}/Media/{Sid}"
-    path = strings.Replace(path, "{"+"FaxSid"+"}", faxSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Faxes/{FaxSid}/Media/{Sid}"
+	path = strings.Replace(path, "{"+"FaxSid"+"}", faxSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FaxV1FaxFaxMedia{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FaxV1FaxFaxMedia{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFaxParams Optional parameters for the method 'ListFax'
 type ListFaxParams struct {
-    From *string `json:"From,omitempty"`
-    To *string `json:"To,omitempty"`
-    DateCreatedOnOrBefore *time.Time `json:"DateCreatedOnOrBefore,omitempty"`
-    DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	From *string `json:"From,omitempty"`
+	To *string `json:"To,omitempty"`
+	DateCreatedOnOrBefore *time.Time `json:"DateCreatedOnOrBefore,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -240,45 +238,45 @@ Retrieve a list of all faxes.
 @return FaxV1FaxReadResponse
 */
 func (c *DefaultApiService) ListFax(params *ListFaxParams) (*FaxV1FaxReadResponse, error) {
-    path := "/v1/Faxes"
+	path := "/v1/Faxes"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.To != nil {
-        data.Set("To", *params.To)
-    }
-    if params != nil && params.DateCreatedOnOrBefore != nil {
-        data.Set("DateCreatedOnOrBefore", string(*params.DateCreatedOnOrBefore))
-    }
-    if params != nil && params.DateCreatedAfter != nil {
-        data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.DateCreatedOnOrBefore != nil {
+		data.Set("DateCreatedOnOrBefore", string(*params.DateCreatedOnOrBefore))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FaxV1FaxReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FaxV1FaxReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFaxMediaParams Optional parameters for the method 'ListFaxMedia'
 type ListFaxMediaParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -290,34 +288,34 @@ Retrieve a list of all fax media instances for the specified fax.
 @return FaxV1FaxFaxMediaReadResponse
 */
 func (c *DefaultApiService) ListFaxMedia(faxSid string, params *ListFaxMediaParams) (*FaxV1FaxFaxMediaReadResponse, error) {
-    path := "/v1/Faxes/{FaxSid}/Media"
-    path = strings.Replace(path, "{"+"FaxSid"+"}", faxSid, -1)
+	path := "/v1/Faxes/{FaxSid}/Media"
+	path = strings.Replace(path, "{"+"FaxSid"+"}", faxSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FaxV1FaxFaxMediaReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FaxV1FaxFaxMediaReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateFaxParams Optional parameters for the method 'UpdateFax'
 type UpdateFaxParams struct {
-    Status *string `json:"Status,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -329,28 +327,28 @@ Update a specific fax.
 @return FaxV1Fax
 */
 func (c *DefaultApiService) UpdateFax(sid string, params *UpdateFaxParams) (*FaxV1Fax, error) {
-    path := "/v1/Faxes/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Faxes/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FaxV1Fax{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FaxV1Fax{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

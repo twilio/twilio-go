@@ -13,36 +13,33 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
-    "reflect"
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateConversationParams Optional parameters for the method 'CreateConversation'
 type CreateConversationParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
-    State *string `json:"State,omitempty"`
-    Timers.Closed *string `json:"Timers.Closed,omitempty"`
-    Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	State *string `json:"State,omitempty"`
+	Timers.Closed *string `json:"Timers.Closed,omitempty"`
+	Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -62,66 +59,66 @@ Create a new conversation in your account&#39;s default service
 @return ConversationsV1Conversation
 */
 func (c *DefaultApiService) CreateConversation(params *CreateConversationParams) (*ConversationsV1Conversation, error) {
-    path := "/v1/Conversations"
+	path := "/v1/Conversations"
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.MessagingServiceSid != nil {
-        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-    }
-    if params != nil && params.State != nil {
-        data.Set("State", *params.State)
-    }
-    if params != nil && params.Timers.Closed != nil {
-        data.Set("Timers.Closed", *params.Timers.Closed)
-    }
-    if params != nil && params.Timers.Inactive != nil {
-        data.Set("Timers.Inactive", *params.Timers.Inactive)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+	if params != nil && params.State != nil {
+		data.Set("State", *params.State)
+	}
+	if params != nil && params.Timers.Closed != nil {
+		data.Set("Timers.Closed", *params.Timers.Closed)
+	}
+	if params != nil && params.Timers.Inactive != nil {
+		data.Set("Timers.Inactive", *params.Timers.Inactive)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Conversation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Conversation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateConversationMessageParams Optional parameters for the method 'CreateConversationMessage'
 type CreateConversationMessageParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    Author *string `json:"Author,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    MediaSid *string `json:"MediaSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Author *string `json:"Author,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	MediaSid *string `json:"MediaSid,omitempty"`
 }
 
 /*
@@ -139,60 +136,60 @@ Add a new message to the conversation
 @return ConversationsV1ConversationConversationMessage
 */
 func (c *DefaultApiService) CreateConversationMessage(conversationSid string, params *CreateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
-    path := "/v1/Conversations/{ConversationSid}/Messages"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Messages"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.Author != nil {
-        data.Set("Author", *params.Author)
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.MediaSid != nil {
-        data.Set("MediaSid", *params.MediaSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Author != nil {
+		data.Set("Author", *params.Author)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.MediaSid != nil {
+		data.Set("MediaSid", *params.MediaSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateConversationParticipantParams Optional parameters for the method 'CreateConversationParticipant'
 type CreateConversationParticipantParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    MessagingBinding.Address *string `json:"MessagingBinding.Address,omitempty"`
-    MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
-    MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	MessagingBinding.Address *string `json:"MessagingBinding.Address,omitempty"`
+	MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -212,64 +209,64 @@ Add a new participant to the conversation
 @return ConversationsV1ConversationConversationParticipant
 */
 func (c *DefaultApiService) CreateConversationParticipant(conversationSid string, params *CreateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
-    path := "/v1/Conversations/{ConversationSid}/Participants"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Participants"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.MessagingBinding.Address != nil {
-        data.Set("MessagingBinding.Address", *params.MessagingBinding.Address)
-    }
-    if params != nil && params.MessagingBinding.ProjectedAddress != nil {
-        data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
-    }
-    if params != nil && params.MessagingBinding.ProxyAddress != nil {
-        data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.MessagingBinding.Address != nil {
+		data.Set("MessagingBinding.Address", *params.MessagingBinding.Address)
+	}
+	if params != nil && params.MessagingBinding.ProjectedAddress != nil {
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
+	}
+	if params != nil && params.MessagingBinding.ProxyAddress != nil {
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateConversationScopedWebhookParams Optional parameters for the method 'CreateConversationScopedWebhook'
 type CreateConversationScopedWebhookParams struct {
-    Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-    Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-    Configuration.Method *string `json:"Configuration.Method,omitempty"`
-    Configuration.ReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
-    Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-    Configuration.Url *string `json:"Configuration.Url,omitempty"`
-    Target *string `json:"Target,omitempty"`
+	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
+	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	Configuration.Method *string `json:"Configuration.Method,omitempty"`
+	Configuration.ReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
+	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
+	Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	Target *string `json:"Target,omitempty"`
 }
 
 /*
@@ -287,58 +284,58 @@ Create a new webhook scoped to the conversation
 @return ConversationsV1ConversationConversationScopedWebhook
 */
 func (c *DefaultApiService) CreateConversationScopedWebhook(conversationSid string, params *CreateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
-    path := "/v1/Conversations/{ConversationSid}/Webhooks"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Configuration.Filters != nil {
-        data.Set("Configuration.Filters", *params.Configuration.Filters)
-    }
-    if params != nil && params.Configuration.FlowSid != nil {
-        data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
-    }
-    if params != nil && params.Configuration.Method != nil {
-        data.Set("Configuration.Method", *params.Configuration.Method)
-    }
-    if params != nil && params.Configuration.ReplayAfter != nil {
-        data.Set("Configuration.ReplayAfter", string(*params.Configuration.ReplayAfter))
-    }
-    if params != nil && params.Configuration.Triggers != nil {
-        data.Set("Configuration.Triggers", *params.Configuration.Triggers)
-    }
-    if params != nil && params.Configuration.Url != nil {
-        data.Set("Configuration.Url", *params.Configuration.Url)
-    }
-    if params != nil && params.Target != nil {
-        data.Set("Target", *params.Target)
-    }
+	if params != nil && params.Configuration.Filters != nil {
+		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	}
+	if params != nil && params.Configuration.FlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	}
+	if params != nil && params.Configuration.Method != nil {
+		data.Set("Configuration.Method", *params.Configuration.Method)
+	}
+	if params != nil && params.Configuration.ReplayAfter != nil {
+		data.Set("Configuration.ReplayAfter", string(*params.Configuration.ReplayAfter))
+	}
+	if params != nil && params.Configuration.Triggers != nil {
+		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	}
+	if params != nil && params.Configuration.Url != nil {
+		data.Set("Configuration.Url", *params.Configuration.Url)
+	}
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationScopedWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCredentialParams Optional parameters for the method 'CreateCredential'
 type CreateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -355,53 +352,53 @@ Add a new push notification credential to your account
 @return ConversationsV1Credential
 */
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*ConversationsV1Credential, error) {
-    path := "/v1/Credentials"
+	path := "/v1/Credentials"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiKey != nil {
-        data.Set("ApiKey", *params.ApiKey)
-    }
-    if params != nil && params.Certificate != nil {
-        data.Set("Certificate", *params.Certificate)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PrivateKey != nil {
-        data.Set("PrivateKey", *params.PrivateKey)
-    }
-    if params != nil && params.Sandbox != nil {
-        data.Set("Sandbox", string(*params.Sandbox))
-    }
-    if params != nil && params.Secret != nil {
-        data.Set("Secret", *params.Secret)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", string(*params.Sandbox))
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateRoleParams Optional parameters for the method 'CreateRole'
 type CreateRoleParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Permission *[]string `json:"Permission,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -414,39 +411,39 @@ Create a new user role in your account&#39;s default service
 @return ConversationsV1Role
 */
 func (c *DefaultApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role, error) {
-    path := "/v1/Roles"
+	path := "/v1/Roles"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Permission != nil {
-        data.Set("Permission", *params.Permission)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Permission != nil {
+		data.Set("Permission", *params.Permission)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Role{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Role{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -457,42 +454,42 @@ Create a new conversation service on your account
 @return ConversationsV1Service
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ConversationsV1Service, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceConversationParams Optional parameters for the method 'CreateServiceConversation'
 type CreateServiceConversationParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
-    State *string `json:"State,omitempty"`
-    Timers.Closed *string `json:"Timers.Closed,omitempty"`
-    Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	State *string `json:"State,omitempty"`
+	Timers.Closed *string `json:"Timers.Closed,omitempty"`
+	Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -513,67 +510,67 @@ Create a new conversation in your service
 @return ConversationsV1ServiceServiceConversation
 */
 func (c *DefaultApiService) CreateServiceConversation(chatServiceSid string, params *CreateServiceConversationParams) (*ConversationsV1ServiceServiceConversation, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.MessagingServiceSid != nil {
-        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-    }
-    if params != nil && params.State != nil {
-        data.Set("State", *params.State)
-    }
-    if params != nil && params.Timers.Closed != nil {
-        data.Set("Timers.Closed", *params.Timers.Closed)
-    }
-    if params != nil && params.Timers.Inactive != nil {
-        data.Set("Timers.Inactive", *params.Timers.Inactive)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+	if params != nil && params.State != nil {
+		data.Set("State", *params.State)
+	}
+	if params != nil && params.Timers.Closed != nil {
+		data.Set("Timers.Closed", *params.Timers.Closed)
+	}
+	if params != nil && params.Timers.Inactive != nil {
+		data.Set("Timers.Inactive", *params.Timers.Inactive)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceConversationMessageParams Optional parameters for the method 'CreateServiceConversationMessage'
 type CreateServiceConversationMessageParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    Author *string `json:"Author,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    MediaSid *string `json:"MediaSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Author *string `json:"Author,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	MediaSid *string `json:"MediaSid,omitempty"`
 }
 
 /*
@@ -592,61 +589,61 @@ Add a new message to the conversation in a specific service
 @return ConversationsV1ServiceServiceConversationServiceConversationMessage
 */
 func (c *DefaultApiService) CreateServiceConversationMessage(chatServiceSid string, conversationSid string, params *CreateServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.Author != nil {
-        data.Set("Author", *params.Author)
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.MediaSid != nil {
-        data.Set("MediaSid", *params.MediaSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Author != nil {
+		data.Set("Author", *params.Author)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.MediaSid != nil {
+		data.Set("MediaSid", *params.MediaSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceConversationParticipantParams Optional parameters for the method 'CreateServiceConversationParticipant'
 type CreateServiceConversationParticipantParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    MessagingBinding.Address *string `json:"MessagingBinding.Address,omitempty"`
-    MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
-    MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	MessagingBinding.Address *string `json:"MessagingBinding.Address,omitempty"`
+	MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -667,65 +664,65 @@ Add a new participant to the conversation in a specific service
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
 */
 func (c *DefaultApiService) CreateServiceConversationParticipant(chatServiceSid string, conversationSid string, params *CreateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.MessagingBinding.Address != nil {
-        data.Set("MessagingBinding.Address", *params.MessagingBinding.Address)
-    }
-    if params != nil && params.MessagingBinding.ProjectedAddress != nil {
-        data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
-    }
-    if params != nil && params.MessagingBinding.ProxyAddress != nil {
-        data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.MessagingBinding.Address != nil {
+		data.Set("MessagingBinding.Address", *params.MessagingBinding.Address)
+	}
+	if params != nil && params.MessagingBinding.ProjectedAddress != nil {
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
+	}
+	if params != nil && params.MessagingBinding.ProxyAddress != nil {
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceConversationScopedWebhookParams Optional parameters for the method 'CreateServiceConversationScopedWebhook'
 type CreateServiceConversationScopedWebhookParams struct {
-    Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-    Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-    Configuration.Method *string `json:"Configuration.Method,omitempty"`
-    Configuration.ReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
-    Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-    Configuration.Url *string `json:"Configuration.Url,omitempty"`
-    Target *string `json:"Target,omitempty"`
+	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
+	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	Configuration.Method *string `json:"Configuration.Method,omitempty"`
+	Configuration.ReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
+	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
+	Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	Target *string `json:"Target,omitempty"`
 }
 
 /*
@@ -744,55 +741,55 @@ Create a new webhook scoped to the conversation in a specific service
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 */
 func (c *DefaultApiService) CreateServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, params *CreateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Configuration.Filters != nil {
-        data.Set("Configuration.Filters", *params.Configuration.Filters)
-    }
-    if params != nil && params.Configuration.FlowSid != nil {
-        data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
-    }
-    if params != nil && params.Configuration.Method != nil {
-        data.Set("Configuration.Method", *params.Configuration.Method)
-    }
-    if params != nil && params.Configuration.ReplayAfter != nil {
-        data.Set("Configuration.ReplayAfter", string(*params.Configuration.ReplayAfter))
-    }
-    if params != nil && params.Configuration.Triggers != nil {
-        data.Set("Configuration.Triggers", *params.Configuration.Triggers)
-    }
-    if params != nil && params.Configuration.Url != nil {
-        data.Set("Configuration.Url", *params.Configuration.Url)
-    }
-    if params != nil && params.Target != nil {
-        data.Set("Target", *params.Target)
-    }
+	if params != nil && params.Configuration.Filters != nil {
+		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	}
+	if params != nil && params.Configuration.FlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	}
+	if params != nil && params.Configuration.Method != nil {
+		data.Set("Configuration.Method", *params.Configuration.Method)
+	}
+	if params != nil && params.Configuration.ReplayAfter != nil {
+		data.Set("Configuration.ReplayAfter", string(*params.Configuration.ReplayAfter))
+	}
+	if params != nil && params.Configuration.Triggers != nil {
+		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	}
+	if params != nil && params.Configuration.Url != nil {
+		data.Set("Configuration.Url", *params.Configuration.Url)
+	}
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceRoleParams Optional parameters for the method 'CreateServiceRole'
 type CreateServiceRoleParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Permission *[]string `json:"Permission,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -806,44 +803,44 @@ Create a new user role in your service
 @return ConversationsV1ServiceServiceRole
 */
 func (c *DefaultApiService) CreateServiceRole(chatServiceSid string, params *CreateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
-    path := "/v1/Services/{ChatServiceSid}/Roles"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Roles"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Permission != nil {
-        data.Set("Permission", *params.Permission)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Permission != nil {
+		data.Set("Permission", *params.Permission)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceRole{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceRole{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceUserParams Optional parameters for the method 'CreateServiceUser'
 type CreateServiceUserParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -859,50 +856,50 @@ Add a new conversation user to your service
 @return ConversationsV1ServiceServiceUser
 */
 func (c *DefaultApiService) CreateServiceUser(chatServiceSid string, params *CreateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
-    path := "/v1/Services/{ChatServiceSid}/Users"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Users"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateUserParams Optional parameters for the method 'CreateUser'
 type CreateUserParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -917,45 +914,45 @@ Add a new conversation user to your account&#39;s default service
 @return ConversationsV1User
 */
 func (c *DefaultApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User, error) {
-    path := "/v1/Users"
+	path := "/v1/Users"
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1User{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1User{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // DeleteConversationParams Optional parameters for the method 'DeleteConversation'
 type DeleteConversationParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -966,29 +963,29 @@ Remove a conversation from your account&#39;s default service
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteConversation(sid string, params *DeleteConversationParams) (error) {
-    path := "/v1/Conversations/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteConversationMessageParams Optional parameters for the method 'DeleteConversationMessage'
 type DeleteConversationMessageParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -1000,30 +997,30 @@ Remove a message from the conversation
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteConversationMessage(conversationSid string, sid string, params *DeleteConversationMessageParams) (error) {
-    path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteConversationParticipantParams Optional parameters for the method 'DeleteConversationParticipant'
 type DeleteConversationParticipantParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -1035,26 +1032,26 @@ Remove a participant from the conversation
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteConversationParticipant(conversationSid string, sid string, params *DeleteConversationParticipantParams) (error) {
-    path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1064,23 +1061,23 @@ Remove an existing webhook scoped to the conversation
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteConversationScopedWebhook(conversationSid string, sid string) (error) {
-    path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1089,22 +1086,22 @@ Remove a push notification credential from your account
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteCredential(sid string) (error) {
-    path := "/v1/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1113,22 +1110,22 @@ Remove a user role from your account&#39;s default service
  * @param sid The SID of the Role resource to delete.
 */
 func (c *DefaultApiService) DeleteRole(sid string) (error) {
-    path := "/v1/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1137,22 +1134,22 @@ Remove a conversation service with all its nested resources from your account
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteService(sid string) (error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1162,27 +1159,27 @@ Remove a push notification binding from the conversation service
  * @param sid The SID of the Binding resource to delete.
 */
 func (c *DefaultApiService) DeleteServiceBinding(chatServiceSid string, sid string) (error) {
-    path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteServiceConversationParams Optional parameters for the method 'DeleteServiceConversation'
 type DeleteServiceConversationParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -1194,30 +1191,30 @@ Remove a conversation from your service
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteServiceConversation(chatServiceSid string, sid string, params *DeleteServiceConversationParams) (error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteServiceConversationMessageParams Optional parameters for the method 'DeleteServiceConversationMessage'
 type DeleteServiceConversationMessageParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -1230,31 +1227,31 @@ Remove a message from the conversation
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteServiceConversationMessage(chatServiceSid string, conversationSid string, sid string, params *DeleteServiceConversationMessageParams) (error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteServiceConversationParticipantParams Optional parameters for the method 'DeleteServiceConversationParticipant'
 type DeleteServiceConversationParticipantParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -1267,27 +1264,27 @@ Remove a participant from the conversation
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteServiceConversationParticipant(chatServiceSid string, conversationSid string, sid string, params *DeleteServiceConversationParticipantParams) (error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1298,24 +1295,24 @@ Remove an existing webhook scoped to the conversation
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, sid string) (error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1325,27 +1322,27 @@ Remove a user role from your service
  * @param sid The SID of the Role resource to delete.
 */
 func (c *DefaultApiService) DeleteServiceRole(chatServiceSid string, sid string) (error) {
-    path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteServiceUserParams Optional parameters for the method 'DeleteServiceUser'
 type DeleteServiceUserParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -1357,30 +1354,30 @@ Remove a conversation user from your service
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteServiceUser(chatServiceSid string, sid string, params *DeleteServiceUserParams) (error) {
-    path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteUserParams Optional parameters for the method 'DeleteUser'
 type DeleteUserParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -1391,25 +1388,25 @@ Remove a conversation user from your account&#39;s default service
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteUser(sid string, params *DeleteUserParams) (error) {
-    path := "/v1/Users/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Users/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1418,26 +1415,26 @@ Fetch the global configuration of conversations on your account
 @return ConversationsV1Configuration
 */
 func (c *DefaultApiService) FetchConfiguration() (*ConversationsV1Configuration, error) {
-    path := "/v1/Configuration"
+	path := "/v1/Configuration"
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Configuration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1445,26 +1442,26 @@ FetchConfigurationWebhook Method for FetchConfigurationWebhook
 @return ConversationsV1ConfigurationConfigurationWebhook
 */
 func (c *DefaultApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationConfigurationWebhook, error) {
-    path := "/v1/Configuration/Webhooks"
+	path := "/v1/Configuration/Webhooks"
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConfigurationConfigurationWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConfigurationConfigurationWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1474,27 +1471,27 @@ Fetch a conversation from your account&#39;s default service
 @return ConversationsV1Conversation
 */
 func (c *DefaultApiService) FetchConversation(sid string) (*ConversationsV1Conversation, error) {
-    path := "/v1/Conversations/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Conversation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Conversation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1505,28 +1502,28 @@ Fetch a message from the conversation
 @return ConversationsV1ConversationConversationMessage
 */
 func (c *DefaultApiService) FetchConversationMessage(conversationSid string, sid string) (*ConversationsV1ConversationConversationMessage, error) {
-    path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1538,29 +1535,29 @@ Fetch the delivery and read receipts of the conversation message
 @return ConversationsV1ConversationConversationMessageConversationMessageReceipt
 */
 func (c *DefaultApiService) FetchConversationMessageReceipt(conversationSid string, messageSid string, sid string) (*ConversationsV1ConversationConversationMessageConversationMessageReceipt, error) {
-    path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationMessageConversationMessageReceipt{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationMessageConversationMessageReceipt{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1571,28 +1568,28 @@ Fetch a participant of the conversation
 @return ConversationsV1ConversationConversationParticipant
 */
 func (c *DefaultApiService) FetchConversationParticipant(conversationSid string, sid string) (*ConversationsV1ConversationConversationParticipant, error) {
-    path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1603,28 +1600,28 @@ Fetch the configuration of a conversation-scoped webhook
 @return ConversationsV1ConversationConversationScopedWebhook
 */
 func (c *DefaultApiService) FetchConversationScopedWebhook(conversationSid string, sid string) (*ConversationsV1ConversationConversationScopedWebhook, error) {
-    path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationScopedWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1634,27 +1631,27 @@ Fetch a push notification credential from your account
 @return ConversationsV1Credential
 */
 func (c *DefaultApiService) FetchCredential(sid string) (*ConversationsV1Credential, error) {
-    path := "/v1/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1664,27 +1661,27 @@ Fetch a user role from your account&#39;s default service
 @return ConversationsV1Role
 */
 func (c *DefaultApiService) FetchRole(sid string) (*ConversationsV1Role, error) {
-    path := "/v1/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Role{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Role{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1694,27 +1691,27 @@ Fetch a conversation service from your account
 @return ConversationsV1Service
 */
 func (c *DefaultApiService) FetchService(sid string) (*ConversationsV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1725,28 +1722,28 @@ Fetch a push notification binding from the conversation service
 @return ConversationsV1ServiceServiceBinding
 */
 func (c *DefaultApiService) FetchServiceBinding(chatServiceSid string, sid string) (*ConversationsV1ServiceServiceBinding, error) {
-    path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceBinding{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceBinding{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1756,27 +1753,27 @@ Fetch the configuration of a conversation service
 @return ConversationsV1ServiceServiceConfiguration
 */
 func (c *DefaultApiService) FetchServiceConfiguration(chatServiceSid string) (*ConversationsV1ServiceServiceConfiguration, error) {
-    path := "/v1/Services/{ChatServiceSid}/Configuration"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Configuration"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConfiguration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1787,28 +1784,28 @@ Fetch a conversation from your service
 @return ConversationsV1ServiceServiceConversation
 */
 func (c *DefaultApiService) FetchServiceConversation(chatServiceSid string, sid string) (*ConversationsV1ServiceServiceConversation, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1820,29 +1817,29 @@ Fetch a message from the conversation
 @return ConversationsV1ServiceServiceConversationServiceConversationMessage
 */
 func (c *DefaultApiService) FetchServiceConversationMessage(chatServiceSid string, conversationSid string, sid string) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1855,30 +1852,30 @@ Fetch the delivery and read receipts of the conversation message
 @return ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt
 */
 func (c *DefaultApiService) FetchServiceConversationMessageReceipt(chatServiceSid string, conversationSid string, messageSid string, sid string) (*ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1890,29 +1887,29 @@ Fetch a participant of the conversation
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
 */
 func (c *DefaultApiService) FetchServiceConversationParticipant(chatServiceSid string, conversationSid string, sid string) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1924,29 +1921,29 @@ Fetch the configuration of a conversation-scoped webhook
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 */
 func (c *DefaultApiService) FetchServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, sid string) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1956,27 +1953,27 @@ Fetch push notification service settings
 @return ConversationsV1ServiceServiceConfigurationServiceNotification
 */
 func (c *DefaultApiService) FetchServiceNotification(chatServiceSid string) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
-    path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConfigurationServiceNotification{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConfigurationServiceNotification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1987,28 +1984,28 @@ Fetch a user role from your service
 @return ConversationsV1ServiceServiceRole
 */
 func (c *DefaultApiService) FetchServiceRole(chatServiceSid string, sid string) (*ConversationsV1ServiceServiceRole, error) {
-    path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceRole{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceRole{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2019,28 +2016,28 @@ Fetch a conversation user from your service
 @return ConversationsV1ServiceServiceUser
 */
 func (c *DefaultApiService) FetchServiceUser(chatServiceSid string, sid string) (*ConversationsV1ServiceServiceUser, error) {
-    path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2050,31 +2047,31 @@ Fetch a conversation user from your account&#39;s default service
 @return ConversationsV1User
 */
 func (c *DefaultApiService) FetchUser(sid string) (*ConversationsV1User, error) {
-    path := "/v1/Users/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Users/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1User{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1User{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConversationParams Optional parameters for the method 'ListConversation'
 type ListConversationParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2085,33 +2082,33 @@ Retrieve a list of conversations in your account&#39;s default service
 @return ConversationsV1ConversationReadResponse
 */
 func (c *DefaultApiService) ListConversation(params *ListConversationParams) (*ConversationsV1ConversationReadResponse, error) {
-    path := "/v1/Conversations"
+	path := "/v1/Conversations"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConversationMessageParams Optional parameters for the method 'ListConversationMessage'
 type ListConversationMessageParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2123,34 +2120,34 @@ Retrieve a list of all messages in the conversation
 @return ConversationsV1ConversationConversationMessageReadResponse
 */
 func (c *DefaultApiService) ListConversationMessage(conversationSid string, params *ListConversationMessageParams) (*ConversationsV1ConversationConversationMessageReadResponse, error) {
-    path := "/v1/Conversations/{ConversationSid}/Messages"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Messages"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationMessageReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationMessageReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConversationMessageReceiptParams Optional parameters for the method 'ListConversationMessageReceipt'
 type ListConversationMessageReceiptParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2163,35 +2160,35 @@ Retrieve a list of all delivery and read receipts of the conversation message
 @return ConversationsV1ConversationConversationMessageConversationMessageReceiptReadResponse
 */
 func (c *DefaultApiService) ListConversationMessageReceipt(conversationSid string, messageSid string, params *ListConversationMessageReceiptParams) (*ConversationsV1ConversationConversationMessageConversationMessageReceiptReadResponse, error) {
-    path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationMessageConversationMessageReceiptReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationMessageConversationMessageReceiptReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConversationParticipantParams Optional parameters for the method 'ListConversationParticipant'
 type ListConversationParticipantParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2203,34 +2200,34 @@ Retrieve a list of all participants of the conversation
 @return ConversationsV1ConversationConversationParticipantReadResponse
 */
 func (c *DefaultApiService) ListConversationParticipant(conversationSid string, params *ListConversationParticipantParams) (*ConversationsV1ConversationConversationParticipantReadResponse, error) {
-    path := "/v1/Conversations/{ConversationSid}/Participants"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Participants"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationParticipantReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationParticipantReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConversationScopedWebhookParams Optional parameters for the method 'ListConversationScopedWebhook'
 type ListConversationScopedWebhookParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2242,34 +2239,34 @@ Retrieve a list of all webhooks scoped to the conversation
 @return ConversationsV1ConversationConversationScopedWebhookReadResponse
 */
 func (c *DefaultApiService) ListConversationScopedWebhook(conversationSid string, params *ListConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhookReadResponse, error) {
-    path := "/v1/Conversations/{ConversationSid}/Webhooks"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationScopedWebhookReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationScopedWebhookReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCredentialParams Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2280,33 +2277,33 @@ Retrieve a list of all push notification credentials on your account
 @return ConversationsV1CredentialReadResponse
 */
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ConversationsV1CredentialReadResponse, error) {
-    path := "/v1/Credentials"
+	path := "/v1/Credentials"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1CredentialReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1CredentialReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRoleParams Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2317,33 +2314,33 @@ Retrieve a list of all user roles in your account&#39;s default service
 @return ConversationsV1RoleReadResponse
 */
 func (c *DefaultApiService) ListRole(params *ListRoleParams) (*ConversationsV1RoleReadResponse, error) {
-    path := "/v1/Roles"
+	path := "/v1/Roles"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1RoleReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1RoleReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2354,35 +2351,35 @@ Retrieve a list of all conversation services on your account
 @return ConversationsV1ServiceReadResponse
 */
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ConversationsV1ServiceReadResponse, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceBindingParams Optional parameters for the method 'ListServiceBinding'
 type ListServiceBindingParams struct {
-    BindingType *[]string `json:"BindingType,omitempty"`
-    Identity *[]string `json:"Identity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	BindingType *[]string `json:"BindingType,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2396,40 +2393,40 @@ Retrieve a list of all push notification bindings in the conversation service
 @return ConversationsV1ServiceServiceBindingReadResponse
 */
 func (c *DefaultApiService) ListServiceBinding(chatServiceSid string, params *ListServiceBindingParams) (*ConversationsV1ServiceServiceBindingReadResponse, error) {
-    path := "/v1/Services/{ChatServiceSid}/Bindings"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Bindings"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.BindingType != nil {
-        data.Set("BindingType", string(*params.BindingType))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", string(*params.Identity))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.BindingType != nil {
+		data.Set("BindingType", string(*params.BindingType))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", string(*params.Identity))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceBindingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceBindingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceConversationParams Optional parameters for the method 'ListServiceConversation'
 type ListServiceConversationParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2441,34 +2438,34 @@ Retrieve a list of conversations in your service
 @return ConversationsV1ServiceServiceConversationReadResponse
 */
 func (c *DefaultApiService) ListServiceConversation(chatServiceSid string, params *ListServiceConversationParams) (*ConversationsV1ServiceServiceConversationReadResponse, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceConversationMessageParams Optional parameters for the method 'ListServiceConversationMessage'
 type ListServiceConversationMessageParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2481,35 +2478,35 @@ Retrieve a list of all messages in the conversation
 @return ConversationsV1ServiceServiceConversationServiceConversationMessageReadResponse
 */
 func (c *DefaultApiService) ListServiceConversationMessage(chatServiceSid string, conversationSid string, params *ListServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessageReadResponse, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationMessageReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationMessageReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceConversationMessageReceiptParams Optional parameters for the method 'ListServiceConversationMessageReceipt'
 type ListServiceConversationMessageReceiptParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2523,36 +2520,36 @@ Retrieve a list of all delivery and read receipts of the conversation message
 @return ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceiptReadResponse
 */
 func (c *DefaultApiService) ListServiceConversationMessageReceipt(chatServiceSid string, conversationSid string, messageSid string, params *ListServiceConversationMessageReceiptParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceiptReadResponse, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceiptReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceiptReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceConversationParticipantParams Optional parameters for the method 'ListServiceConversationParticipant'
 type ListServiceConversationParticipantParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2565,35 +2562,35 @@ Retrieve a list of all participants of the conversation
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipantReadResponse
 */
 func (c *DefaultApiService) ListServiceConversationParticipant(chatServiceSid string, conversationSid string, params *ListServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipantReadResponse, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipantReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipantReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceConversationScopedWebhookParams Optional parameters for the method 'ListServiceConversationScopedWebhook'
 type ListServiceConversationScopedWebhookParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2606,35 +2603,35 @@ Retrieve a list of all webhooks scoped to the conversation
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhookReadResponse
 */
 func (c *DefaultApiService) ListServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, params *ListServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhookReadResponse, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationScopedWebhookReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationScopedWebhookReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceRoleParams Optional parameters for the method 'ListServiceRole'
 type ListServiceRoleParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2646,34 +2643,34 @@ Retrieve a list of all user roles in your service
 @return ConversationsV1ServiceServiceRoleReadResponse
 */
 func (c *DefaultApiService) ListServiceRole(chatServiceSid string, params *ListServiceRoleParams) (*ConversationsV1ServiceServiceRoleReadResponse, error) {
-    path := "/v1/Services/{ChatServiceSid}/Roles"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Roles"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceRoleReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceRoleReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceUserParams Optional parameters for the method 'ListServiceUser'
 type ListServiceUserParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2685,34 +2682,34 @@ Retrieve a list of all conversation users in your service
 @return ConversationsV1ServiceServiceUserReadResponse
 */
 func (c *DefaultApiService) ListServiceUser(chatServiceSid string, params *ListServiceUserParams) (*ConversationsV1ServiceServiceUserReadResponse, error) {
-    path := "/v1/Services/{ChatServiceSid}/Users"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Users"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceUserReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceUserReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUserParams Optional parameters for the method 'ListUser'
 type ListUserParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2723,36 +2720,36 @@ Retrieve a list of all conversation users in your account&#39;s default service
 @return ConversationsV1UserReadResponse
 */
 func (c *DefaultApiService) ListUser(params *ListUserParams) (*ConversationsV1UserReadResponse, error) {
-    path := "/v1/Users"
+	path := "/v1/Users"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1UserReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1UserReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConfigurationParams Optional parameters for the method 'UpdateConfiguration'
 type UpdateConfigurationParams struct {
-    DefaultChatServiceSid *string `json:"DefaultChatServiceSid,omitempty"`
-    DefaultClosedTimer *string `json:"DefaultClosedTimer,omitempty"`
-    DefaultInactiveTimer *string `json:"DefaultInactiveTimer,omitempty"`
-    DefaultMessagingServiceSid *string `json:"DefaultMessagingServiceSid,omitempty"`
+	DefaultChatServiceSid *string `json:"DefaultChatServiceSid,omitempty"`
+	DefaultClosedTimer *string `json:"DefaultClosedTimer,omitempty"`
+	DefaultInactiveTimer *string `json:"DefaultInactiveTimer,omitempty"`
+	DefaultMessagingServiceSid *string `json:"DefaultMessagingServiceSid,omitempty"`
 }
 
 /*
@@ -2766,46 +2763,46 @@ Update the global configuration of conversations on your account
 @return ConversationsV1Configuration
 */
 func (c *DefaultApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*ConversationsV1Configuration, error) {
-    path := "/v1/Configuration"
+	path := "/v1/Configuration"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DefaultChatServiceSid != nil {
-        data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
-    }
-    if params != nil && params.DefaultClosedTimer != nil {
-        data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
-    }
-    if params != nil && params.DefaultInactiveTimer != nil {
-        data.Set("DefaultInactiveTimer", *params.DefaultInactiveTimer)
-    }
-    if params != nil && params.DefaultMessagingServiceSid != nil {
-        data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid)
-    }
+	if params != nil && params.DefaultChatServiceSid != nil {
+		data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
+	}
+	if params != nil && params.DefaultClosedTimer != nil {
+		data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
+	}
+	if params != nil && params.DefaultInactiveTimer != nil {
+		data.Set("DefaultInactiveTimer", *params.DefaultInactiveTimer)
+	}
+	if params != nil && params.DefaultMessagingServiceSid != nil {
+		data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Configuration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConfigurationWebhookParams Optional parameters for the method 'UpdateConfigurationWebhook'
 type UpdateConfigurationWebhookParams struct {
-    Filters *[]string `json:"Filters,omitempty"`
-    Method *string `json:"Method,omitempty"`
-    PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
-    PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
-    Target *string `json:"Target,omitempty"`
+	Filters *[]string `json:"Filters,omitempty"`
+	Method *string `json:"Method,omitempty"`
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	Target *string `json:"Target,omitempty"`
 }
 
 /*
@@ -2819,54 +2816,54 @@ UpdateConfigurationWebhook Method for UpdateConfigurationWebhook
 @return ConversationsV1ConfigurationConfigurationWebhook
 */
 func (c *DefaultApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationConfigurationWebhook, error) {
-    path := "/v1/Configuration/Webhooks"
+	path := "/v1/Configuration/Webhooks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Filters != nil {
-        data.Set("Filters", *params.Filters)
-    }
-    if params != nil && params.Method != nil {
-        data.Set("Method", *params.Method)
-    }
-    if params != nil && params.PostWebhookUrl != nil {
-        data.Set("PostWebhookUrl", *params.PostWebhookUrl)
-    }
-    if params != nil && params.PreWebhookUrl != nil {
-        data.Set("PreWebhookUrl", *params.PreWebhookUrl)
-    }
-    if params != nil && params.Target != nil {
-        data.Set("Target", *params.Target)
-    }
+	if params != nil && params.Filters != nil {
+		data.Set("Filters", *params.Filters)
+	}
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
+	}
+	if params != nil && params.PostWebhookUrl != nil {
+		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+	}
+	if params != nil && params.PreWebhookUrl != nil {
+		data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+	}
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConfigurationConfigurationWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConfigurationConfigurationWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConversationParams Optional parameters for the method 'UpdateConversation'
 type UpdateConversationParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
-    State *string `json:"State,omitempty"`
-    Timers.Closed *string `json:"Timers.Closed,omitempty"`
-    Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	State *string `json:"State,omitempty"`
+	Timers.Closed *string `json:"Timers.Closed,omitempty"`
+	Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -2887,66 +2884,66 @@ Update an existing conversation in your account&#39;s default service
 @return ConversationsV1Conversation
 */
 func (c *DefaultApiService) UpdateConversation(sid string, params *UpdateConversationParams) (*ConversationsV1Conversation, error) {
-    path := "/v1/Conversations/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.MessagingServiceSid != nil {
-        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-    }
-    if params != nil && params.State != nil {
-        data.Set("State", *params.State)
-    }
-    if params != nil && params.Timers.Closed != nil {
-        data.Set("Timers.Closed", *params.Timers.Closed)
-    }
-    if params != nil && params.Timers.Inactive != nil {
-        data.Set("Timers.Inactive", *params.Timers.Inactive)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+	if params != nil && params.State != nil {
+		data.Set("State", *params.State)
+	}
+	if params != nil && params.Timers.Closed != nil {
+		data.Set("Timers.Closed", *params.Timers.Closed)
+	}
+	if params != nil && params.Timers.Inactive != nil {
+		data.Set("Timers.Inactive", *params.Timers.Inactive)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Conversation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Conversation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConversationMessageParams Optional parameters for the method 'UpdateConversationMessage'
 type UpdateConversationMessageParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    Author *string `json:"Author,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Author *string `json:"Author,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 }
 
 /*
@@ -2964,59 +2961,59 @@ Update an existing message in the conversation
 @return ConversationsV1ConversationConversationMessage
 */
 func (c *DefaultApiService) UpdateConversationMessage(conversationSid string, sid string, params *UpdateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
-    path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.Author != nil {
-        data.Set("Author", *params.Author)
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Author != nil {
+		data.Set("Author", *params.Author)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConversationParticipantParams Optional parameters for the method 'UpdateConversationParticipant'
 type UpdateConversationParticipantParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
-    LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
-    MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
-    MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
+	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
+	MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -3038,66 +3035,66 @@ Update an existing participant in the conversation
 @return ConversationsV1ConversationConversationParticipant
 */
 func (c *DefaultApiService) UpdateConversationParticipant(conversationSid string, sid string, params *UpdateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
-    path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.LastReadMessageIndex != nil {
-        data.Set("LastReadMessageIndex", string(*params.LastReadMessageIndex))
-    }
-    if params != nil && params.LastReadTimestamp != nil {
-        data.Set("LastReadTimestamp", *params.LastReadTimestamp)
-    }
-    if params != nil && params.MessagingBinding.ProjectedAddress != nil {
-        data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
-    }
-    if params != nil && params.MessagingBinding.ProxyAddress != nil {
-        data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.LastReadMessageIndex != nil {
+		data.Set("LastReadMessageIndex", string(*params.LastReadMessageIndex))
+	}
+	if params != nil && params.LastReadTimestamp != nil {
+		data.Set("LastReadTimestamp", *params.LastReadTimestamp)
+	}
+	if params != nil && params.MessagingBinding.ProjectedAddress != nil {
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
+	}
+	if params != nil && params.MessagingBinding.ProxyAddress != nil {
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConversationScopedWebhookParams Optional parameters for the method 'UpdateConversationScopedWebhook'
 type UpdateConversationScopedWebhookParams struct {
-    Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-    Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-    Configuration.Method *string `json:"Configuration.Method,omitempty"`
-    Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-    Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
+	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	Configuration.Method *string `json:"Configuration.Method,omitempty"`
+	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
+	Configuration.Url *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -3114,53 +3111,53 @@ Update an existing conversation-scoped webhook
 @return ConversationsV1ConversationConversationScopedWebhook
 */
 func (c *DefaultApiService) UpdateConversationScopedWebhook(conversationSid string, sid string, params *UpdateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
-    path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Configuration.Filters != nil {
-        data.Set("Configuration.Filters", *params.Configuration.Filters)
-    }
-    if params != nil && params.Configuration.FlowSid != nil {
-        data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
-    }
-    if params != nil && params.Configuration.Method != nil {
-        data.Set("Configuration.Method", *params.Configuration.Method)
-    }
-    if params != nil && params.Configuration.Triggers != nil {
-        data.Set("Configuration.Triggers", *params.Configuration.Triggers)
-    }
-    if params != nil && params.Configuration.Url != nil {
-        data.Set("Configuration.Url", *params.Configuration.Url)
-    }
+	if params != nil && params.Configuration.Filters != nil {
+		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	}
+	if params != nil && params.Configuration.FlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	}
+	if params != nil && params.Configuration.Method != nil {
+		data.Set("Configuration.Method", *params.Configuration.Method)
+	}
+	if params != nil && params.Configuration.Triggers != nil {
+		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	}
+	if params != nil && params.Configuration.Url != nil {
+		data.Set("Configuration.Url", *params.Configuration.Url)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ConversationConversationScopedWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ConversationConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateCredentialParams Optional parameters for the method 'UpdateCredential'
 type UpdateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -3178,52 +3175,52 @@ Update an existing push notification credential on your account
 @return ConversationsV1Credential
 */
 func (c *DefaultApiService) UpdateCredential(sid string, params *UpdateCredentialParams) (*ConversationsV1Credential, error) {
-    path := "/v1/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiKey != nil {
-        data.Set("ApiKey", *params.ApiKey)
-    }
-    if params != nil && params.Certificate != nil {
-        data.Set("Certificate", *params.Certificate)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PrivateKey != nil {
-        data.Set("PrivateKey", *params.PrivateKey)
-    }
-    if params != nil && params.Sandbox != nil {
-        data.Set("Sandbox", string(*params.Sandbox))
-    }
-    if params != nil && params.Secret != nil {
-        data.Set("Secret", *params.Secret)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", string(*params.Sandbox))
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRoleParams Optional parameters for the method 'UpdateRole'
 type UpdateRoleParams struct {
-    Permission *[]string `json:"Permission,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
 }
 
 /*
@@ -3235,37 +3232,37 @@ Update an existing user role in your account&#39;s default service
 @return ConversationsV1Role
 */
 func (c *DefaultApiService) UpdateRole(sid string, params *UpdateRoleParams) (*ConversationsV1Role, error) {
-    path := "/v1/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Permission != nil {
-        data.Set("Permission", *params.Permission)
-    }
+	if params != nil && params.Permission != nil {
+		data.Set("Permission", *params.Permission)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1Role{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1Role{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceConfigurationParams Optional parameters for the method 'UpdateServiceConfiguration'
 type UpdateServiceConfigurationParams struct {
-    DefaultChatServiceRoleSid *string `json:"DefaultChatServiceRoleSid,omitempty"`
-    DefaultConversationCreatorRoleSid *string `json:"DefaultConversationCreatorRoleSid,omitempty"`
-    DefaultConversationRoleSid *string `json:"DefaultConversationRoleSid,omitempty"`
-    ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
+	DefaultChatServiceRoleSid *string `json:"DefaultChatServiceRoleSid,omitempty"`
+	DefaultConversationCreatorRoleSid *string `json:"DefaultConversationCreatorRoleSid,omitempty"`
+	DefaultConversationRoleSid *string `json:"DefaultConversationRoleSid,omitempty"`
+	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
 }
 
 /*
@@ -3280,52 +3277,52 @@ Update configuration settings of a conversation service
 @return ConversationsV1ServiceServiceConfiguration
 */
 func (c *DefaultApiService) UpdateServiceConfiguration(chatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceServiceConfiguration, error) {
-    path := "/v1/Services/{ChatServiceSid}/Configuration"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Configuration"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DefaultChatServiceRoleSid != nil {
-        data.Set("DefaultChatServiceRoleSid", *params.DefaultChatServiceRoleSid)
-    }
-    if params != nil && params.DefaultConversationCreatorRoleSid != nil {
-        data.Set("DefaultConversationCreatorRoleSid", *params.DefaultConversationCreatorRoleSid)
-    }
-    if params != nil && params.DefaultConversationRoleSid != nil {
-        data.Set("DefaultConversationRoleSid", *params.DefaultConversationRoleSid)
-    }
-    if params != nil && params.ReachabilityEnabled != nil {
-        data.Set("ReachabilityEnabled", string(*params.ReachabilityEnabled))
-    }
+	if params != nil && params.DefaultChatServiceRoleSid != nil {
+		data.Set("DefaultChatServiceRoleSid", *params.DefaultChatServiceRoleSid)
+	}
+	if params != nil && params.DefaultConversationCreatorRoleSid != nil {
+		data.Set("DefaultConversationCreatorRoleSid", *params.DefaultConversationCreatorRoleSid)
+	}
+	if params != nil && params.DefaultConversationRoleSid != nil {
+		data.Set("DefaultConversationRoleSid", *params.DefaultConversationRoleSid)
+	}
+	if params != nil && params.ReachabilityEnabled != nil {
+		data.Set("ReachabilityEnabled", string(*params.ReachabilityEnabled))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConfiguration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceConversationParams Optional parameters for the method 'UpdateServiceConversation'
 type UpdateServiceConversationParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
-    State *string `json:"State,omitempty"`
-    Timers.Closed *string `json:"Timers.Closed,omitempty"`
-    Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	State *string `json:"State,omitempty"`
+	Timers.Closed *string `json:"Timers.Closed,omitempty"`
+	Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -3347,67 +3344,67 @@ Update an existing conversation in your service
 @return ConversationsV1ServiceServiceConversation
 */
 func (c *DefaultApiService) UpdateServiceConversation(chatServiceSid string, sid string, params *UpdateServiceConversationParams) (*ConversationsV1ServiceServiceConversation, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.MessagingServiceSid != nil {
-        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-    }
-    if params != nil && params.State != nil {
-        data.Set("State", *params.State)
-    }
-    if params != nil && params.Timers.Closed != nil {
-        data.Set("Timers.Closed", *params.Timers.Closed)
-    }
-    if params != nil && params.Timers.Inactive != nil {
-        data.Set("Timers.Inactive", *params.Timers.Inactive)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+	if params != nil && params.State != nil {
+		data.Set("State", *params.State)
+	}
+	if params != nil && params.Timers.Closed != nil {
+		data.Set("Timers.Closed", *params.Timers.Closed)
+	}
+	if params != nil && params.Timers.Inactive != nil {
+		data.Set("Timers.Inactive", *params.Timers.Inactive)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceConversationMessageParams Optional parameters for the method 'UpdateServiceConversationMessage'
 type UpdateServiceConversationMessageParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    Author *string `json:"Author,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Author *string `json:"Author,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 }
 
 /*
@@ -3426,60 +3423,60 @@ Update an existing message in the conversation
 @return ConversationsV1ServiceServiceConversationServiceConversationMessage
 */
 func (c *DefaultApiService) UpdateServiceConversationMessage(chatServiceSid string, conversationSid string, sid string, params *UpdateServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.Author != nil {
-        data.Set("Author", *params.Author)
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Author != nil {
+		data.Set("Author", *params.Author)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceConversationParticipantParams Optional parameters for the method 'UpdateServiceConversationParticipant'
 type UpdateServiceConversationParticipantParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
-    LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
-    MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
-    MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
+	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
+	MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -3502,67 +3499,67 @@ Update an existing participant in the conversation
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
 */
 func (c *DefaultApiService) UpdateServiceConversationParticipant(chatServiceSid string, conversationSid string, sid string, params *UpdateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.LastReadMessageIndex != nil {
-        data.Set("LastReadMessageIndex", string(*params.LastReadMessageIndex))
-    }
-    if params != nil && params.LastReadTimestamp != nil {
-        data.Set("LastReadTimestamp", *params.LastReadTimestamp)
-    }
-    if params != nil && params.MessagingBinding.ProjectedAddress != nil {
-        data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
-    }
-    if params != nil && params.MessagingBinding.ProxyAddress != nil {
-        data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.LastReadMessageIndex != nil {
+		data.Set("LastReadMessageIndex", string(*params.LastReadMessageIndex))
+	}
+	if params != nil && params.LastReadTimestamp != nil {
+		data.Set("LastReadTimestamp", *params.LastReadTimestamp)
+	}
+	if params != nil && params.MessagingBinding.ProjectedAddress != nil {
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
+	}
+	if params != nil && params.MessagingBinding.ProxyAddress != nil {
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceConversationScopedWebhookParams Optional parameters for the method 'UpdateServiceConversationScopedWebhook'
 type UpdateServiceConversationScopedWebhookParams struct {
-    Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-    Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-    Configuration.Method *string `json:"Configuration.Method,omitempty"`
-    Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-    Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
+	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	Configuration.Method *string `json:"Configuration.Method,omitempty"`
+	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
+	Configuration.Url *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -3580,58 +3577,58 @@ Update an existing conversation-scoped webhook
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 */
 func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, sid string, params *UpdateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
-    path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Configuration.Filters != nil {
-        data.Set("Configuration.Filters", *params.Configuration.Filters)
-    }
-    if params != nil && params.Configuration.FlowSid != nil {
-        data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
-    }
-    if params != nil && params.Configuration.Method != nil {
-        data.Set("Configuration.Method", *params.Configuration.Method)
-    }
-    if params != nil && params.Configuration.Triggers != nil {
-        data.Set("Configuration.Triggers", *params.Configuration.Triggers)
-    }
-    if params != nil && params.Configuration.Url != nil {
-        data.Set("Configuration.Url", *params.Configuration.Url)
-    }
+	if params != nil && params.Configuration.Filters != nil {
+		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	}
+	if params != nil && params.Configuration.FlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	}
+	if params != nil && params.Configuration.Method != nil {
+		data.Set("Configuration.Method", *params.Configuration.Method)
+	}
+	if params != nil && params.Configuration.Triggers != nil {
+		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	}
+	if params != nil && params.Configuration.Url != nil {
+		data.Set("Configuration.Url", *params.Configuration.Url)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceNotificationParams Optional parameters for the method 'UpdateServiceNotification'
 type UpdateServiceNotificationParams struct {
-    AddedToConversation.Enabled *bool `json:"AddedToConversation.Enabled,omitempty"`
-    AddedToConversation.Sound *string `json:"AddedToConversation.Sound,omitempty"`
-    AddedToConversation.Template *string `json:"AddedToConversation.Template,omitempty"`
-    LogEnabled *bool `json:"LogEnabled,omitempty"`
-    NewMessage.BadgeCountEnabled *bool `json:"NewMessage.BadgeCountEnabled,omitempty"`
-    NewMessage.Enabled *bool `json:"NewMessage.Enabled,omitempty"`
-    NewMessage.Sound *string `json:"NewMessage.Sound,omitempty"`
-    NewMessage.Template *string `json:"NewMessage.Template,omitempty"`
-    RemovedFromConversation.Enabled *bool `json:"RemovedFromConversation.Enabled,omitempty"`
-    RemovedFromConversation.Sound *string `json:"RemovedFromConversation.Sound,omitempty"`
-    RemovedFromConversation.Template *string `json:"RemovedFromConversation.Template,omitempty"`
+	AddedToConversation.Enabled *bool `json:"AddedToConversation.Enabled,omitempty"`
+	AddedToConversation.Sound *string `json:"AddedToConversation.Sound,omitempty"`
+	AddedToConversation.Template *string `json:"AddedToConversation.Template,omitempty"`
+	LogEnabled *bool `json:"LogEnabled,omitempty"`
+	NewMessage.BadgeCountEnabled *bool `json:"NewMessage.BadgeCountEnabled,omitempty"`
+	NewMessage.Enabled *bool `json:"NewMessage.Enabled,omitempty"`
+	NewMessage.Sound *string `json:"NewMessage.Sound,omitempty"`
+	NewMessage.Template *string `json:"NewMessage.Template,omitempty"`
+	RemovedFromConversation.Enabled *bool `json:"RemovedFromConversation.Enabled,omitempty"`
+	RemovedFromConversation.Sound *string `json:"RemovedFromConversation.Sound,omitempty"`
+	RemovedFromConversation.Template *string `json:"RemovedFromConversation.Template,omitempty"`
 }
 
 /*
@@ -3653,64 +3650,64 @@ Update push notification service settings
 @return ConversationsV1ServiceServiceConfigurationServiceNotification
 */
 func (c *DefaultApiService) UpdateServiceNotification(chatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
-    path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AddedToConversation.Enabled != nil {
-        data.Set("AddedToConversation.Enabled", string(*params.AddedToConversation.Enabled))
-    }
-    if params != nil && params.AddedToConversation.Sound != nil {
-        data.Set("AddedToConversation.Sound", *params.AddedToConversation.Sound)
-    }
-    if params != nil && params.AddedToConversation.Template != nil {
-        data.Set("AddedToConversation.Template", *params.AddedToConversation.Template)
-    }
-    if params != nil && params.LogEnabled != nil {
-        data.Set("LogEnabled", string(*params.LogEnabled))
-    }
-    if params != nil && params.NewMessage.BadgeCountEnabled != nil {
-        data.Set("NewMessage.BadgeCountEnabled", string(*params.NewMessage.BadgeCountEnabled))
-    }
-    if params != nil && params.NewMessage.Enabled != nil {
-        data.Set("NewMessage.Enabled", string(*params.NewMessage.Enabled))
-    }
-    if params != nil && params.NewMessage.Sound != nil {
-        data.Set("NewMessage.Sound", *params.NewMessage.Sound)
-    }
-    if params != nil && params.NewMessage.Template != nil {
-        data.Set("NewMessage.Template", *params.NewMessage.Template)
-    }
-    if params != nil && params.RemovedFromConversation.Enabled != nil {
-        data.Set("RemovedFromConversation.Enabled", string(*params.RemovedFromConversation.Enabled))
-    }
-    if params != nil && params.RemovedFromConversation.Sound != nil {
-        data.Set("RemovedFromConversation.Sound", *params.RemovedFromConversation.Sound)
-    }
-    if params != nil && params.RemovedFromConversation.Template != nil {
-        data.Set("RemovedFromConversation.Template", *params.RemovedFromConversation.Template)
-    }
+	if params != nil && params.AddedToConversation.Enabled != nil {
+		data.Set("AddedToConversation.Enabled", string(*params.AddedToConversation.Enabled))
+	}
+	if params != nil && params.AddedToConversation.Sound != nil {
+		data.Set("AddedToConversation.Sound", *params.AddedToConversation.Sound)
+	}
+	if params != nil && params.AddedToConversation.Template != nil {
+		data.Set("AddedToConversation.Template", *params.AddedToConversation.Template)
+	}
+	if params != nil && params.LogEnabled != nil {
+		data.Set("LogEnabled", string(*params.LogEnabled))
+	}
+	if params != nil && params.NewMessage.BadgeCountEnabled != nil {
+		data.Set("NewMessage.BadgeCountEnabled", string(*params.NewMessage.BadgeCountEnabled))
+	}
+	if params != nil && params.NewMessage.Enabled != nil {
+		data.Set("NewMessage.Enabled", string(*params.NewMessage.Enabled))
+	}
+	if params != nil && params.NewMessage.Sound != nil {
+		data.Set("NewMessage.Sound", *params.NewMessage.Sound)
+	}
+	if params != nil && params.NewMessage.Template != nil {
+		data.Set("NewMessage.Template", *params.NewMessage.Template)
+	}
+	if params != nil && params.RemovedFromConversation.Enabled != nil {
+		data.Set("RemovedFromConversation.Enabled", string(*params.RemovedFromConversation.Enabled))
+	}
+	if params != nil && params.RemovedFromConversation.Sound != nil {
+		data.Set("RemovedFromConversation.Sound", *params.RemovedFromConversation.Sound)
+	}
+	if params != nil && params.RemovedFromConversation.Template != nil {
+		data.Set("RemovedFromConversation.Template", *params.RemovedFromConversation.Template)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceConfigurationServiceNotification{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceConfigurationServiceNotification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceRoleParams Optional parameters for the method 'UpdateServiceRole'
 type UpdateServiceRoleParams struct {
-    Permission *[]string `json:"Permission,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
 }
 
 /*
@@ -3723,38 +3720,38 @@ Update an existing user role in your service
 @return ConversationsV1ServiceServiceRole
 */
 func (c *DefaultApiService) UpdateServiceRole(chatServiceSid string, sid string, params *UpdateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
-    path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Permission != nil {
-        data.Set("Permission", *params.Permission)
-    }
+	if params != nil && params.Permission != nil {
+		data.Set("Permission", *params.Permission)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceRole{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceRole{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceUserParams Optional parameters for the method 'UpdateServiceUser'
 type UpdateServiceUserParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -3770,47 +3767,47 @@ Update an existing conversation user in your service
 @return ConversationsV1ServiceServiceUser
 */
 func (c *DefaultApiService) UpdateServiceUser(chatServiceSid string, sid string, params *UpdateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
-    path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
-    path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1ServiceServiceUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1ServiceServiceUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateUserParams Optional parameters for the method 'UpdateUser'
 type UpdateUserParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -3825,37 +3822,37 @@ Update an existing conversation user in your account&#39;s default service
 @return ConversationsV1User
 */
 func (c *DefaultApiService) UpdateUser(sid string, params *UpdateUserParams) (*ConversationsV1User, error) {
-    path := "/v1/Users/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Users/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ConversationsV1User{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ConversationsV1User{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

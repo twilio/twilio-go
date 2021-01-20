@@ -13,33 +13,31 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateAssistantParams Optional parameters for the method 'CreateAssistant'
 type CreateAssistantParams struct {
-    CallbackEvents *string `json:"CallbackEvents,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    FallbackActions *map[string]interface{} `json:"FallbackActions,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    InitiationActions *map[string]interface{} `json:"InitiationActions,omitempty"`
-    LogQueries *bool `json:"LogQueries,omitempty"`
-    StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	CallbackEvents *string `json:"CallbackEvents,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	FallbackActions *map[string]interface{} `json:"FallbackActions,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	InitiationActions *map[string]interface{} `json:"InitiationActions,omitempty"`
+	LogQueries *bool `json:"LogQueries,omitempty"`
+	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -56,77 +54,77 @@ CreateAssistant Method for CreateAssistant
 @return PreviewUnderstandAssistant
 */
 func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*PreviewUnderstandAssistant, error) {
-    path := "/understand/Assistants"
+	path := "/understand/Assistants"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackEvents != nil {
-        data.Set("CallbackEvents", *params.CallbackEvents)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.FallbackActions != nil {
-        v, err := json.Marshal(params.FallbackActions)
+	if params != nil && params.CallbackEvents != nil {
+		data.Set("CallbackEvents", *params.CallbackEvents)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.FallbackActions != nil {
+		v, err := json.Marshal(params.FallbackActions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("FallbackActions", string(v))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.InitiationActions != nil {
-        v, err := json.Marshal(params.InitiationActions)
+		data.Set("FallbackActions", string(v))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.InitiationActions != nil {
+		v, err := json.Marshal(params.InitiationActions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("InitiationActions", string(v))
-    }
-    if params != nil && params.LogQueries != nil {
-        data.Set("LogQueries", string(*params.LogQueries))
-    }
-    if params != nil && params.StyleSheet != nil {
-        v, err := json.Marshal(params.StyleSheet)
+		data.Set("InitiationActions", string(v))
+	}
+	if params != nil && params.LogQueries != nil {
+		data.Set("LogQueries", string(*params.LogQueries))
+	}
+	if params != nil && params.StyleSheet != nil {
+		v, err := json.Marshal(params.StyleSheet)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("StyleSheet", string(v))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("StyleSheet", string(v))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateAuthorizationDocumentParams Optional parameters for the method 'CreateAuthorizationDocument'
 type CreateAuthorizationDocumentParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    CcEmails *[]string `json:"CcEmails,omitempty"`
-    ContactPhoneNumber *string `json:"ContactPhoneNumber,omitempty"`
-    ContactTitle *string `json:"ContactTitle,omitempty"`
-    Email *string `json:"Email,omitempty"`
-    HostedNumberOrderSids *[]string `json:"HostedNumberOrderSids,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	CcEmails *[]string `json:"CcEmails,omitempty"`
+	ContactPhoneNumber *string `json:"ContactPhoneNumber,omitempty"`
+	ContactTitle *string `json:"ContactTitle,omitempty"`
+	Email *string `json:"Email,omitempty"`
+	HostedNumberOrderSids *[]string `json:"HostedNumberOrderSids,omitempty"`
 }
 
 /*
@@ -142,50 +140,50 @@ Create an AuthorizationDocument for authorizing the hosting of phone number capa
 @return PreviewHostedNumbersAuthorizationDocument
 */
 func (c *DefaultApiService) CreateAuthorizationDocument(params *CreateAuthorizationDocumentParams) (*PreviewHostedNumbersAuthorizationDocument, error) {
-    path := "/HostedNumbers/AuthorizationDocuments"
+	path := "/HostedNumbers/AuthorizationDocuments"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AddressSid != nil {
-        data.Set("AddressSid", *params.AddressSid)
-    }
-    if params != nil && params.CcEmails != nil {
-        data.Set("CcEmails", *params.CcEmails)
-    }
-    if params != nil && params.ContactPhoneNumber != nil {
-        data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
-    }
-    if params != nil && params.ContactTitle != nil {
-        data.Set("ContactTitle", *params.ContactTitle)
-    }
-    if params != nil && params.Email != nil {
-        data.Set("Email", *params.Email)
-    }
-    if params != nil && params.HostedNumberOrderSids != nil {
-        data.Set("HostedNumberOrderSids", *params.HostedNumberOrderSids)
-    }
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.CcEmails != nil {
+		data.Set("CcEmails", *params.CcEmails)
+	}
+	if params != nil && params.ContactPhoneNumber != nil {
+		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
+	}
+	if params != nil && params.ContactTitle != nil {
+		data.Set("ContactTitle", *params.ContactTitle)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.HostedNumberOrderSids != nil {
+		data.Set("HostedNumberOrderSids", *params.HostedNumberOrderSids)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewHostedNumbersAuthorizationDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewHostedNumbersAuthorizationDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCertificateParams Optional parameters for the method 'CreateCertificate'
 type CreateCertificateParams struct {
-    CertificateData *string `json:"CertificateData,omitempty"`
-    DeviceSid *string `json:"DeviceSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	CertificateData *string `json:"CertificateData,omitempty"`
+	DeviceSid *string `json:"DeviceSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -199,40 +197,40 @@ Enroll a new Certificate credential to the Fleet, optionally giving it a friendl
 @return PreviewDeployedDevicesFleetCertificate
 */
 func (c *DefaultApiService) CreateCertificate(fleetSid string, params *CreateCertificateParams) (*PreviewDeployedDevicesFleetCertificate, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Certificates"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CertificateData != nil {
-        data.Set("CertificateData", *params.CertificateData)
-    }
-    if params != nil && params.DeviceSid != nil {
-        data.Set("DeviceSid", *params.DeviceSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.CertificateData != nil {
+		data.Set("CertificateData", *params.CertificateData)
+	}
+	if params != nil && params.DeviceSid != nil {
+		data.Set("DeviceSid", *params.DeviceSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetCertificate{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetCertificate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateChannelParams Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
-    PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
+	PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
 }
 
 /*
@@ -244,40 +242,40 @@ Associate a channel to a branded channel
 @return PreviewTrustedCommsBrandedChannelChannel
 */
 func (c *DefaultApiService) CreateChannel(brandedChannelSid string, params *CreateChannelParams) (*PreviewTrustedCommsBrandedChannelChannel, error) {
-    path := "/TrustedComms/BrandedChannels/{BrandedChannelSid}/Channels"
-    path = strings.Replace(path, "{"+"BrandedChannelSid"+"}", brandedChannelSid, -1)
+	path := "/TrustedComms/BrandedChannels/{BrandedChannelSid}/Channels"
+	path = strings.Replace(path, "{"+"BrandedChannelSid"+"}", brandedChannelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PhoneNumberSid != nil {
-        data.Set("PhoneNumberSid", *params.PhoneNumberSid)
-    }
+	if params != nil && params.PhoneNumberSid != nil {
+		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewTrustedCommsBrandedChannelChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewTrustedCommsBrandedChannelChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCommandParams Optional parameters for the method 'CreateCommand'
 type CreateCommandParams struct {
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    Command *string `json:"Command,omitempty"`
-    CommandMode *string `json:"CommandMode,omitempty"`
-    Device *string `json:"Device,omitempty"`
-    IncludeSid *string `json:"IncludeSid,omitempty"`
-    Sim *string `json:"Sim,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	Command *string `json:"Command,omitempty"`
+	CommandMode *string `json:"CommandMode,omitempty"`
+	Device *string `json:"Device,omitempty"`
+	IncludeSid *string `json:"IncludeSid,omitempty"`
+	Sim *string `json:"Sim,omitempty"`
 }
 
 /*
@@ -293,52 +291,52 @@ CreateCommand Method for CreateCommand
 @return PreviewWirelessCommand
 */
 func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*PreviewWirelessCommand, error) {
-    path := "/wireless/Commands"
+	path := "/wireless/Commands"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackMethod != nil {
-        data.Set("CallbackMethod", *params.CallbackMethod)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.Command != nil {
-        data.Set("Command", *params.Command)
-    }
-    if params != nil && params.CommandMode != nil {
-        data.Set("CommandMode", *params.CommandMode)
-    }
-    if params != nil && params.Device != nil {
-        data.Set("Device", *params.Device)
-    }
-    if params != nil && params.IncludeSid != nil {
-        data.Set("IncludeSid", *params.IncludeSid)
-    }
-    if params != nil && params.Sim != nil {
-        data.Set("Sim", *params.Sim)
-    }
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.Command != nil {
+		data.Set("Command", *params.Command)
+	}
+	if params != nil && params.CommandMode != nil {
+		data.Set("CommandMode", *params.CommandMode)
+	}
+	if params != nil && params.Device != nil {
+		data.Set("Device", *params.Device)
+	}
+	if params != nil && params.IncludeSid != nil {
+		data.Set("IncludeSid", *params.IncludeSid)
+	}
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessCommand{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessCommand{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateDeploymentParams Optional parameters for the method 'CreateDeployment'
 type CreateDeploymentParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    SyncServiceSid *string `json:"SyncServiceSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	SyncServiceSid *string `json:"SyncServiceSid,omitempty"`
 }
 
 /*
@@ -351,41 +349,41 @@ Create a new Deployment in the Fleet, optionally giving it a friendly name and l
 @return PreviewDeployedDevicesFleetDeployment
 */
 func (c *DefaultApiService) CreateDeployment(fleetSid string, params *CreateDeploymentParams) (*PreviewDeployedDevicesFleetDeployment, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Deployments"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.SyncServiceSid != nil {
-        data.Set("SyncServiceSid", *params.SyncServiceSid)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.SyncServiceSid != nil {
+		data.Set("SyncServiceSid", *params.SyncServiceSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetDeployment{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetDeployment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateDeviceParams Optional parameters for the method 'CreateDevice'
 type CreateDeviceParams struct {
-    DeploymentSid *string `json:"DeploymentSid,omitempty"`
-    Enabled *bool `json:"Enabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	DeploymentSid *string `json:"DeploymentSid,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -401,47 +399,47 @@ Create a new Device in the Fleet, optionally giving it a unique name, friendly n
 @return PreviewDeployedDevicesFleetDevice
 */
 func (c *DefaultApiService) CreateDevice(fleetSid string, params *CreateDeviceParams) (*PreviewDeployedDevicesFleetDevice, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Devices"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Devices"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DeploymentSid != nil {
-        data.Set("DeploymentSid", *params.DeploymentSid)
-    }
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.DeploymentSid != nil {
+		data.Set("DeploymentSid", *params.DeploymentSid)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetDevice{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetDevice{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateDocumentParams Optional parameters for the method 'CreateDocument'
 type CreateDocumentParams struct {
-    Data *map[string]interface{} `json:"Data,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -453,48 +451,48 @@ CreateDocument Method for CreateDocument
 @return PreviewSyncServiceDocument
 */
 func (c *DefaultApiService) CreateDocument(serviceSid string, params *CreateDocumentParams) (*PreviewSyncServiceDocument, error) {
-    path := "/Sync/Services/{ServiceSid}/Documents"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Documents"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateExportCustomJobParams Optional parameters for the method 'CreateExportCustomJob'
 type CreateExportCustomJobParams struct {
-    Email *string `json:"Email,omitempty"`
-    EndDay *string `json:"EndDay,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    StartDay *string `json:"StartDay,omitempty"`
-    WebhookMethod *string `json:"WebhookMethod,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	Email *string `json:"Email,omitempty"`
+	EndDay *string `json:"EndDay,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	StartDay *string `json:"StartDay,omitempty"`
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -510,50 +508,50 @@ CreateExportCustomJob Method for CreateExportCustomJob
 @return PreviewBulkExportsExportExportCustomJob
 */
 func (c *DefaultApiService) CreateExportCustomJob(resourceType string, params *CreateExportCustomJobParams) (*PreviewBulkExportsExportExportCustomJob, error) {
-    path := "/BulkExports/Exports/{ResourceType}/Jobs"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/BulkExports/Exports/{ResourceType}/Jobs"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Email != nil {
-        data.Set("Email", *params.Email)
-    }
-    if params != nil && params.EndDay != nil {
-        data.Set("EndDay", *params.EndDay)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.StartDay != nil {
-        data.Set("StartDay", *params.StartDay)
-    }
-    if params != nil && params.WebhookMethod != nil {
-        data.Set("WebhookMethod", *params.WebhookMethod)
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.EndDay != nil {
+		data.Set("EndDay", *params.EndDay)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.StartDay != nil {
+		data.Set("StartDay", *params.StartDay)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewBulkExportsExportExportCustomJob{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewBulkExportsExportExportCustomJob{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFieldParams Optional parameters for the method 'CreateField'
 type CreateFieldParams struct {
-    FieldType *string `json:"FieldType,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	FieldType *string `json:"FieldType,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -566,39 +564,39 @@ CreateField Method for CreateField
 @return PreviewUnderstandAssistantTaskField
 */
 func (c *DefaultApiService) CreateField(assistantSid string, taskSid string, params *CreateFieldParams) (*PreviewUnderstandAssistantTaskField, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FieldType != nil {
-        data.Set("FieldType", *params.FieldType)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.FieldType != nil {
+		data.Set("FieldType", *params.FieldType)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskField{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskField{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFieldTypeParams Optional parameters for the method 'CreateFieldType'
 type CreateFieldTypeParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -610,39 +608,39 @@ CreateFieldType Method for CreateFieldType
 @return PreviewUnderstandAssistantFieldType
 */
 func (c *DefaultApiService) CreateFieldType(assistantSid string, params *CreateFieldTypeParams) (*PreviewUnderstandAssistantFieldType, error) {
-    path := "/understand/Assistants/{AssistantSid}/FieldTypes"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FieldTypes"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantFieldType{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantFieldType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFieldValueParams Optional parameters for the method 'CreateFieldValue'
 type CreateFieldValueParams struct {
-    Language *string `json:"Language,omitempty"`
-    SynonymOf *string `json:"SynonymOf,omitempty"`
-    Value *string `json:"Value,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	SynonymOf *string `json:"SynonymOf,omitempty"`
+	Value *string `json:"Value,omitempty"`
 }
 
 /*
@@ -656,41 +654,41 @@ CreateFieldValue Method for CreateFieldValue
 @return PreviewUnderstandAssistantFieldTypeFieldValue
 */
 func (c *DefaultApiService) CreateFieldValue(assistantSid string, fieldTypeSid string, params *CreateFieldValueParams) (*PreviewUnderstandAssistantFieldTypeFieldValue, error) {
-    path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.SynonymOf != nil {
-        data.Set("SynonymOf", *params.SynonymOf)
-    }
-    if params != nil && params.Value != nil {
-        data.Set("Value", *params.Value)
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.SynonymOf != nil {
+		data.Set("SynonymOf", *params.SynonymOf)
+	}
+	if params != nil && params.Value != nil {
+		data.Set("Value", *params.Value)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantFieldTypeFieldValue{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantFieldTypeFieldValue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFleetParams Optional parameters for the method 'CreateFleet'
 type CreateFleetParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -701,49 +699,49 @@ Create a new Fleet for scoping of deployed devices within your account.
 @return PreviewDeployedDevicesFleet
 */
 func (c *DefaultApiService) CreateFleet(params *CreateFleetParams) (*PreviewDeployedDevicesFleet, error) {
-    path := "/DeployedDevices/Fleets"
+	path := "/DeployedDevices/Fleets"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateHostedNumberOrderParams Optional parameters for the method 'CreateHostedNumberOrder'
 type CreateHostedNumberOrderParams struct {
-    AccountSid *string `json:"AccountSid,omitempty"`
-    AddressSid *string `json:"AddressSid,omitempty"`
-    CcEmails *[]string `json:"CcEmails,omitempty"`
-    Email *string `json:"Email,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsCapability *bool `json:"SmsCapability,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    VerificationDocumentSid *string `json:"VerificationDocumentSid,omitempty"`
-    VerificationType *string `json:"VerificationType,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	CcEmails *[]string `json:"CcEmails,omitempty"`
+	Email *string `json:"Email,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsCapability *bool `json:"SmsCapability,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	VerificationDocumentSid *string `json:"VerificationDocumentSid,omitempty"`
+	VerificationType *string `json:"VerificationType,omitempty"`
 }
 
 /*
@@ -770,84 +768,84 @@ Host a phone number&#39;s capability on Twilio&#39;s platform.
 @return PreviewHostedNumbersHostedNumberOrder
 */
 func (c *DefaultApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderParams) (*PreviewHostedNumbersHostedNumberOrder, error) {
-    path := "/HostedNumbers/HostedNumberOrders"
+	path := "/HostedNumbers/HostedNumberOrders"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AccountSid != nil {
-        data.Set("AccountSid", *params.AccountSid)
-    }
-    if params != nil && params.AddressSid != nil {
-        data.Set("AddressSid", *params.AddressSid)
-    }
-    if params != nil && params.CcEmails != nil {
-        data.Set("CcEmails", *params.CcEmails)
-    }
-    if params != nil && params.Email != nil {
-        data.Set("Email", *params.Email)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.SmsApplicationSid != nil {
-        data.Set("SmsApplicationSid", *params.SmsApplicationSid)
-    }
-    if params != nil && params.SmsCapability != nil {
-        data.Set("SmsCapability", string(*params.SmsCapability))
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.StatusCallbackUrl != nil {
-        data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.VerificationDocumentSid != nil {
-        data.Set("VerificationDocumentSid", *params.VerificationDocumentSid)
-    }
-    if params != nil && params.VerificationType != nil {
-        data.Set("VerificationType", *params.VerificationType)
-    }
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.CcEmails != nil {
+		data.Set("CcEmails", *params.CcEmails)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.SmsApplicationSid != nil {
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+	}
+	if params != nil && params.SmsCapability != nil {
+		data.Set("SmsCapability", string(*params.SmsCapability))
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.VerificationDocumentSid != nil {
+		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid)
+	}
+	if params != nil && params.VerificationType != nil {
+		data.Set("VerificationType", *params.VerificationType)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewHostedNumbersHostedNumberOrder{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewHostedNumbersHostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateInstalledAddOnParams Optional parameters for the method 'CreateInstalledAddOn'
 type CreateInstalledAddOnParams struct {
-    AcceptTermsOfService *bool `json:"AcceptTermsOfService,omitempty"`
-    AvailableAddOnSid *string `json:"AvailableAddOnSid,omitempty"`
-    Configuration *map[string]interface{} `json:"Configuration,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	AcceptTermsOfService *bool `json:"AcceptTermsOfService,omitempty"`
+	AvailableAddOnSid *string `json:"AvailableAddOnSid,omitempty"`
+	Configuration *map[string]interface{} `json:"Configuration,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -861,49 +859,49 @@ Install an Add-on for the Account specified.
 @return PreviewMarketplaceInstalledAddOn
 */
 func (c *DefaultApiService) CreateInstalledAddOn(params *CreateInstalledAddOnParams) (*PreviewMarketplaceInstalledAddOn, error) {
-    path := "/marketplace/InstalledAddOns"
+	path := "/marketplace/InstalledAddOns"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AcceptTermsOfService != nil {
-        data.Set("AcceptTermsOfService", string(*params.AcceptTermsOfService))
-    }
-    if params != nil && params.AvailableAddOnSid != nil {
-        data.Set("AvailableAddOnSid", *params.AvailableAddOnSid)
-    }
-    if params != nil && params.Configuration != nil {
-        v, err := json.Marshal(params.Configuration)
+	if params != nil && params.AcceptTermsOfService != nil {
+		data.Set("AcceptTermsOfService", string(*params.AcceptTermsOfService))
+	}
+	if params != nil && params.AvailableAddOnSid != nil {
+		data.Set("AvailableAddOnSid", *params.AvailableAddOnSid)
+	}
+	if params != nil && params.Configuration != nil {
+		v, err := json.Marshal(params.Configuration)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Configuration", string(v))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("Configuration", string(v))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceInstalledAddOn{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceInstalledAddOn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateKeyParams Optional parameters for the method 'CreateKey'
 type CreateKeyParams struct {
-    DeviceSid *string `json:"DeviceSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	DeviceSid *string `json:"DeviceSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -916,38 +914,38 @@ Create a new Key credential in the Fleet, optionally giving it a friendly name a
 @return PreviewDeployedDevicesFleetKey
 */
 func (c *DefaultApiService) CreateKey(fleetSid string, params *CreateKeyParams) (*PreviewDeployedDevicesFleetKey, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Keys"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Keys"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DeviceSid != nil {
-        data.Set("DeviceSid", *params.DeviceSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.DeviceSid != nil {
+		data.Set("DeviceSid", *params.DeviceSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetKey{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateModelBuildParams Optional parameters for the method 'CreateModelBuild'
 type CreateModelBuildParams struct {
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -959,41 +957,41 @@ CreateModelBuild Method for CreateModelBuild
 @return PreviewUnderstandAssistantModelBuild
 */
 func (c *DefaultApiService) CreateModelBuild(assistantSid string, params *CreateModelBuildParams) (*PreviewUnderstandAssistantModelBuild, error) {
-    path := "/understand/Assistants/{AssistantSid}/ModelBuilds"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/ModelBuilds"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantModelBuild{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantModelBuild{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateQueryParams Optional parameters for the method 'CreateQuery'
 type CreateQueryParams struct {
-    Field *string `json:"Field,omitempty"`
-    Language *string `json:"Language,omitempty"`
-    ModelBuild *string `json:"ModelBuild,omitempty"`
-    Query *string `json:"Query,omitempty"`
-    Tasks *string `json:"Tasks,omitempty"`
+	Field *string `json:"Field,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	ModelBuild *string `json:"ModelBuild,omitempty"`
+	Query *string `json:"Query,omitempty"`
+	Tasks *string `json:"Tasks,omitempty"`
 }
 
 /*
@@ -1008,55 +1006,55 @@ CreateQuery Method for CreateQuery
 @return PreviewUnderstandAssistantQuery
 */
 func (c *DefaultApiService) CreateQuery(assistantSid string, params *CreateQueryParams) (*PreviewUnderstandAssistantQuery, error) {
-    path := "/understand/Assistants/{AssistantSid}/Queries"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Queries"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Field != nil {
-        data.Set("Field", *params.Field)
-    }
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.ModelBuild != nil {
-        data.Set("ModelBuild", *params.ModelBuild)
-    }
-    if params != nil && params.Query != nil {
-        data.Set("Query", *params.Query)
-    }
-    if params != nil && params.Tasks != nil {
-        data.Set("Tasks", *params.Tasks)
-    }
+	if params != nil && params.Field != nil {
+		data.Set("Field", *params.Field)
+	}
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.ModelBuild != nil {
+		data.Set("ModelBuild", *params.ModelBuild)
+	}
+	if params != nil && params.Query != nil {
+		data.Set("Query", *params.Query)
+	}
+	if params != nil && params.Tasks != nil {
+		data.Set("Tasks", *params.Tasks)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantQuery{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantQuery{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateRatePlanParams Optional parameters for the method 'CreateRatePlan'
 type CreateRatePlanParams struct {
-    CommandsEnabled *bool `json:"CommandsEnabled,omitempty"`
-    DataEnabled *bool `json:"DataEnabled,omitempty"`
-    DataLimit *int32 `json:"DataLimit,omitempty"`
-    DataMetering *string `json:"DataMetering,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    InternationalRoaming *[]string `json:"InternationalRoaming,omitempty"`
-    MessagingEnabled *bool `json:"MessagingEnabled,omitempty"`
-    NationalRoamingEnabled *bool `json:"NationalRoamingEnabled,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	CommandsEnabled *bool `json:"CommandsEnabled,omitempty"`
+	DataEnabled *bool `json:"DataEnabled,omitempty"`
+	DataLimit *int32 `json:"DataLimit,omitempty"`
+	DataMetering *string `json:"DataMetering,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	InternationalRoaming *[]string `json:"InternationalRoaming,omitempty"`
+	MessagingEnabled *bool `json:"MessagingEnabled,omitempty"`
+	NationalRoamingEnabled *bool `json:"NationalRoamingEnabled,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
 }
 
 /*
@@ -1075,62 +1073,62 @@ CreateRatePlan Method for CreateRatePlan
 @return PreviewWirelessRatePlan
 */
 func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*PreviewWirelessRatePlan, error) {
-    path := "/wireless/RatePlans"
+	path := "/wireless/RatePlans"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CommandsEnabled != nil {
-        data.Set("CommandsEnabled", string(*params.CommandsEnabled))
-    }
-    if params != nil && params.DataEnabled != nil {
-        data.Set("DataEnabled", string(*params.DataEnabled))
-    }
-    if params != nil && params.DataLimit != nil {
-        data.Set("DataLimit", string(*params.DataLimit))
-    }
-    if params != nil && params.DataMetering != nil {
-        data.Set("DataMetering", *params.DataMetering)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.InternationalRoaming != nil {
-        data.Set("InternationalRoaming", *params.InternationalRoaming)
-    }
-    if params != nil && params.MessagingEnabled != nil {
-        data.Set("MessagingEnabled", string(*params.MessagingEnabled))
-    }
-    if params != nil && params.NationalRoamingEnabled != nil {
-        data.Set("NationalRoamingEnabled", string(*params.NationalRoamingEnabled))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.VoiceEnabled != nil {
-        data.Set("VoiceEnabled", string(*params.VoiceEnabled))
-    }
+	if params != nil && params.CommandsEnabled != nil {
+		data.Set("CommandsEnabled", string(*params.CommandsEnabled))
+	}
+	if params != nil && params.DataEnabled != nil {
+		data.Set("DataEnabled", string(*params.DataEnabled))
+	}
+	if params != nil && params.DataLimit != nil {
+		data.Set("DataLimit", string(*params.DataLimit))
+	}
+	if params != nil && params.DataMetering != nil {
+		data.Set("DataMetering", *params.DataMetering)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.InternationalRoaming != nil {
+		data.Set("InternationalRoaming", *params.InternationalRoaming)
+	}
+	if params != nil && params.MessagingEnabled != nil {
+		data.Set("MessagingEnabled", string(*params.MessagingEnabled))
+	}
+	if params != nil && params.NationalRoamingEnabled != nil {
+		data.Set("NationalRoamingEnabled", string(*params.NationalRoamingEnabled))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessRatePlan{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessRatePlan{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSampleParams Optional parameters for the method 'CreateSample'
 type CreateSampleParams struct {
-    Language *string `json:"Language,omitempty"`
-    SourceChannel *string `json:"SourceChannel,omitempty"`
-    TaggedText *string `json:"TaggedText,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	SourceChannel *string `json:"SourceChannel,omitempty"`
+	TaggedText *string `json:"TaggedText,omitempty"`
 }
 
 /*
@@ -1144,44 +1142,44 @@ CreateSample Method for CreateSample
 @return PreviewUnderstandAssistantTaskSample
 */
 func (c *DefaultApiService) CreateSample(assistantSid string, taskSid string, params *CreateSampleParams) (*PreviewUnderstandAssistantTaskSample, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.SourceChannel != nil {
-        data.Set("SourceChannel", *params.SourceChannel)
-    }
-    if params != nil && params.TaggedText != nil {
-        data.Set("TaggedText", *params.TaggedText)
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.SourceChannel != nil {
+		data.Set("SourceChannel", *params.SourceChannel)
+	}
+	if params != nil && params.TaggedText != nil {
+		data.Set("TaggedText", *params.TaggedText)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskSample{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskSample{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    AclEnabled *bool `json:"AclEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	AclEnabled *bool `json:"AclEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -1194,42 +1192,42 @@ CreateService Method for CreateService
 @return PreviewSyncService
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*PreviewSyncService, error) {
-    path := "/Sync/Services"
+	path := "/Sync/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AclEnabled != nil {
-        data.Set("AclEnabled", string(*params.AclEnabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.ReachabilityWebhooksEnabled != nil {
-        data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.AclEnabled != nil {
+		data.Set("AclEnabled", string(*params.AclEnabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ReachabilityWebhooksEnabled != nil {
+		data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncService{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncService{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSyncListParams Optional parameters for the method 'CreateSyncList'
 type CreateSyncListParams struct {
-    UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1240,34 +1238,34 @@ CreateSyncList Method for CreateSyncList
 @return PreviewSyncServiceSyncList
 */
 func (c *DefaultApiService) CreateSyncList(serviceSid string, params *CreateSyncListParams) (*PreviewSyncServiceSyncList, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSyncListItemParams Optional parameters for the method 'CreateSyncListItem'
 type CreateSyncListItemParams struct {
-    Data *map[string]interface{} `json:"Data,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
@@ -1279,41 +1277,41 @@ CreateSyncListItem Method for CreateSyncListItem
 @return PreviewSyncServiceSyncListSyncListItem
 */
 func (c *DefaultApiService) CreateSyncListItem(serviceSid string, listSid string, params *CreateSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItem, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
+		data.Set("Data", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncListSyncListItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncListSyncListItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSyncMapParams Optional parameters for the method 'CreateSyncMap'
 type CreateSyncMapParams struct {
-    UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1324,35 +1322,35 @@ CreateSyncMap Method for CreateSyncMap
 @return PreviewSyncServiceSyncMap
 */
 func (c *DefaultApiService) CreateSyncMap(serviceSid string, params *CreateSyncMapParams) (*PreviewSyncServiceSyncMap, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMap{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMap{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSyncMapItemParams Optional parameters for the method 'CreateSyncMapItem'
 type CreateSyncMapItemParams struct {
-    Data *map[string]interface{} `json:"Data,omitempty"`
-    Key *string `json:"Key,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	Key *string `json:"Key,omitempty"`
 }
 
 /*
@@ -1365,47 +1363,47 @@ CreateSyncMapItem Method for CreateSyncMapItem
 @return PreviewSyncServiceSyncMapSyncMapItem
 */
 func (c *DefaultApiService) CreateSyncMapItem(serviceSid string, mapSid string, params *CreateSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
-    if params != nil && params.Key != nil {
-        data.Set("Key", *params.Key)
-    }
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.Key != nil {
+		data.Set("Key", *params.Key)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMapSyncMapItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMapSyncMapItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateTaskParams Optional parameters for the method 'CreateTask'
 type CreateTaskParams struct {
-    Actions *map[string]interface{} `json:"Actions,omitempty"`
-    ActionsUrl *string `json:"ActionsUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Actions *map[string]interface{} `json:"Actions,omitempty"`
+	ActionsUrl *string `json:"ActionsUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1419,45 +1417,45 @@ CreateTask Method for CreateTask
 @return PreviewUnderstandAssistantTask
 */
 func (c *DefaultApiService) CreateTask(assistantSid string, params *CreateTaskParams) (*PreviewUnderstandAssistantTask, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Actions != nil {
-        v, err := json.Marshal(params.Actions)
+	if params != nil && params.Actions != nil {
+		v, err := json.Marshal(params.Actions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Actions", string(v))
-    }
-    if params != nil && params.ActionsUrl != nil {
-        data.Set("ActionsUrl", *params.ActionsUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("Actions", string(v))
+	}
+	if params != nil && params.ActionsUrl != nil {
+		data.Set("ActionsUrl", *params.ActionsUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTask{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTask{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1465,22 +1463,22 @@ DeleteAssistant Method for DeleteAssistant
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteAssistant(sid string) (error) {
-    path := "/understand/Assistants/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1490,23 +1488,23 @@ Unregister a specific Certificate credential from the Fleet, effectively disallo
  * @param sid Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
 */
 func (c *DefaultApiService) DeleteCertificate(fleetSid string, sid string) (error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1516,23 +1514,23 @@ Delete a specific Deployment from the Fleet, leaving associated devices effectiv
  * @param sid Provides a 34 character string that uniquely identifies the requested Deployment resource.
 */
 func (c *DefaultApiService) DeleteDeployment(fleetSid string, sid string) (error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1542,27 +1540,27 @@ Delete a specific Device from the Fleet, also removing it from associated Deploy
  * @param sid Provides a 34 character string that uniquely identifies the requested Device resource.
 */
 func (c *DefaultApiService) DeleteDevice(fleetSid string, sid string) (error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteDocumentParams Optional parameters for the method 'DeleteDocument'
 type DeleteDocumentParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
 }
 
 /*
@@ -1573,26 +1571,26 @@ DeleteDocument Method for DeleteDocument
  * @param "If-Match" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteDocument(serviceSid string, sid string, params *DeleteDocumentParams) (error) {
-    path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1603,24 +1601,24 @@ Delete a specific Sync Document Permission.
  * @param identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 */
 func (c *DefaultApiService) DeleteDocumentPermission(serviceSid string, documentSid string, identity string) (error) {
-    path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1630,24 +1628,24 @@ DeleteField Method for DeleteField
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteField(assistantSid string, taskSid string, sid string) (error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1656,23 +1654,23 @@ DeleteFieldType Method for DeleteFieldType
  * @param sid
 */
 func (c *DefaultApiService) DeleteFieldType(assistantSid string, sid string) (error) {
-    path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1682,24 +1680,24 @@ DeleteFieldValue Method for DeleteFieldValue
  * @param sid
 */
 func (c *DefaultApiService) DeleteFieldValue(assistantSid string, fieldTypeSid string, sid string) (error) {
-    path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1708,22 +1706,22 @@ Delete a specific Fleet from your account, also destroys all nested resources: D
  * @param sid Provides a 34 character string that uniquely identifies the requested Fleet resource.
 */
 func (c *DefaultApiService) DeleteFleet(sid string) (error) {
-    path := "/DeployedDevices/Fleets/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1732,22 +1730,22 @@ Cancel the HostedNumberOrder (only available when the status is in &#x60;receive
  * @param sid A 34 character string that uniquely identifies this HostedNumberOrder.
 */
 func (c *DefaultApiService) DeleteHostedNumberOrder(sid string) (error) {
-    path := "/HostedNumbers/HostedNumberOrders/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/HostedNumbers/HostedNumberOrders/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1756,22 +1754,22 @@ Remove an Add-on installation from your account
  * @param sid The SID of the InstalledAddOn resource to delete.
 */
 func (c *DefaultApiService) DeleteInstalledAddOn(sid string) (error) {
-    path := "/marketplace/InstalledAddOns/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/marketplace/InstalledAddOns/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1779,22 +1777,22 @@ DeleteJob Method for DeleteJob
  * @param jobSid The unique string that that we created to identify the Bulk Export job
 */
 func (c *DefaultApiService) DeleteJob(jobSid string) (error) {
-    path := "/BulkExports/Exports/Jobs/{JobSid}"
-    path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
+	path := "/BulkExports/Exports/Jobs/{JobSid}"
+	path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1804,23 +1802,23 @@ Delete a specific Key credential from the Fleet, effectively disallowing any inb
  * @param sid Provides a 34 character string that uniquely identifies the requested Key credential resource.
 */
 func (c *DefaultApiService) DeleteKey(fleetSid string, sid string) (error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1829,23 +1827,23 @@ DeleteModelBuild Method for DeleteModelBuild
  * @param sid
 */
 func (c *DefaultApiService) DeleteModelBuild(assistantSid string, sid string) (error) {
-    path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1854,23 +1852,23 @@ DeleteQuery Method for DeleteQuery
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteQuery(assistantSid string, sid string) (error) {
-    path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1878,22 +1876,22 @@ DeleteRatePlan Method for DeleteRatePlan
  * @param sid
 */
 func (c *DefaultApiService) DeleteRatePlan(sid string) (error) {
-    path := "/wireless/RatePlans/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/wireless/RatePlans/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1903,24 +1901,24 @@ DeleteSample Method for DeleteSample
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteSample(assistantSid string, taskSid string, sid string) (error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1928,22 +1926,22 @@ DeleteService Method for DeleteService
  * @param sid
 */
 func (c *DefaultApiService) DeleteService(sid string) (error) {
-    path := "/Sync/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -1952,27 +1950,27 @@ DeleteSyncList Method for DeleteSyncList
  * @param sid
 */
 func (c *DefaultApiService) DeleteSyncList(serviceSid string, sid string) (error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteSyncListItemParams Optional parameters for the method 'DeleteSyncListItem'
 type DeleteSyncListItemParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
 }
 
 /*
@@ -1984,27 +1982,27 @@ DeleteSyncListItem Method for DeleteSyncListItem
  * @param "If-Match" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteSyncListItem(serviceSid string, listSid string, index int32, params *DeleteSyncListItemParams) (error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Index"+"}", index, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", index, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2015,24 +2013,24 @@ Delete a specific Sync List Permission.
  * @param identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 */
 func (c *DefaultApiService) DeleteSyncListPermission(serviceSid string, listSid string, identity string) (error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2041,27 +2039,27 @@ DeleteSyncMap Method for DeleteSyncMap
  * @param sid
 */
 func (c *DefaultApiService) DeleteSyncMap(serviceSid string, sid string) (error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteSyncMapItemParams Optional parameters for the method 'DeleteSyncMapItem'
 type DeleteSyncMapItemParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
 }
 
 /*
@@ -2073,27 +2071,27 @@ DeleteSyncMapItem Method for DeleteSyncMapItem
  * @param "If-Match" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteSyncMapItem(serviceSid string, mapSid string, key string, params *DeleteSyncMapItemParams) (error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Key"+"}", key, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", key, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2104,24 +2102,24 @@ Delete a specific Sync Map Permission.
  * @param identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 */
 func (c *DefaultApiService) DeleteSyncMapPermission(serviceSid string, mapSid string, identity string) (error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2130,23 +2128,23 @@ DeleteTask Method for DeleteTask
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteTask(assistantSid string, sid string) (error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2155,27 +2153,27 @@ FetchAssistant Method for FetchAssistant
 @return PreviewUnderstandAssistant
 */
 func (c *DefaultApiService) FetchAssistant(sid string) (*PreviewUnderstandAssistant, error) {
-    path := "/understand/Assistants/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2184,27 +2182,27 @@ FetchAssistantFallbackActions Method for FetchAssistantFallbackActions
 @return PreviewUnderstandAssistantAssistantFallbackActions
 */
 func (c *DefaultApiService) FetchAssistantFallbackActions(assistantSid string) (*PreviewUnderstandAssistantAssistantFallbackActions, error) {
-    path := "/understand/Assistants/{AssistantSid}/FallbackActions"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FallbackActions"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantAssistantFallbackActions{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantAssistantFallbackActions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2213,27 +2211,27 @@ FetchAssistantInitiationActions Method for FetchAssistantInitiationActions
 @return PreviewUnderstandAssistantAssistantInitiationActions
 */
 func (c *DefaultApiService) FetchAssistantInitiationActions(assistantSid string) (*PreviewUnderstandAssistantAssistantInitiationActions, error) {
-    path := "/understand/Assistants/{AssistantSid}/InitiationActions"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/InitiationActions"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantAssistantInitiationActions{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantAssistantInitiationActions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2243,27 +2241,27 @@ Fetch a specific AuthorizationDocument.
 @return PreviewHostedNumbersAuthorizationDocument
 */
 func (c *DefaultApiService) FetchAuthorizationDocument(sid string) (*PreviewHostedNumbersAuthorizationDocument, error) {
-    path := "/HostedNumbers/AuthorizationDocuments/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/HostedNumbers/AuthorizationDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewHostedNumbersAuthorizationDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewHostedNumbersAuthorizationDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2273,27 +2271,27 @@ Fetch an instance of an Add-on currently available to be installed.
 @return PreviewMarketplaceAvailableAddOn
 */
 func (c *DefaultApiService) FetchAvailableAddOn(sid string) (*PreviewMarketplaceAvailableAddOn, error) {
-    path := "/marketplace/AvailableAddOns/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/marketplace/AvailableAddOns/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceAvailableAddOn{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceAvailableAddOn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2304,28 +2302,28 @@ Fetch an instance of an Extension for the Available Add-on.
 @return PreviewMarketplaceAvailableAddOnAvailableAddOnExtension
 */
 func (c *DefaultApiService) FetchAvailableAddOnExtension(availableAddOnSid string, sid string) (*PreviewMarketplaceAvailableAddOnAvailableAddOnExtension, error) {
-    path := "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid}"
-    path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", availableAddOnSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid}"
+	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", availableAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceAvailableAddOnAvailableAddOnExtension{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceAvailableAddOnAvailableAddOnExtension{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2335,31 +2333,31 @@ Fetch a specific Branded Channel.
 @return PreviewTrustedCommsBrandedChannel
 */
 func (c *DefaultApiService) FetchBrandedChannel(sid string) (*PreviewTrustedCommsBrandedChannel, error) {
-    path := "/TrustedComms/BrandedChannels/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/TrustedComms/BrandedChannels/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewTrustedCommsBrandedChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewTrustedCommsBrandedChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // FetchBrandsInformationParams Optional parameters for the method 'FetchBrandsInformation'
 type FetchBrandsInformationParams struct {
-    If-None-Match *string `json:"If-None-Match,omitempty"`
+	If-None-Match *string `json:"If-None-Match,omitempty"`
 }
 
 /*
@@ -2370,29 +2368,29 @@ Retrieve the newest available BrandInformation
 @return PreviewTrustedCommsBrandsInformation
 */
 func (c *DefaultApiService) FetchBrandsInformation(params *FetchBrandsInformationParams) (*PreviewTrustedCommsBrandsInformation, error) {
-    path := "/TrustedComms/BrandsInformation"
+	path := "/TrustedComms/BrandsInformation"
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.If-None-Match != nil {
-        headers["If-None-Match"] = *params.If-None-Match
-    }
+	if params != nil && params.If-None-Match != nil {
+		headers["If-None-Match"] = *params.If-None-Match
+	}
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewTrustedCommsBrandsInformation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewTrustedCommsBrandsInformation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2403,28 +2401,28 @@ Fetch information about a specific Certificate credential in the Fleet.
 @return PreviewDeployedDevicesFleetCertificate
 */
 func (c *DefaultApiService) FetchCertificate(fleetSid string, sid string) (*PreviewDeployedDevicesFleetCertificate, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetCertificate{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetCertificate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2433,31 +2431,31 @@ FetchCommand Method for FetchCommand
 @return PreviewWirelessCommand
 */
 func (c *DefaultApiService) FetchCommand(sid string) (*PreviewWirelessCommand, error) {
-    path := "/wireless/Commands/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/wireless/Commands/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessCommand{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessCommand{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // FetchCpsParams Optional parameters for the method 'FetchCps'
 type FetchCpsParams struct {
-    X-Xcnam-Sensitive-Phone-Number *string `json:"X-Xcnam-Sensitive-Phone-Number,omitempty"`
+	X-Xcnam-Sensitive-Phone-Number *string `json:"X-Xcnam-Sensitive-Phone-Number,omitempty"`
 }
 
 /*
@@ -2468,34 +2466,34 @@ Fetch a specific Call Placement Service (CPS) given a phone number via &#x60;X-X
 @return PreviewTrustedCommsCps
 */
 func (c *DefaultApiService) FetchCps(params *FetchCpsParams) (*PreviewTrustedCommsCps, error) {
-    path := "/TrustedComms/CPS"
+	path := "/TrustedComms/CPS"
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Xcnam-Sensitive-Phone-Number != nil {
-        headers["X-Xcnam-Sensitive-Phone-Number"] = *params.X-Xcnam-Sensitive-Phone-Number
-    }
+	if params != nil && params.X-Xcnam-Sensitive-Phone-Number != nil {
+		headers["X-Xcnam-Sensitive-Phone-Number"] = *params.X-Xcnam-Sensitive-Phone-Number
+	}
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewTrustedCommsCps{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewTrustedCommsCps{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // FetchCurrentCallParams Optional parameters for the method 'FetchCurrentCall'
 type FetchCurrentCallParams struct {
-    X-Xcnam-Sensitive-Phone-Number-From *string `json:"X-Xcnam-Sensitive-Phone-Number-From,omitempty"`
-    X-Xcnam-Sensitive-Phone-Number-To *string `json:"X-Xcnam-Sensitive-Phone-Number-To,omitempty"`
+	X-Xcnam-Sensitive-Phone-Number-From *string `json:"X-Xcnam-Sensitive-Phone-Number-From,omitempty"`
+	X-Xcnam-Sensitive-Phone-Number-To *string `json:"X-Xcnam-Sensitive-Phone-Number-To,omitempty"`
 }
 
 /*
@@ -2507,32 +2505,32 @@ Retrieve a current call given the originating and terminating number via &#x60;X
 @return PreviewTrustedCommsCurrentCall
 */
 func (c *DefaultApiService) FetchCurrentCall(params *FetchCurrentCallParams) (*PreviewTrustedCommsCurrentCall, error) {
-    path := "/TrustedComms/CurrentCall"
+	path := "/TrustedComms/CurrentCall"
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Xcnam-Sensitive-Phone-Number-From != nil {
-        headers["X-Xcnam-Sensitive-Phone-Number-From"] = *params.X-Xcnam-Sensitive-Phone-Number-From
-    }
-    if params != nil && params.X-Xcnam-Sensitive-Phone-Number-To != nil {
-        headers["X-Xcnam-Sensitive-Phone-Number-To"] = *params.X-Xcnam-Sensitive-Phone-Number-To
-    }
+	if params != nil && params.X-Xcnam-Sensitive-Phone-Number-From != nil {
+		headers["X-Xcnam-Sensitive-Phone-Number-From"] = *params.X-Xcnam-Sensitive-Phone-Number-From
+	}
+	if params != nil && params.X-Xcnam-Sensitive-Phone-Number-To != nil {
+		headers["X-Xcnam-Sensitive-Phone-Number-To"] = *params.X-Xcnam-Sensitive-Phone-Number-To
+	}
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewTrustedCommsCurrentCall{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewTrustedCommsCurrentCall{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2542,23 +2540,23 @@ Fetch a specific Day.
  * @param day The ISO 8601 format date of the resources in the file, for a UTC day
 */
 func (c *DefaultApiService) FetchDay(resourceType string, day string) (error) {
-    path := "/BulkExports/Exports/{ResourceType}/Days/{Day}"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
-    path = strings.Replace(path, "{"+"Day"+"}", day, -1)
+	path := "/BulkExports/Exports/{ResourceType}/Days/{Day}"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path = strings.Replace(path, "{"+"Day"+"}", day, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2569,28 +2567,28 @@ Fetch information about a specific Deployment in the Fleet.
 @return PreviewDeployedDevicesFleetDeployment
 */
 func (c *DefaultApiService) FetchDeployment(fleetSid string, sid string) (*PreviewDeployedDevicesFleetDeployment, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetDeployment{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetDeployment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2601,28 +2599,28 @@ Fetch information about a specific Device in the Fleet.
 @return PreviewDeployedDevicesFleetDevice
 */
 func (c *DefaultApiService) FetchDevice(fleetSid string, sid string) (*PreviewDeployedDevicesFleetDevice, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetDevice{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetDevice{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2632,28 +2630,28 @@ FetchDialogue Method for FetchDialogue
 @return PreviewUnderstandAssistantDialogue
 */
 func (c *DefaultApiService) FetchDialogue(assistantSid string, sid string) (*PreviewUnderstandAssistantDialogue, error) {
-    path := "/understand/Assistants/{AssistantSid}/Dialogues/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Dialogues/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantDialogue{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantDialogue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2663,28 +2661,28 @@ FetchDocument Method for FetchDocument
 @return PreviewSyncServiceDocument
 */
 func (c *DefaultApiService) FetchDocument(serviceSid string, sid string) (*PreviewSyncServiceDocument, error) {
-    path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2696,29 +2694,29 @@ Fetch a specific Sync Document Permission.
 @return PreviewSyncServiceDocumentDocumentPermission
 */
 func (c *DefaultApiService) FetchDocumentPermission(serviceSid string, documentSid string, identity string) (*PreviewSyncServiceDocumentDocumentPermission, error) {
-    path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceDocumentDocumentPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceDocumentDocumentPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2728,27 +2726,27 @@ Fetch a specific Export.
 @return PreviewBulkExportsExport
 */
 func (c *DefaultApiService) FetchExport(resourceType string) (*PreviewBulkExportsExport, error) {
-    path := "/BulkExports/Exports/{ResourceType}"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/BulkExports/Exports/{ResourceType}"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewBulkExportsExport{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewBulkExportsExport{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2758,27 +2756,27 @@ Fetch a specific Export Configuration.
 @return PreviewBulkExportsExportConfiguration
 */
 func (c *DefaultApiService) FetchExportConfiguration(resourceType string) (*PreviewBulkExportsExportConfiguration, error) {
-    path := "/BulkExports/Exports/{ResourceType}/Configuration"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/BulkExports/Exports/{ResourceType}/Configuration"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewBulkExportsExportConfiguration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewBulkExportsExportConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2789,29 +2787,29 @@ FetchField Method for FetchField
 @return PreviewUnderstandAssistantTaskField
 */
 func (c *DefaultApiService) FetchField(assistantSid string, taskSid string, sid string) (*PreviewUnderstandAssistantTaskField, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskField{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskField{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2821,28 +2819,28 @@ FetchFieldType Method for FetchFieldType
 @return PreviewUnderstandAssistantFieldType
 */
 func (c *DefaultApiService) FetchFieldType(assistantSid string, sid string) (*PreviewUnderstandAssistantFieldType, error) {
-    path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantFieldType{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantFieldType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2853,29 +2851,29 @@ FetchFieldValue Method for FetchFieldValue
 @return PreviewUnderstandAssistantFieldTypeFieldValue
 */
 func (c *DefaultApiService) FetchFieldValue(assistantSid string, fieldTypeSid string, sid string) (*PreviewUnderstandAssistantFieldTypeFieldValue, error) {
-    path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantFieldTypeFieldValue{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantFieldTypeFieldValue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2885,27 +2883,27 @@ Fetch information about a specific Fleet in your account.
 @return PreviewDeployedDevicesFleet
 */
 func (c *DefaultApiService) FetchFleet(sid string) (*PreviewDeployedDevicesFleet, error) {
-    path := "/DeployedDevices/Fleets/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2915,27 +2913,27 @@ Fetch a specific HostedNumberOrder.
 @return PreviewHostedNumbersHostedNumberOrder
 */
 func (c *DefaultApiService) FetchHostedNumberOrder(sid string) (*PreviewHostedNumbersHostedNumberOrder, error) {
-    path := "/HostedNumbers/HostedNumberOrders/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/HostedNumbers/HostedNumberOrders/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewHostedNumbersHostedNumberOrder{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewHostedNumbersHostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2945,27 +2943,27 @@ Fetch an instance of an Add-on currently installed on this Account.
 @return PreviewMarketplaceInstalledAddOn
 */
 func (c *DefaultApiService) FetchInstalledAddOn(sid string) (*PreviewMarketplaceInstalledAddOn, error) {
-    path := "/marketplace/InstalledAddOns/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/marketplace/InstalledAddOns/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceInstalledAddOn{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceInstalledAddOn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2976,28 +2974,28 @@ Fetch an instance of an Extension for the Installed Add-on.
 @return PreviewMarketplaceInstalledAddOnInstalledAddOnExtension
 */
 func (c *DefaultApiService) FetchInstalledAddOnExtension(installedAddOnSid string, sid string) (*PreviewMarketplaceInstalledAddOnInstalledAddOnExtension, error) {
-    path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
-    path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", installedAddOnSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", installedAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceInstalledAddOnInstalledAddOnExtension{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceInstalledAddOnInstalledAddOnExtension{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3006,27 +3004,27 @@ FetchJob Method for FetchJob
 @return PreviewBulkExportsExportJob
 */
 func (c *DefaultApiService) FetchJob(jobSid string) (*PreviewBulkExportsExportJob, error) {
-    path := "/BulkExports/Exports/Jobs/{JobSid}"
-    path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
+	path := "/BulkExports/Exports/Jobs/{JobSid}"
+	path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewBulkExportsExportJob{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewBulkExportsExportJob{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3037,28 +3035,28 @@ Fetch information about a specific Key credential in the Fleet.
 @return PreviewDeployedDevicesFleetKey
 */
 func (c *DefaultApiService) FetchKey(fleetSid string, sid string) (*PreviewDeployedDevicesFleetKey, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetKey{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3068,28 +3066,28 @@ FetchModelBuild Method for FetchModelBuild
 @return PreviewUnderstandAssistantModelBuild
 */
 func (c *DefaultApiService) FetchModelBuild(assistantSid string, sid string) (*PreviewUnderstandAssistantModelBuild, error) {
-    path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantModelBuild{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantModelBuild{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3099,28 +3097,28 @@ FetchQuery Method for FetchQuery
 @return PreviewUnderstandAssistantQuery
 */
 func (c *DefaultApiService) FetchQuery(assistantSid string, sid string) (*PreviewUnderstandAssistantQuery, error) {
-    path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantQuery{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantQuery{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3129,27 +3127,27 @@ FetchRatePlan Method for FetchRatePlan
 @return PreviewWirelessRatePlan
 */
 func (c *DefaultApiService) FetchRatePlan(sid string) (*PreviewWirelessRatePlan, error) {
-    path := "/wireless/RatePlans/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/wireless/RatePlans/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessRatePlan{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessRatePlan{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3160,29 +3158,29 @@ FetchSample Method for FetchSample
 @return PreviewUnderstandAssistantTaskSample
 */
 func (c *DefaultApiService) FetchSample(assistantSid string, taskSid string, sid string) (*PreviewUnderstandAssistantTaskSample, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskSample{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskSample{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3191,27 +3189,27 @@ FetchService Method for FetchService
 @return PreviewSyncService
 */
 func (c *DefaultApiService) FetchService(sid string) (*PreviewSyncService, error) {
-    path := "/Sync/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncService{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncService{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3220,27 +3218,27 @@ FetchSim Method for FetchSim
 @return PreviewWirelessSim
 */
 func (c *DefaultApiService) FetchSim(sid string) (*PreviewWirelessSim, error) {
-    path := "/wireless/Sims/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/wireless/Sims/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessSim{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessSim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3250,27 +3248,27 @@ Returns Style sheet JSON object for this Assistant
 @return PreviewUnderstandAssistantStyleSheet
 */
 func (c *DefaultApiService) FetchStyleSheet(assistantSid string) (*PreviewUnderstandAssistantStyleSheet, error) {
-    path := "/understand/Assistants/{AssistantSid}/StyleSheet"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/StyleSheet"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantStyleSheet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantStyleSheet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3280,28 +3278,28 @@ FetchSyncList Method for FetchSyncList
 @return PreviewSyncServiceSyncList
 */
 func (c *DefaultApiService) FetchSyncList(serviceSid string, sid string) (*PreviewSyncServiceSyncList, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3312,29 +3310,29 @@ FetchSyncListItem Method for FetchSyncListItem
 @return PreviewSyncServiceSyncListSyncListItem
 */
 func (c *DefaultApiService) FetchSyncListItem(serviceSid string, listSid string, index int32) (*PreviewSyncServiceSyncListSyncListItem, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Index"+"}", index, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", index, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncListSyncListItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncListSyncListItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3346,29 +3344,29 @@ Fetch a specific Sync List Permission.
 @return PreviewSyncServiceSyncListSyncListPermission
 */
 func (c *DefaultApiService) FetchSyncListPermission(serviceSid string, listSid string, identity string) (*PreviewSyncServiceSyncListSyncListPermission, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncListSyncListPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncListSyncListPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3378,28 +3376,28 @@ FetchSyncMap Method for FetchSyncMap
 @return PreviewSyncServiceSyncMap
 */
 func (c *DefaultApiService) FetchSyncMap(serviceSid string, sid string) (*PreviewSyncServiceSyncMap, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMap{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMap{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3410,29 +3408,29 @@ FetchSyncMapItem Method for FetchSyncMapItem
 @return PreviewSyncServiceSyncMapSyncMapItem
 */
 func (c *DefaultApiService) FetchSyncMapItem(serviceSid string, mapSid string, key string) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Key"+"}", key, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", key, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMapSyncMapItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMapSyncMapItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3444,29 +3442,29 @@ Fetch a specific Sync Map Permission.
 @return PreviewSyncServiceSyncMapSyncMapPermission
 */
 func (c *DefaultApiService) FetchSyncMapPermission(serviceSid string, mapSid string, identity string) (*PreviewSyncServiceSyncMapSyncMapPermission, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMapSyncMapPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMapSyncMapPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3476,28 +3474,28 @@ FetchTask Method for FetchTask
 @return PreviewUnderstandAssistantTask
 */
 func (c *DefaultApiService) FetchTask(assistantSid string, sid string) (*PreviewUnderstandAssistantTask, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTask{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTask{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3508,28 +3506,28 @@ Returns JSON actions for this Task.
 @return PreviewUnderstandAssistantTaskTaskActions
 */
 func (c *DefaultApiService) FetchTaskActions(assistantSid string, taskSid string) (*PreviewUnderstandAssistantTaskTaskActions, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskTaskActions{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskTaskActions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3539,33 +3537,33 @@ FetchTaskStatistics Method for FetchTaskStatistics
 @return PreviewUnderstandAssistantTaskTaskStatistics
 */
 func (c *DefaultApiService) FetchTaskStatistics(assistantSid string, taskSid string) (*PreviewUnderstandAssistantTaskTaskStatistics, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskTaskStatistics{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskTaskStatistics{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // FetchUsageParams Optional parameters for the method 'FetchUsage'
 type FetchUsageParams struct {
-    End *string `json:"End,omitempty"`
-    Start *string `json:"Start,omitempty"`
+	End *string `json:"End,omitempty"`
+	Start *string `json:"Start,omitempty"`
 }
 
 /*
@@ -3577,37 +3575,37 @@ FetchUsage Method for FetchUsage
 @return PreviewWirelessSimUsage
 */
 func (c *DefaultApiService) FetchUsage(simSid string, params *FetchUsageParams) (*PreviewWirelessSimUsage, error) {
-    path := "/wireless/Sims/{SimSid}/Usage"
-    path = strings.Replace(path, "{"+"SimSid"+"}", simSid, -1)
+	path := "/wireless/Sims/{SimSid}/Usage"
+	path = strings.Replace(path, "{"+"SimSid"+"}", simSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.End != nil {
-        data.Set("End", *params.End)
-    }
-    if params != nil && params.Start != nil {
-        data.Set("Start", *params.Start)
-    }
+	if params != nil && params.End != nil {
+		data.Set("End", *params.End)
+	}
+	if params != nil && params.Start != nil {
+		data.Set("Start", *params.Start)
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessSimUsage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessSimUsage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAssistantParams Optional parameters for the method 'ListAssistant'
 type ListAssistantParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3617,35 +3615,35 @@ ListAssistant Method for ListAssistant
 @return PreviewUnderstandAssistantReadResponse
 */
 func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*PreviewUnderstandAssistantReadResponse, error) {
-    path := "/understand/Assistants"
+	path := "/understand/Assistants"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAuthorizationDocumentParams Optional parameters for the method 'ListAuthorizationDocument'
 type ListAuthorizationDocumentParams struct {
-    Email *string `json:"Email,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Email *string `json:"Email,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3658,39 +3656,39 @@ Retrieve a list of AuthorizationDocuments belonging to the account initiating th
 @return PreviewHostedNumbersAuthorizationDocumentReadResponse
 */
 func (c *DefaultApiService) ListAuthorizationDocument(params *ListAuthorizationDocumentParams) (*PreviewHostedNumbersAuthorizationDocumentReadResponse, error) {
-    path := "/HostedNumbers/AuthorizationDocuments"
+	path := "/HostedNumbers/AuthorizationDocuments"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Email != nil {
-        data.Set("Email", *params.Email)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewHostedNumbersAuthorizationDocumentReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewHostedNumbersAuthorizationDocumentReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailableAddOnParams Optional parameters for the method 'ListAvailableAddOn'
 type ListAvailableAddOnParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3701,33 +3699,33 @@ Retrieve a list of Add-ons currently available to be installed.
 @return PreviewMarketplaceAvailableAddOnReadResponse
 */
 func (c *DefaultApiService) ListAvailableAddOn(params *ListAvailableAddOnParams) (*PreviewMarketplaceAvailableAddOnReadResponse, error) {
-    path := "/marketplace/AvailableAddOns"
+	path := "/marketplace/AvailableAddOns"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceAvailableAddOnReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceAvailableAddOnReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailableAddOnExtensionParams Optional parameters for the method 'ListAvailableAddOnExtension'
 type ListAvailableAddOnExtensionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3739,35 +3737,35 @@ Retrieve a list of Extensions for the Available Add-on.
 @return PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse
 */
 func (c *DefaultApiService) ListAvailableAddOnExtension(availableAddOnSid string, params *ListAvailableAddOnExtensionParams) (*PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse, error) {
-    path := "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions"
-    path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", availableAddOnSid, -1)
+	path := "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions"
+	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", availableAddOnSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCertificateParams Optional parameters for the method 'ListCertificate'
 type ListCertificateParams struct {
-    DeviceSid *string `json:"DeviceSid,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DeviceSid *string `json:"DeviceSid,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3780,41 +3778,41 @@ Retrieve a list of all Certificate credentials belonging to the Fleet.
 @return PreviewDeployedDevicesFleetCertificateReadResponse
 */
 func (c *DefaultApiService) ListCertificate(fleetSid string, params *ListCertificateParams) (*PreviewDeployedDevicesFleetCertificateReadResponse, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Certificates"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DeviceSid != nil {
-        data.Set("DeviceSid", *params.DeviceSid)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.DeviceSid != nil {
+		data.Set("DeviceSid", *params.DeviceSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetCertificateReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetCertificateReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCommandParams Optional parameters for the method 'ListCommand'
 type ListCommandParams struct {
-    Device *string `json:"Device,omitempty"`
-    Sim *string `json:"Sim,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    Direction *string `json:"Direction,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Device *string `json:"Device,omitempty"`
+	Sim *string `json:"Sim,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	Direction *string `json:"Direction,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3828,45 +3826,45 @@ ListCommand Method for ListCommand
 @return PreviewWirelessCommandReadResponse
 */
 func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*PreviewWirelessCommandReadResponse, error) {
-    path := "/wireless/Commands"
+	path := "/wireless/Commands"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Device != nil {
-        data.Set("Device", *params.Device)
-    }
-    if params != nil && params.Sim != nil {
-        data.Set("Sim", *params.Sim)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.Direction != nil {
-        data.Set("Direction", *params.Direction)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Device != nil {
+		data.Set("Device", *params.Device)
+	}
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Direction != nil {
+		data.Set("Direction", *params.Direction)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessCommandReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessCommandReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDayParams Optional parameters for the method 'ListDay'
 type ListDayParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3878,39 +3876,39 @@ Retrieve a list of all Days for a resource.
 @return PreviewBulkExportsExportDayReadResponse
 */
 func (c *DefaultApiService) ListDay(resourceType string, params *ListDayParams) (*PreviewBulkExportsExportDayReadResponse, error) {
-    path := "/BulkExports/Exports/{ResourceType}/Days"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/BulkExports/Exports/{ResourceType}/Days"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewBulkExportsExportDayReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewBulkExportsExportDayReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDependentHostedNumberOrderParams Optional parameters for the method 'ListDependentHostedNumberOrder'
 type ListDependentHostedNumberOrderParams struct {
-    Status *string `json:"Status,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    IncomingPhoneNumberSid *string `json:"IncomingPhoneNumberSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	IncomingPhoneNumberSid *string `json:"IncomingPhoneNumberSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3927,49 +3925,49 @@ Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDo
 @return PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse
 */
 func (c *DefaultApiService) ListDependentHostedNumberOrder(signingDocumentSid string, params *ListDependentHostedNumberOrderParams) (*PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse, error) {
-    path := "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders"
-    path = strings.Replace(path, "{"+"SigningDocumentSid"+"}", signingDocumentSid, -1)
+	path := "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders"
+	path = strings.Replace(path, "{"+"SigningDocumentSid"+"}", signingDocumentSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.IncomingPhoneNumberSid != nil {
-        data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.IncomingPhoneNumberSid != nil {
+		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDeploymentParams Optional parameters for the method 'ListDeployment'
 type ListDeploymentParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3981,35 +3979,35 @@ Retrieve a list of all Deployments belonging to the Fleet.
 @return PreviewDeployedDevicesFleetDeploymentReadResponse
 */
 func (c *DefaultApiService) ListDeployment(fleetSid string, params *ListDeploymentParams) (*PreviewDeployedDevicesFleetDeploymentReadResponse, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Deployments"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetDeploymentReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetDeploymentReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDeviceParams Optional parameters for the method 'ListDevice'
 type ListDeviceParams struct {
-    DeploymentSid *string `json:"DeploymentSid,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DeploymentSid *string `json:"DeploymentSid,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4022,37 +4020,37 @@ Retrieve a list of all Devices belonging to the Fleet.
 @return PreviewDeployedDevicesFleetDeviceReadResponse
 */
 func (c *DefaultApiService) ListDevice(fleetSid string, params *ListDeviceParams) (*PreviewDeployedDevicesFleetDeviceReadResponse, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Devices"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Devices"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DeploymentSid != nil {
-        data.Set("DeploymentSid", *params.DeploymentSid)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.DeploymentSid != nil {
+		data.Set("DeploymentSid", *params.DeploymentSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetDeviceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetDeviceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDocumentParams Optional parameters for the method 'ListDocument'
 type ListDocumentParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4063,34 +4061,34 @@ ListDocument Method for ListDocument
 @return PreviewSyncServiceDocumentReadResponse
 */
 func (c *DefaultApiService) ListDocument(serviceSid string, params *ListDocumentParams) (*PreviewSyncServiceDocumentReadResponse, error) {
-    path := "/Sync/Services/{ServiceSid}/Documents"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Documents"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceDocumentReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceDocumentReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDocumentPermissionParams Optional parameters for the method 'ListDocumentPermission'
 type ListDocumentPermissionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4103,35 +4101,35 @@ Retrieve a list of all Permissions applying to a Sync Document.
 @return PreviewSyncServiceDocumentDocumentPermissionReadResponse
 */
 func (c *DefaultApiService) ListDocumentPermission(serviceSid string, documentSid string, params *ListDocumentPermissionParams) (*PreviewSyncServiceDocumentDocumentPermissionReadResponse, error) {
-    path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceDocumentDocumentPermissionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceDocumentDocumentPermissionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListExportCustomJobParams Optional parameters for the method 'ListExportCustomJob'
 type ListExportCustomJobParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4142,34 +4140,34 @@ ListExportCustomJob Method for ListExportCustomJob
 @return PreviewBulkExportsExportExportCustomJobReadResponse
 */
 func (c *DefaultApiService) ListExportCustomJob(resourceType string, params *ListExportCustomJobParams) (*PreviewBulkExportsExportExportCustomJobReadResponse, error) {
-    path := "/BulkExports/Exports/{ResourceType}/Jobs"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/BulkExports/Exports/{ResourceType}/Jobs"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewBulkExportsExportExportCustomJobReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewBulkExportsExportExportCustomJobReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFieldParams Optional parameters for the method 'ListField'
 type ListFieldParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4181,35 +4179,35 @@ ListField Method for ListField
 @return PreviewUnderstandAssistantTaskFieldReadResponse
 */
 func (c *DefaultApiService) ListField(assistantSid string, taskSid string, params *ListFieldParams) (*PreviewUnderstandAssistantTaskFieldReadResponse, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskFieldReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskFieldReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFieldTypeParams Optional parameters for the method 'ListFieldType'
 type ListFieldTypeParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4220,35 +4218,35 @@ ListFieldType Method for ListFieldType
 @return PreviewUnderstandAssistantFieldTypeReadResponse
 */
 func (c *DefaultApiService) ListFieldType(assistantSid string, params *ListFieldTypeParams) (*PreviewUnderstandAssistantFieldTypeReadResponse, error) {
-    path := "/understand/Assistants/{AssistantSid}/FieldTypes"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FieldTypes"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantFieldTypeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantFieldTypeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFieldValueParams Optional parameters for the method 'ListFieldValue'
 type ListFieldValueParams struct {
-    Language *string `json:"Language,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4261,38 +4259,38 @@ ListFieldValue Method for ListFieldValue
 @return PreviewUnderstandAssistantFieldTypeFieldValueReadResponse
 */
 func (c *DefaultApiService) ListFieldValue(assistantSid string, fieldTypeSid string, params *ListFieldValueParams) (*PreviewUnderstandAssistantFieldTypeFieldValueReadResponse, error) {
-    path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantFieldTypeFieldValueReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantFieldTypeFieldValueReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFleetParams Optional parameters for the method 'ListFleet'
 type ListFleetParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4303,38 +4301,38 @@ Retrieve a list of all Fleets belonging to your account.
 @return PreviewDeployedDevicesFleetReadResponse
 */
 func (c *DefaultApiService) ListFleet(params *ListFleetParams) (*PreviewDeployedDevicesFleetReadResponse, error) {
-    path := "/DeployedDevices/Fleets"
+	path := "/DeployedDevices/Fleets"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListHostedNumberOrderParams Optional parameters for the method 'ListHostedNumberOrder'
 type ListHostedNumberOrderParams struct {
-    Status *string `json:"Status,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    IncomingPhoneNumberSid *string `json:"IncomingPhoneNumberSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	IncomingPhoneNumberSid *string `json:"IncomingPhoneNumberSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4350,48 +4348,48 @@ Retrieve a list of HostedNumberOrders belonging to the account initiating the re
 @return PreviewHostedNumbersHostedNumberOrderReadResponse
 */
 func (c *DefaultApiService) ListHostedNumberOrder(params *ListHostedNumberOrderParams) (*PreviewHostedNumbersHostedNumberOrderReadResponse, error) {
-    path := "/HostedNumbers/HostedNumberOrders"
+	path := "/HostedNumbers/HostedNumberOrders"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.IncomingPhoneNumberSid != nil {
-        data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.IncomingPhoneNumberSid != nil {
+		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewHostedNumbersHostedNumberOrderReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewHostedNumbersHostedNumberOrderReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListInstalledAddOnParams Optional parameters for the method 'ListInstalledAddOn'
 type ListInstalledAddOnParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4402,33 +4400,33 @@ Retrieve a list of Add-ons currently installed on this Account.
 @return PreviewMarketplaceInstalledAddOnReadResponse
 */
 func (c *DefaultApiService) ListInstalledAddOn(params *ListInstalledAddOnParams) (*PreviewMarketplaceInstalledAddOnReadResponse, error) {
-    path := "/marketplace/InstalledAddOns"
+	path := "/marketplace/InstalledAddOns"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceInstalledAddOnReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceInstalledAddOnReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListInstalledAddOnExtensionParams Optional parameters for the method 'ListInstalledAddOnExtension'
 type ListInstalledAddOnExtensionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4440,35 +4438,35 @@ Retrieve a list of Extensions for the Installed Add-on.
 @return PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse
 */
 func (c *DefaultApiService) ListInstalledAddOnExtension(installedAddOnSid string, params *ListInstalledAddOnExtensionParams) (*PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse, error) {
-    path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions"
-    path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", installedAddOnSid, -1)
+	path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions"
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", installedAddOnSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListKeyParams Optional parameters for the method 'ListKey'
 type ListKeyParams struct {
-    DeviceSid *string `json:"DeviceSid,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DeviceSid *string `json:"DeviceSid,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4481,37 +4479,37 @@ Retrieve a list of all Keys credentials belonging to the Fleet.
 @return PreviewDeployedDevicesFleetKeyReadResponse
 */
 func (c *DefaultApiService) ListKey(fleetSid string, params *ListKeyParams) (*PreviewDeployedDevicesFleetKeyReadResponse, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Keys"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Keys"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DeviceSid != nil {
-        data.Set("DeviceSid", *params.DeviceSid)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.DeviceSid != nil {
+		data.Set("DeviceSid", *params.DeviceSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetKeyReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetKeyReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListModelBuildParams Optional parameters for the method 'ListModelBuild'
 type ListModelBuildParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4522,37 +4520,37 @@ ListModelBuild Method for ListModelBuild
 @return PreviewUnderstandAssistantModelBuildReadResponse
 */
 func (c *DefaultApiService) ListModelBuild(assistantSid string, params *ListModelBuildParams) (*PreviewUnderstandAssistantModelBuildReadResponse, error) {
-    path := "/understand/Assistants/{AssistantSid}/ModelBuilds"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/ModelBuilds"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantModelBuildReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantModelBuildReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListQueryParams Optional parameters for the method 'ListQuery'
 type ListQueryParams struct {
-    Language *string `json:"Language,omitempty"`
-    ModelBuild *string `json:"ModelBuild,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	ModelBuild *string `json:"ModelBuild,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4566,43 +4564,43 @@ ListQuery Method for ListQuery
 @return PreviewUnderstandAssistantQueryReadResponse
 */
 func (c *DefaultApiService) ListQuery(assistantSid string, params *ListQueryParams) (*PreviewUnderstandAssistantQueryReadResponse, error) {
-    path := "/understand/Assistants/{AssistantSid}/Queries"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Queries"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.ModelBuild != nil {
-        data.Set("ModelBuild", *params.ModelBuild)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.ModelBuild != nil {
+		data.Set("ModelBuild", *params.ModelBuild)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantQueryReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantQueryReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRatePlanParams Optional parameters for the method 'ListRatePlan'
 type ListRatePlanParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4612,34 +4610,34 @@ ListRatePlan Method for ListRatePlan
 @return PreviewWirelessRatePlanReadResponse
 */
 func (c *DefaultApiService) ListRatePlan(params *ListRatePlanParams) (*PreviewWirelessRatePlanReadResponse, error) {
-    path := "/wireless/RatePlans"
+	path := "/wireless/RatePlans"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessRatePlanReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessRatePlanReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSampleParams Optional parameters for the method 'ListSample'
 type ListSampleParams struct {
-    Language *string `json:"Language,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4652,38 +4650,38 @@ ListSample Method for ListSample
 @return PreviewUnderstandAssistantTaskSampleReadResponse
 */
 func (c *DefaultApiService) ListSample(assistantSid string, taskSid string, params *ListSampleParams) (*PreviewUnderstandAssistantTaskSampleReadResponse, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskSampleReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskSampleReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4693,38 +4691,38 @@ ListService Method for ListService
 @return PreviewSyncServiceReadResponse
 */
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*PreviewSyncServiceReadResponse, error) {
-    path := "/Sync/Services"
+	path := "/Sync/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSimParams Optional parameters for the method 'ListSim'
 type ListSimParams struct {
-    Status *string `json:"Status,omitempty"`
-    Iccid *string `json:"Iccid,omitempty"`
-    RatePlan *string `json:"RatePlan,omitempty"`
-    EId *string `json:"EId,omitempty"`
-    SimRegistrationCode *string `json:"SimRegistrationCode,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	Iccid *string `json:"Iccid,omitempty"`
+	RatePlan *string `json:"RatePlan,omitempty"`
+	EId *string `json:"EId,omitempty"`
+	SimRegistrationCode *string `json:"SimRegistrationCode,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4739,48 +4737,48 @@ ListSim Method for ListSim
 @return PreviewWirelessSimReadResponse
 */
 func (c *DefaultApiService) ListSim(params *ListSimParams) (*PreviewWirelessSimReadResponse, error) {
-    path := "/wireless/Sims"
+	path := "/wireless/Sims"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.Iccid != nil {
-        data.Set("Iccid", *params.Iccid)
-    }
-    if params != nil && params.RatePlan != nil {
-        data.Set("RatePlan", *params.RatePlan)
-    }
-    if params != nil && params.EId != nil {
-        data.Set("EId", *params.EId)
-    }
-    if params != nil && params.SimRegistrationCode != nil {
-        data.Set("SimRegistrationCode", *params.SimRegistrationCode)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Iccid != nil {
+		data.Set("Iccid", *params.Iccid)
+	}
+	if params != nil && params.RatePlan != nil {
+		data.Set("RatePlan", *params.RatePlan)
+	}
+	if params != nil && params.EId != nil {
+		data.Set("EId", *params.EId)
+	}
+	if params != nil && params.SimRegistrationCode != nil {
+		data.Set("SimRegistrationCode", *params.SimRegistrationCode)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessSimReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessSimReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncListParams Optional parameters for the method 'ListSyncList'
 type ListSyncListParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4791,37 +4789,37 @@ ListSyncList Method for ListSyncList
 @return PreviewSyncServiceSyncListReadResponse
 */
 func (c *DefaultApiService) ListSyncList(serviceSid string, params *ListSyncListParams) (*PreviewSyncServiceSyncListReadResponse, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncListReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncListReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncListItemParams Optional parameters for the method 'ListSyncListItem'
 type ListSyncListItemParams struct {
-    Order *string `json:"Order,omitempty"`
-    From *string `json:"From,omitempty"`
-    Bounds *string `json:"Bounds,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Order *string `json:"Order,omitempty"`
+	From *string `json:"From,omitempty"`
+	Bounds *string `json:"Bounds,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4836,44 +4834,44 @@ ListSyncListItem Method for ListSyncListItem
 @return PreviewSyncServiceSyncListSyncListItemReadResponse
 */
 func (c *DefaultApiService) ListSyncListItem(serviceSid string, listSid string, params *ListSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItemReadResponse, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Order != nil {
-        data.Set("Order", *params.Order)
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.Bounds != nil {
-        data.Set("Bounds", *params.Bounds)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Order != nil {
+		data.Set("Order", *params.Order)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.Bounds != nil {
+		data.Set("Bounds", *params.Bounds)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncListSyncListItemReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncListSyncListItemReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncListPermissionParams Optional parameters for the method 'ListSyncListPermission'
 type ListSyncListPermissionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4886,35 +4884,35 @@ Retrieve a list of all Permissions applying to a Sync List.
 @return PreviewSyncServiceSyncListSyncListPermissionReadResponse
 */
 func (c *DefaultApiService) ListSyncListPermission(serviceSid string, listSid string, params *ListSyncListPermissionParams) (*PreviewSyncServiceSyncListSyncListPermissionReadResponse, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncListSyncListPermissionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncListSyncListPermissionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncMapParams Optional parameters for the method 'ListSyncMap'
 type ListSyncMapParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4925,37 +4923,37 @@ ListSyncMap Method for ListSyncMap
 @return PreviewSyncServiceSyncMapReadResponse
 */
 func (c *DefaultApiService) ListSyncMap(serviceSid string, params *ListSyncMapParams) (*PreviewSyncServiceSyncMapReadResponse, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMapReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMapReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncMapItemParams Optional parameters for the method 'ListSyncMapItem'
 type ListSyncMapItemParams struct {
-    Order *string `json:"Order,omitempty"`
-    From *string `json:"From,omitempty"`
-    Bounds *string `json:"Bounds,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Order *string `json:"Order,omitempty"`
+	From *string `json:"From,omitempty"`
+	Bounds *string `json:"Bounds,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4970,44 +4968,44 @@ ListSyncMapItem Method for ListSyncMapItem
 @return PreviewSyncServiceSyncMapSyncMapItemReadResponse
 */
 func (c *DefaultApiService) ListSyncMapItem(serviceSid string, mapSid string, params *ListSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItemReadResponse, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Order != nil {
-        data.Set("Order", *params.Order)
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.Bounds != nil {
-        data.Set("Bounds", *params.Bounds)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Order != nil {
+		data.Set("Order", *params.Order)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.Bounds != nil {
+		data.Set("Bounds", *params.Bounds)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMapSyncMapItemReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMapSyncMapItemReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncMapPermissionParams Optional parameters for the method 'ListSyncMapPermission'
 type ListSyncMapPermissionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5020,35 +5018,35 @@ Retrieve a list of all Permissions applying to a Sync Map.
 @return PreviewSyncServiceSyncMapSyncMapPermissionReadResponse
 */
 func (c *DefaultApiService) ListSyncMapPermission(serviceSid string, mapSid string, params *ListSyncMapPermissionParams) (*PreviewSyncServiceSyncMapSyncMapPermissionReadResponse, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMapSyncMapPermissionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMapSyncMapPermissionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListTaskParams Optional parameters for the method 'ListTask'
 type ListTaskParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5059,41 +5057,41 @@ ListTask Method for ListTask
 @return PreviewUnderstandAssistantTaskReadResponse
 */
 func (c *DefaultApiService) ListTask(assistantSid string, params *ListTaskParams) (*PreviewUnderstandAssistantTaskReadResponse, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateAssistantParams Optional parameters for the method 'UpdateAssistant'
 type UpdateAssistantParams struct {
-    CallbackEvents *string `json:"CallbackEvents,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    FallbackActions *map[string]interface{} `json:"FallbackActions,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    InitiationActions *map[string]interface{} `json:"InitiationActions,omitempty"`
-    LogQueries *bool `json:"LogQueries,omitempty"`
-    StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	CallbackEvents *string `json:"CallbackEvents,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	FallbackActions *map[string]interface{} `json:"FallbackActions,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	InitiationActions *map[string]interface{} `json:"InitiationActions,omitempty"`
+	LogQueries *bool `json:"LogQueries,omitempty"`
+	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -5111,73 +5109,73 @@ UpdateAssistant Method for UpdateAssistant
 @return PreviewUnderstandAssistant
 */
 func (c *DefaultApiService) UpdateAssistant(sid string, params *UpdateAssistantParams) (*PreviewUnderstandAssistant, error) {
-    path := "/understand/Assistants/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackEvents != nil {
-        data.Set("CallbackEvents", *params.CallbackEvents)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.FallbackActions != nil {
-        v, err := json.Marshal(params.FallbackActions)
+	if params != nil && params.CallbackEvents != nil {
+		data.Set("CallbackEvents", *params.CallbackEvents)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.FallbackActions != nil {
+		v, err := json.Marshal(params.FallbackActions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("FallbackActions", string(v))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.InitiationActions != nil {
-        v, err := json.Marshal(params.InitiationActions)
+		data.Set("FallbackActions", string(v))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.InitiationActions != nil {
+		v, err := json.Marshal(params.InitiationActions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("InitiationActions", string(v))
-    }
-    if params != nil && params.LogQueries != nil {
-        data.Set("LogQueries", string(*params.LogQueries))
-    }
-    if params != nil && params.StyleSheet != nil {
-        v, err := json.Marshal(params.StyleSheet)
+		data.Set("InitiationActions", string(v))
+	}
+	if params != nil && params.LogQueries != nil {
+		data.Set("LogQueries", string(*params.LogQueries))
+	}
+	if params != nil && params.StyleSheet != nil {
+		v, err := json.Marshal(params.StyleSheet)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("StyleSheet", string(v))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("StyleSheet", string(v))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateAssistantFallbackActionsParams Optional parameters for the method 'UpdateAssistantFallbackActions'
 type UpdateAssistantFallbackActionsParams struct {
-    FallbackActions *map[string]interface{} `json:"FallbackActions,omitempty"`
+	FallbackActions *map[string]interface{} `json:"FallbackActions,omitempty"`
 }
 
 /*
@@ -5188,40 +5186,40 @@ UpdateAssistantFallbackActions Method for UpdateAssistantFallbackActions
 @return PreviewUnderstandAssistantAssistantFallbackActions
 */
 func (c *DefaultApiService) UpdateAssistantFallbackActions(assistantSid string, params *UpdateAssistantFallbackActionsParams) (*PreviewUnderstandAssistantAssistantFallbackActions, error) {
-    path := "/understand/Assistants/{AssistantSid}/FallbackActions"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FallbackActions"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FallbackActions != nil {
-        v, err := json.Marshal(params.FallbackActions)
+	if params != nil && params.FallbackActions != nil {
+		v, err := json.Marshal(params.FallbackActions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("FallbackActions", string(v))
-    }
+		data.Set("FallbackActions", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantAssistantFallbackActions{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantAssistantFallbackActions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateAssistantInitiationActionsParams Optional parameters for the method 'UpdateAssistantInitiationActions'
 type UpdateAssistantInitiationActionsParams struct {
-    InitiationActions *map[string]interface{} `json:"InitiationActions,omitempty"`
+	InitiationActions *map[string]interface{} `json:"InitiationActions,omitempty"`
 }
 
 /*
@@ -5232,46 +5230,46 @@ UpdateAssistantInitiationActions Method for UpdateAssistantInitiationActions
 @return PreviewUnderstandAssistantAssistantInitiationActions
 */
 func (c *DefaultApiService) UpdateAssistantInitiationActions(assistantSid string, params *UpdateAssistantInitiationActionsParams) (*PreviewUnderstandAssistantAssistantInitiationActions, error) {
-    path := "/understand/Assistants/{AssistantSid}/InitiationActions"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/InitiationActions"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.InitiationActions != nil {
-        v, err := json.Marshal(params.InitiationActions)
+	if params != nil && params.InitiationActions != nil {
+		v, err := json.Marshal(params.InitiationActions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("InitiationActions", string(v))
-    }
+		data.Set("InitiationActions", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantAssistantInitiationActions{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantAssistantInitiationActions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateAuthorizationDocumentParams Optional parameters for the method 'UpdateAuthorizationDocument'
 type UpdateAuthorizationDocumentParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    CcEmails *[]string `json:"CcEmails,omitempty"`
-    ContactPhoneNumber *string `json:"ContactPhoneNumber,omitempty"`
-    ContactTitle *string `json:"ContactTitle,omitempty"`
-    Email *string `json:"Email,omitempty"`
-    HostedNumberOrderSids *[]string `json:"HostedNumberOrderSids,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	CcEmails *[]string `json:"CcEmails,omitempty"`
+	ContactPhoneNumber *string `json:"ContactPhoneNumber,omitempty"`
+	ContactTitle *string `json:"ContactTitle,omitempty"`
+	Email *string `json:"Email,omitempty"`
+	HostedNumberOrderSids *[]string `json:"HostedNumberOrderSids,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -5289,53 +5287,53 @@ Updates a specific AuthorizationDocument.
 @return PreviewHostedNumbersAuthorizationDocument
 */
 func (c *DefaultApiService) UpdateAuthorizationDocument(sid string, params *UpdateAuthorizationDocumentParams) (*PreviewHostedNumbersAuthorizationDocument, error) {
-    path := "/HostedNumbers/AuthorizationDocuments/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/HostedNumbers/AuthorizationDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AddressSid != nil {
-        data.Set("AddressSid", *params.AddressSid)
-    }
-    if params != nil && params.CcEmails != nil {
-        data.Set("CcEmails", *params.CcEmails)
-    }
-    if params != nil && params.ContactPhoneNumber != nil {
-        data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
-    }
-    if params != nil && params.ContactTitle != nil {
-        data.Set("ContactTitle", *params.ContactTitle)
-    }
-    if params != nil && params.Email != nil {
-        data.Set("Email", *params.Email)
-    }
-    if params != nil && params.HostedNumberOrderSids != nil {
-        data.Set("HostedNumberOrderSids", *params.HostedNumberOrderSids)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.CcEmails != nil {
+		data.Set("CcEmails", *params.CcEmails)
+	}
+	if params != nil && params.ContactPhoneNumber != nil {
+		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
+	}
+	if params != nil && params.ContactTitle != nil {
+		data.Set("ContactTitle", *params.ContactTitle)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.HostedNumberOrderSids != nil {
+		data.Set("HostedNumberOrderSids", *params.HostedNumberOrderSids)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewHostedNumbersAuthorizationDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewHostedNumbersAuthorizationDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateCertificateParams Optional parameters for the method 'UpdateCertificate'
 type UpdateCertificateParams struct {
-    DeviceSid *string `json:"DeviceSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	DeviceSid *string `json:"DeviceSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -5349,39 +5347,39 @@ Update the given properties of a specific Certificate credential in the Fleet, g
 @return PreviewDeployedDevicesFleetCertificate
 */
 func (c *DefaultApiService) UpdateCertificate(fleetSid string, sid string, params *UpdateCertificateParams) (*PreviewDeployedDevicesFleetCertificate, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DeviceSid != nil {
-        data.Set("DeviceSid", *params.DeviceSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.DeviceSid != nil {
+		data.Set("DeviceSid", *params.DeviceSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetCertificate{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetCertificate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateDeploymentParams Optional parameters for the method 'UpdateDeployment'
 type UpdateDeploymentParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    SyncServiceSid *string `json:"SyncServiceSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	SyncServiceSid *string `json:"SyncServiceSid,omitempty"`
 }
 
 /*
@@ -5395,41 +5393,41 @@ Update the given properties of a specific Deployment credential in the Fleet, gi
 @return PreviewDeployedDevicesFleetDeployment
 */
 func (c *DefaultApiService) UpdateDeployment(fleetSid string, sid string, params *UpdateDeploymentParams) (*PreviewDeployedDevicesFleetDeployment, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.SyncServiceSid != nil {
-        data.Set("SyncServiceSid", *params.SyncServiceSid)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.SyncServiceSid != nil {
+		data.Set("SyncServiceSid", *params.SyncServiceSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetDeployment{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetDeployment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateDeviceParams Optional parameters for the method 'UpdateDevice'
 type UpdateDeviceParams struct {
-    DeploymentSid *string `json:"DeploymentSid,omitempty"`
-    Enabled *bool `json:"Enabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
+	DeploymentSid *string `json:"DeploymentSid,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
 }
 
 /*
@@ -5445,45 +5443,45 @@ Update the given properties of a specific Device in the Fleet, giving it a frien
 @return PreviewDeployedDevicesFleetDevice
 */
 func (c *DefaultApiService) UpdateDevice(fleetSid string, sid string, params *UpdateDeviceParams) (*PreviewDeployedDevicesFleetDevice, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DeploymentSid != nil {
-        data.Set("DeploymentSid", *params.DeploymentSid)
-    }
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
+	if params != nil && params.DeploymentSid != nil {
+		data.Set("DeploymentSid", *params.DeploymentSid)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetDevice{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetDevice{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateDocumentParams Optional parameters for the method 'UpdateDocument'
 type UpdateDocumentParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
-    Data *map[string]interface{} `json:"Data,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
@@ -5496,46 +5494,46 @@ UpdateDocument Method for UpdateDocument
 @return PreviewSyncServiceDocument
 */
 func (c *DefaultApiService) UpdateDocument(serviceSid string, sid string, params *UpdateDocumentParams) (*PreviewSyncServiceDocument, error) {
-    path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
+		data.Set("Data", string(v))
+	}
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateDocumentPermissionParams Optional parameters for the method 'UpdateDocumentPermission'
 type UpdateDocumentPermissionParams struct {
-    Manage *bool `json:"Manage,omitempty"`
-    Read *bool `json:"Read,omitempty"`
-    Write *bool `json:"Write,omitempty"`
+	Manage *bool `json:"Manage,omitempty"`
+	Read *bool `json:"Read,omitempty"`
+	Write *bool `json:"Write,omitempty"`
 }
 
 /*
@@ -5551,44 +5549,44 @@ Update an identity&#39;s access to a specific Sync Document.
 @return PreviewSyncServiceDocumentDocumentPermission
 */
 func (c *DefaultApiService) UpdateDocumentPermission(serviceSid string, documentSid string, identity string, params *UpdateDocumentPermissionParams) (*PreviewSyncServiceDocumentDocumentPermission, error) {
-    path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Manage != nil {
-        data.Set("Manage", string(*params.Manage))
-    }
-    if params != nil && params.Read != nil {
-        data.Set("Read", string(*params.Read))
-    }
-    if params != nil && params.Write != nil {
-        data.Set("Write", string(*params.Write))
-    }
+	if params != nil && params.Manage != nil {
+		data.Set("Manage", string(*params.Manage))
+	}
+	if params != nil && params.Read != nil {
+		data.Set("Read", string(*params.Read))
+	}
+	if params != nil && params.Write != nil {
+		data.Set("Write", string(*params.Write))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceDocumentDocumentPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceDocumentDocumentPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateExportConfigurationParams Optional parameters for the method 'UpdateExportConfiguration'
 type UpdateExportConfigurationParams struct {
-    Enabled *bool `json:"Enabled,omitempty"`
-    WebhookMethod *string `json:"WebhookMethod,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -5602,41 +5600,41 @@ Update a specific Export Configuration.
 @return PreviewBulkExportsExportConfiguration
 */
 func (c *DefaultApiService) UpdateExportConfiguration(resourceType string, params *UpdateExportConfigurationParams) (*PreviewBulkExportsExportConfiguration, error) {
-    path := "/BulkExports/Exports/{ResourceType}/Configuration"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/BulkExports/Exports/{ResourceType}/Configuration"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.WebhookMethod != nil {
-        data.Set("WebhookMethod", *params.WebhookMethod)
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewBulkExportsExportConfiguration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewBulkExportsExportConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateFieldTypeParams Optional parameters for the method 'UpdateFieldType'
 type UpdateFieldTypeParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -5649,39 +5647,39 @@ UpdateFieldType Method for UpdateFieldType
 @return PreviewUnderstandAssistantFieldType
 */
 func (c *DefaultApiService) UpdateFieldType(assistantSid string, sid string, params *UpdateFieldTypeParams) (*PreviewUnderstandAssistantFieldType, error) {
-    path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantFieldType{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantFieldType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateFleetParams Optional parameters for the method 'UpdateFleet'
 type UpdateFleetParams struct {
-    DefaultDeploymentSid *string `json:"DefaultDeploymentSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	DefaultDeploymentSid *string `json:"DefaultDeploymentSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -5694,46 +5692,46 @@ Update the friendly name property of a specific Fleet in your account.
 @return PreviewDeployedDevicesFleet
 */
 func (c *DefaultApiService) UpdateFleet(sid string, params *UpdateFleetParams) (*PreviewDeployedDevicesFleet, error) {
-    path := "/DeployedDevices/Fleets/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DefaultDeploymentSid != nil {
-        data.Set("DefaultDeploymentSid", *params.DefaultDeploymentSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.DefaultDeploymentSid != nil {
+		data.Set("DefaultDeploymentSid", *params.DefaultDeploymentSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateHostedNumberOrderParams Optional parameters for the method 'UpdateHostedNumberOrder'
 type UpdateHostedNumberOrderParams struct {
-    CallDelay *int32 `json:"CallDelay,omitempty"`
-    CcEmails *[]string `json:"CcEmails,omitempty"`
-    Email *string `json:"Email,omitempty"`
-    Extension *string `json:"Extension,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    VerificationCode *string `json:"VerificationCode,omitempty"`
-    VerificationDocumentSid *string `json:"VerificationDocumentSid,omitempty"`
-    VerificationType *string `json:"VerificationType,omitempty"`
+	CallDelay *int32 `json:"CallDelay,omitempty"`
+	CcEmails *[]string `json:"CcEmails,omitempty"`
+	Email *string `json:"Email,omitempty"`
+	Extension *string `json:"Extension,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	VerificationCode *string `json:"VerificationCode,omitempty"`
+	VerificationDocumentSid *string `json:"VerificationDocumentSid,omitempty"`
+	VerificationType *string `json:"VerificationType,omitempty"`
 }
 
 /*
@@ -5754,62 +5752,62 @@ Updates a specific HostedNumberOrder.
 @return PreviewHostedNumbersHostedNumberOrder
 */
 func (c *DefaultApiService) UpdateHostedNumberOrder(sid string, params *UpdateHostedNumberOrderParams) (*PreviewHostedNumbersHostedNumberOrder, error) {
-    path := "/HostedNumbers/HostedNumberOrders/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/HostedNumbers/HostedNumberOrders/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallDelay != nil {
-        data.Set("CallDelay", string(*params.CallDelay))
-    }
-    if params != nil && params.CcEmails != nil {
-        data.Set("CcEmails", *params.CcEmails)
-    }
-    if params != nil && params.Email != nil {
-        data.Set("Email", *params.Email)
-    }
-    if params != nil && params.Extension != nil {
-        data.Set("Extension", *params.Extension)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.VerificationCode != nil {
-        data.Set("VerificationCode", *params.VerificationCode)
-    }
-    if params != nil && params.VerificationDocumentSid != nil {
-        data.Set("VerificationDocumentSid", *params.VerificationDocumentSid)
-    }
-    if params != nil && params.VerificationType != nil {
-        data.Set("VerificationType", *params.VerificationType)
-    }
+	if params != nil && params.CallDelay != nil {
+		data.Set("CallDelay", string(*params.CallDelay))
+	}
+	if params != nil && params.CcEmails != nil {
+		data.Set("CcEmails", *params.CcEmails)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.Extension != nil {
+		data.Set("Extension", *params.Extension)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.VerificationCode != nil {
+		data.Set("VerificationCode", *params.VerificationCode)
+	}
+	if params != nil && params.VerificationDocumentSid != nil {
+		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid)
+	}
+	if params != nil && params.VerificationType != nil {
+		data.Set("VerificationType", *params.VerificationType)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewHostedNumbersHostedNumberOrder{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewHostedNumbersHostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateInstalledAddOnParams Optional parameters for the method 'UpdateInstalledAddOn'
 type UpdateInstalledAddOnParams struct {
-    Configuration *map[string]interface{} `json:"Configuration,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Configuration *map[string]interface{} `json:"Configuration,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -5822,43 +5820,43 @@ Update an Add-on installation for the Account specified.
 @return PreviewMarketplaceInstalledAddOn
 */
 func (c *DefaultApiService) UpdateInstalledAddOn(sid string, params *UpdateInstalledAddOnParams) (*PreviewMarketplaceInstalledAddOn, error) {
-    path := "/marketplace/InstalledAddOns/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/marketplace/InstalledAddOns/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Configuration != nil {
-        v, err := json.Marshal(params.Configuration)
+	if params != nil && params.Configuration != nil {
+		v, err := json.Marshal(params.Configuration)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Configuration", string(v))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("Configuration", string(v))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceInstalledAddOn{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceInstalledAddOn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateInstalledAddOnExtensionParams Optional parameters for the method 'UpdateInstalledAddOnExtension'
 type UpdateInstalledAddOnExtensionParams struct {
-    Enabled *bool `json:"Enabled,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
 }
 
 /*
@@ -5871,36 +5869,36 @@ Update an Extension for an Add-on installation.
 @return PreviewMarketplaceInstalledAddOnInstalledAddOnExtension
 */
 func (c *DefaultApiService) UpdateInstalledAddOnExtension(installedAddOnSid string, sid string, params *UpdateInstalledAddOnExtensionParams) (*PreviewMarketplaceInstalledAddOnInstalledAddOnExtension, error) {
-    path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
-    path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", installedAddOnSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", installedAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewMarketplaceInstalledAddOnInstalledAddOnExtension{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewMarketplaceInstalledAddOnInstalledAddOnExtension{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateKeyParams Optional parameters for the method 'UpdateKey'
 type UpdateKeyParams struct {
-    DeviceSid *string `json:"DeviceSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	DeviceSid *string `json:"DeviceSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -5914,38 +5912,38 @@ Update the given properties of a specific Key credential in the Fleet, giving it
 @return PreviewDeployedDevicesFleetKey
 */
 func (c *DefaultApiService) UpdateKey(fleetSid string, sid string, params *UpdateKeyParams) (*PreviewDeployedDevicesFleetKey, error) {
-    path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
-    path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
+	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DeviceSid != nil {
-        data.Set("DeviceSid", *params.DeviceSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.DeviceSid != nil {
+		data.Set("DeviceSid", *params.DeviceSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewDeployedDevicesFleetKey{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewDeployedDevicesFleetKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateModelBuildParams Optional parameters for the method 'UpdateModelBuild'
 type UpdateModelBuildParams struct {
-    UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -5957,36 +5955,36 @@ UpdateModelBuild Method for UpdateModelBuild
 @return PreviewUnderstandAssistantModelBuild
 */
 func (c *DefaultApiService) UpdateModelBuild(assistantSid string, sid string, params *UpdateModelBuildParams) (*PreviewUnderstandAssistantModelBuild, error) {
-    path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantModelBuild{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantModelBuild{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateQueryParams Optional parameters for the method 'UpdateQuery'
 type UpdateQueryParams struct {
-    SampleSid *string `json:"SampleSid,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	SampleSid *string `json:"SampleSid,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -5999,39 +5997,39 @@ UpdateQuery Method for UpdateQuery
 @return PreviewUnderstandAssistantQuery
 */
 func (c *DefaultApiService) UpdateQuery(assistantSid string, sid string, params *UpdateQueryParams) (*PreviewUnderstandAssistantQuery, error) {
-    path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.SampleSid != nil {
-        data.Set("SampleSid", *params.SampleSid)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.SampleSid != nil {
+		data.Set("SampleSid", *params.SampleSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantQuery{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantQuery{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRatePlanParams Optional parameters for the method 'UpdateRatePlan'
 type UpdateRatePlanParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -6043,39 +6041,39 @@ UpdateRatePlan Method for UpdateRatePlan
 @return PreviewWirelessRatePlan
 */
 func (c *DefaultApiService) UpdateRatePlan(sid string, params *UpdateRatePlanParams) (*PreviewWirelessRatePlan, error) {
-    path := "/wireless/RatePlans/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/wireless/RatePlans/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessRatePlan{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessRatePlan{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSampleParams Optional parameters for the method 'UpdateSample'
 type UpdateSampleParams struct {
-    Language *string `json:"Language,omitempty"`
-    SourceChannel *string `json:"SourceChannel,omitempty"`
-    TaggedText *string `json:"TaggedText,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	SourceChannel *string `json:"SourceChannel,omitempty"`
+	TaggedText *string `json:"TaggedText,omitempty"`
 }
 
 /*
@@ -6090,45 +6088,45 @@ UpdateSample Method for UpdateSample
 @return PreviewUnderstandAssistantTaskSample
 */
 func (c *DefaultApiService) UpdateSample(assistantSid string, taskSid string, sid string, params *UpdateSampleParams) (*PreviewUnderstandAssistantTaskSample, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.SourceChannel != nil {
-        data.Set("SourceChannel", *params.SourceChannel)
-    }
-    if params != nil && params.TaggedText != nil {
-        data.Set("TaggedText", *params.TaggedText)
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.SourceChannel != nil {
+		data.Set("SourceChannel", *params.SourceChannel)
+	}
+	if params != nil && params.TaggedText != nil {
+		data.Set("TaggedText", *params.TaggedText)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskSample{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskSample{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-    AclEnabled *bool `json:"AclEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	AclEnabled *bool `json:"AclEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -6142,58 +6140,58 @@ UpdateService Method for UpdateService
 @return PreviewSyncService
 */
 func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*PreviewSyncService, error) {
-    path := "/Sync/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/Sync/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AclEnabled != nil {
-        data.Set("AclEnabled", string(*params.AclEnabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.ReachabilityWebhooksEnabled != nil {
-        data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.AclEnabled != nil {
+		data.Set("AclEnabled", string(*params.AclEnabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ReachabilityWebhooksEnabled != nil {
+		data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncService{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncService{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSimParams Optional parameters for the method 'UpdateSim'
 type UpdateSimParams struct {
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
-    CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    RatePlan *string `json:"RatePlan,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
+	CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	RatePlan *string `json:"RatePlan,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -6219,79 +6217,79 @@ UpdateSim Method for UpdateSim
 @return PreviewWirelessSim
 */
 func (c *DefaultApiService) UpdateSim(sid string, params *UpdateSimParams) (*PreviewWirelessSim, error) {
-    path := "/wireless/Sims/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/wireless/Sims/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackMethod != nil {
-        data.Set("CallbackMethod", *params.CallbackMethod)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.CommandsCallbackMethod != nil {
-        data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
-    }
-    if params != nil && params.CommandsCallbackUrl != nil {
-        data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.RatePlan != nil {
-        data.Set("RatePlan", *params.RatePlan)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.CommandsCallbackMethod != nil {
+		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
+	}
+	if params != nil && params.CommandsCallbackUrl != nil {
+		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.RatePlan != nil {
+		data.Set("RatePlan", *params.RatePlan)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewWirelessSim{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewWirelessSim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateStyleSheetParams Optional parameters for the method 'UpdateStyleSheet'
 type UpdateStyleSheetParams struct {
-    StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
 }
 
 /*
@@ -6303,41 +6301,41 @@ Updates the style sheet for an assistant identified by {AssistantSid} or {Assist
 @return PreviewUnderstandAssistantStyleSheet
 */
 func (c *DefaultApiService) UpdateStyleSheet(assistantSid string, params *UpdateStyleSheetParams) (*PreviewUnderstandAssistantStyleSheet, error) {
-    path := "/understand/Assistants/{AssistantSid}/StyleSheet"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/StyleSheet"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.StyleSheet != nil {
-        v, err := json.Marshal(params.StyleSheet)
+	if params != nil && params.StyleSheet != nil {
+		v, err := json.Marshal(params.StyleSheet)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("StyleSheet", string(v))
-    }
+		data.Set("StyleSheet", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantStyleSheet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantStyleSheet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncListItemParams Optional parameters for the method 'UpdateSyncListItem'
 type UpdateSyncListItemParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
-    Data *map[string]interface{} `json:"Data,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
@@ -6351,47 +6349,47 @@ UpdateSyncListItem Method for UpdateSyncListItem
 @return PreviewSyncServiceSyncListSyncListItem
 */
 func (c *DefaultApiService) UpdateSyncListItem(serviceSid string, listSid string, index int32, params *UpdateSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItem, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Index"+"}", index, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", index, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
+		data.Set("Data", string(v))
+	}
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncListSyncListItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncListSyncListItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncListPermissionParams Optional parameters for the method 'UpdateSyncListPermission'
 type UpdateSyncListPermissionParams struct {
-    Manage *bool `json:"Manage,omitempty"`
-    Read *bool `json:"Read,omitempty"`
-    Write *bool `json:"Write,omitempty"`
+	Manage *bool `json:"Manage,omitempty"`
+	Read *bool `json:"Read,omitempty"`
+	Write *bool `json:"Write,omitempty"`
 }
 
 /*
@@ -6407,43 +6405,43 @@ Update an identity&#39;s access to a specific Sync List.
 @return PreviewSyncServiceSyncListSyncListPermission
 */
 func (c *DefaultApiService) UpdateSyncListPermission(serviceSid string, listSid string, identity string, params *UpdateSyncListPermissionParams) (*PreviewSyncServiceSyncListSyncListPermission, error) {
-    path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Manage != nil {
-        data.Set("Manage", string(*params.Manage))
-    }
-    if params != nil && params.Read != nil {
-        data.Set("Read", string(*params.Read))
-    }
-    if params != nil && params.Write != nil {
-        data.Set("Write", string(*params.Write))
-    }
+	if params != nil && params.Manage != nil {
+		data.Set("Manage", string(*params.Manage))
+	}
+	if params != nil && params.Read != nil {
+		data.Set("Read", string(*params.Read))
+	}
+	if params != nil && params.Write != nil {
+		data.Set("Write", string(*params.Write))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncListSyncListPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncListSyncListPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncMapItemParams Optional parameters for the method 'UpdateSyncMapItem'
 type UpdateSyncMapItemParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
-    Data *map[string]interface{} `json:"Data,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
@@ -6457,47 +6455,47 @@ UpdateSyncMapItem Method for UpdateSyncMapItem
 @return PreviewSyncServiceSyncMapSyncMapItem
 */
 func (c *DefaultApiService) UpdateSyncMapItem(serviceSid string, mapSid string, key string, params *UpdateSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Key"+"}", key, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", key, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
+		data.Set("Data", string(v))
+	}
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMapSyncMapItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMapSyncMapItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncMapPermissionParams Optional parameters for the method 'UpdateSyncMapPermission'
 type UpdateSyncMapPermissionParams struct {
-    Manage *bool `json:"Manage,omitempty"`
-    Read *bool `json:"Read,omitempty"`
-    Write *bool `json:"Write,omitempty"`
+	Manage *bool `json:"Manage,omitempty"`
+	Read *bool `json:"Read,omitempty"`
+	Write *bool `json:"Write,omitempty"`
 }
 
 /*
@@ -6513,45 +6511,45 @@ Update an identity&#39;s access to a specific Sync Map.
 @return PreviewSyncServiceSyncMapSyncMapPermission
 */
 func (c *DefaultApiService) UpdateSyncMapPermission(serviceSid string, mapSid string, identity string, params *UpdateSyncMapPermissionParams) (*PreviewSyncServiceSyncMapSyncMapPermission, error) {
-    path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Manage != nil {
-        data.Set("Manage", string(*params.Manage))
-    }
-    if params != nil && params.Read != nil {
-        data.Set("Read", string(*params.Read))
-    }
-    if params != nil && params.Write != nil {
-        data.Set("Write", string(*params.Write))
-    }
+	if params != nil && params.Manage != nil {
+		data.Set("Manage", string(*params.Manage))
+	}
+	if params != nil && params.Read != nil {
+		data.Set("Read", string(*params.Read))
+	}
+	if params != nil && params.Write != nil {
+		data.Set("Write", string(*params.Write))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewSyncServiceSyncMapSyncMapPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewSyncServiceSyncMapSyncMapPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateTaskParams Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
-    Actions *map[string]interface{} `json:"Actions,omitempty"`
-    ActionsUrl *string `json:"ActionsUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Actions *map[string]interface{} `json:"Actions,omitempty"`
+	ActionsUrl *string `json:"ActionsUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -6566,50 +6564,50 @@ UpdateTask Method for UpdateTask
 @return PreviewUnderstandAssistantTask
 */
 func (c *DefaultApiService) UpdateTask(assistantSid string, sid string, params *UpdateTaskParams) (*PreviewUnderstandAssistantTask, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Actions != nil {
-        v, err := json.Marshal(params.Actions)
+	if params != nil && params.Actions != nil {
+		v, err := json.Marshal(params.Actions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Actions", string(v))
-    }
-    if params != nil && params.ActionsUrl != nil {
-        data.Set("ActionsUrl", *params.ActionsUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("Actions", string(v))
+	}
+	if params != nil && params.ActionsUrl != nil {
+		data.Set("ActionsUrl", *params.ActionsUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTask{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTask{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateTaskActionsParams Optional parameters for the method 'UpdateTaskActions'
 type UpdateTaskActionsParams struct {
-    Actions *map[string]interface{} `json:"Actions,omitempty"`
+	Actions *map[string]interface{} `json:"Actions,omitempty"`
 }
 
 /*
@@ -6622,35 +6620,35 @@ Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
 @return PreviewUnderstandAssistantTaskTaskActions
 */
 func (c *DefaultApiService) UpdateTaskActions(assistantSid string, taskSid string, params *UpdateTaskActionsParams) (*PreviewUnderstandAssistantTaskTaskActions, error) {
-    path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Actions != nil {
-        v, err := json.Marshal(params.Actions)
+	if params != nil && params.Actions != nil {
+		v, err := json.Marshal(params.Actions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Actions", string(v))
-    }
+		data.Set("Actions", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PreviewUnderstandAssistantTaskTaskActions{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PreviewUnderstandAssistantTaskTaskActions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

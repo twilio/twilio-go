@@ -32,16 +32,14 @@ type APIResponse struct {
 	Payload []byte `json:"-"`
 }
 
-// Response returns a new APIResponse object.
-func Response(r *http.Response) *APIResponse {
-
+// NewAPIResponse returns a new APIResponse object.
+func NewAPIResponse(r *http.Response) *APIResponse {
 	response := &APIResponse{Response: r}
 	return response
 }
 
-// ResponseWithError returns a new APIResponse object with the provided error message.
-func ResponseWithError(errorMessage string) *APIResponse {
-
+// NewAPIResponseWithError returns a new APIResponse object with the provided error message.
+func NewAPIResponseWithError(errorMessage string) *APIResponse {
 	response := &APIResponse{Message: errorMessage}
 	return response
 }

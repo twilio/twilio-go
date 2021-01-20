@@ -13,26 +13,24 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateAlphaSenderParams Optional parameters for the method 'CreateAlphaSender'
 type CreateAlphaSenderParams struct {
-    AlphaSender *string `json:"AlphaSender,omitempty"`
+	AlphaSender *string `json:"AlphaSender,omitempty"`
 }
 
 /*
@@ -43,34 +41,34 @@ CreateAlphaSender Method for CreateAlphaSender
 @return MessagingV1ServiceAlphaSender
 */
 func (c *DefaultApiService) CreateAlphaSender(serviceSid string, params *CreateAlphaSenderParams) (*MessagingV1ServiceAlphaSender, error) {
-    path := "/v1/Services/{ServiceSid}/AlphaSenders"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/AlphaSenders"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AlphaSender != nil {
-        data.Set("AlphaSender", *params.AlphaSender)
-    }
+	if params != nil && params.AlphaSender != nil {
+		data.Set("AlphaSender", *params.AlphaSender)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServiceAlphaSender{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServiceAlphaSender{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreatePhoneNumberParams Optional parameters for the method 'CreatePhoneNumber'
 type CreatePhoneNumberParams struct {
-    PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
+	PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
 }
 
 /*
@@ -81,47 +79,47 @@ CreatePhoneNumber Method for CreatePhoneNumber
 @return MessagingV1ServicePhoneNumber
 */
 func (c *DefaultApiService) CreatePhoneNumber(serviceSid string, params *CreatePhoneNumberParams) (*MessagingV1ServicePhoneNumber, error) {
-    path := "/v1/Services/{ServiceSid}/PhoneNumbers"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PhoneNumberSid != nil {
-        data.Set("PhoneNumberSid", *params.PhoneNumberSid)
-    }
+	if params != nil && params.PhoneNumberSid != nil {
+		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServicePhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServicePhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
-    FallbackMethod *string `json:"FallbackMethod,omitempty"`
-    FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
-    FallbackUrl *string `json:"FallbackUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    InboundMethod *string `json:"InboundMethod,omitempty"`
-    InboundRequestUrl *string `json:"InboundRequestUrl,omitempty"`
-    MmsConverter *bool `json:"MmsConverter,omitempty"`
-    ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
-    SmartEncoding *bool `json:"SmartEncoding,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StickySender *bool `json:"StickySender,omitempty"`
-    SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
-    ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
+	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	InboundMethod *string `json:"InboundMethod,omitempty"`
+	InboundRequestUrl *string `json:"InboundRequestUrl,omitempty"`
+	MmsConverter *bool `json:"MmsConverter,omitempty"`
+	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
+	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StickySender *bool `json:"StickySender,omitempty"`
+	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
+	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
 }
 
 /*
@@ -144,72 +142,72 @@ CreateService Method for CreateService
 @return MessagingV1Service
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*MessagingV1Service, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AreaCodeGeomatch != nil {
-        data.Set("AreaCodeGeomatch", string(*params.AreaCodeGeomatch))
-    }
-    if params != nil && params.FallbackMethod != nil {
-        data.Set("FallbackMethod", *params.FallbackMethod)
-    }
-    if params != nil && params.FallbackToLongCode != nil {
-        data.Set("FallbackToLongCode", string(*params.FallbackToLongCode))
-    }
-    if params != nil && params.FallbackUrl != nil {
-        data.Set("FallbackUrl", *params.FallbackUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.InboundMethod != nil {
-        data.Set("InboundMethod", *params.InboundMethod)
-    }
-    if params != nil && params.InboundRequestUrl != nil {
-        data.Set("InboundRequestUrl", *params.InboundRequestUrl)
-    }
-    if params != nil && params.MmsConverter != nil {
-        data.Set("MmsConverter", string(*params.MmsConverter))
-    }
-    if params != nil && params.ScanMessageContent != nil {
-        data.Set("ScanMessageContent", *params.ScanMessageContent)
-    }
-    if params != nil && params.SmartEncoding != nil {
-        data.Set("SmartEncoding", string(*params.SmartEncoding))
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StickySender != nil {
-        data.Set("StickySender", string(*params.StickySender))
-    }
-    if params != nil && params.SynchronousValidation != nil {
-        data.Set("SynchronousValidation", string(*params.SynchronousValidation))
-    }
-    if params != nil && params.ValidityPeriod != nil {
-        data.Set("ValidityPeriod", string(*params.ValidityPeriod))
-    }
+	if params != nil && params.AreaCodeGeomatch != nil {
+		data.Set("AreaCodeGeomatch", string(*params.AreaCodeGeomatch))
+	}
+	if params != nil && params.FallbackMethod != nil {
+		data.Set("FallbackMethod", *params.FallbackMethod)
+	}
+	if params != nil && params.FallbackToLongCode != nil {
+		data.Set("FallbackToLongCode", string(*params.FallbackToLongCode))
+	}
+	if params != nil && params.FallbackUrl != nil {
+		data.Set("FallbackUrl", *params.FallbackUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.InboundMethod != nil {
+		data.Set("InboundMethod", *params.InboundMethod)
+	}
+	if params != nil && params.InboundRequestUrl != nil {
+		data.Set("InboundRequestUrl", *params.InboundRequestUrl)
+	}
+	if params != nil && params.MmsConverter != nil {
+		data.Set("MmsConverter", string(*params.MmsConverter))
+	}
+	if params != nil && params.ScanMessageContent != nil {
+		data.Set("ScanMessageContent", *params.ScanMessageContent)
+	}
+	if params != nil && params.SmartEncoding != nil {
+		data.Set("SmartEncoding", string(*params.SmartEncoding))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StickySender != nil {
+		data.Set("StickySender", string(*params.StickySender))
+	}
+	if params != nil && params.SynchronousValidation != nil {
+		data.Set("SynchronousValidation", string(*params.SynchronousValidation))
+	}
+	if params != nil && params.ValidityPeriod != nil {
+		data.Set("ValidityPeriod", string(*params.ValidityPeriod))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateShortCodeParams Optional parameters for the method 'CreateShortCode'
 type CreateShortCodeParams struct {
-    ShortCodeSid *string `json:"ShortCodeSid,omitempty"`
+	ShortCodeSid *string `json:"ShortCodeSid,omitempty"`
 }
 
 /*
@@ -220,30 +218,30 @@ CreateShortCode Method for CreateShortCode
 @return MessagingV1ServiceShortCode
 */
 func (c *DefaultApiService) CreateShortCode(serviceSid string, params *CreateShortCodeParams) (*MessagingV1ServiceShortCode, error) {
-    path := "/v1/Services/{ServiceSid}/ShortCodes"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/ShortCodes"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ShortCodeSid != nil {
-        data.Set("ShortCodeSid", *params.ShortCodeSid)
-    }
+	if params != nil && params.ShortCodeSid != nil {
+		data.Set("ShortCodeSid", *params.ShortCodeSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServiceShortCode{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServiceShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -252,23 +250,23 @@ DeleteAlphaSender Method for DeleteAlphaSender
  * @param sid The SID of the AlphaSender resource to delete.
 */
 func (c *DefaultApiService) DeleteAlphaSender(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -277,23 +275,23 @@ DeletePhoneNumber Method for DeletePhoneNumber
  * @param sid The SID of the PhoneNumber resource to delete.
 */
 func (c *DefaultApiService) DeletePhoneNumber(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -301,22 +299,22 @@ DeleteService Method for DeleteService
  * @param sid The SID of the Service resource to delete.
 */
 func (c *DefaultApiService) DeleteService(sid string) (error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -325,23 +323,23 @@ DeleteShortCode Method for DeleteShortCode
  * @param sid The SID of the ShortCode resource to delete.
 */
 func (c *DefaultApiService) DeleteShortCode(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -351,32 +349,32 @@ FetchAlphaSender Method for FetchAlphaSender
 @return MessagingV1ServiceAlphaSender
 */
 func (c *DefaultApiService) FetchAlphaSender(serviceSid string, sid string) (*MessagingV1ServiceAlphaSender, error) {
-    path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServiceAlphaSender{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServiceAlphaSender{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // FetchDeactivationParams Optional parameters for the method 'FetchDeactivation'
 type FetchDeactivationParams struct {
-    Date *time.Time `json:"Date,omitempty"`
+	Date *time.Time `json:"Date,omitempty"`
 }
 
 /*
@@ -386,24 +384,24 @@ Fetch a list of all United States numbers that have been deactivated on a specif
  * @param "Date" (time.Time) - The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 */
 func (c *DefaultApiService) FetchDeactivation(params *FetchDeactivationParams) (error) {
-    path := "/v1/Deactivations"
+	path := "/v1/Deactivations"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Date != nil {
-        data.Set("Date", string(*params.Date))
-    }
+	if params != nil && params.Date != nil {
+		data.Set("Date", string(*params.Date))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -413,28 +411,28 @@ FetchPhoneNumber Method for FetchPhoneNumber
 @return MessagingV1ServicePhoneNumber
 */
 func (c *DefaultApiService) FetchPhoneNumber(serviceSid string, sid string) (*MessagingV1ServicePhoneNumber, error) {
-    path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServicePhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServicePhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -443,27 +441,27 @@ FetchService Method for FetchService
 @return MessagingV1Service
 */
 func (c *DefaultApiService) FetchService(sid string) (*MessagingV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -473,32 +471,32 @@ FetchShortCode Method for FetchShortCode
 @return MessagingV1ServiceShortCode
 */
 func (c *DefaultApiService) FetchShortCode(serviceSid string, sid string) (*MessagingV1ServiceShortCode, error) {
-    path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServiceShortCode{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServiceShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAlphaSenderParams Optional parameters for the method 'ListAlphaSender'
 type ListAlphaSenderParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -509,34 +507,34 @@ ListAlphaSender Method for ListAlphaSender
 @return MessagingV1ServiceAlphaSenderReadResponse
 */
 func (c *DefaultApiService) ListAlphaSender(serviceSid string, params *ListAlphaSenderParams) (*MessagingV1ServiceAlphaSenderReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/AlphaSenders"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/AlphaSenders"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServiceAlphaSenderReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServiceAlphaSenderReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListPhoneNumberParams Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -547,34 +545,34 @@ ListPhoneNumber Method for ListPhoneNumber
 @return MessagingV1ServicePhoneNumberReadResponse
 */
 func (c *DefaultApiService) ListPhoneNumber(serviceSid string, params *ListPhoneNumberParams) (*MessagingV1ServicePhoneNumberReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/PhoneNumbers"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServicePhoneNumberReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServicePhoneNumberReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -584,33 +582,33 @@ ListService Method for ListService
 @return MessagingV1ServiceReadResponse
 */
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*MessagingV1ServiceReadResponse, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServiceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServiceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListShortCodeParams Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -621,47 +619,47 @@ ListShortCode Method for ListShortCode
 @return MessagingV1ServiceShortCodeReadResponse
 */
 func (c *DefaultApiService) ListShortCode(serviceSid string, params *ListShortCodeParams) (*MessagingV1ServiceShortCodeReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/ShortCodes"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/ShortCodes"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1ServiceShortCodeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1ServiceShortCodeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-    AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
-    FallbackMethod *string `json:"FallbackMethod,omitempty"`
-    FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
-    FallbackUrl *string `json:"FallbackUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    InboundMethod *string `json:"InboundMethod,omitempty"`
-    InboundRequestUrl *string `json:"InboundRequestUrl,omitempty"`
-    MmsConverter *bool `json:"MmsConverter,omitempty"`
-    ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
-    SmartEncoding *bool `json:"SmartEncoding,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StickySender *bool `json:"StickySender,omitempty"`
-    SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
-    ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
+	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	InboundMethod *string `json:"InboundMethod,omitempty"`
+	InboundRequestUrl *string `json:"InboundRequestUrl,omitempty"`
+	MmsConverter *bool `json:"MmsConverter,omitempty"`
+	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
+	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StickySender *bool `json:"StickySender,omitempty"`
+	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
+	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
 }
 
 /*
@@ -685,67 +683,67 @@ UpdateService Method for UpdateService
 @return MessagingV1Service
 */
 func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*MessagingV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AreaCodeGeomatch != nil {
-        data.Set("AreaCodeGeomatch", string(*params.AreaCodeGeomatch))
-    }
-    if params != nil && params.FallbackMethod != nil {
-        data.Set("FallbackMethod", *params.FallbackMethod)
-    }
-    if params != nil && params.FallbackToLongCode != nil {
-        data.Set("FallbackToLongCode", string(*params.FallbackToLongCode))
-    }
-    if params != nil && params.FallbackUrl != nil {
-        data.Set("FallbackUrl", *params.FallbackUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.InboundMethod != nil {
-        data.Set("InboundMethod", *params.InboundMethod)
-    }
-    if params != nil && params.InboundRequestUrl != nil {
-        data.Set("InboundRequestUrl", *params.InboundRequestUrl)
-    }
-    if params != nil && params.MmsConverter != nil {
-        data.Set("MmsConverter", string(*params.MmsConverter))
-    }
-    if params != nil && params.ScanMessageContent != nil {
-        data.Set("ScanMessageContent", *params.ScanMessageContent)
-    }
-    if params != nil && params.SmartEncoding != nil {
-        data.Set("SmartEncoding", string(*params.SmartEncoding))
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StickySender != nil {
-        data.Set("StickySender", string(*params.StickySender))
-    }
-    if params != nil && params.SynchronousValidation != nil {
-        data.Set("SynchronousValidation", string(*params.SynchronousValidation))
-    }
-    if params != nil && params.ValidityPeriod != nil {
-        data.Set("ValidityPeriod", string(*params.ValidityPeriod))
-    }
+	if params != nil && params.AreaCodeGeomatch != nil {
+		data.Set("AreaCodeGeomatch", string(*params.AreaCodeGeomatch))
+	}
+	if params != nil && params.FallbackMethod != nil {
+		data.Set("FallbackMethod", *params.FallbackMethod)
+	}
+	if params != nil && params.FallbackToLongCode != nil {
+		data.Set("FallbackToLongCode", string(*params.FallbackToLongCode))
+	}
+	if params != nil && params.FallbackUrl != nil {
+		data.Set("FallbackUrl", *params.FallbackUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.InboundMethod != nil {
+		data.Set("InboundMethod", *params.InboundMethod)
+	}
+	if params != nil && params.InboundRequestUrl != nil {
+		data.Set("InboundRequestUrl", *params.InboundRequestUrl)
+	}
+	if params != nil && params.MmsConverter != nil {
+		data.Set("MmsConverter", string(*params.MmsConverter))
+	}
+	if params != nil && params.ScanMessageContent != nil {
+		data.Set("ScanMessageContent", *params.ScanMessageContent)
+	}
+	if params != nil && params.SmartEncoding != nil {
+		data.Set("SmartEncoding", string(*params.SmartEncoding))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StickySender != nil {
+		data.Set("StickySender", string(*params.StickySender))
+	}
+	if params != nil && params.SynchronousValidation != nil {
+		data.Set("SynchronousValidation", string(*params.SynchronousValidation))
+	}
+	if params != nil && params.ValidityPeriod != nil {
+		data.Set("ValidityPeriod", string(*params.ValidityPeriod))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &MessagingV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &MessagingV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

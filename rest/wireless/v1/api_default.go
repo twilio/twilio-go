@@ -13,32 +13,30 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateCommandParams Optional parameters for the method 'CreateCommand'
 type CreateCommandParams struct {
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    Command *string `json:"Command,omitempty"`
-    CommandMode *string `json:"CommandMode,omitempty"`
-    DeliveryReceiptRequested *bool `json:"DeliveryReceiptRequested,omitempty"`
-    IncludeSid *string `json:"IncludeSid,omitempty"`
-    Sim *string `json:"Sim,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	Command *string `json:"Command,omitempty"`
+	CommandMode *string `json:"CommandMode,omitempty"`
+	DeliveryReceiptRequested *bool `json:"DeliveryReceiptRequested,omitempty"`
+	IncludeSid *string `json:"IncludeSid,omitempty"`
+	Sim *string `json:"Sim,omitempty"`
 }
 
 /*
@@ -55,61 +53,61 @@ Send a Command to a Sim.
 @return WirelessV1Command
 */
 func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Command, error) {
-    path := "/v1/Commands"
+	path := "/v1/Commands"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackMethod != nil {
-        data.Set("CallbackMethod", *params.CallbackMethod)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.Command != nil {
-        data.Set("Command", *params.Command)
-    }
-    if params != nil && params.CommandMode != nil {
-        data.Set("CommandMode", *params.CommandMode)
-    }
-    if params != nil && params.DeliveryReceiptRequested != nil {
-        data.Set("DeliveryReceiptRequested", string(*params.DeliveryReceiptRequested))
-    }
-    if params != nil && params.IncludeSid != nil {
-        data.Set("IncludeSid", *params.IncludeSid)
-    }
-    if params != nil && params.Sim != nil {
-        data.Set("Sim", *params.Sim)
-    }
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.Command != nil {
+		data.Set("Command", *params.Command)
+	}
+	if params != nil && params.CommandMode != nil {
+		data.Set("CommandMode", *params.CommandMode)
+	}
+	if params != nil && params.DeliveryReceiptRequested != nil {
+		data.Set("DeliveryReceiptRequested", string(*params.DeliveryReceiptRequested))
+	}
+	if params != nil && params.IncludeSid != nil {
+		data.Set("IncludeSid", *params.IncludeSid)
+	}
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1Command{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1Command{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateRatePlanParams Optional parameters for the method 'CreateRatePlan'
 type CreateRatePlanParams struct {
-    DataEnabled *bool `json:"DataEnabled,omitempty"`
-    DataLimit *int32 `json:"DataLimit,omitempty"`
-    DataMetering *string `json:"DataMetering,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    InternationalRoaming *[]string `json:"InternationalRoaming,omitempty"`
-    InternationalRoamingDataLimit *int32 `json:"InternationalRoamingDataLimit,omitempty"`
-    MessagingEnabled *bool `json:"MessagingEnabled,omitempty"`
-    NationalRoamingDataLimit *int32 `json:"NationalRoamingDataLimit,omitempty"`
-    NationalRoamingEnabled *bool `json:"NationalRoamingEnabled,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	DataEnabled *bool `json:"DataEnabled,omitempty"`
+	DataLimit *int32 `json:"DataLimit,omitempty"`
+	DataMetering *string `json:"DataMetering,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	InternationalRoaming *[]string `json:"InternationalRoaming,omitempty"`
+	InternationalRoamingDataLimit *int32 `json:"InternationalRoamingDataLimit,omitempty"`
+	MessagingEnabled *bool `json:"MessagingEnabled,omitempty"`
+	NationalRoamingDataLimit *int32 `json:"NationalRoamingDataLimit,omitempty"`
+	NationalRoamingEnabled *bool `json:"NationalRoamingEnabled,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
 }
 
 /*
@@ -129,59 +127,59 @@ CreateRatePlan Method for CreateRatePlan
 @return WirelessV1RatePlan
 */
 func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
-    path := "/v1/RatePlans"
+	path := "/v1/RatePlans"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DataEnabled != nil {
-        data.Set("DataEnabled", string(*params.DataEnabled))
-    }
-    if params != nil && params.DataLimit != nil {
-        data.Set("DataLimit", string(*params.DataLimit))
-    }
-    if params != nil && params.DataMetering != nil {
-        data.Set("DataMetering", *params.DataMetering)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.InternationalRoaming != nil {
-        data.Set("InternationalRoaming", *params.InternationalRoaming)
-    }
-    if params != nil && params.InternationalRoamingDataLimit != nil {
-        data.Set("InternationalRoamingDataLimit", string(*params.InternationalRoamingDataLimit))
-    }
-    if params != nil && params.MessagingEnabled != nil {
-        data.Set("MessagingEnabled", string(*params.MessagingEnabled))
-    }
-    if params != nil && params.NationalRoamingDataLimit != nil {
-        data.Set("NationalRoamingDataLimit", string(*params.NationalRoamingDataLimit))
-    }
-    if params != nil && params.NationalRoamingEnabled != nil {
-        data.Set("NationalRoamingEnabled", string(*params.NationalRoamingEnabled))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.VoiceEnabled != nil {
-        data.Set("VoiceEnabled", string(*params.VoiceEnabled))
-    }
+	if params != nil && params.DataEnabled != nil {
+		data.Set("DataEnabled", string(*params.DataEnabled))
+	}
+	if params != nil && params.DataLimit != nil {
+		data.Set("DataLimit", string(*params.DataLimit))
+	}
+	if params != nil && params.DataMetering != nil {
+		data.Set("DataMetering", *params.DataMetering)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.InternationalRoaming != nil {
+		data.Set("InternationalRoaming", *params.InternationalRoaming)
+	}
+	if params != nil && params.InternationalRoamingDataLimit != nil {
+		data.Set("InternationalRoamingDataLimit", string(*params.InternationalRoamingDataLimit))
+	}
+	if params != nil && params.MessagingEnabled != nil {
+		data.Set("MessagingEnabled", string(*params.MessagingEnabled))
+	}
+	if params != nil && params.NationalRoamingDataLimit != nil {
+		data.Set("NationalRoamingDataLimit", string(*params.NationalRoamingDataLimit))
+	}
+	if params != nil && params.NationalRoamingEnabled != nil {
+		data.Set("NationalRoamingEnabled", string(*params.NationalRoamingEnabled))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1RatePlan{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1RatePlan{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -190,22 +188,22 @@ Delete a Command instance from your account.
  * @param sid The SID of the Command resource to delete.
 */
 func (c *DefaultApiService) DeleteCommand(sid string) (error) {
-    path := "/v1/Commands/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Commands/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -213,22 +211,22 @@ DeleteRatePlan Method for DeleteRatePlan
  * @param sid The SID of the RatePlan resource to delete.
 */
 func (c *DefaultApiService) DeleteRatePlan(sid string) (error) {
-    path := "/v1/RatePlans/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/RatePlans/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -237,22 +235,22 @@ Delete a Sim resource on your Account.
  * @param sid The SID or the `unique_name` of the Sim resource to delete.
 */
 func (c *DefaultApiService) DeleteSim(sid string) (error) {
-    path := "/v1/Sims/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Sims/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -262,27 +260,27 @@ Fetch a Command instance from your account.
 @return WirelessV1Command
 */
 func (c *DefaultApiService) FetchCommand(sid string) (*WirelessV1Command, error) {
-    path := "/v1/Commands/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Commands/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1Command{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1Command{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -291,27 +289,27 @@ FetchRatePlan Method for FetchRatePlan
 @return WirelessV1RatePlan
 */
 func (c *DefaultApiService) FetchRatePlan(sid string) (*WirelessV1RatePlan, error) {
-    path := "/v1/RatePlans/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/RatePlans/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1RatePlan{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1RatePlan{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -321,34 +319,34 @@ Fetch a Sim resource on your Account.
 @return WirelessV1Sim
 */
 func (c *DefaultApiService) FetchSim(sid string) (*WirelessV1Sim, error) {
-    path := "/v1/Sims/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Sims/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1Sim{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1Sim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAccountUsageRecordParams Optional parameters for the method 'ListAccountUsageRecord'
 type ListAccountUsageRecordParams struct {
-    End *time.Time `json:"End,omitempty"`
-    Start *time.Time `json:"Start,omitempty"`
-    Granularity *string `json:"Granularity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	End *time.Time `json:"End,omitempty"`
+	Start *time.Time `json:"Start,omitempty"`
+	Granularity *string `json:"Granularity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -361,46 +359,46 @@ ListAccountUsageRecord Method for ListAccountUsageRecord
 @return WirelessV1AccountUsageRecordReadResponse
 */
 func (c *DefaultApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams) (*WirelessV1AccountUsageRecordReadResponse, error) {
-    path := "/v1/UsageRecords"
+	path := "/v1/UsageRecords"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.End != nil {
-        data.Set("End", string(*params.End))
-    }
-    if params != nil && params.Start != nil {
-        data.Set("Start", string(*params.Start))
-    }
-    if params != nil && params.Granularity != nil {
-        data.Set("Granularity", *params.Granularity)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.End != nil {
+		data.Set("End", string(*params.End))
+	}
+	if params != nil && params.Start != nil {
+		data.Set("Start", string(*params.Start))
+	}
+	if params != nil && params.Granularity != nil {
+		data.Set("Granularity", *params.Granularity)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1AccountUsageRecordReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1AccountUsageRecordReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCommandParams Optional parameters for the method 'ListCommand'
 type ListCommandParams struct {
-    Sim *string `json:"Sim,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    Direction *string `json:"Direction,omitempty"`
-    Transport *string `json:"Transport,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Sim *string `json:"Sim,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	Direction *string `json:"Direction,omitempty"`
+	Transport *string `json:"Transport,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -415,45 +413,45 @@ Retrieve a list of Commands from your account.
 @return WirelessV1CommandReadResponse
 */
 func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*WirelessV1CommandReadResponse, error) {
-    path := "/v1/Commands"
+	path := "/v1/Commands"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Sim != nil {
-        data.Set("Sim", *params.Sim)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.Direction != nil {
-        data.Set("Direction", *params.Direction)
-    }
-    if params != nil && params.Transport != nil {
-        data.Set("Transport", *params.Transport)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Direction != nil {
+		data.Set("Direction", *params.Direction)
+	}
+	if params != nil && params.Transport != nil {
+		data.Set("Transport", *params.Transport)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1CommandReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1CommandReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDataSessionParams Optional parameters for the method 'ListDataSession'
 type ListDataSessionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -464,34 +462,34 @@ ListDataSession Method for ListDataSession
 @return WirelessV1SimDataSessionReadResponse
 */
 func (c *DefaultApiService) ListDataSession(simSid string, params *ListDataSessionParams) (*WirelessV1SimDataSessionReadResponse, error) {
-    path := "/v1/Sims/{SimSid}/DataSessions"
-    path = strings.Replace(path, "{"+"SimSid"+"}", simSid, -1)
+	path := "/v1/Sims/{SimSid}/DataSessions"
+	path = strings.Replace(path, "{"+"SimSid"+"}", simSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1SimDataSessionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1SimDataSessionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRatePlanParams Optional parameters for the method 'ListRatePlan'
 type ListRatePlanParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -501,38 +499,38 @@ ListRatePlan Method for ListRatePlan
 @return WirelessV1RatePlanReadResponse
 */
 func (c *DefaultApiService) ListRatePlan(params *ListRatePlanParams) (*WirelessV1RatePlanReadResponse, error) {
-    path := "/v1/RatePlans"
+	path := "/v1/RatePlans"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1RatePlanReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1RatePlanReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSimParams Optional parameters for the method 'ListSim'
 type ListSimParams struct {
-    Status *string `json:"Status,omitempty"`
-    Iccid *string `json:"Iccid,omitempty"`
-    RatePlan *string `json:"RatePlan,omitempty"`
-    EId *string `json:"EId,omitempty"`
-    SimRegistrationCode *string `json:"SimRegistrationCode,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	Iccid *string `json:"Iccid,omitempty"`
+	RatePlan *string `json:"RatePlan,omitempty"`
+	EId *string `json:"EId,omitempty"`
+	SimRegistrationCode *string `json:"SimRegistrationCode,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -548,51 +546,51 @@ Retrieve a list of Sim resources on your Account.
 @return WirelessV1SimReadResponse
 */
 func (c *DefaultApiService) ListSim(params *ListSimParams) (*WirelessV1SimReadResponse, error) {
-    path := "/v1/Sims"
+	path := "/v1/Sims"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.Iccid != nil {
-        data.Set("Iccid", *params.Iccid)
-    }
-    if params != nil && params.RatePlan != nil {
-        data.Set("RatePlan", *params.RatePlan)
-    }
-    if params != nil && params.EId != nil {
-        data.Set("EId", *params.EId)
-    }
-    if params != nil && params.SimRegistrationCode != nil {
-        data.Set("SimRegistrationCode", *params.SimRegistrationCode)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Iccid != nil {
+		data.Set("Iccid", *params.Iccid)
+	}
+	if params != nil && params.RatePlan != nil {
+		data.Set("RatePlan", *params.RatePlan)
+	}
+	if params != nil && params.EId != nil {
+		data.Set("EId", *params.EId)
+	}
+	if params != nil && params.SimRegistrationCode != nil {
+		data.Set("SimRegistrationCode", *params.SimRegistrationCode)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1SimReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1SimReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordParams Optional parameters for the method 'ListUsageRecord'
 type ListUsageRecordParams struct {
-    End *time.Time `json:"End,omitempty"`
-    Start *time.Time `json:"Start,omitempty"`
-    Granularity *string `json:"Granularity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	End *time.Time `json:"End,omitempty"`
+	Start *time.Time `json:"Start,omitempty"`
+	Granularity *string `json:"Granularity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -606,44 +604,44 @@ ListUsageRecord Method for ListUsageRecord
 @return WirelessV1SimUsageRecordReadResponse
 */
 func (c *DefaultApiService) ListUsageRecord(simSid string, params *ListUsageRecordParams) (*WirelessV1SimUsageRecordReadResponse, error) {
-    path := "/v1/Sims/{SimSid}/UsageRecords"
-    path = strings.Replace(path, "{"+"SimSid"+"}", simSid, -1)
+	path := "/v1/Sims/{SimSid}/UsageRecords"
+	path = strings.Replace(path, "{"+"SimSid"+"}", simSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.End != nil {
-        data.Set("End", string(*params.End))
-    }
-    if params != nil && params.Start != nil {
-        data.Set("Start", string(*params.Start))
-    }
-    if params != nil && params.Granularity != nil {
-        data.Set("Granularity", *params.Granularity)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.End != nil {
+		data.Set("End", string(*params.End))
+	}
+	if params != nil && params.Start != nil {
+		data.Set("Start", string(*params.Start))
+	}
+	if params != nil && params.Granularity != nil {
+		data.Set("Granularity", *params.Granularity)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1SimUsageRecordReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1SimUsageRecordReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRatePlanParams Optional parameters for the method 'UpdateRatePlan'
 type UpdateRatePlanParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -655,54 +653,54 @@ UpdateRatePlan Method for UpdateRatePlan
 @return WirelessV1RatePlan
 */
 func (c *DefaultApiService) UpdateRatePlan(sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
-    path := "/v1/RatePlans/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/RatePlans/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1RatePlan{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1RatePlan{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSimParams Optional parameters for the method 'UpdateSim'
 type UpdateSimParams struct {
-    AccountSid *string `json:"AccountSid,omitempty"`
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
-    CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    RatePlan *string `json:"RatePlan,omitempty"`
-    ResetStatus *string `json:"ResetStatus,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
+	CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	RatePlan *string `json:"RatePlan,omitempty"`
+	ResetStatus *string `json:"ResetStatus,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -731,79 +729,79 @@ Updates the given properties of a Sim resource on your Account.
 @return WirelessV1Sim
 */
 func (c *DefaultApiService) UpdateSim(sid string, params *UpdateSimParams) (*WirelessV1Sim, error) {
-    path := "/v1/Sims/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Sims/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AccountSid != nil {
-        data.Set("AccountSid", *params.AccountSid)
-    }
-    if params != nil && params.CallbackMethod != nil {
-        data.Set("CallbackMethod", *params.CallbackMethod)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.CommandsCallbackMethod != nil {
-        data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
-    }
-    if params != nil && params.CommandsCallbackUrl != nil {
-        data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.RatePlan != nil {
-        data.Set("RatePlan", *params.RatePlan)
-    }
-    if params != nil && params.ResetStatus != nil {
-        data.Set("ResetStatus", *params.ResetStatus)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.CommandsCallbackMethod != nil {
+		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
+	}
+	if params != nil && params.CommandsCallbackUrl != nil {
+		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.RatePlan != nil {
+		data.Set("RatePlan", *params.RatePlan)
+	}
+	if params != nil && params.ResetStatus != nil {
+		data.Set("ResetStatus", *params.ResetStatus)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &WirelessV1Sim{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &WirelessV1Sim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

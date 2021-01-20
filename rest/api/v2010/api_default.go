@@ -13,26 +13,24 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateAccountParams Optional parameters for the method 'CreateAccount'
 type CreateAccountParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -43,41 +41,41 @@ Create a new Twilio Subaccount from the account making the request
 @return ApiV2010Account
 */
 func (c *DefaultApiService) CreateAccount(params *CreateAccountParams) (*ApiV2010Account, error) {
-    path := "/2010-04-01/Accounts.json"
+	path := "/2010-04-01/Accounts.json"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010Account{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010Account{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateAddressParams Optional parameters for the method 'CreateAddress'
 type CreateAddressParams struct {
-    AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
-    City *string `json:"City,omitempty"`
-    CustomerName *string `json:"CustomerName,omitempty"`
-    EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IsoCountry *string `json:"IsoCountry,omitempty"`
-    PostalCode *string `json:"PostalCode,omitempty"`
-    Region *string `json:"Region,omitempty"`
-    Street *string `json:"Street,omitempty"`
+	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
+	City *string `json:"City,omitempty"`
+	CustomerName *string `json:"CustomerName,omitempty"`
+	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	PostalCode *string `json:"PostalCode,omitempty"`
+	Region *string `json:"Region,omitempty"`
+	Street *string `json:"Street,omitempty"`
 }
 
 /*
@@ -96,72 +94,72 @@ CreateAddress Method for CreateAddress
 @return ApiV2010AccountAddress
 */
 func (c *DefaultApiService) CreateAddress(accountSid string, params *CreateAddressParams) (*ApiV2010AccountAddress, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AutoCorrectAddress != nil {
-        data.Set("AutoCorrectAddress", string(*params.AutoCorrectAddress))
-    }
-    if params != nil && params.City != nil {
-        data.Set("City", *params.City)
-    }
-    if params != nil && params.CustomerName != nil {
-        data.Set("CustomerName", *params.CustomerName)
-    }
-    if params != nil && params.EmergencyEnabled != nil {
-        data.Set("EmergencyEnabled", string(*params.EmergencyEnabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IsoCountry != nil {
-        data.Set("IsoCountry", *params.IsoCountry)
-    }
-    if params != nil && params.PostalCode != nil {
-        data.Set("PostalCode", *params.PostalCode)
-    }
-    if params != nil && params.Region != nil {
-        data.Set("Region", *params.Region)
-    }
-    if params != nil && params.Street != nil {
-        data.Set("Street", *params.Street)
-    }
+	if params != nil && params.AutoCorrectAddress != nil {
+		data.Set("AutoCorrectAddress", string(*params.AutoCorrectAddress))
+	}
+	if params != nil && params.City != nil {
+		data.Set("City", *params.City)
+	}
+	if params != nil && params.CustomerName != nil {
+		data.Set("CustomerName", *params.CustomerName)
+	}
+	if params != nil && params.EmergencyEnabled != nil {
+		data.Set("EmergencyEnabled", string(*params.EmergencyEnabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.PostalCode != nil {
+		data.Set("PostalCode", *params.PostalCode)
+	}
+	if params != nil && params.Region != nil {
+		data.Set("Region", *params.Region)
+	}
+	if params != nil && params.Street != nil {
+		data.Set("Street", *params.Street)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAddress{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateApplicationParams Optional parameters for the method 'CreateApplication'
 type CreateApplicationParams struct {
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -187,108 +185,108 @@ Create a new application within your account
 @return ApiV2010AccountApplication
 */
 func (c *DefaultApiService) CreateApplication(accountSid string, params *CreateApplicationParams) (*ApiV2010AccountApplication, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiVersion != nil {
-        data.Set("ApiVersion", *params.ApiVersion)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.MessageStatusCallback != nil {
-        data.Set("MessageStatusCallback", *params.MessageStatusCallback)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsStatusCallback != nil {
-        data.Set("SmsStatusCallback", *params.SmsStatusCallback)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.VoiceCallerIdLookup != nil {
-        data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MessageStatusCallback != nil {
+		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsStatusCallback != nil {
+		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountApplication{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountApplication{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCallParams Optional parameters for the method 'CreateCall'
 type CreateCallParams struct {
-    ApplicationSid *string `json:"ApplicationSid,omitempty"`
-    AsyncAmd *string `json:"AsyncAmd,omitempty"`
-    AsyncAmdStatusCallback *string `json:"AsyncAmdStatusCallback,omitempty"`
-    AsyncAmdStatusCallbackMethod *string `json:"AsyncAmdStatusCallbackMethod,omitempty"`
-    Byoc *string `json:"Byoc,omitempty"`
-    CallReason *string `json:"CallReason,omitempty"`
-    CallerId *string `json:"CallerId,omitempty"`
-    FallbackMethod *string `json:"FallbackMethod,omitempty"`
-    FallbackUrl *string `json:"FallbackUrl,omitempty"`
-    From *string `json:"From,omitempty"`
-    MachineDetection *string `json:"MachineDetection,omitempty"`
-    MachineDetectionSilenceTimeout *int32 `json:"MachineDetectionSilenceTimeout,omitempty"`
-    MachineDetectionSpeechEndThreshold *int32 `json:"MachineDetectionSpeechEndThreshold,omitempty"`
-    MachineDetectionSpeechThreshold *int32 `json:"MachineDetectionSpeechThreshold,omitempty"`
-    MachineDetectionTimeout *int32 `json:"MachineDetectionTimeout,omitempty"`
-    Method *string `json:"Method,omitempty"`
-    Record *bool `json:"Record,omitempty"`
-    RecordingChannels *string `json:"RecordingChannels,omitempty"`
-    RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
-    RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
-    RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
-    RecordingTrack *string `json:"RecordingTrack,omitempty"`
-    SendDigits *string `json:"SendDigits,omitempty"`
-    SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-    SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Timeout *int32 `json:"Timeout,omitempty"`
-    To *string `json:"To,omitempty"`
-    Trim *string `json:"Trim,omitempty"`
-    Twiml *string `json:"Twiml,omitempty"`
-    Url *string `json:"Url,omitempty"`
+	ApplicationSid *string `json:"ApplicationSid,omitempty"`
+	AsyncAmd *string `json:"AsyncAmd,omitempty"`
+	AsyncAmdStatusCallback *string `json:"AsyncAmdStatusCallback,omitempty"`
+	AsyncAmdStatusCallbackMethod *string `json:"AsyncAmdStatusCallbackMethod,omitempty"`
+	Byoc *string `json:"Byoc,omitempty"`
+	CallReason *string `json:"CallReason,omitempty"`
+	CallerId *string `json:"CallerId,omitempty"`
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	From *string `json:"From,omitempty"`
+	MachineDetection *string `json:"MachineDetection,omitempty"`
+	MachineDetectionSilenceTimeout *int32 `json:"MachineDetectionSilenceTimeout,omitempty"`
+	MachineDetectionSpeechEndThreshold *int32 `json:"MachineDetectionSpeechEndThreshold,omitempty"`
+	MachineDetectionSpeechThreshold *int32 `json:"MachineDetectionSpeechThreshold,omitempty"`
+	MachineDetectionTimeout *int32 `json:"MachineDetectionTimeout,omitempty"`
+	Method *string `json:"Method,omitempty"`
+	Record *bool `json:"Record,omitempty"`
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	SendDigits *string `json:"SendDigits,omitempty"`
+	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
+	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Timeout *int32 `json:"Timeout,omitempty"`
+	To *string `json:"To,omitempty"`
+	Trim *string `json:"Trim,omitempty"`
+	Twiml *string `json:"Twiml,omitempty"`
+	Url *string `json:"Url,omitempty"`
 }
 
 /*
@@ -332,134 +330,134 @@ Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client con
 @return ApiV2010AccountCall
 */
 func (c *DefaultApiService) CreateCall(accountSid string, params *CreateCallParams) (*ApiV2010AccountCall, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApplicationSid != nil {
-        data.Set("ApplicationSid", *params.ApplicationSid)
-    }
-    if params != nil && params.AsyncAmd != nil {
-        data.Set("AsyncAmd", *params.AsyncAmd)
-    }
-    if params != nil && params.AsyncAmdStatusCallback != nil {
-        data.Set("AsyncAmdStatusCallback", *params.AsyncAmdStatusCallback)
-    }
-    if params != nil && params.AsyncAmdStatusCallbackMethod != nil {
-        data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod)
-    }
-    if params != nil && params.Byoc != nil {
-        data.Set("Byoc", *params.Byoc)
-    }
-    if params != nil && params.CallReason != nil {
-        data.Set("CallReason", *params.CallReason)
-    }
-    if params != nil && params.CallerId != nil {
-        data.Set("CallerId", *params.CallerId)
-    }
-    if params != nil && params.FallbackMethod != nil {
-        data.Set("FallbackMethod", *params.FallbackMethod)
-    }
-    if params != nil && params.FallbackUrl != nil {
-        data.Set("FallbackUrl", *params.FallbackUrl)
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.MachineDetection != nil {
-        data.Set("MachineDetection", *params.MachineDetection)
-    }
-    if params != nil && params.MachineDetectionSilenceTimeout != nil {
-        data.Set("MachineDetectionSilenceTimeout", string(*params.MachineDetectionSilenceTimeout))
-    }
-    if params != nil && params.MachineDetectionSpeechEndThreshold != nil {
-        data.Set("MachineDetectionSpeechEndThreshold", string(*params.MachineDetectionSpeechEndThreshold))
-    }
-    if params != nil && params.MachineDetectionSpeechThreshold != nil {
-        data.Set("MachineDetectionSpeechThreshold", string(*params.MachineDetectionSpeechThreshold))
-    }
-    if params != nil && params.MachineDetectionTimeout != nil {
-        data.Set("MachineDetectionTimeout", string(*params.MachineDetectionTimeout))
-    }
-    if params != nil && params.Method != nil {
-        data.Set("Method", *params.Method)
-    }
-    if params != nil && params.Record != nil {
-        data.Set("Record", string(*params.Record))
-    }
-    if params != nil && params.RecordingChannels != nil {
-        data.Set("RecordingChannels", *params.RecordingChannels)
-    }
-    if params != nil && params.RecordingStatusCallback != nil {
-        data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
-    }
-    if params != nil && params.RecordingStatusCallbackEvent != nil {
-        data.Set("RecordingStatusCallbackEvent", *params.RecordingStatusCallbackEvent)
-    }
-    if params != nil && params.RecordingStatusCallbackMethod != nil {
-        data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
-    }
-    if params != nil && params.RecordingTrack != nil {
-        data.Set("RecordingTrack", *params.RecordingTrack)
-    }
-    if params != nil && params.SendDigits != nil {
-        data.Set("SendDigits", *params.SendDigits)
-    }
-    if params != nil && params.SipAuthPassword != nil {
-        data.Set("SipAuthPassword", *params.SipAuthPassword)
-    }
-    if params != nil && params.SipAuthUsername != nil {
-        data.Set("SipAuthUsername", *params.SipAuthUsername)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackEvent != nil {
-        data.Set("StatusCallbackEvent", *params.StatusCallbackEvent)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.Timeout != nil {
-        data.Set("Timeout", string(*params.Timeout))
-    }
-    if params != nil && params.To != nil {
-        data.Set("To", *params.To)
-    }
-    if params != nil && params.Trim != nil {
-        data.Set("Trim", *params.Trim)
-    }
-    if params != nil && params.Twiml != nil {
-        data.Set("Twiml", *params.Twiml)
-    }
-    if params != nil && params.Url != nil {
-        data.Set("Url", *params.Url)
-    }
+	if params != nil && params.ApplicationSid != nil {
+		data.Set("ApplicationSid", *params.ApplicationSid)
+	}
+	if params != nil && params.AsyncAmd != nil {
+		data.Set("AsyncAmd", *params.AsyncAmd)
+	}
+	if params != nil && params.AsyncAmdStatusCallback != nil {
+		data.Set("AsyncAmdStatusCallback", *params.AsyncAmdStatusCallback)
+	}
+	if params != nil && params.AsyncAmdStatusCallbackMethod != nil {
+		data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod)
+	}
+	if params != nil && params.Byoc != nil {
+		data.Set("Byoc", *params.Byoc)
+	}
+	if params != nil && params.CallReason != nil {
+		data.Set("CallReason", *params.CallReason)
+	}
+	if params != nil && params.CallerId != nil {
+		data.Set("CallerId", *params.CallerId)
+	}
+	if params != nil && params.FallbackMethod != nil {
+		data.Set("FallbackMethod", *params.FallbackMethod)
+	}
+	if params != nil && params.FallbackUrl != nil {
+		data.Set("FallbackUrl", *params.FallbackUrl)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.MachineDetection != nil {
+		data.Set("MachineDetection", *params.MachineDetection)
+	}
+	if params != nil && params.MachineDetectionSilenceTimeout != nil {
+		data.Set("MachineDetectionSilenceTimeout", string(*params.MachineDetectionSilenceTimeout))
+	}
+	if params != nil && params.MachineDetectionSpeechEndThreshold != nil {
+		data.Set("MachineDetectionSpeechEndThreshold", string(*params.MachineDetectionSpeechEndThreshold))
+	}
+	if params != nil && params.MachineDetectionSpeechThreshold != nil {
+		data.Set("MachineDetectionSpeechThreshold", string(*params.MachineDetectionSpeechThreshold))
+	}
+	if params != nil && params.MachineDetectionTimeout != nil {
+		data.Set("MachineDetectionTimeout", string(*params.MachineDetectionTimeout))
+	}
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
+	}
+	if params != nil && params.Record != nil {
+		data.Set("Record", string(*params.Record))
+	}
+	if params != nil && params.RecordingChannels != nil {
+		data.Set("RecordingChannels", *params.RecordingChannels)
+	}
+	if params != nil && params.RecordingStatusCallback != nil {
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+	}
+	if params != nil && params.RecordingStatusCallbackEvent != nil {
+		data.Set("RecordingStatusCallbackEvent", *params.RecordingStatusCallbackEvent)
+	}
+	if params != nil && params.RecordingStatusCallbackMethod != nil {
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+	}
+	if params != nil && params.RecordingTrack != nil {
+		data.Set("RecordingTrack", *params.RecordingTrack)
+	}
+	if params != nil && params.SendDigits != nil {
+		data.Set("SendDigits", *params.SendDigits)
+	}
+	if params != nil && params.SipAuthPassword != nil {
+		data.Set("SipAuthPassword", *params.SipAuthPassword)
+	}
+	if params != nil && params.SipAuthUsername != nil {
+		data.Set("SipAuthUsername", *params.SipAuthUsername)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackEvent != nil {
+		data.Set("StatusCallbackEvent", *params.StatusCallbackEvent)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Timeout != nil {
+		data.Set("Timeout", string(*params.Timeout))
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", *params.Trim)
+	}
+	if params != nil && params.Twiml != nil {
+		data.Set("Twiml", *params.Twiml)
+	}
+	if params != nil && params.Url != nil {
+		data.Set("Url", *params.Url)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCall{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCall{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCallFeedbackSummaryParams Optional parameters for the method 'CreateCallFeedbackSummary'
 type CreateCallFeedbackSummaryParams struct {
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
 /*
@@ -475,51 +473,51 @@ Create a FeedbackSummary resource for a call
 @return ApiV2010AccountCallCallFeedbackSummary
 */
 func (c *DefaultApiService) CreateCallFeedbackSummary(accountSid string, params *CreateCallFeedbackSummaryParams) (*ApiV2010AccountCallCallFeedbackSummary, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallFeedbackSummary{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallFeedbackSummary{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCallRecordingParams Optional parameters for the method 'CreateCallRecording'
 type CreateCallRecordingParams struct {
-    RecordingChannels *string `json:"RecordingChannels,omitempty"`
-    RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
-    RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
-    RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
-    RecordingTrack *string `json:"RecordingTrack,omitempty"`
-    Trim *string `json:"Trim,omitempty"`
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	Trim *string `json:"Trim,omitempty"`
 }
 
 /*
@@ -537,73 +535,73 @@ Create a recording for the call
 @return ApiV2010AccountCallCallRecording
 */
 func (c *DefaultApiService) CreateCallRecording(accountSid string, callSid string, params *CreateCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.RecordingChannels != nil {
-        data.Set("RecordingChannels", *params.RecordingChannels)
-    }
-    if params != nil && params.RecordingStatusCallback != nil {
-        data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
-    }
-    if params != nil && params.RecordingStatusCallbackEvent != nil {
-        data.Set("RecordingStatusCallbackEvent", *params.RecordingStatusCallbackEvent)
-    }
-    if params != nil && params.RecordingStatusCallbackMethod != nil {
-        data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
-    }
-    if params != nil && params.RecordingTrack != nil {
-        data.Set("RecordingTrack", *params.RecordingTrack)
-    }
-    if params != nil && params.Trim != nil {
-        data.Set("Trim", *params.Trim)
-    }
+	if params != nil && params.RecordingChannels != nil {
+		data.Set("RecordingChannels", *params.RecordingChannels)
+	}
+	if params != nil && params.RecordingStatusCallback != nil {
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+	}
+	if params != nil && params.RecordingStatusCallbackEvent != nil {
+		data.Set("RecordingStatusCallbackEvent", *params.RecordingStatusCallbackEvent)
+	}
+	if params != nil && params.RecordingStatusCallbackMethod != nil {
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+	}
+	if params != nil && params.RecordingTrack != nil {
+		data.Set("RecordingTrack", *params.RecordingTrack)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", *params.Trim)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallRecording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateIncomingPhoneNumberParams Optional parameters for the method 'CreateIncomingPhoneNumber'
 type CreateIncomingPhoneNumberParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    AreaCode *string `json:"AreaCode,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	AreaCode *string `json:"AreaCode,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -638,103 +636,103 @@ Purchase a phone-number for the account.
 @return ApiV2010AccountIncomingPhoneNumber
 */
 func (c *DefaultApiService) CreateIncomingPhoneNumber(accountSid string, params *CreateIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AddressSid != nil {
-        data.Set("AddressSid", *params.AddressSid)
-    }
-    if params != nil && params.ApiVersion != nil {
-        data.Set("ApiVersion", *params.ApiVersion)
-    }
-    if params != nil && params.AreaCode != nil {
-        data.Set("AreaCode", *params.AreaCode)
-    }
-    if params != nil && params.BundleSid != nil {
-        data.Set("BundleSid", *params.BundleSid)
-    }
-    if params != nil && params.EmergencyAddressSid != nil {
-        data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
-    }
-    if params != nil && params.EmergencyStatus != nil {
-        data.Set("EmergencyStatus", *params.EmergencyStatus)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IdentitySid != nil {
-        data.Set("IdentitySid", *params.IdentitySid)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.SmsApplicationSid != nil {
-        data.Set("SmsApplicationSid", *params.SmsApplicationSid)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.TrunkSid != nil {
-        data.Set("TrunkSid", *params.TrunkSid)
-    }
-    if params != nil && params.VoiceApplicationSid != nil {
-        data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
-    }
-    if params != nil && params.VoiceCallerIdLookup != nil {
-        data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceReceiveMode != nil {
-        data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", *params.AreaCode)
+	}
+	if params != nil && params.BundleSid != nil {
+		data.Set("BundleSid", *params.BundleSid)
+	}
+	if params != nil && params.EmergencyAddressSid != nil {
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+	}
+	if params != nil && params.EmergencyStatus != nil {
+		data.Set("EmergencyStatus", *params.EmergencyStatus)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IdentitySid != nil {
+		data.Set("IdentitySid", *params.IdentitySid)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.SmsApplicationSid != nil {
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.TrunkSid != nil {
+		data.Set("TrunkSid", *params.TrunkSid)
+	}
+	if params != nil && params.VoiceApplicationSid != nil {
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceReceiveMode != nil {
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'CreateIncomingPhoneNumberAssignedAddOn'
 type CreateIncomingPhoneNumberAssignedAddOnParams struct {
-    InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
+	InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
 }
 
 /*
@@ -747,57 +745,57 @@ Assign an Add-on installation to the Number specified.
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
 */
 func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(accountSid string, resourceSid string, params *CreateIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.InstalledAddOnSid != nil {
-        data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
-    }
+	if params != nil && params.InstalledAddOnSid != nil {
+		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateIncomingPhoneNumberLocalParams Optional parameters for the method 'CreateIncomingPhoneNumberLocal'
 type CreateIncomingPhoneNumberLocalParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -830,122 +828,122 @@ CreateIncomingPhoneNumberLocal Method for CreateIncomingPhoneNumberLocal
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal
 */
 func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(accountSid string, params *CreateIncomingPhoneNumberLocalParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AddressSid != nil {
-        data.Set("AddressSid", *params.AddressSid)
-    }
-    if params != nil && params.ApiVersion != nil {
-        data.Set("ApiVersion", *params.ApiVersion)
-    }
-    if params != nil && params.BundleSid != nil {
-        data.Set("BundleSid", *params.BundleSid)
-    }
-    if params != nil && params.EmergencyAddressSid != nil {
-        data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
-    }
-    if params != nil && params.EmergencyStatus != nil {
-        data.Set("EmergencyStatus", *params.EmergencyStatus)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IdentitySid != nil {
-        data.Set("IdentitySid", *params.IdentitySid)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.SmsApplicationSid != nil {
-        data.Set("SmsApplicationSid", *params.SmsApplicationSid)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.TrunkSid != nil {
-        data.Set("TrunkSid", *params.TrunkSid)
-    }
-    if params != nil && params.VoiceApplicationSid != nil {
-        data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
-    }
-    if params != nil && params.VoiceCallerIdLookup != nil {
-        data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceReceiveMode != nil {
-        data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.BundleSid != nil {
+		data.Set("BundleSid", *params.BundleSid)
+	}
+	if params != nil && params.EmergencyAddressSid != nil {
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+	}
+	if params != nil && params.EmergencyStatus != nil {
+		data.Set("EmergencyStatus", *params.EmergencyStatus)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IdentitySid != nil {
+		data.Set("IdentitySid", *params.IdentitySid)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.SmsApplicationSid != nil {
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.TrunkSid != nil {
+		data.Set("TrunkSid", *params.TrunkSid)
+	}
+	if params != nil && params.VoiceApplicationSid != nil {
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceReceiveMode != nil {
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateIncomingPhoneNumberMobileParams Optional parameters for the method 'CreateIncomingPhoneNumberMobile'
 type CreateIncomingPhoneNumberMobileParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -978,122 +976,122 @@ CreateIncomingPhoneNumberMobile Method for CreateIncomingPhoneNumberMobile
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile
 */
 func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(accountSid string, params *CreateIncomingPhoneNumberMobileParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AddressSid != nil {
-        data.Set("AddressSid", *params.AddressSid)
-    }
-    if params != nil && params.ApiVersion != nil {
-        data.Set("ApiVersion", *params.ApiVersion)
-    }
-    if params != nil && params.BundleSid != nil {
-        data.Set("BundleSid", *params.BundleSid)
-    }
-    if params != nil && params.EmergencyAddressSid != nil {
-        data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
-    }
-    if params != nil && params.EmergencyStatus != nil {
-        data.Set("EmergencyStatus", *params.EmergencyStatus)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IdentitySid != nil {
-        data.Set("IdentitySid", *params.IdentitySid)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.SmsApplicationSid != nil {
-        data.Set("SmsApplicationSid", *params.SmsApplicationSid)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.TrunkSid != nil {
-        data.Set("TrunkSid", *params.TrunkSid)
-    }
-    if params != nil && params.VoiceApplicationSid != nil {
-        data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
-    }
-    if params != nil && params.VoiceCallerIdLookup != nil {
-        data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceReceiveMode != nil {
-        data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.BundleSid != nil {
+		data.Set("BundleSid", *params.BundleSid)
+	}
+	if params != nil && params.EmergencyAddressSid != nil {
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+	}
+	if params != nil && params.EmergencyStatus != nil {
+		data.Set("EmergencyStatus", *params.EmergencyStatus)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IdentitySid != nil {
+		data.Set("IdentitySid", *params.IdentitySid)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.SmsApplicationSid != nil {
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.TrunkSid != nil {
+		data.Set("TrunkSid", *params.TrunkSid)
+	}
+	if params != nil && params.VoiceApplicationSid != nil {
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceReceiveMode != nil {
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateIncomingPhoneNumberTollFreeParams Optional parameters for the method 'CreateIncomingPhoneNumberTollFree'
 type CreateIncomingPhoneNumberTollFreeParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -1126,115 +1124,115 @@ CreateIncomingPhoneNumberTollFree Method for CreateIncomingPhoneNumberTollFree
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree
 */
 func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(accountSid string, params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AddressSid != nil {
-        data.Set("AddressSid", *params.AddressSid)
-    }
-    if params != nil && params.ApiVersion != nil {
-        data.Set("ApiVersion", *params.ApiVersion)
-    }
-    if params != nil && params.BundleSid != nil {
-        data.Set("BundleSid", *params.BundleSid)
-    }
-    if params != nil && params.EmergencyAddressSid != nil {
-        data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
-    }
-    if params != nil && params.EmergencyStatus != nil {
-        data.Set("EmergencyStatus", *params.EmergencyStatus)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IdentitySid != nil {
-        data.Set("IdentitySid", *params.IdentitySid)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.SmsApplicationSid != nil {
-        data.Set("SmsApplicationSid", *params.SmsApplicationSid)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.TrunkSid != nil {
-        data.Set("TrunkSid", *params.TrunkSid)
-    }
-    if params != nil && params.VoiceApplicationSid != nil {
-        data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
-    }
-    if params != nil && params.VoiceCallerIdLookup != nil {
-        data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceReceiveMode != nil {
-        data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.BundleSid != nil {
+		data.Set("BundleSid", *params.BundleSid)
+	}
+	if params != nil && params.EmergencyAddressSid != nil {
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+	}
+	if params != nil && params.EmergencyStatus != nil {
+		data.Set("EmergencyStatus", *params.EmergencyStatus)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IdentitySid != nil {
+		data.Set("IdentitySid", *params.IdentitySid)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.SmsApplicationSid != nil {
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.TrunkSid != nil {
+		data.Set("TrunkSid", *params.TrunkSid)
+	}
+	if params != nil && params.VoiceApplicationSid != nil {
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceReceiveMode != nil {
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateMessageParams Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
-    AddressRetention *string `json:"AddressRetention,omitempty"`
-    ApplicationSid *string `json:"ApplicationSid,omitempty"`
-    Attempt *int32 `json:"Attempt,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    ContentRetention *string `json:"ContentRetention,omitempty"`
-    ForceDelivery *bool `json:"ForceDelivery,omitempty"`
-    From *string `json:"From,omitempty"`
-    MaxPrice *float32 `json:"MaxPrice,omitempty"`
-    MediaUrl *[]string `json:"MediaUrl,omitempty"`
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
-    PersistentAction *[]string `json:"PersistentAction,omitempty"`
-    ProvideFeedback *bool `json:"ProvideFeedback,omitempty"`
-    SmartEncoded *bool `json:"SmartEncoded,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    To *string `json:"To,omitempty"`
-    ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
+	AddressRetention *string `json:"AddressRetention,omitempty"`
+	ApplicationSid *string `json:"ApplicationSid,omitempty"`
+	Attempt *int32 `json:"Attempt,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	ContentRetention *string `json:"ContentRetention,omitempty"`
+	ForceDelivery *bool `json:"ForceDelivery,omitempty"`
+	From *string `json:"From,omitempty"`
+	MaxPrice *float32 `json:"MaxPrice,omitempty"`
+	MediaUrl *[]string `json:"MediaUrl,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	PersistentAction *[]string `json:"PersistentAction,omitempty"`
+	ProvideFeedback *bool `json:"ProvideFeedback,omitempty"`
+	SmartEncoded *bool `json:"SmartEncoded,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	To *string `json:"To,omitempty"`
+	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
 }
 
 /*
@@ -1261,79 +1259,79 @@ Send a message from the account used to make the request
 @return ApiV2010AccountMessage
 */
 func (c *DefaultApiService) CreateMessage(accountSid string, params *CreateMessageParams) (*ApiV2010AccountMessage, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AddressRetention != nil {
-        data.Set("AddressRetention", *params.AddressRetention)
-    }
-    if params != nil && params.ApplicationSid != nil {
-        data.Set("ApplicationSid", *params.ApplicationSid)
-    }
-    if params != nil && params.Attempt != nil {
-        data.Set("Attempt", string(*params.Attempt))
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.ContentRetention != nil {
-        data.Set("ContentRetention", *params.ContentRetention)
-    }
-    if params != nil && params.ForceDelivery != nil {
-        data.Set("ForceDelivery", string(*params.ForceDelivery))
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.MaxPrice != nil {
-        data.Set("MaxPrice", string(*params.MaxPrice))
-    }
-    if params != nil && params.MediaUrl != nil {
-        data.Set("MediaUrl", *params.MediaUrl)
-    }
-    if params != nil && params.MessagingServiceSid != nil {
-        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-    }
-    if params != nil && params.PersistentAction != nil {
-        data.Set("PersistentAction", *params.PersistentAction)
-    }
-    if params != nil && params.ProvideFeedback != nil {
-        data.Set("ProvideFeedback", string(*params.ProvideFeedback))
-    }
-    if params != nil && params.SmartEncoded != nil {
-        data.Set("SmartEncoded", string(*params.SmartEncoded))
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.To != nil {
-        data.Set("To", *params.To)
-    }
-    if params != nil && params.ValidityPeriod != nil {
-        data.Set("ValidityPeriod", string(*params.ValidityPeriod))
-    }
+	if params != nil && params.AddressRetention != nil {
+		data.Set("AddressRetention", *params.AddressRetention)
+	}
+	if params != nil && params.ApplicationSid != nil {
+		data.Set("ApplicationSid", *params.ApplicationSid)
+	}
+	if params != nil && params.Attempt != nil {
+		data.Set("Attempt", string(*params.Attempt))
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.ContentRetention != nil {
+		data.Set("ContentRetention", *params.ContentRetention)
+	}
+	if params != nil && params.ForceDelivery != nil {
+		data.Set("ForceDelivery", string(*params.ForceDelivery))
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.MaxPrice != nil {
+		data.Set("MaxPrice", string(*params.MaxPrice))
+	}
+	if params != nil && params.MediaUrl != nil {
+		data.Set("MediaUrl", *params.MediaUrl)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+	if params != nil && params.PersistentAction != nil {
+		data.Set("PersistentAction", *params.PersistentAction)
+	}
+	if params != nil && params.ProvideFeedback != nil {
+		data.Set("ProvideFeedback", string(*params.ProvideFeedback))
+	}
+	if params != nil && params.SmartEncoded != nil {
+		data.Set("SmartEncoded", string(*params.SmartEncoded))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.ValidityPeriod != nil {
+		data.Set("ValidityPeriod", string(*params.ValidityPeriod))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateMessageFeedbackParams Optional parameters for the method 'CreateMessageFeedback'
 type CreateMessageFeedbackParams struct {
-    Outcome *string `json:"Outcome,omitempty"`
+	Outcome *string `json:"Outcome,omitempty"`
 }
 
 /*
@@ -1345,35 +1343,35 @@ CreateMessageFeedback Method for CreateMessageFeedback
 @return ApiV2010AccountMessageMessageFeedback
 */
 func (c *DefaultApiService) CreateMessageFeedback(accountSid string, messageSid string, params *CreateMessageFeedbackParams) (*ApiV2010AccountMessageMessageFeedback, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Outcome != nil {
-        data.Set("Outcome", *params.Outcome)
-    }
+	if params != nil && params.Outcome != nil {
+		data.Set("Outcome", *params.Outcome)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountMessageMessageFeedback{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountMessageMessageFeedback{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateNewKeyParams Optional parameters for the method 'CreateNewKey'
 type CreateNewKeyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1384,34 +1382,34 @@ CreateNewKey Method for CreateNewKey
 @return ApiV2010AccountNewKey
 */
 func (c *DefaultApiService) CreateNewKey(accountSid string, params *CreateNewKeyParams) (*ApiV2010AccountNewKey, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountNewKey{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountNewKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateNewSigningKeyParams Optional parameters for the method 'CreateNewSigningKey'
 type CreateNewSigningKeyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1423,71 +1421,71 @@ Create a new Signing Key for the account making the request.
 @return ApiV2010AccountNewSigningKey
 */
 func (c *DefaultApiService) CreateNewSigningKey(accountSid string, params *CreateNewSigningKeyParams) (*ApiV2010AccountNewSigningKey, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountNewSigningKey{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountNewSigningKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateParticipantParams Optional parameters for the method 'CreateParticipant'
 type CreateParticipantParams struct {
-    Beep *string `json:"Beep,omitempty"`
-    Byoc *string `json:"Byoc,omitempty"`
-    CallReason *string `json:"CallReason,omitempty"`
-    CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
-    CallerId *string `json:"CallerId,omitempty"`
-    Coaching *bool `json:"Coaching,omitempty"`
-    ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
-    ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
-    ConferenceRecordingStatusCallbackEvent *[]string `json:"ConferenceRecordingStatusCallbackEvent,omitempty"`
-    ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
-    ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
-    ConferenceStatusCallbackEvent *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
-    ConferenceStatusCallbackMethod *string `json:"ConferenceStatusCallbackMethod,omitempty"`
-    ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
-    EarlyMedia *bool `json:"EarlyMedia,omitempty"`
-    EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
-    From *string `json:"From,omitempty"`
-    JitterBufferSize *string `json:"JitterBufferSize,omitempty"`
-    Label *string `json:"Label,omitempty"`
-    MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
-    Muted *bool `json:"Muted,omitempty"`
-    Record *bool `json:"Record,omitempty"`
-    RecordingChannels *string `json:"RecordingChannels,omitempty"`
-    RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
-    RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
-    RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
-    RecordingTrack *string `json:"RecordingTrack,omitempty"`
-    Region *string `json:"Region,omitempty"`
-    SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-    SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
-    StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Timeout *int32 `json:"Timeout,omitempty"`
-    To *string `json:"To,omitempty"`
-    WaitMethod *string `json:"WaitMethod,omitempty"`
-    WaitUrl *string `json:"WaitUrl,omitempty"`
+	Beep *string `json:"Beep,omitempty"`
+	Byoc *string `json:"Byoc,omitempty"`
+	CallReason *string `json:"CallReason,omitempty"`
+	CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
+	CallerId *string `json:"CallerId,omitempty"`
+	Coaching *bool `json:"Coaching,omitempty"`
+	ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
+	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
+	ConferenceRecordingStatusCallbackEvent *[]string `json:"ConferenceRecordingStatusCallbackEvent,omitempty"`
+	ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
+	ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
+	ConferenceStatusCallbackEvent *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
+	ConferenceStatusCallbackMethod *string `json:"ConferenceStatusCallbackMethod,omitempty"`
+	ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
+	EarlyMedia *bool `json:"EarlyMedia,omitempty"`
+	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
+	From *string `json:"From,omitempty"`
+	JitterBufferSize *string `json:"JitterBufferSize,omitempty"`
+	Label *string `json:"Label,omitempty"`
+	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	Muted *bool `json:"Muted,omitempty"`
+	Record *bool `json:"Record,omitempty"`
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	Region *string `json:"Region,omitempty"`
+	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
+	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
+	StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Timeout *int32 `json:"Timeout,omitempty"`
+	To *string `json:"To,omitempty"`
+	WaitMethod *string `json:"WaitMethod,omitempty"`
+	WaitUrl *string `json:"WaitUrl,omitempty"`
 }
 
 /*
@@ -1536,161 +1534,161 @@ CreateParticipant Method for CreateParticipant
 @return ApiV2010AccountConferenceParticipant
 */
 func (c *DefaultApiService) CreateParticipant(accountSid string, conferenceSid string, params *CreateParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Beep != nil {
-        data.Set("Beep", *params.Beep)
-    }
-    if params != nil && params.Byoc != nil {
-        data.Set("Byoc", *params.Byoc)
-    }
-    if params != nil && params.CallReason != nil {
-        data.Set("CallReason", *params.CallReason)
-    }
-    if params != nil && params.CallSidToCoach != nil {
-        data.Set("CallSidToCoach", *params.CallSidToCoach)
-    }
-    if params != nil && params.CallerId != nil {
-        data.Set("CallerId", *params.CallerId)
-    }
-    if params != nil && params.Coaching != nil {
-        data.Set("Coaching", string(*params.Coaching))
-    }
-    if params != nil && params.ConferenceRecord != nil {
-        data.Set("ConferenceRecord", *params.ConferenceRecord)
-    }
-    if params != nil && params.ConferenceRecordingStatusCallback != nil {
-        data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
-    }
-    if params != nil && params.ConferenceRecordingStatusCallbackEvent != nil {
-        data.Set("ConferenceRecordingStatusCallbackEvent", *params.ConferenceRecordingStatusCallbackEvent)
-    }
-    if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
-        data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
-    }
-    if params != nil && params.ConferenceStatusCallback != nil {
-        data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
-    }
-    if params != nil && params.ConferenceStatusCallbackEvent != nil {
-        data.Set("ConferenceStatusCallbackEvent", *params.ConferenceStatusCallbackEvent)
-    }
-    if params != nil && params.ConferenceStatusCallbackMethod != nil {
-        data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
-    }
-    if params != nil && params.ConferenceTrim != nil {
-        data.Set("ConferenceTrim", *params.ConferenceTrim)
-    }
-    if params != nil && params.EarlyMedia != nil {
-        data.Set("EarlyMedia", string(*params.EarlyMedia))
-    }
-    if params != nil && params.EndConferenceOnExit != nil {
-        data.Set("EndConferenceOnExit", string(*params.EndConferenceOnExit))
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.JitterBufferSize != nil {
-        data.Set("JitterBufferSize", *params.JitterBufferSize)
-    }
-    if params != nil && params.Label != nil {
-        data.Set("Label", *params.Label)
-    }
-    if params != nil && params.MaxParticipants != nil {
-        data.Set("MaxParticipants", string(*params.MaxParticipants))
-    }
-    if params != nil && params.Muted != nil {
-        data.Set("Muted", string(*params.Muted))
-    }
-    if params != nil && params.Record != nil {
-        data.Set("Record", string(*params.Record))
-    }
-    if params != nil && params.RecordingChannels != nil {
-        data.Set("RecordingChannels", *params.RecordingChannels)
-    }
-    if params != nil && params.RecordingStatusCallback != nil {
-        data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
-    }
-    if params != nil && params.RecordingStatusCallbackEvent != nil {
-        data.Set("RecordingStatusCallbackEvent", *params.RecordingStatusCallbackEvent)
-    }
-    if params != nil && params.RecordingStatusCallbackMethod != nil {
-        data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
-    }
-    if params != nil && params.RecordingTrack != nil {
-        data.Set("RecordingTrack", *params.RecordingTrack)
-    }
-    if params != nil && params.Region != nil {
-        data.Set("Region", *params.Region)
-    }
-    if params != nil && params.SipAuthPassword != nil {
-        data.Set("SipAuthPassword", *params.SipAuthPassword)
-    }
-    if params != nil && params.SipAuthUsername != nil {
-        data.Set("SipAuthUsername", *params.SipAuthUsername)
-    }
-    if params != nil && params.StartConferenceOnEnter != nil {
-        data.Set("StartConferenceOnEnter", string(*params.StartConferenceOnEnter))
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackEvent != nil {
-        data.Set("StatusCallbackEvent", *params.StatusCallbackEvent)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.Timeout != nil {
-        data.Set("Timeout", string(*params.Timeout))
-    }
-    if params != nil && params.To != nil {
-        data.Set("To", *params.To)
-    }
-    if params != nil && params.WaitMethod != nil {
-        data.Set("WaitMethod", *params.WaitMethod)
-    }
-    if params != nil && params.WaitUrl != nil {
-        data.Set("WaitUrl", *params.WaitUrl)
-    }
+	if params != nil && params.Beep != nil {
+		data.Set("Beep", *params.Beep)
+	}
+	if params != nil && params.Byoc != nil {
+		data.Set("Byoc", *params.Byoc)
+	}
+	if params != nil && params.CallReason != nil {
+		data.Set("CallReason", *params.CallReason)
+	}
+	if params != nil && params.CallSidToCoach != nil {
+		data.Set("CallSidToCoach", *params.CallSidToCoach)
+	}
+	if params != nil && params.CallerId != nil {
+		data.Set("CallerId", *params.CallerId)
+	}
+	if params != nil && params.Coaching != nil {
+		data.Set("Coaching", string(*params.Coaching))
+	}
+	if params != nil && params.ConferenceRecord != nil {
+		data.Set("ConferenceRecord", *params.ConferenceRecord)
+	}
+	if params != nil && params.ConferenceRecordingStatusCallback != nil {
+		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
+	}
+	if params != nil && params.ConferenceRecordingStatusCallbackEvent != nil {
+		data.Set("ConferenceRecordingStatusCallbackEvent", *params.ConferenceRecordingStatusCallbackEvent)
+	}
+	if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
+		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
+	}
+	if params != nil && params.ConferenceStatusCallback != nil {
+		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
+	}
+	if params != nil && params.ConferenceStatusCallbackEvent != nil {
+		data.Set("ConferenceStatusCallbackEvent", *params.ConferenceStatusCallbackEvent)
+	}
+	if params != nil && params.ConferenceStatusCallbackMethod != nil {
+		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
+	}
+	if params != nil && params.ConferenceTrim != nil {
+		data.Set("ConferenceTrim", *params.ConferenceTrim)
+	}
+	if params != nil && params.EarlyMedia != nil {
+		data.Set("EarlyMedia", string(*params.EarlyMedia))
+	}
+	if params != nil && params.EndConferenceOnExit != nil {
+		data.Set("EndConferenceOnExit", string(*params.EndConferenceOnExit))
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.JitterBufferSize != nil {
+		data.Set("JitterBufferSize", *params.JitterBufferSize)
+	}
+	if params != nil && params.Label != nil {
+		data.Set("Label", *params.Label)
+	}
+	if params != nil && params.MaxParticipants != nil {
+		data.Set("MaxParticipants", string(*params.MaxParticipants))
+	}
+	if params != nil && params.Muted != nil {
+		data.Set("Muted", string(*params.Muted))
+	}
+	if params != nil && params.Record != nil {
+		data.Set("Record", string(*params.Record))
+	}
+	if params != nil && params.RecordingChannels != nil {
+		data.Set("RecordingChannels", *params.RecordingChannels)
+	}
+	if params != nil && params.RecordingStatusCallback != nil {
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+	}
+	if params != nil && params.RecordingStatusCallbackEvent != nil {
+		data.Set("RecordingStatusCallbackEvent", *params.RecordingStatusCallbackEvent)
+	}
+	if params != nil && params.RecordingStatusCallbackMethod != nil {
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+	}
+	if params != nil && params.RecordingTrack != nil {
+		data.Set("RecordingTrack", *params.RecordingTrack)
+	}
+	if params != nil && params.Region != nil {
+		data.Set("Region", *params.Region)
+	}
+	if params != nil && params.SipAuthPassword != nil {
+		data.Set("SipAuthPassword", *params.SipAuthPassword)
+	}
+	if params != nil && params.SipAuthUsername != nil {
+		data.Set("SipAuthUsername", *params.SipAuthUsername)
+	}
+	if params != nil && params.StartConferenceOnEnter != nil {
+		data.Set("StartConferenceOnEnter", string(*params.StartConferenceOnEnter))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackEvent != nil {
+		data.Set("StatusCallbackEvent", *params.StatusCallbackEvent)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Timeout != nil {
+		data.Set("Timeout", string(*params.Timeout))
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.WaitMethod != nil {
+		data.Set("WaitMethod", *params.WaitMethod)
+	}
+	if params != nil && params.WaitUrl != nil {
+		data.Set("WaitUrl", *params.WaitUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConferenceParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConferenceParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreatePaymentsParams Optional parameters for the method 'CreatePayments'
 type CreatePaymentsParams struct {
-    BankAccountType *string `json:"BankAccountType,omitempty"`
-    ChargeAmount *float32 `json:"ChargeAmount,omitempty"`
-    Currency *string `json:"Currency,omitempty"`
-    Description *string `json:"Description,omitempty"`
-    IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
-    Input *string `json:"Input,omitempty"`
-    MinPostalCodeLength *int32 `json:"MinPostalCodeLength,omitempty"`
-    Parameter *map[string]interface{} `json:"Parameter,omitempty"`
-    PaymentConnector *string `json:"PaymentConnector,omitempty"`
-    PaymentMethod *string `json:"PaymentMethod,omitempty"`
-    PostalCode *bool `json:"PostalCode,omitempty"`
-    SecurityCode *bool `json:"SecurityCode,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    Timeout *int32 `json:"Timeout,omitempty"`
-    TokenType *string `json:"TokenType,omitempty"`
-    ValidCardTypes *string `json:"ValidCardTypes,omitempty"`
+	BankAccountType *string `json:"BankAccountType,omitempty"`
+	ChargeAmount *float32 `json:"ChargeAmount,omitempty"`
+	Currency *string `json:"Currency,omitempty"`
+	Description *string `json:"Description,omitempty"`
+	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
+	Input *string `json:"Input,omitempty"`
+	MinPostalCodeLength *int32 `json:"MinPostalCodeLength,omitempty"`
+	Parameter *map[string]interface{} `json:"Parameter,omitempty"`
+	PaymentConnector *string `json:"PaymentConnector,omitempty"`
+	PaymentMethod *string `json:"PaymentMethod,omitempty"`
+	PostalCode *bool `json:"PostalCode,omitempty"`
+	SecurityCode *bool `json:"SecurityCode,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	Timeout *int32 `json:"Timeout,omitempty"`
+	TokenType *string `json:"TokenType,omitempty"`
+	ValidCardTypes *string `json:"ValidCardTypes,omitempty"`
 }
 
 /*
@@ -1718,87 +1716,87 @@ create an instance of payments. This will start a new payments session
 @return ApiV2010AccountCallPayments
 */
 func (c *DefaultApiService) CreatePayments(accountSid string, callSid string, params *CreatePaymentsParams) (*ApiV2010AccountCallPayments, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.BankAccountType != nil {
-        data.Set("BankAccountType", *params.BankAccountType)
-    }
-    if params != nil && params.ChargeAmount != nil {
-        data.Set("ChargeAmount", string(*params.ChargeAmount))
-    }
-    if params != nil && params.Currency != nil {
-        data.Set("Currency", *params.Currency)
-    }
-    if params != nil && params.Description != nil {
-        data.Set("Description", *params.Description)
-    }
-    if params != nil && params.IdempotencyKey != nil {
-        data.Set("IdempotencyKey", *params.IdempotencyKey)
-    }
-    if params != nil && params.Input != nil {
-        data.Set("Input", *params.Input)
-    }
-    if params != nil && params.MinPostalCodeLength != nil {
-        data.Set("MinPostalCodeLength", string(*params.MinPostalCodeLength))
-    }
-    if params != nil && params.Parameter != nil {
-        v, err := json.Marshal(params.Parameter)
+	if params != nil && params.BankAccountType != nil {
+		data.Set("BankAccountType", *params.BankAccountType)
+	}
+	if params != nil && params.ChargeAmount != nil {
+		data.Set("ChargeAmount", string(*params.ChargeAmount))
+	}
+	if params != nil && params.Currency != nil {
+		data.Set("Currency", *params.Currency)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.IdempotencyKey != nil {
+		data.Set("IdempotencyKey", *params.IdempotencyKey)
+	}
+	if params != nil && params.Input != nil {
+		data.Set("Input", *params.Input)
+	}
+	if params != nil && params.MinPostalCodeLength != nil {
+		data.Set("MinPostalCodeLength", string(*params.MinPostalCodeLength))
+	}
+	if params != nil && params.Parameter != nil {
+		v, err := json.Marshal(params.Parameter)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Parameter", string(v))
-    }
-    if params != nil && params.PaymentConnector != nil {
-        data.Set("PaymentConnector", *params.PaymentConnector)
-    }
-    if params != nil && params.PaymentMethod != nil {
-        data.Set("PaymentMethod", *params.PaymentMethod)
-    }
-    if params != nil && params.PostalCode != nil {
-        data.Set("PostalCode", string(*params.PostalCode))
-    }
-    if params != nil && params.SecurityCode != nil {
-        data.Set("SecurityCode", string(*params.SecurityCode))
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.Timeout != nil {
-        data.Set("Timeout", string(*params.Timeout))
-    }
-    if params != nil && params.TokenType != nil {
-        data.Set("TokenType", *params.TokenType)
-    }
-    if params != nil && params.ValidCardTypes != nil {
-        data.Set("ValidCardTypes", *params.ValidCardTypes)
-    }
+		data.Set("Parameter", string(v))
+	}
+	if params != nil && params.PaymentConnector != nil {
+		data.Set("PaymentConnector", *params.PaymentConnector)
+	}
+	if params != nil && params.PaymentMethod != nil {
+		data.Set("PaymentMethod", *params.PaymentMethod)
+	}
+	if params != nil && params.PostalCode != nil {
+		data.Set("PostalCode", string(*params.PostalCode))
+	}
+	if params != nil && params.SecurityCode != nil {
+		data.Set("SecurityCode", string(*params.SecurityCode))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.Timeout != nil {
+		data.Set("Timeout", string(*params.Timeout))
+	}
+	if params != nil && params.TokenType != nil {
+		data.Set("TokenType", *params.TokenType)
+	}
+	if params != nil && params.ValidCardTypes != nil {
+		data.Set("ValidCardTypes", *params.ValidCardTypes)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallPayments{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallPayments{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateQueueParams Optional parameters for the method 'CreateQueue'
 type CreateQueueParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MaxSize *int32 `json:"MaxSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MaxSize *int32 `json:"MaxSize,omitempty"`
 }
 
 /*
@@ -1811,37 +1809,37 @@ Create a queue
 @return ApiV2010AccountQueue
 */
 func (c *DefaultApiService) CreateQueue(accountSid string, params *CreateQueueParams) (*ApiV2010AccountQueue, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.MaxSize != nil {
-        data.Set("MaxSize", string(*params.MaxSize))
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MaxSize != nil {
+		data.Set("MaxSize", string(*params.MaxSize))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountQueue{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountQueue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipAuthCallsCredentialListMappingParams Optional parameters for the method 'CreateSipAuthCallsCredentialListMapping'
 type CreateSipAuthCallsCredentialListMappingParams struct {
-    CredentialListSid *string `json:"CredentialListSid,omitempty"`
+	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
 /*
@@ -1854,35 +1852,35 @@ Create a new credential list mapping resource
 @return ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping
 */
 func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(accountSid string, domainSid string, params *CreateSipAuthCallsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CredentialListSid != nil {
-        data.Set("CredentialListSid", *params.CredentialListSid)
-    }
+	if params != nil && params.CredentialListSid != nil {
+		data.Set("CredentialListSid", *params.CredentialListSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'CreateSipAuthCallsIpAccessControlListMapping'
 type CreateSipAuthCallsIpAccessControlListMappingParams struct {
-    IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
+	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
 /*
@@ -1895,35 +1893,35 @@ Create a new IP Access Control List mapping
 @return ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping
 */
 func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(accountSid string, domainSid string, params *CreateSipAuthCallsIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.IpAccessControlListSid != nil {
-        data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
-    }
+	if params != nil && params.IpAccessControlListSid != nil {
+		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'CreateSipAuthRegistrationsCredentialListMapping'
 type CreateSipAuthRegistrationsCredentialListMappingParams struct {
-    CredentialListSid *string `json:"CredentialListSid,omitempty"`
+	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
 /*
@@ -1936,36 +1934,36 @@ Create a new credential list mapping resource
 @return ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping
 */
 func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(accountSid string, domainSid string, params *CreateSipAuthRegistrationsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CredentialListSid != nil {
-        data.Set("CredentialListSid", *params.CredentialListSid)
-    }
+	if params != nil && params.CredentialListSid != nil {
+		data.Set("CredentialListSid", *params.CredentialListSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipCredentialParams Optional parameters for the method 'CreateSipCredential'
 type CreateSipCredentialParams struct {
-    Password *string `json:"Password,omitempty"`
-    Username *string `json:"Username,omitempty"`
+	Password *string `json:"Password,omitempty"`
+	Username *string `json:"Username,omitempty"`
 }
 
 /*
@@ -1979,38 +1977,38 @@ Create a new credential resource.
 @return ApiV2010AccountSipSipCredentialListSipCredential
 */
 func (c *DefaultApiService) CreateSipCredential(accountSid string, credentialListSid string, params *CreateSipCredentialParams) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Password != nil {
-        data.Set("Password", *params.Password)
-    }
-    if params != nil && params.Username != nil {
-        data.Set("Username", *params.Username)
-    }
+	if params != nil && params.Password != nil {
+		data.Set("Password", *params.Password)
+	}
+	if params != nil && params.Username != nil {
+		data.Set("Username", *params.Username)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipCredentialListSipCredential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipCredentialListSipCredential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipCredentialListParams Optional parameters for the method 'CreateSipCredentialList'
 type CreateSipCredentialListParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -2022,34 +2020,34 @@ Create a Credential List
 @return ApiV2010AccountSipSipCredentialList
 */
 func (c *DefaultApiService) CreateSipCredentialList(accountSid string, params *CreateSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipCredentialList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipCredentialList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipCredentialListMappingParams Optional parameters for the method 'CreateSipCredentialListMapping'
 type CreateSipCredentialListMappingParams struct {
-    CredentialListSid *string `json:"CredentialListSid,omitempty"`
+	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
 /*
@@ -2062,47 +2060,47 @@ Create a CredentialListMapping resource for an account.
 @return ApiV2010AccountSipSipDomainSipCredentialListMapping
 */
 func (c *DefaultApiService) CreateSipCredentialListMapping(accountSid string, domainSid string, params *CreateSipCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipCredentialListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CredentialListSid != nil {
-        data.Set("CredentialListSid", *params.CredentialListSid)
-    }
+	if params != nil && params.CredentialListSid != nil {
+		data.Set("CredentialListSid", *params.CredentialListSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipCredentialListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipCredentialListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipDomainParams Optional parameters for the method 'CreateSipDomain'
 type CreateSipDomainParams struct {
-    ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
-    DomainName *string `json:"DomainName,omitempty"`
-    EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
-    EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Secure *bool `json:"Secure,omitempty"`
-    SipRegistration *bool `json:"SipRegistration,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
-    VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
+	DomainName *string `json:"DomainName,omitempty"`
+	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
+	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Secure *bool `json:"Secure,omitempty"`
+	SipRegistration *bool `json:"SipRegistration,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
+	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -2126,70 +2124,70 @@ Create a new Domain
 @return ApiV2010AccountSipSipDomain
 */
 func (c *DefaultApiService) CreateSipDomain(accountSid string, params *CreateSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ByocTrunkSid != nil {
-        data.Set("ByocTrunkSid", *params.ByocTrunkSid)
-    }
-    if params != nil && params.DomainName != nil {
-        data.Set("DomainName", *params.DomainName)
-    }
-    if params != nil && params.EmergencyCallerSid != nil {
-        data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
-    }
-    if params != nil && params.EmergencyCallingEnabled != nil {
-        data.Set("EmergencyCallingEnabled", string(*params.EmergencyCallingEnabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Secure != nil {
-        data.Set("Secure", string(*params.Secure))
-    }
-    if params != nil && params.SipRegistration != nil {
-        data.Set("SipRegistration", string(*params.SipRegistration))
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceStatusCallbackMethod != nil {
-        data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
-    }
-    if params != nil && params.VoiceStatusCallbackUrl != nil {
-        data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.ByocTrunkSid != nil {
+		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+	}
+	if params != nil && params.DomainName != nil {
+		data.Set("DomainName", *params.DomainName)
+	}
+	if params != nil && params.EmergencyCallerSid != nil {
+		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
+	}
+	if params != nil && params.EmergencyCallingEnabled != nil {
+		data.Set("EmergencyCallingEnabled", string(*params.EmergencyCallingEnabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", string(*params.Secure))
+	}
+	if params != nil && params.SipRegistration != nil {
+		data.Set("SipRegistration", string(*params.SipRegistration))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceStatusCallbackMethod != nil {
+		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+	}
+	if params != nil && params.VoiceStatusCallbackUrl != nil {
+		data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomain{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomain{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipIpAccessControlListParams Optional parameters for the method 'CreateSipIpAccessControlList'
 type CreateSipIpAccessControlListParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -2201,34 +2199,34 @@ Create a new IpAccessControlList resource
 @return ApiV2010AccountSipSipIpAccessControlList
 */
 func (c *DefaultApiService) CreateSipIpAccessControlList(accountSid string, params *CreateSipIpAccessControlListParams) (*ApiV2010AccountSipSipIpAccessControlList, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipIpAccessControlList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipIpAccessControlList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipIpAccessControlListMappingParams Optional parameters for the method 'CreateSipIpAccessControlListMapping'
 type CreateSipIpAccessControlListMappingParams struct {
-    IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
+	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
 /*
@@ -2241,37 +2239,37 @@ Create a new IpAccessControlListMapping resource.
 @return ApiV2010AccountSipSipDomainSipIpAccessControlListMapping
 */
 func (c *DefaultApiService) CreateSipIpAccessControlListMapping(accountSid string, domainSid string, params *CreateSipIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.IpAccessControlListSid != nil {
-        data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
-    }
+	if params != nil && params.IpAccessControlListSid != nil {
+		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipIpAccessControlListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipIpAccessControlListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSipIpAddressParams Optional parameters for the method 'CreateSipIpAddress'
 type CreateSipIpAddressParams struct {
-    CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IpAddress *string `json:"IpAddress,omitempty"`
+	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IpAddress *string `json:"IpAddress,omitempty"`
 }
 
 /*
@@ -2286,41 +2284,41 @@ Create a new IpAddress resource.
 @return ApiV2010AccountSipSipIpAccessControlListSipIpAddress
 */
 func (c *DefaultApiService) CreateSipIpAddress(accountSid string, ipAccessControlListSid string, params *CreateSipIpAddressParams) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CidrPrefixLength != nil {
-        data.Set("CidrPrefixLength", string(*params.CidrPrefixLength))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IpAddress != nil {
-        data.Set("IpAddress", *params.IpAddress)
-    }
+	if params != nil && params.CidrPrefixLength != nil {
+		data.Set("CidrPrefixLength", string(*params.CidrPrefixLength))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IpAddress != nil {
+		data.Set("IpAddress", *params.IpAddress)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipIpAccessControlListSipIpAddress{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipIpAccessControlListSipIpAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateTokenParams Optional parameters for the method 'CreateToken'
 type CreateTokenParams struct {
-    Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -2332,40 +2330,40 @@ Create a new token for ICE servers
 @return ApiV2010AccountToken
 */
 func (c *DefaultApiService) CreateToken(accountSid string, params *CreateTokenParams) (*ApiV2010AccountToken, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Tokens.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Tokens.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountToken{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountToken{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateUsageTriggerParams Optional parameters for the method 'CreateUsageTrigger'
 type CreateUsageTriggerParams struct {
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Recurring *string `json:"Recurring,omitempty"`
-    TriggerBy *string `json:"TriggerBy,omitempty"`
-    TriggerValue *string `json:"TriggerValue,omitempty"`
-    UsageCategory *string `json:"UsageCategory,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Recurring *string `json:"Recurring,omitempty"`
+	TriggerBy *string `json:"TriggerBy,omitempty"`
+	TriggerValue *string `json:"TriggerValue,omitempty"`
+	UsageCategory *string `json:"UsageCategory,omitempty"`
 }
 
 /*
@@ -2383,57 +2381,57 @@ Create a new UsageTrigger
 @return ApiV2010AccountUsageUsageTrigger
 */
 func (c *DefaultApiService) CreateUsageTrigger(accountSid string, params *CreateUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackMethod != nil {
-        data.Set("CallbackMethod", *params.CallbackMethod)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Recurring != nil {
-        data.Set("Recurring", *params.Recurring)
-    }
-    if params != nil && params.TriggerBy != nil {
-        data.Set("TriggerBy", *params.TriggerBy)
-    }
-    if params != nil && params.TriggerValue != nil {
-        data.Set("TriggerValue", *params.TriggerValue)
-    }
-    if params != nil && params.UsageCategory != nil {
-        data.Set("UsageCategory", *params.UsageCategory)
-    }
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Recurring != nil {
+		data.Set("Recurring", *params.Recurring)
+	}
+	if params != nil && params.TriggerBy != nil {
+		data.Set("TriggerBy", *params.TriggerBy)
+	}
+	if params != nil && params.TriggerValue != nil {
+		data.Set("TriggerValue", *params.TriggerValue)
+	}
+	if params != nil && params.UsageCategory != nil {
+		data.Set("UsageCategory", *params.UsageCategory)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageTrigger{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageTrigger{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateValidationRequestParams Optional parameters for the method 'CreateValidationRequest'
 type CreateValidationRequestParams struct {
-    CallDelay *int32 `json:"CallDelay,omitempty"`
-    Extension *string `json:"Extension,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	CallDelay *int32 `json:"CallDelay,omitempty"`
+	Extension *string `json:"Extension,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
 /*
@@ -2449,45 +2447,45 @@ CreateValidationRequest Method for CreateValidationRequest
 @return ApiV2010AccountValidationRequest
 */
 func (c *DefaultApiService) CreateValidationRequest(accountSid string, params *CreateValidationRequestParams) (*ApiV2010AccountValidationRequest, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallDelay != nil {
-        data.Set("CallDelay", string(*params.CallDelay))
-    }
-    if params != nil && params.Extension != nil {
-        data.Set("Extension", *params.Extension)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
+	if params != nil && params.CallDelay != nil {
+		data.Set("CallDelay", string(*params.CallDelay))
+	}
+	if params != nil && params.Extension != nil {
+		data.Set("Extension", *params.Extension)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountValidationRequest{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountValidationRequest{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -2496,23 +2494,23 @@ DeleteAddress Method for DeleteAddress
  * @param sid The Twilio-provided string that uniquely identifies the Address resource to delete.
 */
 func (c *DefaultApiService) DeleteAddress(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2522,23 +2520,23 @@ Delete the application by the specified application sid
  * @param sid The Twilio-provided string that uniquely identifies the Application resource to delete.
 */
 func (c *DefaultApiService) DeleteApplication(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2548,23 +2546,23 @@ Delete a Call record from your account. Once the record is deleted, it will no l
  * @param sid The Twilio-provided Call SID that uniquely identifies the Call resource to delete
 */
 func (c *DefaultApiService) DeleteCall(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2574,23 +2572,23 @@ Delete a FeedbackSummary resource from a call
  * @param sid A 34 character string that uniquely identifies this resource.
 */
 func (c *DefaultApiService) DeleteCallFeedbackSummary(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2601,24 +2599,24 @@ Delete a recording from your account
  * @param sid The Twilio-provided string that uniquely identifies the Recording resource to delete.
 */
 func (c *DefaultApiService) DeleteCallRecording(accountSid string, callSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2629,24 +2627,24 @@ Delete a recording from your account
  * @param sid The Twilio-provided string that uniquely identifies the Conference Recording resource to delete.
 */
 func (c *DefaultApiService) DeleteConferenceRecording(accountSid string, conferenceSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2656,23 +2654,23 @@ Delete an instance of a connect-app
  * @param sid The Twilio-provided string that uniquely identifies the ConnectApp resource to fetch.
 */
 func (c *DefaultApiService) DeleteConnectApp(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2682,23 +2680,23 @@ Delete a phone-numbers belonging to the account used to make the request.
  * @param sid The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to delete.
 */
 func (c *DefaultApiService) DeleteIncomingPhoneNumber(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2709,24 +2707,24 @@ Remove the assignment of an Add-on installation from the Number specified.
  * @param sid The Twilio-provided string that uniquely identifies the resource to delete.
 */
 func (c *DefaultApiService) DeleteIncomingPhoneNumberAssignedAddOn(accountSid string, resourceSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2735,23 +2733,23 @@ DeleteKey Method for DeleteKey
  * @param sid The Twilio-provided string that uniquely identifies the Key resource to delete.
 */
 func (c *DefaultApiService) DeleteKey(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2762,24 +2760,24 @@ Delete media from your account. Once delete, you will no longer be billed
  * @param sid The Twilio-provided string that uniquely identifies the Media resource to delete
 */
 func (c *DefaultApiService) DeleteMedia(accountSid string, messageSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2789,23 +2787,23 @@ Deletes a message record from your account
  * @param sid The Twilio-provided string that uniquely identifies the Message resource to delete.
 */
 func (c *DefaultApiService) DeleteMessage(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2815,23 +2813,23 @@ Delete the caller-id specified from the account
  * @param sid The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to delete.
 */
 func (c *DefaultApiService) DeleteOutgoingCallerId(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2842,24 +2840,24 @@ Kick a participant from a given conference
  * @param callSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to delete. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
 */
 func (c *DefaultApiService) DeleteParticipant(accountSid string, conferenceSid string, callSid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2869,23 +2867,23 @@ Remove an empty queue
  * @param sid The Twilio-provided string that uniquely identifies the Queue resource to delete
 */
 func (c *DefaultApiService) DeleteQueue(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2895,23 +2893,23 @@ Delete a recording from your account
  * @param sid The Twilio-provided string that uniquely identifies the Recording resource to delete.
 */
 func (c *DefaultApiService) DeleteRecording(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2922,24 +2920,24 @@ Delete a result and purge all associated Payloads
  * @param sid The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to delete.
 */
 func (c *DefaultApiService) DeleteRecordingAddOnResult(accountSid string, referenceSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2951,25 +2949,25 @@ Delete a payload from the result along with all associated Data
  * @param sid The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to delete.
 */
 func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(accountSid string, referenceSid string, addOnResultSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
-    path = strings.Replace(path, "{"+"AddOnResultSid"+"}", addOnResultSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
+	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", addOnResultSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -2979,24 +2977,24 @@ DeleteRecordingTranscription Method for DeleteRecordingTranscription
  * @param sid The Twilio-provided string that uniquely identifies the Transcription resource to delete.
 */
 func (c *DefaultApiService) DeleteRecordingTranscription(accountSid string, recordingSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"RecordingSid"+"}", recordingSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"RecordingSid"+"}", recordingSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3005,23 +3003,23 @@ DeleteSigningKey Method for DeleteSigningKey
  * @param sid
 */
 func (c *DefaultApiService) DeleteSigningKey(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3032,24 +3030,24 @@ Delete a credential list mapping from the requested domain
  * @param sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete.
 */
 func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(accountSid string, domainSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3060,24 +3058,24 @@ Delete an IP Access Control List mapping from the requested domain
  * @param sid The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to delete.
 */
 func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(accountSid string, domainSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3088,24 +3086,24 @@ Delete a credential list mapping from the requested domain
  * @param sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete.
 */
 func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(accountSid string, domainSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3116,24 +3114,24 @@ Delete a credential resource.
  * @param sid The unique id that identifies the resource to delete.
 */
 func (c *DefaultApiService) DeleteSipCredential(accountSid string, credentialListSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3143,23 +3141,23 @@ Delete a Credential List
  * @param sid The credential list Sid that uniquely identifies this resource
 */
 func (c *DefaultApiService) DeleteSipCredentialList(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3170,24 +3168,24 @@ Delete a CredentialListMapping resource from an account.
  * @param sid A 34 character string that uniquely identifies the resource to delete.
 */
 func (c *DefaultApiService) DeleteSipCredentialListMapping(accountSid string, domainSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3197,23 +3195,23 @@ Delete an instance of a Domain
  * @param sid The Twilio-provided string that uniquely identifies the SipDomain resource to delete.
 */
 func (c *DefaultApiService) DeleteSipDomain(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3223,23 +3221,23 @@ Delete an IpAccessControlList from the requested account
  * @param sid A 34 character string that uniquely identifies the resource to delete.
 */
 func (c *DefaultApiService) DeleteSipIpAccessControlList(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3250,24 +3248,24 @@ Delete an IpAccessControlListMapping resource.
  * @param sid A 34 character string that uniquely identifies the resource to delete.
 */
 func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(accountSid string, domainSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3278,24 +3276,24 @@ Delete an IpAddress resource.
  * @param sid A 34 character string that uniquely identifies the resource to delete.
 */
 func (c *DefaultApiService) DeleteSipIpAddress(accountSid string, ipAccessControlListSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3305,23 +3303,23 @@ Delete a transcription from the account used to make the request
  * @param sid The Twilio-provided string that uniquely identifies the Transcription resource to delete.
 */
 func (c *DefaultApiService) DeleteTranscription(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3330,23 +3328,23 @@ DeleteUsageTrigger Method for DeleteUsageTrigger
  * @param sid The Twilio-provided string that uniquely identifies the UsageTrigger resource to delete.
 */
 func (c *DefaultApiService) DeleteUsageTrigger(accountSid string, sid string) (error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -3356,27 +3354,27 @@ Fetch the account specified by the provided Account Sid
 @return ApiV2010Account
 */
 func (c *DefaultApiService) FetchAccount(sid string) (*ApiV2010Account, error) {
-    path := "/2010-04-01/Accounts/{Sid}.json"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{Sid}.json"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010Account{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010Account{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3386,28 +3384,28 @@ FetchAddress Method for FetchAddress
 @return ApiV2010AccountAddress
 */
 func (c *DefaultApiService) FetchAddress(accountSid string, sid string) (*ApiV2010AccountAddress, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAddress{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3418,28 +3416,28 @@ Fetch the application specified by the provided sid
 @return ApiV2010AccountApplication
 */
 func (c *DefaultApiService) FetchApplication(accountSid string, sid string) (*ApiV2010AccountApplication, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountApplication{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountApplication{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3450,28 +3448,28 @@ Fetch an instance of an authorized-connect-app
 @return ApiV2010AccountAuthorizedConnectApp
 */
 func (c *DefaultApiService) FetchAuthorizedConnectApp(accountSid string, connectAppSid string) (*ApiV2010AccountAuthorizedConnectApp, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConnectAppSid"+"}", connectAppSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConnectAppSid"+"}", connectAppSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAuthorizedConnectApp{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAuthorizedConnectApp{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3481,28 +3479,28 @@ FetchAvailablePhoneNumberCountry Method for FetchAvailablePhoneNumberCountry
 @return ApiV2010AccountAvailablePhoneNumberCountry
 */
 func (c *DefaultApiService) FetchAvailablePhoneNumberCountry(accountSid string, countryCode string) (*ApiV2010AccountAvailablePhoneNumberCountry, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAvailablePhoneNumberCountry{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAvailablePhoneNumberCountry{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3512,27 +3510,27 @@ Fetch the balance for an Account based on Account Sid. Balance changes may not b
 @return ApiV2010AccountBalance
 */
 func (c *DefaultApiService) FetchBalance(accountSid string) (*ApiV2010AccountBalance, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Balance.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Balance.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountBalance{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountBalance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3543,28 +3541,28 @@ Fetch the call specified by the provided Call SID
 @return ApiV2010AccountCall
 */
 func (c *DefaultApiService) FetchCall(accountSid string, sid string) (*ApiV2010AccountCall, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCall{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCall{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3575,28 +3573,28 @@ Fetch a Feedback resource from a call
 @return ApiV2010AccountCallCallFeedback
 */
 func (c *DefaultApiService) FetchCallFeedback(accountSid string, callSid string) (*ApiV2010AccountCallCallFeedback, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallFeedback{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallFeedback{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3607,28 +3605,28 @@ Fetch a FeedbackSummary resource from a call
 @return ApiV2010AccountCallCallFeedbackSummary
 */
 func (c *DefaultApiService) FetchCallFeedbackSummary(accountSid string, sid string) (*ApiV2010AccountCallCallFeedbackSummary, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallFeedbackSummary{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallFeedbackSummary{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3639,29 +3637,29 @@ FetchCallNotification Method for FetchCallNotification
 @return ApiV2010AccountCallCallNotificationInstance
 */
 func (c *DefaultApiService) FetchCallNotification(accountSid string, callSid string, sid string) (*ApiV2010AccountCallCallNotificationInstance, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallNotificationInstance{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallNotificationInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3673,29 +3671,29 @@ Fetch an instance of a recording for a call
 @return ApiV2010AccountCallCallRecording
 */
 func (c *DefaultApiService) FetchCallRecording(accountSid string, callSid string, sid string) (*ApiV2010AccountCallCallRecording, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallRecording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3706,28 +3704,28 @@ Fetch an instance of a conference
 @return ApiV2010AccountConference
 */
 func (c *DefaultApiService) FetchConference(accountSid string, sid string) (*ApiV2010AccountConference, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConference{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConference{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3739,29 +3737,29 @@ Fetch an instance of a recording for a call
 @return ApiV2010AccountConferenceConferenceRecording
 */
 func (c *DefaultApiService) FetchConferenceRecording(accountSid string, conferenceSid string, sid string) (*ApiV2010AccountConferenceConferenceRecording, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConferenceConferenceRecording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConferenceConferenceRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3772,28 +3770,28 @@ Fetch an instance of a connect-app
 @return ApiV2010AccountConnectApp
 */
 func (c *DefaultApiService) FetchConnectApp(accountSid string, sid string) (*ApiV2010AccountConnectApp, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConnectApp{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConnectApp{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3804,28 +3802,28 @@ Fetch an incoming-phone-number belonging to the account used to make the request
 @return ApiV2010AccountIncomingPhoneNumber
 */
 func (c *DefaultApiService) FetchIncomingPhoneNumber(accountSid string, sid string) (*ApiV2010AccountIncomingPhoneNumber, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3837,29 +3835,29 @@ Fetch an instance of an Add-on installation currently assigned to this Number.
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
 */
 func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(accountSid string, resourceSid string, sid string) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3872,30 +3870,30 @@ Fetch an instance of an Extension for the Assigned Add-on.
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension
 */
 func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(accountSid string, resourceSid string, assignedAddOnSid string, sid string) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
-    path = strings.Replace(path, "{"+"AssignedAddOnSid"+"}", assignedAddOnSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
+	path = strings.Replace(path, "{"+"AssignedAddOnSid"+"}", assignedAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3905,28 +3903,28 @@ FetchKey Method for FetchKey
 @return ApiV2010AccountKey
 */
 func (c *DefaultApiService) FetchKey(accountSid string, sid string) (*ApiV2010AccountKey, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountKey{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3938,29 +3936,29 @@ Fetch a single media instance belonging to the account used to make the request
 @return ApiV2010AccountMessageMedia
 */
 func (c *DefaultApiService) FetchMedia(accountSid string, messageSid string, sid string) (*ApiV2010AccountMessageMedia, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountMessageMedia{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountMessageMedia{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -3972,29 +3970,29 @@ Fetch a specific member from the queue
 @return ApiV2010AccountQueueMember
 */
 func (c *DefaultApiService) FetchMember(accountSid string, queueSid string, callSid string) (*ApiV2010AccountQueueMember, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"QueueSid"+"}", queueSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"QueueSid"+"}", queueSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountQueueMember{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountQueueMember{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4005,28 +4003,28 @@ Fetch a message belonging to the account used to make the request
 @return ApiV2010AccountMessage
 */
 func (c *DefaultApiService) FetchMessage(accountSid string, sid string) (*ApiV2010AccountMessage, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4037,28 +4035,28 @@ Fetch a notification belonging to the account used to make the request
 @return ApiV2010AccountNotificationInstance
 */
 func (c *DefaultApiService) FetchNotification(accountSid string, sid string) (*ApiV2010AccountNotificationInstance, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountNotificationInstance{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountNotificationInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4069,28 +4067,28 @@ Fetch an outgoing-caller-id belonging to the account used to make the request
 @return ApiV2010AccountOutgoingCallerId
 */
 func (c *DefaultApiService) FetchOutgoingCallerId(accountSid string, sid string) (*ApiV2010AccountOutgoingCallerId, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountOutgoingCallerId{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountOutgoingCallerId{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4102,29 +4100,29 @@ Fetch an instance of a participant
 @return ApiV2010AccountConferenceParticipant
 */
 func (c *DefaultApiService) FetchParticipant(accountSid string, conferenceSid string, callSid string) (*ApiV2010AccountConferenceParticipant, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConferenceParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConferenceParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4135,28 +4133,28 @@ Fetch an instance of a queue identified by the QueueSid
 @return ApiV2010AccountQueue
 */
 func (c *DefaultApiService) FetchQueue(accountSid string, sid string) (*ApiV2010AccountQueue, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountQueue{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountQueue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4167,28 +4165,28 @@ Fetch an instance of a recording
 @return ApiV2010AccountRecording
 */
 func (c *DefaultApiService) FetchRecording(accountSid string, sid string) (*ApiV2010AccountRecording, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountRecording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4200,29 +4198,29 @@ Fetch an instance of an AddOnResult
 @return ApiV2010AccountRecordingRecordingAddOnResult
 */
 func (c *DefaultApiService) FetchRecordingAddOnResult(accountSid string, referenceSid string, sid string) (*ApiV2010AccountRecordingRecordingAddOnResult, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountRecordingRecordingAddOnResult{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountRecordingRecordingAddOnResult{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4235,30 +4233,30 @@ Fetch an instance of a result payload
 @return ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload
 */
 func (c *DefaultApiService) FetchRecordingAddOnResultPayload(accountSid string, referenceSid string, addOnResultSid string, sid string) (*ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
-    path = strings.Replace(path, "{"+"AddOnResultSid"+"}", addOnResultSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
+	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", addOnResultSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4269,29 +4267,29 @@ FetchRecordingTranscription Method for FetchRecordingTranscription
 @return ApiV2010AccountRecordingRecordingTranscription
 */
 func (c *DefaultApiService) FetchRecordingTranscription(accountSid string, recordingSid string, sid string) (*ApiV2010AccountRecordingRecordingTranscription, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"RecordingSid"+"}", recordingSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"RecordingSid"+"}", recordingSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountRecordingRecordingTranscription{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountRecordingRecordingTranscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4302,28 +4300,28 @@ Fetch an instance of a short code
 @return ApiV2010AccountShortCode
 */
 func (c *DefaultApiService) FetchShortCode(accountSid string, sid string) (*ApiV2010AccountShortCode, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountShortCode{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4333,28 +4331,28 @@ FetchSigningKey Method for FetchSigningKey
 @return ApiV2010AccountSigningKey
 */
 func (c *DefaultApiService) FetchSigningKey(accountSid string, sid string) (*ApiV2010AccountSigningKey, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSigningKey{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSigningKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4366,29 +4364,29 @@ Fetch a specific instance of a credential list mapping
 @return ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping
 */
 func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(accountSid string, domainSid string, sid string) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4400,29 +4398,29 @@ Fetch a specific instance of an IP Access Control List mapping
 @return ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping
 */
 func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(accountSid string, domainSid string, sid string) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4434,29 +4432,29 @@ Fetch a specific instance of a credential list mapping
 @return ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping
 */
 func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(accountSid string, domainSid string, sid string) (*ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4468,29 +4466,29 @@ Fetch a single credential.
 @return ApiV2010AccountSipSipCredentialListSipCredential
 */
 func (c *DefaultApiService) FetchSipCredential(accountSid string, credentialListSid string, sid string) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipCredentialListSipCredential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipCredentialListSipCredential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4501,28 +4499,28 @@ Get a Credential List
 @return ApiV2010AccountSipSipCredentialList
 */
 func (c *DefaultApiService) FetchSipCredentialList(accountSid string, sid string) (*ApiV2010AccountSipSipCredentialList, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipCredentialList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipCredentialList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4534,29 +4532,29 @@ Fetch a single CredentialListMapping resource from an account.
 @return ApiV2010AccountSipSipDomainSipCredentialListMapping
 */
 func (c *DefaultApiService) FetchSipCredentialListMapping(accountSid string, domainSid string, sid string) (*ApiV2010AccountSipSipDomainSipCredentialListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipCredentialListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipCredentialListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4567,28 +4565,28 @@ Fetch an instance of a Domain
 @return ApiV2010AccountSipSipDomain
 */
 func (c *DefaultApiService) FetchSipDomain(accountSid string, sid string) (*ApiV2010AccountSipSipDomain, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomain{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomain{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4599,28 +4597,28 @@ Fetch a specific instance of an IpAccessControlList
 @return ApiV2010AccountSipSipIpAccessControlList
 */
 func (c *DefaultApiService) FetchSipIpAccessControlList(accountSid string, sid string) (*ApiV2010AccountSipSipIpAccessControlList, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipIpAccessControlList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipIpAccessControlList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4632,29 +4630,29 @@ Fetch an IpAccessControlListMapping resource.
 @return ApiV2010AccountSipSipDomainSipIpAccessControlListMapping
 */
 func (c *DefaultApiService) FetchSipIpAccessControlListMapping(accountSid string, domainSid string, sid string) (*ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipIpAccessControlListMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipIpAccessControlListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4666,29 +4664,29 @@ Read one IpAddress resource.
 @return ApiV2010AccountSipSipIpAccessControlListSipIpAddress
 */
 func (c *DefaultApiService) FetchSipIpAddress(accountSid string, ipAccessControlListSid string, sid string) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipIpAccessControlListSipIpAddress{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipIpAccessControlListSipIpAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4699,28 +4697,28 @@ Fetch an instance of a Transcription
 @return ApiV2010AccountTranscription
 */
 func (c *DefaultApiService) FetchTranscription(accountSid string, sid string) (*ApiV2010AccountTranscription, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountTranscription{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountTranscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -4731,34 +4729,34 @@ Fetch and instance of a usage-trigger
 @return ApiV2010AccountUsageUsageTrigger
 */
 func (c *DefaultApiService) FetchUsageTrigger(accountSid string, sid string) (*ApiV2010AccountUsageUsageTrigger, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageTrigger{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageTrigger{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAccountParams Optional parameters for the method 'ListAccount'
 type ListAccountParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4771,42 +4769,42 @@ Retrieves a collection of Accounts belonging to the account used to make the req
 @return ApiV2010AccountReadResponse
 */
 func (c *DefaultApiService) ListAccount(params *ListAccountParams) (*ApiV2010AccountReadResponse, error) {
-    path := "/2010-04-01/Accounts.json"
+	path := "/2010-04-01/Accounts.json"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAddressParams Optional parameters for the method 'ListAddress'
 type ListAddressParams struct {
-    CustomerName *string `json:"CustomerName,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IsoCountry *string `json:"IsoCountry,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	CustomerName *string `json:"CustomerName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4820,44 +4818,44 @@ ListAddress Method for ListAddress
 @return ApiV2010AccountAddressReadResponse
 */
 func (c *DefaultApiService) ListAddress(accountSid string, params *ListAddressParams) (*ApiV2010AccountAddressReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CustomerName != nil {
-        data.Set("CustomerName", *params.CustomerName)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IsoCountry != nil {
-        data.Set("IsoCountry", *params.IsoCountry)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.CustomerName != nil {
+		data.Set("CustomerName", *params.CustomerName)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAddressReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAddressReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListApplicationParams Optional parameters for the method 'ListApplication'
 type ListApplicationParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4870,37 +4868,37 @@ Retrieve a list of applications representing an application within the requestin
 @return ApiV2010AccountApplicationReadResponse
 */
 func (c *DefaultApiService) ListApplication(accountSid string, params *ListApplicationParams) (*ApiV2010AccountApplicationReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountApplicationReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountApplicationReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAuthorizedConnectAppParams Optional parameters for the method 'ListAuthorizedConnectApp'
 type ListAuthorizedConnectAppParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4912,34 +4910,34 @@ Retrieve a list of authorized-connect-apps belonging to the account used to make
 @return ApiV2010AccountAuthorizedConnectAppReadResponse
 */
 func (c *DefaultApiService) ListAuthorizedConnectApp(accountSid string, params *ListAuthorizedConnectAppParams) (*ApiV2010AccountAuthorizedConnectAppReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAuthorizedConnectAppReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAuthorizedConnectAppReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailablePhoneNumberCountryParams Optional parameters for the method 'ListAvailablePhoneNumberCountry'
 type ListAvailablePhoneNumberCountryParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4950,52 +4948,52 @@ ListAvailablePhoneNumberCountry Method for ListAvailablePhoneNumberCountry
 @return ApiV2010AccountAvailablePhoneNumberCountryReadResponse
 */
 func (c *DefaultApiService) ListAvailablePhoneNumberCountry(accountSid string, params *ListAvailablePhoneNumberCountryParams) (*ApiV2010AccountAvailablePhoneNumberCountryReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAvailablePhoneNumberCountryReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAvailablePhoneNumberCountryReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailablePhoneNumberLocalParams Optional parameters for the method 'ListAvailablePhoneNumberLocal'
 type ListAvailablePhoneNumberLocalParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5025,107 +5023,107 @@ ListAvailablePhoneNumberLocal Method for ListAvailablePhoneNumberLocal
 @return ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalReadResponse
 */
 func (c *DefaultApiService) ListAvailablePhoneNumberLocal(accountSid string, countryCode string, params *ListAvailablePhoneNumberLocalParams) (*ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AreaCode != nil {
-        data.Set("AreaCode", string(*params.AreaCode))
-    }
-    if params != nil && params.Contains != nil {
-        data.Set("Contains", *params.Contains)
-    }
-    if params != nil && params.SmsEnabled != nil {
-        data.Set("SmsEnabled", string(*params.SmsEnabled))
-    }
-    if params != nil && params.MmsEnabled != nil {
-        data.Set("MmsEnabled", string(*params.MmsEnabled))
-    }
-    if params != nil && params.VoiceEnabled != nil {
-        data.Set("VoiceEnabled", string(*params.VoiceEnabled))
-    }
-    if params != nil && params.ExcludeAllAddressRequired != nil {
-        data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
-    }
-    if params != nil && params.ExcludeLocalAddressRequired != nil {
-        data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
-    }
-    if params != nil && params.ExcludeForeignAddressRequired != nil {
-        data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
-    }
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.NearNumber != nil {
-        data.Set("NearNumber", *params.NearNumber)
-    }
-    if params != nil && params.NearLatLong != nil {
-        data.Set("NearLatLong", *params.NearLatLong)
-    }
-    if params != nil && params.Distance != nil {
-        data.Set("Distance", string(*params.Distance))
-    }
-    if params != nil && params.InPostalCode != nil {
-        data.Set("InPostalCode", *params.InPostalCode)
-    }
-    if params != nil && params.InRegion != nil {
-        data.Set("InRegion", *params.InRegion)
-    }
-    if params != nil && params.InRateCenter != nil {
-        data.Set("InRateCenter", *params.InRateCenter)
-    }
-    if params != nil && params.InLata != nil {
-        data.Set("InLata", *params.InLata)
-    }
-    if params != nil && params.InLocality != nil {
-        data.Set("InLocality", *params.InLocality)
-    }
-    if params != nil && params.FaxEnabled != nil {
-        data.Set("FaxEnabled", string(*params.FaxEnabled))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", string(*params.AreaCode))
+	}
+	if params != nil && params.Contains != nil {
+		data.Set("Contains", *params.Contains)
+	}
+	if params != nil && params.SmsEnabled != nil {
+		data.Set("SmsEnabled", string(*params.SmsEnabled))
+	}
+	if params != nil && params.MmsEnabled != nil {
+		data.Set("MmsEnabled", string(*params.MmsEnabled))
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+	}
+	if params != nil && params.ExcludeAllAddressRequired != nil {
+		data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
+	}
+	if params != nil && params.ExcludeLocalAddressRequired != nil {
+		data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
+	}
+	if params != nil && params.ExcludeForeignAddressRequired != nil {
+		data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
+	}
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.NearNumber != nil {
+		data.Set("NearNumber", *params.NearNumber)
+	}
+	if params != nil && params.NearLatLong != nil {
+		data.Set("NearLatLong", *params.NearLatLong)
+	}
+	if params != nil && params.Distance != nil {
+		data.Set("Distance", string(*params.Distance))
+	}
+	if params != nil && params.InPostalCode != nil {
+		data.Set("InPostalCode", *params.InPostalCode)
+	}
+	if params != nil && params.InRegion != nil {
+		data.Set("InRegion", *params.InRegion)
+	}
+	if params != nil && params.InRateCenter != nil {
+		data.Set("InRateCenter", *params.InRateCenter)
+	}
+	if params != nil && params.InLata != nil {
+		data.Set("InLata", *params.InLata)
+	}
+	if params != nil && params.InLocality != nil {
+		data.Set("InLocality", *params.InLocality)
+	}
+	if params != nil && params.FaxEnabled != nil {
+		data.Set("FaxEnabled", string(*params.FaxEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailablePhoneNumberMachineToMachineParams Optional parameters for the method 'ListAvailablePhoneNumberMachineToMachine'
 type ListAvailablePhoneNumberMachineToMachineParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5155,107 +5153,107 @@ ListAvailablePhoneNumberMachineToMachine Method for ListAvailablePhoneNumberMach
 @return ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachineReadResponse
 */
 func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(accountSid string, countryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (*ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachineReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AreaCode != nil {
-        data.Set("AreaCode", string(*params.AreaCode))
-    }
-    if params != nil && params.Contains != nil {
-        data.Set("Contains", *params.Contains)
-    }
-    if params != nil && params.SmsEnabled != nil {
-        data.Set("SmsEnabled", string(*params.SmsEnabled))
-    }
-    if params != nil && params.MmsEnabled != nil {
-        data.Set("MmsEnabled", string(*params.MmsEnabled))
-    }
-    if params != nil && params.VoiceEnabled != nil {
-        data.Set("VoiceEnabled", string(*params.VoiceEnabled))
-    }
-    if params != nil && params.ExcludeAllAddressRequired != nil {
-        data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
-    }
-    if params != nil && params.ExcludeLocalAddressRequired != nil {
-        data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
-    }
-    if params != nil && params.ExcludeForeignAddressRequired != nil {
-        data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
-    }
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.NearNumber != nil {
-        data.Set("NearNumber", *params.NearNumber)
-    }
-    if params != nil && params.NearLatLong != nil {
-        data.Set("NearLatLong", *params.NearLatLong)
-    }
-    if params != nil && params.Distance != nil {
-        data.Set("Distance", string(*params.Distance))
-    }
-    if params != nil && params.InPostalCode != nil {
-        data.Set("InPostalCode", *params.InPostalCode)
-    }
-    if params != nil && params.InRegion != nil {
-        data.Set("InRegion", *params.InRegion)
-    }
-    if params != nil && params.InRateCenter != nil {
-        data.Set("InRateCenter", *params.InRateCenter)
-    }
-    if params != nil && params.InLata != nil {
-        data.Set("InLata", *params.InLata)
-    }
-    if params != nil && params.InLocality != nil {
-        data.Set("InLocality", *params.InLocality)
-    }
-    if params != nil && params.FaxEnabled != nil {
-        data.Set("FaxEnabled", string(*params.FaxEnabled))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", string(*params.AreaCode))
+	}
+	if params != nil && params.Contains != nil {
+		data.Set("Contains", *params.Contains)
+	}
+	if params != nil && params.SmsEnabled != nil {
+		data.Set("SmsEnabled", string(*params.SmsEnabled))
+	}
+	if params != nil && params.MmsEnabled != nil {
+		data.Set("MmsEnabled", string(*params.MmsEnabled))
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+	}
+	if params != nil && params.ExcludeAllAddressRequired != nil {
+		data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
+	}
+	if params != nil && params.ExcludeLocalAddressRequired != nil {
+		data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
+	}
+	if params != nil && params.ExcludeForeignAddressRequired != nil {
+		data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
+	}
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.NearNumber != nil {
+		data.Set("NearNumber", *params.NearNumber)
+	}
+	if params != nil && params.NearLatLong != nil {
+		data.Set("NearLatLong", *params.NearLatLong)
+	}
+	if params != nil && params.Distance != nil {
+		data.Set("Distance", string(*params.Distance))
+	}
+	if params != nil && params.InPostalCode != nil {
+		data.Set("InPostalCode", *params.InPostalCode)
+	}
+	if params != nil && params.InRegion != nil {
+		data.Set("InRegion", *params.InRegion)
+	}
+	if params != nil && params.InRateCenter != nil {
+		data.Set("InRateCenter", *params.InRateCenter)
+	}
+	if params != nil && params.InLata != nil {
+		data.Set("InLata", *params.InLata)
+	}
+	if params != nil && params.InLocality != nil {
+		data.Set("InLocality", *params.InLocality)
+	}
+	if params != nil && params.FaxEnabled != nil {
+		data.Set("FaxEnabled", string(*params.FaxEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachineReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachineReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailablePhoneNumberMobileParams Optional parameters for the method 'ListAvailablePhoneNumberMobile'
 type ListAvailablePhoneNumberMobileParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5285,107 +5283,107 @@ ListAvailablePhoneNumberMobile Method for ListAvailablePhoneNumberMobile
 @return ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobileReadResponse
 */
 func (c *DefaultApiService) ListAvailablePhoneNumberMobile(accountSid string, countryCode string, params *ListAvailablePhoneNumberMobileParams) (*ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobileReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AreaCode != nil {
-        data.Set("AreaCode", string(*params.AreaCode))
-    }
-    if params != nil && params.Contains != nil {
-        data.Set("Contains", *params.Contains)
-    }
-    if params != nil && params.SmsEnabled != nil {
-        data.Set("SmsEnabled", string(*params.SmsEnabled))
-    }
-    if params != nil && params.MmsEnabled != nil {
-        data.Set("MmsEnabled", string(*params.MmsEnabled))
-    }
-    if params != nil && params.VoiceEnabled != nil {
-        data.Set("VoiceEnabled", string(*params.VoiceEnabled))
-    }
-    if params != nil && params.ExcludeAllAddressRequired != nil {
-        data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
-    }
-    if params != nil && params.ExcludeLocalAddressRequired != nil {
-        data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
-    }
-    if params != nil && params.ExcludeForeignAddressRequired != nil {
-        data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
-    }
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.NearNumber != nil {
-        data.Set("NearNumber", *params.NearNumber)
-    }
-    if params != nil && params.NearLatLong != nil {
-        data.Set("NearLatLong", *params.NearLatLong)
-    }
-    if params != nil && params.Distance != nil {
-        data.Set("Distance", string(*params.Distance))
-    }
-    if params != nil && params.InPostalCode != nil {
-        data.Set("InPostalCode", *params.InPostalCode)
-    }
-    if params != nil && params.InRegion != nil {
-        data.Set("InRegion", *params.InRegion)
-    }
-    if params != nil && params.InRateCenter != nil {
-        data.Set("InRateCenter", *params.InRateCenter)
-    }
-    if params != nil && params.InLata != nil {
-        data.Set("InLata", *params.InLata)
-    }
-    if params != nil && params.InLocality != nil {
-        data.Set("InLocality", *params.InLocality)
-    }
-    if params != nil && params.FaxEnabled != nil {
-        data.Set("FaxEnabled", string(*params.FaxEnabled))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", string(*params.AreaCode))
+	}
+	if params != nil && params.Contains != nil {
+		data.Set("Contains", *params.Contains)
+	}
+	if params != nil && params.SmsEnabled != nil {
+		data.Set("SmsEnabled", string(*params.SmsEnabled))
+	}
+	if params != nil && params.MmsEnabled != nil {
+		data.Set("MmsEnabled", string(*params.MmsEnabled))
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+	}
+	if params != nil && params.ExcludeAllAddressRequired != nil {
+		data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
+	}
+	if params != nil && params.ExcludeLocalAddressRequired != nil {
+		data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
+	}
+	if params != nil && params.ExcludeForeignAddressRequired != nil {
+		data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
+	}
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.NearNumber != nil {
+		data.Set("NearNumber", *params.NearNumber)
+	}
+	if params != nil && params.NearLatLong != nil {
+		data.Set("NearLatLong", *params.NearLatLong)
+	}
+	if params != nil && params.Distance != nil {
+		data.Set("Distance", string(*params.Distance))
+	}
+	if params != nil && params.InPostalCode != nil {
+		data.Set("InPostalCode", *params.InPostalCode)
+	}
+	if params != nil && params.InRegion != nil {
+		data.Set("InRegion", *params.InRegion)
+	}
+	if params != nil && params.InRateCenter != nil {
+		data.Set("InRateCenter", *params.InRateCenter)
+	}
+	if params != nil && params.InLata != nil {
+		data.Set("InLata", *params.InLata)
+	}
+	if params != nil && params.InLocality != nil {
+		data.Set("InLocality", *params.InLocality)
+	}
+	if params != nil && params.FaxEnabled != nil {
+		data.Set("FaxEnabled", string(*params.FaxEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobileReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobileReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailablePhoneNumberNationalParams Optional parameters for the method 'ListAvailablePhoneNumberNational'
 type ListAvailablePhoneNumberNationalParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5415,107 +5413,107 @@ ListAvailablePhoneNumberNational Method for ListAvailablePhoneNumberNational
 @return ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNationalReadResponse
 */
 func (c *DefaultApiService) ListAvailablePhoneNumberNational(accountSid string, countryCode string, params *ListAvailablePhoneNumberNationalParams) (*ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNationalReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AreaCode != nil {
-        data.Set("AreaCode", string(*params.AreaCode))
-    }
-    if params != nil && params.Contains != nil {
-        data.Set("Contains", *params.Contains)
-    }
-    if params != nil && params.SmsEnabled != nil {
-        data.Set("SmsEnabled", string(*params.SmsEnabled))
-    }
-    if params != nil && params.MmsEnabled != nil {
-        data.Set("MmsEnabled", string(*params.MmsEnabled))
-    }
-    if params != nil && params.VoiceEnabled != nil {
-        data.Set("VoiceEnabled", string(*params.VoiceEnabled))
-    }
-    if params != nil && params.ExcludeAllAddressRequired != nil {
-        data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
-    }
-    if params != nil && params.ExcludeLocalAddressRequired != nil {
-        data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
-    }
-    if params != nil && params.ExcludeForeignAddressRequired != nil {
-        data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
-    }
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.NearNumber != nil {
-        data.Set("NearNumber", *params.NearNumber)
-    }
-    if params != nil && params.NearLatLong != nil {
-        data.Set("NearLatLong", *params.NearLatLong)
-    }
-    if params != nil && params.Distance != nil {
-        data.Set("Distance", string(*params.Distance))
-    }
-    if params != nil && params.InPostalCode != nil {
-        data.Set("InPostalCode", *params.InPostalCode)
-    }
-    if params != nil && params.InRegion != nil {
-        data.Set("InRegion", *params.InRegion)
-    }
-    if params != nil && params.InRateCenter != nil {
-        data.Set("InRateCenter", *params.InRateCenter)
-    }
-    if params != nil && params.InLata != nil {
-        data.Set("InLata", *params.InLata)
-    }
-    if params != nil && params.InLocality != nil {
-        data.Set("InLocality", *params.InLocality)
-    }
-    if params != nil && params.FaxEnabled != nil {
-        data.Set("FaxEnabled", string(*params.FaxEnabled))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", string(*params.AreaCode))
+	}
+	if params != nil && params.Contains != nil {
+		data.Set("Contains", *params.Contains)
+	}
+	if params != nil && params.SmsEnabled != nil {
+		data.Set("SmsEnabled", string(*params.SmsEnabled))
+	}
+	if params != nil && params.MmsEnabled != nil {
+		data.Set("MmsEnabled", string(*params.MmsEnabled))
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+	}
+	if params != nil && params.ExcludeAllAddressRequired != nil {
+		data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
+	}
+	if params != nil && params.ExcludeLocalAddressRequired != nil {
+		data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
+	}
+	if params != nil && params.ExcludeForeignAddressRequired != nil {
+		data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
+	}
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.NearNumber != nil {
+		data.Set("NearNumber", *params.NearNumber)
+	}
+	if params != nil && params.NearLatLong != nil {
+		data.Set("NearLatLong", *params.NearLatLong)
+	}
+	if params != nil && params.Distance != nil {
+		data.Set("Distance", string(*params.Distance))
+	}
+	if params != nil && params.InPostalCode != nil {
+		data.Set("InPostalCode", *params.InPostalCode)
+	}
+	if params != nil && params.InRegion != nil {
+		data.Set("InRegion", *params.InRegion)
+	}
+	if params != nil && params.InRateCenter != nil {
+		data.Set("InRateCenter", *params.InRateCenter)
+	}
+	if params != nil && params.InLata != nil {
+		data.Set("InLata", *params.InLata)
+	}
+	if params != nil && params.InLocality != nil {
+		data.Set("InLocality", *params.InLocality)
+	}
+	if params != nil && params.FaxEnabled != nil {
+		data.Set("FaxEnabled", string(*params.FaxEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNationalReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNationalReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailablePhoneNumberSharedCostParams Optional parameters for the method 'ListAvailablePhoneNumberSharedCost'
 type ListAvailablePhoneNumberSharedCostParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5545,107 +5543,107 @@ ListAvailablePhoneNumberSharedCost Method for ListAvailablePhoneNumberSharedCost
 @return ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCostReadResponse
 */
 func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(accountSid string, countryCode string, params *ListAvailablePhoneNumberSharedCostParams) (*ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCostReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AreaCode != nil {
-        data.Set("AreaCode", string(*params.AreaCode))
-    }
-    if params != nil && params.Contains != nil {
-        data.Set("Contains", *params.Contains)
-    }
-    if params != nil && params.SmsEnabled != nil {
-        data.Set("SmsEnabled", string(*params.SmsEnabled))
-    }
-    if params != nil && params.MmsEnabled != nil {
-        data.Set("MmsEnabled", string(*params.MmsEnabled))
-    }
-    if params != nil && params.VoiceEnabled != nil {
-        data.Set("VoiceEnabled", string(*params.VoiceEnabled))
-    }
-    if params != nil && params.ExcludeAllAddressRequired != nil {
-        data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
-    }
-    if params != nil && params.ExcludeLocalAddressRequired != nil {
-        data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
-    }
-    if params != nil && params.ExcludeForeignAddressRequired != nil {
-        data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
-    }
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.NearNumber != nil {
-        data.Set("NearNumber", *params.NearNumber)
-    }
-    if params != nil && params.NearLatLong != nil {
-        data.Set("NearLatLong", *params.NearLatLong)
-    }
-    if params != nil && params.Distance != nil {
-        data.Set("Distance", string(*params.Distance))
-    }
-    if params != nil && params.InPostalCode != nil {
-        data.Set("InPostalCode", *params.InPostalCode)
-    }
-    if params != nil && params.InRegion != nil {
-        data.Set("InRegion", *params.InRegion)
-    }
-    if params != nil && params.InRateCenter != nil {
-        data.Set("InRateCenter", *params.InRateCenter)
-    }
-    if params != nil && params.InLata != nil {
-        data.Set("InLata", *params.InLata)
-    }
-    if params != nil && params.InLocality != nil {
-        data.Set("InLocality", *params.InLocality)
-    }
-    if params != nil && params.FaxEnabled != nil {
-        data.Set("FaxEnabled", string(*params.FaxEnabled))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", string(*params.AreaCode))
+	}
+	if params != nil && params.Contains != nil {
+		data.Set("Contains", *params.Contains)
+	}
+	if params != nil && params.SmsEnabled != nil {
+		data.Set("SmsEnabled", string(*params.SmsEnabled))
+	}
+	if params != nil && params.MmsEnabled != nil {
+		data.Set("MmsEnabled", string(*params.MmsEnabled))
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+	}
+	if params != nil && params.ExcludeAllAddressRequired != nil {
+		data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
+	}
+	if params != nil && params.ExcludeLocalAddressRequired != nil {
+		data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
+	}
+	if params != nil && params.ExcludeForeignAddressRequired != nil {
+		data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
+	}
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.NearNumber != nil {
+		data.Set("NearNumber", *params.NearNumber)
+	}
+	if params != nil && params.NearLatLong != nil {
+		data.Set("NearLatLong", *params.NearLatLong)
+	}
+	if params != nil && params.Distance != nil {
+		data.Set("Distance", string(*params.Distance))
+	}
+	if params != nil && params.InPostalCode != nil {
+		data.Set("InPostalCode", *params.InPostalCode)
+	}
+	if params != nil && params.InRegion != nil {
+		data.Set("InRegion", *params.InRegion)
+	}
+	if params != nil && params.InRateCenter != nil {
+		data.Set("InRateCenter", *params.InRateCenter)
+	}
+	if params != nil && params.InLata != nil {
+		data.Set("InLata", *params.InLata)
+	}
+	if params != nil && params.InLocality != nil {
+		data.Set("InLocality", *params.InLocality)
+	}
+	if params != nil && params.FaxEnabled != nil {
+		data.Set("FaxEnabled", string(*params.FaxEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCostReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCostReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailablePhoneNumberTollFreeParams Optional parameters for the method 'ListAvailablePhoneNumberTollFree'
 type ListAvailablePhoneNumberTollFreeParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5675,107 +5673,107 @@ ListAvailablePhoneNumberTollFree Method for ListAvailablePhoneNumberTollFree
 @return ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFreeReadResponse
 */
 func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(accountSid string, countryCode string, params *ListAvailablePhoneNumberTollFreeParams) (*ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFreeReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AreaCode != nil {
-        data.Set("AreaCode", string(*params.AreaCode))
-    }
-    if params != nil && params.Contains != nil {
-        data.Set("Contains", *params.Contains)
-    }
-    if params != nil && params.SmsEnabled != nil {
-        data.Set("SmsEnabled", string(*params.SmsEnabled))
-    }
-    if params != nil && params.MmsEnabled != nil {
-        data.Set("MmsEnabled", string(*params.MmsEnabled))
-    }
-    if params != nil && params.VoiceEnabled != nil {
-        data.Set("VoiceEnabled", string(*params.VoiceEnabled))
-    }
-    if params != nil && params.ExcludeAllAddressRequired != nil {
-        data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
-    }
-    if params != nil && params.ExcludeLocalAddressRequired != nil {
-        data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
-    }
-    if params != nil && params.ExcludeForeignAddressRequired != nil {
-        data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
-    }
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.NearNumber != nil {
-        data.Set("NearNumber", *params.NearNumber)
-    }
-    if params != nil && params.NearLatLong != nil {
-        data.Set("NearLatLong", *params.NearLatLong)
-    }
-    if params != nil && params.Distance != nil {
-        data.Set("Distance", string(*params.Distance))
-    }
-    if params != nil && params.InPostalCode != nil {
-        data.Set("InPostalCode", *params.InPostalCode)
-    }
-    if params != nil && params.InRegion != nil {
-        data.Set("InRegion", *params.InRegion)
-    }
-    if params != nil && params.InRateCenter != nil {
-        data.Set("InRateCenter", *params.InRateCenter)
-    }
-    if params != nil && params.InLata != nil {
-        data.Set("InLata", *params.InLata)
-    }
-    if params != nil && params.InLocality != nil {
-        data.Set("InLocality", *params.InLocality)
-    }
-    if params != nil && params.FaxEnabled != nil {
-        data.Set("FaxEnabled", string(*params.FaxEnabled))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", string(*params.AreaCode))
+	}
+	if params != nil && params.Contains != nil {
+		data.Set("Contains", *params.Contains)
+	}
+	if params != nil && params.SmsEnabled != nil {
+		data.Set("SmsEnabled", string(*params.SmsEnabled))
+	}
+	if params != nil && params.MmsEnabled != nil {
+		data.Set("MmsEnabled", string(*params.MmsEnabled))
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+	}
+	if params != nil && params.ExcludeAllAddressRequired != nil {
+		data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
+	}
+	if params != nil && params.ExcludeLocalAddressRequired != nil {
+		data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
+	}
+	if params != nil && params.ExcludeForeignAddressRequired != nil {
+		data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
+	}
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.NearNumber != nil {
+		data.Set("NearNumber", *params.NearNumber)
+	}
+	if params != nil && params.NearLatLong != nil {
+		data.Set("NearLatLong", *params.NearLatLong)
+	}
+	if params != nil && params.Distance != nil {
+		data.Set("Distance", string(*params.Distance))
+	}
+	if params != nil && params.InPostalCode != nil {
+		data.Set("InPostalCode", *params.InPostalCode)
+	}
+	if params != nil && params.InRegion != nil {
+		data.Set("InRegion", *params.InRegion)
+	}
+	if params != nil && params.InRateCenter != nil {
+		data.Set("InRateCenter", *params.InRateCenter)
+	}
+	if params != nil && params.InLata != nil {
+		data.Set("InLata", *params.InLata)
+	}
+	if params != nil && params.InLocality != nil {
+		data.Set("InLocality", *params.InLocality)
+	}
+	if params != nil && params.FaxEnabled != nil {
+		data.Set("FaxEnabled", string(*params.FaxEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFreeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFreeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAvailablePhoneNumberVoipParams Optional parameters for the method 'ListAvailablePhoneNumberVoip'
 type ListAvailablePhoneNumberVoipParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5805,99 +5803,99 @@ ListAvailablePhoneNumberVoip Method for ListAvailablePhoneNumberVoip
 @return ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoipReadResponse
 */
 func (c *DefaultApiService) ListAvailablePhoneNumberVoip(accountSid string, countryCode string, params *ListAvailablePhoneNumberVoipParams) (*ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoipReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CountryCode"+"}", countryCode, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AreaCode != nil {
-        data.Set("AreaCode", string(*params.AreaCode))
-    }
-    if params != nil && params.Contains != nil {
-        data.Set("Contains", *params.Contains)
-    }
-    if params != nil && params.SmsEnabled != nil {
-        data.Set("SmsEnabled", string(*params.SmsEnabled))
-    }
-    if params != nil && params.MmsEnabled != nil {
-        data.Set("MmsEnabled", string(*params.MmsEnabled))
-    }
-    if params != nil && params.VoiceEnabled != nil {
-        data.Set("VoiceEnabled", string(*params.VoiceEnabled))
-    }
-    if params != nil && params.ExcludeAllAddressRequired != nil {
-        data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
-    }
-    if params != nil && params.ExcludeLocalAddressRequired != nil {
-        data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
-    }
-    if params != nil && params.ExcludeForeignAddressRequired != nil {
-        data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
-    }
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.NearNumber != nil {
-        data.Set("NearNumber", *params.NearNumber)
-    }
-    if params != nil && params.NearLatLong != nil {
-        data.Set("NearLatLong", *params.NearLatLong)
-    }
-    if params != nil && params.Distance != nil {
-        data.Set("Distance", string(*params.Distance))
-    }
-    if params != nil && params.InPostalCode != nil {
-        data.Set("InPostalCode", *params.InPostalCode)
-    }
-    if params != nil && params.InRegion != nil {
-        data.Set("InRegion", *params.InRegion)
-    }
-    if params != nil && params.InRateCenter != nil {
-        data.Set("InRateCenter", *params.InRateCenter)
-    }
-    if params != nil && params.InLata != nil {
-        data.Set("InLata", *params.InLata)
-    }
-    if params != nil && params.InLocality != nil {
-        data.Set("InLocality", *params.InLocality)
-    }
-    if params != nil && params.FaxEnabled != nil {
-        data.Set("FaxEnabled", string(*params.FaxEnabled))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", string(*params.AreaCode))
+	}
+	if params != nil && params.Contains != nil {
+		data.Set("Contains", *params.Contains)
+	}
+	if params != nil && params.SmsEnabled != nil {
+		data.Set("SmsEnabled", string(*params.SmsEnabled))
+	}
+	if params != nil && params.MmsEnabled != nil {
+		data.Set("MmsEnabled", string(*params.MmsEnabled))
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+	}
+	if params != nil && params.ExcludeAllAddressRequired != nil {
+		data.Set("ExcludeAllAddressRequired", string(*params.ExcludeAllAddressRequired))
+	}
+	if params != nil && params.ExcludeLocalAddressRequired != nil {
+		data.Set("ExcludeLocalAddressRequired", string(*params.ExcludeLocalAddressRequired))
+	}
+	if params != nil && params.ExcludeForeignAddressRequired != nil {
+		data.Set("ExcludeForeignAddressRequired", string(*params.ExcludeForeignAddressRequired))
+	}
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.NearNumber != nil {
+		data.Set("NearNumber", *params.NearNumber)
+	}
+	if params != nil && params.NearLatLong != nil {
+		data.Set("NearLatLong", *params.NearLatLong)
+	}
+	if params != nil && params.Distance != nil {
+		data.Set("Distance", string(*params.Distance))
+	}
+	if params != nil && params.InPostalCode != nil {
+		data.Set("InPostalCode", *params.InPostalCode)
+	}
+	if params != nil && params.InRegion != nil {
+		data.Set("InRegion", *params.InRegion)
+	}
+	if params != nil && params.InRateCenter != nil {
+		data.Set("InRateCenter", *params.InRateCenter)
+	}
+	if params != nil && params.InLata != nil {
+		data.Set("InLata", *params.InLata)
+	}
+	if params != nil && params.InLocality != nil {
+		data.Set("InLocality", *params.InLocality)
+	}
+	if params != nil && params.FaxEnabled != nil {
+		data.Set("FaxEnabled", string(*params.FaxEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoipReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoipReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCallParams Optional parameters for the method 'ListCall'
 type ListCallParams struct {
-    To *string `json:"To,omitempty"`
-    From *string `json:"From,omitempty"`
-    ParentCallSid *string `json:"ParentCallSid,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    StartTime *time.Time `json:"StartTime,omitempty"`
-    StartTime&lt; *time.Time `json:"StartTime&lt;,omitempty"`
-    StartTime&gt; *time.Time `json:"StartTime&gt;,omitempty"`
-    EndTime *time.Time `json:"EndTime,omitempty"`
-    EndTime&lt; *time.Time `json:"EndTime&lt;,omitempty"`
-    EndTime&gt; *time.Time `json:"EndTime&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	To *string `json:"To,omitempty"`
+	From *string `json:"From,omitempty"`
+	ParentCallSid *string `json:"ParentCallSid,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	StartTime *time.Time `json:"StartTime,omitempty"`
+	StartTime&lt; *time.Time `json:"StartTime&lt;,omitempty"`
+	StartTime&gt; *time.Time `json:"StartTime&gt;,omitempty"`
+	EndTime *time.Time `json:"EndTime,omitempty"`
+	EndTime&lt; *time.Time `json:"EndTime&lt;,omitempty"`
+	EndTime&gt; *time.Time `json:"EndTime&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5919,64 +5917,64 @@ Retrieves a collection of calls made to and from your account
 @return ApiV2010AccountCallReadResponse
 */
 func (c *DefaultApiService) ListCall(accountSid string, params *ListCallParams) (*ApiV2010AccountCallReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.To != nil {
-        data.Set("To", *params.To)
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.ParentCallSid != nil {
-        data.Set("ParentCallSid", *params.ParentCallSid)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.StartTime != nil {
-        data.Set("StartTime", string(*params.StartTime))
-    }
-    if params != nil && params.StartTime&lt; != nil {
-        data.Set("StartTime&lt;", string(*params.StartTime&lt;))
-    }
-    if params != nil && params.StartTime&gt; != nil {
-        data.Set("StartTime&gt;", string(*params.StartTime&gt;))
-    }
-    if params != nil && params.EndTime != nil {
-        data.Set("EndTime", string(*params.EndTime))
-    }
-    if params != nil && params.EndTime&lt; != nil {
-        data.Set("EndTime&lt;", string(*params.EndTime&lt;))
-    }
-    if params != nil && params.EndTime&gt; != nil {
-        data.Set("EndTime&gt;", string(*params.EndTime&gt;))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.ParentCallSid != nil {
+		data.Set("ParentCallSid", *params.ParentCallSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.StartTime != nil {
+		data.Set("StartTime", string(*params.StartTime))
+	}
+	if params != nil && params.StartTime&lt; != nil {
+		data.Set("StartTime&lt;", string(*params.StartTime&lt;))
+	}
+	if params != nil && params.StartTime&gt; != nil {
+		data.Set("StartTime&gt;", string(*params.StartTime&gt;))
+	}
+	if params != nil && params.EndTime != nil {
+		data.Set("EndTime", string(*params.EndTime))
+	}
+	if params != nil && params.EndTime&lt; != nil {
+		data.Set("EndTime&lt;", string(*params.EndTime&lt;))
+	}
+	if params != nil && params.EndTime&gt; != nil {
+		data.Set("EndTime&gt;", string(*params.EndTime&gt;))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCallEventParams Optional parameters for the method 'ListCallEvent'
 type ListCallEventParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5989,39 +5987,39 @@ Retrieve a list of all events for a call.
 @return ApiV2010AccountCallCallEventReadResponse
 */
 func (c *DefaultApiService) ListCallEvent(accountSid string, callSid string, params *ListCallEventParams) (*ApiV2010AccountCallCallEventReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallEventReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallEventReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCallNotificationParams Optional parameters for the method 'ListCallNotification'
 type ListCallNotificationParams struct {
-    Log *int32 `json:"Log,omitempty"`
-    MessageDate *time.Time `json:"MessageDate,omitempty"`
-    MessageDate&lt; *time.Time `json:"MessageDate&lt;,omitempty"`
-    MessageDate&gt; *time.Time `json:"MessageDate&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Log *int32 `json:"Log,omitempty"`
+	MessageDate *time.Time `json:"MessageDate,omitempty"`
+	MessageDate&lt; *time.Time `json:"MessageDate&lt;,omitempty"`
+	MessageDate&gt; *time.Time `json:"MessageDate&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6037,50 +6035,50 @@ ListCallNotification Method for ListCallNotification
 @return ApiV2010AccountCallCallNotificationReadResponse
 */
 func (c *DefaultApiService) ListCallNotification(accountSid string, callSid string, params *ListCallNotificationParams) (*ApiV2010AccountCallCallNotificationReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Log != nil {
-        data.Set("Log", string(*params.Log))
-    }
-    if params != nil && params.MessageDate != nil {
-        data.Set("MessageDate", string(*params.MessageDate))
-    }
-    if params != nil && params.MessageDate&lt; != nil {
-        data.Set("MessageDate&lt;", string(*params.MessageDate&lt;))
-    }
-    if params != nil && params.MessageDate&gt; != nil {
-        data.Set("MessageDate&gt;", string(*params.MessageDate&gt;))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Log != nil {
+		data.Set("Log", string(*params.Log))
+	}
+	if params != nil && params.MessageDate != nil {
+		data.Set("MessageDate", string(*params.MessageDate))
+	}
+	if params != nil && params.MessageDate&lt; != nil {
+		data.Set("MessageDate&lt;", string(*params.MessageDate&lt;))
+	}
+	if params != nil && params.MessageDate&gt; != nil {
+		data.Set("MessageDate&gt;", string(*params.MessageDate&gt;))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallNotificationReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallNotificationReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCallRecordingParams Optional parameters for the method 'ListCallRecording'
 type ListCallRecordingParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6096,52 +6094,52 @@ Retrieve a list of recordings belonging to the call used to make the request
 @return ApiV2010AccountCallCallRecordingReadResponse
 */
 func (c *DefaultApiService) ListCallRecording(accountSid string, callSid string, params *ListCallRecordingParams) (*ApiV2010AccountCallCallRecordingReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateCreated&lt; != nil {
-        data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
-    }
-    if params != nil && params.DateCreated&gt; != nil {
-        data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateCreated&lt; != nil {
+		data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
+	}
+	if params != nil && params.DateCreated&gt; != nil {
+		data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallRecordingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallRecordingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConferenceParams Optional parameters for the method 'ListConference'
 type ListConferenceParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    DateUpdated&lt; *time.Time `json:"DateUpdated&lt;,omitempty"`
-    DateUpdated&gt; *time.Time `json:"DateUpdated&gt;,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated&lt; *time.Time `json:"DateUpdated&lt;,omitempty"`
+	DateUpdated&gt; *time.Time `json:"DateUpdated&gt;,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6161,61 +6159,61 @@ Retrieve a list of conferences belonging to the account used to make the request
 @return ApiV2010AccountConferenceReadResponse
 */
 func (c *DefaultApiService) ListConference(accountSid string, params *ListConferenceParams) (*ApiV2010AccountConferenceReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateCreated&lt; != nil {
-        data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
-    }
-    if params != nil && params.DateCreated&gt; != nil {
-        data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.DateUpdated&lt; != nil {
-        data.Set("DateUpdated&lt;", string(*params.DateUpdated&lt;))
-    }
-    if params != nil && params.DateUpdated&gt; != nil {
-        data.Set("DateUpdated&gt;", string(*params.DateUpdated&gt;))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateCreated&lt; != nil {
+		data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
+	}
+	if params != nil && params.DateCreated&gt; != nil {
+		data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.DateUpdated&lt; != nil {
+		data.Set("DateUpdated&lt;", string(*params.DateUpdated&lt;))
+	}
+	if params != nil && params.DateUpdated&gt; != nil {
+		data.Set("DateUpdated&gt;", string(*params.DateUpdated&gt;))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConferenceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConferenceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConferenceRecordingParams Optional parameters for the method 'ListConferenceRecording'
 type ListConferenceRecordingParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6231,44 +6229,44 @@ Retrieve a list of recordings belonging to the call used to make the request
 @return ApiV2010AccountConferenceConferenceRecordingReadResponse
 */
 func (c *DefaultApiService) ListConferenceRecording(accountSid string, conferenceSid string, params *ListConferenceRecordingParams) (*ApiV2010AccountConferenceConferenceRecordingReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateCreated&lt; != nil {
-        data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
-    }
-    if params != nil && params.DateCreated&gt; != nil {
-        data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateCreated&lt; != nil {
+		data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
+	}
+	if params != nil && params.DateCreated&gt; != nil {
+		data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConferenceConferenceRecordingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConferenceConferenceRecordingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConnectAppParams Optional parameters for the method 'ListConnectApp'
 type ListConnectAppParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6280,34 +6278,34 @@ Retrieve a list of connect-apps belonging to the account used to make the reques
 @return ApiV2010AccountConnectAppReadResponse
 */
 func (c *DefaultApiService) ListConnectApp(accountSid string, params *ListConnectAppParams) (*ApiV2010AccountConnectAppReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConnectAppReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConnectAppReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDependentPhoneNumberParams Optional parameters for the method 'ListDependentPhoneNumber'
 type ListDependentPhoneNumberParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6319,39 +6317,39 @@ ListDependentPhoneNumber Method for ListDependentPhoneNumber
 @return ApiV2010AccountAddressDependentPhoneNumberReadResponse
 */
 func (c *DefaultApiService) ListDependentPhoneNumber(accountSid string, addressSid string, params *ListDependentPhoneNumberParams) (*ApiV2010AccountAddressDependentPhoneNumberReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"AddressSid"+"}", addressSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"AddressSid"+"}", addressSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAddressDependentPhoneNumberReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAddressDependentPhoneNumberReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListIncomingPhoneNumberParams Optional parameters for the method 'ListIncomingPhoneNumber'
 type ListIncomingPhoneNumberParams struct {
-    Beta *bool `json:"Beta,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    Origin *string `json:"Origin,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Origin *string `json:"Origin,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6367,46 +6365,46 @@ Retrieve a list of incoming-phone-numbers belonging to the account used to make 
 @return ApiV2010AccountIncomingPhoneNumberReadResponse
 */
 func (c *DefaultApiService) ListIncomingPhoneNumber(accountSid string, params *ListIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumberReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.Origin != nil {
-        data.Set("Origin", *params.Origin)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.Origin != nil {
+		data.Set("Origin", *params.Origin)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOn'
 type ListIncomingPhoneNumberAssignedAddOnParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6419,35 +6417,35 @@ Retrieve a list of Add-on installations currently assigned to this Number.
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnReadResponse
 */
 func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(accountSid string, resourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListIncomingPhoneNumberAssignedAddOnExtensionParams Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOnExtension'
 type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6461,40 +6459,40 @@ Retrieve a list of Extensions for the Assigned Add-on.
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtensionReadResponse
 */
 func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(accountSid string, resourceSid string, assignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtensionReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
-    path = strings.Replace(path, "{"+"AssignedAddOnSid"+"}", assignedAddOnSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", resourceSid, -1)
+	path = strings.Replace(path, "{"+"AssignedAddOnSid"+"}", assignedAddOnSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtensionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtensionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListIncomingPhoneNumberLocalParams Optional parameters for the method 'ListIncomingPhoneNumberLocal'
 type ListIncomingPhoneNumberLocalParams struct {
-    Beta *bool `json:"Beta,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    Origin *string `json:"Origin,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Origin *string `json:"Origin,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6509,50 +6507,50 @@ ListIncomingPhoneNumberLocal Method for ListIncomingPhoneNumberLocal
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocalReadResponse
 */
 func (c *DefaultApiService) ListIncomingPhoneNumberLocal(accountSid string, params *ListIncomingPhoneNumberLocalParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocalReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.Origin != nil {
-        data.Set("Origin", *params.Origin)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.Origin != nil {
+		data.Set("Origin", *params.Origin)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocalReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocalReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListIncomingPhoneNumberMobileParams Optional parameters for the method 'ListIncomingPhoneNumberMobile'
 type ListIncomingPhoneNumberMobileParams struct {
-    Beta *bool `json:"Beta,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    Origin *string `json:"Origin,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Origin *string `json:"Origin,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6567,50 +6565,50 @@ ListIncomingPhoneNumberMobile Method for ListIncomingPhoneNumberMobile
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobileReadResponse
 */
 func (c *DefaultApiService) ListIncomingPhoneNumberMobile(accountSid string, params *ListIncomingPhoneNumberMobileParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobileReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.Origin != nil {
-        data.Set("Origin", *params.Origin)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.Origin != nil {
+		data.Set("Origin", *params.Origin)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobileReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobileReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListIncomingPhoneNumberTollFreeParams Optional parameters for the method 'ListIncomingPhoneNumberTollFree'
 type ListIncomingPhoneNumberTollFreeParams struct {
-    Beta *bool `json:"Beta,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    Origin *string `json:"Origin,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Origin *string `json:"Origin,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6625,46 +6623,46 @@ ListIncomingPhoneNumberTollFree Method for ListIncomingPhoneNumberTollFree
 @return ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFreeReadResponse
 */
 func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(accountSid string, params *ListIncomingPhoneNumberTollFreeParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFreeReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Beta != nil {
-        data.Set("Beta", string(*params.Beta))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.Origin != nil {
-        data.Set("Origin", *params.Origin)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", string(*params.Beta))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.Origin != nil {
+		data.Set("Origin", *params.Origin)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFreeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFreeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListKeyParams Optional parameters for the method 'ListKey'
 type ListKeyParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6675,37 +6673,37 @@ ListKey Method for ListKey
 @return ApiV2010AccountKeyReadResponse
 */
 func (c *DefaultApiService) ListKey(accountSid string, params *ListKeyParams) (*ApiV2010AccountKeyReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountKeyReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountKeyReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListMediaParams Optional parameters for the method 'ListMedia'
 type ListMediaParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6721,44 +6719,44 @@ Retrieve a list of Media resources belonging to the account used to make the req
 @return ApiV2010AccountMessageMediaReadResponse
 */
 func (c *DefaultApiService) ListMedia(accountSid string, messageSid string, params *ListMediaParams) (*ApiV2010AccountMessageMediaReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateCreated&lt; != nil {
-        data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
-    }
-    if params != nil && params.DateCreated&gt; != nil {
-        data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateCreated&lt; != nil {
+		data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
+	}
+	if params != nil && params.DateCreated&gt; != nil {
+		data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountMessageMediaReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountMessageMediaReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListMemberParams Optional parameters for the method 'ListMember'
 type ListMemberParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6771,40 +6769,40 @@ Retrieve the members of the queue
 @return ApiV2010AccountQueueMemberReadResponse
 */
 func (c *DefaultApiService) ListMember(accountSid string, queueSid string, params *ListMemberParams) (*ApiV2010AccountQueueMemberReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"QueueSid"+"}", queueSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"QueueSid"+"}", queueSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountQueueMemberReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountQueueMemberReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListMessageParams Optional parameters for the method 'ListMessage'
 type ListMessageParams struct {
-    To *string `json:"To,omitempty"`
-    From *string `json:"From,omitempty"`
-    DateSent *time.Time `json:"DateSent,omitempty"`
-    DateSent&lt; *time.Time `json:"DateSent&lt;,omitempty"`
-    DateSent&gt; *time.Time `json:"DateSent&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	To *string `json:"To,omitempty"`
+	From *string `json:"From,omitempty"`
+	DateSent *time.Time `json:"DateSent,omitempty"`
+	DateSent&lt; *time.Time `json:"DateSent&lt;,omitempty"`
+	DateSent&gt; *time.Time `json:"DateSent&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6821,53 +6819,53 @@ Retrieve a list of messages belonging to the account used to make the request
 @return ApiV2010AccountMessageReadResponse
 */
 func (c *DefaultApiService) ListMessage(accountSid string, params *ListMessageParams) (*ApiV2010AccountMessageReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.To != nil {
-        data.Set("To", *params.To)
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.DateSent != nil {
-        data.Set("DateSent", string(*params.DateSent))
-    }
-    if params != nil && params.DateSent&lt; != nil {
-        data.Set("DateSent&lt;", string(*params.DateSent&lt;))
-    }
-    if params != nil && params.DateSent&gt; != nil {
-        data.Set("DateSent&gt;", string(*params.DateSent&gt;))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.DateSent != nil {
+		data.Set("DateSent", string(*params.DateSent))
+	}
+	if params != nil && params.DateSent&lt; != nil {
+		data.Set("DateSent&lt;", string(*params.DateSent&lt;))
+	}
+	if params != nil && params.DateSent&gt; != nil {
+		data.Set("DateSent&gt;", string(*params.DateSent&gt;))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountMessageReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountMessageReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListNotificationParams Optional parameters for the method 'ListNotification'
 type ListNotificationParams struct {
-    Log *int32 `json:"Log,omitempty"`
-    MessageDate *time.Time `json:"MessageDate,omitempty"`
-    MessageDate&lt; *time.Time `json:"MessageDate&lt;,omitempty"`
-    MessageDate&gt; *time.Time `json:"MessageDate&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Log *int32 `json:"Log,omitempty"`
+	MessageDate *time.Time `json:"MessageDate,omitempty"`
+	MessageDate&lt; *time.Time `json:"MessageDate&lt;,omitempty"`
+	MessageDate&gt; *time.Time `json:"MessageDate&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6883,48 +6881,48 @@ Retrieve a list of notifications belonging to the account used to make the reque
 @return ApiV2010AccountNotificationReadResponse
 */
 func (c *DefaultApiService) ListNotification(accountSid string, params *ListNotificationParams) (*ApiV2010AccountNotificationReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Notifications.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Notifications.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Log != nil {
-        data.Set("Log", string(*params.Log))
-    }
-    if params != nil && params.MessageDate != nil {
-        data.Set("MessageDate", string(*params.MessageDate))
-    }
-    if params != nil && params.MessageDate&lt; != nil {
-        data.Set("MessageDate&lt;", string(*params.MessageDate&lt;))
-    }
-    if params != nil && params.MessageDate&gt; != nil {
-        data.Set("MessageDate&gt;", string(*params.MessageDate&gt;))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Log != nil {
+		data.Set("Log", string(*params.Log))
+	}
+	if params != nil && params.MessageDate != nil {
+		data.Set("MessageDate", string(*params.MessageDate))
+	}
+	if params != nil && params.MessageDate&lt; != nil {
+		data.Set("MessageDate&lt;", string(*params.MessageDate&lt;))
+	}
+	if params != nil && params.MessageDate&gt; != nil {
+		data.Set("MessageDate&gt;", string(*params.MessageDate&gt;))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountNotificationReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountNotificationReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListOutgoingCallerIdParams Optional parameters for the method 'ListOutgoingCallerId'
 type ListOutgoingCallerIdParams struct {
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6938,43 +6936,43 @@ Retrieve a list of outgoing-caller-ids belonging to the account used to make the
 @return ApiV2010AccountOutgoingCallerIdReadResponse
 */
 func (c *DefaultApiService) ListOutgoingCallerId(accountSid string, params *ListOutgoingCallerIdParams) (*ApiV2010AccountOutgoingCallerIdReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PhoneNumber != nil {
-        data.Set("PhoneNumber", *params.PhoneNumber)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountOutgoingCallerIdReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountOutgoingCallerIdReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListParticipantParams Optional parameters for the method 'ListParticipant'
 type ListParticipantParams struct {
-    Muted *bool `json:"Muted,omitempty"`
-    Hold *bool `json:"Hold,omitempty"`
-    Coaching *bool `json:"Coaching,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Muted *bool `json:"Muted,omitempty"`
+	Hold *bool `json:"Hold,omitempty"`
+	Coaching *bool `json:"Coaching,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6990,44 +6988,44 @@ Retrieve a list of participants belonging to the account used to make the reques
 @return ApiV2010AccountConferenceParticipantReadResponse
 */
 func (c *DefaultApiService) ListParticipant(accountSid string, conferenceSid string, params *ListParticipantParams) (*ApiV2010AccountConferenceParticipantReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Muted != nil {
-        data.Set("Muted", string(*params.Muted))
-    }
-    if params != nil && params.Hold != nil {
-        data.Set("Hold", string(*params.Hold))
-    }
-    if params != nil && params.Coaching != nil {
-        data.Set("Coaching", string(*params.Coaching))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Muted != nil {
+		data.Set("Muted", string(*params.Muted))
+	}
+	if params != nil && params.Hold != nil {
+		data.Set("Hold", string(*params.Hold))
+	}
+	if params != nil && params.Coaching != nil {
+		data.Set("Coaching", string(*params.Coaching))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConferenceParticipantReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConferenceParticipantReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListQueueParams Optional parameters for the method 'ListQueue'
 type ListQueueParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7039,39 +7037,39 @@ Retrieve a list of queues belonging to the account used to make the request
 @return ApiV2010AccountQueueReadResponse
 */
 func (c *DefaultApiService) ListQueue(accountSid string, params *ListQueueParams) (*ApiV2010AccountQueueReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountQueueReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountQueueReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRecordingParams Optional parameters for the method 'ListRecording'
 type ListRecordingParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
-    CallSid *string `json:"CallSid,omitempty"`
-    ConferenceSid *string `json:"ConferenceSid,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated&lt; *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreated&gt; *time.Time `json:"DateCreated&gt;,omitempty"`
+	CallSid *string `json:"CallSid,omitempty"`
+	ConferenceSid *string `json:"ConferenceSid,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7088,49 +7086,49 @@ Retrieve a list of recordings belonging to the account used to make the request
 @return ApiV2010AccountRecordingReadResponse
 */
 func (c *DefaultApiService) ListRecording(accountSid string, params *ListRecordingParams) (*ApiV2010AccountRecordingReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateCreated&lt; != nil {
-        data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
-    }
-    if params != nil && params.DateCreated&gt; != nil {
-        data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
-    }
-    if params != nil && params.CallSid != nil {
-        data.Set("CallSid", *params.CallSid)
-    }
-    if params != nil && params.ConferenceSid != nil {
-        data.Set("ConferenceSid", *params.ConferenceSid)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateCreated&lt; != nil {
+		data.Set("DateCreated&lt;", string(*params.DateCreated&lt;))
+	}
+	if params != nil && params.DateCreated&gt; != nil {
+		data.Set("DateCreated&gt;", string(*params.DateCreated&gt;))
+	}
+	if params != nil && params.CallSid != nil {
+		data.Set("CallSid", *params.CallSid)
+	}
+	if params != nil && params.ConferenceSid != nil {
+		data.Set("ConferenceSid", *params.ConferenceSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountRecordingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountRecordingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRecordingAddOnResultParams Optional parameters for the method 'ListRecordingAddOnResult'
 type ListRecordingAddOnResultParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7143,35 +7141,35 @@ Retrieve a list of results belonging to the recording
 @return ApiV2010AccountRecordingRecordingAddOnResultReadResponse
 */
 func (c *DefaultApiService) ListRecordingAddOnResult(accountSid string, referenceSid string, params *ListRecordingAddOnResultParams) (*ApiV2010AccountRecordingRecordingAddOnResultReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountRecordingRecordingAddOnResultReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountRecordingRecordingAddOnResultReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRecordingAddOnResultPayloadParams Optional parameters for the method 'ListRecordingAddOnResultPayload'
 type ListRecordingAddOnResultPayloadParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7185,36 +7183,36 @@ Retrieve a list of payloads belonging to the AddOnResult
 @return ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayloadReadResponse
 */
 func (c *DefaultApiService) ListRecordingAddOnResultPayload(accountSid string, referenceSid string, addOnResultSid string, params *ListRecordingAddOnResultPayloadParams) (*ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayloadReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
-    path = strings.Replace(path, "{"+"AddOnResultSid"+"}", addOnResultSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", referenceSid, -1)
+	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", addOnResultSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayloadReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayloadReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRecordingTranscriptionParams Optional parameters for the method 'ListRecordingTranscription'
 type ListRecordingTranscriptionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7226,37 +7224,37 @@ ListRecordingTranscription Method for ListRecordingTranscription
 @return ApiV2010AccountRecordingRecordingTranscriptionReadResponse
 */
 func (c *DefaultApiService) ListRecordingTranscription(accountSid string, recordingSid string, params *ListRecordingTranscriptionParams) (*ApiV2010AccountRecordingRecordingTranscriptionReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"RecordingSid"+"}", recordingSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"RecordingSid"+"}", recordingSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountRecordingRecordingTranscriptionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountRecordingRecordingTranscriptionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListShortCodeParams Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    ShortCode *string `json:"ShortCode,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	ShortCode *string `json:"ShortCode,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7270,40 +7268,40 @@ Retrieve a list of short-codes belonging to the account used to make the request
 @return ApiV2010AccountShortCodeReadResponse
 */
 func (c *DefaultApiService) ListShortCode(accountSid string, params *ListShortCodeParams) (*ApiV2010AccountShortCodeReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.ShortCode != nil {
-        data.Set("ShortCode", *params.ShortCode)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ShortCode != nil {
+		data.Set("ShortCode", *params.ShortCode)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountShortCodeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountShortCodeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSigningKeyParams Optional parameters for the method 'ListSigningKey'
 type ListSigningKeyParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7314,34 +7312,34 @@ ListSigningKey Method for ListSigningKey
 @return ApiV2010AccountSigningKeyReadResponse
 */
 func (c *DefaultApiService) ListSigningKey(accountSid string, params *ListSigningKeyParams) (*ApiV2010AccountSigningKeyReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSigningKeyReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSigningKeyReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipAuthCallsCredentialListMappingParams Optional parameters for the method 'ListSipAuthCallsCredentialListMapping'
 type ListSipAuthCallsCredentialListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7354,35 +7352,35 @@ Retrieve a list of credential list mappings belonging to the domain used in the 
 @return ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMappingReadResponse
 */
 func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(accountSid string, domainSid string, params *ListSipAuthCallsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMappingReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMappingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMappingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'ListSipAuthCallsIpAccessControlListMapping'
 type ListSipAuthCallsIpAccessControlListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7395,35 +7393,35 @@ Retrieve a list of IP Access Control List mappings belonging to the domain used 
 @return ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMappingReadResponse
 */
 func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(accountSid string, domainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMappingReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMappingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMappingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'ListSipAuthRegistrationsCredentialListMapping'
 type ListSipAuthRegistrationsCredentialListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7436,35 +7434,35 @@ Retrieve a list of credential list mappings belonging to the domain used in the 
 @return ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMappingReadResponse
 */
 func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(accountSid string, domainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMappingReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMappingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMappingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipCredentialParams Optional parameters for the method 'ListSipCredential'
 type ListSipCredentialParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7477,35 +7475,35 @@ Retrieve a list of credentials.
 @return ApiV2010AccountSipSipCredentialListSipCredentialReadResponse
 */
 func (c *DefaultApiService) ListSipCredential(accountSid string, credentialListSid string, params *ListSipCredentialParams) (*ApiV2010AccountSipSipCredentialListSipCredentialReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipCredentialListSipCredentialReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipCredentialListSipCredentialReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipCredentialListParams Optional parameters for the method 'ListSipCredentialList'
 type ListSipCredentialListParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7517,34 +7515,34 @@ Get All Credential Lists
 @return ApiV2010AccountSipSipCredentialListReadResponse
 */
 func (c *DefaultApiService) ListSipCredentialList(accountSid string, params *ListSipCredentialListParams) (*ApiV2010AccountSipSipCredentialListReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipCredentialListReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipCredentialListReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipCredentialListMappingParams Optional parameters for the method 'ListSipCredentialListMapping'
 type ListSipCredentialListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7557,35 +7555,35 @@ Read multiple CredentialListMapping resources from an account.
 @return ApiV2010AccountSipSipDomainSipCredentialListMappingReadResponse
 */
 func (c *DefaultApiService) ListSipCredentialListMapping(accountSid string, domainSid string, params *ListSipCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipCredentialListMappingReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipCredentialListMappingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipCredentialListMappingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipDomainParams Optional parameters for the method 'ListSipDomain'
 type ListSipDomainParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7597,34 +7595,34 @@ Retrieve a list of domains belonging to the account used to make the request
 @return ApiV2010AccountSipSipDomainReadResponse
 */
 func (c *DefaultApiService) ListSipDomain(accountSid string, params *ListSipDomainParams) (*ApiV2010AccountSipSipDomainReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipIpAccessControlListParams Optional parameters for the method 'ListSipIpAccessControlList'
 type ListSipIpAccessControlListParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7636,34 +7634,34 @@ Retrieve a list of IpAccessControlLists that belong to the account used to make 
 @return ApiV2010AccountSipSipIpAccessControlListReadResponse
 */
 func (c *DefaultApiService) ListSipIpAccessControlList(accountSid string, params *ListSipIpAccessControlListParams) (*ApiV2010AccountSipSipIpAccessControlListReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipIpAccessControlListReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipIpAccessControlListReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipIpAccessControlListMappingParams Optional parameters for the method 'ListSipIpAccessControlListMapping'
 type ListSipIpAccessControlListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7676,35 +7674,35 @@ Retrieve a list of IpAccessControlListMapping resources.
 @return ApiV2010AccountSipSipDomainSipIpAccessControlListMappingReadResponse
 */
 func (c *DefaultApiService) ListSipIpAccessControlListMapping(accountSid string, domainSid string, params *ListSipIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipIpAccessControlListMappingReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"DomainSid"+"}", domainSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomainSipIpAccessControlListMappingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomainSipIpAccessControlListMappingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSipIpAddressParams Optional parameters for the method 'ListSipIpAddress'
 type ListSipIpAddressParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7717,35 +7715,35 @@ Read multiple IpAddress resources.
 @return ApiV2010AccountSipSipIpAccessControlListSipIpAddressReadResponse
 */
 func (c *DefaultApiService) ListSipIpAddress(accountSid string, ipAccessControlListSid string, params *ListSipIpAddressParams) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddressReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipIpAccessControlListSipIpAddressReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipIpAccessControlListSipIpAddressReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListTranscriptionParams Optional parameters for the method 'ListTranscription'
 type ListTranscriptionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7757,38 +7755,38 @@ Retrieve a list of transcriptions belonging to the account used to make the requ
 @return ApiV2010AccountTranscriptionReadResponse
 */
 func (c *DefaultApiService) ListTranscription(accountSid string, params *ListTranscriptionParams) (*ApiV2010AccountTranscriptionReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountTranscriptionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountTranscriptionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordParams Optional parameters for the method 'ListUsageRecord'
 type ListUsageRecordParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7804,50 +7802,50 @@ Retrieve a list of usage-records belonging to the account used to make the reque
 @return ApiV2010AccountUsageUsageRecordReadResponse
 */
 func (c *DefaultApiService) ListUsageRecord(accountSid string, params *ListUsageRecordParams) (*ApiV2010AccountUsageUsageRecordReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Category != nil {
-        data.Set("Category", *params.Category)
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageRecordReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageRecordReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordAllTimeParams Optional parameters for the method 'ListUsageRecordAllTime'
 type ListUsageRecordAllTimeParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7862,50 +7860,50 @@ ListUsageRecordAllTime Method for ListUsageRecordAllTime
 @return ApiV2010AccountUsageUsageRecordUsageRecordAllTimeReadResponse
 */
 func (c *DefaultApiService) ListUsageRecordAllTime(accountSid string, params *ListUsageRecordAllTimeParams) (*ApiV2010AccountUsageUsageRecordUsageRecordAllTimeReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Category != nil {
-        data.Set("Category", *params.Category)
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageRecordUsageRecordAllTimeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageRecordUsageRecordAllTimeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordDailyParams Optional parameters for the method 'ListUsageRecordDaily'
 type ListUsageRecordDailyParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7920,50 +7918,50 @@ ListUsageRecordDaily Method for ListUsageRecordDaily
 @return ApiV2010AccountUsageUsageRecordUsageRecordDailyReadResponse
 */
 func (c *DefaultApiService) ListUsageRecordDaily(accountSid string, params *ListUsageRecordDailyParams) (*ApiV2010AccountUsageUsageRecordUsageRecordDailyReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Category != nil {
-        data.Set("Category", *params.Category)
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageRecordUsageRecordDailyReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageRecordUsageRecordDailyReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordLastMonthParams Optional parameters for the method 'ListUsageRecordLastMonth'
 type ListUsageRecordLastMonthParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7978,50 +7976,50 @@ ListUsageRecordLastMonth Method for ListUsageRecordLastMonth
 @return ApiV2010AccountUsageUsageRecordUsageRecordLastMonthReadResponse
 */
 func (c *DefaultApiService) ListUsageRecordLastMonth(accountSid string, params *ListUsageRecordLastMonthParams) (*ApiV2010AccountUsageUsageRecordUsageRecordLastMonthReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Category != nil {
-        data.Set("Category", *params.Category)
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageRecordUsageRecordLastMonthReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageRecordUsageRecordLastMonthReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordMonthlyParams Optional parameters for the method 'ListUsageRecordMonthly'
 type ListUsageRecordMonthlyParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8036,50 +8034,50 @@ ListUsageRecordMonthly Method for ListUsageRecordMonthly
 @return ApiV2010AccountUsageUsageRecordUsageRecordMonthlyReadResponse
 */
 func (c *DefaultApiService) ListUsageRecordMonthly(accountSid string, params *ListUsageRecordMonthlyParams) (*ApiV2010AccountUsageUsageRecordUsageRecordMonthlyReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Category != nil {
-        data.Set("Category", *params.Category)
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageRecordUsageRecordMonthlyReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageRecordUsageRecordMonthlyReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordThisMonthParams Optional parameters for the method 'ListUsageRecordThisMonth'
 type ListUsageRecordThisMonthParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8094,50 +8092,50 @@ ListUsageRecordThisMonth Method for ListUsageRecordThisMonth
 @return ApiV2010AccountUsageUsageRecordUsageRecordThisMonthReadResponse
 */
 func (c *DefaultApiService) ListUsageRecordThisMonth(accountSid string, params *ListUsageRecordThisMonthParams) (*ApiV2010AccountUsageUsageRecordUsageRecordThisMonthReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Category != nil {
-        data.Set("Category", *params.Category)
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageRecordUsageRecordThisMonthReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageRecordUsageRecordThisMonthReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordTodayParams Optional parameters for the method 'ListUsageRecordToday'
 type ListUsageRecordTodayParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8152,50 +8150,50 @@ ListUsageRecordToday Method for ListUsageRecordToday
 @return ApiV2010AccountUsageUsageRecordUsageRecordTodayReadResponse
 */
 func (c *DefaultApiService) ListUsageRecordToday(accountSid string, params *ListUsageRecordTodayParams) (*ApiV2010AccountUsageUsageRecordUsageRecordTodayReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Category != nil {
-        data.Set("Category", *params.Category)
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageRecordUsageRecordTodayReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageRecordUsageRecordTodayReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordYearlyParams Optional parameters for the method 'ListUsageRecordYearly'
 type ListUsageRecordYearlyParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8210,50 +8208,50 @@ ListUsageRecordYearly Method for ListUsageRecordYearly
 @return ApiV2010AccountUsageUsageRecordUsageRecordYearlyReadResponse
 */
 func (c *DefaultApiService) ListUsageRecordYearly(accountSid string, params *ListUsageRecordYearlyParams) (*ApiV2010AccountUsageUsageRecordUsageRecordYearlyReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Category != nil {
-        data.Set("Category", *params.Category)
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageRecordUsageRecordYearlyReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageRecordUsageRecordYearlyReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageRecordYesterdayParams Optional parameters for the method 'ListUsageRecordYesterday'
 type ListUsageRecordYesterdayParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8268,49 +8266,49 @@ ListUsageRecordYesterday Method for ListUsageRecordYesterday
 @return ApiV2010AccountUsageUsageRecordUsageRecordYesterdayReadResponse
 */
 func (c *DefaultApiService) ListUsageRecordYesterday(accountSid string, params *ListUsageRecordYesterdayParams) (*ApiV2010AccountUsageUsageRecordUsageRecordYesterdayReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Category != nil {
-        data.Set("Category", *params.Category)
-    }
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.IncludeSubaccounts != nil {
-        data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", string(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageRecordUsageRecordYesterdayReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageRecordUsageRecordYesterdayReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUsageTriggerParams Optional parameters for the method 'ListUsageTrigger'
 type ListUsageTriggerParams struct {
-    Recurring *string `json:"Recurring,omitempty"`
-    TriggerBy *string `json:"TriggerBy,omitempty"`
-    UsageCategory *string `json:"UsageCategory,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Recurring *string `json:"Recurring,omitempty"`
+	TriggerBy *string `json:"TriggerBy,omitempty"`
+	UsageCategory *string `json:"UsageCategory,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8325,44 +8323,44 @@ Retrieve a list of usage-triggers belonging to the account used to make the requ
 @return ApiV2010AccountUsageUsageTriggerReadResponse
 */
 func (c *DefaultApiService) ListUsageTrigger(accountSid string, params *ListUsageTriggerParams) (*ApiV2010AccountUsageUsageTriggerReadResponse, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Recurring != nil {
-        data.Set("Recurring", *params.Recurring)
-    }
-    if params != nil && params.TriggerBy != nil {
-        data.Set("TriggerBy", *params.TriggerBy)
-    }
-    if params != nil && params.UsageCategory != nil {
-        data.Set("UsageCategory", *params.UsageCategory)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Recurring != nil {
+		data.Set("Recurring", *params.Recurring)
+	}
+	if params != nil && params.TriggerBy != nil {
+		data.Set("TriggerBy", *params.TriggerBy)
+	}
+	if params != nil && params.UsageCategory != nil {
+		data.Set("UsageCategory", *params.UsageCategory)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageTriggerReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageTriggerReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateAccountParams Optional parameters for the method 'UpdateAccount'
 type UpdateAccountParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -8375,44 +8373,44 @@ Modify the properties of a given Account
 @return ApiV2010Account
 */
 func (c *DefaultApiService) UpdateAccount(sid string, params *UpdateAccountParams) (*ApiV2010Account, error) {
-    path := "/2010-04-01/Accounts/{Sid}.json"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{Sid}.json"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010Account{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010Account{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateAddressParams Optional parameters for the method 'UpdateAddress'
 type UpdateAddressParams struct {
-    AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
-    City *string `json:"City,omitempty"`
-    CustomerName *string `json:"CustomerName,omitempty"`
-    EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PostalCode *string `json:"PostalCode,omitempty"`
-    Region *string `json:"Region,omitempty"`
-    Street *string `json:"Street,omitempty"`
+	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
+	City *string `json:"City,omitempty"`
+	CustomerName *string `json:"CustomerName,omitempty"`
+	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PostalCode *string `json:"PostalCode,omitempty"`
+	Region *string `json:"Region,omitempty"`
+	Street *string `json:"Street,omitempty"`
 }
 
 /*
@@ -8431,70 +8429,70 @@ UpdateAddress Method for UpdateAddress
 @return ApiV2010AccountAddress
 */
 func (c *DefaultApiService) UpdateAddress(accountSid string, sid string, params *UpdateAddressParams) (*ApiV2010AccountAddress, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AutoCorrectAddress != nil {
-        data.Set("AutoCorrectAddress", string(*params.AutoCorrectAddress))
-    }
-    if params != nil && params.City != nil {
-        data.Set("City", *params.City)
-    }
-    if params != nil && params.CustomerName != nil {
-        data.Set("CustomerName", *params.CustomerName)
-    }
-    if params != nil && params.EmergencyEnabled != nil {
-        data.Set("EmergencyEnabled", string(*params.EmergencyEnabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PostalCode != nil {
-        data.Set("PostalCode", *params.PostalCode)
-    }
-    if params != nil && params.Region != nil {
-        data.Set("Region", *params.Region)
-    }
-    if params != nil && params.Street != nil {
-        data.Set("Street", *params.Street)
-    }
+	if params != nil && params.AutoCorrectAddress != nil {
+		data.Set("AutoCorrectAddress", string(*params.AutoCorrectAddress))
+	}
+	if params != nil && params.City != nil {
+		data.Set("City", *params.City)
+	}
+	if params != nil && params.CustomerName != nil {
+		data.Set("CustomerName", *params.CustomerName)
+	}
+	if params != nil && params.EmergencyEnabled != nil {
+		data.Set("EmergencyEnabled", string(*params.EmergencyEnabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PostalCode != nil {
+		data.Set("PostalCode", *params.PostalCode)
+	}
+	if params != nil && params.Region != nil {
+		data.Set("Region", *params.Region)
+	}
+	if params != nil && params.Street != nil {
+		data.Set("Street", *params.Street)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountAddress{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateApplicationParams Optional parameters for the method 'UpdateApplication'
 type UpdateApplicationParams struct {
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -8521,84 +8519,84 @@ Updates the application&#39;s properties
 @return ApiV2010AccountApplication
 */
 func (c *DefaultApiService) UpdateApplication(accountSid string, sid string, params *UpdateApplicationParams) (*ApiV2010AccountApplication, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiVersion != nil {
-        data.Set("ApiVersion", *params.ApiVersion)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.MessageStatusCallback != nil {
-        data.Set("MessageStatusCallback", *params.MessageStatusCallback)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsStatusCallback != nil {
-        data.Set("SmsStatusCallback", *params.SmsStatusCallback)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.VoiceCallerIdLookup != nil {
-        data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MessageStatusCallback != nil {
+		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsStatusCallback != nil {
+		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountApplication{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountApplication{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateCallParams Optional parameters for the method 'UpdateCall'
 type UpdateCallParams struct {
-    FallbackMethod *string `json:"FallbackMethod,omitempty"`
-    FallbackUrl *string `json:"FallbackUrl,omitempty"`
-    Method *string `json:"Method,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Twiml *string `json:"Twiml,omitempty"`
-    Url *string `json:"Url,omitempty"`
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	Method *string `json:"Method,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Twiml *string `json:"Twiml,omitempty"`
+	Url *string `json:"Url,omitempty"`
 }
 
 /*
@@ -8618,57 +8616,57 @@ Initiates a call redirect or terminates a call
 @return ApiV2010AccountCall
 */
 func (c *DefaultApiService) UpdateCall(accountSid string, sid string, params *UpdateCallParams) (*ApiV2010AccountCall, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FallbackMethod != nil {
-        data.Set("FallbackMethod", *params.FallbackMethod)
-    }
-    if params != nil && params.FallbackUrl != nil {
-        data.Set("FallbackUrl", *params.FallbackUrl)
-    }
-    if params != nil && params.Method != nil {
-        data.Set("Method", *params.Method)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.Twiml != nil {
-        data.Set("Twiml", *params.Twiml)
-    }
-    if params != nil && params.Url != nil {
-        data.Set("Url", *params.Url)
-    }
+	if params != nil && params.FallbackMethod != nil {
+		data.Set("FallbackMethod", *params.FallbackMethod)
+	}
+	if params != nil && params.FallbackUrl != nil {
+		data.Set("FallbackUrl", *params.FallbackUrl)
+	}
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Twiml != nil {
+		data.Set("Twiml", *params.Twiml)
+	}
+	if params != nil && params.Url != nil {
+		data.Set("Url", *params.Url)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCall{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCall{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateCallFeedbackParams Optional parameters for the method 'UpdateCallFeedback'
 type UpdateCallFeedbackParams struct {
-    Issue *[]string `json:"Issue,omitempty"`
-    QualityScore *int32 `json:"QualityScore,omitempty"`
+	Issue *[]string `json:"Issue,omitempty"`
+	QualityScore *int32 `json:"QualityScore,omitempty"`
 }
 
 /*
@@ -8682,39 +8680,39 @@ Update a Feedback resource for a call
 @return ApiV2010AccountCallCallFeedback
 */
 func (c *DefaultApiService) UpdateCallFeedback(accountSid string, callSid string, params *UpdateCallFeedbackParams) (*ApiV2010AccountCallCallFeedback, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Issue != nil {
-        data.Set("Issue", *params.Issue)
-    }
-    if params != nil && params.QualityScore != nil {
-        data.Set("QualityScore", string(*params.QualityScore))
-    }
+	if params != nil && params.Issue != nil {
+		data.Set("Issue", *params.Issue)
+	}
+	if params != nil && params.QualityScore != nil {
+		data.Set("QualityScore", string(*params.QualityScore))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallFeedback{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallFeedback{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateCallRecordingParams Optional parameters for the method 'UpdateCallRecording'
 type UpdateCallRecordingParams struct {
-    PauseBehavior *string `json:"PauseBehavior,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	PauseBehavior *string `json:"PauseBehavior,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -8729,41 +8727,41 @@ Changes the status of the recording to paused, stopped, or in-progress. Note: Pa
 @return ApiV2010AccountCallCallRecording
 */
 func (c *DefaultApiService) UpdateCallRecording(accountSid string, callSid string, sid string, params *UpdateCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PauseBehavior != nil {
-        data.Set("PauseBehavior", *params.PauseBehavior)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.PauseBehavior != nil {
+		data.Set("PauseBehavior", *params.PauseBehavior)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallCallRecording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallCallRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConferenceParams Optional parameters for the method 'UpdateConference'
 type UpdateConferenceParams struct {
-    AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
-    AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
+	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -8777,42 +8775,42 @@ UpdateConference Method for UpdateConference
 @return ApiV2010AccountConference
 */
 func (c *DefaultApiService) UpdateConference(accountSid string, sid string, params *UpdateConferenceParams) (*ApiV2010AccountConference, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AnnounceMethod != nil {
-        data.Set("AnnounceMethod", *params.AnnounceMethod)
-    }
-    if params != nil && params.AnnounceUrl != nil {
-        data.Set("AnnounceUrl", *params.AnnounceUrl)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.AnnounceMethod != nil {
+		data.Set("AnnounceMethod", *params.AnnounceMethod)
+	}
+	if params != nil && params.AnnounceUrl != nil {
+		data.Set("AnnounceUrl", *params.AnnounceUrl)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConference{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConference{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConferenceRecordingParams Optional parameters for the method 'UpdateConferenceRecording'
 type UpdateConferenceRecordingParams struct {
-    PauseBehavior *string `json:"PauseBehavior,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	PauseBehavior *string `json:"PauseBehavior,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -8827,46 +8825,46 @@ Changes the status of the recording to paused, stopped, or in-progress. Note: To
 @return ApiV2010AccountConferenceConferenceRecording
 */
 func (c *DefaultApiService) UpdateConferenceRecording(accountSid string, conferenceSid string, sid string, params *UpdateConferenceRecordingParams) (*ApiV2010AccountConferenceConferenceRecording, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PauseBehavior != nil {
-        data.Set("PauseBehavior", *params.PauseBehavior)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.PauseBehavior != nil {
+		data.Set("PauseBehavior", *params.PauseBehavior)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConferenceConferenceRecording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConferenceConferenceRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConnectAppParams Optional parameters for the method 'UpdateConnectApp'
 type UpdateConnectAppParams struct {
-    AuthorizeRedirectUrl *string `json:"AuthorizeRedirectUrl,omitempty"`
-    CompanyName *string `json:"CompanyName,omitempty"`
-    DeauthorizeCallbackMethod *string `json:"DeauthorizeCallbackMethod,omitempty"`
-    DeauthorizeCallbackUrl *string `json:"DeauthorizeCallbackUrl,omitempty"`
-    Description *string `json:"Description,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    HomepageUrl *string `json:"HomepageUrl,omitempty"`
-    Permissions *[]string `json:"Permissions,omitempty"`
+	AuthorizeRedirectUrl *string `json:"AuthorizeRedirectUrl,omitempty"`
+	CompanyName *string `json:"CompanyName,omitempty"`
+	DeauthorizeCallbackMethod *string `json:"DeauthorizeCallbackMethod,omitempty"`
+	DeauthorizeCallbackUrl *string `json:"DeauthorizeCallbackUrl,omitempty"`
+	Description *string `json:"Description,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	HomepageUrl *string `json:"HomepageUrl,omitempty"`
+	Permissions *[]string `json:"Permissions,omitempty"`
 }
 
 /*
@@ -8886,78 +8884,78 @@ Update a connect-app with the specified parameters
 @return ApiV2010AccountConnectApp
 */
 func (c *DefaultApiService) UpdateConnectApp(accountSid string, sid string, params *UpdateConnectAppParams) (*ApiV2010AccountConnectApp, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AuthorizeRedirectUrl != nil {
-        data.Set("AuthorizeRedirectUrl", *params.AuthorizeRedirectUrl)
-    }
-    if params != nil && params.CompanyName != nil {
-        data.Set("CompanyName", *params.CompanyName)
-    }
-    if params != nil && params.DeauthorizeCallbackMethod != nil {
-        data.Set("DeauthorizeCallbackMethod", *params.DeauthorizeCallbackMethod)
-    }
-    if params != nil && params.DeauthorizeCallbackUrl != nil {
-        data.Set("DeauthorizeCallbackUrl", *params.DeauthorizeCallbackUrl)
-    }
-    if params != nil && params.Description != nil {
-        data.Set("Description", *params.Description)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.HomepageUrl != nil {
-        data.Set("HomepageUrl", *params.HomepageUrl)
-    }
-    if params != nil && params.Permissions != nil {
-        data.Set("Permissions", *params.Permissions)
-    }
+	if params != nil && params.AuthorizeRedirectUrl != nil {
+		data.Set("AuthorizeRedirectUrl", *params.AuthorizeRedirectUrl)
+	}
+	if params != nil && params.CompanyName != nil {
+		data.Set("CompanyName", *params.CompanyName)
+	}
+	if params != nil && params.DeauthorizeCallbackMethod != nil {
+		data.Set("DeauthorizeCallbackMethod", *params.DeauthorizeCallbackMethod)
+	}
+	if params != nil && params.DeauthorizeCallbackUrl != nil {
+		data.Set("DeauthorizeCallbackUrl", *params.DeauthorizeCallbackUrl)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.HomepageUrl != nil {
+		data.Set("HomepageUrl", *params.HomepageUrl)
+	}
+	if params != nil && params.Permissions != nil {
+		data.Set("Permissions", *params.Permissions)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConnectApp{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConnectApp{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateIncomingPhoneNumberParams Optional parameters for the method 'UpdateIncomingPhoneNumber'
 type UpdateIncomingPhoneNumberParams struct {
-    AccountSid *string `json:"AccountSid,omitempty"`
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -8992,101 +8990,101 @@ Update an incoming-phone-number instance.
 @return ApiV2010AccountIncomingPhoneNumber
 */
 func (c *DefaultApiService) UpdateIncomingPhoneNumber(accountSid string, sid string, params *UpdateIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AccountSid != nil {
-        data.Set("AccountSid", *params.AccountSid)
-    }
-    if params != nil && params.AddressSid != nil {
-        data.Set("AddressSid", *params.AddressSid)
-    }
-    if params != nil && params.ApiVersion != nil {
-        data.Set("ApiVersion", *params.ApiVersion)
-    }
-    if params != nil && params.BundleSid != nil {
-        data.Set("BundleSid", *params.BundleSid)
-    }
-    if params != nil && params.EmergencyAddressSid != nil {
-        data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
-    }
-    if params != nil && params.EmergencyStatus != nil {
-        data.Set("EmergencyStatus", *params.EmergencyStatus)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IdentitySid != nil {
-        data.Set("IdentitySid", *params.IdentitySid)
-    }
-    if params != nil && params.SmsApplicationSid != nil {
-        data.Set("SmsApplicationSid", *params.SmsApplicationSid)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.TrunkSid != nil {
-        data.Set("TrunkSid", *params.TrunkSid)
-    }
-    if params != nil && params.VoiceApplicationSid != nil {
-        data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
-    }
-    if params != nil && params.VoiceCallerIdLookup != nil {
-        data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceReceiveMode != nil {
-        data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.BundleSid != nil {
+		data.Set("BundleSid", *params.BundleSid)
+	}
+	if params != nil && params.EmergencyAddressSid != nil {
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+	}
+	if params != nil && params.EmergencyStatus != nil {
+		data.Set("EmergencyStatus", *params.EmergencyStatus)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IdentitySid != nil {
+		data.Set("IdentitySid", *params.IdentitySid)
+	}
+	if params != nil && params.SmsApplicationSid != nil {
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.TrunkSid != nil {
+		data.Set("TrunkSid", *params.TrunkSid)
+	}
+	if params != nil && params.VoiceApplicationSid != nil {
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", string(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceReceiveMode != nil {
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountIncomingPhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountIncomingPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateKeyParams Optional parameters for the method 'UpdateKey'
 type UpdateKeyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9098,36 +9096,36 @@ UpdateKey Method for UpdateKey
 @return ApiV2010AccountKey
 */
 func (c *DefaultApiService) UpdateKey(accountSid string, sid string, params *UpdateKeyParams) (*ApiV2010AccountKey, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountKey{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateMemberParams Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
-    Method *string `json:"Method,omitempty"`
-    Url *string `json:"Url,omitempty"`
+	Method *string `json:"Method,omitempty"`
+	Url *string `json:"Url,omitempty"`
 }
 
 /*
@@ -9142,39 +9140,39 @@ Dequeue a member from a queue and have the member&#39;s call begin executing the
 @return ApiV2010AccountQueueMember
 */
 func (c *DefaultApiService) UpdateMember(accountSid string, queueSid string, callSid string, params *UpdateMemberParams) (*ApiV2010AccountQueueMember, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"QueueSid"+"}", queueSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"QueueSid"+"}", queueSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Method != nil {
-        data.Set("Method", *params.Method)
-    }
-    if params != nil && params.Url != nil {
-        data.Set("Url", *params.Url)
-    }
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
+	}
+	if params != nil && params.Url != nil {
+		data.Set("Url", *params.Url)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountQueueMember{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountQueueMember{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateMessageParams Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
-    Body *string `json:"Body,omitempty"`
+	Body *string `json:"Body,omitempty"`
 }
 
 /*
@@ -9187,35 +9185,35 @@ To redact a message-body from a post-flight message record, post to the message 
 @return ApiV2010AccountMessage
 */
 func (c *DefaultApiService) UpdateMessage(accountSid string, sid string, params *UpdateMessageParams) (*ApiV2010AccountMessage, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateOutgoingCallerIdParams Optional parameters for the method 'UpdateOutgoingCallerId'
 type UpdateOutgoingCallerIdParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9228,46 +9226,46 @@ Updates the caller-id
 @return ApiV2010AccountOutgoingCallerId
 */
 func (c *DefaultApiService) UpdateOutgoingCallerId(accountSid string, sid string, params *UpdateOutgoingCallerIdParams) (*ApiV2010AccountOutgoingCallerId, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountOutgoingCallerId{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountOutgoingCallerId{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateParticipantParams Optional parameters for the method 'UpdateParticipant'
 type UpdateParticipantParams struct {
-    AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
-    AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
-    BeepOnExit *bool `json:"BeepOnExit,omitempty"`
-    CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
-    Coaching *bool `json:"Coaching,omitempty"`
-    EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
-    Hold *bool `json:"Hold,omitempty"`
-    HoldMethod *string `json:"HoldMethod,omitempty"`
-    HoldUrl *string `json:"HoldUrl,omitempty"`
-    Muted *bool `json:"Muted,omitempty"`
-    WaitMethod *string `json:"WaitMethod,omitempty"`
-    WaitUrl *string `json:"WaitUrl,omitempty"`
+	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
+	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
+	BeepOnExit *bool `json:"BeepOnExit,omitempty"`
+	CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
+	Coaching *bool `json:"Coaching,omitempty"`
+	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
+	Hold *bool `json:"Hold,omitempty"`
+	HoldMethod *string `json:"HoldMethod,omitempty"`
+	HoldUrl *string `json:"HoldUrl,omitempty"`
+	Muted *bool `json:"Muted,omitempty"`
+	WaitMethod *string `json:"WaitMethod,omitempty"`
+	WaitUrl *string `json:"WaitUrl,omitempty"`
 }
 
 /*
@@ -9292,72 +9290,72 @@ Update the properties of the participant
 @return ApiV2010AccountConferenceParticipant
 */
 func (c *DefaultApiService) UpdateParticipant(accountSid string, conferenceSid string, callSid string, params *UpdateParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", conferenceSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AnnounceMethod != nil {
-        data.Set("AnnounceMethod", *params.AnnounceMethod)
-    }
-    if params != nil && params.AnnounceUrl != nil {
-        data.Set("AnnounceUrl", *params.AnnounceUrl)
-    }
-    if params != nil && params.BeepOnExit != nil {
-        data.Set("BeepOnExit", string(*params.BeepOnExit))
-    }
-    if params != nil && params.CallSidToCoach != nil {
-        data.Set("CallSidToCoach", *params.CallSidToCoach)
-    }
-    if params != nil && params.Coaching != nil {
-        data.Set("Coaching", string(*params.Coaching))
-    }
-    if params != nil && params.EndConferenceOnExit != nil {
-        data.Set("EndConferenceOnExit", string(*params.EndConferenceOnExit))
-    }
-    if params != nil && params.Hold != nil {
-        data.Set("Hold", string(*params.Hold))
-    }
-    if params != nil && params.HoldMethod != nil {
-        data.Set("HoldMethod", *params.HoldMethod)
-    }
-    if params != nil && params.HoldUrl != nil {
-        data.Set("HoldUrl", *params.HoldUrl)
-    }
-    if params != nil && params.Muted != nil {
-        data.Set("Muted", string(*params.Muted))
-    }
-    if params != nil && params.WaitMethod != nil {
-        data.Set("WaitMethod", *params.WaitMethod)
-    }
-    if params != nil && params.WaitUrl != nil {
-        data.Set("WaitUrl", *params.WaitUrl)
-    }
+	if params != nil && params.AnnounceMethod != nil {
+		data.Set("AnnounceMethod", *params.AnnounceMethod)
+	}
+	if params != nil && params.AnnounceUrl != nil {
+		data.Set("AnnounceUrl", *params.AnnounceUrl)
+	}
+	if params != nil && params.BeepOnExit != nil {
+		data.Set("BeepOnExit", string(*params.BeepOnExit))
+	}
+	if params != nil && params.CallSidToCoach != nil {
+		data.Set("CallSidToCoach", *params.CallSidToCoach)
+	}
+	if params != nil && params.Coaching != nil {
+		data.Set("Coaching", string(*params.Coaching))
+	}
+	if params != nil && params.EndConferenceOnExit != nil {
+		data.Set("EndConferenceOnExit", string(*params.EndConferenceOnExit))
+	}
+	if params != nil && params.Hold != nil {
+		data.Set("Hold", string(*params.Hold))
+	}
+	if params != nil && params.HoldMethod != nil {
+		data.Set("HoldMethod", *params.HoldMethod)
+	}
+	if params != nil && params.HoldUrl != nil {
+		data.Set("HoldUrl", *params.HoldUrl)
+	}
+	if params != nil && params.Muted != nil {
+		data.Set("Muted", string(*params.Muted))
+	}
+	if params != nil && params.WaitMethod != nil {
+		data.Set("WaitMethod", *params.WaitMethod)
+	}
+	if params != nil && params.WaitUrl != nil {
+		data.Set("WaitUrl", *params.WaitUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountConferenceParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountConferenceParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdatePaymentsParams Optional parameters for the method 'UpdatePayments'
 type UpdatePaymentsParams struct {
-    Capture *string `json:"Capture,omitempty"`
-    IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
+	Capture *string `json:"Capture,omitempty"`
+	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
 /*
@@ -9374,46 +9372,46 @@ update an instance of payments with different phases of payment flows.
 @return ApiV2010AccountCallPayments
 */
 func (c *DefaultApiService) UpdatePayments(accountSid string, callSid string, sid string, params *UpdatePaymentsParams) (*ApiV2010AccountCallPayments, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Capture != nil {
-        data.Set("Capture", *params.Capture)
-    }
-    if params != nil && params.IdempotencyKey != nil {
-        data.Set("IdempotencyKey", *params.IdempotencyKey)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
+	if params != nil && params.Capture != nil {
+		data.Set("Capture", *params.Capture)
+	}
+	if params != nil && params.IdempotencyKey != nil {
+		data.Set("IdempotencyKey", *params.IdempotencyKey)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountCallPayments{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountCallPayments{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateQueueParams Optional parameters for the method 'UpdateQueue'
 type UpdateQueueParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MaxSize *int32 `json:"MaxSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MaxSize *int32 `json:"MaxSize,omitempty"`
 }
 
 /*
@@ -9427,43 +9425,43 @@ Update the queue with the new parameters
 @return ApiV2010AccountQueue
 */
 func (c *DefaultApiService) UpdateQueue(accountSid string, sid string, params *UpdateQueueParams) (*ApiV2010AccountQueue, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.MaxSize != nil {
-        data.Set("MaxSize", string(*params.MaxSize))
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MaxSize != nil {
+		data.Set("MaxSize", string(*params.MaxSize))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountQueue{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountQueue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateShortCodeParams Optional parameters for the method 'UpdateShortCode'
 type UpdateShortCodeParams struct {
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
 }
 
 /*
@@ -9481,50 +9479,50 @@ Update a short code with the following parameters
 @return ApiV2010AccountShortCode
 */
 func (c *DefaultApiService) UpdateShortCode(accountSid string, sid string, params *UpdateShortCodeParams) (*ApiV2010AccountShortCode, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiVersion != nil {
-        data.Set("ApiVersion", *params.ApiVersion)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.SmsFallbackMethod != nil {
-        data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
-    }
-    if params != nil && params.SmsFallbackUrl != nil {
-        data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
-    }
-    if params != nil && params.SmsMethod != nil {
-        data.Set("SmsMethod", *params.SmsMethod)
-    }
-    if params != nil && params.SmsUrl != nil {
-        data.Set("SmsUrl", *params.SmsUrl)
-    }
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountShortCode{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSigningKeyParams Optional parameters for the method 'UpdateSigningKey'
 type UpdateSigningKeyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9536,35 +9534,35 @@ UpdateSigningKey Method for UpdateSigningKey
 @return ApiV2010AccountSigningKey
 */
 func (c *DefaultApiService) UpdateSigningKey(accountSid string, sid string, params *UpdateSigningKeyParams) (*ApiV2010AccountSigningKey, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSigningKey{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSigningKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSipCredentialParams Optional parameters for the method 'UpdateSipCredential'
 type UpdateSipCredentialParams struct {
-    Password *string `json:"Password,omitempty"`
+	Password *string `json:"Password,omitempty"`
 }
 
 /*
@@ -9578,36 +9576,36 @@ Update a credential resource.
 @return ApiV2010AccountSipSipCredentialListSipCredential
 */
 func (c *DefaultApiService) UpdateSipCredential(accountSid string, credentialListSid string, sid string, params *UpdateSipCredentialParams) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"CredentialListSid"+"}", credentialListSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Password != nil {
-        data.Set("Password", *params.Password)
-    }
+	if params != nil && params.Password != nil {
+		data.Set("Password", *params.Password)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipCredentialListSipCredential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipCredentialListSipCredential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSipCredentialListParams Optional parameters for the method 'UpdateSipCredentialList'
 type UpdateSipCredentialListParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9620,47 +9618,47 @@ Update a Credential List
 @return ApiV2010AccountSipSipCredentialList
 */
 func (c *DefaultApiService) UpdateSipCredentialList(accountSid string, sid string, params *UpdateSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipCredentialList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipCredentialList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSipDomainParams Optional parameters for the method 'UpdateSipDomain'
 type UpdateSipDomainParams struct {
-    ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
-    DomainName *string `json:"DomainName,omitempty"`
-    EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
-    EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Secure *bool `json:"Secure,omitempty"`
-    SipRegistration *bool `json:"SipRegistration,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
-    VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
+	DomainName *string `json:"DomainName,omitempty"`
+	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
+	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Secure *bool `json:"Secure,omitempty"`
+	SipRegistration *bool `json:"SipRegistration,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
+	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -9685,71 +9683,71 @@ Update the attributes of a domain
 @return ApiV2010AccountSipSipDomain
 */
 func (c *DefaultApiService) UpdateSipDomain(accountSid string, sid string, params *UpdateSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ByocTrunkSid != nil {
-        data.Set("ByocTrunkSid", *params.ByocTrunkSid)
-    }
-    if params != nil && params.DomainName != nil {
-        data.Set("DomainName", *params.DomainName)
-    }
-    if params != nil && params.EmergencyCallerSid != nil {
-        data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
-    }
-    if params != nil && params.EmergencyCallingEnabled != nil {
-        data.Set("EmergencyCallingEnabled", string(*params.EmergencyCallingEnabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Secure != nil {
-        data.Set("Secure", string(*params.Secure))
-    }
-    if params != nil && params.SipRegistration != nil {
-        data.Set("SipRegistration", string(*params.SipRegistration))
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceStatusCallbackMethod != nil {
-        data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
-    }
-    if params != nil && params.VoiceStatusCallbackUrl != nil {
-        data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.ByocTrunkSid != nil {
+		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+	}
+	if params != nil && params.DomainName != nil {
+		data.Set("DomainName", *params.DomainName)
+	}
+	if params != nil && params.EmergencyCallerSid != nil {
+		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
+	}
+	if params != nil && params.EmergencyCallingEnabled != nil {
+		data.Set("EmergencyCallingEnabled", string(*params.EmergencyCallingEnabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", string(*params.Secure))
+	}
+	if params != nil && params.SipRegistration != nil {
+		data.Set("SipRegistration", string(*params.SipRegistration))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceStatusCallbackMethod != nil {
+		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+	}
+	if params != nil && params.VoiceStatusCallbackUrl != nil {
+		data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipDomain{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipDomain{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSipIpAccessControlListParams Optional parameters for the method 'UpdateSipIpAccessControlList'
 type UpdateSipIpAccessControlListParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9762,37 +9760,37 @@ Rename an IpAccessControlList
 @return ApiV2010AccountSipSipIpAccessControlList
 */
 func (c *DefaultApiService) UpdateSipIpAccessControlList(accountSid string, sid string, params *UpdateSipIpAccessControlListParams) (*ApiV2010AccountSipSipIpAccessControlList, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipIpAccessControlList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipIpAccessControlList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSipIpAddressParams Optional parameters for the method 'UpdateSipIpAddress'
 type UpdateSipIpAddressParams struct {
-    CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IpAddress *string `json:"IpAddress,omitempty"`
+	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IpAddress *string `json:"IpAddress,omitempty"`
 }
 
 /*
@@ -9808,44 +9806,44 @@ Update an IpAddress resource.
 @return ApiV2010AccountSipSipIpAccessControlListSipIpAddress
 */
 func (c *DefaultApiService) UpdateSipIpAddress(accountSid string, ipAccessControlListSid string, sid string, params *UpdateSipIpAddressParams) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", ipAccessControlListSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CidrPrefixLength != nil {
-        data.Set("CidrPrefixLength", string(*params.CidrPrefixLength))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IpAddress != nil {
-        data.Set("IpAddress", *params.IpAddress)
-    }
+	if params != nil && params.CidrPrefixLength != nil {
+		data.Set("CidrPrefixLength", string(*params.CidrPrefixLength))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IpAddress != nil {
+		data.Set("IpAddress", *params.IpAddress)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountSipSipIpAccessControlListSipIpAddress{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountSipSipIpAccessControlListSipIpAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateUsageTriggerParams Optional parameters for the method 'UpdateUsageTrigger'
 type UpdateUsageTriggerParams struct {
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9860,35 +9858,35 @@ Update an instance of a usage trigger
 @return ApiV2010AccountUsageUsageTrigger
 */
 func (c *DefaultApiService) UpdateUsageTrigger(accountSid string, sid string, params *UpdateUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
-    path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
-    path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackMethod != nil {
-        data.Set("CallbackMethod", *params.CallbackMethod)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &ApiV2010AccountUsageUsageTrigger{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &ApiV2010AccountUsageUsageTrigger{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

@@ -13,22 +13,20 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 
 /*
@@ -38,31 +36,31 @@ Fetch a specific Country.
 @return PricingV2VoiceVoiceCountryInstance
 */
 func (c *DefaultApiService) FetchVoiceCountry(isoCountry string) (*PricingV2VoiceVoiceCountryInstance, error) {
-    path := "/v2/Voice/Countries/{IsoCountry}"
-    path = strings.Replace(path, "{"+"IsoCountry"+"}", isoCountry, -1)
+	path := "/v2/Voice/Countries/{IsoCountry}"
+	path = strings.Replace(path, "{"+"IsoCountry"+"}", isoCountry, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PricingV2VoiceVoiceCountryInstance{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PricingV2VoiceVoiceCountryInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // FetchVoiceNumberParams Optional parameters for the method 'FetchVoiceNumber'
 type FetchVoiceNumberParams struct {
-    OriginationNumber *string `json:"OriginationNumber,omitempty"`
+	OriginationNumber *string `json:"OriginationNumber,omitempty"`
 }
 
 /*
@@ -74,34 +72,34 @@ Fetch pricing information for a specific destination and, optionally, originatio
 @return PricingV2VoiceVoiceNumber
 */
 func (c *DefaultApiService) FetchVoiceNumber(destinationNumber string, params *FetchVoiceNumberParams) (*PricingV2VoiceVoiceNumber, error) {
-    path := "/v2/Voice/Numbers/{DestinationNumber}"
-    path = strings.Replace(path, "{"+"DestinationNumber"+"}", destinationNumber, -1)
+	path := "/v2/Voice/Numbers/{DestinationNumber}"
+	path = strings.Replace(path, "{"+"DestinationNumber"+"}", destinationNumber, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.OriginationNumber != nil {
-        data.Set("OriginationNumber", *params.OriginationNumber)
-    }
+	if params != nil && params.OriginationNumber != nil {
+		data.Set("OriginationNumber", *params.OriginationNumber)
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PricingV2VoiceVoiceNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PricingV2VoiceVoiceNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListVoiceCountryParams Optional parameters for the method 'ListVoiceCountry'
 type ListVoiceCountryParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -111,27 +109,27 @@ ListVoiceCountry Method for ListVoiceCountry
 @return PricingV2VoiceVoiceCountryReadResponse
 */
 func (c *DefaultApiService) ListVoiceCountry(params *ListVoiceCountryParams) (*PricingV2VoiceVoiceCountryReadResponse, error) {
-    path := "/v2/Voice/Countries"
+	path := "/v2/Voice/Countries"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &PricingV2VoiceVoiceCountryReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &PricingV2VoiceVoiceCountryReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

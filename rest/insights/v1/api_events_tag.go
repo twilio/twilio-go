@@ -13,27 +13,25 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type EventsTagApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewEventsTagApiService(client *twilio.Client) *EventsTagApiService {
-    return &EventsTagApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &EventsTagApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // ListEventParams Optional parameters for the method 'ListEvent'
 type ListEventParams struct {
-    Edge *string `json:"Edge,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Edge *string `json:"Edge,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -45,31 +43,31 @@ ListEvent Method for ListEvent
 @return InsightsV1CallEventReadResponse
 */
 func (c *EventsTagApiService) ListEvent(callSid string, params *ListEventParams) (*InsightsV1CallEventReadResponse, error) {
-    path := "/v1/Voice/{CallSid}/Events"
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/v1/Voice/{CallSid}/Events"
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Edge != nil {
-        data.Set("Edge", *params.Edge)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Edge != nil {
+		data.Set("Edge", *params.Edge)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &InsightsV1CallEventReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &InsightsV1CallEventReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

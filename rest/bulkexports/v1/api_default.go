@@ -13,31 +13,29 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateExportCustomJobParams Optional parameters for the method 'CreateExportCustomJob'
 type CreateExportCustomJobParams struct {
-    Email *string `json:"Email,omitempty"`
-    EndDay *string `json:"EndDay,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    StartDay *string `json:"StartDay,omitempty"`
-    WebhookMethod *string `json:"WebhookMethod,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	Email *string `json:"Email,omitempty"`
+	EndDay *string `json:"EndDay,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	StartDay *string `json:"StartDay,omitempty"`
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -53,45 +51,45 @@ CreateExportCustomJob Method for CreateExportCustomJob
 @return BulkexportsV1ExportExportCustomJob
 */
 func (c *DefaultApiService) CreateExportCustomJob(resourceType string, params *CreateExportCustomJobParams) (*BulkexportsV1ExportExportCustomJob, error) {
-    path := "/v1/Exports/{ResourceType}/Jobs"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/v1/Exports/{ResourceType}/Jobs"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Email != nil {
-        data.Set("Email", *params.Email)
-    }
-    if params != nil && params.EndDay != nil {
-        data.Set("EndDay", *params.EndDay)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.StartDay != nil {
-        data.Set("StartDay", *params.StartDay)
-    }
-    if params != nil && params.WebhookMethod != nil {
-        data.Set("WebhookMethod", *params.WebhookMethod)
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.EndDay != nil {
+		data.Set("EndDay", *params.EndDay)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.StartDay != nil {
+		data.Set("StartDay", *params.StartDay)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &BulkexportsV1ExportExportCustomJob{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &BulkexportsV1ExportExportCustomJob{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -99,22 +97,22 @@ DeleteJob Method for DeleteJob
  * @param jobSid The unique string that that we created to identify the Bulk Export job
 */
 func (c *DefaultApiService) DeleteJob(jobSid string) (error) {
-    path := "/v1/Exports/Jobs/{JobSid}"
-    path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
+	path := "/v1/Exports/Jobs/{JobSid}"
+	path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -124,23 +122,23 @@ Fetch a specific Day.
  * @param day The ISO 8601 format date of the resources in the file, for a UTC day
 */
 func (c *DefaultApiService) FetchDay(resourceType string, day string) (error) {
-    path := "/v1/Exports/{ResourceType}/Days/{Day}"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
-    path = strings.Replace(path, "{"+"Day"+"}", day, -1)
+	path := "/v1/Exports/{ResourceType}/Days/{Day}"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path = strings.Replace(path, "{"+"Day"+"}", day, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -150,27 +148,27 @@ Fetch a specific Export.
 @return BulkexportsV1Export
 */
 func (c *DefaultApiService) FetchExport(resourceType string) (*BulkexportsV1Export, error) {
-    path := "/v1/Exports/{ResourceType}"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/v1/Exports/{ResourceType}"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &BulkexportsV1Export{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &BulkexportsV1Export{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -180,27 +178,27 @@ Fetch a specific Export Configuration.
 @return BulkexportsV1ExportConfiguration
 */
 func (c *DefaultApiService) FetchExportConfiguration(resourceType string) (*BulkexportsV1ExportConfiguration, error) {
-    path := "/v1/Exports/{ResourceType}/Configuration"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/v1/Exports/{ResourceType}/Configuration"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &BulkexportsV1ExportConfiguration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &BulkexportsV1ExportConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -209,31 +207,31 @@ FetchJob Method for FetchJob
 @return BulkexportsV1ExportJob
 */
 func (c *DefaultApiService) FetchJob(jobSid string) (*BulkexportsV1ExportJob, error) {
-    path := "/v1/Exports/Jobs/{JobSid}"
-    path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
+	path := "/v1/Exports/Jobs/{JobSid}"
+	path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &BulkexportsV1ExportJob{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &BulkexportsV1ExportJob{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDayParams Optional parameters for the method 'ListDay'
 type ListDayParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -245,34 +243,34 @@ Retrieve a list of all Days for a resource.
 @return BulkexportsV1ExportDayReadResponse
 */
 func (c *DefaultApiService) ListDay(resourceType string, params *ListDayParams) (*BulkexportsV1ExportDayReadResponse, error) {
-    path := "/v1/Exports/{ResourceType}/Days"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/v1/Exports/{ResourceType}/Days"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &BulkexportsV1ExportDayReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &BulkexportsV1ExportDayReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListExportCustomJobParams Optional parameters for the method 'ListExportCustomJob'
 type ListExportCustomJobParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -283,36 +281,36 @@ ListExportCustomJob Method for ListExportCustomJob
 @return BulkexportsV1ExportExportCustomJobReadResponse
 */
 func (c *DefaultApiService) ListExportCustomJob(resourceType string, params *ListExportCustomJobParams) (*BulkexportsV1ExportExportCustomJobReadResponse, error) {
-    path := "/v1/Exports/{ResourceType}/Jobs"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/v1/Exports/{ResourceType}/Jobs"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &BulkexportsV1ExportExportCustomJobReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &BulkexportsV1ExportExportCustomJobReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateExportConfigurationParams Optional parameters for the method 'UpdateExportConfiguration'
 type UpdateExportConfigurationParams struct {
-    Enabled *bool `json:"Enabled,omitempty"`
-    WebhookMethod *string `json:"WebhookMethod,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -326,34 +324,34 @@ Update a specific Export Configuration.
 @return BulkexportsV1ExportConfiguration
 */
 func (c *DefaultApiService) UpdateExportConfiguration(resourceType string, params *UpdateExportConfigurationParams) (*BulkexportsV1ExportConfiguration, error) {
-    path := "/v1/Exports/{ResourceType}/Configuration"
-    path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path := "/v1/Exports/{ResourceType}/Configuration"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.WebhookMethod != nil {
-        data.Set("WebhookMethod", *params.WebhookMethod)
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &BulkexportsV1ExportConfiguration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &BulkexportsV1ExportConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

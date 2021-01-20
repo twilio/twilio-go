@@ -13,32 +13,30 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateAssistantParams Optional parameters for the method 'CreateAssistant'
 type CreateAssistantParams struct {
-    CallbackEvents *string `json:"CallbackEvents,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    Defaults *map[string]interface{} `json:"Defaults,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    LogQueries *bool `json:"LogQueries,omitempty"`
-    StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	CallbackEvents *string `json:"CallbackEvents,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	LogQueries *bool `json:"LogQueries,omitempty"`
+	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -54,64 +52,64 @@ CreateAssistant Method for CreateAssistant
 @return AutopilotV1Assistant
 */
 func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV1Assistant, error) {
-    path := "/v1/Assistants"
+	path := "/v1/Assistants"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackEvents != nil {
-        data.Set("CallbackEvents", *params.CallbackEvents)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.Defaults != nil {
-        v, err := json.Marshal(params.Defaults)
+	if params != nil && params.CallbackEvents != nil {
+		data.Set("CallbackEvents", *params.CallbackEvents)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.Defaults != nil {
+		v, err := json.Marshal(params.Defaults)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Defaults", string(v))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.LogQueries != nil {
-        data.Set("LogQueries", string(*params.LogQueries))
-    }
-    if params != nil && params.StyleSheet != nil {
-        v, err := json.Marshal(params.StyleSheet)
+		data.Set("Defaults", string(v))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.LogQueries != nil {
+		data.Set("LogQueries", string(*params.LogQueries))
+	}
+	if params != nil && params.StyleSheet != nil {
+		v, err := json.Marshal(params.StyleSheet)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("StyleSheet", string(v))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("StyleSheet", string(v))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1Assistant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1Assistant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFieldParams Optional parameters for the method 'CreateField'
 type CreateFieldParams struct {
-    FieldType *string `json:"FieldType,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	FieldType *string `json:"FieldType,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -124,39 +122,39 @@ CreateField Method for CreateField
 @return AutopilotV1AssistantTaskField
 */
 func (c *DefaultApiService) CreateField(assistantSid string, taskSid string, params *CreateFieldParams) (*AutopilotV1AssistantTaskField, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FieldType != nil {
-        data.Set("FieldType", *params.FieldType)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.FieldType != nil {
+		data.Set("FieldType", *params.FieldType)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskField{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskField{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFieldTypeParams Optional parameters for the method 'CreateFieldType'
 type CreateFieldTypeParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -168,39 +166,39 @@ CreateFieldType Method for CreateFieldType
 @return AutopilotV1AssistantFieldType
 */
 func (c *DefaultApiService) CreateFieldType(assistantSid string, params *CreateFieldTypeParams) (*AutopilotV1AssistantFieldType, error) {
-    path := "/v1/Assistants/{AssistantSid}/FieldTypes"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantFieldType{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantFieldType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFieldValueParams Optional parameters for the method 'CreateFieldValue'
 type CreateFieldValueParams struct {
-    Language *string `json:"Language,omitempty"`
-    SynonymOf *string `json:"SynonymOf,omitempty"`
-    Value *string `json:"Value,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	SynonymOf *string `json:"SynonymOf,omitempty"`
+	Value *string `json:"Value,omitempty"`
 }
 
 /*
@@ -214,42 +212,42 @@ CreateFieldValue Method for CreateFieldValue
 @return AutopilotV1AssistantFieldTypeFieldValue
 */
 func (c *DefaultApiService) CreateFieldValue(assistantSid string, fieldTypeSid string, params *CreateFieldValueParams) (*AutopilotV1AssistantFieldTypeFieldValue, error) {
-    path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.SynonymOf != nil {
-        data.Set("SynonymOf", *params.SynonymOf)
-    }
-    if params != nil && params.Value != nil {
-        data.Set("Value", *params.Value)
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.SynonymOf != nil {
+		data.Set("SynonymOf", *params.SynonymOf)
+	}
+	if params != nil && params.Value != nil {
+		data.Set("Value", *params.Value)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantFieldTypeFieldValue{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantFieldTypeFieldValue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateModelBuildParams Optional parameters for the method 'CreateModelBuild'
 type CreateModelBuildParams struct {
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -261,40 +259,40 @@ CreateModelBuild Method for CreateModelBuild
 @return AutopilotV1AssistantModelBuild
 */
 func (c *DefaultApiService) CreateModelBuild(assistantSid string, params *CreateModelBuildParams) (*AutopilotV1AssistantModelBuild, error) {
-    path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantModelBuild{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantModelBuild{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateQueryParams Optional parameters for the method 'CreateQuery'
 type CreateQueryParams struct {
-    Language *string `json:"Language,omitempty"`
-    ModelBuild *string `json:"ModelBuild,omitempty"`
-    Query *string `json:"Query,omitempty"`
-    Tasks *string `json:"Tasks,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	ModelBuild *string `json:"ModelBuild,omitempty"`
+	Query *string `json:"Query,omitempty"`
+	Tasks *string `json:"Tasks,omitempty"`
 }
 
 /*
@@ -308,45 +306,45 @@ CreateQuery Method for CreateQuery
 @return AutopilotV1AssistantQuery
 */
 func (c *DefaultApiService) CreateQuery(assistantSid string, params *CreateQueryParams) (*AutopilotV1AssistantQuery, error) {
-    path := "/v1/Assistants/{AssistantSid}/Queries"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Queries"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.ModelBuild != nil {
-        data.Set("ModelBuild", *params.ModelBuild)
-    }
-    if params != nil && params.Query != nil {
-        data.Set("Query", *params.Query)
-    }
-    if params != nil && params.Tasks != nil {
-        data.Set("Tasks", *params.Tasks)
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.ModelBuild != nil {
+		data.Set("ModelBuild", *params.ModelBuild)
+	}
+	if params != nil && params.Query != nil {
+		data.Set("Query", *params.Query)
+	}
+	if params != nil && params.Tasks != nil {
+		data.Set("Tasks", *params.Tasks)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantQuery{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantQuery{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSampleParams Optional parameters for the method 'CreateSample'
 type CreateSampleParams struct {
-    Language *string `json:"Language,omitempty"`
-    SourceChannel *string `json:"SourceChannel,omitempty"`
-    TaggedText *string `json:"TaggedText,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	SourceChannel *string `json:"SourceChannel,omitempty"`
+	TaggedText *string `json:"TaggedText,omitempty"`
 }
 
 /*
@@ -360,44 +358,44 @@ CreateSample Method for CreateSample
 @return AutopilotV1AssistantTaskSample
 */
 func (c *DefaultApiService) CreateSample(assistantSid string, taskSid string, params *CreateSampleParams) (*AutopilotV1AssistantTaskSample, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.SourceChannel != nil {
-        data.Set("SourceChannel", *params.SourceChannel)
-    }
-    if params != nil && params.TaggedText != nil {
-        data.Set("TaggedText", *params.TaggedText)
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.SourceChannel != nil {
+		data.Set("SourceChannel", *params.SourceChannel)
+	}
+	if params != nil && params.TaggedText != nil {
+		data.Set("TaggedText", *params.TaggedText)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskSample{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskSample{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateTaskParams Optional parameters for the method 'CreateTask'
 type CreateTaskParams struct {
-    Actions *map[string]interface{} `json:"Actions,omitempty"`
-    ActionsUrl *string `json:"ActionsUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Actions *map[string]interface{} `json:"Actions,omitempty"`
+	ActionsUrl *string `json:"ActionsUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -411,52 +409,52 @@ CreateTask Method for CreateTask
 @return AutopilotV1AssistantTask
 */
 func (c *DefaultApiService) CreateTask(assistantSid string, params *CreateTaskParams) (*AutopilotV1AssistantTask, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Actions != nil {
-        v, err := json.Marshal(params.Actions)
+	if params != nil && params.Actions != nil {
+		v, err := json.Marshal(params.Actions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Actions", string(v))
-    }
-    if params != nil && params.ActionsUrl != nil {
-        data.Set("ActionsUrl", *params.ActionsUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("Actions", string(v))
+	}
+	if params != nil && params.ActionsUrl != nil {
+		data.Set("ActionsUrl", *params.ActionsUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTask{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTask{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateWebhookParams Optional parameters for the method 'CreateWebhook'
 type CreateWebhookParams struct {
-    Events *string `json:"Events,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    WebhookMethod *string `json:"WebhookMethod,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	Events *string `json:"Events,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -470,39 +468,39 @@ CreateWebhook Method for CreateWebhook
 @return AutopilotV1AssistantWebhook
 */
 func (c *DefaultApiService) CreateWebhook(assistantSid string, params *CreateWebhookParams) (*AutopilotV1AssistantWebhook, error) {
-    path := "/v1/Assistants/{AssistantSid}/Webhooks"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Webhooks"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Events != nil {
-        data.Set("Events", *params.Events)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.WebhookMethod != nil {
-        data.Set("WebhookMethod", *params.WebhookMethod)
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.Events != nil {
+		data.Set("Events", *params.Events)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -510,22 +508,22 @@ DeleteAssistant Method for DeleteAssistant
  * @param sid The Twilio-provided string that uniquely identifies the Assistant resource to delete.
 */
 func (c *DefaultApiService) DeleteAssistant(sid string) (error) {
-    path := "/v1/Assistants/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -535,24 +533,24 @@ DeleteField Method for DeleteField
  * @param sid The Twilio-provided string that uniquely identifies the Field resource to delete.
 */
 func (c *DefaultApiService) DeleteField(assistantSid string, taskSid string, sid string) (error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -561,23 +559,23 @@ DeleteFieldType Method for DeleteFieldType
  * @param sid The Twilio-provided string that uniquely identifies the FieldType resource to delete.
 */
 func (c *DefaultApiService) DeleteFieldType(assistantSid string, sid string) (error) {
-    path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -587,24 +585,24 @@ DeleteFieldValue Method for DeleteFieldValue
  * @param sid The Twilio-provided string that uniquely identifies the FieldValue resource to delete.
 */
 func (c *DefaultApiService) DeleteFieldValue(assistantSid string, fieldTypeSid string, sid string) (error) {
-    path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -613,23 +611,23 @@ DeleteModelBuild Method for DeleteModelBuild
  * @param sid The Twilio-provided string that uniquely identifies the ModelBuild resource to delete.
 */
 func (c *DefaultApiService) DeleteModelBuild(assistantSid string, sid string) (error) {
-    path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -638,23 +636,23 @@ DeleteQuery Method for DeleteQuery
  * @param sid The Twilio-provided string that uniquely identifies the Query resource to delete.
 */
 func (c *DefaultApiService) DeleteQuery(assistantSid string, sid string) (error) {
-    path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -664,24 +662,24 @@ DeleteSample Method for DeleteSample
  * @param sid The Twilio-provided string that uniquely identifies the Sample resource to delete.
 */
 func (c *DefaultApiService) DeleteSample(assistantSid string, taskSid string, sid string) (error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -690,23 +688,23 @@ DeleteTask Method for DeleteTask
  * @param sid The Twilio-provided string that uniquely identifies the Task resource to delete.
 */
 func (c *DefaultApiService) DeleteTask(assistantSid string, sid string) (error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -715,23 +713,23 @@ DeleteWebhook Method for DeleteWebhook
  * @param sid The Twilio-provided string that uniquely identifies the Webhook resource to delete.
 */
 func (c *DefaultApiService) DeleteWebhook(assistantSid string, sid string) (error) {
-    path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -740,27 +738,27 @@ FetchAssistant Method for FetchAssistant
 @return AutopilotV1Assistant
 */
 func (c *DefaultApiService) FetchAssistant(sid string) (*AutopilotV1Assistant, error) {
-    path := "/v1/Assistants/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1Assistant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1Assistant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -769,27 +767,27 @@ FetchDefaults Method for FetchDefaults
 @return AutopilotV1AssistantDefaults
 */
 func (c *DefaultApiService) FetchDefaults(assistantSid string) (*AutopilotV1AssistantDefaults, error) {
-    path := "/v1/Assistants/{AssistantSid}/Defaults"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Defaults"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantDefaults{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantDefaults{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -799,28 +797,28 @@ FetchDialogue Method for FetchDialogue
 @return AutopilotV1AssistantDialogue
 */
 func (c *DefaultApiService) FetchDialogue(assistantSid string, sid string) (*AutopilotV1AssistantDialogue, error) {
-    path := "/v1/Assistants/{AssistantSid}/Dialogues/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Dialogues/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantDialogue{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantDialogue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -831,29 +829,29 @@ FetchField Method for FetchField
 @return AutopilotV1AssistantTaskField
 */
 func (c *DefaultApiService) FetchField(assistantSid string, taskSid string, sid string) (*AutopilotV1AssistantTaskField, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskField{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskField{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -863,28 +861,28 @@ FetchFieldType Method for FetchFieldType
 @return AutopilotV1AssistantFieldType
 */
 func (c *DefaultApiService) FetchFieldType(assistantSid string, sid string) (*AutopilotV1AssistantFieldType, error) {
-    path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantFieldType{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantFieldType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -895,29 +893,29 @@ FetchFieldValue Method for FetchFieldValue
 @return AutopilotV1AssistantFieldTypeFieldValue
 */
 func (c *DefaultApiService) FetchFieldValue(assistantSid string, fieldTypeSid string, sid string) (*AutopilotV1AssistantFieldTypeFieldValue, error) {
-    path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantFieldTypeFieldValue{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantFieldTypeFieldValue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -927,28 +925,28 @@ FetchModelBuild Method for FetchModelBuild
 @return AutopilotV1AssistantModelBuild
 */
 func (c *DefaultApiService) FetchModelBuild(assistantSid string, sid string) (*AutopilotV1AssistantModelBuild, error) {
-    path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantModelBuild{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantModelBuild{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -958,28 +956,28 @@ FetchQuery Method for FetchQuery
 @return AutopilotV1AssistantQuery
 */
 func (c *DefaultApiService) FetchQuery(assistantSid string, sid string) (*AutopilotV1AssistantQuery, error) {
-    path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantQuery{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantQuery{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -990,29 +988,29 @@ FetchSample Method for FetchSample
 @return AutopilotV1AssistantTaskSample
 */
 func (c *DefaultApiService) FetchSample(assistantSid string, taskSid string, sid string) (*AutopilotV1AssistantTaskSample, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskSample{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskSample{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1022,27 +1020,27 @@ Returns Style sheet JSON object for the Assistant
 @return AutopilotV1AssistantStyleSheet
 */
 func (c *DefaultApiService) FetchStyleSheet(assistantSid string) (*AutopilotV1AssistantStyleSheet, error) {
-    path := "/v1/Assistants/{AssistantSid}/StyleSheet"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantStyleSheet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantStyleSheet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1052,28 +1050,28 @@ FetchTask Method for FetchTask
 @return AutopilotV1AssistantTask
 */
 func (c *DefaultApiService) FetchTask(assistantSid string, sid string) (*AutopilotV1AssistantTask, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTask{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTask{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1084,28 +1082,28 @@ Returns JSON actions for the Task.
 @return AutopilotV1AssistantTaskTaskActions
 */
 func (c *DefaultApiService) FetchTaskActions(assistantSid string, taskSid string) (*AutopilotV1AssistantTaskTaskActions, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskTaskActions{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskTaskActions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1115,28 +1113,28 @@ FetchTaskStatistics Method for FetchTaskStatistics
 @return AutopilotV1AssistantTaskTaskStatistics
 */
 func (c *DefaultApiService) FetchTaskStatistics(assistantSid string, taskSid string) (*AutopilotV1AssistantTaskTaskStatistics, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskTaskStatistics{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskTaskStatistics{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1146,32 +1144,32 @@ FetchWebhook Method for FetchWebhook
 @return AutopilotV1AssistantWebhook
 */
 func (c *DefaultApiService) FetchWebhook(assistantSid string, sid string) (*AutopilotV1AssistantWebhook, error) {
-    path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListAssistantParams Optional parameters for the method 'ListAssistant'
 type ListAssistantParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1181,33 +1179,33 @@ ListAssistant Method for ListAssistant
 @return AutopilotV1AssistantReadResponse
 */
 func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*AutopilotV1AssistantReadResponse, error) {
-    path := "/v1/Assistants"
+	path := "/v1/Assistants"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFieldParams Optional parameters for the method 'ListField'
 type ListFieldParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1219,35 +1217,35 @@ ListField Method for ListField
 @return AutopilotV1AssistantTaskFieldReadResponse
 */
 func (c *DefaultApiService) ListField(assistantSid string, taskSid string, params *ListFieldParams) (*AutopilotV1AssistantTaskFieldReadResponse, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskFieldReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskFieldReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFieldTypeParams Optional parameters for the method 'ListFieldType'
 type ListFieldTypeParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1258,35 +1256,35 @@ ListFieldType Method for ListFieldType
 @return AutopilotV1AssistantFieldTypeReadResponse
 */
 func (c *DefaultApiService) ListFieldType(assistantSid string, params *ListFieldTypeParams) (*AutopilotV1AssistantFieldTypeReadResponse, error) {
-    path := "/v1/Assistants/{AssistantSid}/FieldTypes"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantFieldTypeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantFieldTypeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFieldValueParams Optional parameters for the method 'ListFieldValue'
 type ListFieldValueParams struct {
-    Language *string `json:"Language,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1299,38 +1297,38 @@ ListFieldValue Method for ListFieldValue
 @return AutopilotV1AssistantFieldTypeFieldValueReadResponse
 */
 func (c *DefaultApiService) ListFieldValue(assistantSid string, fieldTypeSid string, params *ListFieldValueParams) (*AutopilotV1AssistantFieldTypeFieldValueReadResponse, error) {
-    path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantFieldTypeFieldValueReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantFieldTypeFieldValueReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListModelBuildParams Optional parameters for the method 'ListModelBuild'
 type ListModelBuildParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1341,38 +1339,38 @@ ListModelBuild Method for ListModelBuild
 @return AutopilotV1AssistantModelBuildReadResponse
 */
 func (c *DefaultApiService) ListModelBuild(assistantSid string, params *ListModelBuildParams) (*AutopilotV1AssistantModelBuildReadResponse, error) {
-    path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantModelBuildReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantModelBuildReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListQueryParams Optional parameters for the method 'ListQuery'
 type ListQueryParams struct {
-    Language *string `json:"Language,omitempty"`
-    ModelBuild *string `json:"ModelBuild,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    DialogueSid *string `json:"DialogueSid,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	ModelBuild *string `json:"ModelBuild,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	DialogueSid *string `json:"DialogueSid,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1387,47 +1385,47 @@ ListQuery Method for ListQuery
 @return AutopilotV1AssistantQueryReadResponse
 */
 func (c *DefaultApiService) ListQuery(assistantSid string, params *ListQueryParams) (*AutopilotV1AssistantQueryReadResponse, error) {
-    path := "/v1/Assistants/{AssistantSid}/Queries"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Queries"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.ModelBuild != nil {
-        data.Set("ModelBuild", *params.ModelBuild)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.DialogueSid != nil {
-        data.Set("DialogueSid", *params.DialogueSid)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.ModelBuild != nil {
+		data.Set("ModelBuild", *params.ModelBuild)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.DialogueSid != nil {
+		data.Set("DialogueSid", *params.DialogueSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantQueryReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantQueryReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSampleParams Optional parameters for the method 'ListSample'
 type ListSampleParams struct {
-    Language *string `json:"Language,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1440,38 +1438,38 @@ ListSample Method for ListSample
 @return AutopilotV1AssistantTaskSampleReadResponse
 */
 func (c *DefaultApiService) ListSample(assistantSid string, taskSid string, params *ListSampleParams) (*AutopilotV1AssistantTaskSampleReadResponse, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskSampleReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskSampleReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListTaskParams Optional parameters for the method 'ListTask'
 type ListTaskParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1482,34 +1480,34 @@ ListTask Method for ListTask
 @return AutopilotV1AssistantTaskReadResponse
 */
 func (c *DefaultApiService) ListTask(assistantSid string, params *ListTaskParams) (*AutopilotV1AssistantTaskReadResponse, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListWebhookParams Optional parameters for the method 'ListWebhook'
 type ListWebhookParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1520,41 +1518,41 @@ ListWebhook Method for ListWebhook
 @return AutopilotV1AssistantWebhookReadResponse
 */
 func (c *DefaultApiService) ListWebhook(assistantSid string, params *ListWebhookParams) (*AutopilotV1AssistantWebhookReadResponse, error) {
-    path := "/v1/Assistants/{AssistantSid}/Webhooks"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Webhooks"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantWebhookReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantWebhookReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateAssistantParams Optional parameters for the method 'UpdateAssistant'
 type UpdateAssistantParams struct {
-    CallbackEvents *string `json:"CallbackEvents,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    Defaults *map[string]interface{} `json:"Defaults,omitempty"`
-    DevelopmentStage *string `json:"DevelopmentStage,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    LogQueries *bool `json:"LogQueries,omitempty"`
-    StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	CallbackEvents *string `json:"CallbackEvents,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
+	DevelopmentStage *string `json:"DevelopmentStage,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	LogQueries *bool `json:"LogQueries,omitempty"`
+	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1572,67 +1570,67 @@ UpdateAssistant Method for UpdateAssistant
 @return AutopilotV1Assistant
 */
 func (c *DefaultApiService) UpdateAssistant(sid string, params *UpdateAssistantParams) (*AutopilotV1Assistant, error) {
-    path := "/v1/Assistants/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CallbackEvents != nil {
-        data.Set("CallbackEvents", *params.CallbackEvents)
-    }
-    if params != nil && params.CallbackUrl != nil {
-        data.Set("CallbackUrl", *params.CallbackUrl)
-    }
-    if params != nil && params.Defaults != nil {
-        v, err := json.Marshal(params.Defaults)
+	if params != nil && params.CallbackEvents != nil {
+		data.Set("CallbackEvents", *params.CallbackEvents)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.Defaults != nil {
+		v, err := json.Marshal(params.Defaults)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Defaults", string(v))
-    }
-    if params != nil && params.DevelopmentStage != nil {
-        data.Set("DevelopmentStage", *params.DevelopmentStage)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.LogQueries != nil {
-        data.Set("LogQueries", string(*params.LogQueries))
-    }
-    if params != nil && params.StyleSheet != nil {
-        v, err := json.Marshal(params.StyleSheet)
+		data.Set("Defaults", string(v))
+	}
+	if params != nil && params.DevelopmentStage != nil {
+		data.Set("DevelopmentStage", *params.DevelopmentStage)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.LogQueries != nil {
+		data.Set("LogQueries", string(*params.LogQueries))
+	}
+	if params != nil && params.StyleSheet != nil {
+		v, err := json.Marshal(params.StyleSheet)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("StyleSheet", string(v))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("StyleSheet", string(v))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1Assistant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1Assistant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateDefaultsParams Optional parameters for the method 'UpdateDefaults'
 type UpdateDefaultsParams struct {
-    Defaults *map[string]interface{} `json:"Defaults,omitempty"`
+	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
 }
 
 /*
@@ -1643,41 +1641,41 @@ UpdateDefaults Method for UpdateDefaults
 @return AutopilotV1AssistantDefaults
 */
 func (c *DefaultApiService) UpdateDefaults(assistantSid string, params *UpdateDefaultsParams) (*AutopilotV1AssistantDefaults, error) {
-    path := "/v1/Assistants/{AssistantSid}/Defaults"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Defaults"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Defaults != nil {
-        v, err := json.Marshal(params.Defaults)
+	if params != nil && params.Defaults != nil {
+		v, err := json.Marshal(params.Defaults)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Defaults", string(v))
-    }
+		data.Set("Defaults", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantDefaults{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantDefaults{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateFieldTypeParams Optional parameters for the method 'UpdateFieldType'
 type UpdateFieldTypeParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1690,38 +1688,38 @@ UpdateFieldType Method for UpdateFieldType
 @return AutopilotV1AssistantFieldType
 */
 func (c *DefaultApiService) UpdateFieldType(assistantSid string, sid string, params *UpdateFieldTypeParams) (*AutopilotV1AssistantFieldType, error) {
-    path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantFieldType{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantFieldType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateModelBuildParams Optional parameters for the method 'UpdateModelBuild'
 type UpdateModelBuildParams struct {
-    UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1733,36 +1731,36 @@ UpdateModelBuild Method for UpdateModelBuild
 @return AutopilotV1AssistantModelBuild
 */
 func (c *DefaultApiService) UpdateModelBuild(assistantSid string, sid string, params *UpdateModelBuildParams) (*AutopilotV1AssistantModelBuild, error) {
-    path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantModelBuild{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantModelBuild{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateQueryParams Optional parameters for the method 'UpdateQuery'
 type UpdateQueryParams struct {
-    SampleSid *string `json:"SampleSid,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	SampleSid *string `json:"SampleSid,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -1775,38 +1773,38 @@ UpdateQuery Method for UpdateQuery
 @return AutopilotV1AssistantQuery
 */
 func (c *DefaultApiService) UpdateQuery(assistantSid string, sid string, params *UpdateQueryParams) (*AutopilotV1AssistantQuery, error) {
-    path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.SampleSid != nil {
-        data.Set("SampleSid", *params.SampleSid)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.SampleSid != nil {
+		data.Set("SampleSid", *params.SampleSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantQuery{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantQuery{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRestoreAssistantParams Optional parameters for the method 'UpdateRestoreAssistant'
 type UpdateRestoreAssistantParams struct {
-    Assistant *string `json:"Assistant,omitempty"`
+	Assistant *string `json:"Assistant,omitempty"`
 }
 
 /*
@@ -1816,35 +1814,35 @@ UpdateRestoreAssistant Method for UpdateRestoreAssistant
 @return AutopilotV1RestoreAssistant
 */
 func (c *DefaultApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistantParams) (*AutopilotV1RestoreAssistant, error) {
-    path := "/v1/Assistants/Restore"
+	path := "/v1/Assistants/Restore"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Assistant != nil {
-        data.Set("Assistant", *params.Assistant)
-    }
+	if params != nil && params.Assistant != nil {
+		data.Set("Assistant", *params.Assistant)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1RestoreAssistant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1RestoreAssistant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSampleParams Optional parameters for the method 'UpdateSample'
 type UpdateSampleParams struct {
-    Language *string `json:"Language,omitempty"`
-    SourceChannel *string `json:"SourceChannel,omitempty"`
-    TaggedText *string `json:"TaggedText,omitempty"`
+	Language *string `json:"Language,omitempty"`
+	SourceChannel *string `json:"SourceChannel,omitempty"`
+	TaggedText *string `json:"TaggedText,omitempty"`
 }
 
 /*
@@ -1859,42 +1857,42 @@ UpdateSample Method for UpdateSample
 @return AutopilotV1AssistantTaskSample
 */
 func (c *DefaultApiService) UpdateSample(assistantSid string, taskSid string, sid string, params *UpdateSampleParams) (*AutopilotV1AssistantTaskSample, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Language != nil {
-        data.Set("Language", *params.Language)
-    }
-    if params != nil && params.SourceChannel != nil {
-        data.Set("SourceChannel", *params.SourceChannel)
-    }
-    if params != nil && params.TaggedText != nil {
-        data.Set("TaggedText", *params.TaggedText)
-    }
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.SourceChannel != nil {
+		data.Set("SourceChannel", *params.SourceChannel)
+	}
+	if params != nil && params.TaggedText != nil {
+		data.Set("TaggedText", *params.TaggedText)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskSample{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskSample{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateStyleSheetParams Optional parameters for the method 'UpdateStyleSheet'
 type UpdateStyleSheetParams struct {
-    StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
 }
 
 /*
@@ -1906,43 +1904,43 @@ Updates the style sheet for an Assistant identified by &#x60;assistant_sid&#x60;
 @return AutopilotV1AssistantStyleSheet
 */
 func (c *DefaultApiService) UpdateStyleSheet(assistantSid string, params *UpdateStyleSheetParams) (*AutopilotV1AssistantStyleSheet, error) {
-    path := "/v1/Assistants/{AssistantSid}/StyleSheet"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.StyleSheet != nil {
-        v, err := json.Marshal(params.StyleSheet)
+	if params != nil && params.StyleSheet != nil {
+		v, err := json.Marshal(params.StyleSheet)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("StyleSheet", string(v))
-    }
+		data.Set("StyleSheet", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantStyleSheet{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantStyleSheet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateTaskParams Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
-    Actions *map[string]interface{} `json:"Actions,omitempty"`
-    ActionsUrl *string `json:"ActionsUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Actions *map[string]interface{} `json:"Actions,omitempty"`
+	ActionsUrl *string `json:"ActionsUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1957,50 +1955,50 @@ UpdateTask Method for UpdateTask
 @return AutopilotV1AssistantTask
 */
 func (c *DefaultApiService) UpdateTask(assistantSid string, sid string, params *UpdateTaskParams) (*AutopilotV1AssistantTask, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Actions != nil {
-        v, err := json.Marshal(params.Actions)
+	if params != nil && params.Actions != nil {
+		v, err := json.Marshal(params.Actions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Actions", string(v))
-    }
-    if params != nil && params.ActionsUrl != nil {
-        data.Set("ActionsUrl", *params.ActionsUrl)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("Actions", string(v))
+	}
+	if params != nil && params.ActionsUrl != nil {
+		data.Set("ActionsUrl", *params.ActionsUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTask{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTask{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateTaskActionsParams Optional parameters for the method 'UpdateTaskActions'
 type UpdateTaskActionsParams struct {
-    Actions *map[string]interface{} `json:"Actions,omitempty"`
+	Actions *map[string]interface{} `json:"Actions,omitempty"`
 }
 
 /*
@@ -2013,44 +2011,44 @@ Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
 @return AutopilotV1AssistantTaskTaskActions
 */
 func (c *DefaultApiService) UpdateTaskActions(assistantSid string, taskSid string, params *UpdateTaskActionsParams) (*AutopilotV1AssistantTaskTaskActions, error) {
-    path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Actions != nil {
-        v, err := json.Marshal(params.Actions)
+	if params != nil && params.Actions != nil {
+		v, err := json.Marshal(params.Actions)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Actions", string(v))
-    }
+		data.Set("Actions", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantTaskTaskActions{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantTaskTaskActions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateWebhookParams Optional parameters for the method 'UpdateWebhook'
 type UpdateWebhookParams struct {
-    Events *string `json:"Events,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    WebhookMethod *string `json:"WebhookMethod,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	Events *string `json:"Events,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -2065,38 +2063,38 @@ UpdateWebhook Method for UpdateWebhook
 @return AutopilotV1AssistantWebhook
 */
 func (c *DefaultApiService) UpdateWebhook(assistantSid string, sid string, params *UpdateWebhookParams) (*AutopilotV1AssistantWebhook, error) {
-    path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Events != nil {
-        data.Set("Events", *params.Events)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.WebhookMethod != nil {
-        data.Set("WebhookMethod", *params.WebhookMethod)
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
+	if params != nil && params.Events != nil {
+		data.Set("Events", *params.Events)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &AutopilotV1AssistantWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &AutopilotV1AssistantWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

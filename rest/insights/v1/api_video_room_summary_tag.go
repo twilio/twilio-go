@@ -13,23 +13,20 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    "reflect"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type VideoRoomSummaryTagApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewVideoRoomSummaryTagApiService(client *twilio.Client) *VideoRoomSummaryTagApiService {
-    return &VideoRoomSummaryTagApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &VideoRoomSummaryTagApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 
 /*
@@ -38,36 +35,36 @@ FetchVideoRoomSummary Method for FetchVideoRoomSummary
 @return InsightsV1VideoRoomSummary
 */
 func (c *VideoRoomSummaryTagApiService) FetchVideoRoomSummary(roomSid string) (*InsightsV1VideoRoomSummary, error) {
-    path := "/v1/Video/Rooms/{RoomSid}"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path := "/v1/Video/Rooms/{RoomSid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &InsightsV1VideoRoomSummary{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &InsightsV1VideoRoomSummary{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListVideoRoomSummaryParams Optional parameters for the method 'ListVideoRoomSummary'
 type ListVideoRoomSummaryParams struct {
-    RoomType *[]string `json:"RoomType,omitempty"`
-    Codec *[]string `json:"Codec,omitempty"`
-    RoomName *string `json:"RoomName,omitempty"`
-    CreatedAfter *time.Time `json:"CreatedAfter,omitempty"`
-    CreatedBefore *time.Time `json:"CreatedBefore,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	RoomType *[]string `json:"RoomType,omitempty"`
+	Codec *[]string `json:"Codec,omitempty"`
+	RoomName *string `json:"RoomName,omitempty"`
+	CreatedAfter *time.Time `json:"CreatedAfter,omitempty"`
+	CreatedBefore *time.Time `json:"CreatedBefore,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -82,42 +79,42 @@ ListVideoRoomSummary Method for ListVideoRoomSummary
 @return InsightsV1VideoRoomSummaryReadResponse
 */
 func (c *VideoRoomSummaryTagApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*InsightsV1VideoRoomSummaryReadResponse, error) {
-    path := "/v1/Video/Rooms"
+	path := "/v1/Video/Rooms"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.RoomType != nil {
-        data.Set("RoomType", string(*params.RoomType))
-    }
-    if params != nil && params.Codec != nil {
-        data.Set("Codec", string(*params.Codec))
-    }
-    if params != nil && params.RoomName != nil {
-        data.Set("RoomName", *params.RoomName)
-    }
-    if params != nil && params.CreatedAfter != nil {
-        data.Set("CreatedAfter", string(*params.CreatedAfter))
-    }
-    if params != nil && params.CreatedBefore != nil {
-        data.Set("CreatedBefore", string(*params.CreatedBefore))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.RoomType != nil {
+		data.Set("RoomType", string(*params.RoomType))
+	}
+	if params != nil && params.Codec != nil {
+		data.Set("Codec", string(*params.Codec))
+	}
+	if params != nil && params.RoomName != nil {
+		data.Set("RoomName", *params.RoomName)
+	}
+	if params != nil && params.CreatedAfter != nil {
+		data.Set("CreatedAfter", string(*params.CreatedAfter))
+	}
+	if params != nil && params.CreatedBefore != nil {
+		data.Set("CreatedBefore", string(*params.CreatedBefore))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &InsightsV1VideoRoomSummaryReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &InsightsV1VideoRoomSummaryReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

@@ -13,33 +13,30 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
-    "reflect"
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateBindingParams Optional parameters for the method 'CreateBinding'
 type CreateBindingParams struct {
-    Address *string `json:"Address,omitempty"`
-    BindingType *string `json:"BindingType,omitempty"`
-    CredentialSid *string `json:"CredentialSid,omitempty"`
-    Endpoint *string `json:"Endpoint,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    NotificationProtocolVersion *string `json:"NotificationProtocolVersion,omitempty"`
-    Tag *[]string `json:"Tag,omitempty"`
+	Address *string `json:"Address,omitempty"`
+	BindingType *string `json:"BindingType,omitempty"`
+	CredentialSid *string `json:"CredentialSid,omitempty"`
+	Endpoint *string `json:"Endpoint,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	NotificationProtocolVersion *string `json:"NotificationProtocolVersion,omitempty"`
+	Tag *[]string `json:"Tag,omitempty"`
 }
 
 /*
@@ -56,58 +53,58 @@ CreateBinding Method for CreateBinding
 @return NotifyV1ServiceBinding
 */
 func (c *DefaultApiService) CreateBinding(serviceSid string, params *CreateBindingParams) (*NotifyV1ServiceBinding, error) {
-    path := "/v1/Services/{ServiceSid}/Bindings"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Bindings"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Address != nil {
-        data.Set("Address", *params.Address)
-    }
-    if params != nil && params.BindingType != nil {
-        data.Set("BindingType", *params.BindingType)
-    }
-    if params != nil && params.CredentialSid != nil {
-        data.Set("CredentialSid", *params.CredentialSid)
-    }
-    if params != nil && params.Endpoint != nil {
-        data.Set("Endpoint", *params.Endpoint)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.NotificationProtocolVersion != nil {
-        data.Set("NotificationProtocolVersion", *params.NotificationProtocolVersion)
-    }
-    if params != nil && params.Tag != nil {
-        data.Set("Tag", *params.Tag)
-    }
+	if params != nil && params.Address != nil {
+		data.Set("Address", *params.Address)
+	}
+	if params != nil && params.BindingType != nil {
+		data.Set("BindingType", *params.BindingType)
+	}
+	if params != nil && params.CredentialSid != nil {
+		data.Set("CredentialSid", *params.CredentialSid)
+	}
+	if params != nil && params.Endpoint != nil {
+		data.Set("Endpoint", *params.Endpoint)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.NotificationProtocolVersion != nil {
+		data.Set("NotificationProtocolVersion", *params.NotificationProtocolVersion)
+	}
+	if params != nil && params.Tag != nil {
+		data.Set("Tag", *params.Tag)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1ServiceBinding{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1ServiceBinding{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCredentialParams Optional parameters for the method 'CreateCredential'
 type CreateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -123,68 +120,68 @@ CreateCredential Method for CreateCredential
 @return NotifyV1Credential
 */
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*NotifyV1Credential, error) {
-    path := "/v1/Credentials"
+	path := "/v1/Credentials"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiKey != nil {
-        data.Set("ApiKey", *params.ApiKey)
-    }
-    if params != nil && params.Certificate != nil {
-        data.Set("Certificate", *params.Certificate)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PrivateKey != nil {
-        data.Set("PrivateKey", *params.PrivateKey)
-    }
-    if params != nil && params.Sandbox != nil {
-        data.Set("Sandbox", string(*params.Sandbox))
-    }
-    if params != nil && params.Secret != nil {
-        data.Set("Secret", *params.Secret)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", string(*params.Sandbox))
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateNotificationParams Optional parameters for the method 'CreateNotification'
 type CreateNotificationParams struct {
-    Action *string `json:"Action,omitempty"`
-    Alexa *map[string]interface{} `json:"Alexa,omitempty"`
-    Apn *map[string]interface{} `json:"Apn,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    Data *map[string]interface{} `json:"Data,omitempty"`
-    DeliveryCallbackUrl *string `json:"DeliveryCallbackUrl,omitempty"`
-    FacebookMessenger *map[string]interface{} `json:"FacebookMessenger,omitempty"`
-    Fcm *map[string]interface{} `json:"Fcm,omitempty"`
-    Gcm *map[string]interface{} `json:"Gcm,omitempty"`
-    Identity *[]string `json:"Identity,omitempty"`
-    Priority *string `json:"Priority,omitempty"`
-    Segment *[]string `json:"Segment,omitempty"`
-    Sms *map[string]interface{} `json:"Sms,omitempty"`
-    Sound *string `json:"Sound,omitempty"`
-    Tag *[]string `json:"Tag,omitempty"`
-    Title *string `json:"Title,omitempty"`
-    ToBinding *[]string `json:"ToBinding,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	Action *string `json:"Action,omitempty"`
+	Alexa *map[string]interface{} `json:"Alexa,omitempty"`
+	Apn *map[string]interface{} `json:"Apn,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	DeliveryCallbackUrl *string `json:"DeliveryCallbackUrl,omitempty"`
+	FacebookMessenger *map[string]interface{} `json:"FacebookMessenger,omitempty"`
+	Fcm *map[string]interface{} `json:"Fcm,omitempty"`
+	Gcm *map[string]interface{} `json:"Gcm,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	Priority *string `json:"Priority,omitempty"`
+	Segment *[]string `json:"Segment,omitempty"`
+	Sms *map[string]interface{} `json:"Sms,omitempty"`
+	Sound *string `json:"Sound,omitempty"`
+	Tag *[]string `json:"Tag,omitempty"`
+	Title *string `json:"Title,omitempty"`
+	ToBinding *[]string `json:"ToBinding,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -212,140 +209,140 @@ CreateNotification Method for CreateNotification
 @return NotifyV1ServiceNotification
 */
 func (c *DefaultApiService) CreateNotification(serviceSid string, params *CreateNotificationParams) (*NotifyV1ServiceNotification, error) {
-    path := "/v1/Services/{ServiceSid}/Notifications"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Notifications"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Action != nil {
-        data.Set("Action", *params.Action)
-    }
-    if params != nil && params.Alexa != nil {
-        v, err := json.Marshal(params.Alexa)
+	if params != nil && params.Action != nil {
+		data.Set("Action", *params.Action)
+	}
+	if params != nil && params.Alexa != nil {
+		v, err := json.Marshal(params.Alexa)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Alexa", string(v))
-    }
-    if params != nil && params.Apn != nil {
-        v, err := json.Marshal(params.Apn)
+		data.Set("Alexa", string(v))
+	}
+	if params != nil && params.Apn != nil {
+		v, err := json.Marshal(params.Apn)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Apn", string(v))
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+		data.Set("Apn", string(v))
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
-    if params != nil && params.DeliveryCallbackUrl != nil {
-        data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
-    }
-    if params != nil && params.FacebookMessenger != nil {
-        v, err := json.Marshal(params.FacebookMessenger)
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.DeliveryCallbackUrl != nil {
+		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+	}
+	if params != nil && params.FacebookMessenger != nil {
+		v, err := json.Marshal(params.FacebookMessenger)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("FacebookMessenger", string(v))
-    }
-    if params != nil && params.Fcm != nil {
-        v, err := json.Marshal(params.Fcm)
+		data.Set("FacebookMessenger", string(v))
+	}
+	if params != nil && params.Fcm != nil {
+		v, err := json.Marshal(params.Fcm)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Fcm", string(v))
-    }
-    if params != nil && params.Gcm != nil {
-        v, err := json.Marshal(params.Gcm)
+		data.Set("Fcm", string(v))
+	}
+	if params != nil && params.Gcm != nil {
+		v, err := json.Marshal(params.Gcm)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Gcm", string(v))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.Priority != nil {
-        data.Set("Priority", *params.Priority)
-    }
-    if params != nil && params.Segment != nil {
-        data.Set("Segment", *params.Segment)
-    }
-    if params != nil && params.Sms != nil {
-        v, err := json.Marshal(params.Sms)
+		data.Set("Gcm", string(v))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.Priority != nil {
+		data.Set("Priority", *params.Priority)
+	}
+	if params != nil && params.Segment != nil {
+		data.Set("Segment", *params.Segment)
+	}
+	if params != nil && params.Sms != nil {
+		v, err := json.Marshal(params.Sms)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Sms", string(v))
-    }
-    if params != nil && params.Sound != nil {
-        data.Set("Sound", *params.Sound)
-    }
-    if params != nil && params.Tag != nil {
-        data.Set("Tag", *params.Tag)
-    }
-    if params != nil && params.Title != nil {
-        data.Set("Title", *params.Title)
-    }
-    if params != nil && params.ToBinding != nil {
-        data.Set("ToBinding", *params.ToBinding)
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+		data.Set("Sms", string(v))
+	}
+	if params != nil && params.Sound != nil {
+		data.Set("Sound", *params.Sound)
+	}
+	if params != nil && params.Tag != nil {
+		data.Set("Tag", *params.Tag)
+	}
+	if params != nil && params.Title != nil {
+		data.Set("Title", *params.Title)
+	}
+	if params != nil && params.ToBinding != nil {
+		data.Set("ToBinding", *params.ToBinding)
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1ServiceNotification{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1ServiceNotification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    AlexaSkillId *string `json:"AlexaSkillId,omitempty"`
-    ApnCredentialSid *string `json:"ApnCredentialSid,omitempty"`
-    DefaultAlexaNotificationProtocolVersion *string `json:"DefaultAlexaNotificationProtocolVersion,omitempty"`
-    DefaultApnNotificationProtocolVersion *string `json:"DefaultApnNotificationProtocolVersion,omitempty"`
-    DefaultFcmNotificationProtocolVersion *string `json:"DefaultFcmNotificationProtocolVersion,omitempty"`
-    DefaultGcmNotificationProtocolVersion *string `json:"DefaultGcmNotificationProtocolVersion,omitempty"`
-    DeliveryCallbackEnabled *bool `json:"DeliveryCallbackEnabled,omitempty"`
-    DeliveryCallbackUrl *string `json:"DeliveryCallbackUrl,omitempty"`
-    FacebookMessengerPageId *string `json:"FacebookMessengerPageId,omitempty"`
-    FcmCredentialSid *string `json:"FcmCredentialSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    GcmCredentialSid *string `json:"GcmCredentialSid,omitempty"`
-    LogEnabled *bool `json:"LogEnabled,omitempty"`
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	AlexaSkillId *string `json:"AlexaSkillId,omitempty"`
+	ApnCredentialSid *string `json:"ApnCredentialSid,omitempty"`
+	DefaultAlexaNotificationProtocolVersion *string `json:"DefaultAlexaNotificationProtocolVersion,omitempty"`
+	DefaultApnNotificationProtocolVersion *string `json:"DefaultApnNotificationProtocolVersion,omitempty"`
+	DefaultFcmNotificationProtocolVersion *string `json:"DefaultFcmNotificationProtocolVersion,omitempty"`
+	DefaultGcmNotificationProtocolVersion *string `json:"DefaultGcmNotificationProtocolVersion,omitempty"`
+	DeliveryCallbackEnabled *bool `json:"DeliveryCallbackEnabled,omitempty"`
+	DeliveryCallbackUrl *string `json:"DeliveryCallbackUrl,omitempty"`
+	FacebookMessengerPageId *string `json:"FacebookMessengerPageId,omitempty"`
+	FcmCredentialSid *string `json:"FcmCredentialSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	GcmCredentialSid *string `json:"GcmCredentialSid,omitempty"`
+	LogEnabled *bool `json:"LogEnabled,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 
 /*
@@ -368,68 +365,68 @@ CreateService Method for CreateService
 @return NotifyV1Service
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*NotifyV1Service, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AlexaSkillId != nil {
-        data.Set("AlexaSkillId", *params.AlexaSkillId)
-    }
-    if params != nil && params.ApnCredentialSid != nil {
-        data.Set("ApnCredentialSid", *params.ApnCredentialSid)
-    }
-    if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
-        data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
-    }
-    if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
-        data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
-    }
-    if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
-        data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
-    }
-    if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
-        data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
-    }
-    if params != nil && params.DeliveryCallbackEnabled != nil {
-        data.Set("DeliveryCallbackEnabled", string(*params.DeliveryCallbackEnabled))
-    }
-    if params != nil && params.DeliveryCallbackUrl != nil {
-        data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
-    }
-    if params != nil && params.FacebookMessengerPageId != nil {
-        data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
-    }
-    if params != nil && params.FcmCredentialSid != nil {
-        data.Set("FcmCredentialSid", *params.FcmCredentialSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.GcmCredentialSid != nil {
-        data.Set("GcmCredentialSid", *params.GcmCredentialSid)
-    }
-    if params != nil && params.LogEnabled != nil {
-        data.Set("LogEnabled", string(*params.LogEnabled))
-    }
-    if params != nil && params.MessagingServiceSid != nil {
-        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-    }
+	if params != nil && params.AlexaSkillId != nil {
+		data.Set("AlexaSkillId", *params.AlexaSkillId)
+	}
+	if params != nil && params.ApnCredentialSid != nil {
+		data.Set("ApnCredentialSid", *params.ApnCredentialSid)
+	}
+	if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
+		data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
+	}
+	if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
+		data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
+	}
+	if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
+		data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
+	}
+	if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
+		data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
+	}
+	if params != nil && params.DeliveryCallbackEnabled != nil {
+		data.Set("DeliveryCallbackEnabled", string(*params.DeliveryCallbackEnabled))
+	}
+	if params != nil && params.DeliveryCallbackUrl != nil {
+		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+	}
+	if params != nil && params.FacebookMessengerPageId != nil {
+		data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
+	}
+	if params != nil && params.FcmCredentialSid != nil {
+		data.Set("FcmCredentialSid", *params.FcmCredentialSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.GcmCredentialSid != nil {
+		data.Set("GcmCredentialSid", *params.GcmCredentialSid)
+	}
+	if params != nil && params.LogEnabled != nil {
+		data.Set("LogEnabled", string(*params.LogEnabled))
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -438,23 +435,23 @@ DeleteBinding Method for DeleteBinding
  * @param sid The Twilio-provided string that uniquely identifies the Binding resource to delete.
 */
 func (c *DefaultApiService) DeleteBinding(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -462,22 +459,22 @@ DeleteCredential Method for DeleteCredential
  * @param sid The Twilio-provided string that uniquely identifies the Credential resource to delete.
 */
 func (c *DefaultApiService) DeleteCredential(sid string) (error) {
-    path := "/v1/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -485,22 +482,22 @@ DeleteService Method for DeleteService
  * @param sid The Twilio-provided string that uniquely identifies the Service resource to delete.
 */
 func (c *DefaultApiService) DeleteService(sid string) (error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -510,28 +507,28 @@ FetchBinding Method for FetchBinding
 @return NotifyV1ServiceBinding
 */
 func (c *DefaultApiService) FetchBinding(serviceSid string, sid string) (*NotifyV1ServiceBinding, error) {
-    path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1ServiceBinding{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1ServiceBinding{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -540,27 +537,27 @@ FetchCredential Method for FetchCredential
 @return NotifyV1Credential
 */
 func (c *DefaultApiService) FetchCredential(sid string) (*NotifyV1Credential, error) {
-    path := "/v1/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -569,35 +566,35 @@ FetchService Method for FetchService
 @return NotifyV1Service
 */
 func (c *DefaultApiService) FetchService(sid string) (*NotifyV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListBindingParams Optional parameters for the method 'ListBinding'
 type ListBindingParams struct {
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    Identity *[]string `json:"Identity,omitempty"`
-    Tag *[]string `json:"Tag,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	Tag *[]string `json:"Tag,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -612,46 +609,46 @@ ListBinding Method for ListBinding
 @return NotifyV1ServiceBindingReadResponse
 */
 func (c *DefaultApiService) ListBinding(serviceSid string, params *ListBindingParams) (*NotifyV1ServiceBindingReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Bindings"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Bindings"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.StartDate != nil {
-        data.Set("StartDate", string(*params.StartDate))
-    }
-    if params != nil && params.EndDate != nil {
-        data.Set("EndDate", string(*params.EndDate))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", string(*params.Identity))
-    }
-    if params != nil && params.Tag != nil {
-        data.Set("Tag", string(*params.Tag))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", string(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", string(*params.EndDate))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", string(*params.Identity))
+	}
+	if params != nil && params.Tag != nil {
+		data.Set("Tag", string(*params.Tag))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1ServiceBindingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1ServiceBindingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCredentialParams Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -661,34 +658,34 @@ ListCredential Method for ListCredential
 @return NotifyV1CredentialReadResponse
 */
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*NotifyV1CredentialReadResponse, error) {
-    path := "/v1/Credentials"
+	path := "/v1/Credentials"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1CredentialReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1CredentialReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -699,41 +696,41 @@ ListService Method for ListService
 @return NotifyV1ServiceReadResponse
 */
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*NotifyV1ServiceReadResponse, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1ServiceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1ServiceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateCredentialParams Optional parameters for the method 'UpdateCredential'
 type UpdateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
 }
 
 /*
@@ -749,62 +746,62 @@ UpdateCredential Method for UpdateCredential
 @return NotifyV1Credential
 */
 func (c *DefaultApiService) UpdateCredential(sid string, params *UpdateCredentialParams) (*NotifyV1Credential, error) {
-    path := "/v1/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiKey != nil {
-        data.Set("ApiKey", *params.ApiKey)
-    }
-    if params != nil && params.Certificate != nil {
-        data.Set("Certificate", *params.Certificate)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PrivateKey != nil {
-        data.Set("PrivateKey", *params.PrivateKey)
-    }
-    if params != nil && params.Sandbox != nil {
-        data.Set("Sandbox", string(*params.Sandbox))
-    }
-    if params != nil && params.Secret != nil {
-        data.Set("Secret", *params.Secret)
-    }
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", string(*params.Sandbox))
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-    AlexaSkillId *string `json:"AlexaSkillId,omitempty"`
-    ApnCredentialSid *string `json:"ApnCredentialSid,omitempty"`
-    DefaultAlexaNotificationProtocolVersion *string `json:"DefaultAlexaNotificationProtocolVersion,omitempty"`
-    DefaultApnNotificationProtocolVersion *string `json:"DefaultApnNotificationProtocolVersion,omitempty"`
-    DefaultFcmNotificationProtocolVersion *string `json:"DefaultFcmNotificationProtocolVersion,omitempty"`
-    DefaultGcmNotificationProtocolVersion *string `json:"DefaultGcmNotificationProtocolVersion,omitempty"`
-    DeliveryCallbackEnabled *bool `json:"DeliveryCallbackEnabled,omitempty"`
-    DeliveryCallbackUrl *string `json:"DeliveryCallbackUrl,omitempty"`
-    FacebookMessengerPageId *string `json:"FacebookMessengerPageId,omitempty"`
-    FcmCredentialSid *string `json:"FcmCredentialSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    GcmCredentialSid *string `json:"GcmCredentialSid,omitempty"`
-    LogEnabled *bool `json:"LogEnabled,omitempty"`
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	AlexaSkillId *string `json:"AlexaSkillId,omitempty"`
+	ApnCredentialSid *string `json:"ApnCredentialSid,omitempty"`
+	DefaultAlexaNotificationProtocolVersion *string `json:"DefaultAlexaNotificationProtocolVersion,omitempty"`
+	DefaultApnNotificationProtocolVersion *string `json:"DefaultApnNotificationProtocolVersion,omitempty"`
+	DefaultFcmNotificationProtocolVersion *string `json:"DefaultFcmNotificationProtocolVersion,omitempty"`
+	DefaultGcmNotificationProtocolVersion *string `json:"DefaultGcmNotificationProtocolVersion,omitempty"`
+	DeliveryCallbackEnabled *bool `json:"DeliveryCallbackEnabled,omitempty"`
+	DeliveryCallbackUrl *string `json:"DeliveryCallbackUrl,omitempty"`
+	FacebookMessengerPageId *string `json:"FacebookMessengerPageId,omitempty"`
+	FcmCredentialSid *string `json:"FcmCredentialSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	GcmCredentialSid *string `json:"GcmCredentialSid,omitempty"`
+	LogEnabled *bool `json:"LogEnabled,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 
 /*
@@ -828,67 +825,67 @@ UpdateService Method for UpdateService
 @return NotifyV1Service
 */
 func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*NotifyV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AlexaSkillId != nil {
-        data.Set("AlexaSkillId", *params.AlexaSkillId)
-    }
-    if params != nil && params.ApnCredentialSid != nil {
-        data.Set("ApnCredentialSid", *params.ApnCredentialSid)
-    }
-    if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
-        data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
-    }
-    if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
-        data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
-    }
-    if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
-        data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
-    }
-    if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
-        data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
-    }
-    if params != nil && params.DeliveryCallbackEnabled != nil {
-        data.Set("DeliveryCallbackEnabled", string(*params.DeliveryCallbackEnabled))
-    }
-    if params != nil && params.DeliveryCallbackUrl != nil {
-        data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
-    }
-    if params != nil && params.FacebookMessengerPageId != nil {
-        data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
-    }
-    if params != nil && params.FcmCredentialSid != nil {
-        data.Set("FcmCredentialSid", *params.FcmCredentialSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.GcmCredentialSid != nil {
-        data.Set("GcmCredentialSid", *params.GcmCredentialSid)
-    }
-    if params != nil && params.LogEnabled != nil {
-        data.Set("LogEnabled", string(*params.LogEnabled))
-    }
-    if params != nil && params.MessagingServiceSid != nil {
-        data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-    }
+	if params != nil && params.AlexaSkillId != nil {
+		data.Set("AlexaSkillId", *params.AlexaSkillId)
+	}
+	if params != nil && params.ApnCredentialSid != nil {
+		data.Set("ApnCredentialSid", *params.ApnCredentialSid)
+	}
+	if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
+		data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
+	}
+	if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
+		data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
+	}
+	if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
+		data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
+	}
+	if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
+		data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
+	}
+	if params != nil && params.DeliveryCallbackEnabled != nil {
+		data.Set("DeliveryCallbackEnabled", string(*params.DeliveryCallbackEnabled))
+	}
+	if params != nil && params.DeliveryCallbackUrl != nil {
+		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+	}
+	if params != nil && params.FacebookMessengerPageId != nil {
+		data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
+	}
+	if params != nil && params.FcmCredentialSid != nil {
+		data.Set("FcmCredentialSid", *params.FcmCredentialSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.GcmCredentialSid != nil {
+		data.Set("GcmCredentialSid", *params.GcmCredentialSid)
+	}
+	if params != nil && params.LogEnabled != nil {
+		data.Set("LogEnabled", string(*params.LogEnabled))
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NotifyV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NotifyV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

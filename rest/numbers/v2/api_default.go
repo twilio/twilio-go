@@ -13,32 +13,30 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateBundleParams Optional parameters for the method 'CreateBundle'
 type CreateBundleParams struct {
-    Email *string `json:"Email,omitempty"`
-    EndUserType *string `json:"EndUserType,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IsoCountry *string `json:"IsoCountry,omitempty"`
-    NumberType *string `json:"NumberType,omitempty"`
-    RegulationSid *string `json:"RegulationSid,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
+	Email *string `json:"Email,omitempty"`
+	EndUserType *string `json:"EndUserType,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	NumberType *string `json:"NumberType,omitempty"`
+	RegulationSid *string `json:"RegulationSid,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
 /*
@@ -55,53 +53,53 @@ Create a new Bundle.
 @return NumbersV2RegulatoryComplianceBundle
 */
 func (c *DefaultApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2RegulatoryComplianceBundle, error) {
-    path := "/v2/RegulatoryCompliance/Bundles"
+	path := "/v2/RegulatoryCompliance/Bundles"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Email != nil {
-        data.Set("Email", *params.Email)
-    }
-    if params != nil && params.EndUserType != nil {
-        data.Set("EndUserType", *params.EndUserType)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IsoCountry != nil {
-        data.Set("IsoCountry", *params.IsoCountry)
-    }
-    if params != nil && params.NumberType != nil {
-        data.Set("NumberType", *params.NumberType)
-    }
-    if params != nil && params.RegulationSid != nil {
-        data.Set("RegulationSid", *params.RegulationSid)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.EndUserType != nil {
+		data.Set("EndUserType", *params.EndUserType)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.NumberType != nil {
+		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.RegulationSid != nil {
+		data.Set("RegulationSid", *params.RegulationSid)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundle{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundle{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateEndUserParams Optional parameters for the method 'CreateEndUser'
 type CreateEndUserParams struct {
-    Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -114,41 +112,41 @@ Create a new End User.
 @return NumbersV2RegulatoryComplianceEndUser
 */
 func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2RegulatoryComplianceEndUser, error) {
-    path := "/v2/RegulatoryCompliance/EndUsers"
+	path := "/v2/RegulatoryCompliance/EndUsers"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        v, err := json.Marshal(params.Attributes)
+	if params != nil && params.Attributes != nil {
+		v, err := json.Marshal(params.Attributes)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Attributes", string(v))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+		data.Set("Attributes", string(v))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceEndUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceEndUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -157,31 +155,31 @@ CreateEvaluation Method for CreateEvaluation
 @return NumbersV2RegulatoryComplianceBundleEvaluation
 */
 func (c *DefaultApiService) CreateEvaluation(bundleSid string) (*NumbersV2RegulatoryComplianceBundleEvaluation, error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
-    path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundleEvaluation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundleEvaluation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateItemAssignmentParams Optional parameters for the method 'CreateItemAssignment'
 type CreateItemAssignmentParams struct {
-    ObjectSid *string `json:"ObjectSid,omitempty"`
+	ObjectSid *string `json:"ObjectSid,omitempty"`
 }
 
 /*
@@ -193,36 +191,36 @@ Create a new Assigned Item.
 @return NumbersV2RegulatoryComplianceBundleItemAssignment
 */
 func (c *DefaultApiService) CreateItemAssignment(bundleSid string, params *CreateItemAssignmentParams) (*NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
-    path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ObjectSid != nil {
-        data.Set("ObjectSid", *params.ObjectSid)
-    }
+	if params != nil && params.ObjectSid != nil {
+		data.Set("ObjectSid", *params.ObjectSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundleItemAssignment{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundleItemAssignment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSupportingDocumentParams Optional parameters for the method 'CreateSupportingDocument'
 type CreateSupportingDocumentParams struct {
-    Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -235,41 +233,41 @@ Create a new Supporting Document.
 @return NumbersV2RegulatoryComplianceSupportingDocument
 */
 func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
-    path := "/v2/RegulatoryCompliance/SupportingDocuments"
+	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        v, err := json.Marshal(params.Attributes)
+	if params != nil && params.Attributes != nil {
+		v, err := json.Marshal(params.Attributes)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Attributes", string(v))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+		data.Set("Attributes", string(v))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceSupportingDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceSupportingDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -278,22 +276,22 @@ Delete a specific Bundle.
  * @param sid The unique string that we created to identify the Bundle resource.
 */
 func (c *DefaultApiService) DeleteBundle(sid string) (error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -302,22 +300,22 @@ Delete a specific End User.
  * @param sid The unique string created by Twilio to identify the End User resource.
 */
 func (c *DefaultApiService) DeleteEndUser(sid string) (error) {
-    path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -327,23 +325,23 @@ Remove an Assignment Item Instance.
  * @param sid The unique string that we created to identify the Identity resource.
 */
 func (c *DefaultApiService) DeleteItemAssignment(bundleSid string, sid string) (error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
-    path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -352,22 +350,22 @@ Delete a specific Supporting Document.
  * @param sid The unique string created by Twilio to identify the Supporting Document resource.
 */
 func (c *DefaultApiService) DeleteSupportingDocument(sid string) (error) {
-    path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -377,27 +375,27 @@ Fetch a specific Bundle instance.
 @return NumbersV2RegulatoryComplianceBundle
 */
 func (c *DefaultApiService) FetchBundle(sid string) (*NumbersV2RegulatoryComplianceBundle, error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundle{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundle{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -407,27 +405,27 @@ Fetch specific End User Instance.
 @return NumbersV2RegulatoryComplianceEndUser
 */
 func (c *DefaultApiService) FetchEndUser(sid string) (*NumbersV2RegulatoryComplianceEndUser, error) {
-    path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceEndUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceEndUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -437,27 +435,27 @@ Fetch a specific End-User Type Instance.
 @return NumbersV2RegulatoryComplianceEndUserType
 */
 func (c *DefaultApiService) FetchEndUserType(sid string) (*NumbersV2RegulatoryComplianceEndUserType, error) {
-    path := "/v2/RegulatoryCompliance/EndUserTypes/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/EndUserTypes/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceEndUserType{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceEndUserType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -468,28 +466,28 @@ Fetch specific Evaluation Instance.
 @return NumbersV2RegulatoryComplianceBundleEvaluation
 */
 func (c *DefaultApiService) FetchEvaluation(bundleSid string, sid string) (*NumbersV2RegulatoryComplianceBundleEvaluation, error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}"
-    path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundleEvaluation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundleEvaluation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -500,28 +498,28 @@ Fetch specific Assigned Item Instance.
 @return NumbersV2RegulatoryComplianceBundleItemAssignment
 */
 func (c *DefaultApiService) FetchItemAssignment(bundleSid string, sid string) (*NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
-    path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundleItemAssignment{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundleItemAssignment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -531,27 +529,27 @@ Fetch specific Regulation Instance.
 @return NumbersV2RegulatoryComplianceRegulation
 */
 func (c *DefaultApiService) FetchRegulation(sid string) (*NumbersV2RegulatoryComplianceRegulation, error) {
-    path := "/v2/RegulatoryCompliance/Regulations/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/Regulations/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceRegulation{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceRegulation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -561,27 +559,27 @@ Fetch specific Supporting Document Instance.
 @return NumbersV2RegulatoryComplianceSupportingDocument
 */
 func (c *DefaultApiService) FetchSupportingDocument(sid string) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
-    path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceSupportingDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceSupportingDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -591,36 +589,36 @@ Fetch a specific Supporting Document Type Instance.
 @return NumbersV2RegulatoryComplianceSupportingDocumentType
 */
 func (c *DefaultApiService) FetchSupportingDocumentType(sid string) (*NumbersV2RegulatoryComplianceSupportingDocumentType, error) {
-    path := "/v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceSupportingDocumentType{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceSupportingDocumentType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListBundleParams Optional parameters for the method 'ListBundle'
 type ListBundleParams struct {
-    Status *string `json:"Status,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    RegulationSid *string `json:"RegulationSid,omitempty"`
-    IsoCountry *string `json:"IsoCountry,omitempty"`
-    NumberType *string `json:"NumberType,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	RegulationSid *string `json:"RegulationSid,omitempty"`
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	NumberType *string `json:"NumberType,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -636,48 +634,48 @@ Retrieve a list of all Bundles for an account.
 @return NumbersV2RegulatoryComplianceBundleReadResponse
 */
 func (c *DefaultApiService) ListBundle(params *ListBundleParams) (*NumbersV2RegulatoryComplianceBundleReadResponse, error) {
-    path := "/v2/RegulatoryCompliance/Bundles"
+	path := "/v2/RegulatoryCompliance/Bundles"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.RegulationSid != nil {
-        data.Set("RegulationSid", *params.RegulationSid)
-    }
-    if params != nil && params.IsoCountry != nil {
-        data.Set("IsoCountry", *params.IsoCountry)
-    }
-    if params != nil && params.NumberType != nil {
-        data.Set("NumberType", *params.NumberType)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.RegulationSid != nil {
+		data.Set("RegulationSid", *params.RegulationSid)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.NumberType != nil {
+		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundleReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundleReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListEndUserParams Optional parameters for the method 'ListEndUser'
 type ListEndUserParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -688,33 +686,33 @@ Retrieve a list of all End User for an account.
 @return NumbersV2RegulatoryComplianceEndUserReadResponse
 */
 func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*NumbersV2RegulatoryComplianceEndUserReadResponse, error) {
-    path := "/v2/RegulatoryCompliance/EndUsers"
+	path := "/v2/RegulatoryCompliance/EndUsers"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceEndUserReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceEndUserReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListEndUserTypeParams Optional parameters for the method 'ListEndUserType'
 type ListEndUserTypeParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -725,33 +723,33 @@ Retrieve a list of all End-User Types.
 @return NumbersV2RegulatoryComplianceEndUserTypeReadResponse
 */
 func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*NumbersV2RegulatoryComplianceEndUserTypeReadResponse, error) {
-    path := "/v2/RegulatoryCompliance/EndUserTypes"
+	path := "/v2/RegulatoryCompliance/EndUserTypes"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceEndUserTypeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceEndUserTypeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListEvaluationParams Optional parameters for the method 'ListEvaluation'
 type ListEvaluationParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -763,34 +761,34 @@ Retrieve a list of Evaluations associated to the Bundle resource.
 @return NumbersV2RegulatoryComplianceBundleEvaluationReadResponse
 */
 func (c *DefaultApiService) ListEvaluation(bundleSid string, params *ListEvaluationParams) (*NumbersV2RegulatoryComplianceBundleEvaluationReadResponse, error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
-    path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundleEvaluationReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundleEvaluationReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListItemAssignmentParams Optional parameters for the method 'ListItemAssignment'
 type ListItemAssignmentParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -802,37 +800,37 @@ Retrieve a list of all Assigned Items for an account.
 @return NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse
 */
 func (c *DefaultApiService) ListItemAssignment(bundleSid string, params *ListItemAssignmentParams) (*NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse, error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
-    path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRegulationParams Optional parameters for the method 'ListRegulation'
 type ListRegulationParams struct {
-    EndUserType *string `json:"EndUserType,omitempty"`
-    IsoCountry *string `json:"IsoCountry,omitempty"`
-    NumberType *string `json:"NumberType,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	EndUserType *string `json:"EndUserType,omitempty"`
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	NumberType *string `json:"NumberType,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -846,42 +844,42 @@ Retrieve a list of all Regulations.
 @return NumbersV2RegulatoryComplianceRegulationReadResponse
 */
 func (c *DefaultApiService) ListRegulation(params *ListRegulationParams) (*NumbersV2RegulatoryComplianceRegulationReadResponse, error) {
-    path := "/v2/RegulatoryCompliance/Regulations"
+	path := "/v2/RegulatoryCompliance/Regulations"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.EndUserType != nil {
-        data.Set("EndUserType", *params.EndUserType)
-    }
-    if params != nil && params.IsoCountry != nil {
-        data.Set("IsoCountry", *params.IsoCountry)
-    }
-    if params != nil && params.NumberType != nil {
-        data.Set("NumberType", *params.NumberType)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.EndUserType != nil {
+		data.Set("EndUserType", *params.EndUserType)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.NumberType != nil {
+		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceRegulationReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceRegulationReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSupportingDocumentParams Optional parameters for the method 'ListSupportingDocument'
 type ListSupportingDocumentParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -892,33 +890,33 @@ Retrieve a list of all Supporting Document for an account.
 @return NumbersV2RegulatoryComplianceSupportingDocumentReadResponse
 */
 func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocumentReadResponse, error) {
-    path := "/v2/RegulatoryCompliance/SupportingDocuments"
+	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceSupportingDocumentReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceSupportingDocumentReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSupportingDocumentTypeParams Optional parameters for the method 'ListSupportingDocumentType'
 type ListSupportingDocumentTypeParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -929,36 +927,36 @@ Retrieve a list of all Supporting Document Types.
 @return NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse
 */
 func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) (*NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse, error) {
-    path := "/v2/RegulatoryCompliance/SupportingDocumentTypes"
+	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateBundleParams Optional parameters for the method 'UpdateBundle'
 type UpdateBundleParams struct {
-    Email *string `json:"Email,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
+	Email *string `json:"Email,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
 /*
@@ -973,44 +971,44 @@ Updates a Bundle in an account.
 @return NumbersV2RegulatoryComplianceBundle
 */
 func (c *DefaultApiService) UpdateBundle(sid string, params *UpdateBundleParams) (*NumbersV2RegulatoryComplianceBundle, error) {
-    path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Email != nil {
-        data.Set("Email", *params.Email)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceBundle{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceBundle{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateEndUserParams Optional parameters for the method 'UpdateEndUser'
 type UpdateEndUserParams struct {
-    Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1023,44 +1021,44 @@ Update an existing End User.
 @return NumbersV2RegulatoryComplianceEndUser
 */
 func (c *DefaultApiService) UpdateEndUser(sid string, params *UpdateEndUserParams) (*NumbersV2RegulatoryComplianceEndUser, error) {
-    path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        v, err := json.Marshal(params.Attributes)
+	if params != nil && params.Attributes != nil {
+		v, err := json.Marshal(params.Attributes)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Attributes", string(v))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+		data.Set("Attributes", string(v))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceEndUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceEndUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSupportingDocumentParams Optional parameters for the method 'UpdateSupportingDocument'
 type UpdateSupportingDocumentParams struct {
-    Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1073,37 +1071,37 @@ Update an existing Supporting Document.
 @return NumbersV2RegulatoryComplianceSupportingDocument
 */
 func (c *DefaultApiService) UpdateSupportingDocument(sid string, params *UpdateSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
-    path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Attributes != nil {
-        v, err := json.Marshal(params.Attributes)
+	if params != nil && params.Attributes != nil {
+		v, err := json.Marshal(params.Attributes)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Attributes", string(v))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+		data.Set("Attributes", string(v))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &NumbersV2RegulatoryComplianceSupportingDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &NumbersV2RegulatoryComplianceSupportingDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

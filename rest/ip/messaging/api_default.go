@@ -13,34 +13,31 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
-    "reflect"
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateChannelParams Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    CreatedBy *string `json:"CreatedBy,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Type *string `json:"Type,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Type *string `json:"Type,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -58,61 +55,61 @@ CreateChannel Method for CreateChannel
 @return IpMessagingV2ServiceChannel
 */
 func (c *DefaultApiService) CreateChannel(serviceSid string, params *CreateChannelParams) (*IpMessagingV2ServiceChannel, error) {
-    path := "/v2/Services/{ServiceSid}/Channels"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.CreatedBy != nil {
-        data.Set("CreatedBy", *params.CreatedBy)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.CreatedBy != nil {
+		data.Set("CreatedBy", *params.CreatedBy)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateChannelWebhookParams Optional parameters for the method 'CreateChannelWebhook'
 type CreateChannelWebhookParams struct {
-    Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-    Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-    Configuration.Method *string `json:"Configuration.Method,omitempty"`
-    Configuration.RetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
-    Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-    Configuration.Url *string `json:"Configuration.Url,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
+	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	Configuration.Method *string `json:"Configuration.Method,omitempty"`
+	Configuration.RetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
+	Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -130,59 +127,59 @@ CreateChannelWebhook Method for CreateChannelWebhook
 @return IpMessagingV2ServiceChannelChannelWebhook
 */
 func (c *DefaultApiService) CreateChannelWebhook(serviceSid string, channelSid string, params *CreateChannelWebhookParams) (*IpMessagingV2ServiceChannelChannelWebhook, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Configuration.Filters != nil {
-        data.Set("Configuration.Filters", *params.Configuration.Filters)
-    }
-    if params != nil && params.Configuration.FlowSid != nil {
-        data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
-    }
-    if params != nil && params.Configuration.Method != nil {
-        data.Set("Configuration.Method", *params.Configuration.Method)
-    }
-    if params != nil && params.Configuration.RetryCount != nil {
-        data.Set("Configuration.RetryCount", string(*params.Configuration.RetryCount))
-    }
-    if params != nil && params.Configuration.Triggers != nil {
-        data.Set("Configuration.Triggers", *params.Configuration.Triggers)
-    }
-    if params != nil && params.Configuration.Url != nil {
-        data.Set("Configuration.Url", *params.Configuration.Url)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.Configuration.Filters != nil {
+		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	}
+	if params != nil && params.Configuration.FlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	}
+	if params != nil && params.Configuration.Method != nil {
+		data.Set("Configuration.Method", *params.Configuration.Method)
+	}
+	if params != nil && params.Configuration.RetryCount != nil {
+		data.Set("Configuration.RetryCount", string(*params.Configuration.RetryCount))
+	}
+	if params != nil && params.Configuration.Triggers != nil {
+		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	}
+	if params != nil && params.Configuration.Url != nil {
+		data.Set("Configuration.Url", *params.Configuration.Url)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelChannelWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelChannelWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCredentialParams Optional parameters for the method 'CreateCredential'
 type CreateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -198,52 +195,52 @@ CreateCredential Method for CreateCredential
 @return IpMessagingV2Credential
 */
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*IpMessagingV2Credential, error) {
-    path := "/v2/Credentials"
+	path := "/v2/Credentials"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiKey != nil {
-        data.Set("ApiKey", *params.ApiKey)
-    }
-    if params != nil && params.Certificate != nil {
-        data.Set("Certificate", *params.Certificate)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PrivateKey != nil {
-        data.Set("PrivateKey", *params.PrivateKey)
-    }
-    if params != nil && params.Sandbox != nil {
-        data.Set("Sandbox", string(*params.Sandbox))
-    }
-    if params != nil && params.Secret != nil {
-        data.Set("Secret", *params.Secret)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", string(*params.Sandbox))
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateInviteParams Optional parameters for the method 'CreateInvite'
 type CreateInviteParams struct {
-    Identity *string `json:"Identity,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -256,45 +253,45 @@ CreateInvite Method for CreateInvite
 @return IpMessagingV2ServiceChannelInvite
 */
 func (c *DefaultApiService) CreateInvite(serviceSid string, channelSid string, params *CreateInviteParams) (*IpMessagingV2ServiceChannelInvite, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelInvite{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelInvite{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateMemberParams Optional parameters for the method 'CreateMember'
 type CreateMemberParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
-    LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -313,63 +310,63 @@ CreateMember Method for CreateMember
 @return IpMessagingV2ServiceChannelMember
 */
 func (c *DefaultApiService) CreateMember(serviceSid string, channelSid string, params *CreateMemberParams) (*IpMessagingV2ServiceChannelMember, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.LastConsumedMessageIndex != nil {
-        data.Set("LastConsumedMessageIndex", string(*params.LastConsumedMessageIndex))
-    }
-    if params != nil && params.LastConsumptionTimestamp != nil {
-        data.Set("LastConsumptionTimestamp", string(*params.LastConsumptionTimestamp))
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.LastConsumedMessageIndex != nil {
+		data.Set("LastConsumedMessageIndex", string(*params.LastConsumedMessageIndex))
+	}
+	if params != nil && params.LastConsumptionTimestamp != nil {
+		data.Set("LastConsumptionTimestamp", string(*params.LastConsumptionTimestamp))
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelMember{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelMember{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateMessageParams Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    From *string `json:"From,omitempty"`
-    LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
-    MediaSid *string `json:"MediaSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	From *string `json:"From,omitempty"`
+	LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
+	MediaSid *string `json:"MediaSid,omitempty"`
 }
 
 /*
@@ -388,58 +385,58 @@ CreateMessage Method for CreateMessage
 @return IpMessagingV2ServiceChannelMessage
 */
 func (c *DefaultApiService) CreateMessage(serviceSid string, channelSid string, params *CreateMessageParams) (*IpMessagingV2ServiceChannelMessage, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.LastUpdatedBy != nil {
-        data.Set("LastUpdatedBy", *params.LastUpdatedBy)
-    }
-    if params != nil && params.MediaSid != nil {
-        data.Set("MediaSid", *params.MediaSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.LastUpdatedBy != nil {
+		data.Set("LastUpdatedBy", *params.LastUpdatedBy)
+	}
+	if params != nil && params.MediaSid != nil {
+		data.Set("MediaSid", *params.MediaSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateRoleParams Optional parameters for the method 'CreateRole'
 type CreateRoleParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Permission *[]string `json:"Permission,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -452,40 +449,40 @@ CreateRole Method for CreateRole
 @return IpMessagingV2ServiceRole
 */
 func (c *DefaultApiService) CreateRole(serviceSid string, params *CreateRoleParams) (*IpMessagingV2ServiceRole, error) {
-    path := "/v2/Services/{ServiceSid}/Roles"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Roles"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Permission != nil {
-        data.Set("Permission", *params.Permission)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Permission != nil {
+		data.Set("Permission", *params.Permission)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceRole{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceRole{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -495,37 +492,37 @@ CreateService Method for CreateService
 @return IpMessagingV2Service
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*IpMessagingV2Service, error) {
-    path := "/v2/Services"
+	path := "/v2/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateUserParams Optional parameters for the method 'CreateUser'
 type CreateUserParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -540,42 +537,42 @@ CreateUser Method for CreateUser
 @return IpMessagingV2ServiceUser
 */
 func (c *DefaultApiService) CreateUser(serviceSid string, params *CreateUserParams) (*IpMessagingV2ServiceUser, error) {
-    path := "/v2/Services/{ServiceSid}/Users"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Users"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -584,27 +581,27 @@ DeleteBinding Method for DeleteBinding
  * @param sid
 */
 func (c *DefaultApiService) DeleteBinding(serviceSid string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteChannelParams Optional parameters for the method 'DeleteChannel'
 type DeleteChannelParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -615,26 +612,26 @@ DeleteChannel Method for DeleteChannel
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteChannel(serviceSid string, sid string, params *DeleteChannelParams) (error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -644,24 +641,24 @@ DeleteChannelWebhook Method for DeleteChannelWebhook
  * @param sid
 */
 func (c *DefaultApiService) DeleteChannelWebhook(serviceSid string, channelSid string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -669,22 +666,22 @@ DeleteCredential Method for DeleteCredential
  * @param sid
 */
 func (c *DefaultApiService) DeleteCredential(sid string) (error) {
-    path := "/v2/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -694,28 +691,28 @@ DeleteInvite Method for DeleteInvite
  * @param sid
 */
 func (c *DefaultApiService) DeleteInvite(serviceSid string, channelSid string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteMemberParams Optional parameters for the method 'DeleteMember'
 type DeleteMemberParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -727,31 +724,31 @@ DeleteMember Method for DeleteMember
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteMember(serviceSid string, channelSid string, sid string, params *DeleteMemberParams) (error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteMessageParams Optional parameters for the method 'DeleteMessage'
 type DeleteMessageParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -763,27 +760,27 @@ DeleteMessage Method for DeleteMessage
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteMessage(serviceSid string, channelSid string, sid string, params *DeleteMessageParams) (error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -792,23 +789,23 @@ DeleteRole Method for DeleteRole
  * @param sid
 */
 func (c *DefaultApiService) DeleteRole(serviceSid string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -816,22 +813,22 @@ DeleteService Method for DeleteService
  * @param sid
 */
 func (c *DefaultApiService) DeleteService(sid string) (error) {
-    path := "/v2/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -840,23 +837,23 @@ DeleteUser Method for DeleteUser
  * @param sid
 */
 func (c *DefaultApiService) DeleteUser(serviceSid string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/Users/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -866,24 +863,24 @@ DeleteUserBinding Method for DeleteUserBinding
  * @param sid
 */
 func (c *DefaultApiService) DeleteUserBinding(serviceSid string, userSid string, sid string) (error) {
-    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -893,24 +890,24 @@ DeleteUserChannel Method for DeleteUserChannel
  * @param channelSid
 */
 func (c *DefaultApiService) DeleteUserChannel(serviceSid string, userSid string, channelSid string) (error) {
-    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -920,28 +917,28 @@ FetchBinding Method for FetchBinding
 @return IpMessagingV2ServiceBinding
 */
 func (c *DefaultApiService) FetchBinding(serviceSid string, sid string) (*IpMessagingV2ServiceBinding, error) {
-    path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceBinding{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceBinding{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -951,28 +948,28 @@ FetchChannel Method for FetchChannel
 @return IpMessagingV2ServiceChannel
 */
 func (c *DefaultApiService) FetchChannel(serviceSid string, sid string) (*IpMessagingV2ServiceChannel, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -983,29 +980,29 @@ FetchChannelWebhook Method for FetchChannelWebhook
 @return IpMessagingV2ServiceChannelChannelWebhook
 */
 func (c *DefaultApiService) FetchChannelWebhook(serviceSid string, channelSid string, sid string) (*IpMessagingV2ServiceChannelChannelWebhook, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelChannelWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelChannelWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1014,27 +1011,27 @@ FetchCredential Method for FetchCredential
 @return IpMessagingV2Credential
 */
 func (c *DefaultApiService) FetchCredential(sid string) (*IpMessagingV2Credential, error) {
-    path := "/v2/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1045,29 +1042,29 @@ FetchInvite Method for FetchInvite
 @return IpMessagingV2ServiceChannelInvite
 */
 func (c *DefaultApiService) FetchInvite(serviceSid string, channelSid string, sid string) (*IpMessagingV2ServiceChannelInvite, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelInvite{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelInvite{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1078,29 +1075,29 @@ FetchMember Method for FetchMember
 @return IpMessagingV2ServiceChannelMember
 */
 func (c *DefaultApiService) FetchMember(serviceSid string, channelSid string, sid string) (*IpMessagingV2ServiceChannelMember, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelMember{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelMember{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1111,29 +1108,29 @@ FetchMessage Method for FetchMessage
 @return IpMessagingV2ServiceChannelMessage
 */
 func (c *DefaultApiService) FetchMessage(serviceSid string, channelSid string, sid string) (*IpMessagingV2ServiceChannelMessage, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1143,28 +1140,28 @@ FetchRole Method for FetchRole
 @return IpMessagingV2ServiceRole
 */
 func (c *DefaultApiService) FetchRole(serviceSid string, sid string) (*IpMessagingV2ServiceRole, error) {
-    path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceRole{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceRole{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1173,27 +1170,27 @@ FetchService Method for FetchService
 @return IpMessagingV2Service
 */
 func (c *DefaultApiService) FetchService(sid string) (*IpMessagingV2Service, error) {
-    path := "/v2/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1203,28 +1200,28 @@ FetchUser Method for FetchUser
 @return IpMessagingV2ServiceUser
 */
 func (c *DefaultApiService) FetchUser(serviceSid string, sid string) (*IpMessagingV2ServiceUser, error) {
-    path := "/v2/Services/{ServiceSid}/Users/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1235,29 +1232,29 @@ FetchUserBinding Method for FetchUserBinding
 @return IpMessagingV2ServiceUserUserBinding
 */
 func (c *DefaultApiService) FetchUserBinding(serviceSid string, userSid string, sid string) (*IpMessagingV2ServiceUserUserBinding, error) {
-    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceUserUserBinding{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceUserUserBinding{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1268,35 +1265,35 @@ FetchUserChannel Method for FetchUserChannel
 @return IpMessagingV2ServiceUserUserChannel
 */
 func (c *DefaultApiService) FetchUserChannel(serviceSid string, userSid string, channelSid string) (*IpMessagingV2ServiceUserUserChannel, error) {
-    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceUserUserChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceUserUserChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListBindingParams Optional parameters for the method 'ListBinding'
 type ListBindingParams struct {
-    BindingType *[]string `json:"BindingType,omitempty"`
-    Identity *[]string `json:"Identity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	BindingType *[]string `json:"BindingType,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1309,41 +1306,41 @@ ListBinding Method for ListBinding
 @return IpMessagingV2ServiceBindingReadResponse
 */
 func (c *DefaultApiService) ListBinding(serviceSid string, params *ListBindingParams) (*IpMessagingV2ServiceBindingReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Bindings"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Bindings"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.BindingType != nil {
-        data.Set("BindingType", string(*params.BindingType))
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", string(*params.Identity))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.BindingType != nil {
+		data.Set("BindingType", string(*params.BindingType))
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", string(*params.Identity))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceBindingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceBindingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListChannelParams Optional parameters for the method 'ListChannel'
 type ListChannelParams struct {
-    Type *[]string `json:"Type,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Type *[]string `json:"Type,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1355,37 +1352,37 @@ ListChannel Method for ListChannel
 @return IpMessagingV2ServiceChannelReadResponse
 */
 func (c *DefaultApiService) ListChannel(serviceSid string, params *ListChannelParams) (*IpMessagingV2ServiceChannelReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Channels"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Type != nil {
-        data.Set("Type", string(*params.Type))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Type != nil {
+		data.Set("Type", string(*params.Type))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListChannelWebhookParams Optional parameters for the method 'ListChannelWebhook'
 type ListChannelWebhookParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1397,35 +1394,35 @@ ListChannelWebhook Method for ListChannelWebhook
 @return IpMessagingV2ServiceChannelChannelWebhookReadResponse
 */
 func (c *DefaultApiService) ListChannelWebhook(serviceSid string, channelSid string, params *ListChannelWebhookParams) (*IpMessagingV2ServiceChannelChannelWebhookReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelChannelWebhookReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelChannelWebhookReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCredentialParams Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1435,34 +1432,34 @@ ListCredential Method for ListCredential
 @return IpMessagingV2CredentialReadResponse
 */
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*IpMessagingV2CredentialReadResponse, error) {
-    path := "/v2/Credentials"
+	path := "/v2/Credentials"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2CredentialReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2CredentialReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListInviteParams Optional parameters for the method 'ListInvite'
 type ListInviteParams struct {
-    Identity *[]string `json:"Identity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1475,39 +1472,39 @@ ListInvite Method for ListInvite
 @return IpMessagingV2ServiceChannelInviteReadResponse
 */
 func (c *DefaultApiService) ListInvite(serviceSid string, channelSid string, params *ListInviteParams) (*IpMessagingV2ServiceChannelInviteReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", string(*params.Identity))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", string(*params.Identity))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelInviteReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelInviteReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListMemberParams Optional parameters for the method 'ListMember'
 type ListMemberParams struct {
-    Identity *[]string `json:"Identity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1520,39 +1517,39 @@ ListMember Method for ListMember
 @return IpMessagingV2ServiceChannelMemberReadResponse
 */
 func (c *DefaultApiService) ListMember(serviceSid string, channelSid string, params *ListMemberParams) (*IpMessagingV2ServiceChannelMemberReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", string(*params.Identity))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", string(*params.Identity))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelMemberReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelMemberReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListMessageParams Optional parameters for the method 'ListMessage'
 type ListMessageParams struct {
-    Order *string `json:"Order,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Order *string `json:"Order,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1565,38 +1562,38 @@ ListMessage Method for ListMessage
 @return IpMessagingV2ServiceChannelMessageReadResponse
 */
 func (c *DefaultApiService) ListMessage(serviceSid string, channelSid string, params *ListMessageParams) (*IpMessagingV2ServiceChannelMessageReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Order != nil {
-        data.Set("Order", *params.Order)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Order != nil {
+		data.Set("Order", *params.Order)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelMessageReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelMessageReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRoleParams Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1607,34 +1604,34 @@ ListRole Method for ListRole
 @return IpMessagingV2ServiceRoleReadResponse
 */
 func (c *DefaultApiService) ListRole(serviceSid string, params *ListRoleParams) (*IpMessagingV2ServiceRoleReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Roles"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Roles"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceRoleReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceRoleReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1644,33 +1641,33 @@ ListService Method for ListService
 @return IpMessagingV2ServiceReadResponse
 */
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*IpMessagingV2ServiceReadResponse, error) {
-    path := "/v2/Services"
+	path := "/v2/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUserParams Optional parameters for the method 'ListUser'
 type ListUserParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1681,35 +1678,35 @@ ListUser Method for ListUser
 @return IpMessagingV2ServiceUserReadResponse
 */
 func (c *DefaultApiService) ListUser(serviceSid string, params *ListUserParams) (*IpMessagingV2ServiceUserReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Users"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v2/Services/{ServiceSid}/Users"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceUserReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceUserReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUserBindingParams Optional parameters for the method 'ListUserBinding'
 type ListUserBindingParams struct {
-    BindingType *[]string `json:"BindingType,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	BindingType *[]string `json:"BindingType,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1722,38 +1719,38 @@ ListUserBinding Method for ListUserBinding
 @return IpMessagingV2ServiceUserUserBindingReadResponse
 */
 func (c *DefaultApiService) ListUserBinding(serviceSid string, userSid string, params *ListUserBindingParams) (*IpMessagingV2ServiceUserUserBindingReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.BindingType != nil {
-        data.Set("BindingType", string(*params.BindingType))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.BindingType != nil {
+		data.Set("BindingType", string(*params.BindingType))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceUserUserBindingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceUserUserBindingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListUserChannelParams Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1765,41 +1762,41 @@ ListUserChannel Method for ListUserChannel
 @return IpMessagingV2ServiceUserUserChannelReadResponse
 */
 func (c *DefaultApiService) ListUserChannel(serviceSid string, userSid string, params *ListUserChannelParams) (*IpMessagingV2ServiceUserUserChannelReadResponse, error) {
-    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceUserUserChannelReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceUserUserChannelReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateChannelParams Optional parameters for the method 'UpdateChannel'
 type UpdateChannelParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    CreatedBy *string `json:"CreatedBy,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1817,58 +1814,58 @@ UpdateChannel Method for UpdateChannel
 @return IpMessagingV2ServiceChannel
 */
 func (c *DefaultApiService) UpdateChannel(serviceSid string, sid string, params *UpdateChannelParams) (*IpMessagingV2ServiceChannel, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.CreatedBy != nil {
-        data.Set("CreatedBy", *params.CreatedBy)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.CreatedBy != nil {
+		data.Set("CreatedBy", *params.CreatedBy)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateChannelWebhookParams Optional parameters for the method 'UpdateChannelWebhook'
 type UpdateChannelWebhookParams struct {
-    Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-    Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-    Configuration.Method *string `json:"Configuration.Method,omitempty"`
-    Configuration.RetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
-    Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-    Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
+	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	Configuration.Method *string `json:"Configuration.Method,omitempty"`
+	Configuration.RetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
+	Configuration.Url *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -1886,56 +1883,56 @@ UpdateChannelWebhook Method for UpdateChannelWebhook
 @return IpMessagingV2ServiceChannelChannelWebhook
 */
 func (c *DefaultApiService) UpdateChannelWebhook(serviceSid string, channelSid string, sid string, params *UpdateChannelWebhookParams) (*IpMessagingV2ServiceChannelChannelWebhook, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Configuration.Filters != nil {
-        data.Set("Configuration.Filters", *params.Configuration.Filters)
-    }
-    if params != nil && params.Configuration.FlowSid != nil {
-        data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
-    }
-    if params != nil && params.Configuration.Method != nil {
-        data.Set("Configuration.Method", *params.Configuration.Method)
-    }
-    if params != nil && params.Configuration.RetryCount != nil {
-        data.Set("Configuration.RetryCount", string(*params.Configuration.RetryCount))
-    }
-    if params != nil && params.Configuration.Triggers != nil {
-        data.Set("Configuration.Triggers", *params.Configuration.Triggers)
-    }
-    if params != nil && params.Configuration.Url != nil {
-        data.Set("Configuration.Url", *params.Configuration.Url)
-    }
+	if params != nil && params.Configuration.Filters != nil {
+		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	}
+	if params != nil && params.Configuration.FlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	}
+	if params != nil && params.Configuration.Method != nil {
+		data.Set("Configuration.Method", *params.Configuration.Method)
+	}
+	if params != nil && params.Configuration.RetryCount != nil {
+		data.Set("Configuration.RetryCount", string(*params.Configuration.RetryCount))
+	}
+	if params != nil && params.Configuration.Triggers != nil {
+		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	}
+	if params != nil && params.Configuration.Url != nil {
+		data.Set("Configuration.Url", *params.Configuration.Url)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelChannelWebhook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelChannelWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateCredentialParams Optional parameters for the method 'UpdateCredential'
 type UpdateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
 }
 
 /*
@@ -1951,55 +1948,55 @@ UpdateCredential Method for UpdateCredential
 @return IpMessagingV2Credential
 */
 func (c *DefaultApiService) UpdateCredential(sid string, params *UpdateCredentialParams) (*IpMessagingV2Credential, error) {
-    path := "/v2/Credentials/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ApiKey != nil {
-        data.Set("ApiKey", *params.ApiKey)
-    }
-    if params != nil && params.Certificate != nil {
-        data.Set("Certificate", *params.Certificate)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PrivateKey != nil {
-        data.Set("PrivateKey", *params.PrivateKey)
-    }
-    if params != nil && params.Sandbox != nil {
-        data.Set("Sandbox", string(*params.Sandbox))
-    }
-    if params != nil && params.Secret != nil {
-        data.Set("Secret", *params.Secret)
-    }
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", string(*params.Sandbox))
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2Credential{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateMemberParams Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
-    LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -2018,60 +2015,60 @@ UpdateMember Method for UpdateMember
 @return IpMessagingV2ServiceChannelMember
 */
 func (c *DefaultApiService) UpdateMember(serviceSid string, channelSid string, sid string, params *UpdateMemberParams) (*IpMessagingV2ServiceChannelMember, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.LastConsumedMessageIndex != nil {
-        data.Set("LastConsumedMessageIndex", string(*params.LastConsumedMessageIndex))
-    }
-    if params != nil && params.LastConsumptionTimestamp != nil {
-        data.Set("LastConsumptionTimestamp", string(*params.LastConsumptionTimestamp))
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.LastConsumedMessageIndex != nil {
+		data.Set("LastConsumedMessageIndex", string(*params.LastConsumedMessageIndex))
+	}
+	if params != nil && params.LastConsumptionTimestamp != nil {
+		data.Set("LastConsumptionTimestamp", string(*params.LastConsumptionTimestamp))
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelMember{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelMember{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateMessageParams Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    From *string `json:"From,omitempty"`
-    LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	From *string `json:"From,omitempty"`
+	LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
 }
 
 /*
@@ -2090,54 +2087,54 @@ UpdateMessage Method for UpdateMessage
 @return IpMessagingV2ServiceChannelMessage
 */
 func (c *DefaultApiService) UpdateMessage(serviceSid string, channelSid string, sid string, params *UpdateMessageParams) (*IpMessagingV2ServiceChannelMessage, error) {
-    path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.Body != nil {
-        data.Set("Body", *params.Body)
-    }
-    if params != nil && params.DateCreated != nil {
-        data.Set("DateCreated", string(*params.DateCreated))
-    }
-    if params != nil && params.DateUpdated != nil {
-        data.Set("DateUpdated", string(*params.DateUpdated))
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.LastUpdatedBy != nil {
-        data.Set("LastUpdatedBy", *params.LastUpdatedBy)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", string(*params.DateCreated))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", string(*params.DateUpdated))
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.LastUpdatedBy != nil {
+		data.Set("LastUpdatedBy", *params.LastUpdatedBy)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceChannelMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceChannelMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRoleParams Optional parameters for the method 'UpdateRole'
 type UpdateRoleParams struct {
-    Permission *[]string `json:"Permission,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
 }
 
 /*
@@ -2149,65 +2146,65 @@ UpdateRole Method for UpdateRole
 @return IpMessagingV2ServiceRole
 */
 func (c *DefaultApiService) UpdateRole(serviceSid string, sid string, params *UpdateRoleParams) (*IpMessagingV2ServiceRole, error) {
-    path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Permission != nil {
-        data.Set("Permission", *params.Permission)
-    }
+	if params != nil && params.Permission != nil {
+		data.Set("Permission", *params.Permission)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceRole{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceRole{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-    ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
-    DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
-    DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
-    DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Limits.ChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
-    Limits.UserChannels *int32 `json:"Limits.UserChannels,omitempty"`
-    Media.CompatibilityMessage *string `json:"Media.CompatibilityMessage,omitempty"`
-    Notifications.AddedToChannel.Enabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
-    Notifications.AddedToChannel.Sound *string `json:"Notifications.AddedToChannel.Sound,omitempty"`
-    Notifications.AddedToChannel.Template *string `json:"Notifications.AddedToChannel.Template,omitempty"`
-    Notifications.InvitedToChannel.Enabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
-    Notifications.InvitedToChannel.Sound *string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
-    Notifications.InvitedToChannel.Template *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
-    Notifications.LogEnabled *bool `json:"Notifications.LogEnabled,omitempty"`
-    Notifications.NewMessage.BadgeCountEnabled *bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
-    Notifications.NewMessage.Enabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
-    Notifications.NewMessage.Sound *string `json:"Notifications.NewMessage.Sound,omitempty"`
-    Notifications.NewMessage.Template *string `json:"Notifications.NewMessage.Template,omitempty"`
-    Notifications.RemovedFromChannel.Enabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
-    Notifications.RemovedFromChannel.Sound *string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
-    Notifications.RemovedFromChannel.Template *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
-    PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
-    PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
-    PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
-    PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
-    ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
-    ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
-    TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
-    WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
-    WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
+	DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
+	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
+	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Limits.ChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	Limits.UserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	Media.CompatibilityMessage *string `json:"Media.CompatibilityMessage,omitempty"`
+	Notifications.AddedToChannel.Enabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	Notifications.AddedToChannel.Sound *string `json:"Notifications.AddedToChannel.Sound,omitempty"`
+	Notifications.AddedToChannel.Template *string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	Notifications.InvitedToChannel.Enabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	Notifications.InvitedToChannel.Sound *string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
+	Notifications.InvitedToChannel.Template *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	Notifications.LogEnabled *bool `json:"Notifications.LogEnabled,omitempty"`
+	Notifications.NewMessage.BadgeCountEnabled *bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
+	Notifications.NewMessage.Enabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	Notifications.NewMessage.Sound *string `json:"Notifications.NewMessage.Sound,omitempty"`
+	Notifications.NewMessage.Template *string `json:"Notifications.NewMessage.Template,omitempty"`
+	Notifications.RemovedFromChannel.Enabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	Notifications.RemovedFromChannel.Sound *string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
+	Notifications.RemovedFromChannel.Template *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
+	PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
+	PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
+	ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
+	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
+	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 }
 
 /*
@@ -2248,127 +2245,127 @@ UpdateService Method for UpdateService
 @return IpMessagingV2Service
 */
 func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*IpMessagingV2Service, error) {
-    path := "/v2/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ConsumptionReportInterval != nil {
-        data.Set("ConsumptionReportInterval", string(*params.ConsumptionReportInterval))
-    }
-    if params != nil && params.DefaultChannelCreatorRoleSid != nil {
-        data.Set("DefaultChannelCreatorRoleSid", *params.DefaultChannelCreatorRoleSid)
-    }
-    if params != nil && params.DefaultChannelRoleSid != nil {
-        data.Set("DefaultChannelRoleSid", *params.DefaultChannelRoleSid)
-    }
-    if params != nil && params.DefaultServiceRoleSid != nil {
-        data.Set("DefaultServiceRoleSid", *params.DefaultServiceRoleSid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Limits.ChannelMembers != nil {
-        data.Set("Limits.ChannelMembers", string(*params.Limits.ChannelMembers))
-    }
-    if params != nil && params.Limits.UserChannels != nil {
-        data.Set("Limits.UserChannels", string(*params.Limits.UserChannels))
-    }
-    if params != nil && params.Media.CompatibilityMessage != nil {
-        data.Set("Media.CompatibilityMessage", *params.Media.CompatibilityMessage)
-    }
-    if params != nil && params.Notifications.AddedToChannel.Enabled != nil {
-        data.Set("Notifications.AddedToChannel.Enabled", string(*params.Notifications.AddedToChannel.Enabled))
-    }
-    if params != nil && params.Notifications.AddedToChannel.Sound != nil {
-        data.Set("Notifications.AddedToChannel.Sound", *params.Notifications.AddedToChannel.Sound)
-    }
-    if params != nil && params.Notifications.AddedToChannel.Template != nil {
-        data.Set("Notifications.AddedToChannel.Template", *params.Notifications.AddedToChannel.Template)
-    }
-    if params != nil && params.Notifications.InvitedToChannel.Enabled != nil {
-        data.Set("Notifications.InvitedToChannel.Enabled", string(*params.Notifications.InvitedToChannel.Enabled))
-    }
-    if params != nil && params.Notifications.InvitedToChannel.Sound != nil {
-        data.Set("Notifications.InvitedToChannel.Sound", *params.Notifications.InvitedToChannel.Sound)
-    }
-    if params != nil && params.Notifications.InvitedToChannel.Template != nil {
-        data.Set("Notifications.InvitedToChannel.Template", *params.Notifications.InvitedToChannel.Template)
-    }
-    if params != nil && params.Notifications.LogEnabled != nil {
-        data.Set("Notifications.LogEnabled", string(*params.Notifications.LogEnabled))
-    }
-    if params != nil && params.Notifications.NewMessage.BadgeCountEnabled != nil {
-        data.Set("Notifications.NewMessage.BadgeCountEnabled", string(*params.Notifications.NewMessage.BadgeCountEnabled))
-    }
-    if params != nil && params.Notifications.NewMessage.Enabled != nil {
-        data.Set("Notifications.NewMessage.Enabled", string(*params.Notifications.NewMessage.Enabled))
-    }
-    if params != nil && params.Notifications.NewMessage.Sound != nil {
-        data.Set("Notifications.NewMessage.Sound", *params.Notifications.NewMessage.Sound)
-    }
-    if params != nil && params.Notifications.NewMessage.Template != nil {
-        data.Set("Notifications.NewMessage.Template", *params.Notifications.NewMessage.Template)
-    }
-    if params != nil && params.Notifications.RemovedFromChannel.Enabled != nil {
-        data.Set("Notifications.RemovedFromChannel.Enabled", string(*params.Notifications.RemovedFromChannel.Enabled))
-    }
-    if params != nil && params.Notifications.RemovedFromChannel.Sound != nil {
-        data.Set("Notifications.RemovedFromChannel.Sound", *params.Notifications.RemovedFromChannel.Sound)
-    }
-    if params != nil && params.Notifications.RemovedFromChannel.Template != nil {
-        data.Set("Notifications.RemovedFromChannel.Template", *params.Notifications.RemovedFromChannel.Template)
-    }
-    if params != nil && params.PostWebhookRetryCount != nil {
-        data.Set("PostWebhookRetryCount", string(*params.PostWebhookRetryCount))
-    }
-    if params != nil && params.PostWebhookUrl != nil {
-        data.Set("PostWebhookUrl", *params.PostWebhookUrl)
-    }
-    if params != nil && params.PreWebhookRetryCount != nil {
-        data.Set("PreWebhookRetryCount", string(*params.PreWebhookRetryCount))
-    }
-    if params != nil && params.PreWebhookUrl != nil {
-        data.Set("PreWebhookUrl", *params.PreWebhookUrl)
-    }
-    if params != nil && params.ReachabilityEnabled != nil {
-        data.Set("ReachabilityEnabled", string(*params.ReachabilityEnabled))
-    }
-    if params != nil && params.ReadStatusEnabled != nil {
-        data.Set("ReadStatusEnabled", string(*params.ReadStatusEnabled))
-    }
-    if params != nil && params.TypingIndicatorTimeout != nil {
-        data.Set("TypingIndicatorTimeout", string(*params.TypingIndicatorTimeout))
-    }
-    if params != nil && params.WebhookFilters != nil {
-        data.Set("WebhookFilters", *params.WebhookFilters)
-    }
-    if params != nil && params.WebhookMethod != nil {
-        data.Set("WebhookMethod", *params.WebhookMethod)
-    }
+	if params != nil && params.ConsumptionReportInterval != nil {
+		data.Set("ConsumptionReportInterval", string(*params.ConsumptionReportInterval))
+	}
+	if params != nil && params.DefaultChannelCreatorRoleSid != nil {
+		data.Set("DefaultChannelCreatorRoleSid", *params.DefaultChannelCreatorRoleSid)
+	}
+	if params != nil && params.DefaultChannelRoleSid != nil {
+		data.Set("DefaultChannelRoleSid", *params.DefaultChannelRoleSid)
+	}
+	if params != nil && params.DefaultServiceRoleSid != nil {
+		data.Set("DefaultServiceRoleSid", *params.DefaultServiceRoleSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Limits.ChannelMembers != nil {
+		data.Set("Limits.ChannelMembers", string(*params.Limits.ChannelMembers))
+	}
+	if params != nil && params.Limits.UserChannels != nil {
+		data.Set("Limits.UserChannels", string(*params.Limits.UserChannels))
+	}
+	if params != nil && params.Media.CompatibilityMessage != nil {
+		data.Set("Media.CompatibilityMessage", *params.Media.CompatibilityMessage)
+	}
+	if params != nil && params.Notifications.AddedToChannel.Enabled != nil {
+		data.Set("Notifications.AddedToChannel.Enabled", string(*params.Notifications.AddedToChannel.Enabled))
+	}
+	if params != nil && params.Notifications.AddedToChannel.Sound != nil {
+		data.Set("Notifications.AddedToChannel.Sound", *params.Notifications.AddedToChannel.Sound)
+	}
+	if params != nil && params.Notifications.AddedToChannel.Template != nil {
+		data.Set("Notifications.AddedToChannel.Template", *params.Notifications.AddedToChannel.Template)
+	}
+	if params != nil && params.Notifications.InvitedToChannel.Enabled != nil {
+		data.Set("Notifications.InvitedToChannel.Enabled", string(*params.Notifications.InvitedToChannel.Enabled))
+	}
+	if params != nil && params.Notifications.InvitedToChannel.Sound != nil {
+		data.Set("Notifications.InvitedToChannel.Sound", *params.Notifications.InvitedToChannel.Sound)
+	}
+	if params != nil && params.Notifications.InvitedToChannel.Template != nil {
+		data.Set("Notifications.InvitedToChannel.Template", *params.Notifications.InvitedToChannel.Template)
+	}
+	if params != nil && params.Notifications.LogEnabled != nil {
+		data.Set("Notifications.LogEnabled", string(*params.Notifications.LogEnabled))
+	}
+	if params != nil && params.Notifications.NewMessage.BadgeCountEnabled != nil {
+		data.Set("Notifications.NewMessage.BadgeCountEnabled", string(*params.Notifications.NewMessage.BadgeCountEnabled))
+	}
+	if params != nil && params.Notifications.NewMessage.Enabled != nil {
+		data.Set("Notifications.NewMessage.Enabled", string(*params.Notifications.NewMessage.Enabled))
+	}
+	if params != nil && params.Notifications.NewMessage.Sound != nil {
+		data.Set("Notifications.NewMessage.Sound", *params.Notifications.NewMessage.Sound)
+	}
+	if params != nil && params.Notifications.NewMessage.Template != nil {
+		data.Set("Notifications.NewMessage.Template", *params.Notifications.NewMessage.Template)
+	}
+	if params != nil && params.Notifications.RemovedFromChannel.Enabled != nil {
+		data.Set("Notifications.RemovedFromChannel.Enabled", string(*params.Notifications.RemovedFromChannel.Enabled))
+	}
+	if params != nil && params.Notifications.RemovedFromChannel.Sound != nil {
+		data.Set("Notifications.RemovedFromChannel.Sound", *params.Notifications.RemovedFromChannel.Sound)
+	}
+	if params != nil && params.Notifications.RemovedFromChannel.Template != nil {
+		data.Set("Notifications.RemovedFromChannel.Template", *params.Notifications.RemovedFromChannel.Template)
+	}
+	if params != nil && params.PostWebhookRetryCount != nil {
+		data.Set("PostWebhookRetryCount", string(*params.PostWebhookRetryCount))
+	}
+	if params != nil && params.PostWebhookUrl != nil {
+		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+	}
+	if params != nil && params.PreWebhookRetryCount != nil {
+		data.Set("PreWebhookRetryCount", string(*params.PreWebhookRetryCount))
+	}
+	if params != nil && params.PreWebhookUrl != nil {
+		data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+	}
+	if params != nil && params.ReachabilityEnabled != nil {
+		data.Set("ReachabilityEnabled", string(*params.ReachabilityEnabled))
+	}
+	if params != nil && params.ReadStatusEnabled != nil {
+		data.Set("ReadStatusEnabled", string(*params.ReadStatusEnabled))
+	}
+	if params != nil && params.TypingIndicatorTimeout != nil {
+		data.Set("TypingIndicatorTimeout", string(*params.TypingIndicatorTimeout))
+	}
+	if params != nil && params.WebhookFilters != nil {
+		data.Set("WebhookFilters", *params.WebhookFilters)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateUserParams Optional parameters for the method 'UpdateUser'
 type UpdateUserParams struct {
-    X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -2383,46 +2380,46 @@ UpdateUser Method for UpdateUser
 @return IpMessagingV2ServiceUser
 */
 func (c *DefaultApiService) UpdateUser(serviceSid string, sid string, params *UpdateUserParams) (*IpMessagingV2ServiceUser, error) {
-    path := "/v2/Services/{ServiceSid}/Users/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Attributes != nil {
-        data.Set("Attributes", *params.Attributes)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.RoleSid != nil {
-        data.Set("RoleSid", *params.RoleSid)
-    }
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
 
-    if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-        headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
-    }
+	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceUser{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateUserChannelParams Optional parameters for the method 'UpdateUserChannel'
 type UpdateUserChannelParams struct {
-    LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
-    LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-    NotificationLevel *string `json:"NotificationLevel,omitempty"`
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
+	NotificationLevel *string `json:"NotificationLevel,omitempty"`
 }
 
 /*
@@ -2437,36 +2434,36 @@ UpdateUserChannel Method for UpdateUserChannel
 @return IpMessagingV2ServiceUserUserChannel
 */
 func (c *DefaultApiService) UpdateUserChannel(serviceSid string, userSid string, channelSid string, params *UpdateUserChannelParams) (*IpMessagingV2ServiceUserUserChannel, error) {
-    path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
-    path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
+	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"UserSid"+"}", userSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", channelSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.LastConsumedMessageIndex != nil {
-        data.Set("LastConsumedMessageIndex", string(*params.LastConsumedMessageIndex))
-    }
-    if params != nil && params.LastConsumptionTimestamp != nil {
-        data.Set("LastConsumptionTimestamp", string(*params.LastConsumptionTimestamp))
-    }
-    if params != nil && params.NotificationLevel != nil {
-        data.Set("NotificationLevel", *params.NotificationLevel)
-    }
+	if params != nil && params.LastConsumedMessageIndex != nil {
+		data.Set("LastConsumedMessageIndex", string(*params.LastConsumedMessageIndex))
+	}
+	if params != nil && params.LastConsumptionTimestamp != nil {
+		data.Set("LastConsumptionTimestamp", string(*params.LastConsumptionTimestamp))
+	}
+	if params != nil && params.NotificationLevel != nil {
+		data.Set("NotificationLevel", *params.NotificationLevel)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &IpMessagingV2ServiceUserUserChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &IpMessagingV2ServiceUserUserChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

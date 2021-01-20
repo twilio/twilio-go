@@ -13,35 +13,33 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateByocTrunkParams Optional parameters for the method 'CreateByocTrunk'
 type CreateByocTrunkParams struct {
-    CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
-    ConnectionPolicySid *string `json:"ConnectionPolicySid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    FromDomainSid *string `json:"FromDomainSid,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
+	ConnectionPolicySid *string `json:"ConnectionPolicySid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FromDomainSid *string `json:"FromDomainSid,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -60,60 +58,60 @@ CreateByocTrunk Method for CreateByocTrunk
 @return VoiceV1ByocTrunk
 */
 func (c *DefaultApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
-    path := "/v1/ByocTrunks"
+	path := "/v1/ByocTrunks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CnamLookupEnabled != nil {
-        data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
-    }
-    if params != nil && params.ConnectionPolicySid != nil {
-        data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.FromDomainSid != nil {
-        data.Set("FromDomainSid", *params.FromDomainSid)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.StatusCallbackUrl != nil {
-        data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.CnamLookupEnabled != nil {
+		data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
+	}
+	if params != nil && params.ConnectionPolicySid != nil {
+		data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.FromDomainSid != nil {
+		data.Set("FromDomainSid", *params.FromDomainSid)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ByocTrunk{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ByocTrunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateConnectionPolicyParams Optional parameters for the method 'CreateConnectionPolicy'
 type CreateConnectionPolicyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -123,37 +121,37 @@ CreateConnectionPolicy Method for CreateConnectionPolicy
 @return VoiceV1ConnectionPolicy
 */
 func (c *DefaultApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
-    path := "/v1/ConnectionPolicies"
+	path := "/v1/ConnectionPolicies"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ConnectionPolicy{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ConnectionPolicy{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateConnectionPolicyTargetParams Optional parameters for the method 'CreateConnectionPolicyTarget'
 type CreateConnectionPolicyTargetParams struct {
-    Enabled *bool `json:"Enabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Priority *int32 `json:"Priority,omitempty"`
-    Target *string `json:"Target,omitempty"`
-    Weight *int32 `json:"Weight,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Priority *int32 `json:"Priority,omitempty"`
+	Target *string `json:"Target,omitempty"`
+	Weight *int32 `json:"Weight,omitempty"`
 }
 
 /*
@@ -168,46 +166,46 @@ CreateConnectionPolicyTarget Method for CreateConnectionPolicyTarget
 @return VoiceV1ConnectionPolicyConnectionPolicyTarget
 */
 func (c *DefaultApiService) CreateConnectionPolicyTarget(connectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
-    path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
-    path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Priority != nil {
-        data.Set("Priority", string(*params.Priority))
-    }
-    if params != nil && params.Target != nil {
-        data.Set("Target", *params.Target)
-    }
-    if params != nil && params.Weight != nil {
-        data.Set("Weight", string(*params.Weight))
-    }
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Priority != nil {
+		data.Set("Priority", string(*params.Priority))
+	}
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
+	}
+	if params != nil && params.Weight != nil {
+		data.Set("Weight", string(*params.Weight))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ConnectionPolicyConnectionPolicyTarget{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ConnectionPolicyConnectionPolicyTarget{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateDialingPermissionsCountryBulkUpdateParams Optional parameters for the method 'CreateDialingPermissionsCountryBulkUpdate'
 type CreateDialingPermissionsCountryBulkUpdateParams struct {
-    UpdateRequest *string `json:"UpdateRequest,omitempty"`
+	UpdateRequest *string `json:"UpdateRequest,omitempty"`
 }
 
 /*
@@ -218,35 +216,35 @@ Create a bulk update request to change voice dialing country permissions of one 
 @return VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate
 */
 func (c *DefaultApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDialingPermissionsCountryBulkUpdateParams) (*VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate, error) {
-    path := "/v1/DialingPermissions/BulkCountryUpdates"
+	path := "/v1/DialingPermissions/BulkCountryUpdates"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.UpdateRequest != nil {
-        data.Set("UpdateRequest", *params.UpdateRequest)
-    }
+	if params != nil && params.UpdateRequest != nil {
+		data.Set("UpdateRequest", *params.UpdateRequest)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateIpRecordParams Optional parameters for the method 'CreateIpRecord'
 type CreateIpRecordParams struct {
-    CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IpAddress *string `json:"IpAddress,omitempty"`
+	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IpAddress *string `json:"IpAddress,omitempty"`
 }
 
 /*
@@ -258,40 +256,40 @@ CreateIpRecord Method for CreateIpRecord
 @return VoiceV1IpRecord
 */
 func (c *DefaultApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
-    path := "/v1/IpRecords"
+	path := "/v1/IpRecords"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CidrPrefixLength != nil {
-        data.Set("CidrPrefixLength", string(*params.CidrPrefixLength))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.IpAddress != nil {
-        data.Set("IpAddress", *params.IpAddress)
-    }
+	if params != nil && params.CidrPrefixLength != nil {
+		data.Set("CidrPrefixLength", string(*params.CidrPrefixLength))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IpAddress != nil {
+		data.Set("IpAddress", *params.IpAddress)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1IpRecord{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1IpRecord{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSourceIpMappingParams Optional parameters for the method 'CreateSourceIpMapping'
 type CreateSourceIpMappingParams struct {
-    IpRecordSid *string `json:"IpRecordSid,omitempty"`
-    SipDomainSid *string `json:"SipDomainSid,omitempty"`
+	IpRecordSid *string `json:"IpRecordSid,omitempty"`
+	SipDomainSid *string `json:"SipDomainSid,omitempty"`
 }
 
 /*
@@ -302,32 +300,32 @@ CreateSourceIpMapping Method for CreateSourceIpMapping
 @return VoiceV1SourceIpMapping
 */
 func (c *DefaultApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
-    path := "/v1/SourceIpMappings"
+	path := "/v1/SourceIpMappings"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.IpRecordSid != nil {
-        data.Set("IpRecordSid", *params.IpRecordSid)
-    }
-    if params != nil && params.SipDomainSid != nil {
-        data.Set("SipDomainSid", *params.SipDomainSid)
-    }
+	if params != nil && params.IpRecordSid != nil {
+		data.Set("IpRecordSid", *params.IpRecordSid)
+	}
+	if params != nil && params.SipDomainSid != nil {
+		data.Set("SipDomainSid", *params.SipDomainSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1SourceIpMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1SourceIpMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -335,22 +333,22 @@ DeleteByocTrunk Method for DeleteByocTrunk
  * @param sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to delete.
 */
 func (c *DefaultApiService) DeleteByocTrunk(sid string) (error) {
-    path := "/v1/ByocTrunks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/ByocTrunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -358,22 +356,22 @@ DeleteConnectionPolicy Method for DeleteConnectionPolicy
  * @param sid The unique string that we created to identify the Connection Policy resource to delete.
 */
 func (c *DefaultApiService) DeleteConnectionPolicy(sid string) (error) {
-    path := "/v1/ConnectionPolicies/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/ConnectionPolicies/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -382,23 +380,23 @@ DeleteConnectionPolicyTarget Method for DeleteConnectionPolicyTarget
  * @param sid The unique string that we created to identify the Target resource to delete.
 */
 func (c *DefaultApiService) DeleteConnectionPolicyTarget(connectionPolicySid string, sid string) (error) {
-    path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
-    path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -406,22 +404,22 @@ DeleteIpRecord Method for DeleteIpRecord
  * @param sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
 */
 func (c *DefaultApiService) DeleteIpRecord(sid string) (error) {
-    path := "/v1/IpRecords/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/IpRecords/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -429,22 +427,22 @@ DeleteSourceIpMapping Method for DeleteSourceIpMapping
  * @param sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
 */
 func (c *DefaultApiService) DeleteSourceIpMapping(sid string) (error) {
-    path := "/v1/SourceIpMappings/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/SourceIpMappings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -453,27 +451,27 @@ FetchByocTrunk Method for FetchByocTrunk
 @return VoiceV1ByocTrunk
 */
 func (c *DefaultApiService) FetchByocTrunk(sid string) (*VoiceV1ByocTrunk, error) {
-    path := "/v1/ByocTrunks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/ByocTrunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ByocTrunk{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ByocTrunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -482,27 +480,27 @@ FetchConnectionPolicy Method for FetchConnectionPolicy
 @return VoiceV1ConnectionPolicy
 */
 func (c *DefaultApiService) FetchConnectionPolicy(sid string) (*VoiceV1ConnectionPolicy, error) {
-    path := "/v1/ConnectionPolicies/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/ConnectionPolicies/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ConnectionPolicy{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ConnectionPolicy{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -512,28 +510,28 @@ FetchConnectionPolicyTarget Method for FetchConnectionPolicyTarget
 @return VoiceV1ConnectionPolicyConnectionPolicyTarget
 */
 func (c *DefaultApiService) FetchConnectionPolicyTarget(connectionPolicySid string, sid string) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
-    path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
-    path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ConnectionPolicyConnectionPolicyTarget{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ConnectionPolicyConnectionPolicyTarget{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -543,27 +541,27 @@ Retrieve voice dialing country permissions identified by the given ISO country c
 @return VoiceV1DialingPermissionsDialingPermissionsCountryInstance
 */
 func (c *DefaultApiService) FetchDialingPermissionsCountry(isoCode string) (*VoiceV1DialingPermissionsDialingPermissionsCountryInstance, error) {
-    path := "/v1/DialingPermissions/Countries/{IsoCode}"
-    path = strings.Replace(path, "{"+"IsoCode"+"}", isoCode, -1)
+	path := "/v1/DialingPermissions/Countries/{IsoCode}"
+	path = strings.Replace(path, "{"+"IsoCode"+"}", isoCode, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1DialingPermissionsDialingPermissionsCountryInstance{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1DialingPermissionsDialingPermissionsCountryInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -572,26 +570,26 @@ Retrieve voice dialing permissions inheritance for the sub-account
 @return VoiceV1DialingPermissionsDialingPermissionsSettings
 */
 func (c *DefaultApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissionsDialingPermissionsSettings, error) {
-    path := "/v1/Settings"
+	path := "/v1/Settings"
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1DialingPermissionsDialingPermissionsSettings{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1DialingPermissionsDialingPermissionsSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -600,27 +598,27 @@ FetchIpRecord Method for FetchIpRecord
 @return VoiceV1IpRecord
 */
 func (c *DefaultApiService) FetchIpRecord(sid string) (*VoiceV1IpRecord, error) {
-    path := "/v1/IpRecords/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/IpRecords/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1IpRecord{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1IpRecord{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -629,31 +627,31 @@ FetchSourceIpMapping Method for FetchSourceIpMapping
 @return VoiceV1SourceIpMapping
 */
 func (c *DefaultApiService) FetchSourceIpMapping(sid string) (*VoiceV1SourceIpMapping, error) {
-    path := "/v1/SourceIpMappings/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/SourceIpMappings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1SourceIpMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1SourceIpMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListByocTrunkParams Optional parameters for the method 'ListByocTrunk'
 type ListByocTrunkParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -663,33 +661,33 @@ ListByocTrunk Method for ListByocTrunk
 @return VoiceV1ByocTrunkReadResponse
 */
 func (c *DefaultApiService) ListByocTrunk(params *ListByocTrunkParams) (*VoiceV1ByocTrunkReadResponse, error) {
-    path := "/v1/ByocTrunks"
+	path := "/v1/ByocTrunks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ByocTrunkReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ByocTrunkReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConnectionPolicyParams Optional parameters for the method 'ListConnectionPolicy'
 type ListConnectionPolicyParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -699,33 +697,33 @@ ListConnectionPolicy Method for ListConnectionPolicy
 @return VoiceV1ConnectionPolicyReadResponse
 */
 func (c *DefaultApiService) ListConnectionPolicy(params *ListConnectionPolicyParams) (*VoiceV1ConnectionPolicyReadResponse, error) {
-    path := "/v1/ConnectionPolicies"
+	path := "/v1/ConnectionPolicies"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ConnectionPolicyReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ConnectionPolicyReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListConnectionPolicyTargetParams Optional parameters for the method 'ListConnectionPolicyTarget'
 type ListConnectionPolicyTargetParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -736,40 +734,40 @@ ListConnectionPolicyTarget Method for ListConnectionPolicyTarget
 @return VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse
 */
 func (c *DefaultApiService) ListConnectionPolicyTarget(connectionPolicySid string, params *ListConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse, error) {
-    path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
-    path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDialingPermissionsCountryParams Optional parameters for the method 'ListDialingPermissionsCountry'
 type ListDialingPermissionsCountryParams struct {
-    IsoCode *string `json:"IsoCode,omitempty"`
-    Continent *string `json:"Continent,omitempty"`
-    CountryCode *string `json:"CountryCode,omitempty"`
-    LowRiskNumbersEnabled *bool `json:"LowRiskNumbersEnabled,omitempty"`
-    HighRiskSpecialNumbersEnabled *bool `json:"HighRiskSpecialNumbersEnabled,omitempty"`
-    HighRiskTollfraudNumbersEnabled *bool `json:"HighRiskTollfraudNumbersEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	IsoCode *string `json:"IsoCode,omitempty"`
+	Continent *string `json:"Continent,omitempty"`
+	CountryCode *string `json:"CountryCode,omitempty"`
+	LowRiskNumbersEnabled *bool `json:"LowRiskNumbersEnabled,omitempty"`
+	HighRiskSpecialNumbersEnabled *bool `json:"HighRiskSpecialNumbersEnabled,omitempty"`
+	HighRiskTollfraudNumbersEnabled *bool `json:"HighRiskTollfraudNumbersEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -786,51 +784,51 @@ Retrieve all voice dialing country permissions for this account
 @return VoiceV1DialingPermissionsDialingPermissionsCountryReadResponse
 */
 func (c *DefaultApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) (*VoiceV1DialingPermissionsDialingPermissionsCountryReadResponse, error) {
-    path := "/v1/DialingPermissions/Countries"
+	path := "/v1/DialingPermissions/Countries"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.IsoCode != nil {
-        data.Set("IsoCode", *params.IsoCode)
-    }
-    if params != nil && params.Continent != nil {
-        data.Set("Continent", *params.Continent)
-    }
-    if params != nil && params.CountryCode != nil {
-        data.Set("CountryCode", *params.CountryCode)
-    }
-    if params != nil && params.LowRiskNumbersEnabled != nil {
-        data.Set("LowRiskNumbersEnabled", string(*params.LowRiskNumbersEnabled))
-    }
-    if params != nil && params.HighRiskSpecialNumbersEnabled != nil {
-        data.Set("HighRiskSpecialNumbersEnabled", string(*params.HighRiskSpecialNumbersEnabled))
-    }
-    if params != nil && params.HighRiskTollfraudNumbersEnabled != nil {
-        data.Set("HighRiskTollfraudNumbersEnabled", string(*params.HighRiskTollfraudNumbersEnabled))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.IsoCode != nil {
+		data.Set("IsoCode", *params.IsoCode)
+	}
+	if params != nil && params.Continent != nil {
+		data.Set("Continent", *params.Continent)
+	}
+	if params != nil && params.CountryCode != nil {
+		data.Set("CountryCode", *params.CountryCode)
+	}
+	if params != nil && params.LowRiskNumbersEnabled != nil {
+		data.Set("LowRiskNumbersEnabled", string(*params.LowRiskNumbersEnabled))
+	}
+	if params != nil && params.HighRiskSpecialNumbersEnabled != nil {
+		data.Set("HighRiskSpecialNumbersEnabled", string(*params.HighRiskSpecialNumbersEnabled))
+	}
+	if params != nil && params.HighRiskTollfraudNumbersEnabled != nil {
+		data.Set("HighRiskTollfraudNumbersEnabled", string(*params.HighRiskTollfraudNumbersEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1DialingPermissionsDialingPermissionsCountryReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1DialingPermissionsDialingPermissionsCountryReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDialingPermissionsHrsPrefixesParams Optional parameters for the method 'ListDialingPermissionsHrsPrefixes'
 type ListDialingPermissionsHrsPrefixesParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -842,34 +840,34 @@ Fetch the high-risk special services prefixes from the country resource correspo
 @return VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse
 */
 func (c *DefaultApiService) ListDialingPermissionsHrsPrefixes(isoCode string, params *ListDialingPermissionsHrsPrefixesParams) (*VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse, error) {
-    path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
-    path = strings.Replace(path, "{"+"IsoCode"+"}", isoCode, -1)
+	path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
+	path = strings.Replace(path, "{"+"IsoCode"+"}", isoCode, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListIpRecordParams Optional parameters for the method 'ListIpRecord'
 type ListIpRecordParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -879,33 +877,33 @@ ListIpRecord Method for ListIpRecord
 @return VoiceV1IpRecordReadResponse
 */
 func (c *DefaultApiService) ListIpRecord(params *ListIpRecordParams) (*VoiceV1IpRecordReadResponse, error) {
-    path := "/v1/IpRecords"
+	path := "/v1/IpRecords"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1IpRecordReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1IpRecordReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSourceIpMappingParams Optional parameters for the method 'ListSourceIpMapping'
 type ListSourceIpMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -915,42 +913,42 @@ ListSourceIpMapping Method for ListSourceIpMapping
 @return VoiceV1SourceIpMappingReadResponse
 */
 func (c *DefaultApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) (*VoiceV1SourceIpMappingReadResponse, error) {
-    path := "/v1/SourceIpMappings"
+	path := "/v1/SourceIpMappings"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1SourceIpMappingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1SourceIpMappingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateByocTrunkParams Optional parameters for the method 'UpdateByocTrunk'
 type UpdateByocTrunkParams struct {
-    CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
-    ConnectionPolicySid *string `json:"ConnectionPolicySid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    FromDomainSid *string `json:"FromDomainSid,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
+	ConnectionPolicySid *string `json:"ConnectionPolicySid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FromDomainSid *string `json:"FromDomainSid,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -970,61 +968,61 @@ UpdateByocTrunk Method for UpdateByocTrunk
 @return VoiceV1ByocTrunk
 */
 func (c *DefaultApiService) UpdateByocTrunk(sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
-    path := "/v1/ByocTrunks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/ByocTrunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CnamLookupEnabled != nil {
-        data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
-    }
-    if params != nil && params.ConnectionPolicySid != nil {
-        data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.FromDomainSid != nil {
-        data.Set("FromDomainSid", *params.FromDomainSid)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.StatusCallbackUrl != nil {
-        data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
-    }
-    if params != nil && params.VoiceFallbackMethod != nil {
-        data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
-    }
-    if params != nil && params.VoiceFallbackUrl != nil {
-        data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
-    }
-    if params != nil && params.VoiceMethod != nil {
-        data.Set("VoiceMethod", *params.VoiceMethod)
-    }
-    if params != nil && params.VoiceUrl != nil {
-        data.Set("VoiceUrl", *params.VoiceUrl)
-    }
+	if params != nil && params.CnamLookupEnabled != nil {
+		data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
+	}
+	if params != nil && params.ConnectionPolicySid != nil {
+		data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.FromDomainSid != nil {
+		data.Set("FromDomainSid", *params.FromDomainSid)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ByocTrunk{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ByocTrunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConnectionPolicyParams Optional parameters for the method 'UpdateConnectionPolicy'
 type UpdateConnectionPolicyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1035,38 +1033,38 @@ UpdateConnectionPolicy Method for UpdateConnectionPolicy
 @return VoiceV1ConnectionPolicy
 */
 func (c *DefaultApiService) UpdateConnectionPolicy(sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
-    path := "/v1/ConnectionPolicies/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/ConnectionPolicies/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ConnectionPolicy{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ConnectionPolicy{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateConnectionPolicyTargetParams Optional parameters for the method 'UpdateConnectionPolicyTarget'
 type UpdateConnectionPolicyTargetParams struct {
-    Enabled *bool `json:"Enabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Priority *int32 `json:"Priority,omitempty"`
-    Target *string `json:"Target,omitempty"`
-    Weight *int32 `json:"Weight,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Priority *int32 `json:"Priority,omitempty"`
+	Target *string `json:"Target,omitempty"`
+	Weight *int32 `json:"Weight,omitempty"`
 }
 
 /*
@@ -1082,47 +1080,47 @@ UpdateConnectionPolicyTarget Method for UpdateConnectionPolicyTarget
 @return VoiceV1ConnectionPolicyConnectionPolicyTarget
 */
 func (c *DefaultApiService) UpdateConnectionPolicyTarget(connectionPolicySid string, sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
-    path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
-    path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Priority != nil {
-        data.Set("Priority", string(*params.Priority))
-    }
-    if params != nil && params.Target != nil {
-        data.Set("Target", *params.Target)
-    }
-    if params != nil && params.Weight != nil {
-        data.Set("Weight", string(*params.Weight))
-    }
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Priority != nil {
+		data.Set("Priority", string(*params.Priority))
+	}
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
+	}
+	if params != nil && params.Weight != nil {
+		data.Set("Weight", string(*params.Weight))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1ConnectionPolicyConnectionPolicyTarget{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1ConnectionPolicyConnectionPolicyTarget{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateDialingPermissionsSettingsParams Optional parameters for the method 'UpdateDialingPermissionsSettings'
 type UpdateDialingPermissionsSettingsParams struct {
-    DialingPermissionsInheritance *bool `json:"DialingPermissionsInheritance,omitempty"`
+	DialingPermissionsInheritance *bool `json:"DialingPermissionsInheritance,omitempty"`
 }
 
 /*
@@ -1133,33 +1131,33 @@ Update voice dialing permissions inheritance for the sub-account
 @return VoiceV1DialingPermissionsDialingPermissionsSettings
 */
 func (c *DefaultApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermissionsSettingsParams) (*VoiceV1DialingPermissionsDialingPermissionsSettings, error) {
-    path := "/v1/Settings"
+	path := "/v1/Settings"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.DialingPermissionsInheritance != nil {
-        data.Set("DialingPermissionsInheritance", string(*params.DialingPermissionsInheritance))
-    }
+	if params != nil && params.DialingPermissionsInheritance != nil {
+		data.Set("DialingPermissionsInheritance", string(*params.DialingPermissionsInheritance))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1DialingPermissionsDialingPermissionsSettings{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1DialingPermissionsDialingPermissionsSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateIpRecordParams Optional parameters for the method 'UpdateIpRecord'
 type UpdateIpRecordParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1170,34 +1168,34 @@ UpdateIpRecord Method for UpdateIpRecord
 @return VoiceV1IpRecord
 */
 func (c *DefaultApiService) UpdateIpRecord(sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
-    path := "/v1/IpRecords/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/IpRecords/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1IpRecord{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1IpRecord{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSourceIpMappingParams Optional parameters for the method 'UpdateSourceIpMapping'
 type UpdateSourceIpMappingParams struct {
-    SipDomainSid *string `json:"SipDomainSid,omitempty"`
+	SipDomainSid *string `json:"SipDomainSid,omitempty"`
 }
 
 /*
@@ -1208,28 +1206,28 @@ UpdateSourceIpMapping Method for UpdateSourceIpMapping
 @return VoiceV1SourceIpMapping
 */
 func (c *DefaultApiService) UpdateSourceIpMapping(sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
-    path := "/v1/SourceIpMappings/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/SourceIpMappings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.SipDomainSid != nil {
-        data.Set("SipDomainSid", *params.SipDomainSid)
-    }
+	if params != nil && params.SipDomainSid != nil {
+		data.Set("SipDomainSid", *params.SipDomainSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VoiceV1SourceIpMapping{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VoiceV1SourceIpMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

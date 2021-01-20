@@ -13,35 +13,32 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
-    "reflect"
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateCompositionParams Optional parameters for the method 'CreateComposition'
 type CreateCompositionParams struct {
-    AudioSources *[]string `json:"AudioSources,omitempty"`
-    AudioSourcesExcluded *[]string `json:"AudioSourcesExcluded,omitempty"`
-    Format *string `json:"Format,omitempty"`
-    Resolution *string `json:"Resolution,omitempty"`
-    RoomSid *string `json:"RoomSid,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Trim *bool `json:"Trim,omitempty"`
-    VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
+	AudioSources *[]string `json:"AudioSources,omitempty"`
+	AudioSourcesExcluded *[]string `json:"AudioSourcesExcluded,omitempty"`
+	Format *string `json:"Format,omitempty"`
+	Resolution *string `json:"Resolution,omitempty"`
+	RoomSid *string `json:"RoomSid,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Trim *bool `json:"Trim,omitempty"`
+	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
 }
 
 /*
@@ -59,72 +56,72 @@ CreateComposition Method for CreateComposition
 @return VideoV1Composition
 */
 func (c *DefaultApiService) CreateComposition(params *CreateCompositionParams) (*VideoV1Composition, error) {
-    path := "/v1/Compositions"
+	path := "/v1/Compositions"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AudioSources != nil {
-        data.Set("AudioSources", *params.AudioSources)
-    }
-    if params != nil && params.AudioSourcesExcluded != nil {
-        data.Set("AudioSourcesExcluded", *params.AudioSourcesExcluded)
-    }
-    if params != nil && params.Format != nil {
-        data.Set("Format", *params.Format)
-    }
-    if params != nil && params.Resolution != nil {
-        data.Set("Resolution", *params.Resolution)
-    }
-    if params != nil && params.RoomSid != nil {
-        data.Set("RoomSid", *params.RoomSid)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.Trim != nil {
-        data.Set("Trim", string(*params.Trim))
-    }
-    if params != nil && params.VideoLayout != nil {
-        v, err := json.Marshal(params.VideoLayout)
+	if params != nil && params.AudioSources != nil {
+		data.Set("AudioSources", *params.AudioSources)
+	}
+	if params != nil && params.AudioSourcesExcluded != nil {
+		data.Set("AudioSourcesExcluded", *params.AudioSourcesExcluded)
+	}
+	if params != nil && params.Format != nil {
+		data.Set("Format", *params.Format)
+	}
+	if params != nil && params.Resolution != nil {
+		data.Set("Resolution", *params.Resolution)
+	}
+	if params != nil && params.RoomSid != nil {
+		data.Set("RoomSid", *params.RoomSid)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", string(*params.Trim))
+	}
+	if params != nil && params.VideoLayout != nil {
+		v, err := json.Marshal(params.VideoLayout)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("VideoLayout", string(v))
-    }
+		data.Set("VideoLayout", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1Composition{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1Composition{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCompositionHookParams Optional parameters for the method 'CreateCompositionHook'
 type CreateCompositionHookParams struct {
-    AudioSources *[]string `json:"AudioSources,omitempty"`
-    AudioSourcesExcluded *[]string `json:"AudioSourcesExcluded,omitempty"`
-    Enabled *bool `json:"Enabled,omitempty"`
-    Format *string `json:"Format,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Resolution *string `json:"Resolution,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Trim *bool `json:"Trim,omitempty"`
-    VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
+	AudioSources *[]string `json:"AudioSources,omitempty"`
+	AudioSourcesExcluded *[]string `json:"AudioSourcesExcluded,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	Format *string `json:"Format,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Resolution *string `json:"Resolution,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Trim *bool `json:"Trim,omitempty"`
+	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
 }
 
 /*
@@ -143,71 +140,71 @@ CreateCompositionHook Method for CreateCompositionHook
 @return VideoV1CompositionHook
 */
 func (c *DefaultApiService) CreateCompositionHook(params *CreateCompositionHookParams) (*VideoV1CompositionHook, error) {
-    path := "/v1/CompositionHooks"
+	path := "/v1/CompositionHooks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AudioSources != nil {
-        data.Set("AudioSources", *params.AudioSources)
-    }
-    if params != nil && params.AudioSourcesExcluded != nil {
-        data.Set("AudioSourcesExcluded", *params.AudioSourcesExcluded)
-    }
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.Format != nil {
-        data.Set("Format", *params.Format)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Resolution != nil {
-        data.Set("Resolution", *params.Resolution)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.Trim != nil {
-        data.Set("Trim", string(*params.Trim))
-    }
-    if params != nil && params.VideoLayout != nil {
-        v, err := json.Marshal(params.VideoLayout)
+	if params != nil && params.AudioSources != nil {
+		data.Set("AudioSources", *params.AudioSources)
+	}
+	if params != nil && params.AudioSourcesExcluded != nil {
+		data.Set("AudioSourcesExcluded", *params.AudioSourcesExcluded)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.Format != nil {
+		data.Set("Format", *params.Format)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Resolution != nil {
+		data.Set("Resolution", *params.Resolution)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", string(*params.Trim))
+	}
+	if params != nil && params.VideoLayout != nil {
+		v, err := json.Marshal(params.VideoLayout)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("VideoLayout", string(v))
-    }
+		data.Set("VideoLayout", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1CompositionHook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1CompositionHook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateCompositionSettingsParams Optional parameters for the method 'CreateCompositionSettings'
 type CreateCompositionSettingsParams struct {
-    AwsCredentialsSid *string `json:"AwsCredentialsSid,omitempty"`
-    AwsS3Url *string `json:"AwsS3Url,omitempty"`
-    AwsStorageEnabled *bool `json:"AwsStorageEnabled,omitempty"`
-    EncryptionEnabled *bool `json:"EncryptionEnabled,omitempty"`
-    EncryptionKeySid *string `json:"EncryptionKeySid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	AwsCredentialsSid *string `json:"AwsCredentialsSid,omitempty"`
+	AwsS3Url *string `json:"AwsS3Url,omitempty"`
+	AwsStorageEnabled *bool `json:"AwsStorageEnabled,omitempty"`
+	EncryptionEnabled *bool `json:"EncryptionEnabled,omitempty"`
+	EncryptionKeySid *string `json:"EncryptionKeySid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -222,53 +219,53 @@ CreateCompositionSettings Method for CreateCompositionSettings
 @return VideoV1CompositionSettings
 */
 func (c *DefaultApiService) CreateCompositionSettings(params *CreateCompositionSettingsParams) (*VideoV1CompositionSettings, error) {
-    path := "/v1/CompositionSettings/Default"
+	path := "/v1/CompositionSettings/Default"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AwsCredentialsSid != nil {
-        data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
-    }
-    if params != nil && params.AwsS3Url != nil {
-        data.Set("AwsS3Url", *params.AwsS3Url)
-    }
-    if params != nil && params.AwsStorageEnabled != nil {
-        data.Set("AwsStorageEnabled", string(*params.AwsStorageEnabled))
-    }
-    if params != nil && params.EncryptionEnabled != nil {
-        data.Set("EncryptionEnabled", string(*params.EncryptionEnabled))
-    }
-    if params != nil && params.EncryptionKeySid != nil {
-        data.Set("EncryptionKeySid", *params.EncryptionKeySid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.AwsCredentialsSid != nil {
+		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
+	}
+	if params != nil && params.AwsS3Url != nil {
+		data.Set("AwsS3Url", *params.AwsS3Url)
+	}
+	if params != nil && params.AwsStorageEnabled != nil {
+		data.Set("AwsStorageEnabled", string(*params.AwsStorageEnabled))
+	}
+	if params != nil && params.EncryptionEnabled != nil {
+		data.Set("EncryptionEnabled", string(*params.EncryptionEnabled))
+	}
+	if params != nil && params.EncryptionKeySid != nil {
+		data.Set("EncryptionKeySid", *params.EncryptionKeySid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1CompositionSettings{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1CompositionSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateRecordingSettingsParams Optional parameters for the method 'CreateRecordingSettings'
 type CreateRecordingSettingsParams struct {
-    AwsCredentialsSid *string `json:"AwsCredentialsSid,omitempty"`
-    AwsS3Url *string `json:"AwsS3Url,omitempty"`
-    AwsStorageEnabled *bool `json:"AwsStorageEnabled,omitempty"`
-    EncryptionEnabled *bool `json:"EncryptionEnabled,omitempty"`
-    EncryptionKeySid *string `json:"EncryptionKeySid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	AwsCredentialsSid *string `json:"AwsCredentialsSid,omitempty"`
+	AwsS3Url *string `json:"AwsS3Url,omitempty"`
+	AwsStorageEnabled *bool `json:"AwsStorageEnabled,omitempty"`
+	EncryptionEnabled *bool `json:"EncryptionEnabled,omitempty"`
+	EncryptionKeySid *string `json:"EncryptionKeySid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -283,56 +280,56 @@ CreateRecordingSettings Method for CreateRecordingSettings
 @return VideoV1RecordingSettings
 */
 func (c *DefaultApiService) CreateRecordingSettings(params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
-    path := "/v1/RecordingSettings/Default"
+	path := "/v1/RecordingSettings/Default"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AwsCredentialsSid != nil {
-        data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
-    }
-    if params != nil && params.AwsS3Url != nil {
-        data.Set("AwsS3Url", *params.AwsS3Url)
-    }
-    if params != nil && params.AwsStorageEnabled != nil {
-        data.Set("AwsStorageEnabled", string(*params.AwsStorageEnabled))
-    }
-    if params != nil && params.EncryptionEnabled != nil {
-        data.Set("EncryptionEnabled", string(*params.EncryptionEnabled))
-    }
-    if params != nil && params.EncryptionKeySid != nil {
-        data.Set("EncryptionKeySid", *params.EncryptionKeySid)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
+	if params != nil && params.AwsCredentialsSid != nil {
+		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
+	}
+	if params != nil && params.AwsS3Url != nil {
+		data.Set("AwsS3Url", *params.AwsS3Url)
+	}
+	if params != nil && params.AwsStorageEnabled != nil {
+		data.Set("AwsStorageEnabled", string(*params.AwsStorageEnabled))
+	}
+	if params != nil && params.EncryptionEnabled != nil {
+		data.Set("EncryptionEnabled", string(*params.EncryptionEnabled))
+	}
+	if params != nil && params.EncryptionKeySid != nil {
+		data.Set("EncryptionKeySid", *params.EncryptionKeySid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RecordingSettings{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RecordingSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateRoomParams Optional parameters for the method 'CreateRoom'
 type CreateRoomParams struct {
-    EnableTurn *bool `json:"EnableTurn,omitempty"`
-    MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
-    MediaRegion *string `json:"MediaRegion,omitempty"`
-    RecordParticipantsOnConnect *bool `json:"RecordParticipantsOnConnect,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Type *string `json:"Type,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    VideoCodecs *[]string `json:"VideoCodecs,omitempty"`
+	EnableTurn *bool `json:"EnableTurn,omitempty"`
+	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	MediaRegion *string `json:"MediaRegion,omitempty"`
+	RecordParticipantsOnConnect *bool `json:"RecordParticipantsOnConnect,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Type *string `json:"Type,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	VideoCodecs *[]string `json:"VideoCodecs,omitempty"`
 }
 
 /*
@@ -350,53 +347,53 @@ CreateRoom Method for CreateRoom
 @return VideoV1Room
 */
 func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) {
-    path := "/v1/Rooms"
+	path := "/v1/Rooms"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.EnableTurn != nil {
-        data.Set("EnableTurn", string(*params.EnableTurn))
-    }
-    if params != nil && params.MaxParticipants != nil {
-        data.Set("MaxParticipants", string(*params.MaxParticipants))
-    }
-    if params != nil && params.MediaRegion != nil {
-        data.Set("MediaRegion", *params.MediaRegion)
-    }
-    if params != nil && params.RecordParticipantsOnConnect != nil {
-        data.Set("RecordParticipantsOnConnect", string(*params.RecordParticipantsOnConnect))
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", *params.Type)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.VideoCodecs != nil {
-        data.Set("VideoCodecs", *params.VideoCodecs)
-    }
+	if params != nil && params.EnableTurn != nil {
+		data.Set("EnableTurn", string(*params.EnableTurn))
+	}
+	if params != nil && params.MaxParticipants != nil {
+		data.Set("MaxParticipants", string(*params.MaxParticipants))
+	}
+	if params != nil && params.MediaRegion != nil {
+		data.Set("MediaRegion", *params.MediaRegion)
+	}
+	if params != nil && params.RecordParticipantsOnConnect != nil {
+		data.Set("RecordParticipantsOnConnect", string(*params.RecordParticipantsOnConnect))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.VideoCodecs != nil {
+		data.Set("VideoCodecs", *params.VideoCodecs)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1Room{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1Room{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -405,22 +402,22 @@ Delete a Recording Composition resource identified by a Composition SID.
  * @param sid The SID of the Composition resource to delete.
 */
 func (c *DefaultApiService) DeleteComposition(sid string) (error) {
-    path := "/v1/Compositions/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Compositions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -429,22 +426,22 @@ Delete a Recording CompositionHook resource identified by a &#x60;CompositionHoo
  * @param sid The SID of the CompositionHook resource to delete.
 */
 func (c *DefaultApiService) DeleteCompositionHook(sid string) (error) {
-    path := "/v1/CompositionHooks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/CompositionHooks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -453,22 +450,22 @@ Delete a Recording resource identified by a Recording SID.
  * @param sid The SID of the Recording resource to delete.
 */
 func (c *DefaultApiService) DeleteRecording(sid string) (error) {
-    path := "/v1/Recordings/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Recordings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -477,23 +474,23 @@ DeleteRoomRecording Method for DeleteRoomRecording
  * @param sid The SID of the RoomRecording resource to delete.
 */
 func (c *DefaultApiService) DeleteRoomRecording(roomSid string, sid string) (error) {
-    path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -503,27 +500,27 @@ Returns a single Composition resource identified by a Composition SID.
 @return VideoV1Composition
 */
 func (c *DefaultApiService) FetchComposition(sid string) (*VideoV1Composition, error) {
-    path := "/v1/Compositions/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Compositions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1Composition{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1Composition{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -533,27 +530,27 @@ Returns a single CompositionHook resource identified by a CompositionHook SID.
 @return VideoV1CompositionHook
 */
 func (c *DefaultApiService) FetchCompositionHook(sid string) (*VideoV1CompositionHook, error) {
-    path := "/v1/CompositionHooks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/CompositionHooks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1CompositionHook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1CompositionHook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -561,26 +558,26 @@ FetchCompositionSettings Method for FetchCompositionSettings
 @return VideoV1CompositionSettings
 */
 func (c *DefaultApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, error) {
-    path := "/v1/CompositionSettings/Default"
+	path := "/v1/CompositionSettings/Default"
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1CompositionSettings{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1CompositionSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -590,27 +587,27 @@ Returns a single Recording resource identified by a Recording SID.
 @return VideoV1Recording
 */
 func (c *DefaultApiService) FetchRecording(sid string) (*VideoV1Recording, error) {
-    path := "/v1/Recordings/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Recordings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1Recording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1Recording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -618,26 +615,26 @@ FetchRecordingSettings Method for FetchRecordingSettings
 @return VideoV1RecordingSettings
 */
 func (c *DefaultApiService) FetchRecordingSettings() (*VideoV1RecordingSettings, error) {
-    path := "/v1/RecordingSettings/Default"
+	path := "/v1/RecordingSettings/Default"
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RecordingSettings{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RecordingSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -646,27 +643,27 @@ FetchRoom Method for FetchRoom
 @return VideoV1Room
 */
 func (c *DefaultApiService) FetchRoom(sid string) (*VideoV1Room, error) {
-    path := "/v1/Rooms/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Rooms/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1Room{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1Room{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -676,28 +673,28 @@ FetchRoomParticipant Method for FetchRoomParticipant
 @return VideoV1RoomRoomParticipant
 */
 func (c *DefaultApiService) FetchRoomParticipant(roomSid string, sid string) (*VideoV1RoomRoomParticipant, error) {
-    path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -709,29 +706,29 @@ Returns a single Track resource represented by TrackName or SID.
 @return VideoV1RoomRoomParticipantRoomParticipantPublishedTrack
 */
 func (c *DefaultApiService) FetchRoomParticipantPublishedTrack(roomSid string, participantSid string, sid string) (*VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, error) {
-    path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomParticipantRoomParticipantPublishedTrack{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomParticipantRoomParticipantPublishedTrack{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -742,28 +739,28 @@ Returns a list of Subscribe Rules for the Participant.
 @return VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 */
 func (c *DefaultApiService) FetchRoomParticipantSubscribeRule(roomSid string, participantSid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
-    path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribeRule{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribeRule{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -775,29 +772,29 @@ Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: Thi
 @return VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack
 */
 func (c *DefaultApiService) FetchRoomParticipantSubscribedTrack(roomSid string, participantSid string, sid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
-    path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -807,28 +804,28 @@ FetchRoomRecording Method for FetchRoomRecording
 @return VideoV1RoomRoomRecording
 */
 func (c *DefaultApiService) FetchRoomRecording(roomSid string, sid string) (*VideoV1RoomRoomRecording, error) {
-    path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomRecording{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -838,35 +835,35 @@ Returns a list of Recording Rules for the Room.
 @return VideoV1RoomRoomRecordingRule
 */
 func (c *DefaultApiService) FetchRoomRecordingRule(roomSid string) (*VideoV1RoomRoomRecordingRule, error) {
-    path := "/v1/Rooms/{RoomSid}/RecordingRules"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path := "/v1/Rooms/{RoomSid}/RecordingRules"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomRecordingRule{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomRecordingRule{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCompositionParams Optional parameters for the method 'ListComposition'
 type ListCompositionParams struct {
-    Status *string `json:"Status,omitempty"`
-    DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-    DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
-    RoomSid *string `json:"RoomSid,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
+	RoomSid *string `json:"RoomSid,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -881,49 +878,49 @@ List of all Recording compositions.
 @return VideoV1CompositionReadResponse
 */
 func (c *DefaultApiService) ListComposition(params *ListCompositionParams) (*VideoV1CompositionReadResponse, error) {
-    path := "/v1/Compositions"
+	path := "/v1/Compositions"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.DateCreatedAfter != nil {
-        data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
-    }
-    if params != nil && params.DateCreatedBefore != nil {
-        data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
-    }
-    if params != nil && params.RoomSid != nil {
-        data.Set("RoomSid", *params.RoomSid)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+	}
+	if params != nil && params.RoomSid != nil {
+		data.Set("RoomSid", *params.RoomSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1CompositionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1CompositionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListCompositionHookParams Optional parameters for the method 'ListCompositionHook'
 type ListCompositionHookParams struct {
-    Enabled *bool `json:"Enabled,omitempty"`
-    DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-    DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -938,51 +935,51 @@ List of all Recording CompositionHook resources.
 @return VideoV1CompositionHookReadResponse
 */
 func (c *DefaultApiService) ListCompositionHook(params *ListCompositionHookParams) (*VideoV1CompositionHookReadResponse, error) {
-    path := "/v1/CompositionHooks"
+	path := "/v1/CompositionHooks"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.DateCreatedAfter != nil {
-        data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
-    }
-    if params != nil && params.DateCreatedBefore != nil {
-        data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1CompositionHookReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1CompositionHookReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRecordingParams Optional parameters for the method 'ListRecording'
 type ListRecordingParams struct {
-    Status *string `json:"Status,omitempty"`
-    SourceSid *string `json:"SourceSid,omitempty"`
-    GroupingSid *[]string `json:"GroupingSid,omitempty"`
-    DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-    DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
-    MediaType *string `json:"MediaType,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	SourceSid *string `json:"SourceSid,omitempty"`
+	GroupingSid *[]string `json:"GroupingSid,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
+	MediaType *string `json:"MediaType,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -999,55 +996,55 @@ List of all Track recordings.
 @return VideoV1RecordingReadResponse
 */
 func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*VideoV1RecordingReadResponse, error) {
-    path := "/v1/Recordings"
+	path := "/v1/Recordings"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.SourceSid != nil {
-        data.Set("SourceSid", *params.SourceSid)
-    }
-    if params != nil && params.GroupingSid != nil {
-        data.Set("GroupingSid", string(*params.GroupingSid))
-    }
-    if params != nil && params.DateCreatedAfter != nil {
-        data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
-    }
-    if params != nil && params.DateCreatedBefore != nil {
-        data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
-    }
-    if params != nil && params.MediaType != nil {
-        data.Set("MediaType", *params.MediaType)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.SourceSid != nil {
+		data.Set("SourceSid", *params.SourceSid)
+	}
+	if params != nil && params.GroupingSid != nil {
+		data.Set("GroupingSid", string(*params.GroupingSid))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+	}
+	if params != nil && params.MediaType != nil {
+		data.Set("MediaType", *params.MediaType)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RecordingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RecordingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRoomParams Optional parameters for the method 'ListRoom'
 type ListRoomParams struct {
-    Status *string `json:"Status,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
-    DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-    DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1061,49 +1058,49 @@ ListRoom Method for ListRoom
 @return VideoV1RoomReadResponse
 */
 func (c *DefaultApiService) ListRoom(params *ListRoomParams) (*VideoV1RoomReadResponse, error) {
-    path := "/v1/Rooms"
+	path := "/v1/Rooms"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
-    if params != nil && params.DateCreatedAfter != nil {
-        data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
-    }
-    if params != nil && params.DateCreatedBefore != nil {
-        data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRoomParticipantParams Optional parameters for the method 'ListRoomParticipant'
 type ListRoomParticipantParams struct {
-    Status *string `json:"Status,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-    DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1118,46 +1115,46 @@ ListRoomParticipant Method for ListRoomParticipant
 @return VideoV1RoomRoomParticipantReadResponse
 */
 func (c *DefaultApiService) ListRoomParticipant(roomSid string, params *ListRoomParticipantParams) (*VideoV1RoomRoomParticipantReadResponse, error) {
-    path := "/v1/Rooms/{RoomSid}/Participants"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path := "/v1/Rooms/{RoomSid}/Participants"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.DateCreatedAfter != nil {
-        data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
-    }
-    if params != nil && params.DateCreatedBefore != nil {
-        data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomParticipantReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomParticipantReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRoomParticipantPublishedTrackParams Optional parameters for the method 'ListRoomParticipantPublishedTrack'
 type ListRoomParticipantPublishedTrackParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1170,35 +1167,35 @@ Returns a list of tracks associated with a given Participant. Only &#x60;current
 @return VideoV1RoomRoomParticipantRoomParticipantPublishedTrackReadResponse
 */
 func (c *DefaultApiService) ListRoomParticipantPublishedTrack(roomSid string, participantSid string, params *ListRoomParticipantPublishedTrackParams) (*VideoV1RoomRoomParticipantRoomParticipantPublishedTrackReadResponse, error) {
-    path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomParticipantRoomParticipantPublishedTrackReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomParticipantRoomParticipantPublishedTrackReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRoomParticipantSubscribedTrackParams Optional parameters for the method 'ListRoomParticipantSubscribedTrack'
 type ListRoomParticipantSubscribedTrackParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1211,39 +1208,39 @@ Returns a list of tracks that are subscribed for the participant.
 @return VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse
 */
 func (c *DefaultApiService) ListRoomParticipantSubscribedTrack(roomSid string, participantSid string, params *ListRoomParticipantSubscribedTrackParams) (*VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse, error) {
-    path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListRoomRecordingParams Optional parameters for the method 'ListRoomRecording'
 type ListRoomRecordingParams struct {
-    Status *string `json:"Status,omitempty"`
-    SourceSid *string `json:"SourceSid,omitempty"`
-    DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-    DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	SourceSid *string `json:"SourceSid,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1258,55 +1255,55 @@ ListRoomRecording Method for ListRoomRecording
 @return VideoV1RoomRoomRecordingReadResponse
 */
 func (c *DefaultApiService) ListRoomRecording(roomSid string, params *ListRoomRecordingParams) (*VideoV1RoomRoomRecordingReadResponse, error) {
-    path := "/v1/Rooms/{RoomSid}/Recordings"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path := "/v1/Rooms/{RoomSid}/Recordings"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
-    if params != nil && params.SourceSid != nil {
-        data.Set("SourceSid", *params.SourceSid)
-    }
-    if params != nil && params.DateCreatedAfter != nil {
-        data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
-    }
-    if params != nil && params.DateCreatedBefore != nil {
-        data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.SourceSid != nil {
+		data.Set("SourceSid", *params.SourceSid)
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomRecordingReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomRecordingReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateCompositionHookParams Optional parameters for the method 'UpdateCompositionHook'
 type UpdateCompositionHookParams struct {
-    AudioSources *[]string `json:"AudioSources,omitempty"`
-    AudioSourcesExcluded *[]string `json:"AudioSourcesExcluded,omitempty"`
-    Enabled *bool `json:"Enabled,omitempty"`
-    Format *string `json:"Format,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Resolution *string `json:"Resolution,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Trim *bool `json:"Trim,omitempty"`
-    VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
+	AudioSources *[]string `json:"AudioSources,omitempty"`
+	AudioSourcesExcluded *[]string `json:"AudioSourcesExcluded,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	Format *string `json:"Format,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Resolution *string `json:"Resolution,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Trim *bool `json:"Trim,omitempty"`
+	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
 }
 
 /*
@@ -1326,67 +1323,67 @@ UpdateCompositionHook Method for UpdateCompositionHook
 @return VideoV1CompositionHook
 */
 func (c *DefaultApiService) UpdateCompositionHook(sid string, params *UpdateCompositionHookParams) (*VideoV1CompositionHook, error) {
-    path := "/v1/CompositionHooks/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/CompositionHooks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AudioSources != nil {
-        data.Set("AudioSources", *params.AudioSources)
-    }
-    if params != nil && params.AudioSourcesExcluded != nil {
-        data.Set("AudioSourcesExcluded", *params.AudioSourcesExcluded)
-    }
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.Format != nil {
-        data.Set("Format", *params.Format)
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Resolution != nil {
-        data.Set("Resolution", *params.Resolution)
-    }
-    if params != nil && params.StatusCallback != nil {
-        data.Set("StatusCallback", *params.StatusCallback)
-    }
-    if params != nil && params.StatusCallbackMethod != nil {
-        data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-    }
-    if params != nil && params.Trim != nil {
-        data.Set("Trim", string(*params.Trim))
-    }
-    if params != nil && params.VideoLayout != nil {
-        v, err := json.Marshal(params.VideoLayout)
+	if params != nil && params.AudioSources != nil {
+		data.Set("AudioSources", *params.AudioSources)
+	}
+	if params != nil && params.AudioSourcesExcluded != nil {
+		data.Set("AudioSourcesExcluded", *params.AudioSourcesExcluded)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.Format != nil {
+		data.Set("Format", *params.Format)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Resolution != nil {
+		data.Set("Resolution", *params.Resolution)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", string(*params.Trim))
+	}
+	if params != nil && params.VideoLayout != nil {
+		v, err := json.Marshal(params.VideoLayout)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("VideoLayout", string(v))
-    }
+		data.Set("VideoLayout", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1CompositionHook{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1CompositionHook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRoomParams Optional parameters for the method 'UpdateRoom'
 type UpdateRoomParams struct {
-    Status *string `json:"Status,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -1397,34 +1394,34 @@ UpdateRoom Method for UpdateRoom
 @return VideoV1Room
 */
 func (c *DefaultApiService) UpdateRoom(sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
-    path := "/v1/Rooms/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Rooms/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1Room{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1Room{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRoomParticipantParams Optional parameters for the method 'UpdateRoomParticipant'
 type UpdateRoomParticipantParams struct {
-    Status *string `json:"Status,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -1436,35 +1433,35 @@ UpdateRoomParticipant Method for UpdateRoomParticipant
 @return VideoV1RoomRoomParticipant
 */
 func (c *DefaultApiService) UpdateRoomParticipant(roomSid string, sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomRoomParticipant, error) {
-    path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Status != nil {
-        data.Set("Status", *params.Status)
-    }
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomParticipant{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRoomParticipantSubscribeRuleParams Optional parameters for the method 'UpdateRoomParticipantSubscribeRule'
 type UpdateRoomParticipantSubscribeRuleParams struct {
-    Rules *map[string]interface{} `json:"Rules,omitempty"`
+	Rules *map[string]interface{} `json:"Rules,omitempty"`
 }
 
 /*
@@ -1477,41 +1474,41 @@ Update the Subscribe Rules for the Participant
 @return VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 */
 func (c *DefaultApiService) UpdateRoomParticipantSubscribeRule(roomSid string, participantSid string, params *UpdateRoomParticipantSubscribeRuleParams) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
-    path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-    path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Rules != nil {
-        v, err := json.Marshal(params.Rules)
+	if params != nil && params.Rules != nil {
+		v, err := json.Marshal(params.Rules)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Rules", string(v))
-    }
+		data.Set("Rules", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribeRule{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribeRule{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateRoomRecordingRuleParams Optional parameters for the method 'UpdateRoomRecordingRule'
 type UpdateRoomRecordingRuleParams struct {
-    Rules *map[string]interface{} `json:"Rules,omitempty"`
+	Rules *map[string]interface{} `json:"Rules,omitempty"`
 }
 
 /*
@@ -1523,34 +1520,34 @@ Update the Recording Rules for the Room
 @return VideoV1RoomRoomRecordingRule
 */
 func (c *DefaultApiService) UpdateRoomRecordingRule(roomSid string, params *UpdateRoomRecordingRuleParams) (*VideoV1RoomRoomRecordingRule, error) {
-    path := "/v1/Rooms/{RoomSid}/RecordingRules"
-    path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path := "/v1/Rooms/{RoomSid}/RecordingRules"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Rules != nil {
-        v, err := json.Marshal(params.Rules)
+	if params != nil && params.Rules != nil {
+		v, err := json.Marshal(params.Rules)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Rules", string(v))
-    }
+		data.Set("Rules", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &VideoV1RoomRoomRecordingRule{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &VideoV1RoomRoomRecordingRule{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

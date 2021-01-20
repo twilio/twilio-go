@@ -13,28 +13,26 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type MetricsTagApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewMetricsTagApiService(client *twilio.Client) *MetricsTagApiService {
-    return &MetricsTagApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &MetricsTagApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // ListMetricParams Optional parameters for the method 'ListMetric'
 type ListMetricParams struct {
-    Edge *string `json:"Edge,omitempty"`
-    Direction *string `json:"Direction,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Edge *string `json:"Edge,omitempty"`
+	Direction *string `json:"Direction,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -47,34 +45,34 @@ ListMetric Method for ListMetric
 @return InsightsV1CallMetricReadResponse
 */
 func (c *MetricsTagApiService) ListMetric(callSid string, params *ListMetricParams) (*InsightsV1CallMetricReadResponse, error) {
-    path := "/v1/Voice/{CallSid}/Metrics"
-    path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path := "/v1/Voice/{CallSid}/Metrics"
+	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Edge != nil {
-        data.Set("Edge", *params.Edge)
-    }
-    if params != nil && params.Direction != nil {
-        data.Set("Direction", *params.Direction)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Edge != nil {
+		data.Set("Edge", *params.Edge)
+	}
+	if params != nil && params.Direction != nil {
+		data.Set("Direction", *params.Direction)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &InsightsV1CallMetricReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &InsightsV1CallMetricReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

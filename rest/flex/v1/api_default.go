@@ -13,35 +13,33 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateChannelParams Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
-    ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
-    ChatUniqueName *string `json:"ChatUniqueName,omitempty"`
-    ChatUserFriendlyName *string `json:"ChatUserFriendlyName,omitempty"`
-    FlexFlowSid *string `json:"FlexFlowSid,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    LongLived *bool `json:"LongLived,omitempty"`
-    PreEngagementData *string `json:"PreEngagementData,omitempty"`
-    Target *string `json:"Target,omitempty"`
-    TaskAttributes *string `json:"TaskAttributes,omitempty"`
-    TaskSid *string `json:"TaskSid,omitempty"`
+	ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
+	ChatUniqueName *string `json:"ChatUniqueName,omitempty"`
+	ChatUserFriendlyName *string `json:"ChatUserFriendlyName,omitempty"`
+	FlexFlowSid *string `json:"FlexFlowSid,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	LongLived *bool `json:"LongLived,omitempty"`
+	PreEngagementData *string `json:"PreEngagementData,omitempty"`
+	Target *string `json:"Target,omitempty"`
+	TaskAttributes *string `json:"TaskAttributes,omitempty"`
+	TaskSid *string `json:"TaskSid,omitempty"`
 }
 
 /*
@@ -60,76 +58,76 @@ CreateChannel Method for CreateChannel
 @return FlexV1Channel
 */
 func (c *DefaultApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel, error) {
-    path := "/v1/Channels"
+	path := "/v1/Channels"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ChatFriendlyName != nil {
-        data.Set("ChatFriendlyName", *params.ChatFriendlyName)
-    }
-    if params != nil && params.ChatUniqueName != nil {
-        data.Set("ChatUniqueName", *params.ChatUniqueName)
-    }
-    if params != nil && params.ChatUserFriendlyName != nil {
-        data.Set("ChatUserFriendlyName", *params.ChatUserFriendlyName)
-    }
-    if params != nil && params.FlexFlowSid != nil {
-        data.Set("FlexFlowSid", *params.FlexFlowSid)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.LongLived != nil {
-        data.Set("LongLived", string(*params.LongLived))
-    }
-    if params != nil && params.PreEngagementData != nil {
-        data.Set("PreEngagementData", *params.PreEngagementData)
-    }
-    if params != nil && params.Target != nil {
-        data.Set("Target", *params.Target)
-    }
-    if params != nil && params.TaskAttributes != nil {
-        data.Set("TaskAttributes", *params.TaskAttributes)
-    }
-    if params != nil && params.TaskSid != nil {
-        data.Set("TaskSid", *params.TaskSid)
-    }
+	if params != nil && params.ChatFriendlyName != nil {
+		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+	}
+	if params != nil && params.ChatUniqueName != nil {
+		data.Set("ChatUniqueName", *params.ChatUniqueName)
+	}
+	if params != nil && params.ChatUserFriendlyName != nil {
+		data.Set("ChatUserFriendlyName", *params.ChatUserFriendlyName)
+	}
+	if params != nil && params.FlexFlowSid != nil {
+		data.Set("FlexFlowSid", *params.FlexFlowSid)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.LongLived != nil {
+		data.Set("LongLived", string(*params.LongLived))
+	}
+	if params != nil && params.PreEngagementData != nil {
+		data.Set("PreEngagementData", *params.PreEngagementData)
+	}
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
+	}
+	if params != nil && params.TaskAttributes != nil {
+		data.Set("TaskAttributes", *params.TaskAttributes)
+	}
+	if params != nil && params.TaskSid != nil {
+		data.Set("TaskSid", *params.TaskSid)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1Channel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1Channel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateFlexFlowParams Optional parameters for the method 'CreateFlexFlow'
 type CreateFlexFlowParams struct {
-    ChannelType *string `json:"ChannelType,omitempty"`
-    ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
-    ContactIdentity *string `json:"ContactIdentity,omitempty"`
-    Enabled *bool `json:"Enabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Integration.Channel *string `json:"Integration.Channel,omitempty"`
-    Integration.CreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
-    Integration.FlowSid *string `json:"Integration.FlowSid,omitempty"`
-    Integration.Priority *int32 `json:"Integration.Priority,omitempty"`
-    Integration.RetryCount *int32 `json:"Integration.RetryCount,omitempty"`
-    Integration.Timeout *int32 `json:"Integration.Timeout,omitempty"`
-    Integration.Url *string `json:"Integration.Url,omitempty"`
-    Integration.WorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
-    Integration.WorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
-    IntegrationType *string `json:"IntegrationType,omitempty"`
-    JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
-    LongLived *bool `json:"LongLived,omitempty"`
+	ChannelType *string `json:"ChannelType,omitempty"`
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	ContactIdentity *string `json:"ContactIdentity,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Integration.Channel *string `json:"Integration.Channel,omitempty"`
+	Integration.CreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
+	Integration.FlowSid *string `json:"Integration.FlowSid,omitempty"`
+	Integration.Priority *int32 `json:"Integration.Priority,omitempty"`
+	Integration.RetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	Integration.Timeout *int32 `json:"Integration.Timeout,omitempty"`
+	Integration.Url *string `json:"Integration.Url,omitempty"`
+	Integration.WorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
+	Integration.WorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
+	IntegrationType *string `json:"IntegrationType,omitempty"`
+	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
+	LongLived *bool `json:"LongLived,omitempty"`
 }
 
 /*
@@ -155,86 +153,86 @@ CreateFlexFlow Method for CreateFlexFlow
 @return FlexV1FlexFlow
 */
 func (c *DefaultApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
-    path := "/v1/FlexFlows"
+	path := "/v1/FlexFlows"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ChannelType != nil {
-        data.Set("ChannelType", *params.ChannelType)
-    }
-    if params != nil && params.ChatServiceSid != nil {
-        data.Set("ChatServiceSid", *params.ChatServiceSid)
-    }
-    if params != nil && params.ContactIdentity != nil {
-        data.Set("ContactIdentity", *params.ContactIdentity)
-    }
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Integration.Channel != nil {
-        data.Set("Integration.Channel", *params.Integration.Channel)
-    }
-    if params != nil && params.Integration.CreationOnMessage != nil {
-        data.Set("Integration.CreationOnMessage", string(*params.Integration.CreationOnMessage))
-    }
-    if params != nil && params.Integration.FlowSid != nil {
-        data.Set("Integration.FlowSid", *params.Integration.FlowSid)
-    }
-    if params != nil && params.Integration.Priority != nil {
-        data.Set("Integration.Priority", string(*params.Integration.Priority))
-    }
-    if params != nil && params.Integration.RetryCount != nil {
-        data.Set("Integration.RetryCount", string(*params.Integration.RetryCount))
-    }
-    if params != nil && params.Integration.Timeout != nil {
-        data.Set("Integration.Timeout", string(*params.Integration.Timeout))
-    }
-    if params != nil && params.Integration.Url != nil {
-        data.Set("Integration.Url", *params.Integration.Url)
-    }
-    if params != nil && params.Integration.WorkflowSid != nil {
-        data.Set("Integration.WorkflowSid", *params.Integration.WorkflowSid)
-    }
-    if params != nil && params.Integration.WorkspaceSid != nil {
-        data.Set("Integration.WorkspaceSid", *params.Integration.WorkspaceSid)
-    }
-    if params != nil && params.IntegrationType != nil {
-        data.Set("IntegrationType", *params.IntegrationType)
-    }
-    if params != nil && params.JanitorEnabled != nil {
-        data.Set("JanitorEnabled", string(*params.JanitorEnabled))
-    }
-    if params != nil && params.LongLived != nil {
-        data.Set("LongLived", string(*params.LongLived))
-    }
+	if params != nil && params.ChannelType != nil {
+		data.Set("ChannelType", *params.ChannelType)
+	}
+	if params != nil && params.ChatServiceSid != nil {
+		data.Set("ChatServiceSid", *params.ChatServiceSid)
+	}
+	if params != nil && params.ContactIdentity != nil {
+		data.Set("ContactIdentity", *params.ContactIdentity)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Integration.Channel != nil {
+		data.Set("Integration.Channel", *params.Integration.Channel)
+	}
+	if params != nil && params.Integration.CreationOnMessage != nil {
+		data.Set("Integration.CreationOnMessage", string(*params.Integration.CreationOnMessage))
+	}
+	if params != nil && params.Integration.FlowSid != nil {
+		data.Set("Integration.FlowSid", *params.Integration.FlowSid)
+	}
+	if params != nil && params.Integration.Priority != nil {
+		data.Set("Integration.Priority", string(*params.Integration.Priority))
+	}
+	if params != nil && params.Integration.RetryCount != nil {
+		data.Set("Integration.RetryCount", string(*params.Integration.RetryCount))
+	}
+	if params != nil && params.Integration.Timeout != nil {
+		data.Set("Integration.Timeout", string(*params.Integration.Timeout))
+	}
+	if params != nil && params.Integration.Url != nil {
+		data.Set("Integration.Url", *params.Integration.Url)
+	}
+	if params != nil && params.Integration.WorkflowSid != nil {
+		data.Set("Integration.WorkflowSid", *params.Integration.WorkflowSid)
+	}
+	if params != nil && params.Integration.WorkspaceSid != nil {
+		data.Set("Integration.WorkspaceSid", *params.Integration.WorkspaceSid)
+	}
+	if params != nil && params.IntegrationType != nil {
+		data.Set("IntegrationType", *params.IntegrationType)
+	}
+	if params != nil && params.JanitorEnabled != nil {
+		data.Set("JanitorEnabled", string(*params.JanitorEnabled))
+	}
+	if params != nil && params.LongLived != nil {
+		data.Set("LongLived", string(*params.LongLived))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1FlexFlow{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1FlexFlow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateWebChannelParams Optional parameters for the method 'CreateWebChannel'
 type CreateWebChannelParams struct {
-    ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
-    ChatUniqueName *string `json:"ChatUniqueName,omitempty"`
-    CustomerFriendlyName *string `json:"CustomerFriendlyName,omitempty"`
-    FlexFlowSid *string `json:"FlexFlowSid,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    PreEngagementData *string `json:"PreEngagementData,omitempty"`
+	ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
+	ChatUniqueName *string `json:"ChatUniqueName,omitempty"`
+	CustomerFriendlyName *string `json:"CustomerFriendlyName,omitempty"`
+	FlexFlowSid *string `json:"FlexFlowSid,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	PreEngagementData *string `json:"PreEngagementData,omitempty"`
 }
 
 /*
@@ -249,44 +247,44 @@ CreateWebChannel Method for CreateWebChannel
 @return FlexV1WebChannel
 */
 func (c *DefaultApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
-    path := "/v1/WebChannels"
+	path := "/v1/WebChannels"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ChatFriendlyName != nil {
-        data.Set("ChatFriendlyName", *params.ChatFriendlyName)
-    }
-    if params != nil && params.ChatUniqueName != nil {
-        data.Set("ChatUniqueName", *params.ChatUniqueName)
-    }
-    if params != nil && params.CustomerFriendlyName != nil {
-        data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
-    }
-    if params != nil && params.FlexFlowSid != nil {
-        data.Set("FlexFlowSid", *params.FlexFlowSid)
-    }
-    if params != nil && params.Identity != nil {
-        data.Set("Identity", *params.Identity)
-    }
-    if params != nil && params.PreEngagementData != nil {
-        data.Set("PreEngagementData", *params.PreEngagementData)
-    }
+	if params != nil && params.ChatFriendlyName != nil {
+		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+	}
+	if params != nil && params.ChatUniqueName != nil {
+		data.Set("ChatUniqueName", *params.ChatUniqueName)
+	}
+	if params != nil && params.CustomerFriendlyName != nil {
+		data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
+	}
+	if params != nil && params.FlexFlowSid != nil {
+		data.Set("FlexFlowSid", *params.FlexFlowSid)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.PreEngagementData != nil {
+		data.Set("PreEngagementData", *params.PreEngagementData)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1WebChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1WebChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -294,22 +292,22 @@ DeleteChannel Method for DeleteChannel
  * @param sid The SID of the Flex chat channel resource to delete.
 */
 func (c *DefaultApiService) DeleteChannel(sid string) (error) {
-    path := "/v1/Channels/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -317,22 +315,22 @@ DeleteFlexFlow Method for DeleteFlexFlow
  * @param sid The SID of the Flex Flow resource to delete.
 */
 func (c *DefaultApiService) DeleteFlexFlow(sid string) (error) {
-    path := "/v1/FlexFlows/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/FlexFlows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -340,22 +338,22 @@ DeleteWebChannel Method for DeleteWebChannel
  * @param sid The SID of the WebChannel resource to delete.
 */
 func (c *DefaultApiService) DeleteWebChannel(sid string) (error) {
-    path := "/v1/WebChannels/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/WebChannels/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -364,31 +362,31 @@ FetchChannel Method for FetchChannel
 @return FlexV1Channel
 */
 func (c *DefaultApiService) FetchChannel(sid string) (*FlexV1Channel, error) {
-    path := "/v1/Channels/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1Channel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1Channel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // FetchConfigurationParams Optional parameters for the method 'FetchConfiguration'
 type FetchConfigurationParams struct {
-    UiVersion *string `json:"UiVersion,omitempty"`
+	UiVersion *string `json:"UiVersion,omitempty"`
 }
 
 /*
@@ -398,29 +396,29 @@ FetchConfiguration Method for FetchConfiguration
 @return FlexV1Configuration
 */
 func (c *DefaultApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
-    path := "/v1/Configuration"
+	path := "/v1/Configuration"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.UiVersion != nil {
-        data.Set("UiVersion", *params.UiVersion)
-    }
+	if params != nil && params.UiVersion != nil {
+		data.Set("UiVersion", *params.UiVersion)
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1Configuration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -429,27 +427,27 @@ FetchFlexFlow Method for FetchFlexFlow
 @return FlexV1FlexFlow
 */
 func (c *DefaultApiService) FetchFlexFlow(sid string) (*FlexV1FlexFlow, error) {
-    path := "/v1/FlexFlows/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/FlexFlows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1FlexFlow{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1FlexFlow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -458,31 +456,31 @@ FetchWebChannel Method for FetchWebChannel
 @return FlexV1WebChannel
 */
 func (c *DefaultApiService) FetchWebChannel(sid string) (*FlexV1WebChannel, error) {
-    path := "/v1/WebChannels/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/WebChannels/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1WebChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1WebChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListChannelParams Optional parameters for the method 'ListChannel'
 type ListChannelParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -492,34 +490,34 @@ ListChannel Method for ListChannel
 @return FlexV1ChannelReadResponse
 */
 func (c *DefaultApiService) ListChannel(params *ListChannelParams) (*FlexV1ChannelReadResponse, error) {
-    path := "/v1/Channels"
+	path := "/v1/Channels"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1ChannelReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1ChannelReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListFlexFlowParams Optional parameters for the method 'ListFlexFlow'
 type ListFlexFlowParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -530,36 +528,36 @@ ListFlexFlow Method for ListFlexFlow
 @return FlexV1FlexFlowReadResponse
 */
 func (c *DefaultApiService) ListFlexFlow(params *ListFlexFlowParams) (*FlexV1FlexFlowReadResponse, error) {
-    path := "/v1/FlexFlows"
+	path := "/v1/FlexFlows"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1FlexFlowReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1FlexFlowReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListWebChannelParams Optional parameters for the method 'ListWebChannel'
 type ListWebChannelParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -569,29 +567,29 @@ ListWebChannel Method for ListWebChannel
 @return FlexV1WebChannelReadResponse
 */
 func (c *DefaultApiService) ListWebChannel(params *ListWebChannelParams) (*FlexV1WebChannelReadResponse, error) {
-    path := "/v1/WebChannels"
+	path := "/v1/WebChannels"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1WebChannelReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1WebChannelReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -599,46 +597,46 @@ UpdateConfiguration Method for UpdateConfiguration
 @return FlexV1Configuration
 */
 func (c *DefaultApiService) UpdateConfiguration() (*FlexV1Configuration, error) {
-    path := "/v1/Configuration"
+	path := "/v1/Configuration"
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1Configuration{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateFlexFlowParams Optional parameters for the method 'UpdateFlexFlow'
 type UpdateFlexFlowParams struct {
-    ChannelType *string `json:"ChannelType,omitempty"`
-    ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
-    ContactIdentity *string `json:"ContactIdentity,omitempty"`
-    Enabled *bool `json:"Enabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Integration.Channel *string `json:"Integration.Channel,omitempty"`
-    Integration.CreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
-    Integration.FlowSid *string `json:"Integration.FlowSid,omitempty"`
-    Integration.Priority *int32 `json:"Integration.Priority,omitempty"`
-    Integration.RetryCount *int32 `json:"Integration.RetryCount,omitempty"`
-    Integration.Timeout *int32 `json:"Integration.Timeout,omitempty"`
-    Integration.Url *string `json:"Integration.Url,omitempty"`
-    Integration.WorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
-    Integration.WorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
-    IntegrationType *string `json:"IntegrationType,omitempty"`
-    JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
-    LongLived *bool `json:"LongLived,omitempty"`
+	ChannelType *string `json:"ChannelType,omitempty"`
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	ContactIdentity *string `json:"ContactIdentity,omitempty"`
+	Enabled *bool `json:"Enabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Integration.Channel *string `json:"Integration.Channel,omitempty"`
+	Integration.CreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
+	Integration.FlowSid *string `json:"Integration.FlowSid,omitempty"`
+	Integration.Priority *int32 `json:"Integration.Priority,omitempty"`
+	Integration.RetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	Integration.Timeout *int32 `json:"Integration.Timeout,omitempty"`
+	Integration.Url *string `json:"Integration.Url,omitempty"`
+	Integration.WorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
+	Integration.WorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
+	IntegrationType *string `json:"IntegrationType,omitempty"`
+	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
+	LongLived *bool `json:"LongLived,omitempty"`
 }
 
 /*
@@ -665,83 +663,83 @@ UpdateFlexFlow Method for UpdateFlexFlow
 @return FlexV1FlexFlow
 */
 func (c *DefaultApiService) UpdateFlexFlow(sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
-    path := "/v1/FlexFlows/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/FlexFlows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ChannelType != nil {
-        data.Set("ChannelType", *params.ChannelType)
-    }
-    if params != nil && params.ChatServiceSid != nil {
-        data.Set("ChatServiceSid", *params.ChatServiceSid)
-    }
-    if params != nil && params.ContactIdentity != nil {
-        data.Set("ContactIdentity", *params.ContactIdentity)
-    }
-    if params != nil && params.Enabled != nil {
-        data.Set("Enabled", string(*params.Enabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.Integration.Channel != nil {
-        data.Set("Integration.Channel", *params.Integration.Channel)
-    }
-    if params != nil && params.Integration.CreationOnMessage != nil {
-        data.Set("Integration.CreationOnMessage", string(*params.Integration.CreationOnMessage))
-    }
-    if params != nil && params.Integration.FlowSid != nil {
-        data.Set("Integration.FlowSid", *params.Integration.FlowSid)
-    }
-    if params != nil && params.Integration.Priority != nil {
-        data.Set("Integration.Priority", string(*params.Integration.Priority))
-    }
-    if params != nil && params.Integration.RetryCount != nil {
-        data.Set("Integration.RetryCount", string(*params.Integration.RetryCount))
-    }
-    if params != nil && params.Integration.Timeout != nil {
-        data.Set("Integration.Timeout", string(*params.Integration.Timeout))
-    }
-    if params != nil && params.Integration.Url != nil {
-        data.Set("Integration.Url", *params.Integration.Url)
-    }
-    if params != nil && params.Integration.WorkflowSid != nil {
-        data.Set("Integration.WorkflowSid", *params.Integration.WorkflowSid)
-    }
-    if params != nil && params.Integration.WorkspaceSid != nil {
-        data.Set("Integration.WorkspaceSid", *params.Integration.WorkspaceSid)
-    }
-    if params != nil && params.IntegrationType != nil {
-        data.Set("IntegrationType", *params.IntegrationType)
-    }
-    if params != nil && params.JanitorEnabled != nil {
-        data.Set("JanitorEnabled", string(*params.JanitorEnabled))
-    }
-    if params != nil && params.LongLived != nil {
-        data.Set("LongLived", string(*params.LongLived))
-    }
+	if params != nil && params.ChannelType != nil {
+		data.Set("ChannelType", *params.ChannelType)
+	}
+	if params != nil && params.ChatServiceSid != nil {
+		data.Set("ChatServiceSid", *params.ChatServiceSid)
+	}
+	if params != nil && params.ContactIdentity != nil {
+		data.Set("ContactIdentity", *params.ContactIdentity)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", string(*params.Enabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Integration.Channel != nil {
+		data.Set("Integration.Channel", *params.Integration.Channel)
+	}
+	if params != nil && params.Integration.CreationOnMessage != nil {
+		data.Set("Integration.CreationOnMessage", string(*params.Integration.CreationOnMessage))
+	}
+	if params != nil && params.Integration.FlowSid != nil {
+		data.Set("Integration.FlowSid", *params.Integration.FlowSid)
+	}
+	if params != nil && params.Integration.Priority != nil {
+		data.Set("Integration.Priority", string(*params.Integration.Priority))
+	}
+	if params != nil && params.Integration.RetryCount != nil {
+		data.Set("Integration.RetryCount", string(*params.Integration.RetryCount))
+	}
+	if params != nil && params.Integration.Timeout != nil {
+		data.Set("Integration.Timeout", string(*params.Integration.Timeout))
+	}
+	if params != nil && params.Integration.Url != nil {
+		data.Set("Integration.Url", *params.Integration.Url)
+	}
+	if params != nil && params.Integration.WorkflowSid != nil {
+		data.Set("Integration.WorkflowSid", *params.Integration.WorkflowSid)
+	}
+	if params != nil && params.Integration.WorkspaceSid != nil {
+		data.Set("Integration.WorkspaceSid", *params.Integration.WorkspaceSid)
+	}
+	if params != nil && params.IntegrationType != nil {
+		data.Set("IntegrationType", *params.IntegrationType)
+	}
+	if params != nil && params.JanitorEnabled != nil {
+		data.Set("JanitorEnabled", string(*params.JanitorEnabled))
+	}
+	if params != nil && params.LongLived != nil {
+		data.Set("LongLived", string(*params.LongLived))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1FlexFlow{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1FlexFlow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateWebChannelParams Optional parameters for the method 'UpdateWebChannel'
 type UpdateWebChannelParams struct {
-    ChatStatus *string `json:"ChatStatus,omitempty"`
-    PostEngagementData *string `json:"PostEngagementData,omitempty"`
+	ChatStatus *string `json:"ChatStatus,omitempty"`
+	PostEngagementData *string `json:"PostEngagementData,omitempty"`
 }
 
 /*
@@ -753,31 +751,31 @@ UpdateWebChannel Method for UpdateWebChannel
 @return FlexV1WebChannel
 */
 func (c *DefaultApiService) UpdateWebChannel(sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
-    path := "/v1/WebChannels/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/WebChannels/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.ChatStatus != nil {
-        data.Set("ChatStatus", *params.ChatStatus)
-    }
-    if params != nil && params.PostEngagementData != nil {
-        data.Set("PostEngagementData", *params.PostEngagementData)
-    }
+	if params != nil && params.ChatStatus != nil {
+		data.Set("ChatStatus", *params.ChatStatus)
+	}
+	if params != nil && params.PostEngagementData != nil {
+		data.Set("PostEngagementData", *params.PostEngagementData)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &FlexV1WebChannel{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &FlexV1WebChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

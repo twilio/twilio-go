@@ -13,30 +13,27 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
-    "reflect"
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // FetchPhoneNumberParams Optional parameters for the method 'FetchPhoneNumber'
 type FetchPhoneNumberParams struct {
-    CountryCode *string `json:"CountryCode,omitempty"`
-    Type *[]string `json:"Type,omitempty"`
-    AddOns *[]string `json:"AddOns,omitempty"`
-    AddOnsData *map[string]interface{} `json:"AddOnsData,omitempty"`
+	CountryCode *string `json:"CountryCode,omitempty"`
+	Type *[]string `json:"Type,omitempty"`
+	AddOns *[]string `json:"AddOns,omitempty"`
+	AddOnsData *map[string]interface{} `json:"AddOnsData,omitempty"`
 }
 
 /*
@@ -50,43 +47,43 @@ FetchPhoneNumber Method for FetchPhoneNumber
 @return LookupsV1PhoneNumber
 */
 func (c *DefaultApiService) FetchPhoneNumber(phoneNumber string, params *FetchPhoneNumberParams) (*LookupsV1PhoneNumber, error) {
-    path := "/v1/PhoneNumbers/{PhoneNumber}"
-    path = strings.Replace(path, "{"+"PhoneNumber"+"}", phoneNumber, -1)
+	path := "/v1/PhoneNumbers/{PhoneNumber}"
+	path = strings.Replace(path, "{"+"PhoneNumber"+"}", phoneNumber, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CountryCode != nil {
-        data.Set("CountryCode", *params.CountryCode)
-    }
-    if params != nil && params.Type != nil {
-        data.Set("Type", string(*params.Type))
-    }
-    if params != nil && params.AddOns != nil {
-        data.Set("AddOns", string(*params.AddOns))
-    }
-    if params != nil && params.AddOnsData != nil {
-        v, err := json.Marshal(params.AddOnsData)
+	if params != nil && params.CountryCode != nil {
+		data.Set("CountryCode", *params.CountryCode)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", string(*params.Type))
+	}
+	if params != nil && params.AddOns != nil {
+		data.Set("AddOns", string(*params.AddOns))
+	}
+	if params != nil && params.AddOnsData != nil {
+		v, err := json.Marshal(params.AddOnsData)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("AddOnsData", string(v))
-    }
+		data.Set("AddOnsData", string(v))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &LookupsV1PhoneNumber{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &LookupsV1PhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }

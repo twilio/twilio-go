@@ -13,28 +13,26 @@ package openapi
 import (
 	"encoding/json"
 	"fmt"
-    twilio "github.com/twilio/twilio-go/client"
-    "net/url"
-    "strings"
-    ""
+	twilio "github.com/twilio/twilio-go/client"
+	"net/url"
 )
 
 type DefaultApiService struct {
-    baseURL string
-    client  *twilio.Client
+	baseURL string
+	client  *twilio.Client
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-    return &DefaultApiService{
-        client: client,
-        baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
-    }
+	return &DefaultApiService {
+		client: client,
+		baseURL: fmt.Sprintf("https://studio.%s", client.BaseURL),
+	}
 }
 // CreateDocumentParams Optional parameters for the method 'CreateDocument'
 type CreateDocumentParams struct {
-    Data *map[string]interface{} `json:"Data,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -47,52 +45,52 @@ CreateDocument Method for CreateDocument
 @return SyncV1ServiceDocument
 */
 func (c *DefaultApiService) CreateDocument(serviceSid string, params *CreateDocumentParams) (*SyncV1ServiceDocument, error) {
-    path := "/v1/Services/{ServiceSid}/Documents"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Documents"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    AclEnabled *bool `json:"AclEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
-    ReachabilityDebouncingWindow *int32 `json:"ReachabilityDebouncingWindow,omitempty"`
-    ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
-    WebhooksFromRestEnabled *bool `json:"WebhooksFromRestEnabled,omitempty"`
+	AclEnabled *bool `json:"AclEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
+	ReachabilityDebouncingWindow *int32 `json:"ReachabilityDebouncingWindow,omitempty"`
+	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	WebhooksFromRestEnabled *bool `json:"WebhooksFromRestEnabled,omitempty"`
 }
 
 /*
@@ -108,51 +106,51 @@ CreateService Method for CreateService
 @return SyncV1Service
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*SyncV1Service, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AclEnabled != nil {
-        data.Set("AclEnabled", string(*params.AclEnabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.ReachabilityDebouncingEnabled != nil {
-        data.Set("ReachabilityDebouncingEnabled", string(*params.ReachabilityDebouncingEnabled))
-    }
-    if params != nil && params.ReachabilityDebouncingWindow != nil {
-        data.Set("ReachabilityDebouncingWindow", string(*params.ReachabilityDebouncingWindow))
-    }
-    if params != nil && params.ReachabilityWebhooksEnabled != nil {
-        data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
-    if params != nil && params.WebhooksFromRestEnabled != nil {
-        data.Set("WebhooksFromRestEnabled", string(*params.WebhooksFromRestEnabled))
-    }
+	if params != nil && params.AclEnabled != nil {
+		data.Set("AclEnabled", string(*params.AclEnabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ReachabilityDebouncingEnabled != nil {
+		data.Set("ReachabilityDebouncingEnabled", string(*params.ReachabilityDebouncingEnabled))
+	}
+	if params != nil && params.ReachabilityDebouncingWindow != nil {
+		data.Set("ReachabilityDebouncingWindow", string(*params.ReachabilityDebouncingWindow))
+	}
+	if params != nil && params.ReachabilityWebhooksEnabled != nil {
+		data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
+	if params != nil && params.WebhooksFromRestEnabled != nil {
+		data.Set("WebhooksFromRestEnabled", string(*params.WebhooksFromRestEnabled))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateStreamMessageParams Optional parameters for the method 'CreateStreamMessage'
 type CreateStreamMessageParams struct {
-    Data *map[string]interface{} `json:"Data,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
@@ -165,43 +163,43 @@ Create a new Stream Message.
 @return SyncV1ServiceSyncStreamStreamMessage
 */
 func (c *DefaultApiService) CreateStreamMessage(serviceSid string, streamSid string, params *CreateStreamMessageParams) (*SyncV1ServiceSyncStreamStreamMessage, error) {
-    path := "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"StreamSid"+"}", streamSid, -1)
+	path := "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"StreamSid"+"}", streamSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
+		data.Set("Data", string(v))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncStreamStreamMessage{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncStreamStreamMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSyncListParams Optional parameters for the method 'CreateSyncList'
 type CreateSyncListParams struct {
-    CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -214,43 +212,43 @@ CreateSyncList Method for CreateSyncList
 @return SyncV1ServiceSyncList
 */
 func (c *DefaultApiService) CreateSyncList(serviceSid string, params *CreateSyncListParams) (*SyncV1ServiceSyncList, error) {
-    path := "/v1/Services/{ServiceSid}/Lists"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Lists"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CollectionTtl != nil {
-        data.Set("CollectionTtl", string(*params.CollectionTtl))
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", string(*params.CollectionTtl))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSyncListItemParams Optional parameters for the method 'CreateSyncListItem'
 type CreateSyncListItemParams struct {
-    CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-    Data *map[string]interface{} `json:"Data,omitempty"`
-    ItemTtl *int32 `json:"ItemTtl,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -265,52 +263,52 @@ CreateSyncListItem Method for CreateSyncListItem
 @return SyncV1ServiceSyncListSyncListItem
 */
 func (c *DefaultApiService) CreateSyncListItem(serviceSid string, listSid string, params *CreateSyncListItemParams) (*SyncV1ServiceSyncListSyncListItem, error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CollectionTtl != nil {
-        data.Set("CollectionTtl", string(*params.CollectionTtl))
-    }
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", string(*params.CollectionTtl))
+	}
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
-    if params != nil && params.ItemTtl != nil {
-        data.Set("ItemTtl", string(*params.ItemTtl))
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.ItemTtl != nil {
+		data.Set("ItemTtl", string(*params.ItemTtl))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncListSyncListItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncListSyncListItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSyncMapParams Optional parameters for the method 'CreateSyncMap'
 type CreateSyncMapParams struct {
-    CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -323,44 +321,44 @@ CreateSyncMap Method for CreateSyncMap
 @return SyncV1ServiceSyncMap
 */
 func (c *DefaultApiService) CreateSyncMap(serviceSid string, params *CreateSyncMapParams) (*SyncV1ServiceSyncMap, error) {
-    path := "/v1/Services/{ServiceSid}/Maps"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Maps"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CollectionTtl != nil {
-        data.Set("CollectionTtl", string(*params.CollectionTtl))
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", string(*params.CollectionTtl))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMap{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMap{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSyncMapItemParams Optional parameters for the method 'CreateSyncMapItem'
 type CreateSyncMapItemParams struct {
-    CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-    Data *map[string]interface{} `json:"Data,omitempty"`
-    ItemTtl *int32 `json:"ItemTtl,omitempty"`
-    Key *string `json:"Key,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	Key *string `json:"Key,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -376,54 +374,54 @@ CreateSyncMapItem Method for CreateSyncMapItem
 @return SyncV1ServiceSyncMapSyncMapItem
 */
 func (c *DefaultApiService) CreateSyncMapItem(serviceSid string, mapSid string, params *CreateSyncMapItemParams) (*SyncV1ServiceSyncMapSyncMapItem, error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CollectionTtl != nil {
-        data.Set("CollectionTtl", string(*params.CollectionTtl))
-    }
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", string(*params.CollectionTtl))
+	}
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
-    if params != nil && params.ItemTtl != nil {
-        data.Set("ItemTtl", string(*params.ItemTtl))
-    }
-    if params != nil && params.Key != nil {
-        data.Set("Key", *params.Key)
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.ItemTtl != nil {
+		data.Set("ItemTtl", string(*params.ItemTtl))
+	}
+	if params != nil && params.Key != nil {
+		data.Set("Key", *params.Key)
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMapSyncMapItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMapSyncMapItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // CreateSyncStreamParams Optional parameters for the method 'CreateSyncStream'
 type CreateSyncStreamParams struct {
-    Ttl *int32 `json:"Ttl,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -436,37 +434,37 @@ Create a new Stream.
 @return SyncV1ServiceSyncStream
 */
 func (c *DefaultApiService) CreateSyncStream(serviceSid string, params *CreateSyncStreamParams) (*SyncV1ServiceSyncStream, error) {
-    path := "/v1/Services/{ServiceSid}/Streams"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Streams"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
-    if params != nil && params.UniqueName != nil {
-        data.Set("UniqueName", *params.UniqueName)
-    }
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncStream{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncStream{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // DeleteDocumentParams Optional parameters for the method 'DeleteDocument'
 type DeleteDocumentParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
 }
 
 /*
@@ -477,26 +475,26 @@ DeleteDocument Method for DeleteDocument
  * @param "If-Match" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteDocument(serviceSid string, sid string, params *DeleteDocumentParams) (error) {
-    path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -507,24 +505,24 @@ Delete a specific Sync Document Permission.
  * @param identity The application-defined string that uniquely identifies the User's Document Permission resource to delete.
 */
 func (c *DefaultApiService) DeleteDocumentPermission(serviceSid string, documentSid string, identity string) (error) {
-    path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -532,22 +530,22 @@ DeleteService Method for DeleteService
  * @param sid The SID of the Service resource to delete.
 */
 func (c *DefaultApiService) DeleteService(sid string) (error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -556,27 +554,27 @@ DeleteSyncList Method for DeleteSyncList
  * @param sid The SID of the Sync List resource to delete.
 */
 func (c *DefaultApiService) DeleteSyncList(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteSyncListItemParams Optional parameters for the method 'DeleteSyncListItem'
 type DeleteSyncListItemParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
 }
 
 /*
@@ -588,27 +586,27 @@ DeleteSyncListItem Method for DeleteSyncListItem
  * @param "If-Match" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteSyncListItem(serviceSid string, listSid string, index int32, params *DeleteSyncListItemParams) (error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Index"+"}", index, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", index, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -619,24 +617,24 @@ Delete a specific Sync List Permission.
  * @param identity The application-defined string that uniquely identifies the User's Sync List Permission resource to delete.
 */
 func (c *DefaultApiService) DeleteSyncListPermission(serviceSid string, listSid string, identity string) (error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -645,27 +643,27 @@ DeleteSyncMap Method for DeleteSyncMap
  * @param sid The SID of the Sync Map resource to delete.
 */
 func (c *DefaultApiService) DeleteSyncMap(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 // DeleteSyncMapItemParams Optional parameters for the method 'DeleteSyncMapItem'
 type DeleteSyncMapItemParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
 }
 
 /*
@@ -677,27 +675,27 @@ DeleteSyncMapItem Method for DeleteSyncMapItem
  * @param "If-Match" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteSyncMapItem(serviceSid string, mapSid string, key string, params *DeleteSyncMapItemParams) (error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Key"+"}", key, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", key, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -708,24 +706,24 @@ Delete a specific Sync Map Permission.
  * @param identity The application-defined string that uniquely identifies the User's Sync Map Permission resource to delete.
 */
 func (c *DefaultApiService) DeleteSyncMapPermission(serviceSid string, mapSid string, identity string) (error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -735,23 +733,23 @@ Delete a specific Stream.
  * @param sid The SID of the Stream resource to delete.
 */
 func (c *DefaultApiService) DeleteSyncStream(serviceSid string, sid string) (error) {
-    path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Delete(c.baseURL+path, data, headers)
-    if err != nil {
-        return err
-    }
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    return nil
+	return nil
 }
 
 /*
@@ -761,28 +759,28 @@ FetchDocument Method for FetchDocument
 @return SyncV1ServiceDocument
 */
 func (c *DefaultApiService) FetchDocument(serviceSid string, sid string) (*SyncV1ServiceDocument, error) {
-    path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -794,29 +792,29 @@ Fetch a specific Sync Document Permission.
 @return SyncV1ServiceDocumentDocumentPermission
 */
 func (c *DefaultApiService) FetchDocumentPermission(serviceSid string, documentSid string, identity string) (*SyncV1ServiceDocumentDocumentPermission, error) {
-    path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceDocumentDocumentPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceDocumentDocumentPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -825,27 +823,27 @@ FetchService Method for FetchService
 @return SyncV1Service
 */
 func (c *DefaultApiService) FetchService(sid string) (*SyncV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -855,28 +853,28 @@ FetchSyncList Method for FetchSyncList
 @return SyncV1ServiceSyncList
 */
 func (c *DefaultApiService) FetchSyncList(serviceSid string, sid string) (*SyncV1ServiceSyncList, error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -887,29 +885,29 @@ FetchSyncListItem Method for FetchSyncListItem
 @return SyncV1ServiceSyncListSyncListItem
 */
 func (c *DefaultApiService) FetchSyncListItem(serviceSid string, listSid string, index int32) (*SyncV1ServiceSyncListSyncListItem, error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Index"+"}", index, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", index, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncListSyncListItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncListSyncListItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -921,29 +919,29 @@ Fetch a specific Sync List Permission.
 @return SyncV1ServiceSyncListSyncListPermission
 */
 func (c *DefaultApiService) FetchSyncListPermission(serviceSid string, listSid string, identity string) (*SyncV1ServiceSyncListSyncListPermission, error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncListSyncListPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncListSyncListPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -953,28 +951,28 @@ FetchSyncMap Method for FetchSyncMap
 @return SyncV1ServiceSyncMap
 */
 func (c *DefaultApiService) FetchSyncMap(serviceSid string, sid string) (*SyncV1ServiceSyncMap, error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMap{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMap{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -985,29 +983,29 @@ FetchSyncMapItem Method for FetchSyncMapItem
 @return SyncV1ServiceSyncMapSyncMapItem
 */
 func (c *DefaultApiService) FetchSyncMapItem(serviceSid string, mapSid string, key string) (*SyncV1ServiceSyncMapSyncMapItem, error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Key"+"}", key, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", key, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMapSyncMapItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMapSyncMapItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1019,29 +1017,29 @@ Fetch a specific Sync Map Permission.
 @return SyncV1ServiceSyncMapSyncMapPermission
 */
 func (c *DefaultApiService) FetchSyncMapPermission(serviceSid string, mapSid string, identity string) (*SyncV1ServiceSyncMapSyncMapPermission, error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMapSyncMapPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMapSyncMapPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 
 /*
@@ -1052,33 +1050,33 @@ Fetch a specific Stream.
 @return SyncV1ServiceSyncStream
 */
 func (c *DefaultApiService) FetchSyncStream(serviceSid string, sid string) (*SyncV1ServiceSyncStream, error) {
-    path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := 0
-    headers := 0
+	data := 0
+	headers := 0
 
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncStream{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncStream{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDocumentParams Optional parameters for the method 'ListDocument'
 type ListDocumentParams struct {
-    HideExpired *string `json:"HideExpired,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	HideExpired *string `json:"HideExpired,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1090,37 +1088,37 @@ ListDocument Method for ListDocument
 @return SyncV1ServiceDocumentReadResponse
 */
 func (c *DefaultApiService) ListDocument(serviceSid string, params *ListDocumentParams) (*SyncV1ServiceDocumentReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Documents"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Documents"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.HideExpired != nil {
-        data.Set("HideExpired", *params.HideExpired)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.HideExpired != nil {
+		data.Set("HideExpired", *params.HideExpired)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceDocumentReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceDocumentReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListDocumentPermissionParams Optional parameters for the method 'ListDocumentPermission'
 type ListDocumentPermissionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1133,35 +1131,35 @@ Retrieve a list of all Permissions applying to a Sync Document.
 @return SyncV1ServiceDocumentDocumentPermissionReadResponse
 */
 func (c *DefaultApiService) ListDocumentPermission(serviceSid string, documentSid string, params *ListDocumentPermissionParams) (*SyncV1ServiceDocumentDocumentPermissionReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
+	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceDocumentDocumentPermissionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceDocumentDocumentPermissionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1171,34 +1169,34 @@ ListService Method for ListService
 @return SyncV1ServiceReadResponse
 */
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*SyncV1ServiceReadResponse, error) {
-    path := "/v1/Services"
+	path := "/v1/Services"
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncListParams Optional parameters for the method 'ListSyncList'
 type ListSyncListParams struct {
-    HideExpired *string `json:"HideExpired,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	HideExpired *string `json:"HideExpired,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1210,41 +1208,41 @@ ListSyncList Method for ListSyncList
 @return SyncV1ServiceSyncListReadResponse
 */
 func (c *DefaultApiService) ListSyncList(serviceSid string, params *ListSyncListParams) (*SyncV1ServiceSyncListReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Lists"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Lists"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.HideExpired != nil {
-        data.Set("HideExpired", *params.HideExpired)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.HideExpired != nil {
+		data.Set("HideExpired", *params.HideExpired)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncListReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncListReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncListItemParams Optional parameters for the method 'ListSyncListItem'
 type ListSyncListItemParams struct {
-    Order *string `json:"Order,omitempty"`
-    From *string `json:"From,omitempty"`
-    Bounds *string `json:"Bounds,omitempty"`
-    HideExpired *string `json:"HideExpired,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Order *string `json:"Order,omitempty"`
+	From *string `json:"From,omitempty"`
+	Bounds *string `json:"Bounds,omitempty"`
+	HideExpired *string `json:"HideExpired,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1260,47 +1258,47 @@ ListSyncListItem Method for ListSyncListItem
 @return SyncV1ServiceSyncListSyncListItemReadResponse
 */
 func (c *DefaultApiService) ListSyncListItem(serviceSid string, listSid string, params *ListSyncListItemParams) (*SyncV1ServiceSyncListSyncListItemReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Order != nil {
-        data.Set("Order", *params.Order)
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.Bounds != nil {
-        data.Set("Bounds", *params.Bounds)
-    }
-    if params != nil && params.HideExpired != nil {
-        data.Set("HideExpired", *params.HideExpired)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Order != nil {
+		data.Set("Order", *params.Order)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.Bounds != nil {
+		data.Set("Bounds", *params.Bounds)
+	}
+	if params != nil && params.HideExpired != nil {
+		data.Set("HideExpired", *params.HideExpired)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncListSyncListItemReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncListSyncListItemReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncListPermissionParams Optional parameters for the method 'ListSyncListPermission'
 type ListSyncListPermissionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1313,36 +1311,36 @@ Retrieve a list of all Permissions applying to a Sync List.
 @return SyncV1ServiceSyncListSyncListPermissionReadResponse
 */
 func (c *DefaultApiService) ListSyncListPermission(serviceSid string, listSid string, params *ListSyncListPermissionParams) (*SyncV1ServiceSyncListSyncListPermissionReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncListSyncListPermissionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncListSyncListPermissionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncMapParams Optional parameters for the method 'ListSyncMap'
 type ListSyncMapParams struct {
-    HideExpired *string `json:"HideExpired,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	HideExpired *string `json:"HideExpired,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1354,41 +1352,41 @@ ListSyncMap Method for ListSyncMap
 @return SyncV1ServiceSyncMapReadResponse
 */
 func (c *DefaultApiService) ListSyncMap(serviceSid string, params *ListSyncMapParams) (*SyncV1ServiceSyncMapReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Maps"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Maps"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.HideExpired != nil {
-        data.Set("HideExpired", *params.HideExpired)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.HideExpired != nil {
+		data.Set("HideExpired", *params.HideExpired)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMapReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMapReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncMapItemParams Optional parameters for the method 'ListSyncMapItem'
 type ListSyncMapItemParams struct {
-    Order *string `json:"Order,omitempty"`
-    From *string `json:"From,omitempty"`
-    Bounds *string `json:"Bounds,omitempty"`
-    HideExpired *string `json:"HideExpired,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Order *string `json:"Order,omitempty"`
+	From *string `json:"From,omitempty"`
+	Bounds *string `json:"Bounds,omitempty"`
+	HideExpired *string `json:"HideExpired,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1404,47 +1402,47 @@ ListSyncMapItem Method for ListSyncMapItem
 @return SyncV1ServiceSyncMapSyncMapItemReadResponse
 */
 func (c *DefaultApiService) ListSyncMapItem(serviceSid string, mapSid string, params *ListSyncMapItemParams) (*SyncV1ServiceSyncMapSyncMapItemReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Order != nil {
-        data.Set("Order", *params.Order)
-    }
-    if params != nil && params.From != nil {
-        data.Set("From", *params.From)
-    }
-    if params != nil && params.Bounds != nil {
-        data.Set("Bounds", *params.Bounds)
-    }
-    if params != nil && params.HideExpired != nil {
-        data.Set("HideExpired", *params.HideExpired)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.Order != nil {
+		data.Set("Order", *params.Order)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.Bounds != nil {
+		data.Set("Bounds", *params.Bounds)
+	}
+	if params != nil && params.HideExpired != nil {
+		data.Set("HideExpired", *params.HideExpired)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMapSyncMapItemReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMapSyncMapItemReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncMapPermissionParams Optional parameters for the method 'ListSyncMapPermission'
 type ListSyncMapPermissionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1457,36 +1455,36 @@ Retrieve a list of all Permissions applying to a Sync Map.
 @return SyncV1ServiceSyncMapSyncMapPermissionReadResponse
 */
 func (c *DefaultApiService) ListSyncMapPermission(serviceSid string, mapSid string, params *ListSyncMapPermissionParams) (*SyncV1ServiceSyncMapSyncMapPermissionReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMapSyncMapPermissionReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMapSyncMapPermissionReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // ListSyncStreamParams Optional parameters for the method 'ListSyncStream'
 type ListSyncStreamParams struct {
-    HideExpired *string `json:"HideExpired,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	HideExpired *string `json:"HideExpired,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1499,39 +1497,39 @@ Retrieve a list of all Streams in a Service Instance.
 @return SyncV1ServiceSyncStreamReadResponse
 */
 func (c *DefaultApiService) ListSyncStream(serviceSid string, params *ListSyncStreamParams) (*SyncV1ServiceSyncStreamReadResponse, error) {
-    path := "/v1/Services/{ServiceSid}/Streams"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path := "/v1/Services/{ServiceSid}/Streams"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.HideExpired != nil {
-        data.Set("HideExpired", *params.HideExpired)
-    }
-    if params != nil && params.PageSize != nil {
-        data.Set("PageSize", string(*params.PageSize))
-    }
+	if params != nil && params.HideExpired != nil {
+		data.Set("HideExpired", *params.HideExpired)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", string(*params.PageSize))
+	}
 
 
-    resp, err := c.client.Get(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncStreamReadResponse{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncStreamReadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateDocumentParams Optional parameters for the method 'UpdateDocument'
 type UpdateDocumentParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
-    Data *map[string]interface{} `json:"Data,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -1545,49 +1543,49 @@ UpdateDocument Method for UpdateDocument
 @return SyncV1ServiceDocument
 */
 func (c *DefaultApiService) UpdateDocument(serviceSid string, sid string, params *UpdateDocumentParams) (*SyncV1ServiceDocument, error) {
-    path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceDocument{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateDocumentPermissionParams Optional parameters for the method 'UpdateDocumentPermission'
 type UpdateDocumentPermissionParams struct {
-    Manage *bool `json:"Manage,omitempty"`
-    Read *bool `json:"Read,omitempty"`
-    Write *bool `json:"Write,omitempty"`
+	Manage *bool `json:"Manage,omitempty"`
+	Read *bool `json:"Read,omitempty"`
+	Write *bool `json:"Write,omitempty"`
 }
 
 /*
@@ -1603,48 +1601,48 @@ Update an identity&#39;s access to a specific Sync Document.
 @return SyncV1ServiceDocumentDocumentPermission
 */
 func (c *DefaultApiService) UpdateDocumentPermission(serviceSid string, documentSid string, identity string, params *UpdateDocumentPermissionParams) (*SyncV1ServiceDocumentDocumentPermission, error) {
-    path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Manage != nil {
-        data.Set("Manage", string(*params.Manage))
-    }
-    if params != nil && params.Read != nil {
-        data.Set("Read", string(*params.Read))
-    }
-    if params != nil && params.Write != nil {
-        data.Set("Write", string(*params.Write))
-    }
+	if params != nil && params.Manage != nil {
+		data.Set("Manage", string(*params.Manage))
+	}
+	if params != nil && params.Read != nil {
+		data.Set("Read", string(*params.Read))
+	}
+	if params != nil && params.Write != nil {
+		data.Set("Write", string(*params.Write))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceDocumentDocumentPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceDocumentDocumentPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-    AclEnabled *bool `json:"AclEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
-    ReachabilityDebouncingWindow *int32 `json:"ReachabilityDebouncingWindow,omitempty"`
-    ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
-    WebhookUrl *string `json:"WebhookUrl,omitempty"`
-    WebhooksFromRestEnabled *bool `json:"WebhooksFromRestEnabled,omitempty"`
+	AclEnabled *bool `json:"AclEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
+	ReachabilityDebouncingWindow *int32 `json:"ReachabilityDebouncingWindow,omitempty"`
+	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	WebhooksFromRestEnabled *bool `json:"WebhooksFromRestEnabled,omitempty"`
 }
 
 /*
@@ -1661,53 +1659,53 @@ UpdateService Method for UpdateService
 @return SyncV1Service
 */
 func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*SyncV1Service, error) {
-    path := "/v1/Services/{Sid}"
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.AclEnabled != nil {
-        data.Set("AclEnabled", string(*params.AclEnabled))
-    }
-    if params != nil && params.FriendlyName != nil {
-        data.Set("FriendlyName", *params.FriendlyName)
-    }
-    if params != nil && params.ReachabilityDebouncingEnabled != nil {
-        data.Set("ReachabilityDebouncingEnabled", string(*params.ReachabilityDebouncingEnabled))
-    }
-    if params != nil && params.ReachabilityDebouncingWindow != nil {
-        data.Set("ReachabilityDebouncingWindow", string(*params.ReachabilityDebouncingWindow))
-    }
-    if params != nil && params.ReachabilityWebhooksEnabled != nil {
-        data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
-    }
-    if params != nil && params.WebhookUrl != nil {
-        data.Set("WebhookUrl", *params.WebhookUrl)
-    }
-    if params != nil && params.WebhooksFromRestEnabled != nil {
-        data.Set("WebhooksFromRestEnabled", string(*params.WebhooksFromRestEnabled))
-    }
+	if params != nil && params.AclEnabled != nil {
+		data.Set("AclEnabled", string(*params.AclEnabled))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ReachabilityDebouncingEnabled != nil {
+		data.Set("ReachabilityDebouncingEnabled", string(*params.ReachabilityDebouncingEnabled))
+	}
+	if params != nil && params.ReachabilityDebouncingWindow != nil {
+		data.Set("ReachabilityDebouncingWindow", string(*params.ReachabilityDebouncingWindow))
+	}
+	if params != nil && params.ReachabilityWebhooksEnabled != nil {
+		data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
+	if params != nil && params.WebhooksFromRestEnabled != nil {
+		data.Set("WebhooksFromRestEnabled", string(*params.WebhooksFromRestEnabled))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1Service{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncListParams Optional parameters for the method 'UpdateSyncList'
 type UpdateSyncListParams struct {
-    CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -1720,42 +1718,42 @@ UpdateSyncList Method for UpdateSyncList
 @return SyncV1ServiceSyncList
 */
 func (c *DefaultApiService) UpdateSyncList(serviceSid string, sid string, params *UpdateSyncListParams) (*SyncV1ServiceSyncList, error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CollectionTtl != nil {
-        data.Set("CollectionTtl", string(*params.CollectionTtl))
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", string(*params.CollectionTtl))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncList{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncListItemParams Optional parameters for the method 'UpdateSyncListItem'
 type UpdateSyncListItemParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
-    CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-    Data *map[string]interface{} `json:"Data,omitempty"`
-    ItemTtl *int32 `json:"ItemTtl,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -1772,56 +1770,56 @@ UpdateSyncListItem Method for UpdateSyncListItem
 @return SyncV1ServiceSyncListSyncListItem
 */
 func (c *DefaultApiService) UpdateSyncListItem(serviceSid string, listSid string, index int32, params *UpdateSyncListItemParams) (*SyncV1ServiceSyncListSyncListItem, error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Index"+"}", index, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", index, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.CollectionTtl != nil {
-        data.Set("CollectionTtl", string(*params.CollectionTtl))
-    }
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", string(*params.CollectionTtl))
+	}
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
-    if params != nil && params.ItemTtl != nil {
-        data.Set("ItemTtl", string(*params.ItemTtl))
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.ItemTtl != nil {
+		data.Set("ItemTtl", string(*params.ItemTtl))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncListSyncListItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncListSyncListItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncListPermissionParams Optional parameters for the method 'UpdateSyncListPermission'
 type UpdateSyncListPermissionParams struct {
-    Manage *bool `json:"Manage,omitempty"`
-    Read *bool `json:"Read,omitempty"`
-    Write *bool `json:"Write,omitempty"`
+	Manage *bool `json:"Manage,omitempty"`
+	Read *bool `json:"Read,omitempty"`
+	Write *bool `json:"Write,omitempty"`
 }
 
 /*
@@ -1837,43 +1835,43 @@ Update an identity&#39;s access to a specific Sync List.
 @return SyncV1ServiceSyncListSyncListPermission
 */
 func (c *DefaultApiService) UpdateSyncListPermission(serviceSid string, listSid string, identity string, params *UpdateSyncListPermissionParams) (*SyncV1ServiceSyncListSyncListPermission, error) {
-    path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Manage != nil {
-        data.Set("Manage", string(*params.Manage))
-    }
-    if params != nil && params.Read != nil {
-        data.Set("Read", string(*params.Read))
-    }
-    if params != nil && params.Write != nil {
-        data.Set("Write", string(*params.Write))
-    }
+	if params != nil && params.Manage != nil {
+		data.Set("Manage", string(*params.Manage))
+	}
+	if params != nil && params.Read != nil {
+		data.Set("Read", string(*params.Read))
+	}
+	if params != nil && params.Write != nil {
+		data.Set("Write", string(*params.Write))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncListSyncListPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncListSyncListPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncMapParams Optional parameters for the method 'UpdateSyncMap'
 type UpdateSyncMapParams struct {
-    CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -1886,42 +1884,42 @@ UpdateSyncMap Method for UpdateSyncMap
 @return SyncV1ServiceSyncMap
 */
 func (c *DefaultApiService) UpdateSyncMap(serviceSid string, sid string, params *UpdateSyncMapParams) (*SyncV1ServiceSyncMap, error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.CollectionTtl != nil {
-        data.Set("CollectionTtl", string(*params.CollectionTtl))
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", string(*params.CollectionTtl))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMap{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMap{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncMapItemParams Optional parameters for the method 'UpdateSyncMapItem'
 type UpdateSyncMapItemParams struct {
-    If-Match *string `json:"If-Match,omitempty"`
-    CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-    Data *map[string]interface{} `json:"Data,omitempty"`
-    ItemTtl *int32 `json:"ItemTtl,omitempty"`
-    Ttl *int32 `json:"Ttl,omitempty"`
+	If-Match *string `json:"If-Match,omitempty"`
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -1938,56 +1936,56 @@ UpdateSyncMapItem Method for UpdateSyncMapItem
 @return SyncV1ServiceSyncMapSyncMapItem
 */
 func (c *DefaultApiService) UpdateSyncMapItem(serviceSid string, mapSid string, key string, params *UpdateSyncMapItemParams) (*SyncV1ServiceSyncMapSyncMapItem, error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Key"+"}", key, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", key, -1)
 
-    data := url.Values{}
-    headers := make(map[string]interface{})
+	data := url.Values{}
+	headers := make(map[string]interface{})
 
-    if params != nil && params.CollectionTtl != nil {
-        data.Set("CollectionTtl", string(*params.CollectionTtl))
-    }
-    if params != nil && params.Data != nil {
-        v, err := json.Marshal(params.Data)
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", string(*params.CollectionTtl))
+	}
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
 
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 
-        data.Set("Data", string(v))
-    }
-    if params != nil && params.ItemTtl != nil {
-        data.Set("ItemTtl", string(*params.ItemTtl))
-    }
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.ItemTtl != nil {
+		data.Set("ItemTtl", string(*params.ItemTtl))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
-    if params != nil && params.If-Match != nil {
-        headers["If-Match"] = *params.If-Match
-    }
+	if params != nil && params.If-Match != nil {
+		headers["If-Match"] = *params.If-Match
+	}
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMapSyncMapItem{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMapSyncMapItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncMapPermissionParams Optional parameters for the method 'UpdateSyncMapPermission'
 type UpdateSyncMapPermissionParams struct {
-    Manage *bool `json:"Manage,omitempty"`
-    Read *bool `json:"Read,omitempty"`
-    Write *bool `json:"Write,omitempty"`
+	Manage *bool `json:"Manage,omitempty"`
+	Read *bool `json:"Read,omitempty"`
+	Write *bool `json:"Write,omitempty"`
 }
 
 /*
@@ -2003,42 +2001,42 @@ Update an identity&#39;s access to a specific Sync Map.
 @return SyncV1ServiceSyncMapSyncMapPermission
 */
 func (c *DefaultApiService) UpdateSyncMapPermission(serviceSid string, mapSid string, identity string, params *UpdateSyncMapPermissionParams) (*SyncV1ServiceSyncMapSyncMapPermission, error) {
-    path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-    path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Manage != nil {
-        data.Set("Manage", string(*params.Manage))
-    }
-    if params != nil && params.Read != nil {
-        data.Set("Read", string(*params.Read))
-    }
-    if params != nil && params.Write != nil {
-        data.Set("Write", string(*params.Write))
-    }
+	if params != nil && params.Manage != nil {
+		data.Set("Manage", string(*params.Manage))
+	}
+	if params != nil && params.Read != nil {
+		data.Set("Read", string(*params.Read))
+	}
+	if params != nil && params.Write != nil {
+		data.Set("Write", string(*params.Write))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncMapSyncMapPermission{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncMapSyncMapPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
 // UpdateSyncStreamParams Optional parameters for the method 'UpdateSyncStream'
 type UpdateSyncStreamParams struct {
-    Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -2051,29 +2049,29 @@ Update a specific Stream.
 @return SyncV1ServiceSyncStream
 */
 func (c *DefaultApiService) UpdateSyncStream(serviceSid string, sid string, params *UpdateSyncStreamParams) (*SyncV1ServiceSyncStream, error) {
-    path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
-    path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-    path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
 
-    data := url.Values{}
-    headers := 0
+	data := url.Values{}
+	headers := 0
 
-    if params != nil && params.Ttl != nil {
-        data.Set("Ttl", string(*params.Ttl))
-    }
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", string(*params.Ttl))
+	}
 
 
-    resp, err := c.client.Post(c.baseURL+path, data, headers)
-    if err != nil {
-        return nil, err
-    }
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
-    ps := &SyncV1ServiceSyncStream{}
-    if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-        return nil, err
-    }
+	ps := &SyncV1ServiceSyncStream{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
 
-    return ps, err
+	return ps, err
 }
