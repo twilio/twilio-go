@@ -11,6 +11,6 @@
 package openapi
 // PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse struct for PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse
 type PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse struct {
-	Extensions []PreviewMarketplaceInstalledAddOnInstalledAddOnExtension `json:"extensions,omitempty"`
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
+	Extensions []PreviewMarketplaceInstalledAddOnInstalledAddOnExtension `json:"Extensions,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

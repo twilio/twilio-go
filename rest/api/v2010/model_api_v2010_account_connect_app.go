@@ -11,15 +11,15 @@
 package openapi
 // ApiV2010AccountConnectApp struct for ApiV2010AccountConnectApp
 type ApiV2010AccountConnectApp struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AuthorizeRedirectUrl string `json:"authorize_redirect_url,omitempty"`
-	CompanyName string `json:"company_name,omitempty"`
-	DeauthorizeCallbackMethod string `json:"deauthorize_callback_method,omitempty"`
-	DeauthorizeCallbackUrl string `json:"deauthorize_callback_url,omitempty"`
-	Description string `json:"description,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	HomepageUrl string `json:"homepage_url,omitempty"`
-	Permissions []string `json:"permissions,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AuthorizeRedirectUrl string `json:"AuthorizeRedirectUrl,omitempty"`
+	CompanyName string `json:"CompanyName,omitempty"`
+	DeauthorizeCallbackMethod string `json:"DeauthorizeCallbackMethod,omitempty"`
+	DeauthorizeCallbackUrl string `json:"DeauthorizeCallbackUrl,omitempty"`
+	Description string `json:"Description,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	HomepageUrl string `json:"HomepageUrl,omitempty"`
+	Permissions []string `json:"Permissions,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

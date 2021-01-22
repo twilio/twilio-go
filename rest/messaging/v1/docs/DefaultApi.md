@@ -27,7 +27,7 @@ Method | HTTP request | Description
 
 ## CreateAlphaSender
 
-> MessagingV1ServiceAlphaSender CreateAlphaSender(ctx, serviceSid, optional)
+> MessagingV1ServiceAlphaSender CreateAlphaSender(ctx, ServiceSid, optional)
 
 
 
@@ -37,7 +37,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under. | 
  **optional** | ***CreateAlphaSenderOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -48,7 +48,7 @@ Optional parameters are passed through a pointer to a CreateAlphaSenderOpts stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **alphaSender** | **optional.String**| The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, and hyphen &#x60;-&#x60;. This value cannot contain only numbers. | 
+ **AlphaSender** | **optional.String**| The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, and hyphen &#x60;-&#x60;. This value cannot contain only numbers. | 
 
 ### Return type
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ## CreatePhoneNumber
 
-> MessagingV1ServicePhoneNumber CreatePhoneNumber(ctx, serviceSid, optional)
+> MessagingV1ServicePhoneNumber CreatePhoneNumber(ctx, ServiceSid, optional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under. | 
  **optional** | ***CreatePhoneNumberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -91,7 +91,7 @@ Optional parameters are passed through a pointer to a CreatePhoneNumberOpts stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **phoneNumberSid** | **optional.String**| The SID of the Phone Number being added to the Service. | 
+ **PhoneNumberSid** | **optional.String**| The SID of the Phone Number being added to the Service. | 
 
 ### Return type
 
@@ -132,20 +132,20 @@ Optional parameters are passed through a pointer to a CreateServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **areaCodeGeomatch** | **optional.Bool**| Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance. | 
- **fallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **fallbackToLongCode** | **optional.Bool**| Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance. | 
- **fallbackUrl** | **optional.String**| The URL that we should call using &#x60;fallback_method&#x60; if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **inboundMethod** | **optional.String**| The HTTP method we should use to call &#x60;inbound_request_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
- **inboundRequestUrl** | **optional.String**| The URL we should call using &#x60;inbound_method&#x60; when a message is received by any phone number or short code in the Service. When this property is &#x60;null&#x60;, receiving inbound messages is disabled. | 
- **mmsConverter** | **optional.Bool**| Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance. | 
- **scanMessageContent** | **optional.String**| Reserved. | 
- **smartEncoding** | **optional.Bool**| Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance. | 
- **statusCallback** | **optional.String**| The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery. | 
- **stickySender** | **optional.Bool**| Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance. | 
- **synchronousValidation** | **optional.Bool**| Reserved. | 
- **validityPeriod** | **optional.Int32**| How long, in seconds, messages sent from the Service are valid. Can be an integer from &#x60;1&#x60; to &#x60;14,400&#x60;. | 
+ **AreaCodeGeomatch** | **optional.Bool**| Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance. | 
+ **FallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+ **FallbackToLongCode** | **optional.Bool**| Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance. | 
+ **FallbackUrl** | **optional.String**| The URL that we should call using &#x60;fallback_method&#x60; if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **InboundMethod** | **optional.String**| The HTTP method we should use to call &#x60;inbound_request_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
+ **InboundRequestUrl** | **optional.String**| The URL we should call using &#x60;inbound_method&#x60; when a message is received by any phone number or short code in the Service. When this property is &#x60;null&#x60;, receiving inbound messages is disabled. | 
+ **MmsConverter** | **optional.Bool**| Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance. | 
+ **ScanMessageContent** | **optional.String**| Reserved. | 
+ **SmartEncoding** | **optional.Bool**| Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance. | 
+ **StatusCallback** | **optional.String**| The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery. | 
+ **StickySender** | **optional.Bool**| Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance. | 
+ **SynchronousValidation** | **optional.Bool**| Reserved. | 
+ **ValidityPeriod** | **optional.Int32**| How long, in seconds, messages sent from the Service are valid. Can be an integer from &#x60;1&#x60; to &#x60;14,400&#x60;. | 
 
 ### Return type
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ## CreateShortCode
 
-> MessagingV1ServiceShortCode CreateShortCode(ctx, serviceSid, optional)
+> MessagingV1ServiceShortCode CreateShortCode(ctx, ServiceSid, optional)
 
 
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under. | 
  **optional** | ***CreateShortCodeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -188,7 +188,7 @@ Optional parameters are passed through a pointer to a CreateShortCodeOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **shortCodeSid** | **optional.String**| The SID of the ShortCode resource being added to the Service. | 
+ **ShortCodeSid** | **optional.String**| The SID of the ShortCode resource being added to the Service. | 
 
 ### Return type
 
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 
 ## DeleteAlphaSender
 
-> DeleteAlphaSender(ctx, serviceSid, sid)
+> DeleteAlphaSender(ctx, ServiceSid, Sid)
 
 
 
@@ -220,8 +220,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from. | 
-**sid** | **string**| The SID of the AlphaSender resource to delete. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from. | 
+**Sid** | **string**| The SID of the AlphaSender resource to delete. | 
 
 ### Return type
 
@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## DeletePhoneNumber
 
-> DeletePhoneNumber(ctx, serviceSid, sid)
+> DeletePhoneNumber(ctx, ServiceSid, Sid)
 
 
 
@@ -253,8 +253,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from. | 
-**sid** | **string**| The SID of the PhoneNumber resource to delete. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from. | 
+**Sid** | **string**| The SID of the PhoneNumber resource to delete. | 
 
 ### Return type
 
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ## DeleteService
 
-> DeleteService(ctx, sid)
+> DeleteService(ctx, Sid)
 
 
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Service resource to delete. | 
+**Sid** | **string**| The SID of the Service resource to delete. | 
 
 ### Return type
 
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 
 ## DeleteShortCode
 
-> DeleteShortCode(ctx, serviceSid, sid)
+> DeleteShortCode(ctx, ServiceSid, Sid)
 
 
 
@@ -318,8 +318,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from. | 
-**sid** | **string**| The SID of the ShortCode resource to delete. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from. | 
+**Sid** | **string**| The SID of the ShortCode resource to delete. | 
 
 ### Return type
 
@@ -341,7 +341,7 @@ Name | Type | Description  | Notes
 
 ## FetchAlphaSender
 
-> MessagingV1ServiceAlphaSender FetchAlphaSender(ctx, serviceSid, sid)
+> MessagingV1ServiceAlphaSender FetchAlphaSender(ctx, ServiceSid, Sid)
 
 
 
@@ -351,8 +351,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from. | 
-**sid** | **string**| The SID of the AlphaSender resource to fetch. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from. | 
+**Sid** | **string**| The SID of the AlphaSender resource to fetch. | 
 
 ### Return type
 
@@ -395,7 +395,7 @@ Optional parameters are passed through a pointer to a FetchDeactivationOpts stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **date** | **optional.Time**| The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format. | 
+ **Date** | **optional.Time**| The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format. | 
 
 ### Return type
 
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 
 ## FetchPhoneNumber
 
-> MessagingV1ServicePhoneNumber FetchPhoneNumber(ctx, serviceSid, sid)
+> MessagingV1ServicePhoneNumber FetchPhoneNumber(ctx, ServiceSid, Sid)
 
 
 
@@ -427,8 +427,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from. | 
-**sid** | **string**| The SID of the PhoneNumber resource to fetch. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from. | 
+**Sid** | **string**| The SID of the PhoneNumber resource to fetch. | 
 
 ### Return type
 
@@ -450,7 +450,7 @@ Name | Type | Description  | Notes
 
 ## FetchService
 
-> MessagingV1Service FetchService(ctx, sid)
+> MessagingV1Service FetchService(ctx, Sid)
 
 
 
@@ -460,7 +460,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Service resource to fetch. | 
+**Sid** | **string**| The SID of the Service resource to fetch. | 
 
 ### Return type
 
@@ -482,7 +482,7 @@ Name | Type | Description  | Notes
 
 ## FetchShortCode
 
-> MessagingV1ServiceShortCode FetchShortCode(ctx, serviceSid, sid)
+> MessagingV1ServiceShortCode FetchShortCode(ctx, ServiceSid, Sid)
 
 
 
@@ -492,8 +492,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from. | 
-**sid** | **string**| The SID of the ShortCode resource to fetch. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from. | 
+**Sid** | **string**| The SID of the ShortCode resource to fetch. | 
 
 ### Return type
 
@@ -515,7 +515,7 @@ Name | Type | Description  | Notes
 
 ## ListAlphaSender
 
-> MessagingV1ServiceAlphaSenderReadResponse ListAlphaSender(ctx, serviceSid, optional)
+> MessagingV1ServiceAlphaSenderReadResponse ListAlphaSender(ctx, ServiceSid, optional)
 
 
 
@@ -525,7 +525,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from. | 
  **optional** | ***ListAlphaSenderOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -536,7 +536,7 @@ Optional parameters are passed through a pointer to a ListAlphaSenderOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -558,7 +558,7 @@ Name | Type | Description  | Notes
 
 ## ListPhoneNumber
 
-> MessagingV1ServicePhoneNumberReadResponse ListPhoneNumber(ctx, serviceSid, optional)
+> MessagingV1ServicePhoneNumberReadResponse ListPhoneNumber(ctx, ServiceSid, optional)
 
 
 
@@ -568,7 +568,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from. | 
  **optional** | ***ListPhoneNumberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -579,7 +579,7 @@ Optional parameters are passed through a pointer to a ListPhoneNumberOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -620,7 +620,7 @@ Optional parameters are passed through a pointer to a ListServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -642,7 +642,7 @@ Name | Type | Description  | Notes
 
 ## ListShortCode
 
-> MessagingV1ServiceShortCodeReadResponse ListShortCode(ctx, serviceSid, optional)
+> MessagingV1ServiceShortCodeReadResponse ListShortCode(ctx, ServiceSid, optional)
 
 
 
@@ -652,7 +652,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from. | 
  **optional** | ***ListShortCodeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -663,7 +663,7 @@ Optional parameters are passed through a pointer to a ListShortCodeOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -685,7 +685,7 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> MessagingV1Service UpdateService(ctx, sid, optional)
+> MessagingV1Service UpdateService(ctx, Sid, optional)
 
 
 
@@ -695,7 +695,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Service resource to update. | 
+**Sid** | **string**| The SID of the Service resource to update. | 
  **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -706,20 +706,20 @@ Optional parameters are passed through a pointer to a UpdateServiceOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **areaCodeGeomatch** | **optional.Bool**| Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance. | 
- **fallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **fallbackToLongCode** | **optional.Bool**| Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance. | 
- **fallbackUrl** | **optional.String**| The URL that we should call using &#x60;fallback_method&#x60; if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **inboundMethod** | **optional.String**| The HTTP method we should use to call &#x60;inbound_request_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
- **inboundRequestUrl** | **optional.String**| The URL we should call using &#x60;inbound_method&#x60; when a message is received by any phone number or short code in the Service. When this property is &#x60;null&#x60;, receiving inbound messages is disabled. | 
- **mmsConverter** | **optional.Bool**| Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance. | 
- **scanMessageContent** | **optional.String**| Reserved. | 
- **smartEncoding** | **optional.Bool**| Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance. | 
- **statusCallback** | **optional.String**| The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery. | 
- **stickySender** | **optional.Bool**| Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance. | 
- **synchronousValidation** | **optional.Bool**| Reserved. | 
- **validityPeriod** | **optional.Int32**| How long, in seconds, messages sent from the Service are valid. Can be an integer from &#x60;1&#x60; to &#x60;14,400&#x60;. | 
+ **AreaCodeGeomatch** | **optional.Bool**| Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance. | 
+ **FallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+ **FallbackToLongCode** | **optional.Bool**| Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance. | 
+ **FallbackUrl** | **optional.String**| The URL that we should call using &#x60;fallback_method&#x60; if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **InboundMethod** | **optional.String**| The HTTP method we should use to call &#x60;inbound_request_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
+ **InboundRequestUrl** | **optional.String**| The URL we should call using &#x60;inbound_method&#x60; when a message is received by any phone number or short code in the Service. When this property is &#x60;null&#x60;, receiving inbound messages is disabled. | 
+ **MmsConverter** | **optional.Bool**| Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance. | 
+ **ScanMessageContent** | **optional.String**| Reserved. | 
+ **SmartEncoding** | **optional.Bool**| Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance. | 
+ **StatusCallback** | **optional.String**| The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery. | 
+ **StickySender** | **optional.Bool**| Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance. | 
+ **SynchronousValidation** | **optional.Bool**| Reserved. | 
+ **ValidityPeriod** | **optional.Int32**| How long, in seconds, messages sent from the Service are valid. Can be an integer from &#x60;1&#x60; to &#x60;14,400&#x60;. | 
 
 ### Return type
 

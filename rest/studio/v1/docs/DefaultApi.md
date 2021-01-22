@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 ## CreateEngagement
 
-> StudioV1FlowEngagement CreateEngagement(ctx, flowSid, optional)
+> StudioV1FlowEngagement CreateEngagement(ctx, FlowSid, optional)
 
 
 
@@ -41,7 +41,7 @@ Triggers a new Engagement for the Flow
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow. | 
+**FlowSid** | **string**| The SID of the Flow. | 
  **optional** | ***CreateEngagementOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -52,9 +52,9 @@ Optional parameters are passed through a pointer to a CreateEngagementOpts struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **from** | **optional.String**| The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable &#x60;{{flow.channel.address}}&#x60; | 
- **parameters** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string we will add to your flow&#39;s context and that you can access as variables inside your flow. For example, if you pass in &#x60;Parameters&#x3D;{&#39;name&#39;:&#39;Zeke&#39;}&#x60; then inside a widget you can reference the variable &#x60;{{flow.data.name}}&#x60; which will return the string &#39;Zeke&#39;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string. | 
- **to** | **optional.String**| The Contact phone number to start a Studio Flow Engagement, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
+ **From** | **optional.String**| The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable &#x60;{{flow.channel.address}}&#x60; | 
+ **Parameters** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string we will add to your flow&#39;s context and that you can access as variables inside your flow. For example, if you pass in &#x60;Parameters&#x3D;{&#39;name&#39;:&#39;Zeke&#39;}&#x60; then inside a widget you can reference the variable &#x60;{{flow.data.name}}&#x60; which will return the string &#39;Zeke&#39;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string. | 
+ **To** | **optional.String**| The Contact phone number to start a Studio Flow Engagement, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
 
 ### Return type
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ## CreateExecution
 
-> StudioV1FlowExecution CreateExecution(ctx, flowSid, optional)
+> StudioV1FlowExecution CreateExecution(ctx, FlowSid, optional)
 
 
 
@@ -88,7 +88,7 @@ Triggers a new Execution for the Flow
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Excecution&#39;s Flow. | 
+**FlowSid** | **string**| The SID of the Excecution&#39;s Flow. | 
  **optional** | ***CreateExecutionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -99,9 +99,9 @@ Optional parameters are passed through a pointer to a CreateExecutionOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **from** | **optional.String**| The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;. | 
- **parameters** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON data that will be added to the Flow&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. | 
- **to** | **optional.String**| The Contact phone number to start a Studio Flow Execution, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
+ **From** | **optional.String**| The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;. | 
+ **Parameters** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON data that will be added to the Flow&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. | 
+ **To** | **optional.String**| The Contact phone number to start a Studio Flow Execution, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
 
 ### Return type
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ## DeleteEngagement
 
-> DeleteEngagement(ctx, flowSid, sid)
+> DeleteEngagement(ctx, FlowSid, Sid)
 
 
 
@@ -135,8 +135,8 @@ Delete this Engagement and all Steps relating to it.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow to delete Engagements from. | 
-**sid** | **string**| The SID of the Engagement resource to delete. | 
+**FlowSid** | **string**| The SID of the Flow to delete Engagements from. | 
+**Sid** | **string**| The SID of the Engagement resource to delete. | 
 
 ### Return type
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## DeleteExecution
 
-> DeleteExecution(ctx, flowSid, sid)
+> DeleteExecution(ctx, FlowSid, Sid)
 
 
 
@@ -170,8 +170,8 @@ Delete the Execution and all Steps relating to it.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution resources to delete. | 
-**sid** | **string**| The SID of the Execution resource to delete. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution resources to delete. | 
+**Sid** | **string**| The SID of the Execution resource to delete. | 
 
 ### Return type
 
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFlow
 
-> DeleteFlow(ctx, sid)
+> DeleteFlow(ctx, Sid)
 
 
 
@@ -205,7 +205,7 @@ Delete a specific Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Flow resource to delete. | 
+**Sid** | **string**| The SID of the Flow resource to delete. | 
 
 ### Return type
 
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 
 ## FetchEngagement
 
-> StudioV1FlowEngagement FetchEngagement(ctx, flowSid, sid)
+> StudioV1FlowEngagement FetchEngagement(ctx, FlowSid, Sid)
 
 
 
@@ -239,8 +239,8 @@ Retrieve an Engagement
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow. | 
-**sid** | **string**| The SID of the Engagement resource to fetch. | 
+**FlowSid** | **string**| The SID of the Flow. | 
+**Sid** | **string**| The SID of the Engagement resource to fetch. | 
 
 ### Return type
 
@@ -262,7 +262,7 @@ Name | Type | Description  | Notes
 
 ## FetchEngagementContext
 
-> StudioV1FlowEngagementEngagementContext FetchEngagementContext(ctx, flowSid, engagementSid)
+> StudioV1FlowEngagementEngagementContext FetchEngagementContext(ctx, FlowSid, EngagementSid)
 
 
 
@@ -274,8 +274,8 @@ Retrieve the most recent context for an Engagement.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow. | 
-**engagementSid** | **string**| The SID of the Engagement. | 
+**FlowSid** | **string**| The SID of the Flow. | 
+**EngagementSid** | **string**| The SID of the Engagement. | 
 
 ### Return type
 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 ## FetchExecution
 
-> StudioV1FlowExecution FetchExecution(ctx, flowSid, sid)
+> StudioV1FlowExecution FetchExecution(ctx, FlowSid, Sid)
 
 
 
@@ -309,8 +309,8 @@ Retrieve an Execution
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution resource to fetch | 
-**sid** | **string**| The SID of the Execution resource to fetch. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution resource to fetch | 
+**Sid** | **string**| The SID of the Execution resource to fetch. | 
 
 ### Return type
 
@@ -332,7 +332,7 @@ Name | Type | Description  | Notes
 
 ## FetchExecutionContext
 
-> StudioV1FlowExecutionExecutionContext FetchExecutionContext(ctx, flowSid, executionSid)
+> StudioV1FlowExecutionExecutionContext FetchExecutionContext(ctx, FlowSid, ExecutionSid)
 
 
 
@@ -344,8 +344,8 @@ Retrieve the most recent context for an Execution.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution context to fetch. | 
-**executionSid** | **string**| The SID of the Execution context to fetch. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution context to fetch. | 
+**ExecutionSid** | **string**| The SID of the Execution context to fetch. | 
 
 ### Return type
 
@@ -367,7 +367,7 @@ Name | Type | Description  | Notes
 
 ## FetchExecutionStep
 
-> StudioV1FlowExecutionExecutionStep FetchExecutionStep(ctx, flowSid, executionSid, sid)
+> StudioV1FlowExecutionExecutionStep FetchExecutionStep(ctx, FlowSid, ExecutionSid, Sid)
 
 
 
@@ -379,9 +379,9 @@ Retrieve a Step.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**executionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
-**sid** | **string**| The SID of the ExecutionStep resource to fetch. | 
+**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
+**ExecutionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
+**Sid** | **string**| The SID of the ExecutionStep resource to fetch. | 
 
 ### Return type
 
@@ -403,7 +403,7 @@ Name | Type | Description  | Notes
 
 ## FetchExecutionStepContext
 
-> StudioV1FlowExecutionExecutionStepExecutionStepContext FetchExecutionStepContext(ctx, flowSid, executionSid, stepSid)
+> StudioV1FlowExecutionExecutionStepExecutionStepContext FetchExecutionStepContext(ctx, FlowSid, ExecutionSid, StepSid)
 
 
 
@@ -415,9 +415,9 @@ Retrieve the context for an Execution Step.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**executionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
-**stepSid** | **string**| The SID of the Step to fetch. | 
+**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
+**ExecutionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
+**StepSid** | **string**| The SID of the Step to fetch. | 
 
 ### Return type
 
@@ -439,7 +439,7 @@ Name | Type | Description  | Notes
 
 ## FetchFlow
 
-> StudioV1Flow FetchFlow(ctx, sid)
+> StudioV1Flow FetchFlow(ctx, Sid)
 
 
 
@@ -451,7 +451,7 @@ Retrieve a specific Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Flow resource to fetch. | 
+**Sid** | **string**| The SID of the Flow resource to fetch. | 
 
 ### Return type
 
@@ -473,7 +473,7 @@ Name | Type | Description  | Notes
 
 ## FetchStep
 
-> StudioV1FlowEngagementStep FetchStep(ctx, flowSid, engagementSid, sid)
+> StudioV1FlowEngagementStep FetchStep(ctx, FlowSid, EngagementSid, Sid)
 
 
 
@@ -485,9 +485,9 @@ Retrieve a Step.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**engagementSid** | **string**| The SID of the Engagement with the Step to fetch. | 
-**sid** | **string**| The SID of the Step resource to fetch. | 
+**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
+**EngagementSid** | **string**| The SID of the Engagement with the Step to fetch. | 
+**Sid** | **string**| The SID of the Step resource to fetch. | 
 
 ### Return type
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ## FetchStepContext
 
-> StudioV1FlowEngagementStepStepContext FetchStepContext(ctx, flowSid, engagementSid, stepSid)
+> StudioV1FlowEngagementStepStepContext FetchStepContext(ctx, FlowSid, EngagementSid, StepSid)
 
 
 
@@ -521,9 +521,9 @@ Retrieve the context for an Engagement Step.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**engagementSid** | **string**| The SID of the Engagement with the Step to fetch. | 
-**stepSid** | **string**| The SID of the Step to fetch | 
+**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
+**EngagementSid** | **string**| The SID of the Engagement with the Step to fetch. | 
+**StepSid** | **string**| The SID of the Step to fetch | 
 
 ### Return type
 
@@ -545,7 +545,7 @@ Name | Type | Description  | Notes
 
 ## ListEngagement
 
-> StudioV1FlowEngagementReadResponse ListEngagement(ctx, flowSid, optional)
+> StudioV1FlowEngagementReadResponse ListEngagement(ctx, FlowSid, optional)
 
 
 
@@ -557,7 +557,7 @@ Retrieve a list of all Engagements for the Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow to read Engagements from. | 
+**FlowSid** | **string**| The SID of the Flow to read Engagements from. | 
  **optional** | ***ListEngagementOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -568,7 +568,7 @@ Optional parameters are passed through a pointer to a ListEngagementOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -590,7 +590,7 @@ Name | Type | Description  | Notes
 
 ## ListExecution
 
-> StudioV1FlowExecutionReadResponse ListExecution(ctx, flowSid, optional)
+> StudioV1FlowExecutionReadResponse ListExecution(ctx, FlowSid, optional)
 
 
 
@@ -602,7 +602,7 @@ Retrieve a list of all Executions for the Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution resources to read. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution resources to read. | 
  **optional** | ***ListExecutionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -613,9 +613,9 @@ Optional parameters are passed through a pointer to a ListExecutionOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **dateCreatedFrom** | **optional.Time**| Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
- **dateCreatedTo** | **optional.Time**| Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **DateCreatedFrom** | **optional.Time**| Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
+ **DateCreatedTo** | **optional.Time**| Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -637,7 +637,7 @@ Name | Type | Description  | Notes
 
 ## ListExecutionStep
 
-> StudioV1FlowExecutionExecutionStepReadResponse ListExecutionStep(ctx, flowSid, executionSid, optional)
+> StudioV1FlowExecutionExecutionStepReadResponse ListExecutionStep(ctx, FlowSid, ExecutionSid, optional)
 
 
 
@@ -649,8 +649,8 @@ Retrieve a list of all Steps for an Execution.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Steps to read. | 
-**executionSid** | **string**| The SID of the Execution with the Steps to read. | 
+**FlowSid** | **string**| The SID of the Flow with the Steps to read. | 
+**ExecutionSid** | **string**| The SID of the Execution with the Steps to read. | 
  **optional** | ***ListExecutionStepOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -662,7 +662,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -705,7 +705,7 @@ Optional parameters are passed through a pointer to a ListFlowOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -727,7 +727,7 @@ Name | Type | Description  | Notes
 
 ## ListStep
 
-> StudioV1FlowEngagementStepReadResponse ListStep(ctx, flowSid, engagementSid, optional)
+> StudioV1FlowEngagementStepReadResponse ListStep(ctx, FlowSid, EngagementSid, optional)
 
 
 
@@ -739,8 +739,8 @@ Retrieve a list of all Steps for an Engagement.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Step to read. | 
-**engagementSid** | **string**| The SID of the Engagement with the Step to read. | 
+**FlowSid** | **string**| The SID of the Flow with the Step to read. | 
+**EngagementSid** | **string**| The SID of the Engagement with the Step to read. | 
  **optional** | ***ListStepOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -752,7 +752,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -774,7 +774,7 @@ Name | Type | Description  | Notes
 
 ## UpdateExecution
 
-> StudioV1FlowExecution UpdateExecution(ctx, flowSid, sid, optional)
+> StudioV1FlowExecution UpdateExecution(ctx, FlowSid, Sid, optional)
 
 
 
@@ -786,8 +786,8 @@ Update the status of an Execution to `ended`.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution resources to update. | 
-**sid** | **string**| The SID of the Execution resource to update. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution resources to update. | 
+**Sid** | **string**| The SID of the Execution resource to update. | 
  **optional** | ***UpdateExecutionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -799,7 +799,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **status** | **optional.String**| The status of the Execution. Can only be &#x60;ended&#x60;. | 
+ **Status** | **optional.String**| The status of the Execution. Can only be &#x60;ended&#x60;. | 
 
 ### Return type
 

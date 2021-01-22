@@ -11,6 +11,6 @@
 package openapi
 // VerifyV2ServiceReadResponse struct for VerifyV2ServiceReadResponse
 type VerifyV2ServiceReadResponse struct {
-	Meta VerifyV2ServiceReadResponseMeta `json:"meta,omitempty"`
-	Services []VerifyV2Service `json:"services,omitempty"`
+	Meta VerifyV2ServiceReadResponseMeta `json:"Meta,omitempty"`
+	Services []VerifyV2Service `json:"Services,omitempty"`
 }

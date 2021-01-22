@@ -11,5 +11,5 @@
 package openapi
 // VerifyV2ServiceAccessToken struct for VerifyV2ServiceAccessToken
 type VerifyV2ServiceAccessToken struct {
-	Token string `json:"token,omitempty"`
+	Token string `json:"Token,omitempty"`
 }

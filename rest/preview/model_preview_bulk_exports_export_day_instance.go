@@ -11,5 +11,5 @@
 package openapi
 // PreviewBulkExportsExportDayInstance struct for PreviewBulkExportsExportDayInstance
 type PreviewBulkExportsExportDayInstance struct {
-	RedirectTo string `json:"redirect_to,omitempty"`
+	RedirectTo string `json:"RedirectTo,omitempty"`
 }

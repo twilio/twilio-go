@@ -14,17 +14,17 @@ import (
 )
 // ConversationsV1ServiceServiceConversationServiceConversationParticipant struct for ConversationsV1ServiceServiceConversationServiceConversationParticipant
 type ConversationsV1ServiceServiceConversationServiceConversationParticipant struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Attributes string `json:"attributes,omitempty"`
-	ChatServiceSid string `json:"chat_service_sid,omitempty"`
-	ConversationSid string `json:"conversation_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Identity string `json:"identity,omitempty"`
-	LastReadMessageIndex *int32 `json:"last_read_message_index,omitempty"`
-	LastReadTimestamp string `json:"last_read_timestamp,omitempty"`
-	MessagingBinding map[string]interface{} `json:"messaging_binding,omitempty"`
-	RoleSid string `json:"role_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Attributes string `json:"Attributes,omitempty"`
+	ChatServiceSid string `json:"ChatServiceSid,omitempty"`
+	ConversationSid string `json:"ConversationSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Identity string `json:"Identity,omitempty"`
+	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
+	LastReadTimestamp string `json:"LastReadTimestamp,omitempty"`
+	MessagingBinding map[string]interface{} `json:"MessagingBinding,omitempty"`
+	RoleSid string `json:"RoleSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

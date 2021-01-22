@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -59,35 +61,36 @@ Create a new fax to send to a phone number or SIP endpoint.
 func (c *DefaultApiService) CreateFax(params *CreateFaxParams) (*FaxV1Fax, error) {
 	path := "/v1/Faxes"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.MediaUrl != nil {
-		data.Set("MediaUrl", *params.MediaUrl)
+		data.Set("MediaUrl", *params.MediaUrl) 
 	}
 	if params != nil && params.Quality != nil {
-		data.Set("Quality", *params.Quality)
+		data.Set("Quality", *params.Quality) 
 	}
 	if params != nil && params.SipAuthPassword != nil {
-		data.Set("SipAuthPassword", *params.SipAuthPassword)
+		data.Set("SipAuthPassword", *params.SipAuthPassword) 
 	}
 	if params != nil && params.SipAuthUsername != nil {
-		data.Set("SipAuthUsername", *params.SipAuthUsername)
+		data.Set("SipAuthUsername", *params.SipAuthUsername) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StoreMedia != nil {
-		data.Set("StoreMedia", string(*params.StoreMedia))
+		data.Set("StoreMedia", fmt.Sprint(*params.StoreMedia)) 
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		data.Set("To", *params.To) 
 	}
 	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", string(*params.Ttl))
+		data.Set("Ttl", fmt.Sprint(*params.Ttl)) 
 	}
 
 
@@ -109,13 +112,14 @@ func (c *DefaultApiService) CreateFax(params *CreateFaxParams) (*FaxV1Fax, error
 /*
 DeleteFax Method for DeleteFax
 Delete a specific fax and its associated media.
- * @param sid The Twilio-provided string that uniquely identifies the Fax resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the Fax resource to delete.
 */
-func (c *DefaultApiService) DeleteFax(sid string) (error) {
+func (c *DefaultApiService) DeleteFax(Sid string) (error) {
 	path := "/v1/Faxes/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -133,15 +137,16 @@ func (c *DefaultApiService) DeleteFax(sid string) (error) {
 /*
 DeleteFaxMedia Method for DeleteFaxMedia
 Delete a specific fax media instance.
- * @param faxSid The SID of the fax with the FaxMedia resource to delete.
- * @param sid The Twilio-provided string that uniquely identifies the FaxMedia resource to delete.
+ * @param FaxSid The SID of the fax with the FaxMedia resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the FaxMedia resource to delete.
 */
-func (c *DefaultApiService) DeleteFaxMedia(faxSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteFaxMedia(FaxSid string, Sid string) (error) {
 	path := "/v1/Faxes/{FaxSid}/Media/{Sid}"
-	path = strings.Replace(path, "{"+"FaxSid"+"}", faxSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FaxSid"+"}", FaxSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -159,14 +164,15 @@ func (c *DefaultApiService) DeleteFaxMedia(faxSid string, sid string) (error) {
 /*
 FetchFax Method for FetchFax
 Fetch a specific fax.
- * @param sid The Twilio-provided string that uniquely identifies the Fax resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the Fax resource to fetch.
 @return FaxV1Fax
 */
-func (c *DefaultApiService) FetchFax(sid string) (*FaxV1Fax, error) {
+func (c *DefaultApiService) FetchFax(Sid string) (*FaxV1Fax, error) {
 	path := "/v1/Faxes/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -189,16 +195,17 @@ func (c *DefaultApiService) FetchFax(sid string) (*FaxV1Fax, error) {
 /*
 FetchFaxMedia Method for FetchFaxMedia
 Fetch a specific fax media instance.
- * @param faxSid The SID of the fax with the FaxMedia resource to fetch.
- * @param sid The Twilio-provided string that uniquely identifies the FaxMedia resource to fetch.
+ * @param FaxSid The SID of the fax with the FaxMedia resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the FaxMedia resource to fetch.
 @return FaxV1FaxFaxMedia
 */
-func (c *DefaultApiService) FetchFaxMedia(faxSid string, sid string) (*FaxV1FaxFaxMedia, error) {
+func (c *DefaultApiService) FetchFaxMedia(FaxSid string, Sid string) (*FaxV1FaxFaxMedia, error) {
 	path := "/v1/Faxes/{FaxSid}/Media/{Sid}"
-	path = strings.Replace(path, "{"+"FaxSid"+"}", faxSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FaxSid"+"}", FaxSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -240,23 +247,24 @@ Retrieve a list of all faxes.
 func (c *DefaultApiService) ListFax(params *ListFaxParams) (*FaxV1FaxReadResponse, error) {
 	path := "/v1/Faxes"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		data.Set("To", *params.To) 
 	}
 	if params != nil && params.DateCreatedOnOrBefore != nil {
-		data.Set("DateCreatedOnOrBefore", string(*params.DateCreatedOnOrBefore))
+		data.Set("DateCreatedOnOrBefore", fmt.Sprint(*params.DateCreatedOnOrBefore)) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -282,20 +290,21 @@ type ListFaxMediaParams struct {
 /*
 ListFaxMedia Method for ListFaxMedia
 Retrieve a list of all fax media instances for the specified fax.
- * @param faxSid The SID of the fax with the FaxMedia resources to read.
+ * @param FaxSid The SID of the fax with the FaxMedia resources to read.
  * @param optional nil or *ListFaxMediaOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return FaxV1FaxFaxMediaReadResponse
 */
-func (c *DefaultApiService) ListFaxMedia(faxSid string, params *ListFaxMediaParams) (*FaxV1FaxFaxMediaReadResponse, error) {
+func (c *DefaultApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams) (*FaxV1FaxFaxMediaReadResponse, error) {
 	path := "/v1/Faxes/{FaxSid}/Media"
-	path = strings.Replace(path, "{"+"FaxSid"+"}", faxSid, -1)
+	path = strings.Replace(path, "{"+"FaxSid"+"}", FaxSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -321,20 +330,21 @@ type UpdateFaxParams struct {
 /*
 UpdateFax Method for UpdateFax
 Update a specific fax.
- * @param sid The Twilio-provided string that uniquely identifies the Fax resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the Fax resource to update.
  * @param optional nil or *UpdateFaxOpts - Optional Parameters:
  * @param "Status" (string) - The new [status](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-values) of the resource. Can be only `canceled`. This may fail if transmission has already started.
 @return FaxV1Fax
 */
-func (c *DefaultApiService) UpdateFax(sid string, params *UpdateFaxParams) (*FaxV1Fax, error) {
+func (c *DefaultApiService) UpdateFax(Sid string, params *UpdateFaxParams) (*FaxV1Fax, error) {
 	path := "/v1/Faxes/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 

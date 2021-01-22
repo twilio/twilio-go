@@ -14,12 +14,12 @@ import (
 )
 // MessagingV1ServiceAlphaSender struct for MessagingV1ServiceAlphaSender
 type MessagingV1ServiceAlphaSender struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AlphaSender string `json:"alpha_sender,omitempty"`
-	Capabilities []string `json:"capabilities,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AlphaSender string `json:"AlphaSender,omitempty"`
+	Capabilities []string `json:"Capabilities,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

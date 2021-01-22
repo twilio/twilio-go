@@ -14,17 +14,17 @@ import (
 )
 // PreviewUnderstandAssistantQuery struct for PreviewUnderstandAssistantQuery
 type PreviewUnderstandAssistantQuery struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssistantSid string `json:"assistant_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Language string `json:"language,omitempty"`
-	ModelBuildSid string `json:"model_build_sid,omitempty"`
-	Query string `json:"query,omitempty"`
-	Results map[string]interface{} `json:"results,omitempty"`
-	SampleSid string `json:"sample_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SourceChannel string `json:"source_channel,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssistantSid string `json:"AssistantSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Language string `json:"Language,omitempty"`
+	ModelBuildSid string `json:"ModelBuildSid,omitempty"`
+	Query string `json:"Query,omitempty"`
+	Results map[string]interface{} `json:"Results,omitempty"`
+	SampleSid string `json:"SampleSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SourceChannel string `json:"SourceChannel,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

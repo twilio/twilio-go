@@ -14,13 +14,13 @@ import (
 )
 // ServerlessV1ServiceEnvironmentVariable struct for ServerlessV1ServiceEnvironmentVariable
 type ServerlessV1ServiceEnvironmentVariable struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	EnvironmentSid string `json:"environment_sid,omitempty"`
-	Key string `json:"key,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
-	Value string `json:"value,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	EnvironmentSid string `json:"EnvironmentSid,omitempty"`
+	Key string `json:"Key,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
+	Value string `json:"Value,omitempty"`
 }

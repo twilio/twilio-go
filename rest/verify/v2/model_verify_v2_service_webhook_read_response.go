@@ -11,6 +11,6 @@
 package openapi
 // VerifyV2ServiceWebhookReadResponse struct for VerifyV2ServiceWebhookReadResponse
 type VerifyV2ServiceWebhookReadResponse struct {
-	Meta VerifyV2ServiceReadResponseMeta `json:"meta,omitempty"`
-	Webhooks []VerifyV2ServiceWebhook `json:"webhooks,omitempty"`
+	Meta VerifyV2ServiceReadResponseMeta `json:"Meta,omitempty"`
+	Webhooks []VerifyV2ServiceWebhook `json:"Webhooks,omitempty"`
 }

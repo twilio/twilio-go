@@ -11,8 +11,8 @@
 package openapi
 // VerifyV2Form struct for VerifyV2Form
 type VerifyV2Form struct {
-	FormMeta map[string]interface{} `json:"form_meta,omitempty"`
-	FormType string `json:"form_type,omitempty"`
-	Forms map[string]interface{} `json:"forms,omitempty"`
-	Url string `json:"url,omitempty"`
+	FormMeta map[string]interface{} `json:"FormMeta,omitempty"`
+	FormType string `json:"FormType,omitempty"`
+	Forms map[string]interface{} `json:"Forms,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

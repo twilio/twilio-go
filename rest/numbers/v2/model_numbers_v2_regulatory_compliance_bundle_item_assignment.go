@@ -14,10 +14,10 @@ import (
 )
 // NumbersV2RegulatoryComplianceBundleItemAssignment struct for NumbersV2RegulatoryComplianceBundleItemAssignment
 type NumbersV2RegulatoryComplianceBundleItemAssignment struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	BundleSid string `json:"bundle_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	ObjectSid string `json:"object_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	BundleSid string `json:"BundleSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	ObjectSid string `json:"ObjectSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

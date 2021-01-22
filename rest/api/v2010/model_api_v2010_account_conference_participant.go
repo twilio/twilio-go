@@ -11,18 +11,18 @@
 package openapi
 // ApiV2010AccountConferenceParticipant struct for ApiV2010AccountConferenceParticipant
 type ApiV2010AccountConferenceParticipant struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CallSid string `json:"call_sid,omitempty"`
-	CallSidToCoach string `json:"call_sid_to_coach,omitempty"`
-	Coaching bool `json:"coaching,omitempty"`
-	ConferenceSid string `json:"conference_sid,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	EndConferenceOnExit bool `json:"end_conference_on_exit,omitempty"`
-	Hold bool `json:"hold,omitempty"`
-	Label string `json:"label,omitempty"`
-	Muted bool `json:"muted,omitempty"`
-	StartConferenceOnEnter bool `json:"start_conference_on_enter,omitempty"`
-	Status string `json:"status,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CallSid string `json:"CallSid,omitempty"`
+	CallSidToCoach string `json:"CallSidToCoach,omitempty"`
+	Coaching bool `json:"Coaching,omitempty"`
+	ConferenceSid string `json:"ConferenceSid,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	EndConferenceOnExit bool `json:"EndConferenceOnExit,omitempty"`
+	Hold bool `json:"Hold,omitempty"`
+	Label string `json:"Label,omitempty"`
+	Muted bool `json:"Muted,omitempty"`
+	StartConferenceOnEnter bool `json:"StartConferenceOnEnter,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

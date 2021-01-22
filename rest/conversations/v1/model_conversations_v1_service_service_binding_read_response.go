@@ -11,6 +11,6 @@
 package openapi
 // ConversationsV1ServiceServiceBindingReadResponse struct for ConversationsV1ServiceServiceBindingReadResponse
 type ConversationsV1ServiceServiceBindingReadResponse struct {
-	Bindings []ConversationsV1ServiceServiceBinding `json:"bindings,omitempty"`
-	Meta ConversationsV1ConversationReadResponseMeta `json:"meta,omitempty"`
+	Bindings []ConversationsV1ServiceServiceBinding `json:"Bindings,omitempty"`
+	Meta ConversationsV1ConversationReadResponseMeta `json:"Meta,omitempty"`
 }

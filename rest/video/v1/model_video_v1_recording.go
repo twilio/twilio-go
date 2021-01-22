@@ -14,19 +14,19 @@ import (
 )
 // VideoV1Recording struct for VideoV1Recording
 type VideoV1Recording struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Codec string `json:"codec,omitempty"`
-	ContainerFormat string `json:"container_format,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	Duration *int32 `json:"duration,omitempty"`
-	GroupingSids map[string]interface{} `json:"grouping_sids,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Offset int32 `json:"offset,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Size int32 `json:"size,omitempty"`
-	SourceSid string `json:"source_sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	TrackName string `json:"track_name,omitempty"`
-	Type string `json:"type,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Codec string `json:"Codec,omitempty"`
+	ContainerFormat string `json:"ContainerFormat,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	Duration *int32 `json:"Duration,omitempty"`
+	GroupingSids map[string]interface{} `json:"GroupingSids,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Offset int32 `json:"Offset,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Size int32 `json:"Size,omitempty"`
+	SourceSid string `json:"SourceSid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	TrackName string `json:"TrackName,omitempty"`
+	Type string `json:"Type,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

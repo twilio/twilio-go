@@ -11,6 +11,6 @@
 package openapi
 // ProxyV1ServiceShortCodeReadResponse struct for ProxyV1ServiceShortCodeReadResponse
 type ProxyV1ServiceShortCodeReadResponse struct {
-	Meta ProxyV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	ShortCodes []ProxyV1ServiceShortCode `json:"short_codes,omitempty"`
+	Meta ProxyV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	ShortCodes []ProxyV1ServiceShortCode `json:"ShortCodes,omitempty"`
 }

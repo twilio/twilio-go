@@ -11,6 +11,6 @@
 package openapi
 // ConversationsV1ServiceServiceUserReadResponse struct for ConversationsV1ServiceServiceUserReadResponse
 type ConversationsV1ServiceServiceUserReadResponse struct {
-	Meta ConversationsV1ConversationReadResponseMeta `json:"meta,omitempty"`
-	Users []ConversationsV1ServiceServiceUser `json:"users,omitempty"`
+	Meta ConversationsV1ConversationReadResponseMeta `json:"Meta,omitempty"`
+	Users []ConversationsV1ServiceServiceUser `json:"Users,omitempty"`
 }

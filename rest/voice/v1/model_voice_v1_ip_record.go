@@ -14,12 +14,12 @@ import (
 )
 // VoiceV1IpRecord struct for VoiceV1IpRecord
 type VoiceV1IpRecord struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CidrPrefixLength int32 `json:"cidr_prefix_length,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	IpAddress string `json:"ip_address,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CidrPrefixLength int32 `json:"CidrPrefixLength,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	IpAddress string `json:"IpAddress,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

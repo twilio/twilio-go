@@ -11,6 +11,6 @@
 package openapi
 // PreviewUnderstandAssistantFieldTypeReadResponse struct for PreviewUnderstandAssistantFieldTypeReadResponse
 type PreviewUnderstandAssistantFieldTypeReadResponse struct {
-	FieldTypes []PreviewUnderstandAssistantFieldType `json:"field_types,omitempty"`
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
+	FieldTypes []PreviewUnderstandAssistantFieldType `json:"FieldTypes,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

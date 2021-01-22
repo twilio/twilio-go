@@ -11,6 +11,6 @@
 package openapi
 // EventsV1SinkReadResponse struct for EventsV1SinkReadResponse
 type EventsV1SinkReadResponse struct {
-	Meta EventsV1SchemaVersionReadResponseMeta `json:"meta,omitempty"`
-	Sinks []EventsV1Sink `json:"sinks,omitempty"`
+	Meta EventsV1SchemaVersionReadResponseMeta `json:"Meta,omitempty"`
+	Sinks []EventsV1Sink `json:"Sinks,omitempty"`
 }

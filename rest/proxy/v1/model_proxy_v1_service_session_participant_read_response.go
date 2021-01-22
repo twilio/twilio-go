@@ -11,6 +11,6 @@
 package openapi
 // ProxyV1ServiceSessionParticipantReadResponse struct for ProxyV1ServiceSessionParticipantReadResponse
 type ProxyV1ServiceSessionParticipantReadResponse struct {
-	Meta ProxyV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	Participants []ProxyV1ServiceSessionParticipant `json:"participants,omitempty"`
+	Meta ProxyV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	Participants []ProxyV1ServiceSessionParticipant `json:"Participants,omitempty"`
 }

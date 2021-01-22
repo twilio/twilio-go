@@ -11,7 +11,7 @@
 package openapi
 // PricingV1Messaging struct for PricingV1Messaging
 type PricingV1Messaging struct {
-	Links map[string]interface{} `json:"links,omitempty"`
-	Name string `json:"name,omitempty"`
-	Url string `json:"url,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Name string `json:"Name,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

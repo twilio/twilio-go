@@ -11,10 +11,10 @@
 package openapi
 // PricingV1MessagingMessagingCountryInstance struct for PricingV1MessagingMessagingCountryInstance
 type PricingV1MessagingMessagingCountryInstance struct {
-	Country string `json:"country,omitempty"`
-	InboundSmsPrices []PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"inbound_sms_prices,omitempty"`
-	IsoCountry string `json:"iso_country,omitempty"`
-	OutboundSmsPrices []PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices `json:"outbound_sms_prices,omitempty"`
-	PriceUnit string `json:"price_unit,omitempty"`
-	Url string `json:"url,omitempty"`
+	Country string `json:"Country,omitempty"`
+	InboundSmsPrices []PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"InboundSmsPrices,omitempty"`
+	IsoCountry string `json:"IsoCountry,omitempty"`
+	OutboundSmsPrices []PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices `json:"OutboundSmsPrices,omitempty"`
+	PriceUnit string `json:"PriceUnit,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

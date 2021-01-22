@@ -14,12 +14,12 @@ import (
 )
 // ServerlessV1ServiceEnvironmentDeployment struct for ServerlessV1ServiceEnvironmentDeployment
 type ServerlessV1ServiceEnvironmentDeployment struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	BuildSid string `json:"build_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	EnvironmentSid string `json:"environment_sid,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	BuildSid string `json:"BuildSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	EnvironmentSid string `json:"EnvironmentSid,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

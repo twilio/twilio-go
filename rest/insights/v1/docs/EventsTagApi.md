@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListEvent
 
-> InsightsV1CallEventReadResponse ListEvent(ctx, callSid, optional)
+> InsightsV1CallEventReadResponse ListEvent(ctx, CallSid, optional)
 
 
 
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**callSid** | **string**|  | 
+**CallSid** | **string**|  | 
  **optional** | ***ListEventOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -31,8 +31,8 @@ Optional parameters are passed through a pointer to a ListEventOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **edge** | **optional.String**|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Edge** | **optional.String**|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

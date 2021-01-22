@@ -14,9 +14,9 @@ import (
 )
 // EventsV1SchemaVersion struct for EventsV1SchemaVersion
 type EventsV1SchemaVersion struct {
-	DateCreated time.Time `json:"date_created,omitempty"`
-	Id string `json:"id,omitempty"`
-	Raw string `json:"raw,omitempty"`
-	SchemaVersion int32 `json:"schema_version,omitempty"`
-	Url string `json:"url,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	Id string `json:"Id,omitempty"`
+	Raw string `json:"Raw,omitempty"`
+	SchemaVersion int32 `json:"SchemaVersion,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

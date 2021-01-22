@@ -11,11 +11,11 @@
 package openapi
 // ApiV2010AccountToken struct for ApiV2010AccountToken
 type ApiV2010AccountToken struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	IceServers []map[string]interface{} `json:"ice_servers,omitempty"`
-	Password string `json:"password,omitempty"`
-	Ttl string `json:"ttl,omitempty"`
-	Username string `json:"username,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	IceServers []map[string]interface{} `json:"IceServers,omitempty"`
+	Password string `json:"Password,omitempty"`
+	Ttl string `json:"Ttl,omitempty"`
+	Username string `json:"Username,omitempty"`
 }

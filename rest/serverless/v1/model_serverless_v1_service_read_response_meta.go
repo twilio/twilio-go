@@ -11,11 +11,11 @@
 package openapi
 // ServerlessV1ServiceReadResponseMeta struct for ServerlessV1ServiceReadResponseMeta
 type ServerlessV1ServiceReadResponseMeta struct {
-	FirstPageUrl string `json:"first_page_url,omitempty"`
-	Key string `json:"key,omitempty"`
-	NextPageUrl string `json:"next_page_url,omitempty"`
-	Page int32 `json:"page,omitempty"`
-	PageSize int32 `json:"page_size,omitempty"`
-	PreviousPageUrl string `json:"previous_page_url,omitempty"`
-	Url string `json:"url,omitempty"`
+	FirstPageUrl string `json:"FirstPageUrl,omitempty"`
+	Key string `json:"Key,omitempty"`
+	NextPageUrl string `json:"NextPageUrl,omitempty"`
+	Page int32 `json:"Page,omitempty"`
+	PageSize int32 `json:"PageSize,omitempty"`
+	PreviousPageUrl string `json:"PreviousPageUrl,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

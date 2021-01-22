@@ -11,12 +11,12 @@
 package openapi
 // PreviewSyncServiceSyncMapSyncMapPermission struct for PreviewSyncServiceSyncMapSyncMapPermission
 type PreviewSyncServiceSyncMapSyncMapPermission struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Identity string `json:"identity,omitempty"`
-	Manage bool `json:"manage,omitempty"`
-	MapSid string `json:"map_sid,omitempty"`
-	Read bool `json:"read,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Url string `json:"url,omitempty"`
-	Write bool `json:"write,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Identity string `json:"Identity,omitempty"`
+	Manage bool `json:"Manage,omitempty"`
+	MapSid string `json:"MapSid,omitempty"`
+	Read bool `json:"Read,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Url string `json:"Url,omitempty"`
+	Write bool `json:"Write,omitempty"`
 }

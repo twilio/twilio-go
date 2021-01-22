@@ -11,6 +11,6 @@
 package openapi
 // PreviewSyncServiceDocumentDocumentPermissionReadResponse struct for PreviewSyncServiceDocumentDocumentPermissionReadResponse
 type PreviewSyncServiceDocumentDocumentPermissionReadResponse struct {
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
-	Permissions []PreviewSyncServiceDocumentDocumentPermission `json:"permissions,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
+	Permissions []PreviewSyncServiceDocumentDocumentPermission `json:"Permissions,omitempty"`
 }

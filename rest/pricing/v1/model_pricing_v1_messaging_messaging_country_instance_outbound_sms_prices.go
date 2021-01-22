@@ -11,8 +11,8 @@
 package openapi
 // PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices struct for PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices
 type PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices struct {
-	Carrier string `json:"carrier,omitempty"`
-	Mcc string `json:"mcc,omitempty"`
-	Mnc string `json:"mnc,omitempty"`
-	Prices []PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"prices,omitempty"`
+	Carrier string `json:"Carrier,omitempty"`
+	Mcc string `json:"Mcc,omitempty"`
+	Mnc string `json:"Mnc,omitempty"`
+	Prices []PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"Prices,omitempty"`
 }

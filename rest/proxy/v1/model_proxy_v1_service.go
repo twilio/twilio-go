@@ -14,18 +14,18 @@ import (
 )
 // ProxyV1Service struct for ProxyV1Service
 type ProxyV1Service struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CallbackUrl string `json:"callback_url,omitempty"`
-	ChatInstanceSid string `json:"chat_instance_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DefaultTtl int32 `json:"default_ttl,omitempty"`
-	GeoMatchLevel string `json:"geo_match_level,omitempty"`
-	InterceptCallbackUrl string `json:"intercept_callback_url,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	NumberSelectionBehavior string `json:"number_selection_behavior,omitempty"`
-	OutOfSessionCallbackUrl string `json:"out_of_session_callback_url,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CallbackUrl string `json:"CallbackUrl,omitempty"`
+	ChatInstanceSid string `json:"ChatInstanceSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DefaultTtl int32 `json:"DefaultTtl,omitempty"`
+	GeoMatchLevel string `json:"GeoMatchLevel,omitempty"`
+	InterceptCallbackUrl string `json:"InterceptCallbackUrl,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	NumberSelectionBehavior string `json:"NumberSelectionBehavior,omitempty"`
+	OutOfSessionCallbackUrl string `json:"OutOfSessionCallbackUrl,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

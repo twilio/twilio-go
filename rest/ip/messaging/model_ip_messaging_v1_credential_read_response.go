@@ -11,6 +11,6 @@
 package openapi
 // IpMessagingV1CredentialReadResponse struct for IpMessagingV1CredentialReadResponse
 type IpMessagingV1CredentialReadResponse struct {
-	Credentials []IpMessagingV1Credential `json:"credentials,omitempty"`
-	Meta IpMessagingV1CredentialReadResponseMeta `json:"meta,omitempty"`
+	Credentials []IpMessagingV1Credential `json:"Credentials,omitempty"`
+	Meta IpMessagingV1CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

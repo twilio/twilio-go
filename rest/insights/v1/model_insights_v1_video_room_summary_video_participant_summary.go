@@ -14,21 +14,21 @@ import (
 )
 // InsightsV1VideoRoomSummaryVideoParticipantSummary struct for InsightsV1VideoRoomSummaryVideoParticipantSummary
 type InsightsV1VideoRoomSummaryVideoParticipantSummary struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Codecs []string `json:"codecs,omitempty"`
-	DurationSec int32 `json:"duration_sec,omitempty"`
-	EdgeLocation string `json:"edge_location,omitempty"`
-	EndReason string `json:"end_reason,omitempty"`
-	ErrorCode *int32 `json:"error_code,omitempty"`
-	ErrorCodeUrl string `json:"error_code_url,omitempty"`
-	JoinTime time.Time `json:"join_time,omitempty"`
-	LeaveTime time.Time `json:"leave_time,omitempty"`
-	MediaRegion string `json:"media_region,omitempty"`
-	ParticipantIdentity string `json:"participant_identity,omitempty"`
-	ParticipantSid string `json:"participant_sid,omitempty"`
-	Properties map[string]interface{} `json:"properties,omitempty"`
-	PublisherInfo map[string]interface{} `json:"publisher_info,omitempty"`
-	RoomSid string `json:"room_sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Codecs []string `json:"Codecs,omitempty"`
+	DurationSec int32 `json:"DurationSec,omitempty"`
+	EdgeLocation string `json:"EdgeLocation,omitempty"`
+	EndReason string `json:"EndReason,omitempty"`
+	ErrorCode *int32 `json:"ErrorCode,omitempty"`
+	ErrorCodeUrl string `json:"ErrorCodeUrl,omitempty"`
+	JoinTime time.Time `json:"JoinTime,omitempty"`
+	LeaveTime time.Time `json:"LeaveTime,omitempty"`
+	MediaRegion string `json:"MediaRegion,omitempty"`
+	ParticipantIdentity string `json:"ParticipantIdentity,omitempty"`
+	ParticipantSid string `json:"ParticipantSid,omitempty"`
+	Properties map[string]interface{} `json:"Properties,omitempty"`
+	PublisherInfo map[string]interface{} `json:"PublisherInfo,omitempty"`
+	RoomSid string `json:"RoomSid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

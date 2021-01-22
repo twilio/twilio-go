@@ -14,9 +14,9 @@ import (
 )
 // AccountsV1SecondaryAuthToken struct for AccountsV1SecondaryAuthToken
 type AccountsV1SecondaryAuthToken struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	SecondaryAuthToken string `json:"secondary_auth_token,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	SecondaryAuthToken string `json:"SecondaryAuthToken,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

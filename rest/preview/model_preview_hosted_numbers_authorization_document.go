@@ -14,13 +14,13 @@ import (
 )
 // PreviewHostedNumbersAuthorizationDocument struct for PreviewHostedNumbersAuthorizationDocument
 type PreviewHostedNumbersAuthorizationDocument struct {
-	AddressSid string `json:"address_sid,omitempty"`
-	CcEmails []string `json:"cc_emails,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Email string `json:"email,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AddressSid string `json:"AddressSid,omitempty"`
+	CcEmails []string `json:"CcEmails,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Email string `json:"Email,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

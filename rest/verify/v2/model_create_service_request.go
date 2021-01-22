@@ -26,11 +26,11 @@ type CreateServiceRequest struct {
 	// Whether to pass PSD2 transaction parameters when starting a verification.
 	Psd2Enabled bool `json:"Psd2Enabled,omitempty"`
 	// Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
-	PushApnCredentialSid string `json:"Push.ApnCredentialSid,omitempty"`
+	PushApnCredentialSid string `json:"PushApnCredentialSid,omitempty"`
 	// Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
-	PushFcmCredentialSid string `json:"Push.FcmCredentialSid,omitempty"`
+	PushFcmCredentialSid string `json:"PushFcmCredentialSid,omitempty"`
 	// Optional configuration for the Push factors. If true, include the date in the Challenge's reponse. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: true
-	PushIncludeDate bool `json:"Push.IncludeDate,omitempty"`
+	PushIncludeDate bool `json:"PushIncludeDate,omitempty"`
 	// Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
 	SkipSmsToLandlines bool `json:"SkipSmsToLandlines,omitempty"`
 	// The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.

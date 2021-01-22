@@ -14,9 +14,9 @@ import (
 )
 // VideoV1RoomRoomParticipantRoomParticipantSubscribeRule struct for VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 type VideoV1RoomRoomParticipantRoomParticipantSubscribeRule struct {
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	ParticipantSid string `json:"participant_sid,omitempty"`
-	RoomSid string `json:"room_sid,omitempty"`
-	Rules []map[string]interface{} `json:"rules,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	ParticipantSid string `json:"ParticipantSid,omitempty"`
+	RoomSid string `json:"RoomSid,omitempty"`
+	Rules []map[string]interface{} `json:"Rules,omitempty"`
 }

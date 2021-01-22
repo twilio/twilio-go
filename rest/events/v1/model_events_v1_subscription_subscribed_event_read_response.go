@@ -11,6 +11,6 @@
 package openapi
 // EventsV1SubscriptionSubscribedEventReadResponse struct for EventsV1SubscriptionSubscribedEventReadResponse
 type EventsV1SubscriptionSubscribedEventReadResponse struct {
-	Meta EventsV1SchemaVersionReadResponseMeta `json:"meta,omitempty"`
-	Types []EventsV1SubscriptionSubscribedEvent `json:"types,omitempty"`
+	Meta EventsV1SchemaVersionReadResponseMeta `json:"Meta,omitempty"`
+	Types []EventsV1SubscriptionSubscribedEvent `json:"Types,omitempty"`
 }

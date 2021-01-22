@@ -48,7 +48,7 @@ Method | HTTP request | Description
 
 ## CreateAsset
 
-> ServerlessV1ServiceAsset CreateAsset(ctx, serviceSid, optional)
+> ServerlessV1ServiceAsset CreateAsset(ctx, ServiceSid, optional)
 
 
 
@@ -60,7 +60,7 @@ Create a new Asset resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to create the Asset resource under. | 
+**ServiceSid** | **string**| The SID of the Service to create the Asset resource under. | 
  **optional** | ***CreateAssetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -71,7 +71,7 @@ Optional parameters are passed through a pointer to a CreateAssetOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## CreateBuild
 
-> ServerlessV1ServiceBuild CreateBuild(ctx, serviceSid, optional)
+> ServerlessV1ServiceBuild CreateBuild(ctx, ServiceSid, optional)
 
 
 
@@ -105,7 +105,7 @@ Create a new Build resource. At least one function version or asset version is r
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to create the Build resource under. | 
+**ServiceSid** | **string**| The SID of the Service to create the Build resource under. | 
  **optional** | ***CreateBuildOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -116,9 +116,9 @@ Optional parameters are passed through a pointer to a CreateBuildOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **assetVersions** | [**optional.Interface of []string**](string.md)| The list of Asset Version resource SIDs to include in the Build. | 
- **dependencies** | **optional.String**| A list of objects that describe the Dependencies included in the Build. Each object contains the &#x60;name&#x60; and &#x60;version&#x60; of the dependency. | 
- **functionVersions** | [**optional.Interface of []string**](string.md)| The list of the Function Version resource SIDs to include in the Build. | 
+ **AssetVersions** | [**optional.Interface of []string**](string.md)| The list of Asset Version resource SIDs to include in the Build. | 
+ **Dependencies** | **optional.String**| A list of objects that describe the Dependencies included in the Build. Each object contains the &#x60;name&#x60; and &#x60;version&#x60; of the dependency. | 
+ **FunctionVersions** | [**optional.Interface of []string**](string.md)| The list of the Function Version resource SIDs to include in the Build. | 
 
 ### Return type
 
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ## CreateDeployment
 
-> ServerlessV1ServiceEnvironmentDeployment CreateDeployment(ctx, serviceSid, environmentSid, optional)
+> ServerlessV1ServiceEnvironmentDeployment CreateDeployment(ctx, ServiceSid, EnvironmentSid, optional)
 
 
 
@@ -152,8 +152,8 @@ Create a new Deployment.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to create the Deployment resource under. | 
-**environmentSid** | **string**| The SID of the Environment for the Deployment. | 
+**ServiceSid** | **string**| The SID of the Service to create the Deployment resource under. | 
+**EnvironmentSid** | **string**| The SID of the Environment for the Deployment. | 
  **optional** | ***CreateDeploymentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -165,7 +165,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **buildSid** | **optional.String**| The SID of the Build for the Deployment. | 
+ **BuildSid** | **optional.String**| The SID of the Build for the Deployment. | 
 
 ### Return type
 
@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 
 ## CreateEnvironment
 
-> ServerlessV1ServiceEnvironment CreateEnvironment(ctx, serviceSid, optional)
+> ServerlessV1ServiceEnvironment CreateEnvironment(ctx, ServiceSid, optional)
 
 
 
@@ -199,7 +199,7 @@ Create a new environment.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to create the Environment resource under. | 
+**ServiceSid** | **string**| The SID of the Service to create the Environment resource under. | 
  **optional** | ***CreateEnvironmentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -210,8 +210,8 @@ Optional parameters are passed through a pointer to a CreateEnvironmentOpts stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **domainSuffix** | **optional.String**| A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. | 
- **uniqueName** | **optional.String**| A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. | 
+ **DomainSuffix** | **optional.String**| A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. | 
+ **UniqueName** | **optional.String**| A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. | 
 
 ### Return type
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## CreateFunction
 
-> ServerlessV1ServiceFunction CreateFunction(ctx, serviceSid, optional)
+> ServerlessV1ServiceFunction CreateFunction(ctx, ServiceSid, optional)
 
 
 
@@ -245,7 +245,7 @@ Create a new Function resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to create the Function resource under. | 
+**ServiceSid** | **string**| The SID of the Service to create the Function resource under. | 
  **optional** | ***CreateFunctionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -256,7 +256,7 @@ Optional parameters are passed through a pointer to a CreateFunctionOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -299,10 +299,10 @@ Optional parameters are passed through a pointer to a CreateServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
- **includeCredentials** | **optional.Bool**| Whether to inject Account credentials into a function invocation context. The default value is &#x60;true&#x60;. | 
- **uiEditable** | **optional.Bool**| Whether the Service&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
- **uniqueName** | **optional.String**| A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
+ **IncludeCredentials** | **optional.Bool**| Whether to inject Account credentials into a function invocation context. The default value is &#x60;true&#x60;. | 
+ **UiEditable** | **optional.Bool**| Whether the Service&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
+ **UniqueName** | **optional.String**| A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique. | 
 
 ### Return type
 
@@ -324,7 +324,7 @@ Name | Type | Description  | Notes
 
 ## CreateVariable
 
-> ServerlessV1ServiceEnvironmentVariable CreateVariable(ctx, serviceSid, environmentSid, optional)
+> ServerlessV1ServiceEnvironmentVariable CreateVariable(ctx, ServiceSid, EnvironmentSid, optional)
 
 
 
@@ -336,8 +336,8 @@ Create a new Variable.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to create the Variable resource under. | 
-**environmentSid** | **string**| The SID of the Environment in which the Variable resource exists. | 
+**ServiceSid** | **string**| The SID of the Service to create the Variable resource under. | 
+**EnvironmentSid** | **string**| The SID of the Environment in which the Variable resource exists. | 
  **optional** | ***CreateVariableOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -349,8 +349,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **key** | **optional.String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
- **value** | **optional.String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
+ **Key** | **optional.String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
+ **Value** | **optional.String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
 
 ### Return type
 
@@ -372,7 +372,7 @@ Name | Type | Description  | Notes
 
 ## DeleteAsset
 
-> DeleteAsset(ctx, serviceSid, sid)
+> DeleteAsset(ctx, ServiceSid, Sid)
 
 
 
@@ -384,8 +384,8 @@ Delete an Asset resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to delete the Asset resource from. | 
-**sid** | **string**| The SID that identifies the Asset resource to delete. | 
+**ServiceSid** | **string**| The SID of the Service to delete the Asset resource from. | 
+**Sid** | **string**| The SID that identifies the Asset resource to delete. | 
 
 ### Return type
 
@@ -407,7 +407,7 @@ Name | Type | Description  | Notes
 
 ## DeleteBuild
 
-> DeleteBuild(ctx, serviceSid, sid)
+> DeleteBuild(ctx, ServiceSid, Sid)
 
 
 
@@ -419,8 +419,8 @@ Delete a Build resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to delete the Build resource from. | 
-**sid** | **string**| The SID of the Build resource to delete. | 
+**ServiceSid** | **string**| The SID of the Service to delete the Build resource from. | 
+**Sid** | **string**| The SID of the Build resource to delete. | 
 
 ### Return type
 
@@ -442,7 +442,7 @@ Name | Type | Description  | Notes
 
 ## DeleteEnvironment
 
-> DeleteEnvironment(ctx, serviceSid, sid)
+> DeleteEnvironment(ctx, ServiceSid, Sid)
 
 
 
@@ -454,8 +454,8 @@ Delete a specific environment.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to delete the Environment resource from. | 
-**sid** | **string**| The SID of the Environment resource to delete. | 
+**ServiceSid** | **string**| The SID of the Service to delete the Environment resource from. | 
+**Sid** | **string**| The SID of the Environment resource to delete. | 
 
 ### Return type
 
@@ -477,7 +477,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFunction
 
-> DeleteFunction(ctx, serviceSid, sid)
+> DeleteFunction(ctx, ServiceSid, Sid)
 
 
 
@@ -489,8 +489,8 @@ Delete a Function resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to delete the Function resource from. | 
-**sid** | **string**| The SID of the Function resource to delete. | 
+**ServiceSid** | **string**| The SID of the Service to delete the Function resource from. | 
+**Sid** | **string**| The SID of the Function resource to delete. | 
 
 ### Return type
 
@@ -512,7 +512,7 @@ Name | Type | Description  | Notes
 
 ## DeleteService
 
-> DeleteService(ctx, sid)
+> DeleteService(ctx, Sid)
 
 
 
@@ -524,7 +524,7 @@ Delete a Service resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to delete. | 
+**Sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to delete. | 
 
 ### Return type
 
@@ -546,7 +546,7 @@ Name | Type | Description  | Notes
 
 ## DeleteVariable
 
-> DeleteVariable(ctx, serviceSid, environmentSid, sid)
+> DeleteVariable(ctx, ServiceSid, EnvironmentSid, Sid)
 
 
 
@@ -558,9 +558,9 @@ Delete a specific Variable.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to delete the Variable resource from. | 
-**environmentSid** | **string**| The SID of the Environment with the Variables to delete. | 
-**sid** | **string**| The SID of the Variable resource to delete. | 
+**ServiceSid** | **string**| The SID of the Service to delete the Variable resource from. | 
+**EnvironmentSid** | **string**| The SID of the Environment with the Variables to delete. | 
+**Sid** | **string**| The SID of the Variable resource to delete. | 
 
 ### Return type
 
@@ -582,7 +582,7 @@ Name | Type | Description  | Notes
 
 ## FetchAsset
 
-> ServerlessV1ServiceAsset FetchAsset(ctx, serviceSid, sid)
+> ServerlessV1ServiceAsset FetchAsset(ctx, ServiceSid, Sid)
 
 
 
@@ -594,8 +594,8 @@ Retrieve a specific Asset resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Asset resource from. | 
-**sid** | **string**| The SID that identifies the Asset resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Asset resource from. | 
+**Sid** | **string**| The SID that identifies the Asset resource to fetch. | 
 
 ### Return type
 
@@ -617,7 +617,7 @@ Name | Type | Description  | Notes
 
 ## FetchAssetVersion
 
-> ServerlessV1ServiceAssetAssetVersion FetchAssetVersion(ctx, serviceSid, assetSid, sid)
+> ServerlessV1ServiceAssetAssetVersion FetchAssetVersion(ctx, ServiceSid, AssetSid, Sid)
 
 
 
@@ -629,9 +629,9 @@ Retrieve a specific Asset Version.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Asset Version resource from. | 
-**assetSid** | **string**| The SID of the Asset resource that is the parent of the Asset Version resource to fetch. | 
-**sid** | **string**| The SID of the Asset Version resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Asset Version resource from. | 
+**AssetSid** | **string**| The SID of the Asset resource that is the parent of the Asset Version resource to fetch. | 
+**Sid** | **string**| The SID of the Asset Version resource to fetch. | 
 
 ### Return type
 
@@ -653,7 +653,7 @@ Name | Type | Description  | Notes
 
 ## FetchBuild
 
-> ServerlessV1ServiceBuild FetchBuild(ctx, serviceSid, sid)
+> ServerlessV1ServiceBuild FetchBuild(ctx, ServiceSid, Sid)
 
 
 
@@ -665,8 +665,8 @@ Retrieve a specific Build resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Build resource from. | 
-**sid** | **string**| The SID of the Build resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Build resource from. | 
+**Sid** | **string**| The SID of the Build resource to fetch. | 
 
 ### Return type
 
@@ -688,7 +688,7 @@ Name | Type | Description  | Notes
 
 ## FetchBuildStatus
 
-> ServerlessV1ServiceBuildBuildStatus FetchBuildStatus(ctx, serviceSid, sid)
+> ServerlessV1ServiceBuildBuildStatus FetchBuildStatus(ctx, ServiceSid, Sid)
 
 
 
@@ -700,8 +700,8 @@ Retrieve a specific Build resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Build resource from. | 
-**sid** | **string**| The SID of the Build resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Build resource from. | 
+**Sid** | **string**| The SID of the Build resource to fetch. | 
 
 ### Return type
 
@@ -723,7 +723,7 @@ Name | Type | Description  | Notes
 
 ## FetchDeployment
 
-> ServerlessV1ServiceEnvironmentDeployment FetchDeployment(ctx, serviceSid, environmentSid, sid)
+> ServerlessV1ServiceEnvironmentDeployment FetchDeployment(ctx, ServiceSid, EnvironmentSid, Sid)
 
 
 
@@ -735,9 +735,9 @@ Retrieve a specific Deployment.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Deployment resource from. | 
-**environmentSid** | **string**| The SID of the Environment used by the Deployment to fetch. | 
-**sid** | **string**| The SID that identifies the Deployment resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Deployment resource from. | 
+**EnvironmentSid** | **string**| The SID of the Environment used by the Deployment to fetch. | 
+**Sid** | **string**| The SID that identifies the Deployment resource to fetch. | 
 
 ### Return type
 
@@ -759,7 +759,7 @@ Name | Type | Description  | Notes
 
 ## FetchEnvironment
 
-> ServerlessV1ServiceEnvironment FetchEnvironment(ctx, serviceSid, sid)
+> ServerlessV1ServiceEnvironment FetchEnvironment(ctx, ServiceSid, Sid)
 
 
 
@@ -771,8 +771,8 @@ Retrieve a specific environment.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Environment resource from. | 
-**sid** | **string**| The SID of the Environment resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Environment resource from. | 
+**Sid** | **string**| The SID of the Environment resource to fetch. | 
 
 ### Return type
 
@@ -794,7 +794,7 @@ Name | Type | Description  | Notes
 
 ## FetchFunction
 
-> ServerlessV1ServiceFunction FetchFunction(ctx, serviceSid, sid)
+> ServerlessV1ServiceFunction FetchFunction(ctx, ServiceSid, Sid)
 
 
 
@@ -806,8 +806,8 @@ Retrieve a specific Function resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Function resource from. | 
-**sid** | **string**| The SID of the Function resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Function resource from. | 
+**Sid** | **string**| The SID of the Function resource to fetch. | 
 
 ### Return type
 
@@ -829,7 +829,7 @@ Name | Type | Description  | Notes
 
 ## FetchFunctionVersion
 
-> ServerlessV1ServiceFunctionFunctionVersion FetchFunctionVersion(ctx, serviceSid, functionSid, sid)
+> ServerlessV1ServiceFunctionFunctionVersion FetchFunctionVersion(ctx, ServiceSid, FunctionSid, Sid)
 
 
 
@@ -841,9 +841,9 @@ Retrieve a specific Function Version resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Function Version resource from. | 
-**functionSid** | **string**| The SID of the function that is the parent of the Function Version resource to fetch. | 
-**sid** | **string**| The SID of the Function Version resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Function Version resource from. | 
+**FunctionSid** | **string**| The SID of the function that is the parent of the Function Version resource to fetch. | 
+**Sid** | **string**| The SID of the Function Version resource to fetch. | 
 
 ### Return type
 
@@ -865,7 +865,7 @@ Name | Type | Description  | Notes
 
 ## FetchFunctionVersionContent
 
-> ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent FetchFunctionVersionContent(ctx, serviceSid, functionSid, sid)
+> ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent FetchFunctionVersionContent(ctx, ServiceSid, FunctionSid, Sid)
 
 
 
@@ -877,9 +877,9 @@ Retrieve a the content of a specific Function Version resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Function Version content from. | 
-**functionSid** | **string**| The SID of the Function that is the parent of the Function Version content to fetch. | 
-**sid** | **string**| The SID of the Function Version content to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Function Version content from. | 
+**FunctionSid** | **string**| The SID of the Function that is the parent of the Function Version content to fetch. | 
+**Sid** | **string**| The SID of the Function Version content to fetch. | 
 
 ### Return type
 
@@ -901,7 +901,7 @@ Name | Type | Description  | Notes
 
 ## FetchLog
 
-> ServerlessV1ServiceEnvironmentLog FetchLog(ctx, serviceSid, environmentSid, sid)
+> ServerlessV1ServiceEnvironmentLog FetchLog(ctx, ServiceSid, EnvironmentSid, Sid)
 
 
 
@@ -913,9 +913,9 @@ Retrieve a specific log.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Log resource from. | 
-**environmentSid** | **string**| The SID of the environment with the Log resource to fetch. | 
-**sid** | **string**| The SID of the Log resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Log resource from. | 
+**EnvironmentSid** | **string**| The SID of the environment with the Log resource to fetch. | 
+**Sid** | **string**| The SID of the Log resource to fetch. | 
 
 ### Return type
 
@@ -937,7 +937,7 @@ Name | Type | Description  | Notes
 
 ## FetchService
 
-> ServerlessV1Service FetchService(ctx, sid)
+> ServerlessV1Service FetchService(ctx, Sid)
 
 
 
@@ -949,7 +949,7 @@ Retrieve a specific Service resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to fetch. | 
+**Sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to fetch. | 
 
 ### Return type
 
@@ -971,7 +971,7 @@ Name | Type | Description  | Notes
 
 ## FetchVariable
 
-> ServerlessV1ServiceEnvironmentVariable FetchVariable(ctx, serviceSid, environmentSid, sid)
+> ServerlessV1ServiceEnvironmentVariable FetchVariable(ctx, ServiceSid, EnvironmentSid, Sid)
 
 
 
@@ -983,9 +983,9 @@ Retrieve a specific Variable.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to fetch the Variable resource from. | 
-**environmentSid** | **string**| The SID of the Environment with the Variable resource to fetch. | 
-**sid** | **string**| The SID of the Variable resource to fetch. | 
+**ServiceSid** | **string**| The SID of the Service to fetch the Variable resource from. | 
+**EnvironmentSid** | **string**| The SID of the Environment with the Variable resource to fetch. | 
+**Sid** | **string**| The SID of the Variable resource to fetch. | 
 
 ### Return type
 
@@ -1007,7 +1007,7 @@ Name | Type | Description  | Notes
 
 ## ListAsset
 
-> ServerlessV1ServiceAssetReadResponse ListAsset(ctx, serviceSid, optional)
+> ServerlessV1ServiceAssetReadResponse ListAsset(ctx, ServiceSid, optional)
 
 
 
@@ -1019,7 +1019,7 @@ Retrieve a list of all Assets.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to read the Asset resources from. | 
+**ServiceSid** | **string**| The SID of the Service to read the Asset resources from. | 
  **optional** | ***ListAssetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1030,7 +1030,7 @@ Optional parameters are passed through a pointer to a ListAssetOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1052,7 +1052,7 @@ Name | Type | Description  | Notes
 
 ## ListAssetVersion
 
-> ServerlessV1ServiceAssetAssetVersionReadResponse ListAssetVersion(ctx, serviceSid, assetSid, optional)
+> ServerlessV1ServiceAssetAssetVersionReadResponse ListAssetVersion(ctx, ServiceSid, AssetSid, optional)
 
 
 
@@ -1064,8 +1064,8 @@ Retrieve a list of all Asset Versions.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to read the Asset Version resource from. | 
-**assetSid** | **string**| The SID of the Asset resource that is the parent of the Asset Version resources to read. | 
+**ServiceSid** | **string**| The SID of the Service to read the Asset Version resource from. | 
+**AssetSid** | **string**| The SID of the Asset resource that is the parent of the Asset Version resources to read. | 
  **optional** | ***ListAssetVersionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1077,7 +1077,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1099,7 +1099,7 @@ Name | Type | Description  | Notes
 
 ## ListBuild
 
-> ServerlessV1ServiceBuildReadResponse ListBuild(ctx, serviceSid, optional)
+> ServerlessV1ServiceBuildReadResponse ListBuild(ctx, ServiceSid, optional)
 
 
 
@@ -1111,7 +1111,7 @@ Retrieve a list of all Builds.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to read the Build resources from. | 
+**ServiceSid** | **string**| The SID of the Service to read the Build resources from. | 
  **optional** | ***ListBuildOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1122,7 +1122,7 @@ Optional parameters are passed through a pointer to a ListBuildOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1144,7 +1144,7 @@ Name | Type | Description  | Notes
 
 ## ListDeployment
 
-> ServerlessV1ServiceEnvironmentDeploymentReadResponse ListDeployment(ctx, serviceSid, environmentSid, optional)
+> ServerlessV1ServiceEnvironmentDeploymentReadResponse ListDeployment(ctx, ServiceSid, EnvironmentSid, optional)
 
 
 
@@ -1156,8 +1156,8 @@ Retrieve a list of all Deployments.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to read the Deployment resources from. | 
-**environmentSid** | **string**| The SID of the Environment used by the Deployment resources to read. | 
+**ServiceSid** | **string**| The SID of the Service to read the Deployment resources from. | 
+**EnvironmentSid** | **string**| The SID of the Environment used by the Deployment resources to read. | 
  **optional** | ***ListDeploymentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1169,7 +1169,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1191,7 +1191,7 @@ Name | Type | Description  | Notes
 
 ## ListEnvironment
 
-> ServerlessV1ServiceEnvironmentReadResponse ListEnvironment(ctx, serviceSid, optional)
+> ServerlessV1ServiceEnvironmentReadResponse ListEnvironment(ctx, ServiceSid, optional)
 
 
 
@@ -1203,7 +1203,7 @@ Retrieve a list of all environments.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to read the Environment resources from. | 
+**ServiceSid** | **string**| The SID of the Service to read the Environment resources from. | 
  **optional** | ***ListEnvironmentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1214,7 +1214,7 @@ Optional parameters are passed through a pointer to a ListEnvironmentOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1236,7 +1236,7 @@ Name | Type | Description  | Notes
 
 ## ListFunction
 
-> ServerlessV1ServiceFunctionReadResponse ListFunction(ctx, serviceSid, optional)
+> ServerlessV1ServiceFunctionReadResponse ListFunction(ctx, ServiceSid, optional)
 
 
 
@@ -1248,7 +1248,7 @@ Retrieve a list of all Functions.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to read the Function resources from. | 
+**ServiceSid** | **string**| The SID of the Service to read the Function resources from. | 
  **optional** | ***ListFunctionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1259,7 +1259,7 @@ Optional parameters are passed through a pointer to a ListFunctionOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1281,7 +1281,7 @@ Name | Type | Description  | Notes
 
 ## ListFunctionVersion
 
-> ServerlessV1ServiceFunctionFunctionVersionReadResponse ListFunctionVersion(ctx, serviceSid, functionSid, optional)
+> ServerlessV1ServiceFunctionFunctionVersionReadResponse ListFunctionVersion(ctx, ServiceSid, FunctionSid, optional)
 
 
 
@@ -1293,8 +1293,8 @@ Retrieve a list of all Function Version resources.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to read the Function Version resources from. | 
-**functionSid** | **string**| The SID of the function that is the parent of the Function Version resources to read. | 
+**ServiceSid** | **string**| The SID of the Service to read the Function Version resources from. | 
+**FunctionSid** | **string**| The SID of the function that is the parent of the Function Version resources to read. | 
  **optional** | ***ListFunctionVersionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1306,7 +1306,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1328,7 +1328,7 @@ Name | Type | Description  | Notes
 
 ## ListLog
 
-> ServerlessV1ServiceEnvironmentLogReadResponse ListLog(ctx, serviceSid, environmentSid, optional)
+> ServerlessV1ServiceEnvironmentLogReadResponse ListLog(ctx, ServiceSid, EnvironmentSid, optional)
 
 
 
@@ -1340,8 +1340,8 @@ Retrieve a list of all logs.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to read the Log resource from. | 
-**environmentSid** | **string**| The SID of the environment with the Log resources to read. | 
+**ServiceSid** | **string**| The SID of the Service to read the Log resource from. | 
+**EnvironmentSid** | **string**| The SID of the environment with the Log resources to read. | 
  **optional** | ***ListLogOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1353,10 +1353,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **functionSid** | **optional.String**| The SID of the function whose invocation produced the Log resources to read. | 
- **startDate** | **optional.Time**| The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. | 
- **endDate** | **optional.Time**| The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **FunctionSid** | **optional.String**| The SID of the function whose invocation produced the Log resources to read. | 
+ **StartDate** | **optional.Time**| The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. | 
+ **EndDate** | **optional.Time**| The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1399,7 +1399,7 @@ Optional parameters are passed through a pointer to a ListServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1421,7 +1421,7 @@ Name | Type | Description  | Notes
 
 ## ListVariable
 
-> ServerlessV1ServiceEnvironmentVariableReadResponse ListVariable(ctx, serviceSid, environmentSid, optional)
+> ServerlessV1ServiceEnvironmentVariableReadResponse ListVariable(ctx, ServiceSid, EnvironmentSid, optional)
 
 
 
@@ -1433,8 +1433,8 @@ Retrieve a list of all Variables.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to read the Variable resources from. | 
-**environmentSid** | **string**| The SID of the Environment with the Variable resources to read. | 
+**ServiceSid** | **string**| The SID of the Service to read the Variable resources from. | 
+**EnvironmentSid** | **string**| The SID of the Environment with the Variable resources to read. | 
  **optional** | ***ListVariableOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1446,7 +1446,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1468,7 +1468,7 @@ Name | Type | Description  | Notes
 
 ## UpdateAsset
 
-> ServerlessV1ServiceAsset UpdateAsset(ctx, serviceSid, sid, optional)
+> ServerlessV1ServiceAsset UpdateAsset(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1480,8 +1480,8 @@ Update a specific Asset resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to update the Asset resource from. | 
-**sid** | **string**| The SID that identifies the Asset resource to update. | 
+**ServiceSid** | **string**| The SID of the Service to update the Asset resource from. | 
+**Sid** | **string**| The SID that identifies the Asset resource to update. | 
  **optional** | ***UpdateAssetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1493,7 +1493,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -1515,7 +1515,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFunction
 
-> ServerlessV1ServiceFunction UpdateFunction(ctx, serviceSid, sid, optional)
+> ServerlessV1ServiceFunction UpdateFunction(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1527,8 +1527,8 @@ Update a specific Function resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to update the Function resource from. | 
-**sid** | **string**| The SID of the Function resource to update. | 
+**ServiceSid** | **string**| The SID of the Service to update the Function resource from. | 
+**Sid** | **string**| The SID of the Function resource to update. | 
  **optional** | ***UpdateFunctionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1540,7 +1540,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -1562,7 +1562,7 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> ServerlessV1Service UpdateService(ctx, sid, optional)
+> ServerlessV1Service UpdateService(ctx, Sid, optional)
 
 
 
@@ -1574,7 +1574,7 @@ Update a specific Service resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to update. | 
+**Sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to update. | 
  **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1585,9 +1585,9 @@ Optional parameters are passed through a pointer to a UpdateServiceOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
- **includeCredentials** | **optional.Bool**| Whether to inject Account credentials into a function invocation context. | 
- **uiEditable** | **optional.Bool**| Whether the Service resource&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
+ **IncludeCredentials** | **optional.Bool**| Whether to inject Account credentials into a function invocation context. | 
+ **UiEditable** | **optional.Bool**| Whether the Service resource&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -1609,7 +1609,7 @@ Name | Type | Description  | Notes
 
 ## UpdateVariable
 
-> ServerlessV1ServiceEnvironmentVariable UpdateVariable(ctx, serviceSid, environmentSid, sid, optional)
+> ServerlessV1ServiceEnvironmentVariable UpdateVariable(ctx, ServiceSid, EnvironmentSid, Sid, optional)
 
 
 
@@ -1621,9 +1621,9 @@ Update a specific Variable.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the Service to update the Variable resource under. | 
-**environmentSid** | **string**| The SID of the Environment with the Variable resource to update. | 
-**sid** | **string**| The SID of the Variable resource to update. | 
+**ServiceSid** | **string**| The SID of the Service to update the Variable resource under. | 
+**EnvironmentSid** | **string**| The SID of the Environment with the Variable resource to update. | 
+**Sid** | **string**| The SID of the Variable resource to update. | 
  **optional** | ***UpdateVariableOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1636,8 +1636,8 @@ Name | Type | Description  | Notes
 
 
 
- **key** | **optional.String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
- **value** | **optional.String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
+ **Key** | **optional.String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
+ **Value** | **optional.String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
 
 ### Return type
 

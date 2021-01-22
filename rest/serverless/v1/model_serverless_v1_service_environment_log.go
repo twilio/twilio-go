@@ -14,16 +14,16 @@ import (
 )
 // ServerlessV1ServiceEnvironmentLog struct for ServerlessV1ServiceEnvironmentLog
 type ServerlessV1ServiceEnvironmentLog struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	BuildSid string `json:"build_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DeploymentSid string `json:"deployment_sid,omitempty"`
-	EnvironmentSid string `json:"environment_sid,omitempty"`
-	FunctionSid string `json:"function_sid,omitempty"`
-	Level string `json:"level,omitempty"`
-	Message string `json:"message,omitempty"`
-	RequestSid string `json:"request_sid,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	BuildSid string `json:"BuildSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DeploymentSid string `json:"DeploymentSid,omitempty"`
+	EnvironmentSid string `json:"EnvironmentSid,omitempty"`
+	FunctionSid string `json:"FunctionSid,omitempty"`
+	Level string `json:"Level,omitempty"`
+	Message string `json:"Message,omitempty"`
+	RequestSid string `json:"RequestSid,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

@@ -11,6 +11,6 @@
 package openapi
 // StudioV2FlowExecutionExecutionStepReadResponse struct for StudioV2FlowExecutionExecutionStepReadResponse
 type StudioV2FlowExecutionExecutionStepReadResponse struct {
-	Meta StudioV2FlowReadResponseMeta `json:"meta,omitempty"`
-	Steps []StudioV2FlowExecutionExecutionStep `json:"steps,omitempty"`
+	Meta StudioV2FlowReadResponseMeta `json:"Meta,omitempty"`
+	Steps []StudioV2FlowExecutionExecutionStep `json:"Steps,omitempty"`
 }

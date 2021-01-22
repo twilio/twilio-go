@@ -14,14 +14,14 @@ import (
 )
 // SyncV1ServiceSyncStream struct for SyncV1ServiceSyncStream
 type SyncV1ServiceSyncStream struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CreatedBy string `json:"created_by,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateExpires time.Time `json:"date_expires,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CreatedBy string `json:"CreatedBy,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateExpires time.Time `json:"DateExpires,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

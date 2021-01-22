@@ -11,9 +11,9 @@
 package openapi
 // ApiV2010AccountAvailablePhoneNumberCountry struct for ApiV2010AccountAvailablePhoneNumberCountry
 type ApiV2010AccountAvailablePhoneNumberCountry struct {
-	Beta bool `json:"beta,omitempty"`
-	Country string `json:"country,omitempty"`
-	CountryCode string `json:"country_code,omitempty"`
-	SubresourceUris map[string]interface{} `json:"subresource_uris,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	Beta bool `json:"Beta,omitempty"`
+	Country string `json:"Country,omitempty"`
+	CountryCode string `json:"CountryCode,omitempty"`
+	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

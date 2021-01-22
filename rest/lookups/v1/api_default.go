@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -38,7 +39,7 @@ type FetchPhoneNumberParams struct {
 
 /*
 FetchPhoneNumber Method for FetchPhoneNumber
- * @param phoneNumber The phone number to lookup in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+ * @param PhoneNumber The phone number to lookup in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
  * @param optional nil or *FetchPhoneNumberOpts - Optional Parameters:
  * @param "CountryCode" (string) - The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
  * @param "Type" ([]string) - The type of information to return. Can be: `carrier` or `caller-name`. The default is null.  Carrier information costs $0.005 per phone number looked up.  Caller Name information is currently available only in the US and costs $0.01 per phone number looked up.  To retrieve both types on information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value.
@@ -46,21 +47,22 @@ FetchPhoneNumber Method for FetchPhoneNumber
  * @param "AddOnsData" (map[string]interface{}) - Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
 @return LookupsV1PhoneNumber
 */
-func (c *DefaultApiService) FetchPhoneNumber(phoneNumber string, params *FetchPhoneNumberParams) (*LookupsV1PhoneNumber, error) {
+func (c *DefaultApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV1PhoneNumber, error) {
 	path := "/v1/PhoneNumbers/{PhoneNumber}"
-	path = strings.Replace(path, "{"+"PhoneNumber"+"}", phoneNumber, -1)
+	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CountryCode != nil {
-		data.Set("CountryCode", *params.CountryCode)
+		data.Set("CountryCode", *params.CountryCode) 
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", string(*params.Type))
+		data.Set("Type",  strings.Join(*params.Type, ","))
 	}
 	if params != nil && params.AddOns != nil {
-		data.Set("AddOns", string(*params.AddOns))
+		data.Set("AddOns",  strings.Join(*params.AddOns, ","))
 	}
 	if params != nil && params.AddOnsData != nil {
 		v, err := json.Marshal(params.AddOnsData)
@@ -69,7 +71,7 @@ func (c *DefaultApiService) FetchPhoneNumber(phoneNumber string, params *FetchPh
 			return nil, err
 		}
 
-		data.Set("AddOnsData", string(v))
+		data.Set("AddOnsData", fmt.Sprint(v))
 	}
 
 

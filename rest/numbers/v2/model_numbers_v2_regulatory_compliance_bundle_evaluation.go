@@ -14,12 +14,12 @@ import (
 )
 // NumbersV2RegulatoryComplianceBundleEvaluation struct for NumbersV2RegulatoryComplianceBundleEvaluation
 type NumbersV2RegulatoryComplianceBundleEvaluation struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	BundleSid string `json:"bundle_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	RegulationSid string `json:"regulation_sid,omitempty"`
-	Results []map[string]interface{} `json:"results,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	BundleSid string `json:"BundleSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	RegulationSid string `json:"RegulationSid,omitempty"`
+	Results []map[string]interface{} `json:"Results,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

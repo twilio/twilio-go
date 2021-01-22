@@ -11,6 +11,6 @@
 package openapi
 // StudioV1FlowExecutionReadResponse struct for StudioV1FlowExecutionReadResponse
 type StudioV1FlowExecutionReadResponse struct {
-	Executions []StudioV1FlowExecution `json:"executions,omitempty"`
-	Meta StudioV1FlowReadResponseMeta `json:"meta,omitempty"`
+	Executions []StudioV1FlowExecution `json:"Executions,omitempty"`
+	Meta StudioV1FlowReadResponseMeta `json:"Meta,omitempty"`
 }

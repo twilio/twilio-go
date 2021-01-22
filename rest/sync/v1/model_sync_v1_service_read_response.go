@@ -11,6 +11,6 @@
 package openapi
 // SyncV1ServiceReadResponse struct for SyncV1ServiceReadResponse
 type SyncV1ServiceReadResponse struct {
-	Meta SyncV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	Services []SyncV1Service `json:"services,omitempty"`
+	Meta SyncV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	Services []SyncV1Service `json:"Services,omitempty"`
 }

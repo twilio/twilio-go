@@ -11,6 +11,6 @@
 package openapi
 // WirelessV1CommandReadResponse struct for WirelessV1CommandReadResponse
 type WirelessV1CommandReadResponse struct {
-	Commands []WirelessV1Command `json:"commands,omitempty"`
-	Meta WirelessV1CommandReadResponseMeta `json:"meta,omitempty"`
+	Commands []WirelessV1Command `json:"Commands,omitempty"`
+	Meta WirelessV1CommandReadResponseMeta `json:"Meta,omitempty"`
 }

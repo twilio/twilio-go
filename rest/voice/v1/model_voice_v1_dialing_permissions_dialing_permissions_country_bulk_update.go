@@ -11,6 +11,6 @@
 package openapi
 // VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate struct for VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate
 type VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate struct {
-	UpdateCount int32 `json:"update_count,omitempty"`
-	UpdateRequest string `json:"update_request,omitempty"`
+	UpdateCount int32 `json:"UpdateCount,omitempty"`
+	UpdateRequest string `json:"UpdateRequest,omitempty"`
 }

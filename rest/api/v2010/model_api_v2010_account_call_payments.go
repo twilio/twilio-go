@@ -11,10 +11,10 @@
 package openapi
 // ApiV2010AccountCallPayments struct for ApiV2010AccountCallPayments
 type ApiV2010AccountCallPayments struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CallSid string `json:"call_sid,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CallSid string `json:"CallSid,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

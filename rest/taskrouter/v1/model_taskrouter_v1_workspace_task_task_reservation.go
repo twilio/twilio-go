@@ -14,15 +14,15 @@ import (
 )
 // TaskrouterV1WorkspaceTaskTaskReservation struct for TaskrouterV1WorkspaceTaskTaskReservation
 type TaskrouterV1WorkspaceTaskTaskReservation struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	ReservationStatus string `json:"reservation_status,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	TaskSid string `json:"task_sid,omitempty"`
-	Url string `json:"url,omitempty"`
-	WorkerName string `json:"worker_name,omitempty"`
-	WorkerSid string `json:"worker_sid,omitempty"`
-	WorkspaceSid string `json:"workspace_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	ReservationStatus string `json:"ReservationStatus,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TaskSid string `json:"TaskSid,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WorkerName string `json:"WorkerName,omitempty"`
+	WorkerSid string `json:"WorkerSid,omitempty"`
+	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
 }

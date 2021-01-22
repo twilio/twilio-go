@@ -11,6 +11,6 @@
 package openapi
 // PreviewBulkExportsExportExportCustomJobReadResponse struct for PreviewBulkExportsExportExportCustomJobReadResponse
 type PreviewBulkExportsExportExportCustomJobReadResponse struct {
-	Jobs []PreviewBulkExportsExportExportCustomJob `json:"jobs,omitempty"`
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
+	Jobs []PreviewBulkExportsExportExportCustomJob `json:"Jobs,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

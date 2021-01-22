@@ -59,16 +59,16 @@ Optional parameters are passed through a pointer to a CreateByocTrunkOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
- **connectionPolicySid** | **optional.String**| The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
- **fromDomainSid** | **optional.String**| The SID of the SIP Domain that should be used in the &#x60;From&#x60; header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\&quot;call back\\\&quot; an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\&quot;sip.twilio.com\\\&quot;. | 
- **statusCallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **statusCallbackUrl** | **optional.String**| The URL that we should call to pass status parameters (such as call ended) to your application. | 
- **voiceFallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **voiceFallbackUrl** | **optional.String**| The URL that we should call when an error occurs while retrieving or executing the TwiML from &#x60;voice_url&#x60;. | 
- **voiceMethod** | **optional.String**| The HTTP method we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **voiceUrl** | **optional.String**| The URL we should call when the BYOC Trunk receives a call. | 
+ **CnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
+ **ConnectionPolicySid** | **optional.String**| The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
+ **FromDomainSid** | **optional.String**| The SID of the SIP Domain that should be used in the &#x60;From&#x60; header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\&quot;call back\\\&quot; an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\&quot;sip.twilio.com\\\&quot;. | 
+ **StatusCallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+ **StatusCallbackUrl** | **optional.String**| The URL that we should call to pass status parameters (such as call ended) to your application. | 
+ **VoiceFallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+ **VoiceFallbackUrl** | **optional.String**| The URL that we should call when an error occurs while retrieving or executing the TwiML from &#x60;voice_url&#x60;. | 
+ **VoiceMethod** | **optional.String**| The HTTP method we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+ **VoiceUrl** | **optional.String**| The URL we should call when the BYOC Trunk receives a call. | 
 
 ### Return type
 
@@ -109,7 +109,7 @@ Optional parameters are passed through a pointer to a CreateConnectionPolicyOpts
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
 
 ### Return type
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ## CreateConnectionPolicyTarget
 
-> VoiceV1ConnectionPolicyConnectionPolicyTarget CreateConnectionPolicyTarget(ctx, connectionPolicySid, optional)
+> VoiceV1ConnectionPolicyConnectionPolicyTarget CreateConnectionPolicyTarget(ctx, ConnectionPolicySid, optional)
 
 
 
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**connectionPolicySid** | **string**| The SID of the Connection Policy that owns the Target. | 
+**ConnectionPolicySid** | **string**| The SID of the Connection Policy that owns the Target. | 
  **optional** | ***CreateConnectionPolicyTargetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -152,11 +152,11 @@ Optional parameters are passed through a pointer to a CreateConnectionPolicyTarg
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **enabled** | **optional.Bool**| Whether the Target is enabled. The default is &#x60;true&#x60;. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
- **priority** | **optional.Int32**| The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target. | 
- **target** | **optional.String**| The SIP address you want Twilio to route your calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported. | 
- **weight** | **optional.Int32**| The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority. | 
+ **Enabled** | **optional.Bool**| Whether the Target is enabled. The default is &#x60;true&#x60;. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
+ **Priority** | **optional.Int32**| The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target. | 
+ **Target** | **optional.String**| The SIP address you want Twilio to route your calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported. | 
+ **Weight** | **optional.Int32**| The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority. | 
 
 ### Return type
 
@@ -199,7 +199,7 @@ Optional parameters are passed through a pointer to a CreateDialingPermissionsCo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updateRequest** | **optional.String**| URL encoded JSON array of update objects. example : &#x60;[ { \\\&quot;iso_code\\\&quot;: \\\&quot;GB\\\&quot;, \\\&quot;low_risk_numbers_enabled\\\&quot;: \\\&quot;true\\\&quot;, \\\&quot;high_risk_special_numbers_enabled\\\&quot;:\\\&quot;true\\\&quot;, \\\&quot;high_risk_tollfraud_numbers_enabled\\\&quot;: \\\&quot;false\\\&quot; } ]&#x60; | 
+ **UpdateRequest** | **optional.String**| URL encoded JSON array of update objects. example : &#x60;[ { \\\&quot;iso_code\\\&quot;: \\\&quot;GB\\\&quot;, \\\&quot;low_risk_numbers_enabled\\\&quot;: \\\&quot;true\\\&quot;, \\\&quot;high_risk_special_numbers_enabled\\\&quot;:\\\&quot;true\\\&quot;, \\\&quot;high_risk_tollfraud_numbers_enabled\\\&quot;: \\\&quot;false\\\&quot; } ]&#x60; | 
 
 ### Return type
 
@@ -240,9 +240,9 @@ Optional parameters are passed through a pointer to a CreateIpRecordOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cidrPrefixLength** | **optional.Int32**| An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
- **ipAddress** | **optional.String**| An IP address in dotted decimal notation, IPv4 only. | 
+ **CidrPrefixLength** | **optional.Int32**| An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
+ **IpAddress** | **optional.String**| An IP address in dotted decimal notation, IPv4 only. | 
 
 ### Return type
 
@@ -283,8 +283,8 @@ Optional parameters are passed through a pointer to a CreateSourceIpMappingOpts 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ipRecordSid** | **optional.String**| The Twilio-provided string that uniquely identifies the IP Record resource to map from. | 
- **sipDomainSid** | **optional.String**| The SID of the SIP Domain that the IP Record should be mapped to. | 
+ **IpRecordSid** | **optional.String**| The Twilio-provided string that uniquely identifies the IP Record resource to map from. | 
+ **SipDomainSid** | **optional.String**| The SID of the SIP Domain that the IP Record should be mapped to. | 
 
 ### Return type
 
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 
 ## DeleteByocTrunk
 
-> DeleteByocTrunk(ctx, sid)
+> DeleteByocTrunk(ctx, Sid)
 
 
 
@@ -316,7 +316,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the BYOC Trunk resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the BYOC Trunk resource to delete. | 
 
 ### Return type
 
@@ -338,7 +338,7 @@ Name | Type | Description  | Notes
 
 ## DeleteConnectionPolicy
 
-> DeleteConnectionPolicy(ctx, sid)
+> DeleteConnectionPolicy(ctx, Sid)
 
 
 
@@ -348,7 +348,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that we created to identify the Connection Policy resource to delete. | 
+**Sid** | **string**| The unique string that we created to identify the Connection Policy resource to delete. | 
 
 ### Return type
 
@@ -370,7 +370,7 @@ Name | Type | Description  | Notes
 
 ## DeleteConnectionPolicyTarget
 
-> DeleteConnectionPolicyTarget(ctx, connectionPolicySid, sid)
+> DeleteConnectionPolicyTarget(ctx, ConnectionPolicySid, Sid)
 
 
 
@@ -380,8 +380,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**connectionPolicySid** | **string**| The SID of the Connection Policy that owns the Target. | 
-**sid** | **string**| The unique string that we created to identify the Target resource to delete. | 
+**ConnectionPolicySid** | **string**| The SID of the Connection Policy that owns the Target. | 
+**Sid** | **string**| The unique string that we created to identify the Target resource to delete. | 
 
 ### Return type
 
@@ -403,7 +403,7 @@ Name | Type | Description  | Notes
 
 ## DeleteIpRecord
 
-> DeleteIpRecord(ctx, sid)
+> DeleteIpRecord(ctx, Sid)
 
 
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to delete. | 
 
 ### Return type
 
@@ -435,7 +435,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSourceIpMapping
 
-> DeleteSourceIpMapping(ctx, sid)
+> DeleteSourceIpMapping(ctx, Sid)
 
 
 
@@ -445,7 +445,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to delete. | 
 
 ### Return type
 
@@ -467,7 +467,7 @@ Name | Type | Description  | Notes
 
 ## FetchByocTrunk
 
-> VoiceV1ByocTrunk FetchByocTrunk(ctx, sid)
+> VoiceV1ByocTrunk FetchByocTrunk(ctx, Sid)
 
 
 
@@ -477,7 +477,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the BYOC Trunk resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the BYOC Trunk resource to fetch. | 
 
 ### Return type
 
@@ -499,7 +499,7 @@ Name | Type | Description  | Notes
 
 ## FetchConnectionPolicy
 
-> VoiceV1ConnectionPolicy FetchConnectionPolicy(ctx, sid)
+> VoiceV1ConnectionPolicy FetchConnectionPolicy(ctx, Sid)
 
 
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that we created to identify the Connection Policy resource to fetch. | 
+**Sid** | **string**| The unique string that we created to identify the Connection Policy resource to fetch. | 
 
 ### Return type
 
@@ -531,7 +531,7 @@ Name | Type | Description  | Notes
 
 ## FetchConnectionPolicyTarget
 
-> VoiceV1ConnectionPolicyConnectionPolicyTarget FetchConnectionPolicyTarget(ctx, connectionPolicySid, sid)
+> VoiceV1ConnectionPolicyConnectionPolicyTarget FetchConnectionPolicyTarget(ctx, ConnectionPolicySid, Sid)
 
 
 
@@ -541,8 +541,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**connectionPolicySid** | **string**| The SID of the Connection Policy that owns the Target. | 
-**sid** | **string**| The unique string that we created to identify the Target resource to fetch. | 
+**ConnectionPolicySid** | **string**| The SID of the Connection Policy that owns the Target. | 
+**Sid** | **string**| The unique string that we created to identify the Target resource to fetch. | 
 
 ### Return type
 
@@ -564,7 +564,7 @@ Name | Type | Description  | Notes
 
 ## FetchDialingPermissionsCountry
 
-> VoiceV1DialingPermissionsDialingPermissionsCountryInstance FetchDialingPermissionsCountry(ctx, isoCode)
+> VoiceV1DialingPermissionsDialingPermissionsCountryInstance FetchDialingPermissionsCountry(ctx, IsoCode)
 
 
 
@@ -576,7 +576,7 @@ Retrieve voice dialing country permissions identified by the given ISO country c
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**isoCode** | **string**| The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch | 
+**IsoCode** | **string**| The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch | 
 
 ### Return type
 
@@ -628,7 +628,7 @@ This endpoint does not need any parameter.
 
 ## FetchIpRecord
 
-> VoiceV1IpRecord FetchIpRecord(ctx, sid)
+> VoiceV1IpRecord FetchIpRecord(ctx, Sid)
 
 
 
@@ -638,7 +638,7 @@ This endpoint does not need any parameter.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to fetch. | 
 
 ### Return type
 
@@ -660,7 +660,7 @@ Name | Type | Description  | Notes
 
 ## FetchSourceIpMapping
 
-> VoiceV1SourceIpMapping FetchSourceIpMapping(ctx, sid)
+> VoiceV1SourceIpMapping FetchSourceIpMapping(ctx, Sid)
 
 
 
@@ -670,7 +670,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to fetch. | 
 
 ### Return type
 
@@ -711,7 +711,7 @@ Optional parameters are passed through a pointer to a ListByocTrunkOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -752,7 +752,7 @@ Optional parameters are passed through a pointer to a ListConnectionPolicyOpts s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -774,7 +774,7 @@ Name | Type | Description  | Notes
 
 ## ListConnectionPolicyTarget
 
-> VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse ListConnectionPolicyTarget(ctx, connectionPolicySid, optional)
+> VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse ListConnectionPolicyTarget(ctx, ConnectionPolicySid, optional)
 
 
 
@@ -784,7 +784,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**connectionPolicySid** | **string**| The SID of the Connection Policy from which to read the Targets. | 
+**ConnectionPolicySid** | **string**| The SID of the Connection Policy from which to read the Targets. | 
  **optional** | ***ListConnectionPolicyTargetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -795,7 +795,7 @@ Optional parameters are passed through a pointer to a ListConnectionPolicyTarget
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -838,13 +838,13 @@ Optional parameters are passed through a pointer to a ListDialingPermissionsCoun
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **isoCode** | **optional.String**| Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) | 
- **continent** | **optional.String**| Filter to retrieve the country permissions by specifying the continent | 
- **countryCode** | **optional.String**| Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) | 
- **lowRiskNumbersEnabled** | **optional.Bool**| Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
- **highRiskSpecialNumbersEnabled** | **optional.Bool**| Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: &#x60;true&#x60; or &#x60;false&#x60; | 
- **highRiskTollfraudNumbersEnabled** | **optional.Bool**| Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **IsoCode** | **optional.String**| Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) | 
+ **Continent** | **optional.String**| Filter to retrieve the country permissions by specifying the continent | 
+ **CountryCode** | **optional.String**| Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html) | 
+ **LowRiskNumbersEnabled** | **optional.Bool**| Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+ **HighRiskSpecialNumbersEnabled** | **optional.Bool**| Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: &#x60;true&#x60; or &#x60;false&#x60; | 
+ **HighRiskTollfraudNumbersEnabled** | **optional.Bool**| Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -866,7 +866,7 @@ Name | Type | Description  | Notes
 
 ## ListDialingPermissionsHrsPrefixes
 
-> VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse ListDialingPermissionsHrsPrefixes(ctx, isoCode, optional)
+> VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse ListDialingPermissionsHrsPrefixes(ctx, IsoCode, optional)
 
 
 
@@ -878,7 +878,7 @@ Fetch the high-risk special services prefixes from the country resource correspo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**isoCode** | **string**| The [ISO 3166-1 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) to identify the country permissions from which high-risk special service number prefixes are fetched | 
+**IsoCode** | **string**| The [ISO 3166-1 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) to identify the country permissions from which high-risk special service number prefixes are fetched | 
  **optional** | ***ListDialingPermissionsHrsPrefixesOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -889,7 +889,7 @@ Optional parameters are passed through a pointer to a ListDialingPermissionsHrsP
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -930,7 +930,7 @@ Optional parameters are passed through a pointer to a ListIpRecordOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -971,7 +971,7 @@ Optional parameters are passed through a pointer to a ListSourceIpMappingOpts st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -993,7 +993,7 @@ Name | Type | Description  | Notes
 
 ## UpdateByocTrunk
 
-> VoiceV1ByocTrunk UpdateByocTrunk(ctx, sid, optional)
+> VoiceV1ByocTrunk UpdateByocTrunk(ctx, Sid, optional)
 
 
 
@@ -1003,7 +1003,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update. | 
  **optional** | ***UpdateByocTrunkOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1014,16 +1014,16 @@ Optional parameters are passed through a pointer to a UpdateByocTrunkOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
- **connectionPolicySid** | **optional.String**| The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
- **fromDomainSid** | **optional.String**| The SID of the SIP Domain that should be used in the &#x60;From&#x60; header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\&quot;call back\\\&quot; an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\&quot;sip.twilio.com\\\&quot;. | 
- **statusCallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **statusCallbackUrl** | **optional.String**| The URL that we should call to pass status parameters (such as call ended) to your application. | 
- **voiceFallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **voiceFallbackUrl** | **optional.String**| The URL that we should call when an error occurs while retrieving or executing the TwiML requested by &#x60;voice_url&#x60;. | 
- **voiceMethod** | **optional.String**| The HTTP method we should use to call &#x60;voice_url&#x60; | 
- **voiceUrl** | **optional.String**| The URL we should call when the BYOC Trunk receives a call. | 
+ **CnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
+ **ConnectionPolicySid** | **optional.String**| The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
+ **FromDomainSid** | **optional.String**| The SID of the SIP Domain that should be used in the &#x60;From&#x60; header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\&quot;call back\\\&quot; an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\&quot;sip.twilio.com\\\&quot;. | 
+ **StatusCallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+ **StatusCallbackUrl** | **optional.String**| The URL that we should call to pass status parameters (such as call ended) to your application. | 
+ **VoiceFallbackMethod** | **optional.String**| The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+ **VoiceFallbackUrl** | **optional.String**| The URL that we should call when an error occurs while retrieving or executing the TwiML requested by &#x60;voice_url&#x60;. | 
+ **VoiceMethod** | **optional.String**| The HTTP method we should use to call &#x60;voice_url&#x60; | 
+ **VoiceUrl** | **optional.String**| The URL we should call when the BYOC Trunk receives a call. | 
 
 ### Return type
 
@@ -1045,7 +1045,7 @@ Name | Type | Description  | Notes
 
 ## UpdateConnectionPolicy
 
-> VoiceV1ConnectionPolicy UpdateConnectionPolicy(ctx, sid, optional)
+> VoiceV1ConnectionPolicy UpdateConnectionPolicy(ctx, Sid, optional)
 
 
 
@@ -1055,7 +1055,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that we created to identify the Connection Policy resource to update. | 
+**Sid** | **string**| The unique string that we created to identify the Connection Policy resource to update. | 
  **optional** | ***UpdateConnectionPolicyOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1066,7 +1066,7 @@ Optional parameters are passed through a pointer to a UpdateConnectionPolicyOpts
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
 
 ### Return type
 
@@ -1088,7 +1088,7 @@ Name | Type | Description  | Notes
 
 ## UpdateConnectionPolicyTarget
 
-> VoiceV1ConnectionPolicyConnectionPolicyTarget UpdateConnectionPolicyTarget(ctx, connectionPolicySid, sid, optional)
+> VoiceV1ConnectionPolicyConnectionPolicyTarget UpdateConnectionPolicyTarget(ctx, ConnectionPolicySid, Sid, optional)
 
 
 
@@ -1098,8 +1098,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**connectionPolicySid** | **string**| The SID of the Connection Policy that owns the Target. | 
-**sid** | **string**| The unique string that we created to identify the Target resource to update. | 
+**ConnectionPolicySid** | **string**| The SID of the Connection Policy that owns the Target. | 
+**Sid** | **string**| The unique string that we created to identify the Target resource to update. | 
  **optional** | ***UpdateConnectionPolicyTargetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1111,11 +1111,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **enabled** | **optional.Bool**| Whether the Target is enabled. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
- **priority** | **optional.Int32**| The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target. | 
- **target** | **optional.String**| The SIP address you want Twilio to route your calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported. | 
- **weight** | **optional.Int32**| The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority. | 
+ **Enabled** | **optional.Bool**| Whether the Target is enabled. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
+ **Priority** | **optional.Int32**| The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target. | 
+ **Target** | **optional.String**| The SIP address you want Twilio to route your calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported. | 
+ **Weight** | **optional.Int32**| The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority. | 
 
 ### Return type
 
@@ -1158,7 +1158,7 @@ Optional parameters are passed through a pointer to a UpdateDialingPermissionsSe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **dialingPermissionsInheritance** | **optional.Bool**| &#x60;true&#x60; for the sub-account to inherit voice dialing permissions from the Master Project; otherwise &#x60;false&#x60;. | 
+ **DialingPermissionsInheritance** | **optional.Bool**| &#x60;true&#x60; for the sub-account to inherit voice dialing permissions from the Master Project; otherwise &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -1180,7 +1180,7 @@ Name | Type | Description  | Notes
 
 ## UpdateIpRecord
 
-> VoiceV1IpRecord UpdateIpRecord(ctx, sid, optional)
+> VoiceV1IpRecord UpdateIpRecord(ctx, Sid, optional)
 
 
 
@@ -1190,7 +1190,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to update. | 
  **optional** | ***UpdateIpRecordOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1201,7 +1201,7 @@ Optional parameters are passed through a pointer to a UpdateIpRecordOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. | 
 
 ### Return type
 
@@ -1223,7 +1223,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSourceIpMapping
 
-> VoiceV1SourceIpMapping UpdateSourceIpMapping(ctx, sid, optional)
+> VoiceV1SourceIpMapping UpdateSourceIpMapping(ctx, Sid, optional)
 
 
 
@@ -1233,7 +1233,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the IP Record resource to update. | 
  **optional** | ***UpdateSourceIpMappingOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1244,7 +1244,7 @@ Optional parameters are passed through a pointer to a UpdateSourceIpMappingOpts 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sipDomainSid** | **optional.String**| The SID of the SIP Domain that the IP Record should be mapped to. | 
+ **SipDomainSid** | **optional.String**| The SID of the SIP Domain that the IP Record should be mapped to. | 
 
 ### Return type
 

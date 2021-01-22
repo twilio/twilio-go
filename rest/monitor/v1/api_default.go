@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -31,14 +33,15 @@ func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
 
 /*
 FetchAlert Method for FetchAlert
- * @param sid The SID of the Alert resource to fetch.
+ * @param Sid The SID of the Alert resource to fetch.
 @return MonitorV1AlertInstance
 */
-func (c *DefaultApiService) FetchAlert(sid string) (*MonitorV1AlertInstance, error) {
+func (c *DefaultApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, error) {
 	path := "/v1/Alerts/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -60,14 +63,15 @@ func (c *DefaultApiService) FetchAlert(sid string) (*MonitorV1AlertInstance, err
 
 /*
 FetchEvent Method for FetchEvent
- * @param sid The SID of the Event resource to fetch.
+ * @param Sid The SID of the Event resource to fetch.
 @return MonitorV1Event
 */
-func (c *DefaultApiService) FetchEvent(sid string) (*MonitorV1Event, error) {
+func (c *DefaultApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 	path := "/v1/Events/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -106,20 +110,21 @@ ListAlert Method for ListAlert
 func (c *DefaultApiService) ListAlert(params *ListAlertParams) (*MonitorV1AlertReadResponse, error) {
 	path := "/v1/Alerts"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.LogLevel != nil {
-		data.Set("LogLevel", *params.LogLevel)
+		data.Set("LogLevel", *params.LogLevel) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -164,29 +169,30 @@ Returns a list of events in the account, sorted by event-date.
 func (c *DefaultApiService) ListEvent(params *ListEventParams) (*MonitorV1EventReadResponse, error) {
 	path := "/v1/Events"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ActorSid != nil {
-		data.Set("ActorSid", *params.ActorSid)
+		data.Set("ActorSid", *params.ActorSid) 
 	}
 	if params != nil && params.EventType != nil {
-		data.Set("EventType", *params.EventType)
+		data.Set("EventType", *params.EventType) 
 	}
 	if params != nil && params.ResourceSid != nil {
-		data.Set("ResourceSid", *params.ResourceSid)
+		data.Set("ResourceSid", *params.ResourceSid) 
 	}
 	if params != nil && params.SourceIpAddress != nil {
-		data.Set("SourceIpAddress", *params.SourceIpAddress)
+		data.Set("SourceIpAddress", *params.SourceIpAddress) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 

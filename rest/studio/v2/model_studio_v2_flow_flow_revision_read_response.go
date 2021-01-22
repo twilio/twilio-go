@@ -11,6 +11,6 @@
 package openapi
 // StudioV2FlowFlowRevisionReadResponse struct for StudioV2FlowFlowRevisionReadResponse
 type StudioV2FlowFlowRevisionReadResponse struct {
-	Meta StudioV2FlowReadResponseMeta `json:"meta,omitempty"`
-	Revisions []StudioV2FlowFlowRevision `json:"revisions,omitempty"`
+	Meta StudioV2FlowReadResponseMeta `json:"Meta,omitempty"`
+	Revisions []StudioV2FlowFlowRevision `json:"Revisions,omitempty"`
 }

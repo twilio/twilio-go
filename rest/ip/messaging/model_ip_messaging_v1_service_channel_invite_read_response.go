@@ -11,6 +11,6 @@
 package openapi
 // IpMessagingV1ServiceChannelInviteReadResponse struct for IpMessagingV1ServiceChannelInviteReadResponse
 type IpMessagingV1ServiceChannelInviteReadResponse struct {
-	Invites []IpMessagingV1ServiceChannelInvite `json:"invites,omitempty"`
-	Meta IpMessagingV1CredentialReadResponseMeta `json:"meta,omitempty"`
+	Invites []IpMessagingV1ServiceChannelInvite `json:"Invites,omitempty"`
+	Meta IpMessagingV1CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## CreateExportCustomJob
 
-> BulkexportsV1ExportExportCustomJob CreateExportCustomJob(ctx, resourceType, optional)
+> BulkexportsV1ExportExportCustomJob CreateExportCustomJob(ctx, ResourceType, optional)
 
 
 
@@ -28,7 +28,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages or Calls | 
+**ResourceType** | **string**| The type of communication – Messages or Calls | 
  **optional** | ***CreateExportCustomJobOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -39,12 +39,12 @@ Optional parameters are passed through a pointer to a CreateExportCustomJobOpts 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **email** | **optional.String**| The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job&#39;s status. | 
- **endDay** | **optional.String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
- **friendlyName** | **optional.String**| The friendly name specified when creating the job | 
- **startDay** | **optional.String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
- **webhookMethod** | **optional.String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
- **webhookUrl** | **optional.String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. If you set neither webhook nor email, you will have to check your job&#39;s status manually. | 
+ **Email** | **optional.String**| The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job&#39;s status. | 
+ **EndDay** | **optional.String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
+ **FriendlyName** | **optional.String**| The friendly name specified when creating the job | 
+ **StartDay** | **optional.String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
+ **WebhookMethod** | **optional.String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
+ **WebhookUrl** | **optional.String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. If you set neither webhook nor email, you will have to check your job&#39;s status manually. | 
 
 ### Return type
 
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ## DeleteJob
 
-> DeleteJob(ctx, jobSid)
+> DeleteJob(ctx, JobSid)
 
 
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**jobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
+**JobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
 
 ### Return type
 
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 
 ## FetchDay
 
-> FetchDay(ctx, resourceType, day)
+> FetchDay(ctx, ResourceType, Day)
 
 
 
@@ -110,8 +110,8 @@ Fetch a specific Day.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
-**day** | **string**| The ISO 8601 format date of the resources in the file, for a UTC day | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**Day** | **string**| The ISO 8601 format date of the resources in the file, for a UTC day | 
 
 ### Return type
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 ## FetchExport
 
-> BulkexportsV1Export FetchExport(ctx, resourceType)
+> BulkexportsV1Export FetchExport(ctx, ResourceType)
 
 
 
@@ -145,7 +145,7 @@ Fetch a specific Export.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
 
 ### Return type
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ## FetchExportConfiguration
 
-> BulkexportsV1ExportConfiguration FetchExportConfiguration(ctx, resourceType)
+> BulkexportsV1ExportConfiguration FetchExportConfiguration(ctx, ResourceType)
 
 
 
@@ -179,7 +179,7 @@ Fetch a specific Export Configuration.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
 
 ### Return type
 
@@ -201,7 +201,7 @@ Name | Type | Description  | Notes
 
 ## FetchJob
 
-> BulkexportsV1ExportJob FetchJob(ctx, jobSid)
+> BulkexportsV1ExportJob FetchJob(ctx, JobSid)
 
 
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**jobSid** | **string**|  | 
+**JobSid** | **string**|  | 
 
 ### Return type
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## ListDay
 
-> BulkexportsV1ExportDayReadResponse ListDay(ctx, resourceType, optional)
+> BulkexportsV1ExportDayReadResponse ListDay(ctx, ResourceType, optional)
 
 
 
@@ -245,7 +245,7 @@ Retrieve a list of all Days for a resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
  **optional** | ***ListDayOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -256,7 +256,7 @@ Optional parameters are passed through a pointer to a ListDayOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ## ListExportCustomJob
 
-> BulkexportsV1ExportExportCustomJobReadResponse ListExportCustomJob(ctx, resourceType, optional)
+> BulkexportsV1ExportExportCustomJobReadResponse ListExportCustomJob(ctx, ResourceType, optional)
 
 
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
  **optional** | ***ListExportCustomJobOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -299,7 +299,7 @@ Optional parameters are passed through a pointer to a ListExportCustomJobOpts st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -321,7 +321,7 @@ Name | Type | Description  | Notes
 
 ## UpdateExportConfiguration
 
-> BulkexportsV1ExportConfiguration UpdateExportConfiguration(ctx, resourceType, optional)
+> BulkexportsV1ExportConfiguration UpdateExportConfiguration(ctx, ResourceType, optional)
 
 
 
@@ -333,7 +333,7 @@ Update a specific Export Configuration.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
  **optional** | ***UpdateExportConfigurationOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -344,9 +344,9 @@ Optional parameters are passed through a pointer to a UpdateExportConfigurationO
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **enabled** | **optional.Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
- **webhookMethod** | **optional.String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
- **webhookUrl** | **optional.String**| Stores the URL destination for the method specified in webhook_method. | 
+ **Enabled** | **optional.Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
+ **WebhookMethod** | **optional.String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
+ **WebhookUrl** | **optional.String**| Stores the URL destination for the method specified in webhook_method. | 
 
 ### Return type
 

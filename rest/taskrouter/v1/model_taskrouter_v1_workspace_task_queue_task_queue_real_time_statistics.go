@@ -11,18 +11,18 @@
 package openapi
 // TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics struct for TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics
 type TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ActivityStatistics []map[string]interface{} `json:"activity_statistics,omitempty"`
-	LongestRelativeTaskAgeInQueue int32 `json:"longest_relative_task_age_in_queue,omitempty"`
-	LongestRelativeTaskSidInQueue string `json:"longest_relative_task_sid_in_queue,omitempty"`
-	LongestTaskWaitingAge int32 `json:"longest_task_waiting_age,omitempty"`
-	LongestTaskWaitingSid string `json:"longest_task_waiting_sid,omitempty"`
-	TaskQueueSid string `json:"task_queue_sid,omitempty"`
-	TasksByPriority map[string]interface{} `json:"tasks_by_priority,omitempty"`
-	TasksByStatus map[string]interface{} `json:"tasks_by_status,omitempty"`
-	TotalAvailableWorkers int32 `json:"total_available_workers,omitempty"`
-	TotalEligibleWorkers int32 `json:"total_eligible_workers,omitempty"`
-	TotalTasks int32 `json:"total_tasks,omitempty"`
-	Url string `json:"url,omitempty"`
-	WorkspaceSid string `json:"workspace_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ActivityStatistics []map[string]interface{} `json:"ActivityStatistics,omitempty"`
+	LongestRelativeTaskAgeInQueue int32 `json:"LongestRelativeTaskAgeInQueue,omitempty"`
+	LongestRelativeTaskSidInQueue string `json:"LongestRelativeTaskSidInQueue,omitempty"`
+	LongestTaskWaitingAge int32 `json:"LongestTaskWaitingAge,omitempty"`
+	LongestTaskWaitingSid string `json:"LongestTaskWaitingSid,omitempty"`
+	TaskQueueSid string `json:"TaskQueueSid,omitempty"`
+	TasksByPriority map[string]interface{} `json:"TasksByPriority,omitempty"`
+	TasksByStatus map[string]interface{} `json:"TasksByStatus,omitempty"`
+	TotalAvailableWorkers int32 `json:"TotalAvailableWorkers,omitempty"`
+	TotalEligibleWorkers int32 `json:"TotalEligibleWorkers,omitempty"`
+	TotalTasks int32 `json:"TotalTasks,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
 }

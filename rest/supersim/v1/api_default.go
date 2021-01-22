@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -49,20 +51,21 @@ Send a Command to a Sim.
 func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*SupersimV1Command, error) {
 	path := "/v1/Commands"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
+		data.Set("CallbackMethod", *params.CallbackMethod) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.Command != nil {
-		data.Set("Command", *params.Command)
+		data.Set("Command", *params.Command) 
 	}
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		data.Set("Sim", *params.Sim) 
 	}
 
 
@@ -107,29 +110,30 @@ Create a Fleet
 func (c *DefaultApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CommandsEnabled != nil {
-		data.Set("CommandsEnabled", string(*params.CommandsEnabled))
+		data.Set("CommandsEnabled", fmt.Sprint(*params.CommandsEnabled)) 
 	}
 	if params != nil && params.CommandsMethod != nil {
-		data.Set("CommandsMethod", *params.CommandsMethod)
+		data.Set("CommandsMethod", *params.CommandsMethod) 
 	}
 	if params != nil && params.CommandsUrl != nil {
-		data.Set("CommandsUrl", *params.CommandsUrl)
+		data.Set("CommandsUrl", *params.CommandsUrl) 
 	}
 	if params != nil && params.DataEnabled != nil {
-		data.Set("DataEnabled", string(*params.DataEnabled))
+		data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled)) 
 	}
 	if params != nil && params.DataLimit != nil {
-		data.Set("DataLimit", string(*params.DataLimit))
+		data.Set("DataLimit", fmt.Sprint(*params.DataLimit)) 
 	}
 	if params != nil && params.NetworkAccessProfile != nil {
-		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -164,14 +168,15 @@ Create a new Network Access Profile
 func (c *DefaultApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Networks != nil {
-		data.Set("Networks", *params.Networks)
+		data.Set("Networks",  strings.Join(*params.Networks, ","))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -197,20 +202,21 @@ type CreateNetworkAccessProfileNetworkParams struct {
 /*
 CreateNetworkAccessProfileNetwork Method for CreateNetworkAccessProfileNetwork
 Add a Network resource to the Network Access Profile resource.
- * @param networkAccessProfileSid The unique string that identifies the Network Access Profile resource.
+ * @param NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
  * @param optional nil or *CreateNetworkAccessProfileNetworkOpts - Optional Parameters:
  * @param "Network" (string) - The SID of the Network resource to be added to the Network Access Profile resource.
 @return SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
 */
-func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(networkAccessProfileSid string, params *CreateNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *CreateNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
-	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
+	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Network != nil {
-		data.Set("Network", *params.Network)
+		data.Set("Network", *params.Network) 
 	}
 
 
@@ -232,15 +238,16 @@ func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(networkAccessProfi
 /*
 DeleteNetworkAccessProfileNetwork Method for DeleteNetworkAccessProfileNetwork
 Remove a Network resource from the Network Access Profile resource&#39;s.
- * @param networkAccessProfileSid The unique string that identifies the Network Access Profile resource.
- * @param sid
+ * @param NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
+ * @param Sid
 */
-func (c *DefaultApiService) DeleteNetworkAccessProfileNetwork(networkAccessProfileSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfileSid string, Sid string) (error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
-	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -258,14 +265,15 @@ func (c *DefaultApiService) DeleteNetworkAccessProfileNetwork(networkAccessProfi
 /*
 FetchCommand Method for FetchCommand
 Fetch a Command instance from your account.
- * @param sid The SID of the Command resource to fetch.
+ * @param Sid The SID of the Command resource to fetch.
 @return SupersimV1Command
 */
-func (c *DefaultApiService) FetchCommand(sid string) (*SupersimV1Command, error) {
+func (c *DefaultApiService) FetchCommand(Sid string) (*SupersimV1Command, error) {
 	path := "/v1/Commands/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -288,14 +296,15 @@ func (c *DefaultApiService) FetchCommand(sid string) (*SupersimV1Command, error)
 /*
 FetchFleet Method for FetchFleet
 Fetch a Fleet instance from your account.
- * @param sid The SID of the Fleet resource to fetch.
+ * @param Sid The SID of the Fleet resource to fetch.
 @return SupersimV1Fleet
 */
-func (c *DefaultApiService) FetchFleet(sid string) (*SupersimV1Fleet, error) {
+func (c *DefaultApiService) FetchFleet(Sid string) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -318,14 +327,15 @@ func (c *DefaultApiService) FetchFleet(sid string) (*SupersimV1Fleet, error) {
 /*
 FetchNetwork Method for FetchNetwork
 Fetch a Network resource.
- * @param sid The SID of the Network resource to fetch.
+ * @param Sid The SID of the Network resource to fetch.
 @return SupersimV1Network
 */
-func (c *DefaultApiService) FetchNetwork(sid string) (*SupersimV1Network, error) {
+func (c *DefaultApiService) FetchNetwork(Sid string) (*SupersimV1Network, error) {
 	path := "/v1/Networks/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -348,14 +358,15 @@ func (c *DefaultApiService) FetchNetwork(sid string) (*SupersimV1Network, error)
 /*
 FetchNetworkAccessProfile Method for FetchNetworkAccessProfile
 Fetch a Network Access Profile instance from your account.
- * @param sid The SID of the Network Access Profile resource to fetch.
+ * @param Sid The SID of the Network Access Profile resource to fetch.
 @return SupersimV1NetworkAccessProfile
 */
-func (c *DefaultApiService) FetchNetworkAccessProfile(sid string) (*SupersimV1NetworkAccessProfile, error) {
+func (c *DefaultApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -378,16 +389,17 @@ func (c *DefaultApiService) FetchNetworkAccessProfile(sid string) (*SupersimV1Ne
 /*
 FetchNetworkAccessProfileNetwork Method for FetchNetworkAccessProfileNetwork
 Fetch a Network Access Profile resource&#39;s Network resource.
- * @param networkAccessProfileSid The unique string that identifies the Network Access Profile resource.
- * @param sid The SID of the Network resource to fetch.
+ * @param NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
+ * @param Sid The SID of the Network resource to fetch.
 @return SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
 */
-func (c *DefaultApiService) FetchNetworkAccessProfileNetwork(networkAccessProfileSid string, sid string) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+func (c *DefaultApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid string, Sid string) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
-	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -410,14 +422,15 @@ func (c *DefaultApiService) FetchNetworkAccessProfileNetwork(networkAccessProfil
 /*
 FetchSim Method for FetchSim
 Fetch a Super SIM instance from your account.
- * @param sid The SID of the Sim resource to fetch.
+ * @param Sid The SID of the Sim resource to fetch.
 @return SupersimV1Sim
 */
-func (c *DefaultApiService) FetchSim(sid string) (*SupersimV1Sim, error) {
+func (c *DefaultApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -457,20 +470,21 @@ Retrieve a list of Commands from your account.
 func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*SupersimV1CommandReadResponse, error) {
 	path := "/v1/Commands"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		data.Set("Sim", *params.Sim) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		data.Set("Direction", *params.Direction) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -505,14 +519,15 @@ Retrieve a list of Fleets from your account.
 func (c *DefaultApiService) ListFleet(params *ListFleetParams) (*SupersimV1FleetReadResponse, error) {
 	path := "/v1/Fleets"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.NetworkAccessProfile != nil {
-		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -551,20 +566,21 @@ Retrieve a list of Network resources.
 func (c *DefaultApiService) ListNetwork(params *ListNetworkParams) (*SupersimV1NetworkReadResponse, error) {
 	path := "/v1/Networks"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		data.Set("IsoCountry", *params.IsoCountry) 
 	}
 	if params != nil && params.Mcc != nil {
-		data.Set("Mcc", *params.Mcc)
+		data.Set("Mcc", *params.Mcc) 
 	}
 	if params != nil && params.Mnc != nil {
-		data.Set("Mnc", *params.Mnc)
+		data.Set("Mnc", *params.Mnc) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -597,11 +613,12 @@ Retrieve a list of Network Access Profiles from your account.
 func (c *DefaultApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfileReadResponse, error) {
 	path := "/v1/NetworkAccessProfiles"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -627,20 +644,21 @@ type ListNetworkAccessProfileNetworkParams struct {
 /*
 ListNetworkAccessProfileNetwork Method for ListNetworkAccessProfileNetwork
 Retrieve a list of Network Access Profile resource&#39;s Network resource.
- * @param networkAccessProfileSid The unique string that identifies the Network Access Profile resource.
+ * @param NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
  * @param optional nil or *ListNetworkAccessProfileNetworkOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return SupersimV1NetworkAccessProfileNetworkAccessProfileNetworkReadResponse
 */
-func (c *DefaultApiService) ListNetworkAccessProfileNetwork(networkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetworkReadResponse, error) {
+func (c *DefaultApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetworkReadResponse, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
-	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", networkAccessProfileSid, -1)
+	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -679,20 +697,21 @@ Retrieve a list of Super SIMs from your account.
 func (c *DefaultApiService) ListSim(params *ListSimParams) (*SupersimV1SimReadResponse, error) {
 	path := "/v1/Sims"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.Fleet != nil {
-		data.Set("Fleet", *params.Fleet)
+		data.Set("Fleet", *params.Fleet) 
 	}
 	if params != nil && params.Iccid != nil {
-		data.Set("Iccid", *params.Iccid)
+		data.Set("Iccid", *params.Iccid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -741,35 +760,36 @@ List UsageRecords
 func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*SupersimV1UsageRecordReadResponse, error) {
 	path := "/v1/UsageRecords"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		data.Set("Sim", *params.Sim) 
 	}
 	if params != nil && params.Fleet != nil {
-		data.Set("Fleet", *params.Fleet)
+		data.Set("Fleet", *params.Fleet) 
 	}
 	if params != nil && params.Network != nil {
-		data.Set("Network", *params.Network)
+		data.Set("Network", *params.Network) 
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		data.Set("IsoCountry", *params.IsoCountry) 
 	}
 	if params != nil && params.Group != nil {
-		data.Set("Group", *params.Group)
+		data.Set("Group", *params.Group) 
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		data.Set("Granularity", *params.Granularity) 
 	}
 	if params != nil && params.StartTime != nil {
-		data.Set("StartTime", string(*params.StartTime))
+		data.Set("StartTime", fmt.Sprint(*params.StartTime)) 
 	}
 	if params != nil && params.EndTime != nil {
-		data.Set("EndTime", string(*params.EndTime))
+		data.Set("EndTime", fmt.Sprint(*params.EndTime)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -796,24 +816,25 @@ type UpdateFleetParams struct {
 /*
 UpdateFleet Method for UpdateFleet
 Updates the given properties of a Super SIM Fleet instance from your account.
- * @param sid The SID of the Fleet resource to update.
+ * @param Sid The SID of the Fleet resource to update.
  * @param optional nil or *UpdateFleetOpts - Optional Parameters:
  * @param "NetworkAccessProfile" (string) - The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 @return SupersimV1Fleet
 */
-func (c *DefaultApiService) UpdateFleet(sid string, params *UpdateFleetParams) (*SupersimV1Fleet, error) {
+func (c *DefaultApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.NetworkAccessProfile != nil {
-		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -839,20 +860,21 @@ type UpdateNetworkAccessProfileParams struct {
 /*
 UpdateNetworkAccessProfile Method for UpdateNetworkAccessProfile
 Updates the given properties of a Network Access Profile in your account.
- * @param sid The SID of the Network Access Profile to update.
+ * @param Sid The SID of the Network Access Profile to update.
  * @param optional nil or *UpdateNetworkAccessProfileOpts - Optional Parameters:
  * @param "UniqueName" (string) - The new unique name of the Network Access Profile.
 @return SupersimV1NetworkAccessProfile
 */
-func (c *DefaultApiService) UpdateNetworkAccessProfile(sid string, params *UpdateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
+func (c *DefaultApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -883,7 +905,7 @@ type UpdateSimParams struct {
 /*
 UpdateSim Method for UpdateSim
 Updates the given properties of a Super SIM instance from your account.
- * @param sid The SID of the Sim resource to update.
+ * @param Sid The SID of the Sim resource to update.
  * @param optional nil or *UpdateSimOpts - Optional Parameters:
  * @param "AccountSid" (string) - The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
  * @param "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
@@ -893,30 +915,31 @@ Updates the given properties of a Super SIM instance from your account.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 @return SupersimV1Sim
 */
-func (c *DefaultApiService) UpdateSim(sid string, params *UpdateSimParams) (*SupersimV1Sim, error) {
+func (c *DefaultApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid)
+		data.Set("AccountSid", *params.AccountSid) 
 	}
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
+		data.Set("CallbackMethod", *params.CallbackMethod) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.Fleet != nil {
-		data.Set("Fleet", *params.Fleet)
+		data.Set("Fleet", *params.Fleet) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 

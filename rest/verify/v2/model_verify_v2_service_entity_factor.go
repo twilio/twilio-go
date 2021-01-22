@@ -14,16 +14,16 @@ import (
 )
 // VerifyV2ServiceEntityFactor struct for VerifyV2ServiceEntityFactor
 type VerifyV2ServiceEntityFactor struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Config map[string]interface{} `json:"config,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	EntitySid string `json:"entity_sid,omitempty"`
-	FactorType string `json:"factor_type,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Identity string `json:"identity,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Config map[string]interface{} `json:"Config,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	EntitySid string `json:"EntitySid,omitempty"`
+	FactorType string `json:"FactorType,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Identity string `json:"Identity,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

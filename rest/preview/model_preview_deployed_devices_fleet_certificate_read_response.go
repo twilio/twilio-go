@@ -11,6 +11,6 @@
 package openapi
 // PreviewDeployedDevicesFleetCertificateReadResponse struct for PreviewDeployedDevicesFleetCertificateReadResponse
 type PreviewDeployedDevicesFleetCertificateReadResponse struct {
-	Certificates []PreviewDeployedDevicesFleetCertificate `json:"certificates,omitempty"`
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
+	Certificates []PreviewDeployedDevicesFleetCertificate `json:"Certificates,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

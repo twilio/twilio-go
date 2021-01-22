@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type SummaryTagApiService struct {
@@ -35,20 +36,21 @@ type FetchSummaryParams struct {
 
 /*
 FetchSummary Method for FetchSummary
- * @param callSid
+ * @param CallSid
  * @param optional nil or *FetchSummaryOpts - Optional Parameters:
  * @param "ProcessingState" (string) - 
 @return InsightsV1CallSummary
 */
-func (c *SummaryTagApiService) FetchSummary(callSid string, params *FetchSummaryParams) (*InsightsV1CallSummary, error) {
+func (c *SummaryTagApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*InsightsV1CallSummary, error) {
 	path := "/v1/Voice/{CallSid}/Summary"
-	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ProcessingState != nil {
-		data.Set("ProcessingState", *params.ProcessingState)
+		data.Set("ProcessingState", *params.ProcessingState) 
 	}
 
 

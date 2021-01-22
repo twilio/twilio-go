@@ -14,20 +14,20 @@ import (
 )
 // VerifyV2ServiceEntityChallenge struct for VerifyV2ServiceEntityChallenge
 type VerifyV2ServiceEntityChallenge struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateResponded time.Time `json:"date_responded,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Details map[string]interface{} `json:"details,omitempty"`
-	EntitySid string `json:"entity_sid,omitempty"`
-	ExpirationDate time.Time `json:"expiration_date,omitempty"`
-	FactorSid string `json:"factor_sid,omitempty"`
-	FactorType string `json:"factor_type,omitempty"`
-	HiddenDetails map[string]interface{} `json:"hidden_details,omitempty"`
-	Identity string `json:"identity,omitempty"`
-	RespondedReason string `json:"responded_reason,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateResponded time.Time `json:"DateResponded,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Details map[string]interface{} `json:"Details,omitempty"`
+	EntitySid string `json:"EntitySid,omitempty"`
+	ExpirationDate time.Time `json:"ExpirationDate,omitempty"`
+	FactorSid string `json:"FactorSid,omitempty"`
+	FactorType string `json:"FactorType,omitempty"`
+	HiddenDetails map[string]interface{} `json:"HiddenDetails,omitempty"`
+	Identity string `json:"Identity,omitempty"`
+	RespondedReason string `json:"RespondedReason,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

@@ -15,9 +15,9 @@ import (
 // CreateChallengeRequest struct for CreateChallengeRequest
 type CreateChallengeRequest struct {
 	// A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field. Used when `factor_type` is `push`.
-	DetailsFields []map[string]interface{} `json:"Details.Fields,omitempty"`
+	DetailsFields []map[string]interface{} `json:"DetailsFields,omitempty"`
 	// Shown to the user when the push notification arrives. Required when `factor_type` is `push`
-	DetailsMessage string `json:"Details.Message,omitempty"`
+	DetailsMessage string `json:"DetailsMessage,omitempty"`
 	// The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
 	ExpirationDate time.Time `json:"ExpirationDate,omitempty"`
 	// The unique SID identifier of the Factor.

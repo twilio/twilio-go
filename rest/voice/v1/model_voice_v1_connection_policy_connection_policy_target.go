@@ -14,15 +14,15 @@ import (
 )
 // VoiceV1ConnectionPolicyConnectionPolicyTarget struct for VoiceV1ConnectionPolicyConnectionPolicyTarget
 type VoiceV1ConnectionPolicyConnectionPolicyTarget struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ConnectionPolicySid string `json:"connection_policy_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Enabled bool `json:"enabled,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Priority int32 `json:"priority,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Target string `json:"target,omitempty"`
-	Url string `json:"url,omitempty"`
-	Weight int32 `json:"weight,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ConnectionPolicySid string `json:"ConnectionPolicySid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Enabled bool `json:"Enabled,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Priority int32 `json:"Priority,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Target string `json:"Target,omitempty"`
+	Url string `json:"Url,omitempty"`
+	Weight int32 `json:"Weight,omitempty"`
 }

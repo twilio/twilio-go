@@ -11,6 +11,6 @@
 package openapi
 // ServerlessV1ServiceEnvironmentReadResponse struct for ServerlessV1ServiceEnvironmentReadResponse
 type ServerlessV1ServiceEnvironmentReadResponse struct {
-	Environments []ServerlessV1ServiceEnvironment `json:"environments,omitempty"`
-	Meta ServerlessV1ServiceReadResponseMeta `json:"meta,omitempty"`
+	Environments []ServerlessV1ServiceEnvironment `json:"Environments,omitempty"`
+	Meta ServerlessV1ServiceReadResponseMeta `json:"Meta,omitempty"`
 }

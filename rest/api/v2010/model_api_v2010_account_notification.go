@@ -11,18 +11,18 @@
 package openapi
 // ApiV2010AccountNotification struct for ApiV2010AccountNotification
 type ApiV2010AccountNotification struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ApiVersion string `json:"api_version,omitempty"`
-	CallSid string `json:"call_sid,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	ErrorCode string `json:"error_code,omitempty"`
-	Log string `json:"log,omitempty"`
-	MessageDate string `json:"message_date,omitempty"`
-	MessageText string `json:"message_text,omitempty"`
-	MoreInfo string `json:"more_info,omitempty"`
-	RequestMethod string `json:"request_method,omitempty"`
-	RequestUrl string `json:"request_url,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ApiVersion string `json:"ApiVersion,omitempty"`
+	CallSid string `json:"CallSid,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	ErrorCode string `json:"ErrorCode,omitempty"`
+	Log string `json:"Log,omitempty"`
+	MessageDate string `json:"MessageDate,omitempty"`
+	MessageText string `json:"MessageText,omitempty"`
+	MoreInfo string `json:"MoreInfo,omitempty"`
+	RequestMethod string `json:"RequestMethod,omitempty"`
+	RequestUrl string `json:"RequestUrl,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

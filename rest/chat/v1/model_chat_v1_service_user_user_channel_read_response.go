@@ -11,6 +11,6 @@
 package openapi
 // ChatV1ServiceUserUserChannelReadResponse struct for ChatV1ServiceUserUserChannelReadResponse
 type ChatV1ServiceUserUserChannelReadResponse struct {
-	Channels []ChatV1ServiceUserUserChannel `json:"channels,omitempty"`
-	Meta ChatV1CredentialReadResponseMeta `json:"meta,omitempty"`
+	Channels []ChatV1ServiceUserUserChannel `json:"Channels,omitempty"`
+	Meta ChatV1CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

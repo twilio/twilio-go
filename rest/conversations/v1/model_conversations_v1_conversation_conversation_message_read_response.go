@@ -11,6 +11,6 @@
 package openapi
 // ConversationsV1ConversationConversationMessageReadResponse struct for ConversationsV1ConversationConversationMessageReadResponse
 type ConversationsV1ConversationConversationMessageReadResponse struct {
-	Messages []ConversationsV1ConversationConversationMessage `json:"messages,omitempty"`
-	Meta ConversationsV1ConversationReadResponseMeta `json:"meta,omitempty"`
+	Messages []ConversationsV1ConversationConversationMessage `json:"Messages,omitempty"`
+	Meta ConversationsV1ConversationReadResponseMeta `json:"Meta,omitempty"`
 }

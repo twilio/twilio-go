@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type VideoRoomSummaryTagApiService struct {
@@ -31,14 +33,15 @@ func NewVideoRoomSummaryTagApiService(client *twilio.Client) *VideoRoomSummaryTa
 
 /*
 FetchVideoRoomSummary Method for FetchVideoRoomSummary
- * @param roomSid
+ * @param RoomSid
 @return InsightsV1VideoRoomSummary
 */
-func (c *VideoRoomSummaryTagApiService) FetchVideoRoomSummary(roomSid string) (*InsightsV1VideoRoomSummary, error) {
+func (c *VideoRoomSummaryTagApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1VideoRoomSummary, error) {
 	path := "/v1/Video/Rooms/{RoomSid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -81,26 +84,27 @@ ListVideoRoomSummary Method for ListVideoRoomSummary
 func (c *VideoRoomSummaryTagApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*InsightsV1VideoRoomSummaryReadResponse, error) {
 	path := "/v1/Video/Rooms"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.RoomType != nil {
-		data.Set("RoomType", string(*params.RoomType))
+		data.Set("RoomType",  strings.Join(*params.RoomType, ","))
 	}
 	if params != nil && params.Codec != nil {
-		data.Set("Codec", string(*params.Codec))
+		data.Set("Codec",  strings.Join(*params.Codec, ","))
 	}
 	if params != nil && params.RoomName != nil {
-		data.Set("RoomName", *params.RoomName)
+		data.Set("RoomName", *params.RoomName) 
 	}
 	if params != nil && params.CreatedAfter != nil {
-		data.Set("CreatedAfter", string(*params.CreatedAfter))
+		data.Set("CreatedAfter", fmt.Sprint(*params.CreatedAfter)) 
 	}
 	if params != nil && params.CreatedBefore != nil {
-		data.Set("CreatedBefore", string(*params.CreatedBefore))
+		data.Set("CreatedBefore", fmt.Sprint(*params.CreatedBefore)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 

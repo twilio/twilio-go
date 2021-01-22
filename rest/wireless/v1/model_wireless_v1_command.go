@@ -14,16 +14,16 @@ import (
 )
 // WirelessV1Command struct for WirelessV1Command
 type WirelessV1Command struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Command string `json:"command,omitempty"`
-	CommandMode string `json:"command_mode,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DeliveryReceiptRequested bool `json:"delivery_receipt_requested,omitempty"`
-	Direction string `json:"direction,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SimSid string `json:"sim_sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Transport string `json:"transport,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Command string `json:"Command,omitempty"`
+	CommandMode string `json:"CommandMode,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DeliveryReceiptRequested bool `json:"DeliveryReceiptRequested,omitempty"`
+	Direction string `json:"Direction,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SimSid string `json:"SimSid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Transport string `json:"Transport,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

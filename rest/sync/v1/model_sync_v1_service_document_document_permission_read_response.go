@@ -11,6 +11,6 @@
 package openapi
 // SyncV1ServiceDocumentDocumentPermissionReadResponse struct for SyncV1ServiceDocumentDocumentPermissionReadResponse
 type SyncV1ServiceDocumentDocumentPermissionReadResponse struct {
-	Meta SyncV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	Permissions []SyncV1ServiceDocumentDocumentPermission `json:"permissions,omitempty"`
+	Meta SyncV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	Permissions []SyncV1ServiceDocumentDocumentPermission `json:"Permissions,omitempty"`
 }

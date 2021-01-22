@@ -14,14 +14,14 @@ import (
 )
 // ServerlessV1Service struct for ServerlessV1Service
 type ServerlessV1Service struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	IncludeCredentials bool `json:"include_credentials,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UiEditable bool `json:"ui_editable,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	IncludeCredentials bool `json:"IncludeCredentials,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UiEditable bool `json:"UiEditable,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

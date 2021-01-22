@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -55,29 +57,30 @@ Send a Command to a Sim.
 func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Command, error) {
 	path := "/v1/Commands"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
+		data.Set("CallbackMethod", *params.CallbackMethod) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.Command != nil {
-		data.Set("Command", *params.Command)
+		data.Set("Command", *params.Command) 
 	}
 	if params != nil && params.CommandMode != nil {
-		data.Set("CommandMode", *params.CommandMode)
+		data.Set("CommandMode", *params.CommandMode) 
 	}
 	if params != nil && params.DeliveryReceiptRequested != nil {
-		data.Set("DeliveryReceiptRequested", string(*params.DeliveryReceiptRequested))
+		data.Set("DeliveryReceiptRequested", fmt.Sprint(*params.DeliveryReceiptRequested)) 
 	}
 	if params != nil && params.IncludeSid != nil {
-		data.Set("IncludeSid", *params.IncludeSid)
+		data.Set("IncludeSid", *params.IncludeSid) 
 	}
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		data.Set("Sim", *params.Sim) 
 	}
 
 
@@ -129,41 +132,42 @@ CreateRatePlan Method for CreateRatePlan
 func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DataEnabled != nil {
-		data.Set("DataEnabled", string(*params.DataEnabled))
+		data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled)) 
 	}
 	if params != nil && params.DataLimit != nil {
-		data.Set("DataLimit", string(*params.DataLimit))
+		data.Set("DataLimit", fmt.Sprint(*params.DataLimit)) 
 	}
 	if params != nil && params.DataMetering != nil {
-		data.Set("DataMetering", *params.DataMetering)
+		data.Set("DataMetering", *params.DataMetering) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.InternationalRoaming != nil {
-		data.Set("InternationalRoaming", *params.InternationalRoaming)
+		data.Set("InternationalRoaming",  strings.Join(*params.InternationalRoaming, ","))
 	}
 	if params != nil && params.InternationalRoamingDataLimit != nil {
-		data.Set("InternationalRoamingDataLimit", string(*params.InternationalRoamingDataLimit))
+		data.Set("InternationalRoamingDataLimit", fmt.Sprint(*params.InternationalRoamingDataLimit)) 
 	}
 	if params != nil && params.MessagingEnabled != nil {
-		data.Set("MessagingEnabled", string(*params.MessagingEnabled))
+		data.Set("MessagingEnabled", fmt.Sprint(*params.MessagingEnabled)) 
 	}
 	if params != nil && params.NationalRoamingDataLimit != nil {
-		data.Set("NationalRoamingDataLimit", string(*params.NationalRoamingDataLimit))
+		data.Set("NationalRoamingDataLimit", fmt.Sprint(*params.NationalRoamingDataLimit)) 
 	}
 	if params != nil && params.NationalRoamingEnabled != nil {
-		data.Set("NationalRoamingEnabled", string(*params.NationalRoamingEnabled))
+		data.Set("NationalRoamingEnabled", fmt.Sprint(*params.NationalRoamingEnabled)) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
 	}
 
 
@@ -185,13 +189,14 @@ func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*Wirel
 /*
 DeleteCommand Method for DeleteCommand
 Delete a Command instance from your account.
- * @param sid The SID of the Command resource to delete.
+ * @param Sid The SID of the Command resource to delete.
 */
-func (c *DefaultApiService) DeleteCommand(sid string) (error) {
+func (c *DefaultApiService) DeleteCommand(Sid string) (error) {
 	path := "/v1/Commands/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -208,13 +213,14 @@ func (c *DefaultApiService) DeleteCommand(sid string) (error) {
 
 /*
 DeleteRatePlan Method for DeleteRatePlan
- * @param sid The SID of the RatePlan resource to delete.
+ * @param Sid The SID of the RatePlan resource to delete.
 */
-func (c *DefaultApiService) DeleteRatePlan(sid string) (error) {
+func (c *DefaultApiService) DeleteRatePlan(Sid string) (error) {
 	path := "/v1/RatePlans/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -232,13 +238,14 @@ func (c *DefaultApiService) DeleteRatePlan(sid string) (error) {
 /*
 DeleteSim Method for DeleteSim
 Delete a Sim resource on your Account.
- * @param sid The SID or the `unique_name` of the Sim resource to delete.
+ * @param Sid The SID or the `unique_name` of the Sim resource to delete.
 */
-func (c *DefaultApiService) DeleteSim(sid string) (error) {
+func (c *DefaultApiService) DeleteSim(Sid string) (error) {
 	path := "/v1/Sims/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -256,14 +263,15 @@ func (c *DefaultApiService) DeleteSim(sid string) (error) {
 /*
 FetchCommand Method for FetchCommand
 Fetch a Command instance from your account.
- * @param sid The SID of the Command resource to fetch.
+ * @param Sid The SID of the Command resource to fetch.
 @return WirelessV1Command
 */
-func (c *DefaultApiService) FetchCommand(sid string) (*WirelessV1Command, error) {
+func (c *DefaultApiService) FetchCommand(Sid string) (*WirelessV1Command, error) {
 	path := "/v1/Commands/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -285,14 +293,15 @@ func (c *DefaultApiService) FetchCommand(sid string) (*WirelessV1Command, error)
 
 /*
 FetchRatePlan Method for FetchRatePlan
- * @param sid The SID of the RatePlan resource to fetch.
+ * @param Sid The SID of the RatePlan resource to fetch.
 @return WirelessV1RatePlan
 */
-func (c *DefaultApiService) FetchRatePlan(sid string) (*WirelessV1RatePlan, error) {
+func (c *DefaultApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -315,14 +324,15 @@ func (c *DefaultApiService) FetchRatePlan(sid string) (*WirelessV1RatePlan, erro
 /*
 FetchSim Method for FetchSim
 Fetch a Sim resource on your Account.
- * @param sid The SID or the `unique_name` of the Sim resource to fetch.
+ * @param Sid The SID or the `unique_name` of the Sim resource to fetch.
 @return WirelessV1Sim
 */
-func (c *DefaultApiService) FetchSim(sid string) (*WirelessV1Sim, error) {
+func (c *DefaultApiService) FetchSim(Sid string) (*WirelessV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -361,20 +371,21 @@ ListAccountUsageRecord Method for ListAccountUsageRecord
 func (c *DefaultApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams) (*WirelessV1AccountUsageRecordReadResponse, error) {
 	path := "/v1/UsageRecords"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.End != nil {
-		data.Set("End", string(*params.End))
+		data.Set("End", fmt.Sprint(*params.End)) 
 	}
 	if params != nil && params.Start != nil {
-		data.Set("Start", string(*params.Start))
+		data.Set("Start", fmt.Sprint(*params.Start)) 
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		data.Set("Granularity", *params.Granularity) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -415,23 +426,24 @@ Retrieve a list of Commands from your account.
 func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*WirelessV1CommandReadResponse, error) {
 	path := "/v1/Commands"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		data.Set("Sim", *params.Sim) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		data.Set("Direction", *params.Direction) 
 	}
 	if params != nil && params.Transport != nil {
-		data.Set("Transport", *params.Transport)
+		data.Set("Transport", *params.Transport) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -456,20 +468,21 @@ type ListDataSessionParams struct {
 
 /*
 ListDataSession Method for ListDataSession
- * @param simSid The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) with the Data Sessions to read.
+ * @param SimSid The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) with the Data Sessions to read.
  * @param optional nil or *ListDataSessionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return WirelessV1SimDataSessionReadResponse
 */
-func (c *DefaultApiService) ListDataSession(simSid string, params *ListDataSessionParams) (*WirelessV1SimDataSessionReadResponse, error) {
+func (c *DefaultApiService) ListDataSession(SimSid string, params *ListDataSessionParams) (*WirelessV1SimDataSessionReadResponse, error) {
 	path := "/v1/Sims/{SimSid}/DataSessions"
-	path = strings.Replace(path, "{"+"SimSid"+"}", simSid, -1)
+	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -501,11 +514,12 @@ ListRatePlan Method for ListRatePlan
 func (c *DefaultApiService) ListRatePlan(params *ListRatePlanParams) (*WirelessV1RatePlanReadResponse, error) {
 	path := "/v1/RatePlans"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -548,26 +562,27 @@ Retrieve a list of Sim resources on your Account.
 func (c *DefaultApiService) ListSim(params *ListSimParams) (*WirelessV1SimReadResponse, error) {
 	path := "/v1/Sims"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.Iccid != nil {
-		data.Set("Iccid", *params.Iccid)
+		data.Set("Iccid", *params.Iccid) 
 	}
 	if params != nil && params.RatePlan != nil {
-		data.Set("RatePlan", *params.RatePlan)
+		data.Set("RatePlan", *params.RatePlan) 
 	}
 	if params != nil && params.EId != nil {
-		data.Set("EId", *params.EId)
+		data.Set("EId", *params.EId) 
 	}
 	if params != nil && params.SimRegistrationCode != nil {
-		data.Set("SimRegistrationCode", *params.SimRegistrationCode)
+		data.Set("SimRegistrationCode", *params.SimRegistrationCode) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -595,7 +610,7 @@ type ListUsageRecordParams struct {
 
 /*
 ListUsageRecord Method for ListUsageRecord
- * @param simSid The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource)  to read the usage from.
+ * @param SimSid The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource)  to read the usage from.
  * @param optional nil or *ListUsageRecordOpts - Optional Parameters:
  * @param "End" (time.Time) - Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
  * @param "Start" (time.Time) - Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
@@ -603,24 +618,25 @@ ListUsageRecord Method for ListUsageRecord
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return WirelessV1SimUsageRecordReadResponse
 */
-func (c *DefaultApiService) ListUsageRecord(simSid string, params *ListUsageRecordParams) (*WirelessV1SimUsageRecordReadResponse, error) {
+func (c *DefaultApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParams) (*WirelessV1SimUsageRecordReadResponse, error) {
 	path := "/v1/Sims/{SimSid}/UsageRecords"
-	path = strings.Replace(path, "{"+"SimSid"+"}", simSid, -1)
+	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.End != nil {
-		data.Set("End", string(*params.End))
+		data.Set("End", fmt.Sprint(*params.End)) 
 	}
 	if params != nil && params.Start != nil {
-		data.Set("Start", string(*params.Start))
+		data.Set("Start", fmt.Sprint(*params.Start)) 
 	}
 	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
+		data.Set("Granularity", *params.Granularity) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -646,24 +662,25 @@ type UpdateRatePlanParams struct {
 
 /*
 UpdateRatePlan Method for UpdateRatePlan
- * @param sid The SID of the RatePlan resource to update.
+ * @param Sid The SID of the RatePlan resource to update.
  * @param optional nil or *UpdateRatePlanOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It does not have to be unique.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 @return WirelessV1RatePlan
 */
-func (c *DefaultApiService) UpdateRatePlan(sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
+func (c *DefaultApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -706,7 +723,7 @@ type UpdateSimParams struct {
 /*
 UpdateSim Method for UpdateSim
 Updates the given properties of a Sim resource on your Account.
- * @param sid The SID or the `unique_name` of the Sim resource to update.
+ * @param Sid The SID or the `unique_name` of the Sim resource to update.
  * @param optional nil or *UpdateSimOpts - Optional Parameters:
  * @param "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
  * @param "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
@@ -728,66 +745,67 @@ Updates the given properties of a Sim resource on your Account.
  * @param "VoiceUrl" (string) - The URL we should call using the `voice_method` when the SIM-connected device makes a voice call.
 @return WirelessV1Sim
 */
-func (c *DefaultApiService) UpdateSim(sid string, params *UpdateSimParams) (*WirelessV1Sim, error) {
+func (c *DefaultApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid)
+		data.Set("AccountSid", *params.AccountSid) 
 	}
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
+		data.Set("CallbackMethod", *params.CallbackMethod) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.CommandsCallbackMethod != nil {
-		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
+		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod) 
 	}
 	if params != nil && params.CommandsCallbackUrl != nil {
-		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
+		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.RatePlan != nil {
-		data.Set("RatePlan", *params.RatePlan)
+		data.Set("RatePlan", *params.RatePlan) 
 	}
 	if params != nil && params.ResetStatus != nil {
-		data.Set("ResetStatus", *params.ResetStatus)
+		data.Set("ResetStatus", *params.ResetStatus) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 

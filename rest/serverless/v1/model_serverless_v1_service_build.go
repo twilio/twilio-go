@@ -14,15 +14,15 @@ import (
 )
 // ServerlessV1ServiceBuild struct for ServerlessV1ServiceBuild
 type ServerlessV1ServiceBuild struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssetVersions []map[string]interface{} `json:"asset_versions,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Dependencies []map[string]interface{} `json:"dependencies,omitempty"`
-	FunctionVersions []map[string]interface{} `json:"function_versions,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssetVersions []map[string]interface{} `json:"AssetVersions,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Dependencies []map[string]interface{} `json:"Dependencies,omitempty"`
+	FunctionVersions []map[string]interface{} `json:"FunctionVersions,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

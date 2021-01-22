@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -35,20 +37,21 @@ type CreateAlphaSenderParams struct {
 
 /*
 CreateAlphaSender Method for CreateAlphaSender
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
  * @param optional nil or *CreateAlphaSenderOpts - Optional Parameters:
  * @param "AlphaSender" (string) - The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, and hyphen `-`. This value cannot contain only numbers.
 @return MessagingV1ServiceAlphaSender
 */
-func (c *DefaultApiService) CreateAlphaSender(serviceSid string, params *CreateAlphaSenderParams) (*MessagingV1ServiceAlphaSender, error) {
+func (c *DefaultApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1ServiceAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AlphaSender != nil {
-		data.Set("AlphaSender", *params.AlphaSender)
+		data.Set("AlphaSender", *params.AlphaSender) 
 	}
 
 
@@ -73,20 +76,21 @@ type CreatePhoneNumberParams struct {
 
 /*
 CreatePhoneNumber Method for CreatePhoneNumber
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
  * @param optional nil or *CreatePhoneNumberOpts - Optional Parameters:
  * @param "PhoneNumberSid" (string) - The SID of the Phone Number being added to the Service.
 @return MessagingV1ServicePhoneNumber
 */
-func (c *DefaultApiService) CreatePhoneNumber(serviceSid string, params *CreatePhoneNumberParams) (*MessagingV1ServicePhoneNumber, error) {
+func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*MessagingV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PhoneNumberSid != nil {
-		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
+		data.Set("PhoneNumberSid", *params.PhoneNumberSid) 
 	}
 
 
@@ -144,50 +148,51 @@ CreateService Method for CreateService
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*MessagingV1Service, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AreaCodeGeomatch != nil {
-		data.Set("AreaCodeGeomatch", string(*params.AreaCodeGeomatch))
+		data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch)) 
 	}
 	if params != nil && params.FallbackMethod != nil {
-		data.Set("FallbackMethod", *params.FallbackMethod)
+		data.Set("FallbackMethod", *params.FallbackMethod) 
 	}
 	if params != nil && params.FallbackToLongCode != nil {
-		data.Set("FallbackToLongCode", string(*params.FallbackToLongCode))
+		data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode)) 
 	}
 	if params != nil && params.FallbackUrl != nil {
-		data.Set("FallbackUrl", *params.FallbackUrl)
+		data.Set("FallbackUrl", *params.FallbackUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.InboundMethod != nil {
-		data.Set("InboundMethod", *params.InboundMethod)
+		data.Set("InboundMethod", *params.InboundMethod) 
 	}
 	if params != nil && params.InboundRequestUrl != nil {
-		data.Set("InboundRequestUrl", *params.InboundRequestUrl)
+		data.Set("InboundRequestUrl", *params.InboundRequestUrl) 
 	}
 	if params != nil && params.MmsConverter != nil {
-		data.Set("MmsConverter", string(*params.MmsConverter))
+		data.Set("MmsConverter", fmt.Sprint(*params.MmsConverter)) 
 	}
 	if params != nil && params.ScanMessageContent != nil {
-		data.Set("ScanMessageContent", *params.ScanMessageContent)
+		data.Set("ScanMessageContent", *params.ScanMessageContent) 
 	}
 	if params != nil && params.SmartEncoding != nil {
-		data.Set("SmartEncoding", string(*params.SmartEncoding))
+		data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding)) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StickySender != nil {
-		data.Set("StickySender", string(*params.StickySender))
+		data.Set("StickySender", fmt.Sprint(*params.StickySender)) 
 	}
 	if params != nil && params.SynchronousValidation != nil {
-		data.Set("SynchronousValidation", string(*params.SynchronousValidation))
+		data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation)) 
 	}
 	if params != nil && params.ValidityPeriod != nil {
-		data.Set("ValidityPeriod", string(*params.ValidityPeriod))
+		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod)) 
 	}
 
 
@@ -212,20 +217,21 @@ type CreateShortCodeParams struct {
 
 /*
 CreateShortCode Method for CreateShortCode
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
  * @param optional nil or *CreateShortCodeOpts - Optional Parameters:
  * @param "ShortCodeSid" (string) - The SID of the ShortCode resource being added to the Service.
 @return MessagingV1ServiceShortCode
 */
-func (c *DefaultApiService) CreateShortCode(serviceSid string, params *CreateShortCodeParams) (*MessagingV1ServiceShortCode, error) {
+func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ShortCodeSid != nil {
-		data.Set("ShortCodeSid", *params.ShortCodeSid)
+		data.Set("ShortCodeSid", *params.ShortCodeSid) 
 	}
 
 
@@ -246,15 +252,16 @@ func (c *DefaultApiService) CreateShortCode(serviceSid string, params *CreateSho
 
 /*
 DeleteAlphaSender Method for DeleteAlphaSender
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
- * @param sid The SID of the AlphaSender resource to delete.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
+ * @param Sid The SID of the AlphaSender resource to delete.
 */
-func (c *DefaultApiService) DeleteAlphaSender(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteAlphaSender(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -271,15 +278,16 @@ func (c *DefaultApiService) DeleteAlphaSender(serviceSid string, sid string) (er
 
 /*
 DeletePhoneNumber Method for DeletePhoneNumber
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
- * @param sid The SID of the PhoneNumber resource to delete.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
+ * @param Sid The SID of the PhoneNumber resource to delete.
 */
-func (c *DefaultApiService) DeletePhoneNumber(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -296,13 +304,14 @@ func (c *DefaultApiService) DeletePhoneNumber(serviceSid string, sid string) (er
 
 /*
 DeleteService Method for DeleteService
- * @param sid The SID of the Service resource to delete.
+ * @param Sid The SID of the Service resource to delete.
 */
-func (c *DefaultApiService) DeleteService(sid string) (error) {
+func (c *DefaultApiService) DeleteService(Sid string) (error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -319,15 +328,16 @@ func (c *DefaultApiService) DeleteService(sid string) (error) {
 
 /*
 DeleteShortCode Method for DeleteShortCode
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
- * @param sid The SID of the ShortCode resource to delete.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
+ * @param Sid The SID of the ShortCode resource to delete.
 */
-func (c *DefaultApiService) DeleteShortCode(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -344,16 +354,17 @@ func (c *DefaultApiService) DeleteShortCode(serviceSid string, sid string) (erro
 
 /*
 FetchAlphaSender Method for FetchAlphaSender
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
- * @param sid The SID of the AlphaSender resource to fetch.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
+ * @param Sid The SID of the AlphaSender resource to fetch.
 @return MessagingV1ServiceAlphaSender
 */
-func (c *DefaultApiService) FetchAlphaSender(serviceSid string, sid string) (*MessagingV1ServiceAlphaSender, error) {
+func (c *DefaultApiService) FetchAlphaSender(ServiceSid string, Sid string) (*MessagingV1ServiceAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -386,11 +397,12 @@ Fetch a list of all United States numbers that have been deactivated on a specif
 func (c *DefaultApiService) FetchDeactivation(params *FetchDeactivationParams) (error) {
 	path := "/v1/Deactivations"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Date != nil {
-		data.Set("Date", string(*params.Date))
+		data.Set("Date", fmt.Sprint(*params.Date)) 
 	}
 
 
@@ -406,16 +418,17 @@ func (c *DefaultApiService) FetchDeactivation(params *FetchDeactivationParams) (
 
 /*
 FetchPhoneNumber Method for FetchPhoneNumber
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
- * @param sid The SID of the PhoneNumber resource to fetch.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
+ * @param Sid The SID of the PhoneNumber resource to fetch.
 @return MessagingV1ServicePhoneNumber
 */
-func (c *DefaultApiService) FetchPhoneNumber(serviceSid string, sid string) (*MessagingV1ServicePhoneNumber, error) {
+func (c *DefaultApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*MessagingV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -437,14 +450,15 @@ func (c *DefaultApiService) FetchPhoneNumber(serviceSid string, sid string) (*Me
 
 /*
 FetchService Method for FetchService
- * @param sid The SID of the Service resource to fetch.
+ * @param Sid The SID of the Service resource to fetch.
 @return MessagingV1Service
 */
-func (c *DefaultApiService) FetchService(sid string) (*MessagingV1Service, error) {
+func (c *DefaultApiService) FetchService(Sid string) (*MessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -466,16 +480,17 @@ func (c *DefaultApiService) FetchService(sid string) (*MessagingV1Service, error
 
 /*
 FetchShortCode Method for FetchShortCode
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
- * @param sid The SID of the ShortCode resource to fetch.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
+ * @param Sid The SID of the ShortCode resource to fetch.
 @return MessagingV1ServiceShortCode
 */
-func (c *DefaultApiService) FetchShortCode(serviceSid string, sid string) (*MessagingV1ServiceShortCode, error) {
+func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -501,20 +516,21 @@ type ListAlphaSenderParams struct {
 
 /*
 ListAlphaSender Method for ListAlphaSender
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
  * @param optional nil or *ListAlphaSenderOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return MessagingV1ServiceAlphaSenderReadResponse
 */
-func (c *DefaultApiService) ListAlphaSender(serviceSid string, params *ListAlphaSenderParams) (*MessagingV1ServiceAlphaSenderReadResponse, error) {
+func (c *DefaultApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams) (*MessagingV1ServiceAlphaSenderReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -539,20 +555,21 @@ type ListPhoneNumberParams struct {
 
 /*
 ListPhoneNumber Method for ListPhoneNumber
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
  * @param optional nil or *ListPhoneNumberOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return MessagingV1ServicePhoneNumberReadResponse
 */
-func (c *DefaultApiService) ListPhoneNumber(serviceSid string, params *ListPhoneNumberParams) (*MessagingV1ServicePhoneNumberReadResponse, error) {
+func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) (*MessagingV1ServicePhoneNumberReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -584,11 +601,12 @@ ListService Method for ListService
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*MessagingV1ServiceReadResponse, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -613,20 +631,21 @@ type ListShortCodeParams struct {
 
 /*
 ListShortCode Method for ListShortCode
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
  * @param optional nil or *ListShortCodeOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return MessagingV1ServiceShortCodeReadResponse
 */
-func (c *DefaultApiService) ListShortCode(serviceSid string, params *ListShortCodeParams) (*MessagingV1ServiceShortCodeReadResponse, error) {
+func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) (*MessagingV1ServiceShortCodeReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -664,7 +683,7 @@ type UpdateServiceParams struct {
 
 /*
 UpdateService Method for UpdateService
- * @param sid The SID of the Service resource to update.
+ * @param Sid The SID of the Service resource to update.
  * @param optional nil or *UpdateServiceOpts - Optional Parameters:
  * @param "AreaCodeGeomatch" (bool) - Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
  * @param "FallbackMethod" (string) - The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`.
@@ -682,54 +701,55 @@ UpdateService Method for UpdateService
  * @param "ValidityPeriod" (int32) - How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
 @return MessagingV1Service
 */
-func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*MessagingV1Service, error) {
+func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*MessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AreaCodeGeomatch != nil {
-		data.Set("AreaCodeGeomatch", string(*params.AreaCodeGeomatch))
+		data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch)) 
 	}
 	if params != nil && params.FallbackMethod != nil {
-		data.Set("FallbackMethod", *params.FallbackMethod)
+		data.Set("FallbackMethod", *params.FallbackMethod) 
 	}
 	if params != nil && params.FallbackToLongCode != nil {
-		data.Set("FallbackToLongCode", string(*params.FallbackToLongCode))
+		data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode)) 
 	}
 	if params != nil && params.FallbackUrl != nil {
-		data.Set("FallbackUrl", *params.FallbackUrl)
+		data.Set("FallbackUrl", *params.FallbackUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.InboundMethod != nil {
-		data.Set("InboundMethod", *params.InboundMethod)
+		data.Set("InboundMethod", *params.InboundMethod) 
 	}
 	if params != nil && params.InboundRequestUrl != nil {
-		data.Set("InboundRequestUrl", *params.InboundRequestUrl)
+		data.Set("InboundRequestUrl", *params.InboundRequestUrl) 
 	}
 	if params != nil && params.MmsConverter != nil {
-		data.Set("MmsConverter", string(*params.MmsConverter))
+		data.Set("MmsConverter", fmt.Sprint(*params.MmsConverter)) 
 	}
 	if params != nil && params.ScanMessageContent != nil {
-		data.Set("ScanMessageContent", *params.ScanMessageContent)
+		data.Set("ScanMessageContent", *params.ScanMessageContent) 
 	}
 	if params != nil && params.SmartEncoding != nil {
-		data.Set("SmartEncoding", string(*params.SmartEncoding))
+		data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding)) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StickySender != nil {
-		data.Set("StickySender", string(*params.StickySender))
+		data.Set("StickySender", fmt.Sprint(*params.StickySender)) 
 	}
 	if params != nil && params.SynchronousValidation != nil {
-		data.Set("SynchronousValidation", string(*params.SynchronousValidation))
+		data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation)) 
 	}
 	if params != nil && params.ValidityPeriod != nil {
-		data.Set("ValidityPeriod", string(*params.ValidityPeriod))
+		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod)) 
 	}
 
 

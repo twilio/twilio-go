@@ -14,8 +14,8 @@ import (
 )
 // VideoV1RoomRoomRecordingRule struct for VideoV1RoomRoomRecordingRule
 type VideoV1RoomRoomRecordingRule struct {
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	RoomSid string `json:"room_sid,omitempty"`
-	Rules []map[string]interface{} `json:"rules,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	RoomSid string `json:"RoomSid,omitempty"`
+	Rules []map[string]interface{} `json:"Rules,omitempty"`
 }

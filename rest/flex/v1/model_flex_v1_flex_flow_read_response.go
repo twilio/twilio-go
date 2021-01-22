@@ -11,6 +11,6 @@
 package openapi
 // FlexV1FlexFlowReadResponse struct for FlexV1FlexFlowReadResponse
 type FlexV1FlexFlowReadResponse struct {
-	FlexFlows []FlexV1FlexFlow `json:"flex_flows,omitempty"`
-	Meta FlexV1ChannelReadResponseMeta `json:"meta,omitempty"`
+	FlexFlows []FlexV1FlexFlow `json:"FlexFlows,omitempty"`
+	Meta FlexV1ChannelReadResponseMeta `json:"Meta,omitempty"`
 }

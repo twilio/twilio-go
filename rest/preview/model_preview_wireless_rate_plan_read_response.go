@@ -11,6 +11,6 @@
 package openapi
 // PreviewWirelessRatePlanReadResponse struct for PreviewWirelessRatePlanReadResponse
 type PreviewWirelessRatePlanReadResponse struct {
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
-	RatePlans []PreviewWirelessRatePlan `json:"rate_plans,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
+	RatePlans []PreviewWirelessRatePlan `json:"RatePlans,omitempty"`
 }

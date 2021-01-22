@@ -11,6 +11,6 @@
 package openapi
 // BulkexportsV1ExportExportCustomJobReadResponse struct for BulkexportsV1ExportExportCustomJobReadResponse
 type BulkexportsV1ExportExportCustomJobReadResponse struct {
-	Jobs []BulkexportsV1ExportExportCustomJob `json:"jobs,omitempty"`
-	Meta BulkexportsV1ExportDayReadResponseMeta `json:"meta,omitempty"`
+	Jobs []BulkexportsV1ExportExportCustomJob `json:"Jobs,omitempty"`
+	Meta BulkexportsV1ExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

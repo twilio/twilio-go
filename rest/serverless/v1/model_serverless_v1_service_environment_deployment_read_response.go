@@ -11,6 +11,6 @@
 package openapi
 // ServerlessV1ServiceEnvironmentDeploymentReadResponse struct for ServerlessV1ServiceEnvironmentDeploymentReadResponse
 type ServerlessV1ServiceEnvironmentDeploymentReadResponse struct {
-	Deployments []ServerlessV1ServiceEnvironmentDeployment `json:"deployments,omitempty"`
-	Meta ServerlessV1ServiceReadResponseMeta `json:"meta,omitempty"`
+	Deployments []ServerlessV1ServiceEnvironmentDeployment `json:"Deployments,omitempty"`
+	Meta ServerlessV1ServiceReadResponseMeta `json:"Meta,omitempty"`
 }

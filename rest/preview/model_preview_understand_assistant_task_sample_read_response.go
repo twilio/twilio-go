@@ -11,6 +11,6 @@
 package openapi
 // PreviewUnderstandAssistantTaskSampleReadResponse struct for PreviewUnderstandAssistantTaskSampleReadResponse
 type PreviewUnderstandAssistantTaskSampleReadResponse struct {
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
-	Samples []PreviewUnderstandAssistantTaskSample `json:"samples,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
+	Samples []PreviewUnderstandAssistantTaskSample `json:"Samples,omitempty"`
 }

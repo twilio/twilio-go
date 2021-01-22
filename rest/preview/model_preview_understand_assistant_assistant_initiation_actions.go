@@ -11,8 +11,8 @@
 package openapi
 // PreviewUnderstandAssistantAssistantInitiationActions struct for PreviewUnderstandAssistantAssistantInitiationActions
 type PreviewUnderstandAssistantAssistantInitiationActions struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssistantSid string `json:"assistant_sid,omitempty"`
-	Data map[string]interface{} `json:"data,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssistantSid string `json:"AssistantSid,omitempty"`
+	Data map[string]interface{} `json:"Data,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

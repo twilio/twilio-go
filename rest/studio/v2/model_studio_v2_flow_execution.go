@@ -14,14 +14,14 @@ import (
 )
 // StudioV2FlowExecution struct for StudioV2FlowExecution
 type StudioV2FlowExecution struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ContactChannelAddress string `json:"contact_channel_address,omitempty"`
-	Context map[string]interface{} `json:"context,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FlowSid string `json:"flow_sid,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ContactChannelAddress string `json:"ContactChannelAddress,omitempty"`
+	Context map[string]interface{} `json:"Context,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FlowSid string `json:"FlowSid,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

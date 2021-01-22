@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -60,38 +61,39 @@ CreateByocTrunk Method for CreateByocTrunk
 func (c *DefaultApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CnamLookupEnabled != nil {
-		data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
+		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled)) 
 	}
 	if params != nil && params.ConnectionPolicySid != nil {
-		data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
+		data.Set("ConnectionPolicySid", *params.ConnectionPolicySid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.FromDomainSid != nil {
-		data.Set("FromDomainSid", *params.FromDomainSid)
+		data.Set("FromDomainSid", *params.FromDomainSid) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.StatusCallbackUrl != nil {
-		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -123,11 +125,12 @@ CreateConnectionPolicy Method for CreateConnectionPolicy
 func (c *DefaultApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -156,7 +159,7 @@ type CreateConnectionPolicyTargetParams struct {
 
 /*
 CreateConnectionPolicyTarget Method for CreateConnectionPolicyTarget
- * @param connectionPolicySid The SID of the Connection Policy that owns the Target.
+ * @param ConnectionPolicySid The SID of the Connection Policy that owns the Target.
  * @param optional nil or *CreateConnectionPolicyTargetOpts - Optional Parameters:
  * @param "Enabled" (bool) - Whether the Target is enabled. The default is `true`.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
@@ -165,27 +168,28 @@ CreateConnectionPolicyTarget Method for CreateConnectionPolicyTarget
  * @param "Weight" (int32) - The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
 @return VoiceV1ConnectionPolicyConnectionPolicyTarget
 */
-func (c *DefaultApiService) CreateConnectionPolicyTarget(connectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *DefaultApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
-	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", string(*params.Priority))
+		data.Set("Priority", fmt.Sprint(*params.Priority)) 
 	}
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", *params.Target) 
 	}
 	if params != nil && params.Weight != nil {
-		data.Set("Weight", string(*params.Weight))
+		data.Set("Weight", fmt.Sprint(*params.Weight)) 
 	}
 
 
@@ -218,11 +222,12 @@ Create a bulk update request to change voice dialing country permissions of one 
 func (c *DefaultApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDialingPermissionsCountryBulkUpdateParams) (*VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate, error) {
 	path := "/v1/DialingPermissions/BulkCountryUpdates"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UpdateRequest != nil {
-		data.Set("UpdateRequest", *params.UpdateRequest)
+		data.Set("UpdateRequest", *params.UpdateRequest) 
 	}
 
 
@@ -258,17 +263,18 @@ CreateIpRecord Method for CreateIpRecord
 func (c *DefaultApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CidrPrefixLength != nil {
-		data.Set("CidrPrefixLength", string(*params.CidrPrefixLength))
+		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IpAddress != nil {
-		data.Set("IpAddress", *params.IpAddress)
+		data.Set("IpAddress", *params.IpAddress) 
 	}
 
 
@@ -302,14 +308,15 @@ CreateSourceIpMapping Method for CreateSourceIpMapping
 func (c *DefaultApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.IpRecordSid != nil {
-		data.Set("IpRecordSid", *params.IpRecordSid)
+		data.Set("IpRecordSid", *params.IpRecordSid) 
 	}
 	if params != nil && params.SipDomainSid != nil {
-		data.Set("SipDomainSid", *params.SipDomainSid)
+		data.Set("SipDomainSid", *params.SipDomainSid) 
 	}
 
 
@@ -330,13 +337,14 @@ func (c *DefaultApiService) CreateSourceIpMapping(params *CreateSourceIpMappingP
 
 /*
 DeleteByocTrunk Method for DeleteByocTrunk
- * @param sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to delete.
 */
-func (c *DefaultApiService) DeleteByocTrunk(sid string) (error) {
+func (c *DefaultApiService) DeleteByocTrunk(Sid string) (error) {
 	path := "/v1/ByocTrunks/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -353,13 +361,14 @@ func (c *DefaultApiService) DeleteByocTrunk(sid string) (error) {
 
 /*
 DeleteConnectionPolicy Method for DeleteConnectionPolicy
- * @param sid The unique string that we created to identify the Connection Policy resource to delete.
+ * @param Sid The unique string that we created to identify the Connection Policy resource to delete.
 */
-func (c *DefaultApiService) DeleteConnectionPolicy(sid string) (error) {
+func (c *DefaultApiService) DeleteConnectionPolicy(Sid string) (error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -376,15 +385,16 @@ func (c *DefaultApiService) DeleteConnectionPolicy(sid string) (error) {
 
 /*
 DeleteConnectionPolicyTarget Method for DeleteConnectionPolicyTarget
- * @param connectionPolicySid The SID of the Connection Policy that owns the Target.
- * @param sid The unique string that we created to identify the Target resource to delete.
+ * @param ConnectionPolicySid The SID of the Connection Policy that owns the Target.
+ * @param Sid The unique string that we created to identify the Target resource to delete.
 */
-func (c *DefaultApiService) DeleteConnectionPolicyTarget(connectionPolicySid string, sid string) (error) {
+func (c *DefaultApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
-	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -401,13 +411,14 @@ func (c *DefaultApiService) DeleteConnectionPolicyTarget(connectionPolicySid str
 
 /*
 DeleteIpRecord Method for DeleteIpRecord
- * @param sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
 */
-func (c *DefaultApiService) DeleteIpRecord(sid string) (error) {
+func (c *DefaultApiService) DeleteIpRecord(Sid string) (error) {
 	path := "/v1/IpRecords/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -424,13 +435,14 @@ func (c *DefaultApiService) DeleteIpRecord(sid string) (error) {
 
 /*
 DeleteSourceIpMapping Method for DeleteSourceIpMapping
- * @param sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
 */
-func (c *DefaultApiService) DeleteSourceIpMapping(sid string) (error) {
+func (c *DefaultApiService) DeleteSourceIpMapping(Sid string) (error) {
 	path := "/v1/SourceIpMappings/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -447,14 +459,15 @@ func (c *DefaultApiService) DeleteSourceIpMapping(sid string) (error) {
 
 /*
 FetchByocTrunk Method for FetchByocTrunk
- * @param sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to fetch.
 @return VoiceV1ByocTrunk
 */
-func (c *DefaultApiService) FetchByocTrunk(sid string) (*VoiceV1ByocTrunk, error) {
+func (c *DefaultApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -476,14 +489,15 @@ func (c *DefaultApiService) FetchByocTrunk(sid string) (*VoiceV1ByocTrunk, error
 
 /*
 FetchConnectionPolicy Method for FetchConnectionPolicy
- * @param sid The unique string that we created to identify the Connection Policy resource to fetch.
+ * @param Sid The unique string that we created to identify the Connection Policy resource to fetch.
 @return VoiceV1ConnectionPolicy
 */
-func (c *DefaultApiService) FetchConnectionPolicy(sid string) (*VoiceV1ConnectionPolicy, error) {
+func (c *DefaultApiService) FetchConnectionPolicy(Sid string) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -505,16 +519,17 @@ func (c *DefaultApiService) FetchConnectionPolicy(sid string) (*VoiceV1Connectio
 
 /*
 FetchConnectionPolicyTarget Method for FetchConnectionPolicyTarget
- * @param connectionPolicySid The SID of the Connection Policy that owns the Target.
- * @param sid The unique string that we created to identify the Target resource to fetch.
+ * @param ConnectionPolicySid The SID of the Connection Policy that owns the Target.
+ * @param Sid The unique string that we created to identify the Target resource to fetch.
 @return VoiceV1ConnectionPolicyConnectionPolicyTarget
 */
-func (c *DefaultApiService) FetchConnectionPolicyTarget(connectionPolicySid string, sid string) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *DefaultApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
-	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -537,14 +552,15 @@ func (c *DefaultApiService) FetchConnectionPolicyTarget(connectionPolicySid stri
 /*
 FetchDialingPermissionsCountry Method for FetchDialingPermissionsCountry
 Retrieve voice dialing country permissions identified by the given ISO country code
- * @param isoCode The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
+ * @param IsoCode The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
 @return VoiceV1DialingPermissionsDialingPermissionsCountryInstance
 */
-func (c *DefaultApiService) FetchDialingPermissionsCountry(isoCode string) (*VoiceV1DialingPermissionsDialingPermissionsCountryInstance, error) {
+func (c *DefaultApiService) FetchDialingPermissionsCountry(IsoCode string) (*VoiceV1DialingPermissionsDialingPermissionsCountryInstance, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}"
-	path = strings.Replace(path, "{"+"IsoCode"+"}", isoCode, -1)
+	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -572,7 +588,8 @@ Retrieve voice dialing permissions inheritance for the sub-account
 func (c *DefaultApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissionsDialingPermissionsSettings, error) {
 	path := "/v1/Settings"
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -594,14 +611,15 @@ func (c *DefaultApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPe
 
 /*
 FetchIpRecord Method for FetchIpRecord
- * @param sid The Twilio-provided string that uniquely identifies the IP Record resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to fetch.
 @return VoiceV1IpRecord
 */
-func (c *DefaultApiService) FetchIpRecord(sid string) (*VoiceV1IpRecord, error) {
+func (c *DefaultApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -623,14 +641,15 @@ func (c *DefaultApiService) FetchIpRecord(sid string) (*VoiceV1IpRecord, error) 
 
 /*
 FetchSourceIpMapping Method for FetchSourceIpMapping
- * @param sid The Twilio-provided string that uniquely identifies the IP Record resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to fetch.
 @return VoiceV1SourceIpMapping
 */
-func (c *DefaultApiService) FetchSourceIpMapping(sid string) (*VoiceV1SourceIpMapping, error) {
+func (c *DefaultApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -663,11 +682,12 @@ ListByocTrunk Method for ListByocTrunk
 func (c *DefaultApiService) ListByocTrunk(params *ListByocTrunkParams) (*VoiceV1ByocTrunkReadResponse, error) {
 	path := "/v1/ByocTrunks"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -699,11 +719,12 @@ ListConnectionPolicy Method for ListConnectionPolicy
 func (c *DefaultApiService) ListConnectionPolicy(params *ListConnectionPolicyParams) (*VoiceV1ConnectionPolicyReadResponse, error) {
 	path := "/v1/ConnectionPolicies"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -728,20 +749,21 @@ type ListConnectionPolicyTargetParams struct {
 
 /*
 ListConnectionPolicyTarget Method for ListConnectionPolicyTarget
- * @param connectionPolicySid The SID of the Connection Policy from which to read the Targets.
+ * @param ConnectionPolicySid The SID of the Connection Policy from which to read the Targets.
  * @param optional nil or *ListConnectionPolicyTargetOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse
 */
-func (c *DefaultApiService) ListConnectionPolicyTarget(connectionPolicySid string, params *ListConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse, error) {
+func (c *DefaultApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
-	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -786,29 +808,30 @@ Retrieve all voice dialing country permissions for this account
 func (c *DefaultApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) (*VoiceV1DialingPermissionsDialingPermissionsCountryReadResponse, error) {
 	path := "/v1/DialingPermissions/Countries"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.IsoCode != nil {
-		data.Set("IsoCode", *params.IsoCode)
+		data.Set("IsoCode", *params.IsoCode) 
 	}
 	if params != nil && params.Continent != nil {
-		data.Set("Continent", *params.Continent)
+		data.Set("Continent", *params.Continent) 
 	}
 	if params != nil && params.CountryCode != nil {
-		data.Set("CountryCode", *params.CountryCode)
+		data.Set("CountryCode", *params.CountryCode) 
 	}
 	if params != nil && params.LowRiskNumbersEnabled != nil {
-		data.Set("LowRiskNumbersEnabled", string(*params.LowRiskNumbersEnabled))
+		data.Set("LowRiskNumbersEnabled", fmt.Sprint(*params.LowRiskNumbersEnabled)) 
 	}
 	if params != nil && params.HighRiskSpecialNumbersEnabled != nil {
-		data.Set("HighRiskSpecialNumbersEnabled", string(*params.HighRiskSpecialNumbersEnabled))
+		data.Set("HighRiskSpecialNumbersEnabled", fmt.Sprint(*params.HighRiskSpecialNumbersEnabled)) 
 	}
 	if params != nil && params.HighRiskTollfraudNumbersEnabled != nil {
-		data.Set("HighRiskTollfraudNumbersEnabled", string(*params.HighRiskTollfraudNumbersEnabled))
+		data.Set("HighRiskTollfraudNumbersEnabled", fmt.Sprint(*params.HighRiskTollfraudNumbersEnabled)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -834,20 +857,21 @@ type ListDialingPermissionsHrsPrefixesParams struct {
 /*
 ListDialingPermissionsHrsPrefixes Method for ListDialingPermissionsHrsPrefixes
 Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
- * @param isoCode The [ISO 3166-1 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) to identify the country permissions from which high-risk special service number prefixes are fetched
+ * @param IsoCode The [ISO 3166-1 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) to identify the country permissions from which high-risk special service number prefixes are fetched
  * @param optional nil or *ListDialingPermissionsHrsPrefixesOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse
 */
-func (c *DefaultApiService) ListDialingPermissionsHrsPrefixes(isoCode string, params *ListDialingPermissionsHrsPrefixesParams) (*VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse, error) {
+func (c *DefaultApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) (*VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
-	path = strings.Replace(path, "{"+"IsoCode"+"}", isoCode, -1)
+	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -879,11 +903,12 @@ ListIpRecord Method for ListIpRecord
 func (c *DefaultApiService) ListIpRecord(params *ListIpRecordParams) (*VoiceV1IpRecordReadResponse, error) {
 	path := "/v1/IpRecords"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -915,11 +940,12 @@ ListSourceIpMapping Method for ListSourceIpMapping
 func (c *DefaultApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) (*VoiceV1SourceIpMappingReadResponse, error) {
 	path := "/v1/SourceIpMappings"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -953,7 +979,7 @@ type UpdateByocTrunkParams struct {
 
 /*
 UpdateByocTrunk Method for UpdateByocTrunk
- * @param sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
  * @param optional nil or *UpdateByocTrunkOpts - Optional Parameters:
  * @param "CnamLookupEnabled" (bool) - Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
  * @param "ConnectionPolicySid" (string) - The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
@@ -967,42 +993,43 @@ UpdateByocTrunk Method for UpdateByocTrunk
  * @param "VoiceUrl" (string) - The URL we should call when the BYOC Trunk receives a call.
 @return VoiceV1ByocTrunk
 */
-func (c *DefaultApiService) UpdateByocTrunk(sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
+func (c *DefaultApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CnamLookupEnabled != nil {
-		data.Set("CnamLookupEnabled", string(*params.CnamLookupEnabled))
+		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled)) 
 	}
 	if params != nil && params.ConnectionPolicySid != nil {
-		data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
+		data.Set("ConnectionPolicySid", *params.ConnectionPolicySid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.FromDomainSid != nil {
-		data.Set("FromDomainSid", *params.FromDomainSid)
+		data.Set("FromDomainSid", *params.FromDomainSid) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.StatusCallbackUrl != nil {
-		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -1027,20 +1054,21 @@ type UpdateConnectionPolicyParams struct {
 
 /*
 UpdateConnectionPolicy Method for UpdateConnectionPolicy
- * @param sid The unique string that we created to identify the Connection Policy resource to update.
+ * @param Sid The unique string that we created to identify the Connection Policy resource to update.
  * @param optional nil or *UpdateConnectionPolicyOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 @return VoiceV1ConnectionPolicy
 */
-func (c *DefaultApiService) UpdateConnectionPolicy(sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
+func (c *DefaultApiService) UpdateConnectionPolicy(Sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -1069,8 +1097,8 @@ type UpdateConnectionPolicyTargetParams struct {
 
 /*
 UpdateConnectionPolicyTarget Method for UpdateConnectionPolicyTarget
- * @param connectionPolicySid The SID of the Connection Policy that owns the Target.
- * @param sid The unique string that we created to identify the Target resource to update.
+ * @param ConnectionPolicySid The SID of the Connection Policy that owns the Target.
+ * @param Sid The unique string that we created to identify the Target resource to update.
  * @param optional nil or *UpdateConnectionPolicyTargetOpts - Optional Parameters:
  * @param "Enabled" (bool) - Whether the Target is enabled.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
@@ -1079,28 +1107,29 @@ UpdateConnectionPolicyTarget Method for UpdateConnectionPolicyTarget
  * @param "Weight" (int32) - The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
 @return VoiceV1ConnectionPolicyConnectionPolicyTarget
 */
-func (c *DefaultApiService) UpdateConnectionPolicyTarget(connectionPolicySid string, sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *DefaultApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
-	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", connectionPolicySid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", string(*params.Priority))
+		data.Set("Priority", fmt.Sprint(*params.Priority)) 
 	}
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", *params.Target) 
 	}
 	if params != nil && params.Weight != nil {
-		data.Set("Weight", string(*params.Weight))
+		data.Set("Weight", fmt.Sprint(*params.Weight)) 
 	}
 
 
@@ -1133,11 +1162,12 @@ Update voice dialing permissions inheritance for the sub-account
 func (c *DefaultApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermissionsSettingsParams) (*VoiceV1DialingPermissionsDialingPermissionsSettings, error) {
 	path := "/v1/Settings"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DialingPermissionsInheritance != nil {
-		data.Set("DialingPermissionsInheritance", string(*params.DialingPermissionsInheritance))
+		data.Set("DialingPermissionsInheritance", fmt.Sprint(*params.DialingPermissionsInheritance)) 
 	}
 
 
@@ -1162,20 +1192,21 @@ type UpdateIpRecordParams struct {
 
 /*
 UpdateIpRecord Method for UpdateIpRecord
- * @param sid The Twilio-provided string that uniquely identifies the IP Record resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to update.
  * @param optional nil or *UpdateIpRecordOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 @return VoiceV1IpRecord
 */
-func (c *DefaultApiService) UpdateIpRecord(sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
+func (c *DefaultApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -1200,20 +1231,21 @@ type UpdateSourceIpMappingParams struct {
 
 /*
 UpdateSourceIpMapping Method for UpdateSourceIpMapping
- * @param sid The Twilio-provided string that uniquely identifies the IP Record resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to update.
  * @param optional nil or *UpdateSourceIpMappingOpts - Optional Parameters:
  * @param "SipDomainSid" (string) - The SID of the SIP Domain that the IP Record should be mapped to.
 @return VoiceV1SourceIpMapping
 */
-func (c *DefaultApiService) UpdateSourceIpMapping(sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
+func (c *DefaultApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.SipDomainSid != nil {
-		data.Set("SipDomainSid", *params.SipDomainSid)
+		data.Set("SipDomainSid", *params.SipDomainSid) 
 	}
 
 

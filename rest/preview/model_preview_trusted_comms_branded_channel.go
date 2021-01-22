@@ -11,10 +11,10 @@
 package openapi
 // PreviewTrustedCommsBrandedChannel struct for PreviewTrustedCommsBrandedChannel
 type PreviewTrustedCommsBrandedChannel struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	BrandSid string `json:"brand_sid,omitempty"`
-	BusinessSid string `json:"business_sid,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	BrandSid string `json:"BrandSid,omitempty"`
+	BusinessSid string `json:"BusinessSid,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

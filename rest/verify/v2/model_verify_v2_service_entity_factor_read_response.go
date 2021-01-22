@@ -11,6 +11,6 @@
 package openapi
 // VerifyV2ServiceEntityFactorReadResponse struct for VerifyV2ServiceEntityFactorReadResponse
 type VerifyV2ServiceEntityFactorReadResponse struct {
-	Factors []VerifyV2ServiceEntityFactor `json:"factors,omitempty"`
-	Meta VerifyV2ServiceReadResponseMeta `json:"meta,omitempty"`
+	Factors []VerifyV2ServiceEntityFactor `json:"Factors,omitempty"`
+	Meta VerifyV2ServiceReadResponseMeta `json:"Meta,omitempty"`
 }

@@ -11,9 +11,9 @@
 package openapi
 // NumbersV2RegulatoryComplianceEndUserType struct for NumbersV2RegulatoryComplianceEndUserType
 type NumbersV2RegulatoryComplianceEndUserType struct {
-	Fields []map[string]interface{} `json:"fields,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	MachineName string `json:"machine_name,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	Fields []map[string]interface{} `json:"Fields,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	MachineName string `json:"MachineName,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

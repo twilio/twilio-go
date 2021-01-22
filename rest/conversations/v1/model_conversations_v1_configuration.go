@@ -11,11 +11,11 @@
 package openapi
 // ConversationsV1Configuration struct for ConversationsV1Configuration
 type ConversationsV1Configuration struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DefaultChatServiceSid string `json:"default_chat_service_sid,omitempty"`
-	DefaultClosedTimer string `json:"default_closed_timer,omitempty"`
-	DefaultInactiveTimer string `json:"default_inactive_timer,omitempty"`
-	DefaultMessagingServiceSid string `json:"default_messaging_service_sid,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DefaultChatServiceSid string `json:"DefaultChatServiceSid,omitempty"`
+	DefaultClosedTimer string `json:"DefaultClosedTimer,omitempty"`
+	DefaultInactiveTimer string `json:"DefaultInactiveTimer,omitempty"`
+	DefaultMessagingServiceSid string `json:"DefaultMessagingServiceSid,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

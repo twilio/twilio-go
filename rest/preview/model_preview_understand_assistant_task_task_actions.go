@@ -11,9 +11,9 @@
 package openapi
 // PreviewUnderstandAssistantTaskTaskActions struct for PreviewUnderstandAssistantTaskTaskActions
 type PreviewUnderstandAssistantTaskTaskActions struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssistantSid string `json:"assistant_sid,omitempty"`
-	Data map[string]interface{} `json:"data,omitempty"`
-	TaskSid string `json:"task_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssistantSid string `json:"AssistantSid,omitempty"`
+	Data map[string]interface{} `json:"Data,omitempty"`
+	TaskSid string `json:"TaskSid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

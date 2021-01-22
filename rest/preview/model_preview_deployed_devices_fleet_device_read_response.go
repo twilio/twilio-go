@@ -11,6 +11,6 @@
 package openapi
 // PreviewDeployedDevicesFleetDeviceReadResponse struct for PreviewDeployedDevicesFleetDeviceReadResponse
 type PreviewDeployedDevicesFleetDeviceReadResponse struct {
-	Devices []PreviewDeployedDevicesFleetDevice `json:"devices,omitempty"`
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
+	Devices []PreviewDeployedDevicesFleetDevice `json:"Devices,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

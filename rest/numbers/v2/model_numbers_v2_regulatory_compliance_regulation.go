@@ -11,11 +11,11 @@
 package openapi
 // NumbersV2RegulatoryComplianceRegulation struct for NumbersV2RegulatoryComplianceRegulation
 type NumbersV2RegulatoryComplianceRegulation struct {
-	EndUserType string `json:"end_user_type,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	IsoCountry string `json:"iso_country,omitempty"`
-	NumberType string `json:"number_type,omitempty"`
-	Requirements map[string]interface{} `json:"requirements,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	EndUserType string `json:"EndUserType,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	IsoCountry string `json:"IsoCountry,omitempty"`
+	NumberType string `json:"NumberType,omitempty"`
+	Requirements map[string]interface{} `json:"Requirements,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

@@ -11,11 +11,11 @@
 package openapi
 // ApiV2010AccountSipSipCredentialListSipCredential struct for ApiV2010AccountSipSipCredentialListSipCredential
 type ApiV2010AccountSipSipCredentialListSipCredential struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CredentialListSid string `json:"credential_list_sid,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Uri string `json:"uri,omitempty"`
-	Username string `json:"username,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CredentialListSid string `json:"CredentialListSid,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Uri string `json:"Uri,omitempty"`
+	Username string `json:"Username,omitempty"`
 }

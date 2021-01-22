@@ -14,8 +14,8 @@ import (
 )
 // PreviewTrustedCommsBrandsInformation struct for PreviewTrustedCommsBrandsInformation
 type PreviewTrustedCommsBrandsInformation struct {
-	FileLink string `json:"file_link,omitempty"`
-	FileLinkTtlInSeconds string `json:"file_link_ttl_in_seconds,omitempty"`
-	UpdateTime time.Time `json:"update_time,omitempty"`
-	Url string `json:"url,omitempty"`
+	FileLink string `json:"FileLink,omitempty"`
+	FileLinkTtlInSeconds string `json:"FileLinkTtlInSeconds,omitempty"`
+	UpdateTime time.Time `json:"UpdateTime,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

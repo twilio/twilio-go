@@ -11,11 +11,11 @@
 package openapi
 // ConversationsV1ConfigurationConfigurationWebhook struct for ConversationsV1ConfigurationConfigurationWebhook
 type ConversationsV1ConfigurationConfigurationWebhook struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Filters []string `json:"filters,omitempty"`
-	Method string `json:"method,omitempty"`
-	PostWebhookUrl string `json:"post_webhook_url,omitempty"`
-	PreWebhookUrl string `json:"pre_webhook_url,omitempty"`
-	Target string `json:"target,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Filters []string `json:"Filters,omitempty"`
+	Method string `json:"Method,omitempty"`
+	PostWebhookUrl string `json:"PostWebhookUrl,omitempty"`
+	PreWebhookUrl string `json:"PreWebhookUrl,omitempty"`
+	Target string `json:"Target,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

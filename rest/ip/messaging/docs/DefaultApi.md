@@ -63,7 +63,7 @@ Method | HTTP request | Description
 
 ## CreateChannel
 
-> IpMessagingV2ServiceChannel CreateChannel(ctx, serviceSid, optional)
+> IpMessagingV2ServiceChannel CreateChannel(ctx, ServiceSid, optional)
 
 
 
@@ -73,7 +73,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***CreateChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -84,14 +84,14 @@ Optional parameters are passed through a pointer to a CreateChannelOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **attributes** | **optional.String**|  | 
- **createdBy** | **optional.String**|  | 
- **dateCreated** | **optional.Time**|  | 
- **dateUpdated** | **optional.Time**|  | 
- **friendlyName** | **optional.String**|  | 
- **type_** | **optional.String**|  | 
- **uniqueName** | **optional.String**|  | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **Attributes** | **optional.String**|  | 
+ **CreatedBy** | **optional.String**|  | 
+ **DateCreated** | **optional.Time**|  | 
+ **DateUpdated** | **optional.Time**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **Type** | **optional.String**|  | 
+ **UniqueName** | **optional.String**|  | 
 
 ### Return type
 
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 
 ## CreateChannelWebhook
 
-> IpMessagingV2ServiceChannelChannelWebhook CreateChannelWebhook(ctx, serviceSid, channelSid, optional)
+> IpMessagingV2ServiceChannelChannelWebhook CreateChannelWebhook(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -123,8 +123,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
  **optional** | ***CreateChannelWebhookOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -136,13 +136,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **configurationFilters** | [**optional.Interface of []string**](string.md)|  | 
- **configurationFlowSid** | **optional.String**|  | 
- **configurationMethod** | **optional.String**|  | 
- **configurationRetryCount** | **optional.Int32**|  | 
- **configurationTriggers** | [**optional.Interface of []string**](string.md)|  | 
- **configurationUrl** | **optional.String**|  | 
- **type_** | **optional.String**|  | 
+ **ConfigurationFilters** | [**optional.Interface of []string**](string.md)|  | 
+ **ConfigurationFlowSid** | **optional.String**|  | 
+ **ConfigurationMethod** | **optional.String**|  | 
+ **ConfigurationRetryCount** | **optional.Int32**|  | 
+ **ConfigurationTriggers** | [**optional.Interface of []string**](string.md)|  | 
+ **ConfigurationUrl** | **optional.String**|  | 
+ **Type** | **optional.String**|  | 
 
 ### Return type
 
@@ -183,13 +183,13 @@ Optional parameters are passed through a pointer to a CreateCredentialOpts struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **apiKey** | **optional.String**|  | 
- **certificate** | **optional.String**|  | 
- **friendlyName** | **optional.String**|  | 
- **privateKey** | **optional.String**|  | 
- **sandbox** | **optional.Bool**|  | 
- **secret** | **optional.String**|  | 
- **type_** | **optional.String**|  | 
+ **ApiKey** | **optional.String**|  | 
+ **Certificate** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **PrivateKey** | **optional.String**|  | 
+ **Sandbox** | **optional.Bool**|  | 
+ **Secret** | **optional.String**|  | 
+ **Type** | **optional.String**|  | 
 
 ### Return type
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ## CreateInvite
 
-> IpMessagingV2ServiceChannelInvite CreateInvite(ctx, serviceSid, channelSid, optional)
+> IpMessagingV2ServiceChannelInvite CreateInvite(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -221,8 +221,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
  **optional** | ***CreateInviteOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -234,8 +234,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **identity** | **optional.String**|  | 
- **roleSid** | **optional.String**|  | 
+ **Identity** | **optional.String**|  | 
+ **RoleSid** | **optional.String**|  | 
 
 ### Return type
 
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 ## CreateMember
 
-> IpMessagingV2ServiceChannelMember CreateMember(ctx, serviceSid, channelSid, optional)
+> IpMessagingV2ServiceChannelMember CreateMember(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -267,8 +267,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
  **optional** | ***CreateMemberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -280,14 +280,14 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **attributes** | **optional.String**|  | 
- **dateCreated** | **optional.Time**|  | 
- **dateUpdated** | **optional.Time**|  | 
- **identity** | **optional.String**|  | 
- **lastConsumedMessageIndex** | **optional.Int32**|  | 
- **lastConsumptionTimestamp** | **optional.Time**|  | 
- **roleSid** | **optional.String**|  | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **Attributes** | **optional.String**|  | 
+ **DateCreated** | **optional.Time**|  | 
+ **DateUpdated** | **optional.Time**|  | 
+ **Identity** | **optional.String**|  | 
+ **LastConsumedMessageIndex** | **optional.Int32**|  | 
+ **LastConsumptionTimestamp** | **optional.Time**|  | 
+ **RoleSid** | **optional.String**|  | 
 
 ### Return type
 
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 
 ## CreateMessage
 
-> IpMessagingV2ServiceChannelMessage CreateMessage(ctx, serviceSid, channelSid, optional)
+> IpMessagingV2ServiceChannelMessage CreateMessage(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -319,8 +319,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
  **optional** | ***CreateMessageOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -332,14 +332,14 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **attributes** | **optional.String**|  | 
- **body** | **optional.String**|  | 
- **dateCreated** | **optional.Time**|  | 
- **dateUpdated** | **optional.Time**|  | 
- **from** | **optional.String**|  | 
- **lastUpdatedBy** | **optional.String**|  | 
- **mediaSid** | **optional.String**|  | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **Attributes** | **optional.String**|  | 
+ **Body** | **optional.String**|  | 
+ **DateCreated** | **optional.Time**|  | 
+ **DateUpdated** | **optional.Time**|  | 
+ **From** | **optional.String**|  | 
+ **LastUpdatedBy** | **optional.String**|  | 
+ **MediaSid** | **optional.String**|  | 
 
 ### Return type
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ## CreateRole
 
-> IpMessagingV2ServiceRole CreateRole(ctx, serviceSid, optional)
+> IpMessagingV2ServiceRole CreateRole(ctx, ServiceSid, optional)
 
 
 
@@ -371,7 +371,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***CreateRoleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -382,9 +382,9 @@ Optional parameters are passed through a pointer to a CreateRoleOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**|  | 
- **permission** | [**optional.Interface of []string**](string.md)|  | 
- **type_** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **Permission** | [**optional.Interface of []string**](string.md)|  | 
+ **Type** | **optional.String**|  | 
 
 ### Return type
 
@@ -425,7 +425,7 @@ Optional parameters are passed through a pointer to a CreateServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **friendlyName** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
 
 ### Return type
 
@@ -447,7 +447,7 @@ Name | Type | Description  | Notes
 
 ## CreateUser
 
-> IpMessagingV2ServiceUser CreateUser(ctx, serviceSid, optional)
+> IpMessagingV2ServiceUser CreateUser(ctx, ServiceSid, optional)
 
 
 
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***CreateUserOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -468,11 +468,11 @@ Optional parameters are passed through a pointer to a CreateUserOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **attributes** | **optional.String**|  | 
- **friendlyName** | **optional.String**|  | 
- **identity** | **optional.String**|  | 
- **roleSid** | **optional.String**|  | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **Attributes** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **Identity** | **optional.String**|  | 
+ **RoleSid** | **optional.String**|  | 
 
 ### Return type
 
@@ -494,7 +494,7 @@ Name | Type | Description  | Notes
 
 ## DeleteBinding
 
-> DeleteBinding(ctx, serviceSid, sid)
+> DeleteBinding(ctx, ServiceSid, Sid)
 
 
 
@@ -504,8 +504,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -527,7 +527,7 @@ Name | Type | Description  | Notes
 
 ## DeleteChannel
 
-> DeleteChannel(ctx, serviceSid, sid, optional)
+> DeleteChannel(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -537,8 +537,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***DeleteChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -550,7 +550,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -572,7 +572,7 @@ Name | Type | Description  | Notes
 
 ## DeleteChannelWebhook
 
-> DeleteChannelWebhook(ctx, serviceSid, channelSid, sid)
+> DeleteChannelWebhook(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -582,9 +582,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -606,7 +606,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCredential
 
-> DeleteCredential(ctx, sid)
+> DeleteCredential(ctx, Sid)
 
 
 
@@ -616,7 +616,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -638,7 +638,7 @@ Name | Type | Description  | Notes
 
 ## DeleteInvite
 
-> DeleteInvite(ctx, serviceSid, channelSid, sid)
+> DeleteInvite(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -648,9 +648,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 
 ## DeleteMember
 
-> DeleteMember(ctx, serviceSid, channelSid, sid, optional)
+> DeleteMember(ctx, ServiceSid, ChannelSid, Sid, optional)
 
 
 
@@ -682,9 +682,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***DeleteMemberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -697,7 +697,7 @@ Name | Type | Description  | Notes
 
 
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -719,7 +719,7 @@ Name | Type | Description  | Notes
 
 ## DeleteMessage
 
-> DeleteMessage(ctx, serviceSid, channelSid, sid, optional)
+> DeleteMessage(ctx, ServiceSid, ChannelSid, Sid, optional)
 
 
 
@@ -729,9 +729,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***DeleteMessageOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -744,7 +744,7 @@ Name | Type | Description  | Notes
 
 
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -766,7 +766,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRole
 
-> DeleteRole(ctx, serviceSid, sid)
+> DeleteRole(ctx, ServiceSid, Sid)
 
 
 
@@ -776,8 +776,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -799,7 +799,7 @@ Name | Type | Description  | Notes
 
 ## DeleteService
 
-> DeleteService(ctx, sid)
+> DeleteService(ctx, Sid)
 
 
 
@@ -809,7 +809,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -831,7 +831,7 @@ Name | Type | Description  | Notes
 
 ## DeleteUser
 
-> DeleteUser(ctx, serviceSid, sid)
+> DeleteUser(ctx, ServiceSid, Sid)
 
 
 
@@ -841,8 +841,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -864,7 +864,7 @@ Name | Type | Description  | Notes
 
 ## DeleteUserBinding
 
-> DeleteUserBinding(ctx, serviceSid, userSid, sid)
+> DeleteUserBinding(ctx, ServiceSid, UserSid, Sid)
 
 
 
@@ -874,9 +874,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**userSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**UserSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -898,7 +898,7 @@ Name | Type | Description  | Notes
 
 ## DeleteUserChannel
 
-> DeleteUserChannel(ctx, serviceSid, userSid, channelSid)
+> DeleteUserChannel(ctx, ServiceSid, UserSid, ChannelSid)
 
 
 
@@ -908,9 +908,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**userSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**UserSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
 
 ### Return type
 
@@ -932,7 +932,7 @@ Name | Type | Description  | Notes
 
 ## FetchBinding
 
-> IpMessagingV2ServiceBinding FetchBinding(ctx, serviceSid, sid)
+> IpMessagingV2ServiceBinding FetchBinding(ctx, ServiceSid, Sid)
 
 
 
@@ -942,8 +942,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -965,7 +965,7 @@ Name | Type | Description  | Notes
 
 ## FetchChannel
 
-> IpMessagingV2ServiceChannel FetchChannel(ctx, serviceSid, sid)
+> IpMessagingV2ServiceChannel FetchChannel(ctx, ServiceSid, Sid)
 
 
 
@@ -975,8 +975,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -998,7 +998,7 @@ Name | Type | Description  | Notes
 
 ## FetchChannelWebhook
 
-> IpMessagingV2ServiceChannelChannelWebhook FetchChannelWebhook(ctx, serviceSid, channelSid, sid)
+> IpMessagingV2ServiceChannelChannelWebhook FetchChannelWebhook(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -1008,9 +1008,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1032,7 +1032,7 @@ Name | Type | Description  | Notes
 
 ## FetchCredential
 
-> IpMessagingV2Credential FetchCredential(ctx, sid)
+> IpMessagingV2Credential FetchCredential(ctx, Sid)
 
 
 
@@ -1042,7 +1042,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1064,7 +1064,7 @@ Name | Type | Description  | Notes
 
 ## FetchInvite
 
-> IpMessagingV2ServiceChannelInvite FetchInvite(ctx, serviceSid, channelSid, sid)
+> IpMessagingV2ServiceChannelInvite FetchInvite(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -1074,9 +1074,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1098,7 +1098,7 @@ Name | Type | Description  | Notes
 
 ## FetchMember
 
-> IpMessagingV2ServiceChannelMember FetchMember(ctx, serviceSid, channelSid, sid)
+> IpMessagingV2ServiceChannelMember FetchMember(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -1108,9 +1108,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1132,7 +1132,7 @@ Name | Type | Description  | Notes
 
 ## FetchMessage
 
-> IpMessagingV2ServiceChannelMessage FetchMessage(ctx, serviceSid, channelSid, sid)
+> IpMessagingV2ServiceChannelMessage FetchMessage(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -1142,9 +1142,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1166,7 +1166,7 @@ Name | Type | Description  | Notes
 
 ## FetchRole
 
-> IpMessagingV2ServiceRole FetchRole(ctx, serviceSid, sid)
+> IpMessagingV2ServiceRole FetchRole(ctx, ServiceSid, Sid)
 
 
 
@@ -1176,8 +1176,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1199,7 +1199,7 @@ Name | Type | Description  | Notes
 
 ## FetchService
 
-> IpMessagingV2Service FetchService(ctx, sid)
+> IpMessagingV2Service FetchService(ctx, Sid)
 
 
 
@@ -1209,7 +1209,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1231,7 +1231,7 @@ Name | Type | Description  | Notes
 
 ## FetchUser
 
-> IpMessagingV2ServiceUser FetchUser(ctx, serviceSid, sid)
+> IpMessagingV2ServiceUser FetchUser(ctx, ServiceSid, Sid)
 
 
 
@@ -1241,8 +1241,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1264,7 +1264,7 @@ Name | Type | Description  | Notes
 
 ## FetchUserBinding
 
-> IpMessagingV2ServiceUserUserBinding FetchUserBinding(ctx, serviceSid, userSid, sid)
+> IpMessagingV2ServiceUserUserBinding FetchUserBinding(ctx, ServiceSid, UserSid, Sid)
 
 
 
@@ -1274,9 +1274,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**userSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**UserSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1298,7 +1298,7 @@ Name | Type | Description  | Notes
 
 ## FetchUserChannel
 
-> IpMessagingV2ServiceUserUserChannel FetchUserChannel(ctx, serviceSid, userSid, channelSid)
+> IpMessagingV2ServiceUserUserChannel FetchUserChannel(ctx, ServiceSid, UserSid, ChannelSid)
 
 
 
@@ -1308,9 +1308,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**userSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**UserSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
 
 ### Return type
 
@@ -1332,7 +1332,7 @@ Name | Type | Description  | Notes
 
 ## ListBinding
 
-> IpMessagingV2ServiceBindingReadResponse ListBinding(ctx, serviceSid, optional)
+> IpMessagingV2ServiceBindingReadResponse ListBinding(ctx, ServiceSid, optional)
 
 
 
@@ -1342,7 +1342,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***ListBindingOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1353,9 +1353,9 @@ Optional parameters are passed through a pointer to a ListBindingOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **bindingType** | [**optional.Interface of []string**](string.md)|  | 
- **identity** | [**optional.Interface of []string**](string.md)|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **BindingType** | [**optional.Interface of []string**](string.md)|  | 
+ **Identity** | [**optional.Interface of []string**](string.md)|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1377,7 +1377,7 @@ Name | Type | Description  | Notes
 
 ## ListChannel
 
-> IpMessagingV2ServiceChannelReadResponse ListChannel(ctx, serviceSid, optional)
+> IpMessagingV2ServiceChannelReadResponse ListChannel(ctx, ServiceSid, optional)
 
 
 
@@ -1387,7 +1387,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***ListChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1398,8 +1398,8 @@ Optional parameters are passed through a pointer to a ListChannelOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **type_** | [**optional.Interface of []string**](string.md)|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Type** | [**optional.Interface of []string**](string.md)|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1421,7 +1421,7 @@ Name | Type | Description  | Notes
 
 ## ListChannelWebhook
 
-> IpMessagingV2ServiceChannelChannelWebhookReadResponse ListChannelWebhook(ctx, serviceSid, channelSid, optional)
+> IpMessagingV2ServiceChannelChannelWebhookReadResponse ListChannelWebhook(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1431,8 +1431,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
  **optional** | ***ListChannelWebhookOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1444,7 +1444,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1485,7 +1485,7 @@ Optional parameters are passed through a pointer to a ListCredentialOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1507,7 +1507,7 @@ Name | Type | Description  | Notes
 
 ## ListInvite
 
-> IpMessagingV2ServiceChannelInviteReadResponse ListInvite(ctx, serviceSid, channelSid, optional)
+> IpMessagingV2ServiceChannelInviteReadResponse ListInvite(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1517,8 +1517,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
  **optional** | ***ListInviteOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1530,8 +1530,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **identity** | [**optional.Interface of []string**](string.md)|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Identity** | [**optional.Interface of []string**](string.md)|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1553,7 +1553,7 @@ Name | Type | Description  | Notes
 
 ## ListMember
 
-> IpMessagingV2ServiceChannelMemberReadResponse ListMember(ctx, serviceSid, channelSid, optional)
+> IpMessagingV2ServiceChannelMemberReadResponse ListMember(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1563,8 +1563,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
  **optional** | ***ListMemberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1576,8 +1576,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **identity** | [**optional.Interface of []string**](string.md)|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Identity** | [**optional.Interface of []string**](string.md)|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1599,7 +1599,7 @@ Name | Type | Description  | Notes
 
 ## ListMessage
 
-> IpMessagingV2ServiceChannelMessageReadResponse ListMessage(ctx, serviceSid, channelSid, optional)
+> IpMessagingV2ServiceChannelMessageReadResponse ListMessage(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1609,8 +1609,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
  **optional** | ***ListMessageOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1622,8 +1622,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **order** | **optional.String**|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Order** | **optional.String**|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1645,7 +1645,7 @@ Name | Type | Description  | Notes
 
 ## ListRole
 
-> IpMessagingV2ServiceRoleReadResponse ListRole(ctx, serviceSid, optional)
+> IpMessagingV2ServiceRoleReadResponse ListRole(ctx, ServiceSid, optional)
 
 
 
@@ -1655,7 +1655,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***ListRoleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1666,7 +1666,7 @@ Optional parameters are passed through a pointer to a ListRoleOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1707,7 +1707,7 @@ Optional parameters are passed through a pointer to a ListServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1729,7 +1729,7 @@ Name | Type | Description  | Notes
 
 ## ListUser
 
-> IpMessagingV2ServiceUserReadResponse ListUser(ctx, serviceSid, optional)
+> IpMessagingV2ServiceUserReadResponse ListUser(ctx, ServiceSid, optional)
 
 
 
@@ -1739,7 +1739,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***ListUserOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1750,7 +1750,7 @@ Optional parameters are passed through a pointer to a ListUserOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1772,7 +1772,7 @@ Name | Type | Description  | Notes
 
 ## ListUserBinding
 
-> IpMessagingV2ServiceUserUserBindingReadResponse ListUserBinding(ctx, serviceSid, userSid, optional)
+> IpMessagingV2ServiceUserUserBindingReadResponse ListUserBinding(ctx, ServiceSid, UserSid, optional)
 
 
 
@@ -1782,8 +1782,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**userSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**UserSid** | **string**|  | 
  **optional** | ***ListUserBindingOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1795,8 +1795,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **bindingType** | [**optional.Interface of []string**](string.md)|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **BindingType** | [**optional.Interface of []string**](string.md)|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1818,7 +1818,7 @@ Name | Type | Description  | Notes
 
 ## ListUserChannel
 
-> IpMessagingV2ServiceUserUserChannelReadResponse ListUserChannel(ctx, serviceSid, userSid, optional)
+> IpMessagingV2ServiceUserUserChannelReadResponse ListUserChannel(ctx, ServiceSid, UserSid, optional)
 
 
 
@@ -1828,8 +1828,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**userSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**UserSid** | **string**|  | 
  **optional** | ***ListUserChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1841,7 +1841,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1863,7 +1863,7 @@ Name | Type | Description  | Notes
 
 ## UpdateChannel
 
-> IpMessagingV2ServiceChannel UpdateChannel(ctx, serviceSid, sid, optional)
+> IpMessagingV2ServiceChannel UpdateChannel(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1873,8 +1873,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1886,13 +1886,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **attributes** | **optional.String**|  | 
- **createdBy** | **optional.String**|  | 
- **dateCreated** | **optional.Time**|  | 
- **dateUpdated** | **optional.Time**|  | 
- **friendlyName** | **optional.String**|  | 
- **uniqueName** | **optional.String**|  | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **Attributes** | **optional.String**|  | 
+ **CreatedBy** | **optional.String**|  | 
+ **DateCreated** | **optional.Time**|  | 
+ **DateUpdated** | **optional.Time**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **UniqueName** | **optional.String**|  | 
 
 ### Return type
 
@@ -1914,7 +1914,7 @@ Name | Type | Description  | Notes
 
 ## UpdateChannelWebhook
 
-> IpMessagingV2ServiceChannelChannelWebhook UpdateChannelWebhook(ctx, serviceSid, channelSid, sid, optional)
+> IpMessagingV2ServiceChannelChannelWebhook UpdateChannelWebhook(ctx, ServiceSid, ChannelSid, Sid, optional)
 
 
 
@@ -1924,9 +1924,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateChannelWebhookOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1939,12 +1939,12 @@ Name | Type | Description  | Notes
 
 
 
- **configurationFilters** | [**optional.Interface of []string**](string.md)|  | 
- **configurationFlowSid** | **optional.String**|  | 
- **configurationMethod** | **optional.String**|  | 
- **configurationRetryCount** | **optional.Int32**|  | 
- **configurationTriggers** | [**optional.Interface of []string**](string.md)|  | 
- **configurationUrl** | **optional.String**|  | 
+ **ConfigurationFilters** | [**optional.Interface of []string**](string.md)|  | 
+ **ConfigurationFlowSid** | **optional.String**|  | 
+ **ConfigurationMethod** | **optional.String**|  | 
+ **ConfigurationRetryCount** | **optional.Int32**|  | 
+ **ConfigurationTriggers** | [**optional.Interface of []string**](string.md)|  | 
+ **ConfigurationUrl** | **optional.String**|  | 
 
 ### Return type
 
@@ -1966,7 +1966,7 @@ Name | Type | Description  | Notes
 
 ## UpdateCredential
 
-> IpMessagingV2Credential UpdateCredential(ctx, sid, optional)
+> IpMessagingV2Credential UpdateCredential(ctx, Sid, optional)
 
 
 
@@ -1976,7 +1976,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateCredentialOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1987,12 +1987,12 @@ Optional parameters are passed through a pointer to a UpdateCredentialOpts struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **apiKey** | **optional.String**|  | 
- **certificate** | **optional.String**|  | 
- **friendlyName** | **optional.String**|  | 
- **privateKey** | **optional.String**|  | 
- **sandbox** | **optional.Bool**|  | 
- **secret** | **optional.String**|  | 
+ **ApiKey** | **optional.String**|  | 
+ **Certificate** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **PrivateKey** | **optional.String**|  | 
+ **Sandbox** | **optional.Bool**|  | 
+ **Secret** | **optional.String**|  | 
 
 ### Return type
 
@@ -2014,7 +2014,7 @@ Name | Type | Description  | Notes
 
 ## UpdateMember
 
-> IpMessagingV2ServiceChannelMember UpdateMember(ctx, serviceSid, channelSid, sid, optional)
+> IpMessagingV2ServiceChannelMember UpdateMember(ctx, ServiceSid, ChannelSid, Sid, optional)
 
 
 
@@ -2024,9 +2024,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateMemberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2039,13 +2039,13 @@ Name | Type | Description  | Notes
 
 
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **attributes** | **optional.String**|  | 
- **dateCreated** | **optional.Time**|  | 
- **dateUpdated** | **optional.Time**|  | 
- **lastConsumedMessageIndex** | **optional.Int32**|  | 
- **lastConsumptionTimestamp** | **optional.Time**|  | 
- **roleSid** | **optional.String**|  | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **Attributes** | **optional.String**|  | 
+ **DateCreated** | **optional.Time**|  | 
+ **DateUpdated** | **optional.Time**|  | 
+ **LastConsumedMessageIndex** | **optional.Int32**|  | 
+ **LastConsumptionTimestamp** | **optional.Time**|  | 
+ **RoleSid** | **optional.String**|  | 
 
 ### Return type
 
@@ -2067,7 +2067,7 @@ Name | Type | Description  | Notes
 
 ## UpdateMessage
 
-> IpMessagingV2ServiceChannelMessage UpdateMessage(ctx, serviceSid, channelSid, sid, optional)
+> IpMessagingV2ServiceChannelMessage UpdateMessage(ctx, ServiceSid, ChannelSid, Sid, optional)
 
 
 
@@ -2077,9 +2077,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**channelSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateMessageOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2092,13 +2092,13 @@ Name | Type | Description  | Notes
 
 
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **attributes** | **optional.String**|  | 
- **body** | **optional.String**|  | 
- **dateCreated** | **optional.Time**|  | 
- **dateUpdated** | **optional.Time**|  | 
- **from** | **optional.String**|  | 
- **lastUpdatedBy** | **optional.String**|  | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **Attributes** | **optional.String**|  | 
+ **Body** | **optional.String**|  | 
+ **DateCreated** | **optional.Time**|  | 
+ **DateUpdated** | **optional.Time**|  | 
+ **From** | **optional.String**|  | 
+ **LastUpdatedBy** | **optional.String**|  | 
 
 ### Return type
 
@@ -2120,7 +2120,7 @@ Name | Type | Description  | Notes
 
 ## UpdateRole
 
-> IpMessagingV2ServiceRole UpdateRole(ctx, serviceSid, sid, optional)
+> IpMessagingV2ServiceRole UpdateRole(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -2130,8 +2130,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateRoleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2143,7 +2143,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **permission** | [**optional.Interface of []string**](string.md)|  | 
+ **Permission** | [**optional.Interface of []string**](string.md)|  | 
 
 ### Return type
 
@@ -2165,7 +2165,7 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> IpMessagingV2Service UpdateService(ctx, sid, optional)
+> IpMessagingV2Service UpdateService(ctx, Sid, optional)
 
 
 
@@ -2175,7 +2175,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2186,37 +2186,37 @@ Optional parameters are passed through a pointer to a UpdateServiceOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **consumptionReportInterval** | **optional.Int32**|  | 
- **defaultChannelCreatorRoleSid** | **optional.String**|  | 
- **defaultChannelRoleSid** | **optional.String**|  | 
- **defaultServiceRoleSid** | **optional.String**|  | 
- **friendlyName** | **optional.String**|  | 
- **limitsChannelMembers** | **optional.Int32**|  | 
- **limitsUserChannels** | **optional.Int32**|  | 
- **mediaCompatibilityMessage** | **optional.String**|  | 
- **notificationsAddedToChannelEnabled** | **optional.Bool**|  | 
- **notificationsAddedToChannelSound** | **optional.String**|  | 
- **notificationsAddedToChannelTemplate** | **optional.String**|  | 
- **notificationsInvitedToChannelEnabled** | **optional.Bool**|  | 
- **notificationsInvitedToChannelSound** | **optional.String**|  | 
- **notificationsInvitedToChannelTemplate** | **optional.String**|  | 
- **notificationsLogEnabled** | **optional.Bool**|  | 
- **notificationsNewMessageBadgeCountEnabled** | **optional.Bool**|  | 
- **notificationsNewMessageEnabled** | **optional.Bool**|  | 
- **notificationsNewMessageSound** | **optional.String**|  | 
- **notificationsNewMessageTemplate** | **optional.String**|  | 
- **notificationsRemovedFromChannelEnabled** | **optional.Bool**|  | 
- **notificationsRemovedFromChannelSound** | **optional.String**|  | 
- **notificationsRemovedFromChannelTemplate** | **optional.String**|  | 
- **postWebhookRetryCount** | **optional.Int32**|  | 
- **postWebhookUrl** | **optional.String**|  | 
- **preWebhookRetryCount** | **optional.Int32**|  | 
- **preWebhookUrl** | **optional.String**|  | 
- **reachabilityEnabled** | **optional.Bool**|  | 
- **readStatusEnabled** | **optional.Bool**|  | 
- **typingIndicatorTimeout** | **optional.Int32**|  | 
- **webhookFilters** | [**optional.Interface of []string**](string.md)|  | 
- **webhookMethod** | **optional.String**|  | 
+ **ConsumptionReportInterval** | **optional.Int32**|  | 
+ **DefaultChannelCreatorRoleSid** | **optional.String**|  | 
+ **DefaultChannelRoleSid** | **optional.String**|  | 
+ **DefaultServiceRoleSid** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **LimitsChannelMembers** | **optional.Int32**|  | 
+ **LimitsUserChannels** | **optional.Int32**|  | 
+ **MediaCompatibilityMessage** | **optional.String**|  | 
+ **NotificationsAddedToChannelEnabled** | **optional.Bool**|  | 
+ **NotificationsAddedToChannelSound** | **optional.String**|  | 
+ **NotificationsAddedToChannelTemplate** | **optional.String**|  | 
+ **NotificationsInvitedToChannelEnabled** | **optional.Bool**|  | 
+ **NotificationsInvitedToChannelSound** | **optional.String**|  | 
+ **NotificationsInvitedToChannelTemplate** | **optional.String**|  | 
+ **NotificationsLogEnabled** | **optional.Bool**|  | 
+ **NotificationsNewMessageBadgeCountEnabled** | **optional.Bool**|  | 
+ **NotificationsNewMessageEnabled** | **optional.Bool**|  | 
+ **NotificationsNewMessageSound** | **optional.String**|  | 
+ **NotificationsNewMessageTemplate** | **optional.String**|  | 
+ **NotificationsRemovedFromChannelEnabled** | **optional.Bool**|  | 
+ **NotificationsRemovedFromChannelSound** | **optional.String**|  | 
+ **NotificationsRemovedFromChannelTemplate** | **optional.String**|  | 
+ **PostWebhookRetryCount** | **optional.Int32**|  | 
+ **PostWebhookUrl** | **optional.String**|  | 
+ **PreWebhookRetryCount** | **optional.Int32**|  | 
+ **PreWebhookUrl** | **optional.String**|  | 
+ **ReachabilityEnabled** | **optional.Bool**|  | 
+ **ReadStatusEnabled** | **optional.Bool**|  | 
+ **TypingIndicatorTimeout** | **optional.Int32**|  | 
+ **WebhookFilters** | [**optional.Interface of []string**](string.md)|  | 
+ **WebhookMethod** | **optional.String**|  | 
 
 ### Return type
 
@@ -2238,7 +2238,7 @@ Name | Type | Description  | Notes
 
 ## UpdateUser
 
-> IpMessagingV2ServiceUser UpdateUser(ctx, serviceSid, sid, optional)
+> IpMessagingV2ServiceUser UpdateUser(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -2248,8 +2248,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateUserOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2261,10 +2261,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **xTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **attributes** | **optional.String**|  | 
- **friendlyName** | **optional.String**|  | 
- **roleSid** | **optional.String**|  | 
+ **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+ **Attributes** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **RoleSid** | **optional.String**|  | 
 
 ### Return type
 
@@ -2286,7 +2286,7 @@ Name | Type | Description  | Notes
 
 ## UpdateUserChannel
 
-> IpMessagingV2ServiceUserUserChannel UpdateUserChannel(ctx, serviceSid, userSid, channelSid, optional)
+> IpMessagingV2ServiceUserUserChannel UpdateUserChannel(ctx, ServiceSid, UserSid, ChannelSid, optional)
 
 
 
@@ -2296,9 +2296,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**userSid** | **string**|  | 
-**channelSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**UserSid** | **string**|  | 
+**ChannelSid** | **string**|  | 
  **optional** | ***UpdateUserChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2311,9 +2311,9 @@ Name | Type | Description  | Notes
 
 
 
- **lastConsumedMessageIndex** | **optional.Int32**|  | 
- **lastConsumptionTimestamp** | **optional.Time**|  | 
- **notificationLevel** | **optional.String**|  | 
+ **LastConsumedMessageIndex** | **optional.Int32**|  | 
+ **LastConsumptionTimestamp** | **optional.Time**|  | 
+ **NotificationLevel** | **optional.String**|  | 
 
 ### Return type
 

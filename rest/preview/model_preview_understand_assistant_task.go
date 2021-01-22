@@ -14,14 +14,14 @@ import (
 )
 // PreviewUnderstandAssistantTask struct for PreviewUnderstandAssistantTask
 type PreviewUnderstandAssistantTask struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ActionsUrl string `json:"actions_url,omitempty"`
-	AssistantSid string `json:"assistant_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ActionsUrl string `json:"ActionsUrl,omitempty"`
+	AssistantSid string `json:"AssistantSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

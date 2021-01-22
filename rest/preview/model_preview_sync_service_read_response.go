@@ -11,6 +11,6 @@
 package openapi
 // PreviewSyncServiceReadResponse struct for PreviewSyncServiceReadResponse
 type PreviewSyncServiceReadResponse struct {
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
-	Services []PreviewSyncService `json:"services,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
+	Services []PreviewSyncService `json:"Services,omitempty"`
 }

@@ -14,14 +14,14 @@ import (
 )
 // PreviewSyncService struct for PreviewSyncService
 type PreviewSyncService struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AclEnabled bool `json:"acl_enabled,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	ReachabilityWebhooksEnabled bool `json:"reachability_webhooks_enabled,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
-	WebhookUrl string `json:"webhook_url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AclEnabled bool `json:"AclEnabled,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	ReachabilityWebhooksEnabled bool `json:"ReachabilityWebhooksEnabled,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WebhookUrl string `json:"WebhookUrl,omitempty"`
 }

@@ -14,19 +14,19 @@ import (
 )
 // StudioV2Flow struct for StudioV2Flow
 type StudioV2Flow struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CommitMessage string `json:"commit_message,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Definition map[string]interface{} `json:"definition,omitempty"`
-	Errors []map[string]interface{} `json:"errors,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Revision int32 `json:"revision,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
-	Valid bool `json:"valid,omitempty"`
-	Warnings []map[string]interface{} `json:"warnings,omitempty"`
-	WebhookUrl string `json:"webhook_url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CommitMessage string `json:"CommitMessage,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Definition map[string]interface{} `json:"Definition,omitempty"`
+	Errors []map[string]interface{} `json:"Errors,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Revision int32 `json:"Revision,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
+	Valid bool `json:"Valid,omitempty"`
+	Warnings []map[string]interface{} `json:"Warnings,omitempty"`
+	WebhookUrl string `json:"WebhookUrl,omitempty"`
 }

@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -36,20 +38,21 @@ type CreateAssetParams struct {
 /*
 CreateAsset Method for CreateAsset
 Create a new Asset resource.
- * @param serviceSid The SID of the Service to create the Asset resource under.
+ * @param ServiceSid The SID of the Service to create the Asset resource under.
  * @param optional nil or *CreateAssetOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 @return ServerlessV1ServiceAsset
 */
-func (c *DefaultApiService) CreateAsset(serviceSid string, params *CreateAssetParams) (*ServerlessV1ServiceAsset, error) {
+func (c *DefaultApiService) CreateAsset(ServiceSid string, params *CreateAssetParams) (*ServerlessV1ServiceAsset, error) {
 	path := "/v1/Services/{ServiceSid}/Assets"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -77,28 +80,29 @@ type CreateBuildParams struct {
 /*
 CreateBuild Method for CreateBuild
 Create a new Build resource. At least one function version or asset version is required.
- * @param serviceSid The SID of the Service to create the Build resource under.
+ * @param ServiceSid The SID of the Service to create the Build resource under.
  * @param optional nil or *CreateBuildOpts - Optional Parameters:
  * @param "AssetVersions" ([]string) - The list of Asset Version resource SIDs to include in the Build.
  * @param "Dependencies" (string) - A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
  * @param "FunctionVersions" ([]string) - The list of the Function Version resource SIDs to include in the Build.
 @return ServerlessV1ServiceBuild
 */
-func (c *DefaultApiService) CreateBuild(serviceSid string, params *CreateBuildParams) (*ServerlessV1ServiceBuild, error) {
+func (c *DefaultApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (*ServerlessV1ServiceBuild, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssetVersions != nil {
-		data.Set("AssetVersions", *params.AssetVersions)
+		data.Set("AssetVersions",  strings.Join(*params.AssetVersions, ","))
 	}
 	if params != nil && params.Dependencies != nil {
-		data.Set("Dependencies", *params.Dependencies)
+		data.Set("Dependencies", *params.Dependencies) 
 	}
 	if params != nil && params.FunctionVersions != nil {
-		data.Set("FunctionVersions", *params.FunctionVersions)
+		data.Set("FunctionVersions",  strings.Join(*params.FunctionVersions, ","))
 	}
 
 
@@ -124,22 +128,23 @@ type CreateDeploymentParams struct {
 /*
 CreateDeployment Method for CreateDeployment
 Create a new Deployment.
- * @param serviceSid The SID of the Service to create the Deployment resource under.
- * @param environmentSid The SID of the Environment for the Deployment.
+ * @param ServiceSid The SID of the Service to create the Deployment resource under.
+ * @param EnvironmentSid The SID of the Environment for the Deployment.
  * @param optional nil or *CreateDeploymentOpts - Optional Parameters:
  * @param "BuildSid" (string) - The SID of the Build for the Deployment.
 @return ServerlessV1ServiceEnvironmentDeployment
 */
-func (c *DefaultApiService) CreateDeployment(serviceSid string, environmentSid string, params *CreateDeploymentParams) (*ServerlessV1ServiceEnvironmentDeployment, error) {
+func (c *DefaultApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, params *CreateDeploymentParams) (*ServerlessV1ServiceEnvironmentDeployment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.BuildSid != nil {
-		data.Set("BuildSid", *params.BuildSid)
+		data.Set("BuildSid", *params.BuildSid) 
 	}
 
 
@@ -166,24 +171,25 @@ type CreateEnvironmentParams struct {
 /*
 CreateEnvironment Method for CreateEnvironment
 Create a new environment.
- * @param serviceSid The SID of the Service to create the Environment resource under.
+ * @param ServiceSid The SID of the Service to create the Environment resource under.
  * @param optional nil or *CreateEnvironmentOpts - Optional Parameters:
  * @param "DomainSuffix" (string) - A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
  * @param "UniqueName" (string) - A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
 @return ServerlessV1ServiceEnvironment
 */
-func (c *DefaultApiService) CreateEnvironment(serviceSid string, params *CreateEnvironmentParams) (*ServerlessV1ServiceEnvironment, error) {
+func (c *DefaultApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironmentParams) (*ServerlessV1ServiceEnvironment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DomainSuffix != nil {
-		data.Set("DomainSuffix", *params.DomainSuffix)
+		data.Set("DomainSuffix", *params.DomainSuffix) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -209,20 +215,21 @@ type CreateFunctionParams struct {
 /*
 CreateFunction Method for CreateFunction
 Create a new Function resource.
- * @param serviceSid The SID of the Service to create the Function resource under.
+ * @param ServiceSid The SID of the Service to create the Function resource under.
  * @param optional nil or *CreateFunctionOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
 @return ServerlessV1ServiceFunction
 */
-func (c *DefaultApiService) CreateFunction(serviceSid string, params *CreateFunctionParams) (*ServerlessV1ServiceFunction, error) {
+func (c *DefaultApiService) CreateFunction(ServiceSid string, params *CreateFunctionParams) (*ServerlessV1ServiceFunction, error) {
 	path := "/v1/Services/{ServiceSid}/Functions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -261,20 +268,21 @@ Create a new Service resource.
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ServerlessV1Service, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IncludeCredentials != nil {
-		data.Set("IncludeCredentials", string(*params.IncludeCredentials))
+		data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials)) 
 	}
 	if params != nil && params.UiEditable != nil {
-		data.Set("UiEditable", string(*params.UiEditable))
+		data.Set("UiEditable", fmt.Sprint(*params.UiEditable)) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -301,26 +309,27 @@ type CreateVariableParams struct {
 /*
 CreateVariable Method for CreateVariable
 Create a new Variable.
- * @param serviceSid The SID of the Service to create the Variable resource under.
- * @param environmentSid The SID of the Environment in which the Variable resource exists.
+ * @param ServiceSid The SID of the Service to create the Variable resource under.
+ * @param EnvironmentSid The SID of the Environment in which the Variable resource exists.
  * @param optional nil or *CreateVariableOpts - Optional Parameters:
  * @param "Key" (string) - A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
  * @param "Value" (string) - A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
 @return ServerlessV1ServiceEnvironmentVariable
 */
-func (c *DefaultApiService) CreateVariable(serviceSid string, environmentSid string, params *CreateVariableParams) (*ServerlessV1ServiceEnvironmentVariable, error) {
+func (c *DefaultApiService) CreateVariable(ServiceSid string, EnvironmentSid string, params *CreateVariableParams) (*ServerlessV1ServiceEnvironmentVariable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Key != nil {
-		data.Set("Key", *params.Key)
+		data.Set("Key", *params.Key) 
 	}
 	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value)
+		data.Set("Value", *params.Value) 
 	}
 
 
@@ -342,15 +351,16 @@ func (c *DefaultApiService) CreateVariable(serviceSid string, environmentSid str
 /*
 DeleteAsset Method for DeleteAsset
 Delete an Asset resource.
- * @param serviceSid The SID of the Service to delete the Asset resource from.
- * @param sid The SID that identifies the Asset resource to delete.
+ * @param ServiceSid The SID of the Service to delete the Asset resource from.
+ * @param Sid The SID that identifies the Asset resource to delete.
 */
-func (c *DefaultApiService) DeleteAsset(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteAsset(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -368,15 +378,16 @@ func (c *DefaultApiService) DeleteAsset(serviceSid string, sid string) (error) {
 /*
 DeleteBuild Method for DeleteBuild
 Delete a Build resource.
- * @param serviceSid The SID of the Service to delete the Build resource from.
- * @param sid The SID of the Build resource to delete.
+ * @param ServiceSid The SID of the Service to delete the Build resource from.
+ * @param Sid The SID of the Build resource to delete.
 */
-func (c *DefaultApiService) DeleteBuild(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteBuild(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -394,15 +405,16 @@ func (c *DefaultApiService) DeleteBuild(serviceSid string, sid string) (error) {
 /*
 DeleteEnvironment Method for DeleteEnvironment
 Delete a specific environment.
- * @param serviceSid The SID of the Service to delete the Environment resource from.
- * @param sid The SID of the Environment resource to delete.
+ * @param ServiceSid The SID of the Service to delete the Environment resource from.
+ * @param Sid The SID of the Environment resource to delete.
 */
-func (c *DefaultApiService) DeleteEnvironment(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteEnvironment(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -420,15 +432,16 @@ func (c *DefaultApiService) DeleteEnvironment(serviceSid string, sid string) (er
 /*
 DeleteFunction Method for DeleteFunction
 Delete a Function resource.
- * @param serviceSid The SID of the Service to delete the Function resource from.
- * @param sid The SID of the Function resource to delete.
+ * @param ServiceSid The SID of the Service to delete the Function resource from.
+ * @param Sid The SID of the Function resource to delete.
 */
-func (c *DefaultApiService) DeleteFunction(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteFunction(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -446,13 +459,14 @@ func (c *DefaultApiService) DeleteFunction(serviceSid string, sid string) (error
 /*
 DeleteService Method for DeleteService
 Delete a Service resource.
- * @param sid The `sid` or `unique_name` of the Service resource to delete.
+ * @param Sid The `sid` or `unique_name` of the Service resource to delete.
 */
-func (c *DefaultApiService) DeleteService(sid string) (error) {
+func (c *DefaultApiService) DeleteService(Sid string) (error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -470,17 +484,18 @@ func (c *DefaultApiService) DeleteService(sid string) (error) {
 /*
 DeleteVariable Method for DeleteVariable
 Delete a specific Variable.
- * @param serviceSid The SID of the Service to delete the Variable resource from.
- * @param environmentSid The SID of the Environment with the Variables to delete.
- * @param sid The SID of the Variable resource to delete.
+ * @param ServiceSid The SID of the Service to delete the Variable resource from.
+ * @param EnvironmentSid The SID of the Environment with the Variables to delete.
+ * @param Sid The SID of the Variable resource to delete.
 */
-func (c *DefaultApiService) DeleteVariable(serviceSid string, environmentSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -498,16 +513,17 @@ func (c *DefaultApiService) DeleteVariable(serviceSid string, environmentSid str
 /*
 FetchAsset Method for FetchAsset
 Retrieve a specific Asset resource.
- * @param serviceSid The SID of the Service to fetch the Asset resource from.
- * @param sid The SID that identifies the Asset resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Asset resource from.
+ * @param Sid The SID that identifies the Asset resource to fetch.
 @return ServerlessV1ServiceAsset
 */
-func (c *DefaultApiService) FetchAsset(serviceSid string, sid string) (*ServerlessV1ServiceAsset, error) {
+func (c *DefaultApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1ServiceAsset, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -530,18 +546,19 @@ func (c *DefaultApiService) FetchAsset(serviceSid string, sid string) (*Serverle
 /*
 FetchAssetVersion Method for FetchAssetVersion
 Retrieve a specific Asset Version.
- * @param serviceSid The SID of the Service to fetch the Asset Version resource from.
- * @param assetSid The SID of the Asset resource that is the parent of the Asset Version resource to fetch.
- * @param sid The SID of the Asset Version resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Asset Version resource from.
+ * @param AssetSid The SID of the Asset resource that is the parent of the Asset Version resource to fetch.
+ * @param Sid The SID of the Asset Version resource to fetch.
 @return ServerlessV1ServiceAssetAssetVersion
 */
-func (c *DefaultApiService) FetchAssetVersion(serviceSid string, assetSid string, sid string) (*ServerlessV1ServiceAssetAssetVersion, error) {
+func (c *DefaultApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid string) (*ServerlessV1ServiceAssetAssetVersion, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"AssetSid"+"}", assetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -564,16 +581,17 @@ func (c *DefaultApiService) FetchAssetVersion(serviceSid string, assetSid string
 /*
 FetchBuild Method for FetchBuild
 Retrieve a specific Build resource.
- * @param serviceSid The SID of the Service to fetch the Build resource from.
- * @param sid The SID of the Build resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Build resource from.
+ * @param Sid The SID of the Build resource to fetch.
 @return ServerlessV1ServiceBuild
 */
-func (c *DefaultApiService) FetchBuild(serviceSid string, sid string) (*ServerlessV1ServiceBuild, error) {
+func (c *DefaultApiService) FetchBuild(ServiceSid string, Sid string) (*ServerlessV1ServiceBuild, error) {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -596,16 +614,17 @@ func (c *DefaultApiService) FetchBuild(serviceSid string, sid string) (*Serverle
 /*
 FetchBuildStatus Method for FetchBuildStatus
 Retrieve a specific Build resource.
- * @param serviceSid The SID of the Service to fetch the Build resource from.
- * @param sid The SID of the Build resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Build resource from.
+ * @param Sid The SID of the Build resource to fetch.
 @return ServerlessV1ServiceBuildBuildStatus
 */
-func (c *DefaultApiService) FetchBuildStatus(serviceSid string, sid string) (*ServerlessV1ServiceBuildBuildStatus, error) {
+func (c *DefaultApiService) FetchBuildStatus(ServiceSid string, Sid string) (*ServerlessV1ServiceBuildBuildStatus, error) {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}/Status"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -628,18 +647,19 @@ func (c *DefaultApiService) FetchBuildStatus(serviceSid string, sid string) (*Se
 /*
 FetchDeployment Method for FetchDeployment
 Retrieve a specific Deployment.
- * @param serviceSid The SID of the Service to fetch the Deployment resource from.
- * @param environmentSid The SID of the Environment used by the Deployment to fetch.
- * @param sid The SID that identifies the Deployment resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Deployment resource from.
+ * @param EnvironmentSid The SID of the Environment used by the Deployment to fetch.
+ * @param Sid The SID that identifies the Deployment resource to fetch.
 @return ServerlessV1ServiceEnvironmentDeployment
 */
-func (c *DefaultApiService) FetchDeployment(serviceSid string, environmentSid string, sid string) (*ServerlessV1ServiceEnvironmentDeployment, error) {
+func (c *DefaultApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1ServiceEnvironmentDeployment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -662,16 +682,17 @@ func (c *DefaultApiService) FetchDeployment(serviceSid string, environmentSid st
 /*
 FetchEnvironment Method for FetchEnvironment
 Retrieve a specific environment.
- * @param serviceSid The SID of the Service to fetch the Environment resource from.
- * @param sid The SID of the Environment resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Environment resource from.
+ * @param Sid The SID of the Environment resource to fetch.
 @return ServerlessV1ServiceEnvironment
 */
-func (c *DefaultApiService) FetchEnvironment(serviceSid string, sid string) (*ServerlessV1ServiceEnvironment, error) {
+func (c *DefaultApiService) FetchEnvironment(ServiceSid string, Sid string) (*ServerlessV1ServiceEnvironment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -694,16 +715,17 @@ func (c *DefaultApiService) FetchEnvironment(serviceSid string, sid string) (*Se
 /*
 FetchFunction Method for FetchFunction
 Retrieve a specific Function resource.
- * @param serviceSid The SID of the Service to fetch the Function resource from.
- * @param sid The SID of the Function resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Function resource from.
+ * @param Sid The SID of the Function resource to fetch.
 @return ServerlessV1ServiceFunction
 */
-func (c *DefaultApiService) FetchFunction(serviceSid string, sid string) (*ServerlessV1ServiceFunction, error) {
+func (c *DefaultApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1ServiceFunction, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -726,18 +748,19 @@ func (c *DefaultApiService) FetchFunction(serviceSid string, sid string) (*Serve
 /*
 FetchFunctionVersion Method for FetchFunctionVersion
 Retrieve a specific Function Version resource.
- * @param serviceSid The SID of the Service to fetch the Function Version resource from.
- * @param functionSid The SID of the function that is the parent of the Function Version resource to fetch.
- * @param sid The SID of the Function Version resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Function Version resource from.
+ * @param FunctionSid The SID of the function that is the parent of the Function Version resource to fetch.
+ * @param Sid The SID of the Function Version resource to fetch.
 @return ServerlessV1ServiceFunctionFunctionVersion
 */
-func (c *DefaultApiService) FetchFunctionVersion(serviceSid string, functionSid string, sid string) (*ServerlessV1ServiceFunctionFunctionVersion, error) {
+func (c *DefaultApiService) FetchFunctionVersion(ServiceSid string, FunctionSid string, Sid string) (*ServerlessV1ServiceFunctionFunctionVersion, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"FunctionSid"+"}", functionSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -760,18 +783,19 @@ func (c *DefaultApiService) FetchFunctionVersion(serviceSid string, functionSid 
 /*
 FetchFunctionVersionContent Method for FetchFunctionVersionContent
 Retrieve a the content of a specific Function Version resource.
- * @param serviceSid The SID of the Service to fetch the Function Version content from.
- * @param functionSid The SID of the Function that is the parent of the Function Version content to fetch.
- * @param sid The SID of the Function Version content to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Function Version content from.
+ * @param FunctionSid The SID of the Function that is the parent of the Function Version content to fetch.
+ * @param Sid The SID of the Function Version content to fetch.
 @return ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent
 */
-func (c *DefaultApiService) FetchFunctionVersionContent(serviceSid string, functionSid string, sid string) (*ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent, error) {
+func (c *DefaultApiService) FetchFunctionVersionContent(ServiceSid string, FunctionSid string, Sid string) (*ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}/Content"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"FunctionSid"+"}", functionSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -794,18 +818,19 @@ func (c *DefaultApiService) FetchFunctionVersionContent(serviceSid string, funct
 /*
 FetchLog Method for FetchLog
 Retrieve a specific log.
- * @param serviceSid The SID of the Service to fetch the Log resource from.
- * @param environmentSid The SID of the environment with the Log resource to fetch.
- * @param sid The SID of the Log resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Log resource from.
+ * @param EnvironmentSid The SID of the environment with the Log resource to fetch.
+ * @param Sid The SID of the Log resource to fetch.
 @return ServerlessV1ServiceEnvironmentLog
 */
-func (c *DefaultApiService) FetchLog(serviceSid string, environmentSid string, sid string) (*ServerlessV1ServiceEnvironmentLog, error) {
+func (c *DefaultApiService) FetchLog(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1ServiceEnvironmentLog, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -828,14 +853,15 @@ func (c *DefaultApiService) FetchLog(serviceSid string, environmentSid string, s
 /*
 FetchService Method for FetchService
 Retrieve a specific Service resource.
- * @param sid The `sid` or `unique_name` of the Service resource to fetch.
+ * @param Sid The `sid` or `unique_name` of the Service resource to fetch.
 @return ServerlessV1Service
 */
-func (c *DefaultApiService) FetchService(sid string) (*ServerlessV1Service, error) {
+func (c *DefaultApiService) FetchService(Sid string) (*ServerlessV1Service, error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -858,18 +884,19 @@ func (c *DefaultApiService) FetchService(sid string) (*ServerlessV1Service, erro
 /*
 FetchVariable Method for FetchVariable
 Retrieve a specific Variable.
- * @param serviceSid The SID of the Service to fetch the Variable resource from.
- * @param environmentSid The SID of the Environment with the Variable resource to fetch.
- * @param sid The SID of the Variable resource to fetch.
+ * @param ServiceSid The SID of the Service to fetch the Variable resource from.
+ * @param EnvironmentSid The SID of the Environment with the Variable resource to fetch.
+ * @param Sid The SID of the Variable resource to fetch.
 @return ServerlessV1ServiceEnvironmentVariable
 */
-func (c *DefaultApiService) FetchVariable(serviceSid string, environmentSid string, sid string) (*ServerlessV1ServiceEnvironmentVariable, error) {
+func (c *DefaultApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1ServiceEnvironmentVariable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -896,20 +923,21 @@ type ListAssetParams struct {
 /*
 ListAsset Method for ListAsset
 Retrieve a list of all Assets.
- * @param serviceSid The SID of the Service to read the Asset resources from.
+ * @param ServiceSid The SID of the Service to read the Asset resources from.
  * @param optional nil or *ListAssetOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ServerlessV1ServiceAssetReadResponse
 */
-func (c *DefaultApiService) ListAsset(serviceSid string, params *ListAssetParams) (*ServerlessV1ServiceAssetReadResponse, error) {
+func (c *DefaultApiService) ListAsset(ServiceSid string, params *ListAssetParams) (*ServerlessV1ServiceAssetReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -935,22 +963,23 @@ type ListAssetVersionParams struct {
 /*
 ListAssetVersion Method for ListAssetVersion
 Retrieve a list of all Asset Versions.
- * @param serviceSid The SID of the Service to read the Asset Version resource from.
- * @param assetSid The SID of the Asset resource that is the parent of the Asset Version resources to read.
+ * @param ServiceSid The SID of the Service to read the Asset Version resource from.
+ * @param AssetSid The SID of the Asset resource that is the parent of the Asset Version resources to read.
  * @param optional nil or *ListAssetVersionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ServerlessV1ServiceAssetAssetVersionReadResponse
 */
-func (c *DefaultApiService) ListAssetVersion(serviceSid string, assetSid string, params *ListAssetVersionParams) (*ServerlessV1ServiceAssetAssetVersionReadResponse, error) {
+func (c *DefaultApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (*ServerlessV1ServiceAssetAssetVersionReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"AssetSid"+"}", assetSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -976,20 +1005,21 @@ type ListBuildParams struct {
 /*
 ListBuild Method for ListBuild
 Retrieve a list of all Builds.
- * @param serviceSid The SID of the Service to read the Build resources from.
+ * @param ServiceSid The SID of the Service to read the Build resources from.
  * @param optional nil or *ListBuildOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ServerlessV1ServiceBuildReadResponse
 */
-func (c *DefaultApiService) ListBuild(serviceSid string, params *ListBuildParams) (*ServerlessV1ServiceBuildReadResponse, error) {
+func (c *DefaultApiService) ListBuild(ServiceSid string, params *ListBuildParams) (*ServerlessV1ServiceBuildReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1015,22 +1045,23 @@ type ListDeploymentParams struct {
 /*
 ListDeployment Method for ListDeployment
 Retrieve a list of all Deployments.
- * @param serviceSid The SID of the Service to read the Deployment resources from.
- * @param environmentSid The SID of the Environment used by the Deployment resources to read.
+ * @param ServiceSid The SID of the Service to read the Deployment resources from.
+ * @param EnvironmentSid The SID of the Environment used by the Deployment resources to read.
  * @param optional nil or *ListDeploymentOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ServerlessV1ServiceEnvironmentDeploymentReadResponse
 */
-func (c *DefaultApiService) ListDeployment(serviceSid string, environmentSid string, params *ListDeploymentParams) (*ServerlessV1ServiceEnvironmentDeploymentReadResponse, error) {
+func (c *DefaultApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) (*ServerlessV1ServiceEnvironmentDeploymentReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1056,20 +1087,21 @@ type ListEnvironmentParams struct {
 /*
 ListEnvironment Method for ListEnvironment
 Retrieve a list of all environments.
- * @param serviceSid The SID of the Service to read the Environment resources from.
+ * @param ServiceSid The SID of the Service to read the Environment resources from.
  * @param optional nil or *ListEnvironmentOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ServerlessV1ServiceEnvironmentReadResponse
 */
-func (c *DefaultApiService) ListEnvironment(serviceSid string, params *ListEnvironmentParams) (*ServerlessV1ServiceEnvironmentReadResponse, error) {
+func (c *DefaultApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams) (*ServerlessV1ServiceEnvironmentReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1095,20 +1127,21 @@ type ListFunctionParams struct {
 /*
 ListFunction Method for ListFunction
 Retrieve a list of all Functions.
- * @param serviceSid The SID of the Service to read the Function resources from.
+ * @param ServiceSid The SID of the Service to read the Function resources from.
  * @param optional nil or *ListFunctionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ServerlessV1ServiceFunctionReadResponse
 */
-func (c *DefaultApiService) ListFunction(serviceSid string, params *ListFunctionParams) (*ServerlessV1ServiceFunctionReadResponse, error) {
+func (c *DefaultApiService) ListFunction(ServiceSid string, params *ListFunctionParams) (*ServerlessV1ServiceFunctionReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Functions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1134,22 +1167,23 @@ type ListFunctionVersionParams struct {
 /*
 ListFunctionVersion Method for ListFunctionVersion
 Retrieve a list of all Function Version resources.
- * @param serviceSid The SID of the Service to read the Function Version resources from.
- * @param functionSid The SID of the function that is the parent of the Function Version resources to read.
+ * @param ServiceSid The SID of the Service to read the Function Version resources from.
+ * @param FunctionSid The SID of the function that is the parent of the Function Version resources to read.
  * @param optional nil or *ListFunctionVersionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ServerlessV1ServiceFunctionFunctionVersionReadResponse
 */
-func (c *DefaultApiService) ListFunctionVersion(serviceSid string, functionSid string, params *ListFunctionVersionParams) (*ServerlessV1ServiceFunctionFunctionVersionReadResponse, error) {
+func (c *DefaultApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) (*ServerlessV1ServiceFunctionFunctionVersionReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"FunctionSid"+"}", functionSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1178,8 +1212,8 @@ type ListLogParams struct {
 /*
 ListLog Method for ListLog
 Retrieve a list of all logs.
- * @param serviceSid The SID of the Service to read the Log resource from.
- * @param environmentSid The SID of the environment with the Log resources to read.
+ * @param ServiceSid The SID of the Service to read the Log resource from.
+ * @param EnvironmentSid The SID of the environment with the Log resources to read.
  * @param optional nil or *ListLogOpts - Optional Parameters:
  * @param "FunctionSid" (string) - The SID of the function whose invocation produced the Log resources to read.
  * @param "StartDate" (time.Time) - The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
@@ -1187,25 +1221,26 @@ Retrieve a list of all logs.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ServerlessV1ServiceEnvironmentLogReadResponse
 */
-func (c *DefaultApiService) ListLog(serviceSid string, environmentSid string, params *ListLogParams) (*ServerlessV1ServiceEnvironmentLogReadResponse, error) {
+func (c *DefaultApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) (*ServerlessV1ServiceEnvironmentLogReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FunctionSid != nil {
-		data.Set("FunctionSid", *params.FunctionSid)
+		data.Set("FunctionSid", *params.FunctionSid) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1238,11 +1273,12 @@ Retrieve a list of all Services.
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ServerlessV1ServiceReadResponse, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1268,22 +1304,23 @@ type ListVariableParams struct {
 /*
 ListVariable Method for ListVariable
 Retrieve a list of all Variables.
- * @param serviceSid The SID of the Service to read the Variable resources from.
- * @param environmentSid The SID of the Environment with the Variable resources to read.
+ * @param ServiceSid The SID of the Service to read the Variable resources from.
+ * @param EnvironmentSid The SID of the Environment with the Variable resources to read.
  * @param optional nil or *ListVariableOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ServerlessV1ServiceEnvironmentVariableReadResponse
 */
-func (c *DefaultApiService) ListVariable(serviceSid string, environmentSid string, params *ListVariableParams) (*ServerlessV1ServiceEnvironmentVariableReadResponse, error) {
+func (c *DefaultApiService) ListVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) (*ServerlessV1ServiceEnvironmentVariableReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1309,22 +1346,23 @@ type UpdateAssetParams struct {
 /*
 UpdateAsset Method for UpdateAsset
 Update a specific Asset resource.
- * @param serviceSid The SID of the Service to update the Asset resource from.
- * @param sid The SID that identifies the Asset resource to update.
+ * @param ServiceSid The SID of the Service to update the Asset resource from.
+ * @param Sid The SID that identifies the Asset resource to update.
  * @param optional nil or *UpdateAssetOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 @return ServerlessV1ServiceAsset
 */
-func (c *DefaultApiService) UpdateAsset(serviceSid string, sid string, params *UpdateAssetParams) (*ServerlessV1ServiceAsset, error) {
+func (c *DefaultApiService) UpdateAsset(ServiceSid string, Sid string, params *UpdateAssetParams) (*ServerlessV1ServiceAsset, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -1350,22 +1388,23 @@ type UpdateFunctionParams struct {
 /*
 UpdateFunction Method for UpdateFunction
 Update a specific Function resource.
- * @param serviceSid The SID of the Service to update the Function resource from.
- * @param sid The SID of the Function resource to update.
+ * @param ServiceSid The SID of the Service to update the Function resource from.
+ * @param Sid The SID of the Function resource to update.
  * @param optional nil or *UpdateFunctionOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
 @return ServerlessV1ServiceFunction
 */
-func (c *DefaultApiService) UpdateFunction(serviceSid string, sid string, params *UpdateFunctionParams) (*ServerlessV1ServiceFunction, error) {
+func (c *DefaultApiService) UpdateFunction(ServiceSid string, Sid string, params *UpdateFunctionParams) (*ServerlessV1ServiceFunction, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -1393,28 +1432,29 @@ type UpdateServiceParams struct {
 /*
 UpdateService Method for UpdateService
 Update a specific Service resource.
- * @param sid The `sid` or `unique_name` of the Service resource to update.
+ * @param Sid The `sid` or `unique_name` of the Service resource to update.
  * @param optional nil or *UpdateServiceOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
  * @param "IncludeCredentials" (bool) - Whether to inject Account credentials into a function invocation context.
  * @param "UiEditable" (bool) - Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
 @return ServerlessV1Service
 */
-func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*ServerlessV1Service, error) {
+func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*ServerlessV1Service, error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IncludeCredentials != nil {
-		data.Set("IncludeCredentials", string(*params.IncludeCredentials))
+		data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials)) 
 	}
 	if params != nil && params.UiEditable != nil {
-		data.Set("UiEditable", string(*params.UiEditable))
+		data.Set("UiEditable", fmt.Sprint(*params.UiEditable)) 
 	}
 
 
@@ -1441,28 +1481,29 @@ type UpdateVariableParams struct {
 /*
 UpdateVariable Method for UpdateVariable
 Update a specific Variable.
- * @param serviceSid The SID of the Service to update the Variable resource under.
- * @param environmentSid The SID of the Environment with the Variable resource to update.
- * @param sid The SID of the Variable resource to update.
+ * @param ServiceSid The SID of the Service to update the Variable resource under.
+ * @param EnvironmentSid The SID of the Environment with the Variable resource to update.
+ * @param Sid The SID of the Variable resource to update.
  * @param optional nil or *UpdateVariableOpts - Optional Parameters:
  * @param "Key" (string) - A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
  * @param "Value" (string) - A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
 @return ServerlessV1ServiceEnvironmentVariable
 */
-func (c *DefaultApiService) UpdateVariable(serviceSid string, environmentSid string, sid string, params *UpdateVariableParams) (*ServerlessV1ServiceEnvironmentVariable, error) {
+func (c *DefaultApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Sid string, params *UpdateVariableParams) (*ServerlessV1ServiceEnvironmentVariable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", environmentSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Key != nil {
-		data.Set("Key", *params.Key)
+		data.Set("Key", *params.Key) 
 	}
 	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value)
+		data.Set("Value", *params.Value) 
 	}
 
 

@@ -11,20 +11,20 @@
 package openapi
 // ApiV2010AccountUsageUsageTrigger struct for ApiV2010AccountUsageUsageTrigger
 type ApiV2010AccountUsageUsageTrigger struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ApiVersion string `json:"api_version,omitempty"`
-	CallbackMethod string `json:"callback_method,omitempty"`
-	CallbackUrl string `json:"callback_url,omitempty"`
-	CurrentValue string `json:"current_value,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateFired string `json:"date_fired,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Recurring string `json:"recurring,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	TriggerBy string `json:"trigger_by,omitempty"`
-	TriggerValue string `json:"trigger_value,omitempty"`
-	Uri string `json:"uri,omitempty"`
-	UsageCategory string `json:"usage_category,omitempty"`
-	UsageRecordUri string `json:"usage_record_uri,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ApiVersion string `json:"ApiVersion,omitempty"`
+	CallbackMethod string `json:"CallbackMethod,omitempty"`
+	CallbackUrl string `json:"CallbackUrl,omitempty"`
+	CurrentValue string `json:"CurrentValue,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateFired string `json:"DateFired,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Recurring string `json:"Recurring,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TriggerBy string `json:"TriggerBy,omitempty"`
+	TriggerValue string `json:"TriggerValue,omitempty"`
+	Uri string `json:"Uri,omitempty"`
+	UsageCategory string `json:"UsageCategory,omitempty"`
+	UsageRecordUri string `json:"UsageRecordUri,omitempty"`
 }

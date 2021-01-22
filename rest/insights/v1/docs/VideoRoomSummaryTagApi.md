@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchVideoRoomSummary
 
-> InsightsV1VideoRoomSummary FetchVideoRoomSummary(ctx, roomSid)
+> InsightsV1VideoRoomSummary FetchVideoRoomSummary(ctx, RoomSid)
 
 
 
@@ -21,7 +21,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roomSid** | **string**|  | 
+**RoomSid** | **string**|  | 
 
 ### Return type
 
@@ -62,12 +62,12 @@ Optional parameters are passed through a pointer to a ListVideoRoomSummaryOpts s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **roomType** | [**optional.Interface of []string**](string.md)|  | 
- **codec** | [**optional.Interface of []string**](string.md)|  | 
- **roomName** | **optional.String**|  | 
- **createdAfter** | **optional.Time**|  | 
- **createdBefore** | **optional.Time**|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **RoomType** | [**optional.Interface of []string**](string.md)|  | 
+ **Codec** | [**optional.Interface of []string**](string.md)|  | 
+ **RoomName** | **optional.String**|  | 
+ **CreatedAfter** | **optional.Time**|  | 
+ **CreatedBefore** | **optional.Time**|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

@@ -14,20 +14,20 @@ import (
 )
 // WirelessV1SimDataSession struct for WirelessV1SimDataSession
 type WirelessV1SimDataSession struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CellId string `json:"cell_id,omitempty"`
-	CellLocationEstimate map[string]interface{} `json:"cell_location_estimate,omitempty"`
-	End time.Time `json:"end,omitempty"`
-	Imei string `json:"imei,omitempty"`
-	LastUpdated time.Time `json:"last_updated,omitempty"`
-	OperatorCountry string `json:"operator_country,omitempty"`
-	OperatorMcc string `json:"operator_mcc,omitempty"`
-	OperatorMnc string `json:"operator_mnc,omitempty"`
-	OperatorName string `json:"operator_name,omitempty"`
-	PacketsDownloaded int32 `json:"packets_downloaded,omitempty"`
-	PacketsUploaded int32 `json:"packets_uploaded,omitempty"`
-	RadioLink string `json:"radio_link,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SimSid string `json:"sim_sid,omitempty"`
-	Start time.Time `json:"start,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CellId string `json:"CellId,omitempty"`
+	CellLocationEstimate map[string]interface{} `json:"CellLocationEstimate,omitempty"`
+	End time.Time `json:"End,omitempty"`
+	Imei string `json:"Imei,omitempty"`
+	LastUpdated time.Time `json:"LastUpdated,omitempty"`
+	OperatorCountry string `json:"OperatorCountry,omitempty"`
+	OperatorMcc string `json:"OperatorMcc,omitempty"`
+	OperatorMnc string `json:"OperatorMnc,omitempty"`
+	OperatorName string `json:"OperatorName,omitempty"`
+	PacketsDownloaded int32 `json:"PacketsDownloaded,omitempty"`
+	PacketsUploaded int32 `json:"PacketsUploaded,omitempty"`
+	RadioLink string `json:"RadioLink,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SimSid string `json:"SimSid,omitempty"`
+	Start time.Time `json:"Start,omitempty"`
 }

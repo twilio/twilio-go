@@ -11,6 +11,6 @@
 package openapi
 // SyncV1ServiceSyncMapSyncMapPermissionReadResponse struct for SyncV1ServiceSyncMapSyncMapPermissionReadResponse
 type SyncV1ServiceSyncMapSyncMapPermissionReadResponse struct {
-	Meta SyncV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	Permissions []SyncV1ServiceSyncMapSyncMapPermission `json:"permissions,omitempty"`
+	Meta SyncV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	Permissions []SyncV1ServiceSyncMapSyncMapPermission `json:"Permissions,omitempty"`
 }

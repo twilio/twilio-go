@@ -11,10 +11,10 @@
 package openapi
 // TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics struct for TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics
 type TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Cumulative map[string]interface{} `json:"cumulative,omitempty"`
-	Realtime map[string]interface{} `json:"realtime,omitempty"`
-	TaskQueueSid string `json:"task_queue_sid,omitempty"`
-	Url string `json:"url,omitempty"`
-	WorkspaceSid string `json:"workspace_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Cumulative map[string]interface{} `json:"Cumulative,omitempty"`
+	Realtime map[string]interface{} `json:"Realtime,omitempty"`
+	TaskQueueSid string `json:"TaskQueueSid,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
 }

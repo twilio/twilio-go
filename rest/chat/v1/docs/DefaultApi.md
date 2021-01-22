@@ -49,7 +49,7 @@ Method | HTTP request | Description
 
 ## CreateChannel
 
-> ChatV1ServiceChannel CreateChannel(ctx, serviceSid, optional)
+> ChatV1ServiceChannel CreateChannel(ctx, ServiceSid, optional)
 
 
 
@@ -59,7 +59,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
  **optional** | ***CreateChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -70,10 +70,10 @@ Optional parameters are passed through a pointer to a CreateChannelOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **type_** | **optional.String**| The visibility of the channel. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;. | 
- **uniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service. | 
+ **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+ **Type** | **optional.String**| The visibility of the channel. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;. | 
+ **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service. | 
 
 ### Return type
 
@@ -114,13 +114,13 @@ Optional parameters are passed through a pointer to a CreateCredentialOpts struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **apiKey** | **optional.String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
- **certificate** | **optional.String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60; | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **privateKey** | **optional.String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR. -----END RSA PRIVATE KEY-----&#x60; | 
- **sandbox** | **optional.Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
- **secret** | **optional.String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
- **type_** | **optional.String**| The type of push-notification service the credential is for. Can be: &#x60;gcm&#x60;, &#x60;fcm&#x60;, or &#x60;apn&#x60;. | 
+ **ApiKey** | **optional.String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
+ **Certificate** | **optional.String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60; | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+ **PrivateKey** | **optional.String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR. -----END RSA PRIVATE KEY-----&#x60; | 
+ **Sandbox** | **optional.Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
+ **Secret** | **optional.String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
+ **Type** | **optional.String**| The type of push-notification service the credential is for. Can be: &#x60;gcm&#x60;, &#x60;fcm&#x60;, or &#x60;apn&#x60;. | 
 
 ### Return type
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 ## CreateInvite
 
-> ChatV1ServiceChannelInvite CreateInvite(ctx, serviceSid, channelSid, optional)
+> ChatV1ServiceChannelInvite CreateInvite(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -152,8 +152,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
-**channelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new resource belongs to. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
+**ChannelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new resource belongs to. | 
  **optional** | ***CreateInviteOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -165,8 +165,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **identity** | **optional.String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info. | 
- **roleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new member. | 
+ **Identity** | **optional.String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info. | 
+ **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new member. | 
 
 ### Return type
 
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 
 ## CreateMember
 
-> ChatV1ServiceChannelMember CreateMember(ctx, serviceSid, channelSid, optional)
+> ChatV1ServiceChannelMember CreateMember(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -198,8 +198,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new member belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new member belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
  **optional** | ***CreateMemberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -211,8 +211,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **identity** | **optional.String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
- **roleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). | 
+ **Identity** | **optional.String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
+ **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). | 
 
 ### Return type
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ## CreateMessage
 
-> ChatV1ServiceChannelMessage CreateMessage(ctx, serviceSid, channelSid, optional)
+> ChatV1ServiceChannelMessage CreateMessage(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -244,8 +244,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new resource belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new resource belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
  **optional** | ***CreateMessageOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -257,9 +257,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **body** | **optional.String**| The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. | 
- **from** | **optional.String**| The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message&#39;s author. The default value is &#x60;system&#x60;. | 
+ **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
+ **Body** | **optional.String**| The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. | 
+ **From** | **optional.String**| The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message&#39;s author. The default value is &#x60;system&#x60;. | 
 
 ### Return type
 
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 
 ## CreateRole
 
-> ChatV1ServiceRole CreateRole(ctx, serviceSid, optional)
+> ChatV1ServiceRole CreateRole(ctx, ServiceSid, optional)
 
 
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
  **optional** | ***CreateRoleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -302,9 +302,9 @@ Optional parameters are passed through a pointer to a CreateRoleOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60; and are described in the documentation. | 
- **type_** | **optional.String**| The type of role. Can be: &#x60;channel&#x60; for [Channel](https://www.twilio.com/docs/chat/api/channels) roles or &#x60;deployment&#x60; for [Service](https://www.twilio.com/docs/chat/api/services) roles. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+ **Permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60; and are described in the documentation. | 
+ **Type** | **optional.String**| The type of role. Can be: &#x60;channel&#x60; for [Channel](https://www.twilio.com/docs/chat/api/channels) roles or &#x60;deployment&#x60; for [Service](https://www.twilio.com/docs/chat/api/services) roles. | 
 
 ### Return type
 
@@ -345,7 +345,7 @@ Optional parameters are passed through a pointer to a CreateServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -367,7 +367,7 @@ Name | Type | Description  | Notes
 
 ## CreateUser
 
-> ChatV1ServiceUser CreateUser(ctx, serviceSid, optional)
+> ChatV1ServiceUser CreateUser(ctx, ServiceSid, optional)
 
 
 
@@ -377,7 +377,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
  **optional** | ***CreateUserOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -388,10 +388,10 @@ Optional parameters are passed through a pointer to a CreateUserOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. This value is often used for display purposes. | 
- **identity** | **optional.String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details. | 
- **roleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new User. | 
+ **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. This value is often used for display purposes. | 
+ **Identity** | **optional.String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details. | 
+ **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new User. | 
 
 ### Return type
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 
 ## DeleteChannel
 
-> DeleteChannel(ctx, serviceSid, sid)
+> DeleteChannel(ctx, ServiceSid, Sid)
 
 
 
@@ -423,8 +423,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Channel resource to delete. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Channel resource to delete. | 
 
 ### Return type
 
@@ -446,7 +446,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCredential
 
-> DeleteCredential(ctx, sid)
+> DeleteCredential(ctx, Sid)
 
 
 
@@ -456,7 +456,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Credential resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Credential resource to delete. | 
 
 ### Return type
 
@@ -478,7 +478,7 @@ Name | Type | Description  | Notes
 
 ## DeleteInvite
 
-> DeleteInvite(ctx, serviceSid, channelSid, sid)
+> DeleteInvite(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -488,9 +488,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
-**channelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource to delete belongs to. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Invite resource to delete. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
+**ChannelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource to delete belongs to. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Invite resource to delete. | 
 
 ### Return type
 
@@ -512,7 +512,7 @@ Name | Type | Description  | Notes
 
 ## DeleteMember
 
-> DeleteMember(ctx, serviceSid, channelSid, sid)
+> DeleteMember(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -522,9 +522,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to.  Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Member resource to delete. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to.  Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Member resource to delete. | 
 
 ### Return type
 
@@ -546,7 +546,7 @@ Name | Type | Description  | Notes
 
 ## DeleteMessage
 
-> DeleteMessage(ctx, serviceSid, channelSid, sid)
+> DeleteMessage(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -556,9 +556,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message to delete belongs to.  Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to delete. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message to delete belongs to.  Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to delete. | 
 
 ### Return type
 
@@ -580,7 +580,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRole
 
-> DeleteRole(ctx, serviceSid, sid)
+> DeleteRole(ctx, ServiceSid, Sid)
 
 
 
@@ -590,8 +590,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Role resource to delete. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Role resource to delete. | 
 
 ### Return type
 
@@ -613,7 +613,7 @@ Name | Type | Description  | Notes
 
 ## DeleteService
 
-> DeleteService(ctx, sid)
+> DeleteService(ctx, Sid)
 
 
 
@@ -623,7 +623,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to delete. | 
 
 ### Return type
 
@@ -645,7 +645,7 @@ Name | Type | Description  | Notes
 
 ## DeleteUser
 
-> DeleteUser(ctx, serviceSid, sid)
+> DeleteUser(ctx, ServiceSid, Sid)
 
 
 
@@ -655,8 +655,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the User resource to delete. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the User resource to delete. | 
 
 ### Return type
 
@@ -678,7 +678,7 @@ Name | Type | Description  | Notes
 
 ## FetchChannel
 
-> ChatV1ServiceChannel FetchChannel(ctx, serviceSid, sid)
+> ChatV1ServiceChannel FetchChannel(ctx, ServiceSid, Sid)
 
 
 
@@ -688,8 +688,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Channel resource to fetch. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Channel resource to fetch. | 
 
 ### Return type
 
@@ -711,7 +711,7 @@ Name | Type | Description  | Notes
 
 ## FetchCredential
 
-> ChatV1Credential FetchCredential(ctx, sid)
+> ChatV1Credential FetchCredential(ctx, Sid)
 
 
 
@@ -721,7 +721,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Credential resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Credential resource to fetch. | 
 
 ### Return type
 
@@ -743,7 +743,7 @@ Name | Type | Description  | Notes
 
 ## FetchInvite
 
-> ChatV1ServiceChannelInvite FetchInvite(ctx, serviceSid, channelSid, sid)
+> ChatV1ServiceChannelInvite FetchInvite(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -753,9 +753,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
-**channelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource to fetch belongs to. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Invite resource to fetch. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
+**ChannelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource to fetch belongs to. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Invite resource to fetch. | 
 
 ### Return type
 
@@ -777,7 +777,7 @@ Name | Type | Description  | Notes
 
 ## FetchMember
 
-> ChatV1ServiceChannelMember FetchMember(ctx, serviceSid, channelSid, sid)
+> ChatV1ServiceChannelMember FetchMember(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -787,9 +787,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the member to fetch belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60; value. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Member resource to fetch. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the member to fetch belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60; value. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Member resource to fetch. | 
 
 ### Return type
 
@@ -811,7 +811,7 @@ Name | Type | Description  | Notes
 
 ## FetchMessage
 
-> ChatV1ServiceChannelMessage FetchMessage(ctx, serviceSid, channelSid, sid)
+> ChatV1ServiceChannelMessage FetchMessage(ctx, ServiceSid, ChannelSid, Sid)
 
 
 
@@ -821,9 +821,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message to fetch belongs to. Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to fetch. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message to fetch belongs to. Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to fetch. | 
 
 ### Return type
 
@@ -845,7 +845,7 @@ Name | Type | Description  | Notes
 
 ## FetchRole
 
-> ChatV1ServiceRole FetchRole(ctx, serviceSid, sid)
+> ChatV1ServiceRole FetchRole(ctx, ServiceSid, Sid)
 
 
 
@@ -855,8 +855,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Role resource to fetch. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Role resource to fetch. | 
 
 ### Return type
 
@@ -878,7 +878,7 @@ Name | Type | Description  | Notes
 
 ## FetchService
 
-> ChatV1Service FetchService(ctx, sid)
+> ChatV1Service FetchService(ctx, Sid)
 
 
 
@@ -888,7 +888,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to fetch. | 
 
 ### Return type
 
@@ -910,7 +910,7 @@ Name | Type | Description  | Notes
 
 ## FetchUser
 
-> ChatV1ServiceUser FetchUser(ctx, serviceSid, sid)
+> ChatV1ServiceUser FetchUser(ctx, ServiceSid, Sid)
 
 
 
@@ -920,8 +920,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the User resource to fetch. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the User resource to fetch. | 
 
 ### Return type
 
@@ -943,7 +943,7 @@ Name | Type | Description  | Notes
 
 ## ListChannel
 
-> ChatV1ServiceChannelReadResponse ListChannel(ctx, serviceSid, optional)
+> ChatV1ServiceChannelReadResponse ListChannel(ctx, ServiceSid, optional)
 
 
 
@@ -953,7 +953,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
  **optional** | ***ListChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -964,8 +964,8 @@ Optional parameters are passed through a pointer to a ListChannelOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **type_** | [**optional.Interface of []string**](string.md)| The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Type** | [**optional.Interface of []string**](string.md)| The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1006,7 +1006,7 @@ Optional parameters are passed through a pointer to a ListCredentialOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1028,7 +1028,7 @@ Name | Type | Description  | Notes
 
 ## ListInvite
 
-> ChatV1ServiceChannelInviteReadResponse ListInvite(ctx, serviceSid, channelSid, optional)
+> ChatV1ServiceChannelInviteReadResponse ListInvite(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1038,8 +1038,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
-**channelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resources to read belong to. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
+**ChannelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resources to read belong to. | 
  **optional** | ***ListInviteOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1051,8 +1051,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **identity** | [**optional.Interface of []string**](string.md)| The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Identity** | [**optional.Interface of []string**](string.md)| The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1074,7 +1074,7 @@ Name | Type | Description  | Notes
 
 ## ListMember
 
-> ChatV1ServiceChannelMemberReadResponse ListMember(ctx, serviceSid, channelSid, optional)
+> ChatV1ServiceChannelMemberReadResponse ListMember(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1084,8 +1084,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the members to read belong to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60; value. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the members to read belong to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60; value. | 
  **optional** | ***ListMemberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1097,8 +1097,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **identity** | [**optional.Interface of []string**](string.md)| The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Identity** | [**optional.Interface of []string**](string.md)| The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1120,7 +1120,7 @@ Name | Type | Description  | Notes
 
 ## ListMessage
 
-> ChatV1ServiceChannelMessageReadResponse ListMessage(ctx, serviceSid, channelSid, optional)
+> ChatV1ServiceChannelMessageReadResponse ListMessage(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1130,8 +1130,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message to read belongs to. Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message to read belongs to. Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
  **optional** | ***ListMessageOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1143,8 +1143,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **order** | **optional.String**| The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;asc&#x60; as the default. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Order** | **optional.String**| The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;asc&#x60; as the default. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1166,7 +1166,7 @@ Name | Type | Description  | Notes
 
 ## ListRole
 
-> ChatV1ServiceRoleReadResponse ListRole(ctx, serviceSid, optional)
+> ChatV1ServiceRoleReadResponse ListRole(ctx, ServiceSid, optional)
 
 
 
@@ -1176,7 +1176,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
  **optional** | ***ListRoleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1187,7 +1187,7 @@ Optional parameters are passed through a pointer to a ListRoleOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1228,7 +1228,7 @@ Optional parameters are passed through a pointer to a ListServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1250,7 +1250,7 @@ Name | Type | Description  | Notes
 
 ## ListUser
 
-> ChatV1ServiceUserReadResponse ListUser(ctx, serviceSid, optional)
+> ChatV1ServiceUserReadResponse ListUser(ctx, ServiceSid, optional)
 
 
 
@@ -1260,7 +1260,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
  **optional** | ***ListUserOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1271,7 +1271,7 @@ Optional parameters are passed through a pointer to a ListUserOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1293,7 +1293,7 @@ Name | Type | Description  | Notes
 
 ## ListUserChannel
 
-> ChatV1ServiceUserUserChannelReadResponse ListUserChannel(ctx, serviceSid, userSid, optional)
+> ChatV1ServiceUserUserChannelReadResponse ListUserChannel(ctx, ServiceSid, UserSid, optional)
 
 
 
@@ -1305,8 +1305,8 @@ List all Channels for a given User.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
-**userSid** | **string**| The SID of the [User](https://www.twilio.com/docs/api/chat/rest/users) to read the User Channel resources from. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
+**UserSid** | **string**| The SID of the [User](https://www.twilio.com/docs/api/chat/rest/users) to read the User Channel resources from. | 
  **optional** | ***ListUserChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1318,7 +1318,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1340,7 +1340,7 @@ Name | Type | Description  | Notes
 
 ## UpdateChannel
 
-> ChatV1ServiceChannel UpdateChannel(ctx, serviceSid, sid, optional)
+> ChatV1ServiceChannel UpdateChannel(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1350,8 +1350,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Channel resource to update. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Channel resource to update. | 
  **optional** | ***UpdateChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1363,9 +1363,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **uniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service. | 
+ **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service. | 
 
 ### Return type
 
@@ -1387,7 +1387,7 @@ Name | Type | Description  | Notes
 
 ## UpdateCredential
 
-> ChatV1Credential UpdateCredential(ctx, sid, optional)
+> ChatV1Credential UpdateCredential(ctx, Sid, optional)
 
 
 
@@ -1397,7 +1397,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Credential resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Credential resource to update. | 
  **optional** | ***UpdateCredentialOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1408,12 +1408,12 @@ Optional parameters are passed through a pointer to a UpdateCredentialOpts struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **apiKey** | **optional.String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
- **certificate** | **optional.String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60; | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **privateKey** | **optional.String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR. -----END RSA PRIVATE KEY-----&#x60; | 
- **sandbox** | **optional.Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
- **secret** | **optional.String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
+ **ApiKey** | **optional.String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
+ **Certificate** | **optional.String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60; | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **PrivateKey** | **optional.String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR. -----END RSA PRIVATE KEY-----&#x60; | 
+ **Sandbox** | **optional.Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
+ **Secret** | **optional.String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
 
 ### Return type
 
@@ -1435,7 +1435,7 @@ Name | Type | Description  | Notes
 
 ## UpdateMember
 
-> ChatV1ServiceChannelMember UpdateMember(ctx, serviceSid, channelSid, sid, optional)
+> ChatV1ServiceChannelMember UpdateMember(ctx, ServiceSid, ChannelSid, Sid, optional)
 
 
 
@@ -1445,9 +1445,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the member to update belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Member resource to update. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the member to update belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Member resource to update. | 
  **optional** | ***UpdateMemberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1460,8 +1460,8 @@ Name | Type | Description  | Notes
 
 
 
- **lastConsumedMessageIndex** | **optional.Int32**| The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels). | 
- **roleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). | 
+ **LastConsumedMessageIndex** | **optional.Int32**| The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels). | 
+ **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). | 
 
 ### Return type
 
@@ -1483,7 +1483,7 @@ Name | Type | Description  | Notes
 
 ## UpdateMessage
 
-> ChatV1ServiceChannelMessage UpdateMessage(ctx, serviceSid, channelSid, sid, optional)
+> ChatV1ServiceChannelMessage UpdateMessage(ctx, ServiceSid, ChannelSid, Sid, optional)
 
 
 
@@ -1493,9 +1493,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
-**channelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to. Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to update. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
+**ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to. Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to update. | 
  **optional** | ***UpdateMessageOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1508,8 +1508,8 @@ Name | Type | Description  | Notes
 
 
 
- **attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **body** | **optional.String**| The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. | 
+ **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
+ **Body** | **optional.String**| The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. | 
 
 ### Return type
 
@@ -1531,7 +1531,7 @@ Name | Type | Description  | Notes
 
 ## UpdateRole
 
-> ChatV1ServiceRole UpdateRole(ctx, serviceSid, sid, optional)
+> ChatV1ServiceRole UpdateRole(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1541,8 +1541,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Role resource to update. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Role resource to update. | 
  **optional** | ***UpdateRoleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1554,7 +1554,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60; and are described in the documentation. | 
+ **Permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60; and are described in the documentation. | 
 
 ### Return type
 
@@ -1576,7 +1576,7 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> ChatV1Service UpdateService(ctx, sid, optional)
+> ChatV1Service UpdateService(ctx, Sid, optional)
 
 
 
@@ -1586,7 +1586,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to update. | 
  **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1597,60 +1597,60 @@ Optional parameters are passed through a pointer to a UpdateServiceOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **consumptionReportInterval** | **optional.Int32**| DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints. | 
- **defaultChannelCreatorRoleSid** | **optional.String**| The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
- **defaultChannelRoleSid** | **optional.String**| The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
- **defaultServiceRoleSid** | **optional.String**| The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **limitsChannelMembers** | **optional.Int32**| The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000. | 
- **limitsUserChannels** | **optional.Int32**| The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000. | 
- **notificationsAddedToChannelEnabled** | **optional.Bool**| Whether to send a notification when a member is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
- **notificationsAddedToChannelTemplate** | **optional.String**| The template to use to create the notification text displayed when a member is added to a channel and &#x60;notifications.added_to_channel.enabled&#x60; is &#x60;true&#x60;. | 
- **notificationsInvitedToChannelEnabled** | **optional.Bool**| Whether to send a notification when a user is invited to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
- **notificationsInvitedToChannelTemplate** | **optional.String**| The template to use to create the notification text displayed when a user is invited to a channel and &#x60;notifications.invited_to_channel.enabled&#x60; is &#x60;true&#x60;. | 
- **notificationsNewMessageEnabled** | **optional.Bool**| Whether to send a notification when a new message is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
- **notificationsNewMessageTemplate** | **optional.String**| The template to use to create the notification text displayed when a new message is added to a channel and &#x60;notifications.new_message.enabled&#x60; is &#x60;true&#x60;. | 
- **notificationsRemovedFromChannelEnabled** | **optional.Bool**| Whether to send a notification to a user when they are removed from a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
- **notificationsRemovedFromChannelTemplate** | **optional.String**| The template to use to create the notification text displayed to a user when they are removed from a channel and &#x60;notifications.removed_from_channel.enabled&#x60; is &#x60;true&#x60;. | 
- **postWebhookUrl** | **optional.String**| The URL for post-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. | 
- **preWebhookUrl** | **optional.String**| The URL for pre-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. | 
- **reachabilityEnabled** | **optional.Bool**| Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is &#x60;false&#x60;. | 
- **readStatusEnabled** | **optional.Bool**| Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is &#x60;true&#x60;. | 
- **typingIndicatorTimeout** | **optional.Int32**| How long in seconds after a &#x60;started typing&#x60; event until clients should assume that user is no longer typing, even if no &#x60;ended typing&#x60; message was received.  The default is 5 seconds. | 
- **webhookFilters** | [**optional.Interface of []string**](string.md)| The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. | 
- **webhookMethod** | **optional.String**| The HTTP method to use for calls to the &#x60;pre_webhook_url&#x60; and &#x60;post_webhook_url&#x60; webhooks.  Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. | 
- **webhooksOnChannelAddMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_add.url&#x60;. | 
- **webhooksOnChannelAddUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_add&#x60; event using the &#x60;webhooks.on_channel_add.method&#x60; HTTP method. | 
- **webhooksOnChannelAddedMethod** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event&#x60;. | 
- **webhooksOnChannelAddedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_added.method&#x60; HTTP method. | 
- **webhooksOnChannelDestroyMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_destroy.url&#x60;. | 
- **webhooksOnChannelDestroyUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_destroy&#x60; event using the &#x60;webhooks.on_channel_destroy.method&#x60; HTTP method. | 
- **webhooksOnChannelDestroyedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_destroyed.url&#x60;. | 
- **webhooksOnChannelDestroyedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_destroyed.method&#x60; HTTP method. | 
- **webhooksOnChannelUpdateMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_update.url&#x60;. | 
- **webhooksOnChannelUpdateUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_update&#x60; event using the &#x60;webhooks.on_channel_update.method&#x60; HTTP method. | 
- **webhooksOnChannelUpdatedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;. | 
- **webhooksOnChannelUpdatedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method. | 
- **webhooksOnMemberAddMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_member_add.url&#x60;. | 
- **webhooksOnMemberAddUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_member_add&#x60; event using the &#x60;webhooks.on_member_add.method&#x60; HTTP method. | 
- **webhooksOnMemberAddedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;. | 
- **webhooksOnMemberAddedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method. | 
- **webhooksOnMemberRemoveMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_member_remove.url&#x60;. | 
- **webhooksOnMemberRemoveUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_member_remove&#x60; event using the &#x60;webhooks.on_member_remove.method&#x60; HTTP method. | 
- **webhooksOnMemberRemovedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_member_removed.url&#x60;. | 
- **webhooksOnMemberRemovedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_member_removed&#x60; event using the &#x60;webhooks.on_member_removed.method&#x60; HTTP method. | 
- **webhooksOnMessageRemoveMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_remove.url&#x60;. | 
- **webhooksOnMessageRemoveUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_remove&#x60; event using the &#x60;webhooks.on_message_remove.method&#x60; HTTP method. | 
- **webhooksOnMessageRemovedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_removed.url&#x60;. | 
- **webhooksOnMessageRemovedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_removed&#x60; event using the &#x60;webhooks.on_message_removed.method&#x60; HTTP method. | 
- **webhooksOnMessageSendMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_send.url&#x60;. | 
- **webhooksOnMessageSendUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_send&#x60; event using the &#x60;webhooks.on_message_send.method&#x60; HTTP method. | 
- **webhooksOnMessageSentMethod** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event&#x60;. | 
- **webhooksOnMessageSentUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event using the &#x60;webhooks.on_message_sent.method&#x60; HTTP method. | 
- **webhooksOnMessageUpdateMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_update.url&#x60;. | 
- **webhooksOnMessageUpdateUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_update&#x60; event using the &#x60;webhooks.on_message_update.method&#x60; HTTP method. | 
- **webhooksOnMessageUpdatedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_updated.url&#x60;. | 
- **webhooksOnMessageUpdatedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_updated&#x60; event using the &#x60;webhooks.on_message_updated.method&#x60; HTTP method. | 
+ **ConsumptionReportInterval** | **optional.Int32**| DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints. | 
+ **DefaultChannelCreatorRoleSid** | **optional.String**| The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
+ **DefaultChannelRoleSid** | **optional.String**| The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
+ **DefaultServiceRoleSid** | **optional.String**| The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **LimitsChannelMembers** | **optional.Int32**| The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000. | 
+ **LimitsUserChannels** | **optional.Int32**| The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000. | 
+ **NotificationsAddedToChannelEnabled** | **optional.Bool**| Whether to send a notification when a member is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+ **NotificationsAddedToChannelTemplate** | **optional.String**| The template to use to create the notification text displayed when a member is added to a channel and &#x60;notifications.added_to_channel.enabled&#x60; is &#x60;true&#x60;. | 
+ **NotificationsInvitedToChannelEnabled** | **optional.Bool**| Whether to send a notification when a user is invited to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+ **NotificationsInvitedToChannelTemplate** | **optional.String**| The template to use to create the notification text displayed when a user is invited to a channel and &#x60;notifications.invited_to_channel.enabled&#x60; is &#x60;true&#x60;. | 
+ **NotificationsNewMessageEnabled** | **optional.Bool**| Whether to send a notification when a new message is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+ **NotificationsNewMessageTemplate** | **optional.String**| The template to use to create the notification text displayed when a new message is added to a channel and &#x60;notifications.new_message.enabled&#x60; is &#x60;true&#x60;. | 
+ **NotificationsRemovedFromChannelEnabled** | **optional.Bool**| Whether to send a notification to a user when they are removed from a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+ **NotificationsRemovedFromChannelTemplate** | **optional.String**| The template to use to create the notification text displayed to a user when they are removed from a channel and &#x60;notifications.removed_from_channel.enabled&#x60; is &#x60;true&#x60;. | 
+ **PostWebhookUrl** | **optional.String**| The URL for post-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. | 
+ **PreWebhookUrl** | **optional.String**| The URL for pre-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. | 
+ **ReachabilityEnabled** | **optional.Bool**| Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is &#x60;false&#x60;. | 
+ **ReadStatusEnabled** | **optional.Bool**| Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is &#x60;true&#x60;. | 
+ **TypingIndicatorTimeout** | **optional.Int32**| How long in seconds after a &#x60;started typing&#x60; event until clients should assume that user is no longer typing, even if no &#x60;ended typing&#x60; message was received.  The default is 5 seconds. | 
+ **WebhookFilters** | [**optional.Interface of []string**](string.md)| The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. | 
+ **WebhookMethod** | **optional.String**| The HTTP method to use for calls to the &#x60;pre_webhook_url&#x60; and &#x60;post_webhook_url&#x60; webhooks.  Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. | 
+ **WebhooksOnChannelAddMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_add.url&#x60;. | 
+ **WebhooksOnChannelAddUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_add&#x60; event using the &#x60;webhooks.on_channel_add.method&#x60; HTTP method. | 
+ **WebhooksOnChannelAddedMethod** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event&#x60;. | 
+ **WebhooksOnChannelAddedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_added.method&#x60; HTTP method. | 
+ **WebhooksOnChannelDestroyMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_destroy.url&#x60;. | 
+ **WebhooksOnChannelDestroyUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_destroy&#x60; event using the &#x60;webhooks.on_channel_destroy.method&#x60; HTTP method. | 
+ **WebhooksOnChannelDestroyedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_destroyed.url&#x60;. | 
+ **WebhooksOnChannelDestroyedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_destroyed.method&#x60; HTTP method. | 
+ **WebhooksOnChannelUpdateMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_update.url&#x60;. | 
+ **WebhooksOnChannelUpdateUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_update&#x60; event using the &#x60;webhooks.on_channel_update.method&#x60; HTTP method. | 
+ **WebhooksOnChannelUpdatedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;. | 
+ **WebhooksOnChannelUpdatedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method. | 
+ **WebhooksOnMemberAddMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_member_add.url&#x60;. | 
+ **WebhooksOnMemberAddUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_member_add&#x60; event using the &#x60;webhooks.on_member_add.method&#x60; HTTP method. | 
+ **WebhooksOnMemberAddedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;. | 
+ **WebhooksOnMemberAddedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method. | 
+ **WebhooksOnMemberRemoveMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_member_remove.url&#x60;. | 
+ **WebhooksOnMemberRemoveUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_member_remove&#x60; event using the &#x60;webhooks.on_member_remove.method&#x60; HTTP method. | 
+ **WebhooksOnMemberRemovedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_member_removed.url&#x60;. | 
+ **WebhooksOnMemberRemovedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_member_removed&#x60; event using the &#x60;webhooks.on_member_removed.method&#x60; HTTP method. | 
+ **WebhooksOnMessageRemoveMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_remove.url&#x60;. | 
+ **WebhooksOnMessageRemoveUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_remove&#x60; event using the &#x60;webhooks.on_message_remove.method&#x60; HTTP method. | 
+ **WebhooksOnMessageRemovedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_removed.url&#x60;. | 
+ **WebhooksOnMessageRemovedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_removed&#x60; event using the &#x60;webhooks.on_message_removed.method&#x60; HTTP method. | 
+ **WebhooksOnMessageSendMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_send.url&#x60;. | 
+ **WebhooksOnMessageSendUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_send&#x60; event using the &#x60;webhooks.on_message_send.method&#x60; HTTP method. | 
+ **WebhooksOnMessageSentMethod** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event&#x60;. | 
+ **WebhooksOnMessageSentUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event using the &#x60;webhooks.on_message_sent.method&#x60; HTTP method. | 
+ **WebhooksOnMessageUpdateMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_update.url&#x60;. | 
+ **WebhooksOnMessageUpdateUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_update&#x60; event using the &#x60;webhooks.on_message_update.method&#x60; HTTP method. | 
+ **WebhooksOnMessageUpdatedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_updated.url&#x60;. | 
+ **WebhooksOnMessageUpdatedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_updated&#x60; event using the &#x60;webhooks.on_message_updated.method&#x60; HTTP method. | 
 
 ### Return type
 
@@ -1672,7 +1672,7 @@ Name | Type | Description  | Notes
 
 ## UpdateUser
 
-> ChatV1ServiceUser UpdateUser(ctx, serviceSid, sid, optional)
+> ChatV1ServiceUser UpdateUser(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1682,8 +1682,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the User resource to update. | 
+**ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the User resource to update. | 
  **optional** | ***UpdateUserOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1695,9 +1695,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is often used for display purposes. | 
- **roleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user. | 
+ **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is often used for display purposes. | 
+ **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user. | 
 
 ### Return type
 

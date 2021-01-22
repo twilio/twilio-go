@@ -11,10 +11,10 @@
 package openapi
 // AutopilotV1AssistantTaskTaskStatistics struct for AutopilotV1AssistantTaskTaskStatistics
 type AutopilotV1AssistantTaskTaskStatistics struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssistantSid string `json:"assistant_sid,omitempty"`
-	FieldsCount int32 `json:"fields_count,omitempty"`
-	SamplesCount int32 `json:"samples_count,omitempty"`
-	TaskSid string `json:"task_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssistantSid string `json:"AssistantSid,omitempty"`
+	FieldsCount int32 `json:"FieldsCount,omitempty"`
+	SamplesCount int32 `json:"SamplesCount,omitempty"`
+	TaskSid string `json:"TaskSid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

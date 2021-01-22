@@ -14,16 +14,16 @@ import (
 )
 // NumbersV2RegulatoryComplianceBundle struct for NumbersV2RegulatoryComplianceBundle
 type NumbersV2RegulatoryComplianceBundle struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Email string `json:"email,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	RegulationSid string `json:"regulation_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	StatusCallback string `json:"status_callback,omitempty"`
-	Url string `json:"url,omitempty"`
-	ValidUntil time.Time `json:"valid_until,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Email string `json:"Email,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	RegulationSid string `json:"RegulationSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	StatusCallback string `json:"StatusCallback,omitempty"`
+	Url string `json:"Url,omitempty"`
+	ValidUntil time.Time `json:"ValidUntil,omitempty"`
 }

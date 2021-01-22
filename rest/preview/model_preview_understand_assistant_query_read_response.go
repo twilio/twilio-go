@@ -11,6 +11,6 @@
 package openapi
 // PreviewUnderstandAssistantQueryReadResponse struct for PreviewUnderstandAssistantQueryReadResponse
 type PreviewUnderstandAssistantQueryReadResponse struct {
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
-	Queries []PreviewUnderstandAssistantQuery `json:"queries,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
+	Queries []PreviewUnderstandAssistantQuery `json:"Queries,omitempty"`
 }

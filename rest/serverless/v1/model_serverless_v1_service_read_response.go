@@ -11,6 +11,6 @@
 package openapi
 // ServerlessV1ServiceReadResponse struct for ServerlessV1ServiceReadResponse
 type ServerlessV1ServiceReadResponse struct {
-	Meta ServerlessV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	Services []ServerlessV1Service `json:"services,omitempty"`
+	Meta ServerlessV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	Services []ServerlessV1Service `json:"Services,omitempty"`
 }

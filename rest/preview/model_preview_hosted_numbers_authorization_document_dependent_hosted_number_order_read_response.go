@@ -11,6 +11,6 @@
 package openapi
 // PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse struct for PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse
 type PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse struct {
-	Items []PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder `json:"items,omitempty"`
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
+	Items []PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder `json:"Items,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

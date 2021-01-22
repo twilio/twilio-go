@@ -14,13 +14,13 @@ import (
 )
 // PreviewDeployedDevicesFleetKey struct for PreviewDeployedDevicesFleetKey
 type PreviewDeployedDevicesFleetKey struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DeviceSid string `json:"device_sid,omitempty"`
-	FleetSid string `json:"fleet_sid,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Secret string `json:"secret,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DeviceSid string `json:"DeviceSid,omitempty"`
+	FleetSid string `json:"FleetSid,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Secret string `json:"Secret,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

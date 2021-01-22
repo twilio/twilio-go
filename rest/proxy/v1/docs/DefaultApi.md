@@ -39,7 +39,7 @@ Method | HTTP request | Description
 
 ## CreateMessageInteraction
 
-> ProxyV1ServiceSessionParticipantMessageInteraction CreateMessageInteraction(ctx, serviceSid, sessionSid, participantSid, optional)
+> ProxyV1ServiceSessionParticipantMessageInteraction CreateMessageInteraction(ctx, ServiceSid, SessionSid, ParticipantSid, optional)
 
 
 
@@ -51,9 +51,9 @@ Create a new message Interaction to send directly from your system to one [Parti
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource. | 
-**participantSid** | **string**| The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource. | 
+**ParticipantSid** | **string**| The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource. | 
  **optional** | ***CreateMessageInteractionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -66,8 +66,8 @@ Name | Type | Description  | Notes
 
 
 
- **body** | **optional.String**| The message to send to the participant | 
- **mediaUrl** | [**optional.Interface of []string**](string.md)| Reserved. Not currently supported. | 
+ **Body** | **optional.String**| The message to send to the participant | 
+ **MediaUrl** | [**optional.Interface of []string**](string.md)| Reserved. Not currently supported. | 
 
 ### Return type
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 ## CreateParticipant
 
-> ProxyV1ServiceSessionParticipant CreateParticipant(ctx, serviceSid, sessionSid, optional)
+> ProxyV1ServiceSessionParticipant CreateParticipant(ctx, ServiceSid, SessionSid, optional)
 
 
 
@@ -101,8 +101,8 @@ Add a new Participant to the Session
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource. | 
  **optional** | ***CreateParticipantOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -114,11 +114,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **failOnParticipantConflict** | **optional.Bool**| [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Participant create request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.** | 
- **identifier** | **optional.String**| The phone number of the Participant. | 
- **proxyIdentifier** | **optional.String**| The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool. | 
- **proxyIdentifierSid** | **optional.String**| The SID of the Proxy Identifier to assign to the Participant. | 
+ **FailOnParticipantConflict** | **optional.Bool**| [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Participant create request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.** | 
+ **Identifier** | **optional.String**| The phone number of the Participant. | 
+ **ProxyIdentifier** | **optional.String**| The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool. | 
+ **ProxyIdentifierSid** | **optional.String**| The SID of the Proxy Identifier to assign to the Participant. | 
 
 ### Return type
 
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ## CreatePhoneNumber
 
-> ProxyV1ServicePhoneNumber CreatePhoneNumber(ctx, serviceSid, optional)
+> ProxyV1ServicePhoneNumber CreatePhoneNumber(ctx, ServiceSid, optional)
 
 
 
@@ -152,7 +152,7 @@ Add a Phone Number to a Service's Proxy Number Pool.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID parent [Service](https://www.twilio.com/docs/proxy/api/service) resource of the new PhoneNumber resource. | 
+**ServiceSid** | **string**| The SID parent [Service](https://www.twilio.com/docs/proxy/api/service) resource of the new PhoneNumber resource. | 
  **optional** | ***CreatePhoneNumberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -163,9 +163,9 @@ Optional parameters are passed through a pointer to a CreatePhoneNumberOpts stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **isReserved** | **optional.Bool**| Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information. | 
- **phoneNumber** | **optional.String**| The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
- **sid** | **optional.String**| The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service. | 
+ **IsReserved** | **optional.Bool**| Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information. | 
+ **PhoneNumber** | **optional.String**| The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
+ **Sid** | **optional.String**| The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service. | 
 
 ### Return type
 
@@ -208,14 +208,14 @@ Optional parameters are passed through a pointer to a CreateServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **callbackUrl** | **optional.String**| The URL we should call when the interaction status changes. | 
- **chatInstanceSid** | **optional.String**| The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship. | 
- **defaultTtl** | **optional.Int32**| The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session&#39;s default TTL value by setting its &#x60;ttl&#x60; value. | 
- **geoMatchLevel** | **optional.String**| Where a proxy number must be located relative to the participant identifier. Can be: &#x60;country&#x60;, &#x60;area-code&#x60;, or &#x60;extended-area-code&#x60;. The default value is &#x60;country&#x60; and more specific areas than &#x60;country&#x60; are only available in North America. | 
- **interceptCallbackUrl** | **optional.String**| The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues. | 
- **numberSelectionBehavior** | **optional.String**| The preference for Proxy Number selection in the Service instance. Can be: &#x60;prefer-sticky&#x60; or &#x60;avoid-sticky&#x60; and the default is &#x60;prefer-sticky&#x60;. &#x60;prefer-sticky&#x60; means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  &#x60;avoid-sticky&#x60; means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number. | 
- **outOfSessionCallbackUrl** | **optional.String**| The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information. | 
- **uniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** | 
+ **CallbackUrl** | **optional.String**| The URL we should call when the interaction status changes. | 
+ **ChatInstanceSid** | **optional.String**| The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship. | 
+ **DefaultTtl** | **optional.Int32**| The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session&#39;s default TTL value by setting its &#x60;ttl&#x60; value. | 
+ **GeoMatchLevel** | **optional.String**| Where a proxy number must be located relative to the participant identifier. Can be: &#x60;country&#x60;, &#x60;area-code&#x60;, or &#x60;extended-area-code&#x60;. The default value is &#x60;country&#x60; and more specific areas than &#x60;country&#x60; are only available in North America. | 
+ **InterceptCallbackUrl** | **optional.String**| The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues. | 
+ **NumberSelectionBehavior** | **optional.String**| The preference for Proxy Number selection in the Service instance. Can be: &#x60;prefer-sticky&#x60; or &#x60;avoid-sticky&#x60; and the default is &#x60;prefer-sticky&#x60;. &#x60;prefer-sticky&#x60; means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  &#x60;avoid-sticky&#x60; means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number. | 
+ **OutOfSessionCallbackUrl** | **optional.String**| The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information. | 
+ **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** | 
 
 ### Return type
 
@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 
 ## CreateSession
 
-> ProxyV1ServiceSession CreateSession(ctx, serviceSid, optional)
+> ProxyV1ServiceSession CreateSession(ctx, ServiceSid, optional)
 
 
 
@@ -249,7 +249,7 @@ Create a new Session
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. | 
  **optional** | ***CreateSessionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -260,13 +260,13 @@ Optional parameters are passed through a pointer to a CreateSessionOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **dateExpiry** | **optional.Time**| The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value. | 
- **failOnParticipantConflict** | **optional.Bool**| [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Session create (with Participants) request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts. | 
- **mode** | **optional.String**| The Mode of the Session. Can be: &#x60;message-only&#x60;, &#x60;voice-only&#x60;, or &#x60;voice-and-message&#x60; and the default value is &#x60;voice-and-message&#x60;. | 
- **participants** | [**optional.Interface of []map[string]interface{}**](map[string]interface{}.md)| The Participant objects to include in the new session. | 
- **status** | **optional.String**| The initial status of the Session. Can be: &#x60;open&#x60;, &#x60;in-progress&#x60;, &#x60;closed&#x60;, &#x60;failed&#x60;, or &#x60;unknown&#x60;. The default is &#x60;open&#x60; on create. | 
- **ttl** | **optional.Int32**| The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session&#39;s last Interaction. | 
- **uniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** | 
+ **DateExpiry** | **optional.Time**| The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value. | 
+ **FailOnParticipantConflict** | **optional.Bool**| [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Session create (with Participants) request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts. | 
+ **Mode** | **optional.String**| The Mode of the Session. Can be: &#x60;message-only&#x60;, &#x60;voice-only&#x60;, or &#x60;voice-and-message&#x60; and the default value is &#x60;voice-and-message&#x60;. | 
+ **Participants** | [**optional.Interface of []map[string]interface{}**](map[string]interface{}.md)| The Participant objects to include in the new session. | 
+ **Status** | **optional.String**| The initial status of the Session. Can be: &#x60;open&#x60;, &#x60;in-progress&#x60;, &#x60;closed&#x60;, &#x60;failed&#x60;, or &#x60;unknown&#x60;. The default is &#x60;open&#x60; on create. | 
+ **Ttl** | **optional.Int32**| The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session&#39;s last Interaction. | 
+ **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** | 
 
 ### Return type
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
 ## CreateShortCode
 
-> ProxyV1ServiceShortCode CreateShortCode(ctx, serviceSid, optional)
+> ProxyV1ServiceShortCode CreateShortCode(ctx, ServiceSid, optional)
 
 
 
@@ -300,7 +300,7 @@ Add a Short Code to the Proxy Number Pool for the Service.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. | 
  **optional** | ***CreateShortCodeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -311,7 +311,7 @@ Optional parameters are passed through a pointer to a CreateShortCodeOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sid** | **optional.String**| The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service. | 
+ **Sid** | **optional.String**| The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service. | 
 
 ### Return type
 
@@ -333,7 +333,7 @@ Name | Type | Description  | Notes
 
 ## DeleteInteraction
 
-> DeleteInteraction(ctx, serviceSid, sessionSid, sid)
+> DeleteInteraction(ctx, ServiceSid, SessionSid, Sid)
 
 
 
@@ -345,9 +345,9 @@ Delete a specific Interaction.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Interaction resource to delete. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Interaction resource to delete. | 
 
 ### Return type
 
@@ -369,7 +369,7 @@ Name | Type | Description  | Notes
 
 ## DeleteParticipant
 
-> DeleteParticipant(ctx, serviceSid, sessionSid, sid)
+> DeleteParticipant(ctx, ServiceSid, SessionSid, Sid)
 
 
 
@@ -381,9 +381,9 @@ Delete a specific Participant. This is a soft-delete. The participant remains as
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Participant resource to delete. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Participant resource to delete. | 
 
 ### Return type
 
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
 
 ## DeletePhoneNumber
 
-> DeletePhoneNumber(ctx, serviceSid, sid)
+> DeletePhoneNumber(ctx, ServiceSid, Sid)
 
 
 
@@ -417,8 +417,8 @@ Delete a specific Phone Number from a Service.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to delete. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the PhoneNumber resource to delete. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the PhoneNumber resource to delete. | 
 
 ### Return type
 
@@ -440,7 +440,7 @@ Name | Type | Description  | Notes
 
 ## DeleteService
 
-> DeleteService(ctx, sid)
+> DeleteService(ctx, Sid)
 
 
 
@@ -452,7 +452,7 @@ Delete a specific Service.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to delete. | 
 
 ### Return type
 
@@ -474,7 +474,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSession
 
-> DeleteSession(ctx, serviceSid, sid)
+> DeleteSession(ctx, ServiceSid, Sid)
 
 
 
@@ -486,8 +486,8 @@ Delete a specific Session.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Session resource to delete. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Session resource to delete. | 
 
 ### Return type
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ## DeleteShortCode
 
-> DeleteShortCode(ctx, serviceSid, sid)
+> DeleteShortCode(ctx, ServiceSid, Sid)
 
 
 
@@ -521,8 +521,8 @@ Delete a specific Short Code from a Service.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource to delete the ShortCode resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the ShortCode resource to delete. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource to delete the ShortCode resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the ShortCode resource to delete. | 
 
 ### Return type
 
@@ -544,7 +544,7 @@ Name | Type | Description  | Notes
 
 ## FetchInteraction
 
-> ProxyV1ServiceSessionInteraction FetchInteraction(ctx, serviceSid, sessionSid, sid)
+> ProxyV1ServiceSessionInteraction FetchInteraction(ctx, ServiceSid, SessionSid, Sid)
 
 
 
@@ -556,9 +556,9 @@ Retrieve a list of Interactions for a given [Session](https://www.twilio.com/doc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Interaction resource to fetch. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Interaction resource to fetch. | 
 
 ### Return type
 
@@ -580,7 +580,7 @@ Name | Type | Description  | Notes
 
 ## FetchMessageInteraction
 
-> ProxyV1ServiceSessionParticipantMessageInteraction FetchMessageInteraction(ctx, serviceSid, sessionSid, participantSid, sid)
+> ProxyV1ServiceSessionParticipantMessageInteraction FetchMessageInteraction(ctx, ServiceSid, SessionSid, ParticipantSid, Sid)
 
 
 
@@ -590,10 +590,10 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch. | 
-**participantSid** | **string**| The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch. | 
+**ParticipantSid** | **string**| The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch. | 
 
 ### Return type
 
@@ -615,7 +615,7 @@ Name | Type | Description  | Notes
 
 ## FetchParticipant
 
-> ProxyV1ServiceSessionParticipant FetchParticipant(ctx, serviceSid, sessionSid, sid)
+> ProxyV1ServiceSessionParticipant FetchParticipant(ctx, ServiceSid, SessionSid, Sid)
 
 
 
@@ -627,9 +627,9 @@ Fetch a specific Participant.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Participant resource to fetch. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Participant resource to fetch. | 
 
 ### Return type
 
@@ -651,7 +651,7 @@ Name | Type | Description  | Notes
 
 ## FetchPhoneNumber
 
-> ProxyV1ServicePhoneNumber FetchPhoneNumber(ctx, serviceSid, sid)
+> ProxyV1ServicePhoneNumber FetchPhoneNumber(ctx, ServiceSid, Sid)
 
 
 
@@ -663,8 +663,8 @@ Fetch a specific Phone Number.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to fetch. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the PhoneNumber resource to fetch. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the PhoneNumber resource to fetch. | 
 
 ### Return type
 
@@ -686,7 +686,7 @@ Name | Type | Description  | Notes
 
 ## FetchService
 
-> ProxyV1Service FetchService(ctx, sid)
+> ProxyV1Service FetchService(ctx, Sid)
 
 
 
@@ -698,7 +698,7 @@ Fetch a specific Service.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to fetch. | 
 
 ### Return type
 
@@ -720,7 +720,7 @@ Name | Type | Description  | Notes
 
 ## FetchSession
 
-> ProxyV1ServiceSession FetchSession(ctx, serviceSid, sid)
+> ProxyV1ServiceSession FetchSession(ctx, ServiceSid, Sid)
 
 
 
@@ -732,8 +732,8 @@ Fetch a specific Session.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Session resource to fetch. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Session resource to fetch. | 
 
 ### Return type
 
@@ -755,7 +755,7 @@ Name | Type | Description  | Notes
 
 ## FetchShortCode
 
-> ProxyV1ServiceShortCode FetchShortCode(ctx, serviceSid, sid)
+> ProxyV1ServiceShortCode FetchShortCode(ctx, ServiceSid, Sid)
 
 
 
@@ -767,8 +767,8 @@ Fetch a specific Short Code.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to fetch the resource from. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the ShortCode resource to fetch. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to fetch the resource from. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the ShortCode resource to fetch. | 
 
 ### Return type
 
@@ -790,7 +790,7 @@ Name | Type | Description  | Notes
 
 ## ListInteraction
 
-> ProxyV1ServiceSessionInteractionReadResponse ListInteraction(ctx, serviceSid, sessionSid, optional)
+> ProxyV1ServiceSessionInteractionReadResponse ListInteraction(ctx, ServiceSid, SessionSid, optional)
 
 
 
@@ -802,8 +802,8 @@ Retrieve a list of all Interactions for a Session. A maximum of 100 records will
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from. | 
  **optional** | ***ListInteractionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -815,7 +815,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -837,7 +837,7 @@ Name | Type | Description  | Notes
 
 ## ListMessageInteraction
 
-> ProxyV1ServiceSessionParticipantMessageInteractionReadResponse ListMessageInteraction(ctx, serviceSid, sessionSid, participantSid, optional)
+> ProxyV1ServiceSessionParticipantMessageInteractionReadResponse ListMessageInteraction(ctx, ServiceSid, SessionSid, ParticipantSid, optional)
 
 
 
@@ -847,9 +847,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from. | 
-**participantSid** | **string**| The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) to read the resources from. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from. | 
+**ParticipantSid** | **string**| The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) to read the resources from. | 
  **optional** | ***ListMessageInteractionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -862,7 +862,7 @@ Name | Type | Description  | Notes
 
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -884,7 +884,7 @@ Name | Type | Description  | Notes
 
 ## ListParticipant
 
-> ProxyV1ServiceSessionParticipantReadResponse ListParticipant(ctx, serviceSid, sessionSid, optional)
+> ProxyV1ServiceSessionParticipantReadResponse ListParticipant(ctx, ServiceSid, SessionSid, optional)
 
 
 
@@ -896,8 +896,8 @@ Retrieve a list of all Participants in a Session.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resources to read. | 
-**sessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resources to read. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resources to read. | 
+**SessionSid** | **string**| The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resources to read. | 
  **optional** | ***ListParticipantOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -909,7 +909,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -931,7 +931,7 @@ Name | Type | Description  | Notes
 
 ## ListPhoneNumber
 
-> ProxyV1ServicePhoneNumberReadResponse ListPhoneNumber(ctx, serviceSid, optional)
+> ProxyV1ServicePhoneNumberReadResponse ListPhoneNumber(ctx, ServiceSid, optional)
 
 
 
@@ -943,7 +943,7 @@ Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A m
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resources to read. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resources to read. | 
  **optional** | ***ListPhoneNumberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -954,7 +954,7 @@ Optional parameters are passed through a pointer to a ListPhoneNumberOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -997,7 +997,7 @@ Optional parameters are passed through a pointer to a ListServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1019,7 +1019,7 @@ Name | Type | Description  | Notes
 
 ## ListSession
 
-> ProxyV1ServiceSessionReadResponse ListSession(ctx, serviceSid, optional)
+> ProxyV1ServiceSessionReadResponse ListSession(ctx, ServiceSid, optional)
 
 
 
@@ -1031,7 +1031,7 @@ Retrieve a list of all Sessions for the Service. A maximum of 100 records will b
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read. | 
  **optional** | ***ListSessionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1042,7 +1042,7 @@ Optional parameters are passed through a pointer to a ListSessionOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1064,7 +1064,7 @@ Name | Type | Description  | Notes
 
 ## ListShortCode
 
-> ProxyV1ServiceShortCodeReadResponse ListShortCode(ctx, serviceSid, optional)
+> ProxyV1ServiceShortCodeReadResponse ListShortCode(ctx, ServiceSid, optional)
 
 
 
@@ -1076,7 +1076,7 @@ Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A m
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. | 
  **optional** | ***ListShortCodeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1087,7 +1087,7 @@ Optional parameters are passed through a pointer to a ListShortCodeOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1109,7 +1109,7 @@ Name | Type | Description  | Notes
 
 ## UpdatePhoneNumber
 
-> ProxyV1ServicePhoneNumber UpdatePhoneNumber(ctx, serviceSid, sid, optional)
+> ProxyV1ServicePhoneNumber UpdatePhoneNumber(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1121,8 +1121,8 @@ Update a specific Proxy Number.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to update. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the PhoneNumber resource to update. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the PhoneNumber resource to update. | 
  **optional** | ***UpdatePhoneNumberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1134,7 +1134,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **isReserved** | **optional.Bool**| Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information. | 
+ **IsReserved** | **optional.Bool**| Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information. | 
 
 ### Return type
 
@@ -1156,7 +1156,7 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> ProxyV1Service UpdateService(ctx, sid, optional)
+> ProxyV1Service UpdateService(ctx, Sid, optional)
 
 
 
@@ -1168,7 +1168,7 @@ Update a specific Service.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to update. | 
  **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1179,14 +1179,14 @@ Optional parameters are passed through a pointer to a UpdateServiceOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **callbackUrl** | **optional.String**| The URL we should call when the interaction status changes. | 
- **chatInstanceSid** | **optional.String**| The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship. | 
- **defaultTtl** | **optional.Int32**| The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session&#39;s default TTL value by setting its &#x60;ttl&#x60; value. | 
- **geoMatchLevel** | **optional.String**| Where a proxy number must be located relative to the participant identifier. Can be: &#x60;country&#x60;, &#x60;area-code&#x60;, or &#x60;extended-area-code&#x60;. The default value is &#x60;country&#x60; and more specific areas than &#x60;country&#x60; are only available in North America. | 
- **interceptCallbackUrl** | **optional.String**| The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues. | 
- **numberSelectionBehavior** | **optional.String**| The preference for Proxy Number selection in the Service instance. Can be: &#x60;prefer-sticky&#x60; or &#x60;avoid-sticky&#x60; and the default is &#x60;prefer-sticky&#x60;. &#x60;prefer-sticky&#x60; means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  &#x60;avoid-sticky&#x60; means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number. | 
- **outOfSessionCallbackUrl** | **optional.String**| The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information. | 
- **uniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** | 
+ **CallbackUrl** | **optional.String**| The URL we should call when the interaction status changes. | 
+ **ChatInstanceSid** | **optional.String**| The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship. | 
+ **DefaultTtl** | **optional.Int32**| The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session&#39;s default TTL value by setting its &#x60;ttl&#x60; value. | 
+ **GeoMatchLevel** | **optional.String**| Where a proxy number must be located relative to the participant identifier. Can be: &#x60;country&#x60;, &#x60;area-code&#x60;, or &#x60;extended-area-code&#x60;. The default value is &#x60;country&#x60; and more specific areas than &#x60;country&#x60; are only available in North America. | 
+ **InterceptCallbackUrl** | **optional.String**| The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues. | 
+ **NumberSelectionBehavior** | **optional.String**| The preference for Proxy Number selection in the Service instance. Can be: &#x60;prefer-sticky&#x60; or &#x60;avoid-sticky&#x60; and the default is &#x60;prefer-sticky&#x60;. &#x60;prefer-sticky&#x60; means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  &#x60;avoid-sticky&#x60; means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number. | 
+ **OutOfSessionCallbackUrl** | **optional.String**| The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information. | 
+ **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** | 
 
 ### Return type
 
@@ -1208,7 +1208,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSession
 
-> ProxyV1ServiceSession UpdateSession(ctx, serviceSid, sid, optional)
+> ProxyV1ServiceSession UpdateSession(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1220,8 +1220,8 @@ Update a specific Session.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the Session resource to update. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the Session resource to update. | 
  **optional** | ***UpdateSessionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1233,10 +1233,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **dateExpiry** | **optional.Time**| The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value. | 
- **failOnParticipantConflict** | **optional.Bool**| [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to return a 400 error (Twilio error code 80604) when a request to set a Session to in-progress would cause Participants with the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not provided, requests will be allowed to succeed, and a Debugger notification (80801) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts. | 
- **status** | **optional.String**| The new status of the resource. Can be: &#x60;in-progress&#x60; to re-open a session or &#x60;closed&#x60; to close a session. | 
- **ttl** | **optional.Int32**| The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session&#39;s last Interaction. | 
+ **DateExpiry** | **optional.Time**| The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value. | 
+ **FailOnParticipantConflict** | **optional.Bool**| [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to return a 400 error (Twilio error code 80604) when a request to set a Session to in-progress would cause Participants with the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not provided, requests will be allowed to succeed, and a Debugger notification (80801) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts. | 
+ **Status** | **optional.String**| The new status of the resource. Can be: &#x60;in-progress&#x60; to re-open a session or &#x60;closed&#x60; to close a session. | 
+ **Ttl** | **optional.Int32**| The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session&#39;s last Interaction. | 
 
 ### Return type
 
@@ -1258,7 +1258,7 @@ Name | Type | Description  | Notes
 
 ## UpdateShortCode
 
-> ProxyV1ServiceShortCode UpdateShortCode(ctx, serviceSid, sid, optional)
+> ProxyV1ServiceShortCode UpdateShortCode(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1270,8 +1270,8 @@ Update a specific Short Code.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update. | 
-**sid** | **string**| The Twilio-provided string that uniquely identifies the ShortCode resource to update. | 
+**ServiceSid** | **string**| The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the ShortCode resource to update. | 
  **optional** | ***UpdateShortCodeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1283,7 +1283,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **isReserved** | **optional.Bool**| Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information. | 
+ **IsReserved** | **optional.Bool**| Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information. | 
 
 ### Return type
 

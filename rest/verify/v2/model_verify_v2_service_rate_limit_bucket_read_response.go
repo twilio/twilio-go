@@ -11,6 +11,6 @@
 package openapi
 // VerifyV2ServiceRateLimitBucketReadResponse struct for VerifyV2ServiceRateLimitBucketReadResponse
 type VerifyV2ServiceRateLimitBucketReadResponse struct {
-	Buckets []VerifyV2ServiceRateLimitBucket `json:"buckets,omitempty"`
-	Meta VerifyV2ServiceReadResponseMeta `json:"meta,omitempty"`
+	Buckets []VerifyV2ServiceRateLimitBucket `json:"Buckets,omitempty"`
+	Meta VerifyV2ServiceReadResponseMeta `json:"Meta,omitempty"`
 }

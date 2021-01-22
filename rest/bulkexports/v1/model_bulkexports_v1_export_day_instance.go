@@ -11,5 +11,5 @@
 package openapi
 // BulkexportsV1ExportDayInstance struct for BulkexportsV1ExportDayInstance
 type BulkexportsV1ExportDayInstance struct {
-	RedirectTo string `json:"redirect_to,omitempty"`
+	RedirectTo string `json:"RedirectTo,omitempty"`
 }

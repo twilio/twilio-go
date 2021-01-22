@@ -14,24 +14,24 @@ import (
 )
 // MessagingV1Service struct for MessagingV1Service
 type MessagingV1Service struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AreaCodeGeomatch bool `json:"area_code_geomatch,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FallbackMethod string `json:"fallback_method,omitempty"`
-	FallbackToLongCode bool `json:"fallback_to_long_code,omitempty"`
-	FallbackUrl string `json:"fallback_url,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	InboundMethod string `json:"inbound_method,omitempty"`
-	InboundRequestUrl string `json:"inbound_request_url,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	MmsConverter bool `json:"mms_converter,omitempty"`
-	ScanMessageContent string `json:"scan_message_content,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SmartEncoding bool `json:"smart_encoding,omitempty"`
-	StatusCallback string `json:"status_callback,omitempty"`
-	StickySender bool `json:"sticky_sender,omitempty"`
-	SynchronousValidation bool `json:"synchronous_validation,omitempty"`
-	Url string `json:"url,omitempty"`
-	ValidityPeriod int32 `json:"validity_period,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AreaCodeGeomatch bool `json:"AreaCodeGeomatch,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FallbackMethod string `json:"FallbackMethod,omitempty"`
+	FallbackToLongCode bool `json:"FallbackToLongCode,omitempty"`
+	FallbackUrl string `json:"FallbackUrl,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	InboundMethod string `json:"InboundMethod,omitempty"`
+	InboundRequestUrl string `json:"InboundRequestUrl,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	MmsConverter bool `json:"MmsConverter,omitempty"`
+	ScanMessageContent string `json:"ScanMessageContent,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SmartEncoding bool `json:"SmartEncoding,omitempty"`
+	StatusCallback string `json:"StatusCallback,omitempty"`
+	StickySender bool `json:"StickySender,omitempty"`
+	SynchronousValidation bool `json:"SynchronousValidation,omitempty"`
+	Url string `json:"Url,omitempty"`
+	ValidityPeriod int32 `json:"ValidityPeriod,omitempty"`
 }

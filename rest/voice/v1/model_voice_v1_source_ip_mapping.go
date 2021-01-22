@@ -14,10 +14,10 @@ import (
 )
 // VoiceV1SourceIpMapping struct for VoiceV1SourceIpMapping
 type VoiceV1SourceIpMapping struct {
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	IpRecordSid string `json:"ip_record_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SipDomainSid string `json:"sip_domain_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	IpRecordSid string `json:"IpRecordSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SipDomainSid string `json:"SipDomainSid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

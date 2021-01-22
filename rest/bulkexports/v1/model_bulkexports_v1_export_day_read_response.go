@@ -11,6 +11,6 @@
 package openapi
 // BulkexportsV1ExportDayReadResponse struct for BulkexportsV1ExportDayReadResponse
 type BulkexportsV1ExportDayReadResponse struct {
-	Days []BulkexportsV1ExportDay `json:"days,omitempty"`
-	Meta BulkexportsV1ExportDayReadResponseMeta `json:"meta,omitempty"`
+	Days []BulkexportsV1ExportDay `json:"Days,omitempty"`
+	Meta BulkexportsV1ExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

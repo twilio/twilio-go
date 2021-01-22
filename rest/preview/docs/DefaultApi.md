@@ -189,14 +189,14 @@ Optional parameters are passed through a pointer to a CreateAssistantOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **callbackEvents** | **optional.String**| Space-separated list of callback events that will trigger callbacks. | 
- **callbackUrl** | **optional.String**| A user-provided URL to send event callbacks to. | 
- **fallbackActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
- **friendlyName** | **optional.String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
- **initiationActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
- **logQueries** | **optional.Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
- **styleSheet** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
- **uniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+ **CallbackEvents** | **optional.String**| Space-separated list of callback events that will trigger callbacks. | 
+ **CallbackUrl** | **optional.String**| A user-provided URL to send event callbacks to. | 
+ **FallbackActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
+ **FriendlyName** | **optional.String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
+ **InitiationActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
+ **LogQueries** | **optional.Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
+ **StyleSheet** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
+ **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -239,12 +239,12 @@ Optional parameters are passed through a pointer to a CreateAuthorizationDocumen
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **addressSid** | **optional.String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
- **ccEmails** | [**optional.Interface of []string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed. | 
- **contactPhoneNumber** | **optional.String**| The contact phone number of the person authorized to sign the Authorization Document. | 
- **contactTitle** | **optional.String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
- **email** | **optional.String**| Email that this AuthorizationDocument will be sent to for signing. | 
- **hostedNumberOrderSids** | [**optional.Interface of []string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
+ **AddressSid** | **optional.String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
+ **CcEmails** | [**optional.Interface of []string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed. | 
+ **ContactPhoneNumber** | **optional.String**| The contact phone number of the person authorized to sign the Authorization Document. | 
+ **ContactTitle** | **optional.String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
+ **Email** | **optional.String**| Email that this AuthorizationDocument will be sent to for signing. | 
+ **HostedNumberOrderSids** | [**optional.Interface of []string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
 
 ### Return type
 
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 
 ## CreateCertificate
 
-> PreviewDeployedDevicesFleetCertificate CreateCertificate(ctx, fleetSid, optional)
+> PreviewDeployedDevicesFleetCertificate CreateCertificate(ctx, FleetSid, optional)
 
 
 
@@ -278,7 +278,7 @@ Enroll a new Certificate credential to the Fleet, optionally giving it a friendl
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
+**FleetSid** | **string**|  | 
  **optional** | ***CreateCertificateOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -289,9 +289,9 @@ Optional parameters are passed through a pointer to a CreateCertificateOpts stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **certificateData** | **optional.String**| Provides a URL encoded representation of the public certificate in PEM format. | 
- **deviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
- **friendlyName** | **optional.String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
+ **CertificateData** | **optional.String**| Provides a URL encoded representation of the public certificate in PEM format. | 
+ **DeviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 
 ## CreateChannel
 
-> PreviewTrustedCommsBrandedChannelChannel CreateChannel(ctx, brandedChannelSid, optional)
+> PreviewTrustedCommsBrandedChannelChannel CreateChannel(ctx, BrandedChannelSid, optional)
 
 
 
@@ -325,7 +325,7 @@ Associate a channel to a branded channel
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**brandedChannelSid** | **string**| The unique SID identifier of the Branded Channel. The given phone number is going to be assigned to this Branded Channel | 
+**BrandedChannelSid** | **string**| The unique SID identifier of the Branded Channel. The given phone number is going to be assigned to this Branded Channel | 
  **optional** | ***CreateChannelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -336,7 +336,7 @@ Optional parameters are passed through a pointer to a CreateChannelOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **phoneNumberSid** | **optional.String**| The unique SID identifier of the Phone Number of the Phone number to be assigned to the Branded Channel. | 
+ **PhoneNumberSid** | **optional.String**| The unique SID identifier of the Phone Number of the Phone number to be assigned to the Branded Channel. | 
 
 ### Return type
 
@@ -377,13 +377,13 @@ Optional parameters are passed through a pointer to a CreateCommandOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **callbackMethod** | **optional.String**|  | 
- **callbackUrl** | **optional.String**|  | 
- **command** | **optional.String**|  | 
- **commandMode** | **optional.String**|  | 
- **device** | **optional.String**|  | 
- **includeSid** | **optional.String**|  | 
- **sim** | **optional.String**|  | 
+ **CallbackMethod** | **optional.String**|  | 
+ **CallbackUrl** | **optional.String**|  | 
+ **Command** | **optional.String**|  | 
+ **CommandMode** | **optional.String**|  | 
+ **Device** | **optional.String**|  | 
+ **IncludeSid** | **optional.String**|  | 
+ **Sim** | **optional.String**|  | 
 
 ### Return type
 
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
 
 ## CreateDeployment
 
-> PreviewDeployedDevicesFleetDeployment CreateDeployment(ctx, fleetSid, optional)
+> PreviewDeployedDevicesFleetDeployment CreateDeployment(ctx, FleetSid, optional)
 
 
 
@@ -417,7 +417,7 @@ Create a new Deployment in the Fleet, optionally giving it a friendly name and l
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
+**FleetSid** | **string**|  | 
  **optional** | ***CreateDeploymentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -428,8 +428,8 @@ Optional parameters are passed through a pointer to a CreateDeploymentOpts struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| Provides a human readable descriptive text for this Deployment, up to 256 characters long. | 
- **syncServiceSid** | **optional.String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Deployment, up to 256 characters long. | 
+ **SyncServiceSid** | **optional.String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
 
 ### Return type
 
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
 
 ## CreateDevice
 
-> PreviewDeployedDevicesFleetDevice CreateDevice(ctx, fleetSid, optional)
+> PreviewDeployedDevicesFleetDevice CreateDevice(ctx, FleetSid, optional)
 
 
 
@@ -463,7 +463,7 @@ Create a new Device in the Fleet, optionally giving it a unique name, friendly n
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
+**FleetSid** | **string**|  | 
  **optional** | ***CreateDeviceOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -474,11 +474,11 @@ Optional parameters are passed through a pointer to a CreateDeviceOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deploymentSid** | **optional.String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
- **enabled** | **optional.Bool**|  | 
- **friendlyName** | **optional.String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
- **identity** | **optional.String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
- **uniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long. | 
+ **DeploymentSid** | **optional.String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
+ **Enabled** | **optional.Bool**|  | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
+ **Identity** | **optional.String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
+ **UniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long. | 
 
 ### Return type
 
@@ -500,7 +500,7 @@ Name | Type | Description  | Notes
 
 ## CreateDocument
 
-> PreviewSyncServiceDocument CreateDocument(ctx, serviceSid, optional)
+> PreviewSyncServiceDocument CreateDocument(ctx, ServiceSid, optional)
 
 
 
@@ -510,7 +510,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***CreateDocumentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -521,8 +521,8 @@ Optional parameters are passed through a pointer to a CreateDocumentOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
- **uniqueName** | **optional.String**|  | 
+ **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+ **UniqueName** | **optional.String**|  | 
 
 ### Return type
 
@@ -544,7 +544,7 @@ Name | Type | Description  | Notes
 
 ## CreateExportCustomJob
 
-> PreviewBulkExportsExportExportCustomJob CreateExportCustomJob(ctx, resourceType, optional)
+> PreviewBulkExportsExportExportCustomJob CreateExportCustomJob(ctx, ResourceType, optional)
 
 
 
@@ -554,7 +554,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages or Calls | 
+**ResourceType** | **string**| The type of communication – Messages or Calls | 
  **optional** | ***CreateExportCustomJobOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -565,12 +565,12 @@ Optional parameters are passed through a pointer to a CreateExportCustomJobOpts 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **email** | **optional.String**| The optional email to send the completion notification to | 
- **endDay** | **optional.String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
- **friendlyName** | **optional.String**| The friendly name specified when creating the job | 
- **startDay** | **optional.String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
- **webhookMethod** | **optional.String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
- **webhookUrl** | **optional.String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. | 
+ **Email** | **optional.String**| The optional email to send the completion notification to | 
+ **EndDay** | **optional.String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
+ **FriendlyName** | **optional.String**| The friendly name specified when creating the job | 
+ **StartDay** | **optional.String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
+ **WebhookMethod** | **optional.String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
+ **WebhookUrl** | **optional.String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. | 
 
 ### Return type
 
@@ -592,7 +592,7 @@ Name | Type | Description  | Notes
 
 ## CreateField
 
-> PreviewUnderstandAssistantTaskField CreateField(ctx, assistantSid, taskSid, optional)
+> PreviewUnderstandAssistantTaskField CreateField(ctx, AssistantSid, TaskSid, optional)
 
 
 
@@ -602,8 +602,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the parent Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Field. | 
+**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
  **optional** | ***CreateFieldOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -615,8 +615,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **fieldType** | **optional.String**| The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type. | 
- **uniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+ **FieldType** | **optional.String**| The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type. | 
+ **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -638,7 +638,7 @@ Name | Type | Description  | Notes
 
 ## CreateFieldType
 
-> PreviewUnderstandAssistantFieldType CreateFieldType(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantFieldType CreateFieldType(ctx, AssistantSid, optional)
 
 
 
@@ -648,7 +648,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
  **optional** | ***CreateFieldTypeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -659,8 +659,8 @@ Optional parameters are passed through a pointer to a CreateFieldTypeOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
- **uniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+ **FriendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+ **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -682,7 +682,7 @@ Name | Type | Description  | Notes
 
 ## CreateFieldValue
 
-> PreviewUnderstandAssistantFieldTypeFieldValue CreateFieldValue(ctx, assistantSid, fieldTypeSid, optional)
+> PreviewUnderstandAssistantFieldTypeFieldValue CreateFieldValue(ctx, AssistantSid, FieldTypeSid, optional)
 
 
 
@@ -692,8 +692,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**fieldTypeSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**FieldTypeSid** | **string**|  | 
  **optional** | ***CreateFieldValueOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -705,9 +705,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **language** | **optional.String**| An ISO language-country string of the value. | 
- **synonymOf** | **optional.String**| A value that indicates this field value is a synonym of. Empty if the value is not a synonym. | 
- **value** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+ **Language** | **optional.String**| An ISO language-country string of the value. | 
+ **SynonymOf** | **optional.String**| A value that indicates this field value is a synonym of. Empty if the value is not a synonym. | 
+ **Value** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -750,7 +750,7 @@ Optional parameters are passed through a pointer to a CreateFleetOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **friendlyName** | **optional.String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
 
 ### Return type
 
@@ -793,23 +793,23 @@ Optional parameters are passed through a pointer to a CreateHostedNumberOrderOpt
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountSid** | **optional.String**| This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to. | 
- **addressSid** | **optional.String**| Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number. | 
- **ccEmails** | [**optional.Interface of []string**](string.md)| Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to. | 
- **email** | **optional.String**| Optional. Email of the owner of this phone number that is being hosted. | 
- **friendlyName** | **optional.String**| A 64 character string that is a human readable text that describes this resource. | 
- **phoneNumber** | **optional.String**| The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format | 
- **smsApplicationSid** | **optional.String**| Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a &#x60;SmsApplicationSid&#x60; is present, Twilio will ignore all of the SMS urls above and use those set on the application. | 
- **smsCapability** | **optional.Bool**| Used to specify that the SMS capability will be hosted on Twilio&#39;s platform. | 
- **smsFallbackMethod** | **optional.String**| The HTTP method that should be used to request the SmsFallbackUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;. This will be copied onto the IncomingPhoneNumber resource. | 
- **smsFallbackUrl** | **optional.String**| A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource. | 
- **smsMethod** | **optional.String**| The HTTP method that should be used to request the SmsUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;.  This will be copied onto the IncomingPhoneNumber resource. | 
- **smsUrl** | **optional.String**| The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource. | 
- **statusCallbackMethod** | **optional.String**| Optional. The Status Callback Method attached to the IncomingPhoneNumber resource. | 
- **statusCallbackUrl** | **optional.String**| Optional. The Status Callback URL attached to the IncomingPhoneNumber resource. | 
- **uniqueName** | **optional.String**| Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
- **verificationDocumentSid** | **optional.String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
- **verificationType** | **optional.String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
+ **AccountSid** | **optional.String**| This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to. | 
+ **AddressSid** | **optional.String**| Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number. | 
+ **CcEmails** | [**optional.Interface of []string**](string.md)| Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to. | 
+ **Email** | **optional.String**| Optional. Email of the owner of this phone number that is being hosted. | 
+ **FriendlyName** | **optional.String**| A 64 character string that is a human readable text that describes this resource. | 
+ **PhoneNumber** | **optional.String**| The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format | 
+ **SmsApplicationSid** | **optional.String**| Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a &#x60;SmsApplicationSid&#x60; is present, Twilio will ignore all of the SMS urls above and use those set on the application. | 
+ **SmsCapability** | **optional.Bool**| Used to specify that the SMS capability will be hosted on Twilio&#39;s platform. | 
+ **SmsFallbackMethod** | **optional.String**| The HTTP method that should be used to request the SmsFallbackUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;. This will be copied onto the IncomingPhoneNumber resource. | 
+ **SmsFallbackUrl** | **optional.String**| A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource. | 
+ **SmsMethod** | **optional.String**| The HTTP method that should be used to request the SmsUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;.  This will be copied onto the IncomingPhoneNumber resource. | 
+ **SmsUrl** | **optional.String**| The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource. | 
+ **StatusCallbackMethod** | **optional.String**| Optional. The Status Callback Method attached to the IncomingPhoneNumber resource. | 
+ **StatusCallbackUrl** | **optional.String**| Optional. The Status Callback URL attached to the IncomingPhoneNumber resource. | 
+ **UniqueName** | **optional.String**| Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+ **VerificationDocumentSid** | **optional.String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
+ **VerificationType** | **optional.String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
 
 ### Return type
 
@@ -852,10 +852,10 @@ Optional parameters are passed through a pointer to a CreateInstalledAddOnOpts s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **acceptTermsOfService** | **optional.Bool**| Whether the Terms of Service were accepted. | 
- **availableAddOnSid** | **optional.String**| The SID of the AvaliableAddOn to install. | 
- **configuration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON object that represents the configuration of the new Add-on being installed. | 
- **uniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
+ **AcceptTermsOfService** | **optional.Bool**| Whether the Terms of Service were accepted. | 
+ **AvailableAddOnSid** | **optional.String**| The SID of the AvaliableAddOn to install. | 
+ **Configuration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON object that represents the configuration of the new Add-on being installed. | 
+ **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
 
 ### Return type
 
@@ -877,7 +877,7 @@ Name | Type | Description  | Notes
 
 ## CreateKey
 
-> PreviewDeployedDevicesFleetKey CreateKey(ctx, fleetSid, optional)
+> PreviewDeployedDevicesFleetKey CreateKey(ctx, FleetSid, optional)
 
 
 
@@ -889,7 +889,7 @@ Create a new Key credential in the Fleet, optionally giving it a friendly name a
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
+**FleetSid** | **string**|  | 
  **optional** | ***CreateKeyOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -900,8 +900,8 @@ Optional parameters are passed through a pointer to a CreateKeyOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
- **friendlyName** | **optional.String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
+ **DeviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -923,7 +923,7 @@ Name | Type | Description  | Notes
 
 ## CreateModelBuild
 
-> PreviewUnderstandAssistantModelBuild CreateModelBuild(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantModelBuild CreateModelBuild(ctx, AssistantSid, optional)
 
 
 
@@ -933,7 +933,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
  **optional** | ***CreateModelBuildOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -944,8 +944,8 @@ Optional parameters are passed through a pointer to a CreateModelBuildOpts struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **statusCallback** | **optional.String**|  | 
- **uniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
+ **StatusCallback** | **optional.String**|  | 
+ **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
 
 ### Return type
 
@@ -967,7 +967,7 @@ Name | Type | Description  | Notes
 
 ## CreateQuery
 
-> PreviewUnderstandAssistantQuery CreateQuery(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantQuery CreateQuery(ctx, AssistantSid, optional)
 
 
 
@@ -977,7 +977,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the parent Assistant. | 
+**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
  **optional** | ***CreateQueryOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -988,11 +988,11 @@ Optional parameters are passed through a pointer to a CreateQueryOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **field** | **optional.String**| Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name* | 
- **language** | **optional.String**| An ISO language-country string of the sample. | 
- **modelBuild** | **optional.String**| The Model Build Sid or unique name of the Model Build to be queried. | 
- **query** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long. | 
- **tasks** | **optional.String**| Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2* | 
+ **Field** | **optional.String**| Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name* | 
+ **Language** | **optional.String**| An ISO language-country string of the sample. | 
+ **ModelBuild** | **optional.String**| The Model Build Sid or unique name of the Model Build to be queried. | 
+ **Query** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long. | 
+ **Tasks** | **optional.String**| Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2* | 
 
 ### Return type
 
@@ -1033,16 +1033,16 @@ Optional parameters are passed through a pointer to a CreateRatePlanOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **commandsEnabled** | **optional.Bool**|  | 
- **dataEnabled** | **optional.Bool**|  | 
- **dataLimit** | **optional.Int32**|  | 
- **dataMetering** | **optional.String**|  | 
- **friendlyName** | **optional.String**|  | 
- **internationalRoaming** | [**optional.Interface of []string**](string.md)|  | 
- **messagingEnabled** | **optional.Bool**|  | 
- **nationalRoamingEnabled** | **optional.Bool**|  | 
- **uniqueName** | **optional.String**|  | 
- **voiceEnabled** | **optional.Bool**|  | 
+ **CommandsEnabled** | **optional.Bool**|  | 
+ **DataEnabled** | **optional.Bool**|  | 
+ **DataLimit** | **optional.Int32**|  | 
+ **DataMetering** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **InternationalRoaming** | [**optional.Interface of []string**](string.md)|  | 
+ **MessagingEnabled** | **optional.Bool**|  | 
+ **NationalRoamingEnabled** | **optional.Bool**|  | 
+ **UniqueName** | **optional.String**|  | 
+ **VoiceEnabled** | **optional.Bool**|  | 
 
 ### Return type
 
@@ -1064,7 +1064,7 @@ Name | Type | Description  | Notes
 
 ## CreateSample
 
-> PreviewUnderstandAssistantTaskSample CreateSample(ctx, assistantSid, taskSid, optional)
+> PreviewUnderstandAssistantTaskSample CreateSample(ctx, AssistantSid, TaskSid, optional)
 
 
 
@@ -1074,8 +1074,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Sample. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
  **optional** | ***CreateSampleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1087,9 +1087,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **language** | **optional.String**| An ISO language-country string of the sample. | 
- **sourceChannel** | **optional.String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
- **taggedText** | **optional.String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
+ **Language** | **optional.String**| An ISO language-country string of the sample. | 
+ **SourceChannel** | **optional.String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
+ **TaggedText** | **optional.String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
 
 ### Return type
 
@@ -1130,10 +1130,10 @@ Optional parameters are passed through a pointer to a CreateServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **aclEnabled** | **optional.Bool**|  | 
- **friendlyName** | **optional.String**|  | 
- **reachabilityWebhooksEnabled** | **optional.Bool**|  | 
- **webhookUrl** | **optional.String**|  | 
+ **AclEnabled** | **optional.Bool**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **ReachabilityWebhooksEnabled** | **optional.Bool**|  | 
+ **WebhookUrl** | **optional.String**|  | 
 
 ### Return type
 
@@ -1155,7 +1155,7 @@ Name | Type | Description  | Notes
 
 ## CreateSyncList
 
-> PreviewSyncServiceSyncList CreateSyncList(ctx, serviceSid, optional)
+> PreviewSyncServiceSyncList CreateSyncList(ctx, ServiceSid, optional)
 
 
 
@@ -1165,7 +1165,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***CreateSyncListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1176,7 +1176,7 @@ Optional parameters are passed through a pointer to a CreateSyncListOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **uniqueName** | **optional.String**|  | 
+ **UniqueName** | **optional.String**|  | 
 
 ### Return type
 
@@ -1198,7 +1198,7 @@ Name | Type | Description  | Notes
 
 ## CreateSyncListItem
 
-> PreviewSyncServiceSyncListSyncListItem CreateSyncListItem(ctx, serviceSid, listSid, optional)
+> PreviewSyncServiceSyncListSyncListItem CreateSyncListItem(ctx, ServiceSid, ListSid, optional)
 
 
 
@@ -1208,8 +1208,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**listSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ListSid** | **string**|  | 
  **optional** | ***CreateSyncListItemOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1221,7 +1221,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+ **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -1243,7 +1243,7 @@ Name | Type | Description  | Notes
 
 ## CreateSyncMap
 
-> PreviewSyncServiceSyncMap CreateSyncMap(ctx, serviceSid, optional)
+> PreviewSyncServiceSyncMap CreateSyncMap(ctx, ServiceSid, optional)
 
 
 
@@ -1253,7 +1253,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***CreateSyncMapOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1264,7 +1264,7 @@ Optional parameters are passed through a pointer to a CreateSyncMapOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **uniqueName** | **optional.String**|  | 
+ **UniqueName** | **optional.String**|  | 
 
 ### Return type
 
@@ -1286,7 +1286,7 @@ Name | Type | Description  | Notes
 
 ## CreateSyncMapItem
 
-> PreviewSyncServiceSyncMapSyncMapItem CreateSyncMapItem(ctx, serviceSid, mapSid, optional)
+> PreviewSyncServiceSyncMapSyncMapItem CreateSyncMapItem(ctx, ServiceSid, MapSid, optional)
 
 
 
@@ -1296,8 +1296,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**mapSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**MapSid** | **string**|  | 
  **optional** | ***CreateSyncMapItemOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1309,8 +1309,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
- **key** | **optional.String**|  | 
+ **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+ **Key** | **optional.String**|  | 
 
 ### Return type
 
@@ -1332,7 +1332,7 @@ Name | Type | Description  | Notes
 
 ## CreateTask
 
-> PreviewUnderstandAssistantTask CreateTask(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantTask CreateTask(ctx, AssistantSid, optional)
 
 
 
@@ -1342,7 +1342,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
  **optional** | ***CreateTaskOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1353,10 +1353,10 @@ Optional parameters are passed through a pointer to a CreateTaskOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **actions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
- **actionsUrl** | **optional.String**| User-provided HTTP endpoint where from the assistant fetches actions | 
- **friendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
- **uniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+ **Actions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
+ **ActionsUrl** | **optional.String**| User-provided HTTP endpoint where from the assistant fetches actions | 
+ **FriendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+ **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -1378,7 +1378,7 @@ Name | Type | Description  | Notes
 
 ## DeleteAssistant
 
-> DeleteAssistant(ctx, sid)
+> DeleteAssistant(ctx, Sid)
 
 
 
@@ -1388,7 +1388,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -1410,7 +1410,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCertificate
 
-> DeleteCertificate(ctx, fleetSid, sid)
+> DeleteCertificate(ctx, FleetSid, Sid)
 
 
 
@@ -1422,8 +1422,8 @@ Unregister a specific Certificate credential from the Fleet, effectively disallo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
 
 ### Return type
 
@@ -1445,7 +1445,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDeployment
 
-> DeleteDeployment(ctx, fleetSid, sid)
+> DeleteDeployment(ctx, FleetSid, Sid)
 
 
 
@@ -1457,8 +1457,8 @@ Delete a specific Deployment from the Fleet, leaving associated devices effectiv
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
 
 ### Return type
 
@@ -1480,7 +1480,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDevice
 
-> DeleteDevice(ctx, fleetSid, sid)
+> DeleteDevice(ctx, FleetSid, Sid)
 
 
 
@@ -1492,8 +1492,8 @@ Delete a specific Device from the Fleet, also removing it from associated Deploy
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
 
 ### Return type
 
@@ -1515,7 +1515,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDocument
 
-> DeleteDocument(ctx, serviceSid, sid, optional)
+> DeleteDocument(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -1525,8 +1525,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***DeleteDocumentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1538,7 +1538,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **ifMatch** | **optional.String**| The If-Match HTTP request header | 
+ **IfMatch** | **optional.String**| The If-Match HTTP request header | 
 
 ### Return type
 
@@ -1560,7 +1560,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDocumentPermission
 
-> DeleteDocumentPermission(ctx, serviceSid, documentSid, identity)
+> DeleteDocumentPermission(ctx, ServiceSid, DocumentSid, Identity)
 
 
 
@@ -1572,9 +1572,9 @@ Delete a specific Sync Document Permission.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**documentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
-**identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string**|  | 
+**DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
+**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
 
 ### Return type
 
@@ -1596,7 +1596,7 @@ Name | Type | Description  | Notes
 
 ## DeleteField
 
-> DeleteField(ctx, assistantSid, taskSid, sid)
+> DeleteField(ctx, AssistantSid, TaskSid, Sid)
 
 
 
@@ -1606,9 +1606,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Field. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -1630,7 +1630,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFieldType
 
-> DeleteFieldType(ctx, assistantSid, sid)
+> DeleteFieldType(ctx, AssistantSid, Sid)
 
 
 
@@ -1640,8 +1640,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**sid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1663,7 +1663,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFieldValue
 
-> DeleteFieldValue(ctx, assistantSid, fieldTypeSid, sid)
+> DeleteFieldValue(ctx, AssistantSid, FieldTypeSid, Sid)
 
 
 
@@ -1673,9 +1673,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**fieldTypeSid** | **string**|  | 
-**sid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**FieldTypeSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1697,7 +1697,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFleet
 
-> DeleteFleet(ctx, sid)
+> DeleteFleet(ctx, Sid)
 
 
 
@@ -1709,7 +1709,7 @@ Delete a specific Fleet from your account, also destroys all nested resources: D
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
 
 ### Return type
 
@@ -1731,7 +1731,7 @@ Name | Type | Description  | Notes
 
 ## DeleteHostedNumberOrder
 
-> DeleteHostedNumberOrder(ctx, sid)
+> DeleteHostedNumberOrder(ctx, Sid)
 
 
 
@@ -1743,7 +1743,7 @@ Cancel the HostedNumberOrder (only available when the status is in `received`).
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this HostedNumberOrder. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this HostedNumberOrder. | 
 
 ### Return type
 
@@ -1765,7 +1765,7 @@ Name | Type | Description  | Notes
 
 ## DeleteInstalledAddOn
 
-> DeleteInstalledAddOn(ctx, sid)
+> DeleteInstalledAddOn(ctx, Sid)
 
 
 
@@ -1777,7 +1777,7 @@ Remove an Add-on installation from your account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the InstalledAddOn resource to delete. | 
+**Sid** | **string**| The SID of the InstalledAddOn resource to delete. | 
 
 ### Return type
 
@@ -1799,7 +1799,7 @@ Name | Type | Description  | Notes
 
 ## DeleteJob
 
-> DeleteJob(ctx, jobSid)
+> DeleteJob(ctx, JobSid)
 
 
 
@@ -1809,7 +1809,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**jobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
+**JobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
 
 ### Return type
 
@@ -1831,7 +1831,7 @@ Name | Type | Description  | Notes
 
 ## DeleteKey
 
-> DeleteKey(ctx, fleetSid, sid)
+> DeleteKey(ctx, FleetSid, Sid)
 
 
 
@@ -1843,8 +1843,8 @@ Delete a specific Key credential from the Fleet, effectively disallowing any inb
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
 
 ### Return type
 
@@ -1866,7 +1866,7 @@ Name | Type | Description  | Notes
 
 ## DeleteModelBuild
 
-> DeleteModelBuild(ctx, assistantSid, sid)
+> DeleteModelBuild(ctx, AssistantSid, Sid)
 
 
 
@@ -1876,8 +1876,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**sid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1899,7 +1899,7 @@ Name | Type | Description  | Notes
 
 ## DeleteQuery
 
-> DeleteQuery(ctx, assistantSid, sid)
+> DeleteQuery(ctx, AssistantSid, Sid)
 
 
 
@@ -1909,8 +1909,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -1932,7 +1932,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRatePlan
 
-> DeleteRatePlan(ctx, sid)
+> DeleteRatePlan(ctx, Sid)
 
 
 
@@ -1942,7 +1942,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -1964,7 +1964,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSample
 
-> DeleteSample(ctx, assistantSid, taskSid, sid)
+> DeleteSample(ctx, AssistantSid, TaskSid, Sid)
 
 
 
@@ -1974,9 +1974,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Sample. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -1998,7 +1998,7 @@ Name | Type | Description  | Notes
 
 ## DeleteService
 
-> DeleteService(ctx, sid)
+> DeleteService(ctx, Sid)
 
 
 
@@ -2008,7 +2008,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -2030,7 +2030,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncList
 
-> DeleteSyncList(ctx, serviceSid, sid)
+> DeleteSyncList(ctx, ServiceSid, Sid)
 
 
 
@@ -2040,8 +2040,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -2063,7 +2063,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncListItem
 
-> DeleteSyncListItem(ctx, serviceSid, listSid, index, optional)
+> DeleteSyncListItem(ctx, ServiceSid, ListSid, Index, optional)
 
 
 
@@ -2073,9 +2073,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**listSid** | **string**|  | 
-**index** | **int32**|  | 
+**ServiceSid** | **string**|  | 
+**ListSid** | **string**|  | 
+**Index** | **int32**|  | 
  **optional** | ***DeleteSyncListItemOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2088,7 +2088,7 @@ Name | Type | Description  | Notes
 
 
 
- **ifMatch** | **optional.String**| The If-Match HTTP request header | 
+ **IfMatch** | **optional.String**| The If-Match HTTP request header | 
 
 ### Return type
 
@@ -2110,7 +2110,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncListPermission
 
-> DeleteSyncListPermission(ctx, serviceSid, listSid, identity)
+> DeleteSyncListPermission(ctx, ServiceSid, ListSid, Identity)
 
 
 
@@ -2122,9 +2122,9 @@ Delete a specific Sync List Permission.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**listSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
-**identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string**|  | 
+**ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
+**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
 
 ### Return type
 
@@ -2146,7 +2146,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncMap
 
-> DeleteSyncMap(ctx, serviceSid, sid)
+> DeleteSyncMap(ctx, ServiceSid, Sid)
 
 
 
@@ -2156,8 +2156,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -2179,7 +2179,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncMapItem
 
-> DeleteSyncMapItem(ctx, serviceSid, mapSid, key, optional)
+> DeleteSyncMapItem(ctx, ServiceSid, MapSid, Key, optional)
 
 
 
@@ -2189,9 +2189,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**mapSid** | **string**|  | 
-**key** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**MapSid** | **string**|  | 
+**Key** | **string**|  | 
  **optional** | ***DeleteSyncMapItemOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2204,7 +2204,7 @@ Name | Type | Description  | Notes
 
 
 
- **ifMatch** | **optional.String**| The If-Match HTTP request header | 
+ **IfMatch** | **optional.String**| The If-Match HTTP request header | 
 
 ### Return type
 
@@ -2226,7 +2226,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncMapPermission
 
-> DeleteSyncMapPermission(ctx, serviceSid, mapSid, identity)
+> DeleteSyncMapPermission(ctx, ServiceSid, MapSid, Identity)
 
 
 
@@ -2238,9 +2238,9 @@ Delete a specific Sync Map Permission.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**mapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
-**identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string**|  | 
+**MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
+**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
 
 ### Return type
 
@@ -2262,7 +2262,7 @@ Name | Type | Description  | Notes
 
 ## DeleteTask
 
-> DeleteTask(ctx, assistantSid, sid)
+> DeleteTask(ctx, AssistantSid, Sid)
 
 
 
@@ -2272,8 +2272,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -2295,7 +2295,7 @@ Name | Type | Description  | Notes
 
 ## FetchAssistant
 
-> PreviewUnderstandAssistant FetchAssistant(ctx, sid)
+> PreviewUnderstandAssistant FetchAssistant(ctx, Sid)
 
 
 
@@ -2305,7 +2305,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -2327,7 +2327,7 @@ Name | Type | Description  | Notes
 
 ## FetchAssistantFallbackActions
 
-> PreviewUnderstandAssistantAssistantFallbackActions FetchAssistantFallbackActions(ctx, assistantSid)
+> PreviewUnderstandAssistantAssistantFallbackActions FetchAssistantFallbackActions(ctx, AssistantSid)
 
 
 
@@ -2337,7 +2337,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
 
 ### Return type
 
@@ -2359,7 +2359,7 @@ Name | Type | Description  | Notes
 
 ## FetchAssistantInitiationActions
 
-> PreviewUnderstandAssistantAssistantInitiationActions FetchAssistantInitiationActions(ctx, assistantSid)
+> PreviewUnderstandAssistantAssistantInitiationActions FetchAssistantInitiationActions(ctx, AssistantSid)
 
 
 
@@ -2369,7 +2369,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
 
 ### Return type
 
@@ -2391,7 +2391,7 @@ Name | Type | Description  | Notes
 
 ## FetchAuthorizationDocument
 
-> PreviewHostedNumbersAuthorizationDocument FetchAuthorizationDocument(ctx, sid)
+> PreviewHostedNumbersAuthorizationDocument FetchAuthorizationDocument(ctx, Sid)
 
 
 
@@ -2403,7 +2403,7 @@ Fetch a specific AuthorizationDocument.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this AuthorizationDocument. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this AuthorizationDocument. | 
 
 ### Return type
 
@@ -2425,7 +2425,7 @@ Name | Type | Description  | Notes
 
 ## FetchAvailableAddOn
 
-> PreviewMarketplaceAvailableAddOn FetchAvailableAddOn(ctx, sid)
+> PreviewMarketplaceAvailableAddOn FetchAvailableAddOn(ctx, Sid)
 
 
 
@@ -2437,7 +2437,7 @@ Fetch an instance of an Add-on currently available to be installed.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the AvailableAddOn resource to fetch. | 
+**Sid** | **string**| The SID of the AvailableAddOn resource to fetch. | 
 
 ### Return type
 
@@ -2459,7 +2459,7 @@ Name | Type | Description  | Notes
 
 ## FetchAvailableAddOnExtension
 
-> PreviewMarketplaceAvailableAddOnAvailableAddOnExtension FetchAvailableAddOnExtension(ctx, availableAddOnSid, sid)
+> PreviewMarketplaceAvailableAddOnAvailableAddOnExtension FetchAvailableAddOnExtension(ctx, AvailableAddOnSid, Sid)
 
 
 
@@ -2471,8 +2471,8 @@ Fetch an instance of an Extension for the Available Add-on.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**availableAddOnSid** | **string**| The SID of the AvailableAddOn resource with the extension to fetch. | 
-**sid** | **string**| The SID of the AvailableAddOn Extension resource to fetch. | 
+**AvailableAddOnSid** | **string**| The SID of the AvailableAddOn resource with the extension to fetch. | 
+**Sid** | **string**| The SID of the AvailableAddOn Extension resource to fetch. | 
 
 ### Return type
 
@@ -2494,7 +2494,7 @@ Name | Type | Description  | Notes
 
 ## FetchBrandedChannel
 
-> PreviewTrustedCommsBrandedChannel FetchBrandedChannel(ctx, sid)
+> PreviewTrustedCommsBrandedChannel FetchBrandedChannel(ctx, Sid)
 
 
 
@@ -2506,7 +2506,7 @@ Fetch a specific Branded Channel.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique SID identifier of the Branded Channel. | 
+**Sid** | **string**| The unique SID identifier of the Branded Channel. | 
 
 ### Return type
 
@@ -2549,7 +2549,7 @@ Optional parameters are passed through a pointer to a FetchBrandsInformationOpts
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ifNoneMatch** | **optional.String**| The If-None-Match HTTP request header | 
+ **IfNoneMatch** | **optional.String**| The If-None-Match HTTP request header | 
 
 ### Return type
 
@@ -2571,7 +2571,7 @@ Name | Type | Description  | Notes
 
 ## FetchCertificate
 
-> PreviewDeployedDevicesFleetCertificate FetchCertificate(ctx, fleetSid, sid)
+> PreviewDeployedDevicesFleetCertificate FetchCertificate(ctx, FleetSid, Sid)
 
 
 
@@ -2583,8 +2583,8 @@ Fetch information about a specific Certificate credential in the Fleet.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
 
 ### Return type
 
@@ -2606,7 +2606,7 @@ Name | Type | Description  | Notes
 
 ## FetchCommand
 
-> PreviewWirelessCommand FetchCommand(ctx, sid)
+> PreviewWirelessCommand FetchCommand(ctx, Sid)
 
 
 
@@ -2616,7 +2616,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -2659,7 +2659,7 @@ Optional parameters are passed through a pointer to a FetchCpsOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xXcnamSensitivePhoneNumber** | **optional.String**| The X-Xcnam-Sensitive-Phone-Number HTTP request header | 
+ **XXcnamSensitivePhoneNumber** | **optional.String**| The X-Xcnam-Sensitive-Phone-Number HTTP request header | 
 
 ### Return type
 
@@ -2702,8 +2702,8 @@ Optional parameters are passed through a pointer to a FetchCurrentCallOpts struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xXcnamSensitivePhoneNumberFrom** | **optional.String**| The X-Xcnam-Sensitive-Phone-Number-From HTTP request header | 
- **xXcnamSensitivePhoneNumberTo** | **optional.String**| The X-Xcnam-Sensitive-Phone-Number-To HTTP request header | 
+ **XXcnamSensitivePhoneNumberFrom** | **optional.String**| The X-Xcnam-Sensitive-Phone-Number-From HTTP request header | 
+ **XXcnamSensitivePhoneNumberTo** | **optional.String**| The X-Xcnam-Sensitive-Phone-Number-To HTTP request header | 
 
 ### Return type
 
@@ -2725,7 +2725,7 @@ Name | Type | Description  | Notes
 
 ## FetchDay
 
-> FetchDay(ctx, resourceType, day)
+> FetchDay(ctx, ResourceType, Day)
 
 
 
@@ -2737,8 +2737,8 @@ Fetch a specific Day.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
-**day** | **string**| The ISO 8601 format date of the resources in the file, for a UTC day | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**Day** | **string**| The ISO 8601 format date of the resources in the file, for a UTC day | 
 
 ### Return type
 
@@ -2760,7 +2760,7 @@ Name | Type | Description  | Notes
 
 ## FetchDeployment
 
-> PreviewDeployedDevicesFleetDeployment FetchDeployment(ctx, fleetSid, sid)
+> PreviewDeployedDevicesFleetDeployment FetchDeployment(ctx, FleetSid, Sid)
 
 
 
@@ -2772,8 +2772,8 @@ Fetch information about a specific Deployment in the Fleet.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
 
 ### Return type
 
@@ -2795,7 +2795,7 @@ Name | Type | Description  | Notes
 
 ## FetchDevice
 
-> PreviewDeployedDevicesFleetDevice FetchDevice(ctx, fleetSid, sid)
+> PreviewDeployedDevicesFleetDevice FetchDevice(ctx, FleetSid, Sid)
 
 
 
@@ -2807,8 +2807,8 @@ Fetch information about a specific Device in the Fleet.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
 
 ### Return type
 
@@ -2830,7 +2830,7 @@ Name | Type | Description  | Notes
 
 ## FetchDialogue
 
-> PreviewUnderstandAssistantDialogue FetchDialogue(ctx, assistantSid, sid)
+> PreviewUnderstandAssistantDialogue FetchDialogue(ctx, AssistantSid, Sid)
 
 
 
@@ -2840,8 +2840,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**sid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -2863,7 +2863,7 @@ Name | Type | Description  | Notes
 
 ## FetchDocument
 
-> PreviewSyncServiceDocument FetchDocument(ctx, serviceSid, sid)
+> PreviewSyncServiceDocument FetchDocument(ctx, ServiceSid, Sid)
 
 
 
@@ -2873,8 +2873,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -2896,7 +2896,7 @@ Name | Type | Description  | Notes
 
 ## FetchDocumentPermission
 
-> PreviewSyncServiceDocumentDocumentPermission FetchDocumentPermission(ctx, serviceSid, documentSid, identity)
+> PreviewSyncServiceDocumentDocumentPermission FetchDocumentPermission(ctx, ServiceSid, DocumentSid, Identity)
 
 
 
@@ -2908,9 +2908,9 @@ Fetch a specific Sync Document Permission.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**documentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
-**identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string**|  | 
+**DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
+**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
 
 ### Return type
 
@@ -2932,7 +2932,7 @@ Name | Type | Description  | Notes
 
 ## FetchExport
 
-> PreviewBulkExportsExport FetchExport(ctx, resourceType)
+> PreviewBulkExportsExport FetchExport(ctx, ResourceType)
 
 
 
@@ -2944,7 +2944,7 @@ Fetch a specific Export.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
 
 ### Return type
 
@@ -2966,7 +2966,7 @@ Name | Type | Description  | Notes
 
 ## FetchExportConfiguration
 
-> PreviewBulkExportsExportConfiguration FetchExportConfiguration(ctx, resourceType)
+> PreviewBulkExportsExportConfiguration FetchExportConfiguration(ctx, ResourceType)
 
 
 
@@ -2978,7 +2978,7 @@ Fetch a specific Export Configuration.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
 
 ### Return type
 
@@ -3000,7 +3000,7 @@ Name | Type | Description  | Notes
 
 ## FetchField
 
-> PreviewUnderstandAssistantTaskField FetchField(ctx, assistantSid, taskSid, sid)
+> PreviewUnderstandAssistantTaskField FetchField(ctx, AssistantSid, TaskSid, Sid)
 
 
 
@@ -3010,9 +3010,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Field. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -3034,7 +3034,7 @@ Name | Type | Description  | Notes
 
 ## FetchFieldType
 
-> PreviewUnderstandAssistantFieldType FetchFieldType(ctx, assistantSid, sid)
+> PreviewUnderstandAssistantFieldType FetchFieldType(ctx, AssistantSid, Sid)
 
 
 
@@ -3044,8 +3044,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**sid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -3067,7 +3067,7 @@ Name | Type | Description  | Notes
 
 ## FetchFieldValue
 
-> PreviewUnderstandAssistantFieldTypeFieldValue FetchFieldValue(ctx, assistantSid, fieldTypeSid, sid)
+> PreviewUnderstandAssistantFieldTypeFieldValue FetchFieldValue(ctx, AssistantSid, FieldTypeSid, Sid)
 
 
 
@@ -3077,9 +3077,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**fieldTypeSid** | **string**|  | 
-**sid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**FieldTypeSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -3101,7 +3101,7 @@ Name | Type | Description  | Notes
 
 ## FetchFleet
 
-> PreviewDeployedDevicesFleet FetchFleet(ctx, sid)
+> PreviewDeployedDevicesFleet FetchFleet(ctx, Sid)
 
 
 
@@ -3113,7 +3113,7 @@ Fetch information about a specific Fleet in your account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
 
 ### Return type
 
@@ -3135,7 +3135,7 @@ Name | Type | Description  | Notes
 
 ## FetchHostedNumberOrder
 
-> PreviewHostedNumbersHostedNumberOrder FetchHostedNumberOrder(ctx, sid)
+> PreviewHostedNumbersHostedNumberOrder FetchHostedNumberOrder(ctx, Sid)
 
 
 
@@ -3147,7 +3147,7 @@ Fetch a specific HostedNumberOrder.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this HostedNumberOrder. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this HostedNumberOrder. | 
 
 ### Return type
 
@@ -3169,7 +3169,7 @@ Name | Type | Description  | Notes
 
 ## FetchInstalledAddOn
 
-> PreviewMarketplaceInstalledAddOn FetchInstalledAddOn(ctx, sid)
+> PreviewMarketplaceInstalledAddOn FetchInstalledAddOn(ctx, Sid)
 
 
 
@@ -3181,7 +3181,7 @@ Fetch an instance of an Add-on currently installed on this Account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the InstalledAddOn resource to fetch. | 
+**Sid** | **string**| The SID of the InstalledAddOn resource to fetch. | 
 
 ### Return type
 
@@ -3203,7 +3203,7 @@ Name | Type | Description  | Notes
 
 ## FetchInstalledAddOnExtension
 
-> PreviewMarketplaceInstalledAddOnInstalledAddOnExtension FetchInstalledAddOnExtension(ctx, installedAddOnSid, sid)
+> PreviewMarketplaceInstalledAddOnInstalledAddOnExtension FetchInstalledAddOnExtension(ctx, InstalledAddOnSid, Sid)
 
 
 
@@ -3215,8 +3215,8 @@ Fetch an instance of an Extension for the Installed Add-on.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**installedAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extension to fetch. | 
-**sid** | **string**| The SID of the InstalledAddOn Extension resource to fetch. | 
+**InstalledAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extension to fetch. | 
+**Sid** | **string**| The SID of the InstalledAddOn Extension resource to fetch. | 
 
 ### Return type
 
@@ -3238,7 +3238,7 @@ Name | Type | Description  | Notes
 
 ## FetchJob
 
-> PreviewBulkExportsExportJob FetchJob(ctx, jobSid)
+> PreviewBulkExportsExportJob FetchJob(ctx, JobSid)
 
 
 
@@ -3248,7 +3248,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**jobSid** | **string**|  | 
+**JobSid** | **string**|  | 
 
 ### Return type
 
@@ -3270,7 +3270,7 @@ Name | Type | Description  | Notes
 
 ## FetchKey
 
-> PreviewDeployedDevicesFleetKey FetchKey(ctx, fleetSid, sid)
+> PreviewDeployedDevicesFleetKey FetchKey(ctx, FleetSid, Sid)
 
 
 
@@ -3282,8 +3282,8 @@ Fetch information about a specific Key credential in the Fleet.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
 
 ### Return type
 
@@ -3305,7 +3305,7 @@ Name | Type | Description  | Notes
 
 ## FetchModelBuild
 
-> PreviewUnderstandAssistantModelBuild FetchModelBuild(ctx, assistantSid, sid)
+> PreviewUnderstandAssistantModelBuild FetchModelBuild(ctx, AssistantSid, Sid)
 
 
 
@@ -3315,8 +3315,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**sid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -3338,7 +3338,7 @@ Name | Type | Description  | Notes
 
 ## FetchQuery
 
-> PreviewUnderstandAssistantQuery FetchQuery(ctx, assistantSid, sid)
+> PreviewUnderstandAssistantQuery FetchQuery(ctx, AssistantSid, Sid)
 
 
 
@@ -3348,8 +3348,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -3371,7 +3371,7 @@ Name | Type | Description  | Notes
 
 ## FetchRatePlan
 
-> PreviewWirelessRatePlan FetchRatePlan(ctx, sid)
+> PreviewWirelessRatePlan FetchRatePlan(ctx, Sid)
 
 
 
@@ -3381,7 +3381,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -3403,7 +3403,7 @@ Name | Type | Description  | Notes
 
 ## FetchSample
 
-> PreviewUnderstandAssistantTaskSample FetchSample(ctx, assistantSid, taskSid, sid)
+> PreviewUnderstandAssistantTaskSample FetchSample(ctx, AssistantSid, TaskSid, Sid)
 
 
 
@@ -3413,9 +3413,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Sample. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -3437,7 +3437,7 @@ Name | Type | Description  | Notes
 
 ## FetchService
 
-> PreviewSyncService FetchService(ctx, sid)
+> PreviewSyncService FetchService(ctx, Sid)
 
 
 
@@ -3447,7 +3447,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -3469,7 +3469,7 @@ Name | Type | Description  | Notes
 
 ## FetchSim
 
-> PreviewWirelessSim FetchSim(ctx, sid)
+> PreviewWirelessSim FetchSim(ctx, Sid)
 
 
 
@@ -3479,7 +3479,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -3501,7 +3501,7 @@ Name | Type | Description  | Notes
 
 ## FetchStyleSheet
 
-> PreviewUnderstandAssistantStyleSheet FetchStyleSheet(ctx, assistantSid)
+> PreviewUnderstandAssistantStyleSheet FetchStyleSheet(ctx, AssistantSid)
 
 
 
@@ -3513,7 +3513,7 @@ Returns Style sheet JSON object for this Assistant
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant | 
+**AssistantSid** | **string**| The unique ID of the Assistant | 
 
 ### Return type
 
@@ -3535,7 +3535,7 @@ Name | Type | Description  | Notes
 
 ## FetchSyncList
 
-> PreviewSyncServiceSyncList FetchSyncList(ctx, serviceSid, sid)
+> PreviewSyncServiceSyncList FetchSyncList(ctx, ServiceSid, Sid)
 
 
 
@@ -3545,8 +3545,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -3568,7 +3568,7 @@ Name | Type | Description  | Notes
 
 ## FetchSyncListItem
 
-> PreviewSyncServiceSyncListSyncListItem FetchSyncListItem(ctx, serviceSid, listSid, index)
+> PreviewSyncServiceSyncListSyncListItem FetchSyncListItem(ctx, ServiceSid, ListSid, Index)
 
 
 
@@ -3578,9 +3578,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**listSid** | **string**|  | 
-**index** | **int32**|  | 
+**ServiceSid** | **string**|  | 
+**ListSid** | **string**|  | 
+**Index** | **int32**|  | 
 
 ### Return type
 
@@ -3602,7 +3602,7 @@ Name | Type | Description  | Notes
 
 ## FetchSyncListPermission
 
-> PreviewSyncServiceSyncListSyncListPermission FetchSyncListPermission(ctx, serviceSid, listSid, identity)
+> PreviewSyncServiceSyncListSyncListPermission FetchSyncListPermission(ctx, ServiceSid, ListSid, Identity)
 
 
 
@@ -3614,9 +3614,9 @@ Fetch a specific Sync List Permission.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**listSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
-**identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string**|  | 
+**ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
+**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
 
 ### Return type
 
@@ -3638,7 +3638,7 @@ Name | Type | Description  | Notes
 
 ## FetchSyncMap
 
-> PreviewSyncServiceSyncMap FetchSyncMap(ctx, serviceSid, sid)
+> PreviewSyncServiceSyncMap FetchSyncMap(ctx, ServiceSid, Sid)
 
 
 
@@ -3648,8 +3648,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -3671,7 +3671,7 @@ Name | Type | Description  | Notes
 
 ## FetchSyncMapItem
 
-> PreviewSyncServiceSyncMapSyncMapItem FetchSyncMapItem(ctx, serviceSid, mapSid, key)
+> PreviewSyncServiceSyncMapSyncMapItem FetchSyncMapItem(ctx, ServiceSid, MapSid, Key)
 
 
 
@@ -3681,9 +3681,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**mapSid** | **string**|  | 
-**key** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**MapSid** | **string**|  | 
+**Key** | **string**|  | 
 
 ### Return type
 
@@ -3705,7 +3705,7 @@ Name | Type | Description  | Notes
 
 ## FetchSyncMapPermission
 
-> PreviewSyncServiceSyncMapSyncMapPermission FetchSyncMapPermission(ctx, serviceSid, mapSid, identity)
+> PreviewSyncServiceSyncMapSyncMapPermission FetchSyncMapPermission(ctx, ServiceSid, MapSid, Identity)
 
 
 
@@ -3717,9 +3717,9 @@ Fetch a specific Sync Map Permission.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**mapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
-**identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string**|  | 
+**MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
+**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
 
 ### Return type
 
@@ -3741,7 +3741,7 @@ Name | Type | Description  | Notes
 
 ## FetchTask
 
-> PreviewUnderstandAssistantTask FetchTask(ctx, assistantSid, sid)
+> PreviewUnderstandAssistantTask FetchTask(ctx, AssistantSid, Sid)
 
 
 
@@ -3751,8 +3751,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
 
 ### Return type
 
@@ -3774,7 +3774,7 @@ Name | Type | Description  | Notes
 
 ## FetchTaskActions
 
-> PreviewUnderstandAssistantTaskTaskActions FetchTaskActions(ctx, assistantSid, taskSid)
+> PreviewUnderstandAssistantTaskTaskActions FetchTaskActions(ctx, AssistantSid, TaskSid)
 
 
 
@@ -3786,8 +3786,8 @@ Returns JSON actions for this Task.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the parent Assistant. | 
-**taskSid** | **string**| The unique ID of the Task. | 
+**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task. | 
 
 ### Return type
 
@@ -3809,7 +3809,7 @@ Name | Type | Description  | Notes
 
 ## FetchTaskStatistics
 
-> PreviewUnderstandAssistantTaskTaskStatistics FetchTaskStatistics(ctx, assistantSid, taskSid)
+> PreviewUnderstandAssistantTaskTaskStatistics FetchTaskStatistics(ctx, AssistantSid, TaskSid)
 
 
 
@@ -3819,8 +3819,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the parent Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Field. | 
+**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
 
 ### Return type
 
@@ -3842,7 +3842,7 @@ Name | Type | Description  | Notes
 
 ## FetchUsage
 
-> PreviewWirelessSimUsage FetchUsage(ctx, simSid, optional)
+> PreviewWirelessSimUsage FetchUsage(ctx, SimSid, optional)
 
 
 
@@ -3852,7 +3852,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**simSid** | **string**|  | 
+**SimSid** | **string**|  | 
  **optional** | ***FetchUsageOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -3863,8 +3863,8 @@ Optional parameters are passed through a pointer to a FetchUsageOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **end** | **optional.String**|  | 
- **start** | **optional.String**|  | 
+ **End** | **optional.String**|  | 
+ **Start** | **optional.String**|  | 
 
 ### Return type
 
@@ -3905,7 +3905,7 @@ Optional parameters are passed through a pointer to a ListAssistantOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -3948,9 +3948,9 @@ Optional parameters are passed through a pointer to a ListAuthorizationDocumentO
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **email** | **optional.String**| Email that this AuthorizationDocument will be sent to for signing. | 
- **status** | **optional.String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Email** | **optional.String**| Email that this AuthorizationDocument will be sent to for signing. | 
+ **Status** | **optional.String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -3993,7 +3993,7 @@ Optional parameters are passed through a pointer to a ListAvailableAddOnOpts str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4015,7 +4015,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailableAddOnExtension
 
-> PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse ListAvailableAddOnExtension(ctx, availableAddOnSid, optional)
+> PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse ListAvailableAddOnExtension(ctx, AvailableAddOnSid, optional)
 
 
 
@@ -4027,7 +4027,7 @@ Retrieve a list of Extensions for the Available Add-on.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**availableAddOnSid** | **string**| The SID of the AvailableAddOn resource with the extensions to read. | 
+**AvailableAddOnSid** | **string**| The SID of the AvailableAddOn resource with the extensions to read. | 
  **optional** | ***ListAvailableAddOnExtensionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4038,7 +4038,7 @@ Optional parameters are passed through a pointer to a ListAvailableAddOnExtensio
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4060,7 +4060,7 @@ Name | Type | Description  | Notes
 
 ## ListCertificate
 
-> PreviewDeployedDevicesFleetCertificateReadResponse ListCertificate(ctx, fleetSid, optional)
+> PreviewDeployedDevicesFleetCertificateReadResponse ListCertificate(ctx, FleetSid, optional)
 
 
 
@@ -4072,7 +4072,7 @@ Retrieve a list of all Certificate credentials belonging to the Fleet.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
+**FleetSid** | **string**|  | 
  **optional** | ***ListCertificateOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4083,8 +4083,8 @@ Optional parameters are passed through a pointer to a ListCertificateOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deviceSid** | **optional.String**| Filters the resulting list of Certificates by a unique string identifier of an authenticated Device. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **DeviceSid** | **optional.String**| Filters the resulting list of Certificates by a unique string identifier of an authenticated Device. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4125,11 +4125,11 @@ Optional parameters are passed through a pointer to a ListCommandOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **device** | **optional.String**|  | 
- **sim** | **optional.String**|  | 
- **status** | **optional.String**|  | 
- **direction** | **optional.String**|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Device** | **optional.String**|  | 
+ **Sim** | **optional.String**|  | 
+ **Status** | **optional.String**|  | 
+ **Direction** | **optional.String**|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4151,7 +4151,7 @@ Name | Type | Description  | Notes
 
 ## ListDay
 
-> PreviewBulkExportsExportDayReadResponse ListDay(ctx, resourceType, optional)
+> PreviewBulkExportsExportDayReadResponse ListDay(ctx, ResourceType, optional)
 
 
 
@@ -4163,7 +4163,7 @@ Retrieve a list of all Days for a resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
  **optional** | ***ListDayOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4174,7 +4174,7 @@ Optional parameters are passed through a pointer to a ListDayOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4196,7 +4196,7 @@ Name | Type | Description  | Notes
 
 ## ListDependentHostedNumberOrder
 
-> PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse ListDependentHostedNumberOrder(ctx, signingDocumentSid, optional)
+> PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse ListDependentHostedNumberOrder(ctx, SigningDocumentSid, optional)
 
 
 
@@ -4208,7 +4208,7 @@ Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**signingDocumentSid** | **string**|  | 
+**SigningDocumentSid** | **string**|  | 
  **optional** | ***ListDependentHostedNumberOrderOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4219,12 +4219,12 @@ Optional parameters are passed through a pointer to a ListDependentHostedNumberO
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **status** | **optional.String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
- **phoneNumber** | **optional.String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
- **incomingPhoneNumberSid** | **optional.String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
- **friendlyName** | **optional.String**| A human readable description of this resource, up to 64 characters. | 
- **uniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Status** | **optional.String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
+ **PhoneNumber** | **optional.String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
+ **IncomingPhoneNumberSid** | **optional.String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
+ **FriendlyName** | **optional.String**| A human readable description of this resource, up to 64 characters. | 
+ **UniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4246,7 +4246,7 @@ Name | Type | Description  | Notes
 
 ## ListDeployment
 
-> PreviewDeployedDevicesFleetDeploymentReadResponse ListDeployment(ctx, fleetSid, optional)
+> PreviewDeployedDevicesFleetDeploymentReadResponse ListDeployment(ctx, FleetSid, optional)
 
 
 
@@ -4258,7 +4258,7 @@ Retrieve a list of all Deployments belonging to the Fleet.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
+**FleetSid** | **string**|  | 
  **optional** | ***ListDeploymentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4269,7 +4269,7 @@ Optional parameters are passed through a pointer to a ListDeploymentOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4291,7 +4291,7 @@ Name | Type | Description  | Notes
 
 ## ListDevice
 
-> PreviewDeployedDevicesFleetDeviceReadResponse ListDevice(ctx, fleetSid, optional)
+> PreviewDeployedDevicesFleetDeviceReadResponse ListDevice(ctx, FleetSid, optional)
 
 
 
@@ -4303,7 +4303,7 @@ Retrieve a list of all Devices belonging to the Fleet.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
+**FleetSid** | **string**|  | 
  **optional** | ***ListDeviceOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4314,8 +4314,8 @@ Optional parameters are passed through a pointer to a ListDeviceOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deploymentSid** | **optional.String**| Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **DeploymentSid** | **optional.String**| Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4337,7 +4337,7 @@ Name | Type | Description  | Notes
 
 ## ListDocument
 
-> PreviewSyncServiceDocumentReadResponse ListDocument(ctx, serviceSid, optional)
+> PreviewSyncServiceDocumentReadResponse ListDocument(ctx, ServiceSid, optional)
 
 
 
@@ -4347,7 +4347,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***ListDocumentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4358,7 +4358,7 @@ Optional parameters are passed through a pointer to a ListDocumentOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4380,7 +4380,7 @@ Name | Type | Description  | Notes
 
 ## ListDocumentPermission
 
-> PreviewSyncServiceDocumentDocumentPermissionReadResponse ListDocumentPermission(ctx, serviceSid, documentSid, optional)
+> PreviewSyncServiceDocumentDocumentPermissionReadResponse ListDocumentPermission(ctx, ServiceSid, DocumentSid, optional)
 
 
 
@@ -4392,8 +4392,8 @@ Retrieve a list of all Permissions applying to a Sync Document.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**documentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
+**ServiceSid** | **string**|  | 
+**DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
  **optional** | ***ListDocumentPermissionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4405,7 +4405,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4427,7 +4427,7 @@ Name | Type | Description  | Notes
 
 ## ListExportCustomJob
 
-> PreviewBulkExportsExportExportCustomJobReadResponse ListExportCustomJob(ctx, resourceType, optional)
+> PreviewBulkExportsExportExportCustomJobReadResponse ListExportCustomJob(ctx, ResourceType, optional)
 
 
 
@@ -4437,7 +4437,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
  **optional** | ***ListExportCustomJobOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4448,7 +4448,7 @@ Optional parameters are passed through a pointer to a ListExportCustomJobOpts st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4470,7 +4470,7 @@ Name | Type | Description  | Notes
 
 ## ListField
 
-> PreviewUnderstandAssistantTaskFieldReadResponse ListField(ctx, assistantSid, taskSid, optional)
+> PreviewUnderstandAssistantTaskFieldReadResponse ListField(ctx, AssistantSid, TaskSid, optional)
 
 
 
@@ -4480,8 +4480,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Field. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
  **optional** | ***ListFieldOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4493,7 +4493,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4515,7 +4515,7 @@ Name | Type | Description  | Notes
 
 ## ListFieldType
 
-> PreviewUnderstandAssistantFieldTypeReadResponse ListFieldType(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantFieldTypeReadResponse ListFieldType(ctx, AssistantSid, optional)
 
 
 
@@ -4525,7 +4525,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
  **optional** | ***ListFieldTypeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4536,7 +4536,7 @@ Optional parameters are passed through a pointer to a ListFieldTypeOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4558,7 +4558,7 @@ Name | Type | Description  | Notes
 
 ## ListFieldValue
 
-> PreviewUnderstandAssistantFieldTypeFieldValueReadResponse ListFieldValue(ctx, assistantSid, fieldTypeSid, optional)
+> PreviewUnderstandAssistantFieldTypeFieldValueReadResponse ListFieldValue(ctx, AssistantSid, FieldTypeSid, optional)
 
 
 
@@ -4568,8 +4568,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**fieldTypeSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**FieldTypeSid** | **string**|  | 
  **optional** | ***ListFieldValueOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4581,8 +4581,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **language** | **optional.String**| An ISO language-country string of the value. For example: *en-US* | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Language** | **optional.String**| An ISO language-country string of the value. For example: *en-US* | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4625,7 +4625,7 @@ Optional parameters are passed through a pointer to a ListFleetOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4668,12 +4668,12 @@ Optional parameters are passed through a pointer to a ListHostedNumberOrderOpts 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **status** | **optional.String**| The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;. | 
- **phoneNumber** | **optional.String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
- **incomingPhoneNumberSid** | **optional.String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
- **friendlyName** | **optional.String**| A human readable description of this resource, up to 64 characters. | 
- **uniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Status** | **optional.String**| The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;. | 
+ **PhoneNumber** | **optional.String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
+ **IncomingPhoneNumberSid** | **optional.String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
+ **FriendlyName** | **optional.String**| A human readable description of this resource, up to 64 characters. | 
+ **UniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4716,7 +4716,7 @@ Optional parameters are passed through a pointer to a ListInstalledAddOnOpts str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4738,7 +4738,7 @@ Name | Type | Description  | Notes
 
 ## ListInstalledAddOnExtension
 
-> PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse ListInstalledAddOnExtension(ctx, installedAddOnSid, optional)
+> PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse ListInstalledAddOnExtension(ctx, InstalledAddOnSid, optional)
 
 
 
@@ -4750,7 +4750,7 @@ Retrieve a list of Extensions for the Installed Add-on.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**installedAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extensions to read. | 
+**InstalledAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extensions to read. | 
  **optional** | ***ListInstalledAddOnExtensionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4761,7 +4761,7 @@ Optional parameters are passed through a pointer to a ListInstalledAddOnExtensio
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4783,7 +4783,7 @@ Name | Type | Description  | Notes
 
 ## ListKey
 
-> PreviewDeployedDevicesFleetKeyReadResponse ListKey(ctx, fleetSid, optional)
+> PreviewDeployedDevicesFleetKeyReadResponse ListKey(ctx, FleetSid, optional)
 
 
 
@@ -4795,7 +4795,7 @@ Retrieve a list of all Keys credentials belonging to the Fleet.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
+**FleetSid** | **string**|  | 
  **optional** | ***ListKeyOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4806,8 +4806,8 @@ Optional parameters are passed through a pointer to a ListKeyOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deviceSid** | **optional.String**| Filters the resulting list of Keys by a unique string identifier of an authenticated Device. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **DeviceSid** | **optional.String**| Filters the resulting list of Keys by a unique string identifier of an authenticated Device. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4829,7 +4829,7 @@ Name | Type | Description  | Notes
 
 ## ListModelBuild
 
-> PreviewUnderstandAssistantModelBuildReadResponse ListModelBuild(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantModelBuildReadResponse ListModelBuild(ctx, AssistantSid, optional)
 
 
 
@@ -4839,7 +4839,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
  **optional** | ***ListModelBuildOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4850,7 +4850,7 @@ Optional parameters are passed through a pointer to a ListModelBuildOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4872,7 +4872,7 @@ Name | Type | Description  | Notes
 
 ## ListQuery
 
-> PreviewUnderstandAssistantQueryReadResponse ListQuery(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantQueryReadResponse ListQuery(ctx, AssistantSid, optional)
 
 
 
@@ -4882,7 +4882,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the parent Assistant. | 
+**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
  **optional** | ***ListQueryOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4893,10 +4893,10 @@ Optional parameters are passed through a pointer to a ListQueryOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **language** | **optional.String**| An ISO language-country string of the sample. | 
- **modelBuild** | **optional.String**| The Model Build Sid or unique name of the Model Build to be queried. | 
- **status** | **optional.String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Language** | **optional.String**| An ISO language-country string of the sample. | 
+ **ModelBuild** | **optional.String**| The Model Build Sid or unique name of the Model Build to be queried. | 
+ **Status** | **optional.String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4937,7 +4937,7 @@ Optional parameters are passed through a pointer to a ListRatePlanOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4959,7 +4959,7 @@ Name | Type | Description  | Notes
 
 ## ListSample
 
-> PreviewUnderstandAssistantTaskSampleReadResponse ListSample(ctx, assistantSid, taskSid, optional)
+> PreviewUnderstandAssistantTaskSampleReadResponse ListSample(ctx, AssistantSid, TaskSid, optional)
 
 
 
@@ -4969,8 +4969,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Sample. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
  **optional** | ***ListSampleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4982,8 +4982,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **language** | **optional.String**| An ISO language-country string of the sample. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Language** | **optional.String**| An ISO language-country string of the sample. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5024,7 +5024,7 @@ Optional parameters are passed through a pointer to a ListServiceOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5065,12 +5065,12 @@ Optional parameters are passed through a pointer to a ListSimOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **status** | **optional.String**|  | 
- **iccid** | **optional.String**|  | 
- **ratePlan** | **optional.String**|  | 
- **eId** | **optional.String**|  | 
- **simRegistrationCode** | **optional.String**|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Status** | **optional.String**|  | 
+ **Iccid** | **optional.String**|  | 
+ **RatePlan** | **optional.String**|  | 
+ **EId** | **optional.String**|  | 
+ **SimRegistrationCode** | **optional.String**|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5092,7 +5092,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncList
 
-> PreviewSyncServiceSyncListReadResponse ListSyncList(ctx, serviceSid, optional)
+> PreviewSyncServiceSyncListReadResponse ListSyncList(ctx, ServiceSid, optional)
 
 
 
@@ -5102,7 +5102,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***ListSyncListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5113,7 +5113,7 @@ Optional parameters are passed through a pointer to a ListSyncListOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5135,7 +5135,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncListItem
 
-> PreviewSyncServiceSyncListSyncListItemReadResponse ListSyncListItem(ctx, serviceSid, listSid, optional)
+> PreviewSyncServiceSyncListSyncListItemReadResponse ListSyncListItem(ctx, ServiceSid, ListSid, optional)
 
 
 
@@ -5145,8 +5145,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**listSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**ListSid** | **string**|  | 
  **optional** | ***ListSyncListItemOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5158,10 +5158,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **order** | **optional.String**|  | 
- **from** | **optional.String**|  | 
- **bounds** | **optional.String**|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Order** | **optional.String**|  | 
+ **From** | **optional.String**|  | 
+ **Bounds** | **optional.String**|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5183,7 +5183,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncListPermission
 
-> PreviewSyncServiceSyncListSyncListPermissionReadResponse ListSyncListPermission(ctx, serviceSid, listSid, optional)
+> PreviewSyncServiceSyncListSyncListPermissionReadResponse ListSyncListPermission(ctx, ServiceSid, ListSid, optional)
 
 
 
@@ -5195,8 +5195,8 @@ Retrieve a list of all Permissions applying to a Sync List.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**listSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
+**ServiceSid** | **string**|  | 
+**ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
  **optional** | ***ListSyncListPermissionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5208,7 +5208,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5230,7 +5230,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncMap
 
-> PreviewSyncServiceSyncMapReadResponse ListSyncMap(ctx, serviceSid, optional)
+> PreviewSyncServiceSyncMapReadResponse ListSyncMap(ctx, ServiceSid, optional)
 
 
 
@@ -5240,7 +5240,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
  **optional** | ***ListSyncMapOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5251,7 +5251,7 @@ Optional parameters are passed through a pointer to a ListSyncMapOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5273,7 +5273,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncMapItem
 
-> PreviewSyncServiceSyncMapSyncMapItemReadResponse ListSyncMapItem(ctx, serviceSid, mapSid, optional)
+> PreviewSyncServiceSyncMapSyncMapItemReadResponse ListSyncMapItem(ctx, ServiceSid, MapSid, optional)
 
 
 
@@ -5283,8 +5283,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**mapSid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**MapSid** | **string**|  | 
  **optional** | ***ListSyncMapItemOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5296,10 +5296,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **order** | **optional.String**|  | 
- **from** | **optional.String**|  | 
- **bounds** | **optional.String**|  | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Order** | **optional.String**|  | 
+ **From** | **optional.String**|  | 
+ **Bounds** | **optional.String**|  | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5321,7 +5321,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncMapPermission
 
-> PreviewSyncServiceSyncMapSyncMapPermissionReadResponse ListSyncMapPermission(ctx, serviceSid, mapSid, optional)
+> PreviewSyncServiceSyncMapSyncMapPermissionReadResponse ListSyncMapPermission(ctx, ServiceSid, MapSid, optional)
 
 
 
@@ -5333,8 +5333,8 @@ Retrieve a list of all Permissions applying to a Sync Map.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**mapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
+**ServiceSid** | **string**|  | 
+**MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
  **optional** | ***ListSyncMapPermissionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5346,7 +5346,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5368,7 +5368,7 @@ Name | Type | Description  | Notes
 
 ## ListTask
 
-> PreviewUnderstandAssistantTaskReadResponse ListTask(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantTaskReadResponse ListTask(ctx, AssistantSid, optional)
 
 
 
@@ -5378,7 +5378,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
  **optional** | ***ListTaskOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5389,7 +5389,7 @@ Optional parameters are passed through a pointer to a ListTaskOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5411,7 +5411,7 @@ Name | Type | Description  | Notes
 
 ## UpdateAssistant
 
-> PreviewUnderstandAssistant UpdateAssistant(ctx, sid, optional)
+> PreviewUnderstandAssistant UpdateAssistant(ctx, Sid, optional)
 
 
 
@@ -5421,7 +5421,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
  **optional** | ***UpdateAssistantOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5432,14 +5432,14 @@ Optional parameters are passed through a pointer to a UpdateAssistantOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **callbackEvents** | **optional.String**| Space-separated list of callback events that will trigger callbacks. | 
- **callbackUrl** | **optional.String**| A user-provided URL to send event callbacks to. | 
- **fallbackActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
- **friendlyName** | **optional.String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
- **initiationActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
- **logQueries** | **optional.Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
- **styleSheet** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
- **uniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+ **CallbackEvents** | **optional.String**| Space-separated list of callback events that will trigger callbacks. | 
+ **CallbackUrl** | **optional.String**| A user-provided URL to send event callbacks to. | 
+ **FallbackActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
+ **FriendlyName** | **optional.String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
+ **InitiationActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
+ **LogQueries** | **optional.Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
+ **StyleSheet** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
+ **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -5461,7 +5461,7 @@ Name | Type | Description  | Notes
 
 ## UpdateAssistantFallbackActions
 
-> PreviewUnderstandAssistantAssistantFallbackActions UpdateAssistantFallbackActions(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantAssistantFallbackActions UpdateAssistantFallbackActions(ctx, AssistantSid, optional)
 
 
 
@@ -5471,7 +5471,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
  **optional** | ***UpdateAssistantFallbackActionsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5482,7 +5482,7 @@ Optional parameters are passed through a pointer to a UpdateAssistantFallbackAct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **fallbackActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+ **FallbackActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -5504,7 +5504,7 @@ Name | Type | Description  | Notes
 
 ## UpdateAssistantInitiationActions
 
-> PreviewUnderstandAssistantAssistantInitiationActions UpdateAssistantInitiationActions(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantAssistantInitiationActions UpdateAssistantInitiationActions(ctx, AssistantSid, optional)
 
 
 
@@ -5514,7 +5514,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
+**AssistantSid** | **string**|  | 
  **optional** | ***UpdateAssistantInitiationActionsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5525,7 +5525,7 @@ Optional parameters are passed through a pointer to a UpdateAssistantInitiationA
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **initiationActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+ **InitiationActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -5547,7 +5547,7 @@ Name | Type | Description  | Notes
 
 ## UpdateAuthorizationDocument
 
-> PreviewHostedNumbersAuthorizationDocument UpdateAuthorizationDocument(ctx, sid, optional)
+> PreviewHostedNumbersAuthorizationDocument UpdateAuthorizationDocument(ctx, Sid, optional)
 
 
 
@@ -5559,7 +5559,7 @@ Updates a specific AuthorizationDocument.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateAuthorizationDocumentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5570,13 +5570,13 @@ Optional parameters are passed through a pointer to a UpdateAuthorizationDocumen
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **addressSid** | **optional.String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
- **ccEmails** | [**optional.Interface of []string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed | 
- **contactPhoneNumber** | **optional.String**| The contact phone number of the person authorized to sign the Authorization Document. | 
- **contactTitle** | **optional.String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
- **email** | **optional.String**| Email that this AuthorizationDocument will be sent to for signing. | 
- **hostedNumberOrderSids** | [**optional.Interface of []string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
- **status** | **optional.String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
+ **AddressSid** | **optional.String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
+ **CcEmails** | [**optional.Interface of []string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed | 
+ **ContactPhoneNumber** | **optional.String**| The contact phone number of the person authorized to sign the Authorization Document. | 
+ **ContactTitle** | **optional.String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
+ **Email** | **optional.String**| Email that this AuthorizationDocument will be sent to for signing. | 
+ **HostedNumberOrderSids** | [**optional.Interface of []string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
+ **Status** | **optional.String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
 
 ### Return type
 
@@ -5598,7 +5598,7 @@ Name | Type | Description  | Notes
 
 ## UpdateCertificate
 
-> PreviewDeployedDevicesFleetCertificate UpdateCertificate(ctx, fleetSid, sid, optional)
+> PreviewDeployedDevicesFleetCertificate UpdateCertificate(ctx, FleetSid, Sid, optional)
 
 
 
@@ -5610,8 +5610,8 @@ Update the given properties of a specific Certificate credential in the Fleet, g
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
  **optional** | ***UpdateCertificateOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5623,8 +5623,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **deviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
- **friendlyName** | **optional.String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
+ **DeviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -5646,7 +5646,7 @@ Name | Type | Description  | Notes
 
 ## UpdateDeployment
 
-> PreviewDeployedDevicesFleetDeployment UpdateDeployment(ctx, fleetSid, sid, optional)
+> PreviewDeployedDevicesFleetDeployment UpdateDeployment(ctx, FleetSid, Sid, optional)
 
 
 
@@ -5658,8 +5658,8 @@ Update the given properties of a specific Deployment credential in the Fleet, gi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
  **optional** | ***UpdateDeploymentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5671,8 +5671,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **friendlyName** | **optional.String**| Provides a human readable descriptive text for this Deployment, up to 64 characters long | 
- **syncServiceSid** | **optional.String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Deployment, up to 64 characters long | 
+ **SyncServiceSid** | **optional.String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
 
 ### Return type
 
@@ -5694,7 +5694,7 @@ Name | Type | Description  | Notes
 
 ## UpdateDevice
 
-> PreviewDeployedDevicesFleetDevice UpdateDevice(ctx, fleetSid, sid, optional)
+> PreviewDeployedDevicesFleetDevice UpdateDevice(ctx, FleetSid, Sid, optional)
 
 
 
@@ -5706,8 +5706,8 @@ Update the given properties of a specific Device in the Fleet, giving it a frien
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
  **optional** | ***UpdateDeviceOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5719,10 +5719,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **deploymentSid** | **optional.String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
- **enabled** | **optional.Bool**|  | 
- **friendlyName** | **optional.String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
- **identity** | **optional.String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
+ **DeploymentSid** | **optional.String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
+ **Enabled** | **optional.Bool**|  | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
+ **Identity** | **optional.String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
 
 ### Return type
 
@@ -5744,7 +5744,7 @@ Name | Type | Description  | Notes
 
 ## UpdateDocument
 
-> PreviewSyncServiceDocument UpdateDocument(ctx, serviceSid, sid, optional)
+> PreviewSyncServiceDocument UpdateDocument(ctx, ServiceSid, Sid, optional)
 
 
 
@@ -5754,8 +5754,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**sid** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateDocumentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5767,8 +5767,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **ifMatch** | **optional.String**| The If-Match HTTP request header | 
- **data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+ **IfMatch** | **optional.String**| The If-Match HTTP request header | 
+ **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -5790,7 +5790,7 @@ Name | Type | Description  | Notes
 
 ## UpdateDocumentPermission
 
-> PreviewSyncServiceDocumentDocumentPermission UpdateDocumentPermission(ctx, serviceSid, documentSid, identity, optional)
+> PreviewSyncServiceDocumentDocumentPermission UpdateDocumentPermission(ctx, ServiceSid, DocumentSid, Identity, optional)
 
 
 
@@ -5802,9 +5802,9 @@ Update an identity's access to a specific Sync Document.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
-**documentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
-**identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
+**DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
+**Identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
  **optional** | ***UpdateDocumentPermissionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5817,9 +5817,9 @@ Name | Type | Description  | Notes
 
 
 
- **manage** | **optional.Bool**| Boolean flag specifying whether the identity can delete the Sync Document. | 
- **read** | **optional.Bool**| Boolean flag specifying whether the identity can read the Sync Document. | 
- **write** | **optional.Bool**| Boolean flag specifying whether the identity can update the Sync Document. | 
+ **Manage** | **optional.Bool**| Boolean flag specifying whether the identity can delete the Sync Document. | 
+ **Read** | **optional.Bool**| Boolean flag specifying whether the identity can read the Sync Document. | 
+ **Write** | **optional.Bool**| Boolean flag specifying whether the identity can update the Sync Document. | 
 
 ### Return type
 
@@ -5841,7 +5841,7 @@ Name | Type | Description  | Notes
 
 ## UpdateExportConfiguration
 
-> PreviewBulkExportsExportConfiguration UpdateExportConfiguration(ctx, resourceType, optional)
+> PreviewBulkExportsExportConfiguration UpdateExportConfiguration(ctx, ResourceType, optional)
 
 
 
@@ -5853,7 +5853,7 @@ Update a specific Export Configuration.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls | 
  **optional** | ***UpdateExportConfigurationOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5864,9 +5864,9 @@ Optional parameters are passed through a pointer to a UpdateExportConfigurationO
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **enabled** | **optional.Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
- **webhookMethod** | **optional.String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
- **webhookUrl** | **optional.String**| Stores the URL destination for the method specified in webhook_method. | 
+ **Enabled** | **optional.Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
+ **WebhookMethod** | **optional.String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
+ **WebhookUrl** | **optional.String**| Stores the URL destination for the method specified in webhook_method. | 
 
 ### Return type
 
@@ -5888,7 +5888,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFieldType
 
-> PreviewUnderstandAssistantFieldType UpdateFieldType(ctx, assistantSid, sid, optional)
+> PreviewUnderstandAssistantFieldType UpdateFieldType(ctx, AssistantSid, Sid, optional)
 
 
 
@@ -5898,8 +5898,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**sid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateFieldTypeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5911,8 +5911,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **friendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
- **uniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+ **FriendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+ **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -5934,7 +5934,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFleet
 
-> PreviewDeployedDevicesFleet UpdateFleet(ctx, sid, optional)
+> PreviewDeployedDevicesFleet UpdateFleet(ctx, Sid, optional)
 
 
 
@@ -5946,7 +5946,7 @@ Update the friendly name property of a specific Fleet in your account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
  **optional** | ***UpdateFleetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -5957,8 +5957,8 @@ Optional parameters are passed through a pointer to a UpdateFleetOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **defaultDeploymentSid** | **optional.String**| Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet. | 
- **friendlyName** | **optional.String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
+ **DefaultDeploymentSid** | **optional.String**| Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet. | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
 
 ### Return type
 
@@ -5980,7 +5980,7 @@ Name | Type | Description  | Notes
 
 ## UpdateHostedNumberOrder
 
-> PreviewHostedNumbersHostedNumberOrder UpdateHostedNumberOrder(ctx, sid, optional)
+> PreviewHostedNumbersHostedNumberOrder UpdateHostedNumberOrder(ctx, Sid, optional)
 
 
 
@@ -5992,7 +5992,7 @@ Updates a specific HostedNumberOrder.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateHostedNumberOrderOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6003,16 +6003,16 @@ Optional parameters are passed through a pointer to a UpdateHostedNumberOrderOpt
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **callDelay** | **optional.Int32**| The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0. | 
- **ccEmails** | [**optional.Interface of []string**](string.md)| Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to. | 
- **email** | **optional.String**| Email of the owner of this phone number that is being hosted. | 
- **extension** | **optional.String**| Digits to dial after connecting the verification call. | 
- **friendlyName** | **optional.String**| A 64 character string that is a human readable text that describes this resource. | 
- **status** | **optional.String**| User can only post to &#x60;pending-verification&#x60; status to transition the HostedNumberOrder to initiate a verification call or verification of ownership with a copy of a phone bill. | 
- **uniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
- **verificationCode** | **optional.String**| A verification code that is given to the user via a phone call to the phone number that is being hosted. | 
- **verificationDocumentSid** | **optional.String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
- **verificationType** | **optional.String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
+ **CallDelay** | **optional.Int32**| The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0. | 
+ **CcEmails** | [**optional.Interface of []string**](string.md)| Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to. | 
+ **Email** | **optional.String**| Email of the owner of this phone number that is being hosted. | 
+ **Extension** | **optional.String**| Digits to dial after connecting the verification call. | 
+ **FriendlyName** | **optional.String**| A 64 character string that is a human readable text that describes this resource. | 
+ **Status** | **optional.String**| User can only post to &#x60;pending-verification&#x60; status to transition the HostedNumberOrder to initiate a verification call or verification of ownership with a copy of a phone bill. | 
+ **UniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+ **VerificationCode** | **optional.String**| A verification code that is given to the user via a phone call to the phone number that is being hosted. | 
+ **VerificationDocumentSid** | **optional.String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
+ **VerificationType** | **optional.String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
 
 ### Return type
 
@@ -6034,7 +6034,7 @@ Name | Type | Description  | Notes
 
 ## UpdateInstalledAddOn
 
-> PreviewMarketplaceInstalledAddOn UpdateInstalledAddOn(ctx, sid, optional)
+> PreviewMarketplaceInstalledAddOn UpdateInstalledAddOn(ctx, Sid, optional)
 
 
 
@@ -6046,7 +6046,7 @@ Update an Add-on installation for the Account specified.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the InstalledAddOn resource to update. | 
+**Sid** | **string**| The SID of the InstalledAddOn resource to update. | 
  **optional** | ***UpdateInstalledAddOnOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6057,8 +6057,8 @@ Optional parameters are passed through a pointer to a UpdateInstalledAddOnOpts s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **configuration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured | 
- **uniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
+ **Configuration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured | 
+ **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
 
 ### Return type
 
@@ -6080,7 +6080,7 @@ Name | Type | Description  | Notes
 
 ## UpdateInstalledAddOnExtension
 
-> PreviewMarketplaceInstalledAddOnInstalledAddOnExtension UpdateInstalledAddOnExtension(ctx, installedAddOnSid, sid, optional)
+> PreviewMarketplaceInstalledAddOnInstalledAddOnExtension UpdateInstalledAddOnExtension(ctx, InstalledAddOnSid, Sid, optional)
 
 
 
@@ -6092,8 +6092,8 @@ Update an Extension for an Add-on installation.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**installedAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extension to update. | 
-**sid** | **string**| The SID of the InstalledAddOn Extension resource to update. | 
+**InstalledAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extension to update. | 
+**Sid** | **string**| The SID of the InstalledAddOn Extension resource to update. | 
  **optional** | ***UpdateInstalledAddOnExtensionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6105,7 +6105,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **enabled** | **optional.Bool**| Whether the Extension should be invoked. | 
+ **Enabled** | **optional.Bool**| Whether the Extension should be invoked. | 
 
 ### Return type
 
@@ -6127,7 +6127,7 @@ Name | Type | Description  | Notes
 
 ## UpdateKey
 
-> PreviewDeployedDevicesFleetKey UpdateKey(ctx, fleetSid, sid, optional)
+> PreviewDeployedDevicesFleetKey UpdateKey(ctx, FleetSid, Sid, optional)
 
 
 
@@ -6139,8 +6139,8 @@ Update the given properties of a specific Key credential in the Fleet, giving it
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**fleetSid** | **string**|  | 
-**sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
+**FleetSid** | **string**|  | 
+**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
  **optional** | ***UpdateKeyOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6152,8 +6152,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **deviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
- **friendlyName** | **optional.String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
+ **DeviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
+ **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -6175,7 +6175,7 @@ Name | Type | Description  | Notes
 
 ## UpdateModelBuild
 
-> PreviewUnderstandAssistantModelBuild UpdateModelBuild(ctx, assistantSid, sid, optional)
+> PreviewUnderstandAssistantModelBuild UpdateModelBuild(ctx, AssistantSid, Sid, optional)
 
 
 
@@ -6185,8 +6185,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**|  | 
-**sid** | **string**|  | 
+**AssistantSid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateModelBuildOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6198,7 +6198,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **uniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
+ **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
 
 ### Return type
 
@@ -6220,7 +6220,7 @@ Name | Type | Description  | Notes
 
 ## UpdateQuery
 
-> PreviewUnderstandAssistantQuery UpdateQuery(ctx, assistantSid, sid, optional)
+> PreviewUnderstandAssistantQuery UpdateQuery(ctx, AssistantSid, Sid, optional)
 
 
 
@@ -6230,8 +6230,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the parent Assistant. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
  **optional** | ***UpdateQueryOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6243,8 +6243,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **sampleSid** | **optional.String**| An optional reference to the Sample created from this query. | 
- **status** | **optional.String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
+ **SampleSid** | **optional.String**| An optional reference to the Sample created from this query. | 
+ **Status** | **optional.String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
 
 ### Return type
 
@@ -6266,7 +6266,7 @@ Name | Type | Description  | Notes
 
 ## UpdateRatePlan
 
-> PreviewWirelessRatePlan UpdateRatePlan(ctx, sid, optional)
+> PreviewWirelessRatePlan UpdateRatePlan(ctx, Sid, optional)
 
 
 
@@ -6276,7 +6276,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateRatePlanOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6287,8 +6287,8 @@ Optional parameters are passed through a pointer to a UpdateRatePlanOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**|  | 
- **uniqueName** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **UniqueName** | **optional.String**|  | 
 
 ### Return type
 
@@ -6310,7 +6310,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSample
 
-> PreviewUnderstandAssistantTaskSample UpdateSample(ctx, assistantSid, taskSid, sid, optional)
+> PreviewUnderstandAssistantTaskSample UpdateSample(ctx, AssistantSid, TaskSid, Sid, optional)
 
 
 
@@ -6320,9 +6320,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**taskSid** | **string**| The unique ID of the Task associated with this Sample. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
  **optional** | ***UpdateSampleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6335,9 +6335,9 @@ Name | Type | Description  | Notes
 
 
 
- **language** | **optional.String**| An ISO language-country string of the sample. | 
- **sourceChannel** | **optional.String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
- **taggedText** | **optional.String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
+ **Language** | **optional.String**| An ISO language-country string of the sample. | 
+ **SourceChannel** | **optional.String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
+ **TaggedText** | **optional.String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
 
 ### Return type
 
@@ -6359,7 +6359,7 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> PreviewSyncService UpdateService(ctx, sid, optional)
+> PreviewSyncService UpdateService(ctx, Sid, optional)
 
 
 
@@ -6369,7 +6369,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6380,10 +6380,10 @@ Optional parameters are passed through a pointer to a UpdateServiceOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **aclEnabled** | **optional.Bool**|  | 
- **friendlyName** | **optional.String**|  | 
- **reachabilityWebhooksEnabled** | **optional.Bool**|  | 
- **webhookUrl** | **optional.String**|  | 
+ **AclEnabled** | **optional.Bool**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **ReachabilityWebhooksEnabled** | **optional.Bool**|  | 
+ **WebhookUrl** | **optional.String**|  | 
 
 ### Return type
 
@@ -6405,7 +6405,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSim
 
-> PreviewWirelessSim UpdateSim(ctx, sid, optional)
+> PreviewWirelessSim UpdateSim(ctx, Sid, optional)
 
 
 
@@ -6415,7 +6415,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateSimOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6426,22 +6426,22 @@ Optional parameters are passed through a pointer to a UpdateSimOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **callbackMethod** | **optional.String**|  | 
- **callbackUrl** | **optional.String**|  | 
- **commandsCallbackMethod** | **optional.String**|  | 
- **commandsCallbackUrl** | **optional.String**|  | 
- **friendlyName** | **optional.String**|  | 
- **ratePlan** | **optional.String**|  | 
- **smsFallbackMethod** | **optional.String**|  | 
- **smsFallbackUrl** | **optional.String**|  | 
- **smsMethod** | **optional.String**|  | 
- **smsUrl** | **optional.String**|  | 
- **status** | **optional.String**|  | 
- **uniqueName** | **optional.String**|  | 
- **voiceFallbackMethod** | **optional.String**|  | 
- **voiceFallbackUrl** | **optional.String**|  | 
- **voiceMethod** | **optional.String**|  | 
- **voiceUrl** | **optional.String**|  | 
+ **CallbackMethod** | **optional.String**|  | 
+ **CallbackUrl** | **optional.String**|  | 
+ **CommandsCallbackMethod** | **optional.String**|  | 
+ **CommandsCallbackUrl** | **optional.String**|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **RatePlan** | **optional.String**|  | 
+ **SmsFallbackMethod** | **optional.String**|  | 
+ **SmsFallbackUrl** | **optional.String**|  | 
+ **SmsMethod** | **optional.String**|  | 
+ **SmsUrl** | **optional.String**|  | 
+ **Status** | **optional.String**|  | 
+ **UniqueName** | **optional.String**|  | 
+ **VoiceFallbackMethod** | **optional.String**|  | 
+ **VoiceFallbackUrl** | **optional.String**|  | 
+ **VoiceMethod** | **optional.String**|  | 
+ **VoiceUrl** | **optional.String**|  | 
 
 ### Return type
 
@@ -6463,7 +6463,7 @@ Name | Type | Description  | Notes
 
 ## UpdateStyleSheet
 
-> PreviewUnderstandAssistantStyleSheet UpdateStyleSheet(ctx, assistantSid, optional)
+> PreviewUnderstandAssistantStyleSheet UpdateStyleSheet(ctx, AssistantSid, optional)
 
 
 
@@ -6475,7 +6475,7 @@ Updates the style sheet for an assistant identified by {AssistantSid} or {Assist
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant | 
+**AssistantSid** | **string**| The unique ID of the Assistant | 
  **optional** | ***UpdateStyleSheetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6486,7 +6486,7 @@ Optional parameters are passed through a pointer to a UpdateStyleSheetOpts struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **styleSheet** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON Style sheet string | 
+ **StyleSheet** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON Style sheet string | 
 
 ### Return type
 
@@ -6508,7 +6508,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSyncListItem
 
-> PreviewSyncServiceSyncListSyncListItem UpdateSyncListItem(ctx, serviceSid, listSid, index, optional)
+> PreviewSyncServiceSyncListSyncListItem UpdateSyncListItem(ctx, ServiceSid, ListSid, Index, optional)
 
 
 
@@ -6518,9 +6518,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**listSid** | **string**|  | 
-**index** | **int32**|  | 
+**ServiceSid** | **string**|  | 
+**ListSid** | **string**|  | 
+**Index** | **int32**|  | 
  **optional** | ***UpdateSyncListItemOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6533,8 +6533,8 @@ Name | Type | Description  | Notes
 
 
 
- **ifMatch** | **optional.String**| The If-Match HTTP request header | 
- **data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+ **IfMatch** | **optional.String**| The If-Match HTTP request header | 
+ **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -6556,7 +6556,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSyncListPermission
 
-> PreviewSyncServiceSyncListSyncListPermission UpdateSyncListPermission(ctx, serviceSid, listSid, identity, optional)
+> PreviewSyncServiceSyncListSyncListPermission UpdateSyncListPermission(ctx, ServiceSid, ListSid, Identity, optional)
 
 
 
@@ -6568,9 +6568,9 @@ Update an identity's access to a specific Sync List.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
-**listSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
-**identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
+**ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
+**Identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
  **optional** | ***UpdateSyncListPermissionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6583,9 +6583,9 @@ Name | Type | Description  | Notes
 
 
 
- **manage** | **optional.Bool**| Boolean flag specifying whether the identity can delete the Sync List. | 
- **read** | **optional.Bool**| Boolean flag specifying whether the identity can read the Sync List. | 
- **write** | **optional.Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync List. | 
+ **Manage** | **optional.Bool**| Boolean flag specifying whether the identity can delete the Sync List. | 
+ **Read** | **optional.Bool**| Boolean flag specifying whether the identity can read the Sync List. | 
+ **Write** | **optional.Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync List. | 
 
 ### Return type
 
@@ -6607,7 +6607,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSyncMapItem
 
-> PreviewSyncServiceSyncMapSyncMapItem UpdateSyncMapItem(ctx, serviceSid, mapSid, key, optional)
+> PreviewSyncServiceSyncMapSyncMapItem UpdateSyncMapItem(ctx, ServiceSid, MapSid, Key, optional)
 
 
 
@@ -6617,9 +6617,9 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**|  | 
-**mapSid** | **string**|  | 
-**key** | **string**|  | 
+**ServiceSid** | **string**|  | 
+**MapSid** | **string**|  | 
+**Key** | **string**|  | 
  **optional** | ***UpdateSyncMapItemOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6632,8 +6632,8 @@ Name | Type | Description  | Notes
 
 
 
- **ifMatch** | **optional.String**| The If-Match HTTP request header | 
- **data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+ **IfMatch** | **optional.String**| The If-Match HTTP request header | 
+ **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -6655,7 +6655,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSyncMapPermission
 
-> PreviewSyncServiceSyncMapSyncMapPermission UpdateSyncMapPermission(ctx, serviceSid, mapSid, identity, optional)
+> PreviewSyncServiceSyncMapSyncMapPermission UpdateSyncMapPermission(ctx, ServiceSid, MapSid, Identity, optional)
 
 
 
@@ -6667,9 +6667,9 @@ Update an identity's access to a specific Sync Map.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**serviceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
-**mapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
-**identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
+**MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
+**Identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
  **optional** | ***UpdateSyncMapPermissionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6682,9 +6682,9 @@ Name | Type | Description  | Notes
 
 
 
- **manage** | **optional.Bool**| Boolean flag specifying whether the identity can delete the Sync Map. | 
- **read** | **optional.Bool**| Boolean flag specifying whether the identity can read the Sync Map. | 
- **write** | **optional.Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map. | 
+ **Manage** | **optional.Bool**| Boolean flag specifying whether the identity can delete the Sync Map. | 
+ **Read** | **optional.Bool**| Boolean flag specifying whether the identity can read the Sync Map. | 
+ **Write** | **optional.Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map. | 
 
 ### Return type
 
@@ -6706,7 +6706,7 @@ Name | Type | Description  | Notes
 
 ## UpdateTask
 
-> PreviewUnderstandAssistantTask UpdateTask(ctx, assistantSid, sid, optional)
+> PreviewUnderstandAssistantTask UpdateTask(ctx, AssistantSid, Sid, optional)
 
 
 
@@ -6716,8 +6716,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the Assistant. | 
-**sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string**| The unique ID of the Assistant. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
  **optional** | ***UpdateTaskOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6729,10 +6729,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **actions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
- **actionsUrl** | **optional.String**| User-provided HTTP endpoint where from the assistant fetches actions | 
- **friendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
- **uniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+ **Actions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
+ **ActionsUrl** | **optional.String**| User-provided HTTP endpoint where from the assistant fetches actions | 
+ **FriendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+ **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -6754,7 +6754,7 @@ Name | Type | Description  | Notes
 
 ## UpdateTaskActions
 
-> PreviewUnderstandAssistantTaskTaskActions UpdateTaskActions(ctx, assistantSid, taskSid, optional)
+> PreviewUnderstandAssistantTaskTaskActions UpdateTaskActions(ctx, AssistantSid, TaskSid, optional)
 
 
 
@@ -6766,8 +6766,8 @@ Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**assistantSid** | **string**| The unique ID of the parent Assistant. | 
-**taskSid** | **string**| The unique ID of the Task. | 
+**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
+**TaskSid** | **string**| The unique ID of the Task. | 
  **optional** | ***UpdateTaskActionsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -6779,7 +6779,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **actions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions that instruct the Assistant how to perform this task. | 
+ **Actions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions that instruct the Assistant how to perform this task. | 
 
 ### Return type
 

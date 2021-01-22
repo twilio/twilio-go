@@ -11,6 +11,6 @@
 package openapi
 // InsightsV1VideoRoomSummaryVideoParticipantSummaryReadResponse struct for InsightsV1VideoRoomSummaryVideoParticipantSummaryReadResponse
 type InsightsV1VideoRoomSummaryVideoParticipantSummaryReadResponse struct {
-	Meta InsightsV1VideoRoomSummaryReadResponseMeta `json:"meta,omitempty"`
-	Participants []InsightsV1VideoRoomSummaryVideoParticipantSummary `json:"participants,omitempty"`
+	Meta InsightsV1VideoRoomSummaryReadResponseMeta `json:"Meta,omitempty"`
+	Participants []InsightsV1VideoRoomSummaryVideoParticipantSummary `json:"Participants,omitempty"`
 }

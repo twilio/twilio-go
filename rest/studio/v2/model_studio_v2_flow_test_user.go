@@ -11,7 +11,7 @@
 package openapi
 // StudioV2FlowTestUser struct for StudioV2FlowTestUser
 type StudioV2FlowTestUser struct {
-	Sid string `json:"sid,omitempty"`
-	TestUsers []string `json:"test_users,omitempty"`
-	Url string `json:"url,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TestUsers []string `json:"TestUsers,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

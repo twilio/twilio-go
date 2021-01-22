@@ -14,13 +14,13 @@ import (
 )
 // VerifyV2ServiceRateLimitBucket struct for VerifyV2ServiceRateLimitBucket
 type VerifyV2ServiceRateLimitBucket struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Interval int32 `json:"interval,omitempty"`
-	Max int32 `json:"max,omitempty"`
-	RateLimitSid string `json:"rate_limit_sid,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Interval int32 `json:"Interval,omitempty"`
+	Max int32 `json:"Max,omitempty"`
+	RateLimitSid string `json:"RateLimitSid,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

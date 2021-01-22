@@ -14,9 +14,9 @@ import (
 )
 // AccountsV1AuthTokenPromotion struct for AccountsV1AuthTokenPromotion
 type AccountsV1AuthTokenPromotion struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AuthToken string `json:"auth_token,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AuthToken string `json:"AuthToken,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

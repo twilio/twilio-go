@@ -14,18 +14,18 @@ import (
 )
 // MonitorV1Event struct for MonitorV1Event
 type MonitorV1Event struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ActorSid string `json:"actor_sid,omitempty"`
-	ActorType string `json:"actor_type,omitempty"`
-	Description string `json:"description,omitempty"`
-	EventData map[string]interface{} `json:"event_data,omitempty"`
-	EventDate time.Time `json:"event_date,omitempty"`
-	EventType string `json:"event_type,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	ResourceSid string `json:"resource_sid,omitempty"`
-	ResourceType string `json:"resource_type,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Source string `json:"source,omitempty"`
-	SourceIpAddress string `json:"source_ip_address,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ActorSid string `json:"ActorSid,omitempty"`
+	ActorType string `json:"ActorType,omitempty"`
+	Description string `json:"Description,omitempty"`
+	EventData map[string]interface{} `json:"EventData,omitempty"`
+	EventDate time.Time `json:"EventDate,omitempty"`
+	EventType string `json:"EventType,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	ResourceSid string `json:"ResourceSid,omitempty"`
+	ResourceType string `json:"ResourceType,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Source string `json:"Source,omitempty"`
+	SourceIpAddress string `json:"SourceIpAddress,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

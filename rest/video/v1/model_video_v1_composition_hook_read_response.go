@@ -11,6 +11,6 @@
 package openapi
 // VideoV1CompositionHookReadResponse struct for VideoV1CompositionHookReadResponse
 type VideoV1CompositionHookReadResponse struct {
-	CompositionHooks []VideoV1CompositionHook `json:"composition_hooks,omitempty"`
-	Meta VideoV1CompositionHookReadResponseMeta `json:"meta,omitempty"`
+	CompositionHooks []VideoV1CompositionHook `json:"CompositionHooks,omitempty"`
+	Meta VideoV1CompositionHookReadResponseMeta `json:"Meta,omitempty"`
 }

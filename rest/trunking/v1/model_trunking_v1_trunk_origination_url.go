@@ -14,15 +14,15 @@ import (
 )
 // TrunkingV1TrunkOriginationUrl struct for TrunkingV1TrunkOriginationUrl
 type TrunkingV1TrunkOriginationUrl struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Enabled bool `json:"enabled,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Priority int32 `json:"priority,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SipUrl string `json:"sip_url,omitempty"`
-	TrunkSid string `json:"trunk_sid,omitempty"`
-	Url string `json:"url,omitempty"`
-	Weight int32 `json:"weight,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Enabled bool `json:"Enabled,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Priority int32 `json:"Priority,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SipUrl string `json:"SipUrl,omitempty"`
+	TrunkSid string `json:"TrunkSid,omitempty"`
+	Url string `json:"Url,omitempty"`
+	Weight int32 `json:"Weight,omitempty"`
 }

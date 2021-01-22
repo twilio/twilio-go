@@ -11,6 +11,6 @@
 package openapi
 // FlexV1ChannelReadResponse struct for FlexV1ChannelReadResponse
 type FlexV1ChannelReadResponse struct {
-	FlexChatChannels []FlexV1Channel `json:"flex_chat_channels,omitempty"`
-	Meta FlexV1ChannelReadResponseMeta `json:"meta,omitempty"`
+	FlexChatChannels []FlexV1Channel `json:"FlexChatChannels,omitempty"`
+	Meta FlexV1ChannelReadResponseMeta `json:"Meta,omitempty"`
 }

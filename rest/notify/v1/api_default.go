@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -41,7 +43,7 @@ type CreateBindingParams struct {
 
 /*
 CreateBinding Method for CreateBinding
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under.
  * @param optional nil or *CreateBindingOpts - Optional Parameters:
  * @param "Address" (string) - The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
  * @param "BindingType" (string) - The transport technology to use for the Binding. Can be: `apn`, `fcm`, `gcm`, `sms`, or `facebook-messenger`.
@@ -52,33 +54,34 @@ CreateBinding Method for CreateBinding
  * @param "Tag" ([]string) - A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
 @return NotifyV1ServiceBinding
 */
-func (c *DefaultApiService) CreateBinding(serviceSid string, params *CreateBindingParams) (*NotifyV1ServiceBinding, error) {
+func (c *DefaultApiService) CreateBinding(ServiceSid string, params *CreateBindingParams) (*NotifyV1ServiceBinding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Address != nil {
-		data.Set("Address", *params.Address)
+		data.Set("Address", *params.Address) 
 	}
 	if params != nil && params.BindingType != nil {
-		data.Set("BindingType", *params.BindingType)
+		data.Set("BindingType", *params.BindingType) 
 	}
 	if params != nil && params.CredentialSid != nil {
-		data.Set("CredentialSid", *params.CredentialSid)
+		data.Set("CredentialSid", *params.CredentialSid) 
 	}
 	if params != nil && params.Endpoint != nil {
-		data.Set("Endpoint", *params.Endpoint)
+		data.Set("Endpoint", *params.Endpoint) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 	if params != nil && params.NotificationProtocolVersion != nil {
-		data.Set("NotificationProtocolVersion", *params.NotificationProtocolVersion)
+		data.Set("NotificationProtocolVersion", *params.NotificationProtocolVersion) 
 	}
 	if params != nil && params.Tag != nil {
-		data.Set("Tag", *params.Tag)
+		data.Set("Tag",  strings.Join(*params.Tag, ","))
 	}
 
 
@@ -122,29 +125,30 @@ CreateCredential Method for CreateCredential
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*NotifyV1Credential, error) {
 	path := "/v1/Credentials"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ApiKey != nil {
-		data.Set("ApiKey", *params.ApiKey)
+		data.Set("ApiKey", *params.ApiKey) 
 	}
 	if params != nil && params.Certificate != nil {
-		data.Set("Certificate", *params.Certificate)
+		data.Set("Certificate", *params.Certificate) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PrivateKey != nil {
-		data.Set("PrivateKey", *params.PrivateKey)
+		data.Set("PrivateKey", *params.PrivateKey) 
 	}
 	if params != nil && params.Sandbox != nil {
-		data.Set("Sandbox", string(*params.Sandbox))
+		data.Set("Sandbox", fmt.Sprint(*params.Sandbox)) 
 	}
 	if params != nil && params.Secret != nil {
-		data.Set("Secret", *params.Secret)
+		data.Set("Secret", *params.Secret) 
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", *params.Type) 
 	}
 
 
@@ -186,7 +190,7 @@ type CreateNotificationParams struct {
 
 /*
 CreateNotification Method for CreateNotification
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under.
  * @param optional nil or *CreateNotificationOpts - Optional Parameters:
  * @param "Action" (string) - The actions to display for the notification. For APNS, translates to the `aps.category` value. For GCM, translates to the `data.twi_action` value. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
  * @param "Alexa" (map[string]interface{}) - Deprecated.
@@ -208,15 +212,16 @@ CreateNotification Method for CreateNotification
  * @param "Ttl" (int32) - How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
 @return NotifyV1ServiceNotification
 */
-func (c *DefaultApiService) CreateNotification(serviceSid string, params *CreateNotificationParams) (*NotifyV1ServiceNotification, error) {
+func (c *DefaultApiService) CreateNotification(ServiceSid string, params *CreateNotificationParams) (*NotifyV1ServiceNotification, error) {
 	path := "/v1/Services/{ServiceSid}/Notifications"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Action != nil {
-		data.Set("Action", *params.Action)
+		data.Set("Action", *params.Action) 
 	}
 	if params != nil && params.Alexa != nil {
 		v, err := json.Marshal(params.Alexa)
@@ -225,7 +230,7 @@ func (c *DefaultApiService) CreateNotification(serviceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Alexa", string(v))
+		data.Set("Alexa", fmt.Sprint(v))
 	}
 	if params != nil && params.Apn != nil {
 		v, err := json.Marshal(params.Apn)
@@ -234,10 +239,10 @@ func (c *DefaultApiService) CreateNotification(serviceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Apn", string(v))
+		data.Set("Apn", fmt.Sprint(v))
 	}
 	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body)
+		data.Set("Body", *params.Body) 
 	}
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)
@@ -246,10 +251,10 @@ func (c *DefaultApiService) CreateNotification(serviceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Data", string(v))
+		data.Set("Data", fmt.Sprint(v))
 	}
 	if params != nil && params.DeliveryCallbackUrl != nil {
-		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl) 
 	}
 	if params != nil && params.FacebookMessenger != nil {
 		v, err := json.Marshal(params.FacebookMessenger)
@@ -258,7 +263,7 @@ func (c *DefaultApiService) CreateNotification(serviceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("FacebookMessenger", string(v))
+		data.Set("FacebookMessenger", fmt.Sprint(v))
 	}
 	if params != nil && params.Fcm != nil {
 		v, err := json.Marshal(params.Fcm)
@@ -267,7 +272,7 @@ func (c *DefaultApiService) CreateNotification(serviceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Fcm", string(v))
+		data.Set("Fcm", fmt.Sprint(v))
 	}
 	if params != nil && params.Gcm != nil {
 		v, err := json.Marshal(params.Gcm)
@@ -276,16 +281,16 @@ func (c *DefaultApiService) CreateNotification(serviceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Gcm", string(v))
+		data.Set("Gcm", fmt.Sprint(v))
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity",  strings.Join(*params.Identity, ","))
 	}
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", *params.Priority)
+		data.Set("Priority", *params.Priority) 
 	}
 	if params != nil && params.Segment != nil {
-		data.Set("Segment", *params.Segment)
+		data.Set("Segment",  strings.Join(*params.Segment, ","))
 	}
 	if params != nil && params.Sms != nil {
 		v, err := json.Marshal(params.Sms)
@@ -294,22 +299,22 @@ func (c *DefaultApiService) CreateNotification(serviceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Sms", string(v))
+		data.Set("Sms", fmt.Sprint(v))
 	}
 	if params != nil && params.Sound != nil {
-		data.Set("Sound", *params.Sound)
+		data.Set("Sound", *params.Sound) 
 	}
 	if params != nil && params.Tag != nil {
-		data.Set("Tag", *params.Tag)
+		data.Set("Tag",  strings.Join(*params.Tag, ","))
 	}
 	if params != nil && params.Title != nil {
-		data.Set("Title", *params.Title)
+		data.Set("Title", *params.Title) 
 	}
 	if params != nil && params.ToBinding != nil {
-		data.Set("ToBinding", *params.ToBinding)
+		data.Set("ToBinding",  strings.Join(*params.ToBinding, ","))
 	}
 	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", string(*params.Ttl))
+		data.Set("Ttl", fmt.Sprint(*params.Ttl)) 
 	}
 
 
@@ -367,50 +372,51 @@ CreateService Method for CreateService
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*NotifyV1Service, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AlexaSkillId != nil {
-		data.Set("AlexaSkillId", *params.AlexaSkillId)
+		data.Set("AlexaSkillId", *params.AlexaSkillId) 
 	}
 	if params != nil && params.ApnCredentialSid != nil {
-		data.Set("ApnCredentialSid", *params.ApnCredentialSid)
+		data.Set("ApnCredentialSid", *params.ApnCredentialSid) 
 	}
 	if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
-		data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
+		data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion) 
 	}
 	if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
-		data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
+		data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion) 
 	}
 	if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
-		data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
+		data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion) 
 	}
 	if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
-		data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
+		data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion) 
 	}
 	if params != nil && params.DeliveryCallbackEnabled != nil {
-		data.Set("DeliveryCallbackEnabled", string(*params.DeliveryCallbackEnabled))
+		data.Set("DeliveryCallbackEnabled", fmt.Sprint(*params.DeliveryCallbackEnabled)) 
 	}
 	if params != nil && params.DeliveryCallbackUrl != nil {
-		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl) 
 	}
 	if params != nil && params.FacebookMessengerPageId != nil {
-		data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
+		data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId) 
 	}
 	if params != nil && params.FcmCredentialSid != nil {
-		data.Set("FcmCredentialSid", *params.FcmCredentialSid)
+		data.Set("FcmCredentialSid", *params.FcmCredentialSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.GcmCredentialSid != nil {
-		data.Set("GcmCredentialSid", *params.GcmCredentialSid)
+		data.Set("GcmCredentialSid", *params.GcmCredentialSid) 
 	}
 	if params != nil && params.LogEnabled != nil {
-		data.Set("LogEnabled", string(*params.LogEnabled))
+		data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled)) 
 	}
 	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid) 
 	}
 
 
@@ -431,15 +437,16 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*NotifyV
 
 /*
 DeleteBinding Method for DeleteBinding
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to delete the resource from.
- * @param sid The Twilio-provided string that uniquely identifies the Binding resource to delete.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to delete the resource from.
+ * @param Sid The Twilio-provided string that uniquely identifies the Binding resource to delete.
 */
-func (c *DefaultApiService) DeleteBinding(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteBinding(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -456,13 +463,14 @@ func (c *DefaultApiService) DeleteBinding(serviceSid string, sid string) (error)
 
 /*
 DeleteCredential Method for DeleteCredential
- * @param sid The Twilio-provided string that uniquely identifies the Credential resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the Credential resource to delete.
 */
-func (c *DefaultApiService) DeleteCredential(sid string) (error) {
+func (c *DefaultApiService) DeleteCredential(Sid string) (error) {
 	path := "/v1/Credentials/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -479,13 +487,14 @@ func (c *DefaultApiService) DeleteCredential(sid string) (error) {
 
 /*
 DeleteService Method for DeleteService
- * @param sid The Twilio-provided string that uniquely identifies the Service resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the Service resource to delete.
 */
-func (c *DefaultApiService) DeleteService(sid string) (error) {
+func (c *DefaultApiService) DeleteService(Sid string) (error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -502,16 +511,17 @@ func (c *DefaultApiService) DeleteService(sid string) (error) {
 
 /*
 FetchBinding Method for FetchBinding
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to fetch the resource from.
- * @param sid The Twilio-provided string that uniquely identifies the Binding resource to fetch.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to fetch the resource from.
+ * @param Sid The Twilio-provided string that uniquely identifies the Binding resource to fetch.
 @return NotifyV1ServiceBinding
 */
-func (c *DefaultApiService) FetchBinding(serviceSid string, sid string) (*NotifyV1ServiceBinding, error) {
+func (c *DefaultApiService) FetchBinding(ServiceSid string, Sid string) (*NotifyV1ServiceBinding, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -533,14 +543,15 @@ func (c *DefaultApiService) FetchBinding(serviceSid string, sid string) (*Notify
 
 /*
 FetchCredential Method for FetchCredential
- * @param sid The Twilio-provided string that uniquely identifies the Credential resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the Credential resource to fetch.
 @return NotifyV1Credential
 */
-func (c *DefaultApiService) FetchCredential(sid string) (*NotifyV1Credential, error) {
+func (c *DefaultApiService) FetchCredential(Sid string) (*NotifyV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -562,14 +573,15 @@ func (c *DefaultApiService) FetchCredential(sid string) (*NotifyV1Credential, er
 
 /*
 FetchService Method for FetchService
- * @param sid The Twilio-provided string that uniquely identifies the Service resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the Service resource to fetch.
 @return NotifyV1Service
 */
-func (c *DefaultApiService) FetchService(sid string) (*NotifyV1Service, error) {
+func (c *DefaultApiService) FetchService(Sid string) (*NotifyV1Service, error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -599,7 +611,7 @@ type ListBindingParams struct {
 
 /*
 ListBinding Method for ListBinding
- * @param serviceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to read the resource from.
+ * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to read the resource from.
  * @param optional nil or *ListBindingOpts - Optional Parameters:
  * @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
  * @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
@@ -608,27 +620,28 @@ ListBinding Method for ListBinding
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return NotifyV1ServiceBindingReadResponse
 */
-func (c *DefaultApiService) ListBinding(serviceSid string, params *ListBindingParams) (*NotifyV1ServiceBindingReadResponse, error) {
+func (c *DefaultApiService) ListBinding(ServiceSid string, params *ListBindingParams) (*NotifyV1ServiceBindingReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Bindings"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", string(*params.Identity))
+		data.Set("Identity",  strings.Join(*params.Identity, ","))
 	}
 	if params != nil && params.Tag != nil {
-		data.Set("Tag", string(*params.Tag))
+		data.Set("Tag",  strings.Join(*params.Tag, ","))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -660,11 +673,12 @@ ListCredential Method for ListCredential
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*NotifyV1CredentialReadResponse, error) {
 	path := "/v1/Credentials"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -698,14 +712,15 @@ ListService Method for ListService
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*NotifyV1ServiceReadResponse, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -735,7 +750,7 @@ type UpdateCredentialParams struct {
 
 /*
 UpdateCredential Method for UpdateCredential
- * @param sid The Twilio-provided string that uniquely identifies the Credential resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the Credential resource to update.
  * @param optional nil or *UpdateCredentialOpts - Optional Parameters:
  * @param "ApiKey" (string) - [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
  * @param "Certificate" (string) - [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
@@ -745,30 +760,31 @@ UpdateCredential Method for UpdateCredential
  * @param "Secret" (string) - [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
 @return NotifyV1Credential
 */
-func (c *DefaultApiService) UpdateCredential(sid string, params *UpdateCredentialParams) (*NotifyV1Credential, error) {
+func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*NotifyV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ApiKey != nil {
-		data.Set("ApiKey", *params.ApiKey)
+		data.Set("ApiKey", *params.ApiKey) 
 	}
 	if params != nil && params.Certificate != nil {
-		data.Set("Certificate", *params.Certificate)
+		data.Set("Certificate", *params.Certificate) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PrivateKey != nil {
-		data.Set("PrivateKey", *params.PrivateKey)
+		data.Set("PrivateKey", *params.PrivateKey) 
 	}
 	if params != nil && params.Sandbox != nil {
-		data.Set("Sandbox", string(*params.Sandbox))
+		data.Set("Sandbox", fmt.Sprint(*params.Sandbox)) 
 	}
 	if params != nil && params.Secret != nil {
-		data.Set("Secret", *params.Secret)
+		data.Set("Secret", *params.Secret) 
 	}
 
 
@@ -806,7 +822,7 @@ type UpdateServiceParams struct {
 
 /*
 UpdateService Method for UpdateService
- * @param sid The Twilio-provided string that uniquely identifies the Service resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the Service resource to update.
  * @param optional nil or *UpdateServiceOpts - Optional Parameters:
  * @param "AlexaSkillId" (string) - Deprecated.
  * @param "ApnCredentialSid" (string) - The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
@@ -824,54 +840,55 @@ UpdateService Method for UpdateService
  * @param "MessagingServiceSid" (string) - The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
 @return NotifyV1Service
 */
-func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*NotifyV1Service, error) {
+func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*NotifyV1Service, error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AlexaSkillId != nil {
-		data.Set("AlexaSkillId", *params.AlexaSkillId)
+		data.Set("AlexaSkillId", *params.AlexaSkillId) 
 	}
 	if params != nil && params.ApnCredentialSid != nil {
-		data.Set("ApnCredentialSid", *params.ApnCredentialSid)
+		data.Set("ApnCredentialSid", *params.ApnCredentialSid) 
 	}
 	if params != nil && params.DefaultAlexaNotificationProtocolVersion != nil {
-		data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion)
+		data.Set("DefaultAlexaNotificationProtocolVersion", *params.DefaultAlexaNotificationProtocolVersion) 
 	}
 	if params != nil && params.DefaultApnNotificationProtocolVersion != nil {
-		data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion)
+		data.Set("DefaultApnNotificationProtocolVersion", *params.DefaultApnNotificationProtocolVersion) 
 	}
 	if params != nil && params.DefaultFcmNotificationProtocolVersion != nil {
-		data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion)
+		data.Set("DefaultFcmNotificationProtocolVersion", *params.DefaultFcmNotificationProtocolVersion) 
 	}
 	if params != nil && params.DefaultGcmNotificationProtocolVersion != nil {
-		data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion)
+		data.Set("DefaultGcmNotificationProtocolVersion", *params.DefaultGcmNotificationProtocolVersion) 
 	}
 	if params != nil && params.DeliveryCallbackEnabled != nil {
-		data.Set("DeliveryCallbackEnabled", string(*params.DeliveryCallbackEnabled))
+		data.Set("DeliveryCallbackEnabled", fmt.Sprint(*params.DeliveryCallbackEnabled)) 
 	}
 	if params != nil && params.DeliveryCallbackUrl != nil {
-		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl) 
 	}
 	if params != nil && params.FacebookMessengerPageId != nil {
-		data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId)
+		data.Set("FacebookMessengerPageId", *params.FacebookMessengerPageId) 
 	}
 	if params != nil && params.FcmCredentialSid != nil {
-		data.Set("FcmCredentialSid", *params.FcmCredentialSid)
+		data.Set("FcmCredentialSid", *params.FcmCredentialSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.GcmCredentialSid != nil {
-		data.Set("GcmCredentialSid", *params.GcmCredentialSid)
+		data.Set("GcmCredentialSid", *params.GcmCredentialSid) 
 	}
 	if params != nil && params.LogEnabled != nil {
-		data.Set("LogEnabled", string(*params.LogEnabled))
+		data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled)) 
 	}
 	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid) 
 	}
 
 

@@ -11,11 +11,11 @@
 package openapi
 // PreviewMarketplaceInstalledAddOnInstalledAddOnExtension struct for PreviewMarketplaceInstalledAddOnInstalledAddOnExtension
 type PreviewMarketplaceInstalledAddOnInstalledAddOnExtension struct {
-	Enabled bool `json:"enabled,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	InstalledAddOnSid string `json:"installed_add_on_sid,omitempty"`
-	ProductName string `json:"product_name,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	Enabled bool `json:"Enabled,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	InstalledAddOnSid string `json:"InstalledAddOnSid,omitempty"`
+	ProductName string `json:"ProductName,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

@@ -11,13 +11,13 @@
 package openapi
 // ApiV2010AccountMessageMediaReadResponse struct for ApiV2010AccountMessageMediaReadResponse
 type ApiV2010AccountMessageMediaReadResponse struct {
-	End int32 `json:"end,omitempty"`
-	FirstPageUri string `json:"first_page_uri,omitempty"`
-	MediaList []ApiV2010AccountMessageMedia `json:"media_list,omitempty"`
-	NextPageUri string `json:"next_page_uri,omitempty"`
-	Page int32 `json:"page,omitempty"`
-	PageSize int32 `json:"page_size,omitempty"`
-	PreviousPageUri string `json:"previous_page_uri,omitempty"`
-	Start int32 `json:"start,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	End int32 `json:"End,omitempty"`
+	FirstPageUri string `json:"FirstPageUri,omitempty"`
+	MediaList []ApiV2010AccountMessageMedia `json:"MediaList,omitempty"`
+	NextPageUri string `json:"NextPageUri,omitempty"`
+	Page int32 `json:"Page,omitempty"`
+	PageSize int32 `json:"PageSize,omitempty"`
+	PreviousPageUri string `json:"PreviousPageUri,omitempty"`
+	Start int32 `json:"Start,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

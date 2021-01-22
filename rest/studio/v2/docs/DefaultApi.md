@@ -26,7 +26,7 @@ Method | HTTP request | Description
 
 ## CreateExecution
 
-> StudioV2FlowExecution CreateExecution(ctx, flowSid, optional)
+> StudioV2FlowExecution CreateExecution(ctx, FlowSid, optional)
 
 
 
@@ -38,7 +38,7 @@ Triggers a new Execution for the Flow
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Excecution&#39;s Flow. | 
+**FlowSid** | **string**| The SID of the Excecution&#39;s Flow. | 
  **optional** | ***CreateExecutionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -49,9 +49,9 @@ Optional parameters are passed through a pointer to a CreateExecutionOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **from** | **optional.String**| The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;. | 
- **parameters** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON data that will be added to the Flow&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. | 
- **to** | **optional.String**| The Contact phone number to start a Studio Flow Execution, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
+ **From** | **optional.String**| The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;. | 
+ **Parameters** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON data that will be added to the Flow&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. | 
+ **To** | **optional.String**| The Contact phone number to start a Studio Flow Execution, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
 
 ### Return type
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ## DeleteExecution
 
-> DeleteExecution(ctx, flowSid, sid)
+> DeleteExecution(ctx, FlowSid, Sid)
 
 
 
@@ -85,8 +85,8 @@ Delete the Execution and all Steps relating to it.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution resources to delete. | 
-**sid** | **string**| The SID of the Execution resource to delete. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution resources to delete. | 
+**Sid** | **string**| The SID of the Execution resource to delete. | 
 
 ### Return type
 
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFlow
 
-> DeleteFlow(ctx, sid)
+> DeleteFlow(ctx, Sid)
 
 
 
@@ -120,7 +120,7 @@ Delete a specific Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Flow resource to delete. | 
+**Sid** | **string**| The SID of the Flow resource to delete. | 
 
 ### Return type
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 ## FetchExecution
 
-> StudioV2FlowExecution FetchExecution(ctx, flowSid, sid)
+> StudioV2FlowExecution FetchExecution(ctx, FlowSid, Sid)
 
 
 
@@ -154,8 +154,8 @@ Retrieve an Execution
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution resource to fetch | 
-**sid** | **string**| The SID of the Execution resource to fetch. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution resource to fetch | 
+**Sid** | **string**| The SID of the Execution resource to fetch. | 
 
 ### Return type
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ## FetchExecutionContext
 
-> StudioV2FlowExecutionExecutionContext FetchExecutionContext(ctx, flowSid, executionSid)
+> StudioV2FlowExecutionExecutionContext FetchExecutionContext(ctx, FlowSid, ExecutionSid)
 
 
 
@@ -189,8 +189,8 @@ Retrieve the most recent context for an Execution.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution context to fetch. | 
-**executionSid** | **string**| The SID of the Execution context to fetch. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution context to fetch. | 
+**ExecutionSid** | **string**| The SID of the Execution context to fetch. | 
 
 ### Return type
 
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 
 ## FetchExecutionStep
 
-> StudioV2FlowExecutionExecutionStep FetchExecutionStep(ctx, flowSid, executionSid, sid)
+> StudioV2FlowExecutionExecutionStep FetchExecutionStep(ctx, FlowSid, ExecutionSid, Sid)
 
 
 
@@ -224,9 +224,9 @@ Retrieve a Step.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**executionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
-**sid** | **string**| The SID of the ExecutionStep resource to fetch. | 
+**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
+**ExecutionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
+**Sid** | **string**| The SID of the ExecutionStep resource to fetch. | 
 
 ### Return type
 
@@ -248,7 +248,7 @@ Name | Type | Description  | Notes
 
 ## FetchExecutionStepContext
 
-> StudioV2FlowExecutionExecutionStepExecutionStepContext FetchExecutionStepContext(ctx, flowSid, executionSid, stepSid)
+> StudioV2FlowExecutionExecutionStepExecutionStepContext FetchExecutionStepContext(ctx, FlowSid, ExecutionSid, StepSid)
 
 
 
@@ -260,9 +260,9 @@ Retrieve the context for an Execution Step.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**executionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
-**stepSid** | **string**| The SID of the Step to fetch. | 
+**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
+**ExecutionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
+**StepSid** | **string**| The SID of the Step to fetch. | 
 
 ### Return type
 
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 ## FetchFlow
 
-> StudioV2Flow FetchFlow(ctx, sid)
+> StudioV2Flow FetchFlow(ctx, Sid)
 
 
 
@@ -296,7 +296,7 @@ Retrieve a specific Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Flow resource to fetch. | 
+**Sid** | **string**| The SID of the Flow resource to fetch. | 
 
 ### Return type
 
@@ -318,7 +318,7 @@ Name | Type | Description  | Notes
 
 ## FetchFlowRevision
 
-> StudioV2FlowFlowRevision FetchFlowRevision(ctx, sid, revision)
+> StudioV2FlowFlowRevision FetchFlowRevision(ctx, Sid, Revision)
 
 
 
@@ -330,8 +330,8 @@ Retrieve a specific Flow revision.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Flow resource to fetch. | 
-**revision** | **string**| Specific Revision number or can be &#x60;LatestPublished&#x60; and &#x60;LatestRevision&#x60;. | 
+**Sid** | **string**| The SID of the Flow resource to fetch. | 
+**Revision** | **string**| Specific Revision number or can be &#x60;LatestPublished&#x60; and &#x60;LatestRevision&#x60;. | 
 
 ### Return type
 
@@ -353,7 +353,7 @@ Name | Type | Description  | Notes
 
 ## FetchTestUser
 
-> StudioV2FlowTestUser FetchTestUser(ctx, sid)
+> StudioV2FlowTestUser FetchTestUser(ctx, Sid)
 
 
 
@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 
@@ -385,7 +385,7 @@ Name | Type | Description  | Notes
 
 ## ListExecution
 
-> StudioV2FlowExecutionReadResponse ListExecution(ctx, flowSid, optional)
+> StudioV2FlowExecutionReadResponse ListExecution(ctx, FlowSid, optional)
 
 
 
@@ -397,7 +397,7 @@ Retrieve a list of all Executions for the Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution resources to read. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution resources to read. | 
  **optional** | ***ListExecutionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -408,9 +408,9 @@ Optional parameters are passed through a pointer to a ListExecutionOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **dateCreatedFrom** | **optional.Time**| Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
- **dateCreatedTo** | **optional.Time**| Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **DateCreatedFrom** | **optional.Time**| Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
+ **DateCreatedTo** | **optional.Time**| Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -432,7 +432,7 @@ Name | Type | Description  | Notes
 
 ## ListExecutionStep
 
-> StudioV2FlowExecutionExecutionStepReadResponse ListExecutionStep(ctx, flowSid, executionSid, optional)
+> StudioV2FlowExecutionExecutionStepReadResponse ListExecutionStep(ctx, FlowSid, ExecutionSid, optional)
 
 
 
@@ -444,8 +444,8 @@ Retrieve a list of all Steps for an Execution.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Steps to read. | 
-**executionSid** | **string**| The SID of the Execution with the Steps to read. | 
+**FlowSid** | **string**| The SID of the Flow with the Steps to read. | 
+**ExecutionSid** | **string**| The SID of the Execution with the Steps to read. | 
  **optional** | ***ListExecutionStepOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -479,7 +479,7 @@ Name | Type | Description  | Notes
 
 ## ListFlowRevision
 
-> StudioV2FlowFlowRevisionReadResponse ListFlowRevision(ctx, sid, optional)
+> StudioV2FlowFlowRevisionReadResponse ListFlowRevision(ctx, Sid, optional)
 
 
 
@@ -491,7 +491,7 @@ Retrieve a list of all Flows revisions.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Flow resource to fetch. | 
+**Sid** | **string**| The SID of the Flow resource to fetch. | 
  **optional** | ***ListFlowRevisionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -502,7 +502,7 @@ Optional parameters are passed through a pointer to a ListFlowRevisionOpts struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -524,7 +524,7 @@ Name | Type | Description  | Notes
 
 ## UpdateExecution
 
-> StudioV2FlowExecution UpdateExecution(ctx, flowSid, sid, optional)
+> StudioV2FlowExecution UpdateExecution(ctx, FlowSid, Sid, optional)
 
 
 
@@ -536,8 +536,8 @@ Update the status of an Execution to `ended`.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**flowSid** | **string**| The SID of the Flow with the Execution resources to update. | 
-**sid** | **string**| The SID of the Execution resource to update. | 
+**FlowSid** | **string**| The SID of the Flow with the Execution resources to update. | 
+**Sid** | **string**| The SID of the Execution resource to update. | 
  **optional** | ***UpdateExecutionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -549,7 +549,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **status** | **optional.String**| The status of the Execution. Can only be &#x60;ended&#x60;. | 
+ **Status** | **optional.String**| The status of the Execution. Can only be &#x60;ended&#x60;. | 
 
 ### Return type
 
@@ -571,7 +571,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFlow
 
-> StudioV2Flow UpdateFlow(ctx, sid, optional)
+> StudioV2Flow UpdateFlow(ctx, Sid, optional)
 
 
 
@@ -583,7 +583,7 @@ Update a Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Flow resource to fetch. | 
+**Sid** | **string**| The SID of the Flow resource to fetch. | 
  **optional** | ***UpdateFlowOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -594,10 +594,10 @@ Optional parameters are passed through a pointer to a UpdateFlowOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **commitMessage** | **optional.String**| Description on change made in the revision. | 
- **definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the Flow. | 
- **status** | **optional.String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
+ **CommitMessage** | **optional.String**| Description on change made in the revision. | 
+ **Definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the Flow. | 
+ **Status** | **optional.String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
 
 ### Return type
 
@@ -638,10 +638,10 @@ Optional parameters are passed through a pointer to a UpdateFlowValidateOpts str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **commitMessage** | **optional.String**|  | 
- **definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
- **friendlyName** | **optional.String**|  | 
- **status** | **optional.String**|  | 
+ **CommitMessage** | **optional.String**|  | 
+ **Definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+ **FriendlyName** | **optional.String**|  | 
+ **Status** | **optional.String**|  | 
 
 ### Return type
 
@@ -663,7 +663,7 @@ Name | Type | Description  | Notes
 
 ## UpdateTestUser
 
-> StudioV2FlowTestUser UpdateTestUser(ctx, sid, optional)
+> StudioV2FlowTestUser UpdateTestUser(ctx, Sid, optional)
 
 
 
@@ -673,7 +673,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***UpdateTestUserOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -684,7 +684,7 @@ Optional parameters are passed through a pointer to a UpdateTestUserOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **testUsers** | [**optional.Interface of []string**](string.md)|  | 
+ **TestUsers** | [**optional.Interface of []string**](string.md)|  | 
 
 ### Return type
 

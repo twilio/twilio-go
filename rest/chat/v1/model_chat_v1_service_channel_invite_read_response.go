@@ -11,6 +11,6 @@
 package openapi
 // ChatV1ServiceChannelInviteReadResponse struct for ChatV1ServiceChannelInviteReadResponse
 type ChatV1ServiceChannelInviteReadResponse struct {
-	Invites []ChatV1ServiceChannelInvite `json:"invites,omitempty"`
-	Meta ChatV1CredentialReadResponseMeta `json:"meta,omitempty"`
+	Invites []ChatV1ServiceChannelInvite `json:"Invites,omitempty"`
+	Meta ChatV1CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

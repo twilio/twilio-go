@@ -11,6 +11,6 @@
 package openapi
 // ProxyV1ServiceSessionInteractionReadResponse struct for ProxyV1ServiceSessionInteractionReadResponse
 type ProxyV1ServiceSessionInteractionReadResponse struct {
-	Interactions []ProxyV1ServiceSessionInteraction `json:"interactions,omitempty"`
-	Meta ProxyV1ServiceReadResponseMeta `json:"meta,omitempty"`
+	Interactions []ProxyV1ServiceSessionInteraction `json:"Interactions,omitempty"`
+	Meta ProxyV1ServiceReadResponseMeta `json:"Meta,omitempty"`
 }

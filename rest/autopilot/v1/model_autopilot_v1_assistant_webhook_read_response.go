@@ -11,6 +11,6 @@
 package openapi
 // AutopilotV1AssistantWebhookReadResponse struct for AutopilotV1AssistantWebhookReadResponse
 type AutopilotV1AssistantWebhookReadResponse struct {
-	Meta AutopilotV1AssistantReadResponseMeta `json:"meta,omitempty"`
-	Webhooks []AutopilotV1AssistantWebhook `json:"webhooks,omitempty"`
+	Meta AutopilotV1AssistantReadResponseMeta `json:"Meta,omitempty"`
+	Webhooks []AutopilotV1AssistantWebhook `json:"Webhooks,omitempty"`
 }

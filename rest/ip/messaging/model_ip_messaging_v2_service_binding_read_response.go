@@ -11,6 +11,6 @@
 package openapi
 // IpMessagingV2ServiceBindingReadResponse struct for IpMessagingV2ServiceBindingReadResponse
 type IpMessagingV2ServiceBindingReadResponse struct {
-	Bindings []IpMessagingV2ServiceBinding `json:"bindings,omitempty"`
-	Meta IpMessagingV2CredentialReadResponseMeta `json:"meta,omitempty"`
+	Bindings []IpMessagingV2ServiceBinding `json:"Bindings,omitempty"`
+	Meta IpMessagingV2CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

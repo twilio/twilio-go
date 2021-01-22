@@ -11,13 +11,13 @@
 package openapi
 // ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayloadReadResponse struct for ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayloadReadResponse
 type ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayloadReadResponse struct {
-	End int32 `json:"end,omitempty"`
-	FirstPageUri string `json:"first_page_uri,omitempty"`
-	NextPageUri string `json:"next_page_uri,omitempty"`
-	Page int32 `json:"page,omitempty"`
-	PageSize int32 `json:"page_size,omitempty"`
-	Payloads []ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload `json:"payloads,omitempty"`
-	PreviousPageUri string `json:"previous_page_uri,omitempty"`
-	Start int32 `json:"start,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	End int32 `json:"End,omitempty"`
+	FirstPageUri string `json:"FirstPageUri,omitempty"`
+	NextPageUri string `json:"NextPageUri,omitempty"`
+	Page int32 `json:"Page,omitempty"`
+	PageSize int32 `json:"PageSize,omitempty"`
+	Payloads []ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload `json:"Payloads,omitempty"`
+	PreviousPageUri string `json:"PreviousPageUri,omitempty"`
+	Start int32 `json:"Start,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

@@ -11,6 +11,6 @@
 package openapi
 // NumbersV2RegulatoryComplianceEndUserReadResponse struct for NumbersV2RegulatoryComplianceEndUserReadResponse
 type NumbersV2RegulatoryComplianceEndUserReadResponse struct {
-	Meta NumbersV2RegulatoryComplianceBundleReadResponseMeta `json:"meta,omitempty"`
-	Results []NumbersV2RegulatoryComplianceEndUser `json:"results,omitempty"`
+	Meta NumbersV2RegulatoryComplianceBundleReadResponseMeta `json:"Meta,omitempty"`
+	Results []NumbersV2RegulatoryComplianceEndUser `json:"Results,omitempty"`
 }

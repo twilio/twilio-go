@@ -14,20 +14,20 @@ import (
 )
 // TrunkingV1Trunk struct for TrunkingV1Trunk
 type TrunkingV1Trunk struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AuthType string `json:"auth_type,omitempty"`
-	AuthTypeSet []string `json:"auth_type_set,omitempty"`
-	CnamLookupEnabled bool `json:"cnam_lookup_enabled,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DisasterRecoveryMethod string `json:"disaster_recovery_method,omitempty"`
-	DisasterRecoveryUrl string `json:"disaster_recovery_url,omitempty"`
-	DomainName string `json:"domain_name,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Recording map[string]interface{} `json:"recording,omitempty"`
-	Secure bool `json:"secure,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	TransferMode string `json:"transfer_mode,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AuthType string `json:"AuthType,omitempty"`
+	AuthTypeSet []string `json:"AuthTypeSet,omitempty"`
+	CnamLookupEnabled bool `json:"CnamLookupEnabled,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DisasterRecoveryMethod string `json:"DisasterRecoveryMethod,omitempty"`
+	DisasterRecoveryUrl string `json:"DisasterRecoveryUrl,omitempty"`
+	DomainName string `json:"DomainName,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Recording map[string]interface{} `json:"Recording,omitempty"`
+	Secure bool `json:"Secure,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TransferMode string `json:"TransferMode,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

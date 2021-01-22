@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -30,15 +32,15 @@ func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
 }
 // CreateConversationParams Optional parameters for the method 'CreateConversation'
 type CreateConversationParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	Timers.Closed *string `json:"Timers.Closed,omitempty"`
-	Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
+	TimersClosed *string `json:"TimersClosed,omitempty"`
+	TimersInactive *string `json:"TimersInactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -53,47 +55,48 @@ Create a new conversation in your account&#39;s default service
  * @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
  * @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
- * @param "Timers.Closed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
- * @param "Timers.Inactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+ * @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 @return ConversationsV1Conversation
 */
 func (c *DefaultApiService) CreateConversation(params *CreateConversationParams) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations"
 
+
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid) 
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", *params.State) 
 	}
-	if params != nil && params.Timers.Closed != nil {
-		data.Set("Timers.Closed", *params.Timers.Closed)
+	if params != nil && params.TimersClosed != nil {
+		data.Set("TimersClosed", *params.TimersClosed) 
 	}
-	if params != nil && params.Timers.Inactive != nil {
-		data.Set("Timers.Inactive", *params.Timers.Inactive)
+	if params != nil && params.TimersInactive != nil {
+		data.Set("TimersInactive", *params.TimersInactive) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -112,7 +115,7 @@ func (c *DefaultApiService) CreateConversation(params *CreateConversationParams)
 }
 // CreateConversationMessageParams Optional parameters for the method 'CreateConversationMessage'
 type CreateConversationMessageParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	Author *string `json:"Author,omitempty"`
 	Body *string `json:"Body,omitempty"`
@@ -124,7 +127,7 @@ type CreateConversationMessageParams struct {
 /*
 CreateConversationMessage Method for CreateConversationMessage
 Add a new message to the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
  * @param optional nil or *CreateConversationMessageOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -135,34 +138,35 @@ Add a new message to the conversation
  * @param "MediaSid" (string) - The Media SID to be attached to the new Message.
 @return ConversationsV1ConversationConversationMessage
 */
-func (c *DefaultApiService) CreateConversationMessage(conversationSid string, params *CreateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
+func (c *DefaultApiService) CreateConversationMessage(ConversationSid string, params *CreateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.Author != nil {
-		data.Set("Author", *params.Author)
+		data.Set("Author", *params.Author) 
 	}
 	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body)
+		data.Set("Body", *params.Body) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.MediaSid != nil {
-		data.Set("MediaSid", *params.MediaSid)
+		data.Set("MediaSid", *params.MediaSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -181,67 +185,68 @@ func (c *DefaultApiService) CreateConversationMessage(conversationSid string, pa
 }
 // CreateConversationParticipantParams Optional parameters for the method 'CreateConversationParticipant'
 type CreateConversationParticipantParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
-	MessagingBinding.Address *string `json:"MessagingBinding.Address,omitempty"`
-	MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
-	MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	MessagingBindingAddress *string `json:"MessagingBindingAddress,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
 CreateConversationParticipant Method for CreateConversationParticipant
 Add a new participant to the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
  * @param optional nil or *CreateConversationParticipantOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
  * @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
- * @param "MessagingBinding.Address" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
- * @param "MessagingBinding.ProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
- * @param "MessagingBinding.ProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+ * @param "MessagingBindingAddress" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+ * @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+ * @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
  * @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 @return ConversationsV1ConversationConversationParticipant
 */
-func (c *DefaultApiService) CreateConversationParticipant(conversationSid string, params *CreateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
+func (c *DefaultApiService) CreateConversationParticipant(ConversationSid string, params *CreateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
-	if params != nil && params.MessagingBinding.Address != nil {
-		data.Set("MessagingBinding.Address", *params.MessagingBinding.Address)
+	if params != nil && params.MessagingBindingAddress != nil {
+		data.Set("MessagingBindingAddress", *params.MessagingBindingAddress) 
 	}
-	if params != nil && params.MessagingBinding.ProjectedAddress != nil {
-		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
+	if params != nil && params.MessagingBindingProjectedAddress != nil {
+		data.Set("MessagingBindingProjectedAddress", *params.MessagingBindingProjectedAddress) 
 	}
-	if params != nil && params.MessagingBinding.ProxyAddress != nil {
-		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
+	if params != nil && params.MessagingBindingProxyAddress != nil {
+		data.Set("MessagingBindingProxyAddress", *params.MessagingBindingProxyAddress) 
 	}
 	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+		data.Set("RoleSid", *params.RoleSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -260,56 +265,57 @@ func (c *DefaultApiService) CreateConversationParticipant(conversationSid string
 }
 // CreateConversationScopedWebhookParams Optional parameters for the method 'CreateConversationScopedWebhook'
 type CreateConversationScopedWebhookParams struct {
-	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	Configuration.Method *string `json:"Configuration.Method,omitempty"`
-	Configuration.ReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
-	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-	Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
+	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
+	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
+	ConfigurationReplayAfter *int32 `json:"ConfigurationReplayAfter,omitempty"`
+	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
+	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
 	Target *string `json:"Target,omitempty"`
 }
 
 /*
 CreateConversationScopedWebhook Method for CreateConversationScopedWebhook
 Create a new webhook scoped to the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
  * @param optional nil or *CreateConversationScopedWebhookOpts - Optional Parameters:
- * @param "Configuration.Filters" ([]string) - The list of events, firing webhook event for this Conversation.
- * @param "Configuration.FlowSid" (string) - The studio flow SID, where the webhook should be sent to.
- * @param "Configuration.Method" (string) - The HTTP method to be used when sending a webhook request.
- * @param "Configuration.ReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
- * @param "Configuration.Triggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
- * @param "Configuration.Url" (string) - The absolute url the webhook request should be sent to.
+ * @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
+ * @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+ * @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
+ * @param "ConfigurationReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
+ * @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+ * @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
  * @param "Target" (string) - The target of this webhook: `webhook`, `studio`, `trigger`
 @return ConversationsV1ConversationConversationScopedWebhook
 */
-func (c *DefaultApiService) CreateConversationScopedWebhook(conversationSid string, params *CreateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
+func (c *DefaultApiService) CreateConversationScopedWebhook(ConversationSid string, params *CreateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
-	if params != nil && params.Configuration.Filters != nil {
-		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	if params != nil && params.ConfigurationFilters != nil {
+		data.Set("ConfigurationFilters",  strings.Join(*params.ConfigurationFilters, ","))
 	}
-	if params != nil && params.Configuration.FlowSid != nil {
-		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid) 
 	}
-	if params != nil && params.Configuration.Method != nil {
-		data.Set("Configuration.Method", *params.Configuration.Method)
+	if params != nil && params.ConfigurationMethod != nil {
+		data.Set("ConfigurationMethod", *params.ConfigurationMethod) 
 	}
-	if params != nil && params.Configuration.ReplayAfter != nil {
-		data.Set("Configuration.ReplayAfter", string(*params.Configuration.ReplayAfter))
+	if params != nil && params.ConfigurationReplayAfter != nil {
+		data.Set("ConfigurationReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter)) 
 	}
-	if params != nil && params.Configuration.Triggers != nil {
-		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	if params != nil && params.ConfigurationTriggers != nil {
+		data.Set("ConfigurationTriggers",  strings.Join(*params.ConfigurationTriggers, ","))
 	}
-	if params != nil && params.Configuration.Url != nil {
-		data.Set("Configuration.Url", *params.Configuration.Url)
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("ConfigurationUrl", *params.ConfigurationUrl) 
 	}
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", *params.Target) 
 	}
 
 
@@ -354,29 +360,30 @@ Add a new push notification credential to your account
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*ConversationsV1Credential, error) {
 	path := "/v1/Credentials"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ApiKey != nil {
-		data.Set("ApiKey", *params.ApiKey)
+		data.Set("ApiKey", *params.ApiKey) 
 	}
 	if params != nil && params.Certificate != nil {
-		data.Set("Certificate", *params.Certificate)
+		data.Set("Certificate", *params.Certificate) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PrivateKey != nil {
-		data.Set("PrivateKey", *params.PrivateKey)
+		data.Set("PrivateKey", *params.PrivateKey) 
 	}
 	if params != nil && params.Sandbox != nil {
-		data.Set("Sandbox", string(*params.Sandbox))
+		data.Set("Sandbox", fmt.Sprint(*params.Sandbox)) 
 	}
 	if params != nil && params.Secret != nil {
-		data.Set("Secret", *params.Secret)
+		data.Set("Secret", *params.Secret) 
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", *params.Type) 
 	}
 
 
@@ -413,17 +420,18 @@ Create a new user role in your account&#39;s default service
 func (c *DefaultApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role, error) {
 	path := "/v1/Roles"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", *params.Permission)
+		data.Set("Permission",  strings.Join(*params.Permission, ","))
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", *params.Type) 
 	}
 
 
@@ -456,11 +464,12 @@ Create a new conversation service on your account
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ConversationsV1Service, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -480,22 +489,22 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*Convers
 }
 // CreateServiceConversationParams Optional parameters for the method 'CreateServiceConversation'
 type CreateServiceConversationParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	Timers.Closed *string `json:"Timers.Closed,omitempty"`
-	Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
+	TimersClosed *string `json:"TimersClosed,omitempty"`
+	TimersInactive *string `json:"TimersInactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
 CreateServiceConversation Method for CreateServiceConversation
 Create a new conversation in your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
  * @param optional nil or *CreateServiceConversationOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -504,48 +513,49 @@ Create a new conversation in your service
  * @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
  * @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
- * @param "Timers.Closed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
- * @param "Timers.Inactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+ * @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 @return ConversationsV1ServiceServiceConversation
 */
-func (c *DefaultApiService) CreateServiceConversation(chatServiceSid string, params *CreateServiceConversationParams) (*ConversationsV1ServiceServiceConversation, error) {
+func (c *DefaultApiService) CreateServiceConversation(ChatServiceSid string, params *CreateServiceConversationParams) (*ConversationsV1ServiceServiceConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid) 
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", *params.State) 
 	}
-	if params != nil && params.Timers.Closed != nil {
-		data.Set("Timers.Closed", *params.Timers.Closed)
+	if params != nil && params.TimersClosed != nil {
+		data.Set("TimersClosed", *params.TimersClosed) 
 	}
-	if params != nil && params.Timers.Inactive != nil {
-		data.Set("Timers.Inactive", *params.Timers.Inactive)
+	if params != nil && params.TimersInactive != nil {
+		data.Set("TimersInactive", *params.TimersInactive) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -564,7 +574,7 @@ func (c *DefaultApiService) CreateServiceConversation(chatServiceSid string, par
 }
 // CreateServiceConversationMessageParams Optional parameters for the method 'CreateServiceConversationMessage'
 type CreateServiceConversationMessageParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	Author *string `json:"Author,omitempty"`
 	Body *string `json:"Body,omitempty"`
@@ -576,8 +586,8 @@ type CreateServiceConversationMessageParams struct {
 /*
 CreateServiceConversationMessage Method for CreateServiceConversationMessage
 Add a new message to the conversation in a specific service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
  * @param optional nil or *CreateServiceConversationMessageOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -588,35 +598,36 @@ Add a new message to the conversation in a specific service
  * @param "MediaSid" (string) - The Media SID to be attached to the new Message.
 @return ConversationsV1ServiceServiceConversationServiceConversationMessage
 */
-func (c *DefaultApiService) CreateServiceConversationMessage(chatServiceSid string, conversationSid string, params *CreateServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
+func (c *DefaultApiService) CreateServiceConversationMessage(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.Author != nil {
-		data.Set("Author", *params.Author)
+		data.Set("Author", *params.Author) 
 	}
 	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body)
+		data.Set("Body", *params.Body) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.MediaSid != nil {
-		data.Set("MediaSid", *params.MediaSid)
+		data.Set("MediaSid", *params.MediaSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -635,69 +646,70 @@ func (c *DefaultApiService) CreateServiceConversationMessage(chatServiceSid stri
 }
 // CreateServiceConversationParticipantParams Optional parameters for the method 'CreateServiceConversationParticipant'
 type CreateServiceConversationParticipantParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
-	MessagingBinding.Address *string `json:"MessagingBinding.Address,omitempty"`
-	MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
-	MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	MessagingBindingAddress *string `json:"MessagingBindingAddress,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
 CreateServiceConversationParticipant Method for CreateServiceConversationParticipant
 Add a new participant to the conversation in a specific service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
  * @param optional nil or *CreateServiceConversationParticipantOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
  * @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
- * @param "MessagingBinding.Address" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
- * @param "MessagingBinding.ProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
- * @param "MessagingBinding.ProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+ * @param "MessagingBindingAddress" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+ * @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+ * @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
  * @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
 */
-func (c *DefaultApiService) CreateServiceConversationParticipant(chatServiceSid string, conversationSid string, params *CreateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
+func (c *DefaultApiService) CreateServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
-	if params != nil && params.MessagingBinding.Address != nil {
-		data.Set("MessagingBinding.Address", *params.MessagingBinding.Address)
+	if params != nil && params.MessagingBindingAddress != nil {
+		data.Set("MessagingBindingAddress", *params.MessagingBindingAddress) 
 	}
-	if params != nil && params.MessagingBinding.ProjectedAddress != nil {
-		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
+	if params != nil && params.MessagingBindingProjectedAddress != nil {
+		data.Set("MessagingBindingProjectedAddress", *params.MessagingBindingProjectedAddress) 
 	}
-	if params != nil && params.MessagingBinding.ProxyAddress != nil {
-		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
+	if params != nil && params.MessagingBindingProxyAddress != nil {
+		data.Set("MessagingBindingProxyAddress", *params.MessagingBindingProxyAddress) 
 	}
 	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+		data.Set("RoleSid", *params.RoleSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -716,58 +728,59 @@ func (c *DefaultApiService) CreateServiceConversationParticipant(chatServiceSid 
 }
 // CreateServiceConversationScopedWebhookParams Optional parameters for the method 'CreateServiceConversationScopedWebhook'
 type CreateServiceConversationScopedWebhookParams struct {
-	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	Configuration.Method *string `json:"Configuration.Method,omitempty"`
-	Configuration.ReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
-	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-	Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
+	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
+	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
+	ConfigurationReplayAfter *int32 `json:"ConfigurationReplayAfter,omitempty"`
+	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
+	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
 	Target *string `json:"Target,omitempty"`
 }
 
 /*
 CreateServiceConversationScopedWebhook Method for CreateServiceConversationScopedWebhook
 Create a new webhook scoped to the conversation in a specific service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
  * @param optional nil or *CreateServiceConversationScopedWebhookOpts - Optional Parameters:
- * @param "Configuration.Filters" ([]string) - The list of events, firing webhook event for this Conversation.
- * @param "Configuration.FlowSid" (string) - The studio flow SID, where the webhook should be sent to.
- * @param "Configuration.Method" (string) - The HTTP method to be used when sending a webhook request.
- * @param "Configuration.ReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
- * @param "Configuration.Triggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
- * @param "Configuration.Url" (string) - The absolute url the webhook request should be sent to.
+ * @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
+ * @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+ * @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
+ * @param "ConfigurationReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
+ * @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+ * @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
  * @param "Target" (string) - The target of this webhook: `webhook`, `studio`, `trigger`
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 */
-func (c *DefaultApiService) CreateServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, params *CreateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
+func (c *DefaultApiService) CreateServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
-	if params != nil && params.Configuration.Filters != nil {
-		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	if params != nil && params.ConfigurationFilters != nil {
+		data.Set("ConfigurationFilters",  strings.Join(*params.ConfigurationFilters, ","))
 	}
-	if params != nil && params.Configuration.FlowSid != nil {
-		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid) 
 	}
-	if params != nil && params.Configuration.Method != nil {
-		data.Set("Configuration.Method", *params.Configuration.Method)
+	if params != nil && params.ConfigurationMethod != nil {
+		data.Set("ConfigurationMethod", *params.ConfigurationMethod) 
 	}
-	if params != nil && params.Configuration.ReplayAfter != nil {
-		data.Set("Configuration.ReplayAfter", string(*params.Configuration.ReplayAfter))
+	if params != nil && params.ConfigurationReplayAfter != nil {
+		data.Set("ConfigurationReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter)) 
 	}
-	if params != nil && params.Configuration.Triggers != nil {
-		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	if params != nil && params.ConfigurationTriggers != nil {
+		data.Set("ConfigurationTriggers",  strings.Join(*params.ConfigurationTriggers, ","))
 	}
-	if params != nil && params.Configuration.Url != nil {
-		data.Set("Configuration.Url", *params.Configuration.Url)
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("ConfigurationUrl", *params.ConfigurationUrl) 
 	}
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", *params.Target) 
 	}
 
 
@@ -795,28 +808,29 @@ type CreateServiceRoleParams struct {
 /*
 CreateServiceRole Method for CreateServiceRole
 Create a new user role in your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to create the Role resource under.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to create the Role resource under.
  * @param optional nil or *CreateServiceRoleOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
  * @param "Permission" ([]string) - A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
  * @param "Type" (string) - The type of role. Can be: `conversation` for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or `service` for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles.
 @return ConversationsV1ServiceServiceRole
 */
-func (c *DefaultApiService) CreateServiceRole(chatServiceSid string, params *CreateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
+func (c *DefaultApiService) CreateServiceRole(ChatServiceSid string, params *CreateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", *params.Permission)
+		data.Set("Permission",  strings.Join(*params.Permission, ","))
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", *params.Type) 
 	}
 
 
@@ -836,7 +850,7 @@ func (c *DefaultApiService) CreateServiceRole(chatServiceSid string, params *Cre
 }
 // CreateServiceUserParams Optional parameters for the method 'CreateServiceUser'
 type CreateServiceUserParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
@@ -846,7 +860,7 @@ type CreateServiceUserParams struct {
 /*
 CreateServiceUser Method for CreateServiceUser
 Add a new conversation user to your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
  * @param optional nil or *CreateServiceUserOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
@@ -855,28 +869,29 @@ Add a new conversation user to your service
  * @param "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 @return ConversationsV1ServiceServiceUser
 */
-func (c *DefaultApiService) CreateServiceUser(chatServiceSid string, params *CreateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
+func (c *DefaultApiService) CreateServiceUser(ChatServiceSid string, params *CreateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+		data.Set("RoleSid", *params.RoleSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -895,7 +910,7 @@ func (c *DefaultApiService) CreateServiceUser(chatServiceSid string, params *Cre
 }
 // CreateUserParams Optional parameters for the method 'CreateUser'
 type CreateUserParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
@@ -916,24 +931,25 @@ Add a new conversation user to your account&#39;s default service
 func (c *DefaultApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User, error) {
 	path := "/v1/Users"
 
+
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+		data.Set("RoleSid", *params.RoleSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -952,26 +968,27 @@ func (c *DefaultApiService) CreateUser(params *CreateUserParams) (*Conversations
 }
 // DeleteConversationParams Optional parameters for the method 'DeleteConversation'
 type DeleteConversationParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
 DeleteConversation Method for DeleteConversation
 Remove a conversation from your account&#39;s default service
- * @param sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+ * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
  * @param optional nil or *DeleteConversationOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
-func (c *DefaultApiService) DeleteConversation(sid string, params *DeleteConversationParams) (error) {
+func (c *DefaultApiService) DeleteConversation(Sid string, params *DeleteConversationParams) (error) {
 	path := "/v1/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -985,28 +1002,29 @@ func (c *DefaultApiService) DeleteConversation(sid string, params *DeleteConvers
 }
 // DeleteConversationMessageParams Optional parameters for the method 'DeleteConversationMessage'
 type DeleteConversationMessageParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
 DeleteConversationMessage Method for DeleteConversationMessage
 Remove a message from the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *DeleteConversationMessageOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
-func (c *DefaultApiService) DeleteConversationMessage(conversationSid string, sid string, params *DeleteConversationMessageParams) (error) {
+func (c *DefaultApiService) DeleteConversationMessage(ConversationSid string, Sid string, params *DeleteConversationMessageParams) (error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1020,28 +1038,29 @@ func (c *DefaultApiService) DeleteConversationMessage(conversationSid string, si
 }
 // DeleteConversationParticipantParams Optional parameters for the method 'DeleteConversationParticipant'
 type DeleteConversationParticipantParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
 DeleteConversationParticipant Method for DeleteConversationParticipant
 Remove a participant from the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *DeleteConversationParticipantOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
-func (c *DefaultApiService) DeleteConversationParticipant(conversationSid string, sid string, params *DeleteConversationParticipantParams) (error) {
+func (c *DefaultApiService) DeleteConversationParticipant(ConversationSid string, Sid string, params *DeleteConversationParticipantParams) (error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1057,15 +1076,16 @@ func (c *DefaultApiService) DeleteConversationParticipant(conversationSid string
 /*
 DeleteConversationScopedWebhook Method for DeleteConversationScopedWebhook
 Remove an existing webhook scoped to the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteConversationScopedWebhook(conversationSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteConversationScopedWebhook(ConversationSid string, Sid string) (error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1083,13 +1103,14 @@ func (c *DefaultApiService) DeleteConversationScopedWebhook(conversationSid stri
 /*
 DeleteCredential Method for DeleteCredential
 Remove a push notification credential from your account
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteCredential(sid string) (error) {
+func (c *DefaultApiService) DeleteCredential(Sid string) (error) {
 	path := "/v1/Credentials/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1107,13 +1128,14 @@ func (c *DefaultApiService) DeleteCredential(sid string) (error) {
 /*
 DeleteRole Method for DeleteRole
 Remove a user role from your account&#39;s default service
- * @param sid The SID of the Role resource to delete.
+ * @param Sid The SID of the Role resource to delete.
 */
-func (c *DefaultApiService) DeleteRole(sid string) (error) {
+func (c *DefaultApiService) DeleteRole(Sid string) (error) {
 	path := "/v1/Roles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1131,13 +1153,14 @@ func (c *DefaultApiService) DeleteRole(sid string) (error) {
 /*
 DeleteService Method for DeleteService
 Remove a conversation service with all its nested resources from your account
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteService(sid string) (error) {
+func (c *DefaultApiService) DeleteService(Sid string) (error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1155,15 +1178,16 @@ func (c *DefaultApiService) DeleteService(sid string) (error) {
 /*
 DeleteServiceBinding Method for DeleteServiceBinding
 Remove a push notification binding from the conversation service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Binding resource from.
- * @param sid The SID of the Binding resource to delete.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Binding resource from.
+ * @param Sid The SID of the Binding resource to delete.
 */
-func (c *DefaultApiService) DeleteServiceBinding(chatServiceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteServiceBinding(ChatServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1179,28 +1203,29 @@ func (c *DefaultApiService) DeleteServiceBinding(chatServiceSid string, sid stri
 }
 // DeleteServiceConversationParams Optional parameters for the method 'DeleteServiceConversation'
 type DeleteServiceConversationParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
 DeleteServiceConversation Method for DeleteServiceConversation
 Remove a conversation from your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
- * @param sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+ * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
  * @param optional nil or *DeleteServiceConversationOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
-func (c *DefaultApiService) DeleteServiceConversation(chatServiceSid string, sid string, params *DeleteServiceConversationParams) (error) {
+func (c *DefaultApiService) DeleteServiceConversation(ChatServiceSid string, Sid string, params *DeleteServiceConversationParams) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1214,30 +1239,31 @@ func (c *DefaultApiService) DeleteServiceConversation(chatServiceSid string, sid
 }
 // DeleteServiceConversationMessageParams Optional parameters for the method 'DeleteServiceConversationMessage'
 type DeleteServiceConversationMessageParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
 DeleteServiceConversationMessage Method for DeleteServiceConversationMessage
 Remove a message from the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *DeleteServiceConversationMessageOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
-func (c *DefaultApiService) DeleteServiceConversationMessage(chatServiceSid string, conversationSid string, sid string, params *DeleteServiceConversationMessageParams) (error) {
+func (c *DefaultApiService) DeleteServiceConversationMessage(ChatServiceSid string, ConversationSid string, Sid string, params *DeleteServiceConversationMessageParams) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1251,30 +1277,31 @@ func (c *DefaultApiService) DeleteServiceConversationMessage(chatServiceSid stri
 }
 // DeleteServiceConversationParticipantParams Optional parameters for the method 'DeleteServiceConversationParticipant'
 type DeleteServiceConversationParticipantParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
 DeleteServiceConversationParticipant Method for DeleteServiceConversationParticipant
 Remove a participant from the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *DeleteServiceConversationParticipantOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
-func (c *DefaultApiService) DeleteServiceConversationParticipant(chatServiceSid string, conversationSid string, sid string, params *DeleteServiceConversationParticipantParams) (error) {
+func (c *DefaultApiService) DeleteServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string, params *DeleteServiceConversationParticipantParams) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1290,17 +1317,18 @@ func (c *DefaultApiService) DeleteServiceConversationParticipant(chatServiceSid 
 /*
 DeleteServiceConversationScopedWebhook Method for DeleteServiceConversationScopedWebhook
 Remove an existing webhook scoped to the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1318,15 +1346,16 @@ func (c *DefaultApiService) DeleteServiceConversationScopedWebhook(chatServiceSi
 /*
 DeleteServiceRole Method for DeleteServiceRole
 Remove a user role from your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Role resource from.
- * @param sid The SID of the Role resource to delete.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Role resource from.
+ * @param Sid The SID of the Role resource to delete.
 */
-func (c *DefaultApiService) DeleteServiceRole(chatServiceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteServiceRole(ChatServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1342,28 +1371,29 @@ func (c *DefaultApiService) DeleteServiceRole(chatServiceSid string, sid string)
 }
 // DeleteServiceUserParams Optional parameters for the method 'DeleteServiceUser'
 type DeleteServiceUserParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
 DeleteServiceUser Method for DeleteServiceUser
 Remove a conversation user from your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the User resource from.
- * @param sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the User resource from.
+ * @param Sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
  * @param optional nil or *DeleteServiceUserOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
-func (c *DefaultApiService) DeleteServiceUser(chatServiceSid string, sid string, params *DeleteServiceUserParams) (error) {
+func (c *DefaultApiService) DeleteServiceUser(ChatServiceSid string, Sid string, params *DeleteServiceUserParams) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1377,26 +1407,27 @@ func (c *DefaultApiService) DeleteServiceUser(chatServiceSid string, sid string,
 }
 // DeleteUserParams Optional parameters for the method 'DeleteUser'
 type DeleteUserParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
 DeleteUser Method for DeleteUser
 Remove a conversation user from your account&#39;s default service
- * @param sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
+ * @param Sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
  * @param optional nil or *DeleteUserOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
-func (c *DefaultApiService) DeleteUser(sid string, params *DeleteUserParams) (error) {
+func (c *DefaultApiService) DeleteUser(Sid string, params *DeleteUserParams) (error) {
 	path := "/v1/Users/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1417,7 +1448,8 @@ Fetch the global configuration of conversations on your account
 func (c *DefaultApiService) FetchConfiguration() (*ConversationsV1Configuration, error) {
 	path := "/v1/Configuration"
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1444,7 +1476,8 @@ FetchConfigurationWebhook Method for FetchConfigurationWebhook
 func (c *DefaultApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1467,14 +1500,15 @@ func (c *DefaultApiService) FetchConfigurationWebhook() (*ConversationsV1Configu
 /*
 FetchConversation Method for FetchConversation
 Fetch a conversation from your account&#39;s default service
- * @param sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+ * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
 @return ConversationsV1Conversation
 */
-func (c *DefaultApiService) FetchConversation(sid string) (*ConversationsV1Conversation, error) {
+func (c *DefaultApiService) FetchConversation(Sid string) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1497,16 +1531,17 @@ func (c *DefaultApiService) FetchConversation(sid string) (*ConversationsV1Conve
 /*
 FetchConversationMessage Method for FetchConversationMessage
 Fetch a message from the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1ConversationConversationMessage
 */
-func (c *DefaultApiService) FetchConversationMessage(conversationSid string, sid string) (*ConversationsV1ConversationConversationMessage, error) {
+func (c *DefaultApiService) FetchConversationMessage(ConversationSid string, Sid string) (*ConversationsV1ConversationConversationMessage, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1529,18 +1564,19 @@ func (c *DefaultApiService) FetchConversationMessage(conversationSid string, sid
 /*
 FetchConversationMessageReceipt Method for FetchConversationMessageReceipt
 Fetch the delivery and read receipts of the conversation message
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param messageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1ConversationConversationMessageConversationMessageReceipt
 */
-func (c *DefaultApiService) FetchConversationMessageReceipt(conversationSid string, messageSid string, sid string) (*ConversationsV1ConversationConversationMessageConversationMessageReceipt, error) {
+func (c *DefaultApiService) FetchConversationMessageReceipt(ConversationSid string, MessageSid string, Sid string) (*ConversationsV1ConversationConversationMessageConversationMessageReceipt, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1563,16 +1599,17 @@ func (c *DefaultApiService) FetchConversationMessageReceipt(conversationSid stri
 /*
 FetchConversationParticipant Method for FetchConversationParticipant
 Fetch a participant of the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1ConversationConversationParticipant
 */
-func (c *DefaultApiService) FetchConversationParticipant(conversationSid string, sid string) (*ConversationsV1ConversationConversationParticipant, error) {
+func (c *DefaultApiService) FetchConversationParticipant(ConversationSid string, Sid string) (*ConversationsV1ConversationConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1595,16 +1632,17 @@ func (c *DefaultApiService) FetchConversationParticipant(conversationSid string,
 /*
 FetchConversationScopedWebhook Method for FetchConversationScopedWebhook
 Fetch the configuration of a conversation-scoped webhook
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1ConversationConversationScopedWebhook
 */
-func (c *DefaultApiService) FetchConversationScopedWebhook(conversationSid string, sid string) (*ConversationsV1ConversationConversationScopedWebhook, error) {
+func (c *DefaultApiService) FetchConversationScopedWebhook(ConversationSid string, Sid string) (*ConversationsV1ConversationConversationScopedWebhook, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1627,14 +1665,15 @@ func (c *DefaultApiService) FetchConversationScopedWebhook(conversationSid strin
 /*
 FetchCredential Method for FetchCredential
 Fetch a push notification credential from your account
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1Credential
 */
-func (c *DefaultApiService) FetchCredential(sid string) (*ConversationsV1Credential, error) {
+func (c *DefaultApiService) FetchCredential(Sid string) (*ConversationsV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1657,14 +1696,15 @@ func (c *DefaultApiService) FetchCredential(sid string) (*ConversationsV1Credent
 /*
 FetchRole Method for FetchRole
 Fetch a user role from your account&#39;s default service
- * @param sid The SID of the Role resource to fetch.
+ * @param Sid The SID of the Role resource to fetch.
 @return ConversationsV1Role
 */
-func (c *DefaultApiService) FetchRole(sid string) (*ConversationsV1Role, error) {
+func (c *DefaultApiService) FetchRole(Sid string) (*ConversationsV1Role, error) {
 	path := "/v1/Roles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1687,14 +1727,15 @@ func (c *DefaultApiService) FetchRole(sid string) (*ConversationsV1Role, error) 
 /*
 FetchService Method for FetchService
 Fetch a conversation service from your account
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1Service
 */
-func (c *DefaultApiService) FetchService(sid string) (*ConversationsV1Service, error) {
+func (c *DefaultApiService) FetchService(Sid string) (*ConversationsV1Service, error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1717,16 +1758,17 @@ func (c *DefaultApiService) FetchService(sid string) (*ConversationsV1Service, e
 /*
 FetchServiceBinding Method for FetchServiceBinding
 Fetch a push notification binding from the conversation service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1ServiceServiceBinding
 */
-func (c *DefaultApiService) FetchServiceBinding(chatServiceSid string, sid string) (*ConversationsV1ServiceServiceBinding, error) {
+func (c *DefaultApiService) FetchServiceBinding(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceBinding, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1749,14 +1791,15 @@ func (c *DefaultApiService) FetchServiceBinding(chatServiceSid string, sid strin
 /*
 FetchServiceConfiguration Method for FetchServiceConfiguration
 Fetch the configuration of a conversation service
- * @param chatServiceSid The SID of the Service configuration resource to fetch.
+ * @param ChatServiceSid The SID of the Service configuration resource to fetch.
 @return ConversationsV1ServiceServiceConfiguration
 */
-func (c *DefaultApiService) FetchServiceConfiguration(chatServiceSid string) (*ConversationsV1ServiceServiceConfiguration, error) {
+func (c *DefaultApiService) FetchServiceConfiguration(ChatServiceSid string) (*ConversationsV1ServiceServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1779,16 +1822,17 @@ func (c *DefaultApiService) FetchServiceConfiguration(chatServiceSid string) (*C
 /*
 FetchServiceConversation Method for FetchServiceConversation
 Fetch a conversation from your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
- * @param sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+ * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
 @return ConversationsV1ServiceServiceConversation
 */
-func (c *DefaultApiService) FetchServiceConversation(chatServiceSid string, sid string) (*ConversationsV1ServiceServiceConversation, error) {
+func (c *DefaultApiService) FetchServiceConversation(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1811,18 +1855,19 @@ func (c *DefaultApiService) FetchServiceConversation(chatServiceSid string, sid 
 /*
 FetchServiceConversationMessage Method for FetchServiceConversationMessage
 Fetch a message from the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1ServiceServiceConversationServiceConversationMessage
 */
-func (c *DefaultApiService) FetchServiceConversationMessage(chatServiceSid string, conversationSid string, sid string) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
+func (c *DefaultApiService) FetchServiceConversationMessage(ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1845,20 +1890,21 @@ func (c *DefaultApiService) FetchServiceConversationMessage(chatServiceSid strin
 /*
 FetchServiceConversationMessageReceipt Method for FetchServiceConversationMessageReceipt
 Fetch the delivery and read receipts of the conversation message
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param messageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt
 */
-func (c *DefaultApiService) FetchServiceConversationMessageReceipt(chatServiceSid string, conversationSid string, messageSid string, sid string) (*ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
+func (c *DefaultApiService) FetchServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, Sid string) (*ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1881,18 +1927,19 @@ func (c *DefaultApiService) FetchServiceConversationMessageReceipt(chatServiceSi
 /*
 FetchServiceConversationParticipant Method for FetchServiceConversationParticipant
 Fetch a participant of the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
 */
-func (c *DefaultApiService) FetchServiceConversationParticipant(chatServiceSid string, conversationSid string, sid string) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
+func (c *DefaultApiService) FetchServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1915,18 +1962,19 @@ func (c *DefaultApiService) FetchServiceConversationParticipant(chatServiceSid s
 /*
 FetchServiceConversationScopedWebhook Method for FetchServiceConversationScopedWebhook
 Fetch the configuration of a conversation-scoped webhook
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 */
-func (c *DefaultApiService) FetchServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, sid string) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
+func (c *DefaultApiService) FetchServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1949,14 +1997,15 @@ func (c *DefaultApiService) FetchServiceConversationScopedWebhook(chatServiceSid
 /*
 FetchServiceNotification Method for FetchServiceNotification
 Fetch push notification service settings
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
 @return ConversationsV1ServiceServiceConfigurationServiceNotification
 */
-func (c *DefaultApiService) FetchServiceNotification(chatServiceSid string) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
+func (c *DefaultApiService) FetchServiceNotification(ChatServiceSid string) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1979,16 +2028,17 @@ func (c *DefaultApiService) FetchServiceNotification(chatServiceSid string) (*Co
 /*
 FetchServiceRole Method for FetchServiceRole
 Fetch a user role from your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to fetch the Role resource from.
- * @param sid The SID of the Role resource to fetch.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to fetch the Role resource from.
+ * @param Sid The SID of the Role resource to fetch.
 @return ConversationsV1ServiceServiceRole
 */
-func (c *DefaultApiService) FetchServiceRole(chatServiceSid string, sid string) (*ConversationsV1ServiceServiceRole, error) {
+func (c *DefaultApiService) FetchServiceRole(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2011,16 +2061,17 @@ func (c *DefaultApiService) FetchServiceRole(chatServiceSid string, sid string) 
 /*
 FetchServiceUser Method for FetchServiceUser
 Fetch a conversation user from your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to fetch the User resource from.
- * @param sid The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to fetch the User resource from.
+ * @param Sid The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
 @return ConversationsV1ServiceServiceUser
 */
-func (c *DefaultApiService) FetchServiceUser(chatServiceSid string, sid string) (*ConversationsV1ServiceServiceUser, error) {
+func (c *DefaultApiService) FetchServiceUser(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceUser, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2043,14 +2094,15 @@ func (c *DefaultApiService) FetchServiceUser(chatServiceSid string, sid string) 
 /*
 FetchUser Method for FetchUser
 Fetch a conversation user from your account&#39;s default service
- * @param sid The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
+ * @param Sid The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
 @return ConversationsV1User
 */
-func (c *DefaultApiService) FetchUser(sid string) (*ConversationsV1User, error) {
+func (c *DefaultApiService) FetchUser(Sid string) (*ConversationsV1User, error) {
 	path := "/v1/Users/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2084,11 +2136,12 @@ Retrieve a list of conversations in your account&#39;s default service
 func (c *DefaultApiService) ListConversation(params *ListConversationParams) (*ConversationsV1ConversationReadResponse, error) {
 	path := "/v1/Conversations"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2114,20 +2167,21 @@ type ListConversationMessageParams struct {
 /*
 ListConversationMessage Method for ListConversationMessage
 Retrieve a list of all messages in the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
  * @param optional nil or *ListConversationMessageOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ConversationConversationMessageReadResponse
 */
-func (c *DefaultApiService) ListConversationMessage(conversationSid string, params *ListConversationMessageParams) (*ConversationsV1ConversationConversationMessageReadResponse, error) {
+func (c *DefaultApiService) ListConversationMessage(ConversationSid string, params *ListConversationMessageParams) (*ConversationsV1ConversationConversationMessageReadResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2153,22 +2207,23 @@ type ListConversationMessageReceiptParams struct {
 /*
 ListConversationMessageReceipt Method for ListConversationMessageReceipt
 Retrieve a list of all delivery and read receipts of the conversation message
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param messageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
  * @param optional nil or *ListConversationMessageReceiptOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ConversationConversationMessageConversationMessageReceiptReadResponse
 */
-func (c *DefaultApiService) ListConversationMessageReceipt(conversationSid string, messageSid string, params *ListConversationMessageReceiptParams) (*ConversationsV1ConversationConversationMessageConversationMessageReceiptReadResponse, error) {
+func (c *DefaultApiService) ListConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams) (*ConversationsV1ConversationConversationMessageConversationMessageReceiptReadResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2194,20 +2249,21 @@ type ListConversationParticipantParams struct {
 /*
 ListConversationParticipant Method for ListConversationParticipant
 Retrieve a list of all participants of the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants.
  * @param optional nil or *ListConversationParticipantOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ConversationConversationParticipantReadResponse
 */
-func (c *DefaultApiService) ListConversationParticipant(conversationSid string, params *ListConversationParticipantParams) (*ConversationsV1ConversationConversationParticipantReadResponse, error) {
+func (c *DefaultApiService) ListConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) (*ConversationsV1ConversationConversationParticipantReadResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2233,20 +2289,21 @@ type ListConversationScopedWebhookParams struct {
 /*
 ListConversationScopedWebhook Method for ListConversationScopedWebhook
 Retrieve a list of all webhooks scoped to the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
  * @param optional nil or *ListConversationScopedWebhookOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ConversationConversationScopedWebhookReadResponse
 */
-func (c *DefaultApiService) ListConversationScopedWebhook(conversationSid string, params *ListConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhookReadResponse, error) {
+func (c *DefaultApiService) ListConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhookReadResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2279,11 +2336,12 @@ Retrieve a list of all push notification credentials on your account
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ConversationsV1CredentialReadResponse, error) {
 	path := "/v1/Credentials"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2316,11 +2374,12 @@ Retrieve a list of all user roles in your account&#39;s default service
 func (c *DefaultApiService) ListRole(params *ListRoleParams) (*ConversationsV1RoleReadResponse, error) {
 	path := "/v1/Roles"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2353,11 +2412,12 @@ Retrieve a list of all conversation services on your account
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ConversationsV1ServiceReadResponse, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2385,28 +2445,29 @@ type ListServiceBindingParams struct {
 /*
 ListServiceBinding Method for ListServiceBinding
 Retrieve a list of all push notification bindings in the conversation service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
  * @param optional nil or *ListServiceBindingOpts - Optional Parameters:
  * @param "BindingType" ([]string) - The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
  * @param "Identity" ([]string) - The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ServiceServiceBindingReadResponse
 */
-func (c *DefaultApiService) ListServiceBinding(chatServiceSid string, params *ListServiceBindingParams) (*ConversationsV1ServiceServiceBindingReadResponse, error) {
+func (c *DefaultApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) (*ConversationsV1ServiceServiceBindingReadResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.BindingType != nil {
-		data.Set("BindingType", string(*params.BindingType))
+		data.Set("BindingType",  strings.Join(*params.BindingType, ","))
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", string(*params.Identity))
+		data.Set("Identity",  strings.Join(*params.Identity, ","))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2432,20 +2493,21 @@ type ListServiceConversationParams struct {
 /*
 ListServiceConversation Method for ListServiceConversation
 Retrieve a list of conversations in your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
  * @param optional nil or *ListServiceConversationOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ServiceServiceConversationReadResponse
 */
-func (c *DefaultApiService) ListServiceConversation(chatServiceSid string, params *ListServiceConversationParams) (*ConversationsV1ServiceServiceConversationReadResponse, error) {
+func (c *DefaultApiService) ListServiceConversation(ChatServiceSid string, params *ListServiceConversationParams) (*ConversationsV1ServiceServiceConversationReadResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2471,22 +2533,23 @@ type ListServiceConversationMessageParams struct {
 /*
 ListServiceConversationMessage Method for ListServiceConversationMessage
 Retrieve a list of all messages in the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
  * @param optional nil or *ListServiceConversationMessageOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ServiceServiceConversationServiceConversationMessageReadResponse
 */
-func (c *DefaultApiService) ListServiceConversationMessage(chatServiceSid string, conversationSid string, params *ListServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessageReadResponse, error) {
+func (c *DefaultApiService) ListServiceConversationMessage(ChatServiceSid string, ConversationSid string, params *ListServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessageReadResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2512,24 +2575,25 @@ type ListServiceConversationMessageReceiptParams struct {
 /*
 ListServiceConversationMessageReceipt Method for ListServiceConversationMessageReceipt
 Retrieve a list of all delivery and read receipts of the conversation message
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param messageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
  * @param optional nil or *ListServiceConversationMessageReceiptOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceiptReadResponse
 */
-func (c *DefaultApiService) ListServiceConversationMessageReceipt(chatServiceSid string, conversationSid string, messageSid string, params *ListServiceConversationMessageReceiptParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceiptReadResponse, error) {
+func (c *DefaultApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceiptReadResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"MessageSid"+"}", messageSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2555,22 +2619,23 @@ type ListServiceConversationParticipantParams struct {
 /*
 ListServiceConversationParticipant Method for ListServiceConversationParticipant
 Retrieve a list of all participants of the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants.
  * @param optional nil or *ListServiceConversationParticipantOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipantReadResponse
 */
-func (c *DefaultApiService) ListServiceConversationParticipant(chatServiceSid string, conversationSid string, params *ListServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipantReadResponse, error) {
+func (c *DefaultApiService) ListServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipantReadResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2596,22 +2661,23 @@ type ListServiceConversationScopedWebhookParams struct {
 /*
 ListServiceConversationScopedWebhook Method for ListServiceConversationScopedWebhook
 Retrieve a list of all webhooks scoped to the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
  * @param optional nil or *ListServiceConversationScopedWebhookOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhookReadResponse
 */
-func (c *DefaultApiService) ListServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, params *ListServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhookReadResponse, error) {
+func (c *DefaultApiService) ListServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhookReadResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2637,20 +2703,21 @@ type ListServiceRoleParams struct {
 /*
 ListServiceRole Method for ListServiceRole
 Retrieve a list of all user roles in your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the Role resources from.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the Role resources from.
  * @param optional nil or *ListServiceRoleOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ServiceServiceRoleReadResponse
 */
-func (c *DefaultApiService) ListServiceRole(chatServiceSid string, params *ListServiceRoleParams) (*ConversationsV1ServiceServiceRoleReadResponse, error) {
+func (c *DefaultApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams) (*ConversationsV1ServiceServiceRoleReadResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2676,20 +2743,21 @@ type ListServiceUserParams struct {
 /*
 ListServiceUser Method for ListServiceUser
 Retrieve a list of all conversation users in your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the User resources from.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the User resources from.
  * @param optional nil or *ListServiceUserOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ConversationsV1ServiceServiceUserReadResponse
 */
-func (c *DefaultApiService) ListServiceUser(chatServiceSid string, params *ListServiceUserParams) (*ConversationsV1ServiceServiceUserReadResponse, error) {
+func (c *DefaultApiService) ListServiceUser(ChatServiceSid string, params *ListServiceUserParams) (*ConversationsV1ServiceServiceUserReadResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2722,11 +2790,12 @@ Retrieve a list of all conversation users in your account&#39;s default service
 func (c *DefaultApiService) ListUser(params *ListUserParams) (*ConversationsV1UserReadResponse, error) {
 	path := "/v1/Users"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2765,20 +2834,21 @@ Update the global configuration of conversations on your account
 func (c *DefaultApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*ConversationsV1Configuration, error) {
 	path := "/v1/Configuration"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DefaultChatServiceSid != nil {
-		data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
+		data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid) 
 	}
 	if params != nil && params.DefaultClosedTimer != nil {
-		data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
+		data.Set("DefaultClosedTimer", *params.DefaultClosedTimer) 
 	}
 	if params != nil && params.DefaultInactiveTimer != nil {
-		data.Set("DefaultInactiveTimer", *params.DefaultInactiveTimer)
+		data.Set("DefaultInactiveTimer", *params.DefaultInactiveTimer) 
 	}
 	if params != nil && params.DefaultMessagingServiceSid != nil {
-		data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid)
+		data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid) 
 	}
 
 
@@ -2818,23 +2888,24 @@ UpdateConfigurationWebhook Method for UpdateConfigurationWebhook
 func (c *DefaultApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Filters != nil {
-		data.Set("Filters", *params.Filters)
+		data.Set("Filters",  strings.Join(*params.Filters, ","))
 	}
 	if params != nil && params.Method != nil {
-		data.Set("Method", *params.Method)
+		data.Set("Method", *params.Method) 
 	}
 	if params != nil && params.PostWebhookUrl != nil {
-		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+		data.Set("PostWebhookUrl", *params.PostWebhookUrl) 
 	}
 	if params != nil && params.PreWebhookUrl != nil {
-		data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+		data.Set("PreWebhookUrl", *params.PreWebhookUrl) 
 	}
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", *params.Target) 
 	}
 
 
@@ -2854,22 +2925,22 @@ func (c *DefaultApiService) UpdateConfigurationWebhook(params *UpdateConfigurati
 }
 // UpdateConversationParams Optional parameters for the method 'UpdateConversation'
 type UpdateConversationParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	Timers.Closed *string `json:"Timers.Closed,omitempty"`
-	Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
+	TimersClosed *string `json:"TimersClosed,omitempty"`
+	TimersInactive *string `json:"TimersInactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
 UpdateConversation Method for UpdateConversation
 Update an existing conversation in your account&#39;s default service
- * @param sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+ * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
  * @param optional nil or *UpdateConversationOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -2878,48 +2949,49 @@ Update an existing conversation in your account&#39;s default service
  * @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
  * @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
- * @param "Timers.Closed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
- * @param "Timers.Inactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+ * @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 @return ConversationsV1Conversation
 */
-func (c *DefaultApiService) UpdateConversation(sid string, params *UpdateConversationParams) (*ConversationsV1Conversation, error) {
+func (c *DefaultApiService) UpdateConversation(Sid string, params *UpdateConversationParams) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid) 
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", *params.State) 
 	}
-	if params != nil && params.Timers.Closed != nil {
-		data.Set("Timers.Closed", *params.Timers.Closed)
+	if params != nil && params.TimersClosed != nil {
+		data.Set("TimersClosed", *params.TimersClosed) 
 	}
-	if params != nil && params.Timers.Inactive != nil {
-		data.Set("Timers.Inactive", *params.Timers.Inactive)
+	if params != nil && params.TimersInactive != nil {
+		data.Set("TimersInactive", *params.TimersInactive) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -2938,7 +3010,7 @@ func (c *DefaultApiService) UpdateConversation(sid string, params *UpdateConvers
 }
 // UpdateConversationMessageParams Optional parameters for the method 'UpdateConversationMessage'
 type UpdateConversationMessageParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	Author *string `json:"Author,omitempty"`
 	Body *string `json:"Body,omitempty"`
@@ -2949,8 +3021,8 @@ type UpdateConversationMessageParams struct {
 /*
 UpdateConversationMessage Method for UpdateConversationMessage
 Update an existing message in the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateConversationMessageOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -2960,32 +3032,33 @@ Update an existing message in the conversation
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
 @return ConversationsV1ConversationConversationMessage
 */
-func (c *DefaultApiService) UpdateConversationMessage(conversationSid string, sid string, params *UpdateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
+func (c *DefaultApiService) UpdateConversationMessage(ConversationSid string, Sid string, params *UpdateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.Author != nil {
-		data.Set("Author", *params.Author)
+		data.Set("Author", *params.Author) 
 	}
 	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body)
+		data.Set("Body", *params.Body) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3004,23 +3077,23 @@ func (c *DefaultApiService) UpdateConversationMessage(conversationSid string, si
 }
 // UpdateConversationParticipantParams Optional parameters for the method 'UpdateConversationParticipant'
 type UpdateConversationParticipantParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
 	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
 	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
-	MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
-	MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
 UpdateConversationParticipant Method for UpdateConversationParticipant
 Update an existing participant in the conversation
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateConversationParticipantOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -3029,49 +3102,50 @@ Update an existing participant in the conversation
  * @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
  * @param "LastReadMessageIndex" (*int32) - Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
  * @param "LastReadTimestamp" (string) - Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
- * @param "MessagingBinding.ProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
- * @param "MessagingBinding.ProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
+ * @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
+ * @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
  * @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 @return ConversationsV1ConversationConversationParticipant
 */
-func (c *DefaultApiService) UpdateConversationParticipant(conversationSid string, sid string, params *UpdateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
+func (c *DefaultApiService) UpdateConversationParticipant(ConversationSid string, Sid string, params *UpdateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 	if params != nil && params.LastReadMessageIndex != nil {
-		data.Set("LastReadMessageIndex", string(*params.LastReadMessageIndex))
+		data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex)) 
 	}
 	if params != nil && params.LastReadTimestamp != nil {
-		data.Set("LastReadTimestamp", *params.LastReadTimestamp)
+		data.Set("LastReadTimestamp", *params.LastReadTimestamp) 
 	}
-	if params != nil && params.MessagingBinding.ProjectedAddress != nil {
-		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
+	if params != nil && params.MessagingBindingProjectedAddress != nil {
+		data.Set("MessagingBindingProjectedAddress", *params.MessagingBindingProjectedAddress) 
 	}
-	if params != nil && params.MessagingBinding.ProxyAddress != nil {
-		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
+	if params != nil && params.MessagingBindingProxyAddress != nil {
+		data.Set("MessagingBindingProxyAddress", *params.MessagingBindingProxyAddress) 
 	}
 	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+		data.Set("RoleSid", *params.RoleSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3090,48 +3164,49 @@ func (c *DefaultApiService) UpdateConversationParticipant(conversationSid string
 }
 // UpdateConversationScopedWebhookParams Optional parameters for the method 'UpdateConversationScopedWebhook'
 type UpdateConversationScopedWebhookParams struct {
-	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	Configuration.Method *string `json:"Configuration.Method,omitempty"`
-	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-	Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
+	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
+	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
+	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
+	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
 }
 
 /*
 UpdateConversationScopedWebhook Method for UpdateConversationScopedWebhook
 Update an existing conversation-scoped webhook
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateConversationScopedWebhookOpts - Optional Parameters:
- * @param "Configuration.Filters" ([]string) - The list of events, firing webhook event for this Conversation.
- * @param "Configuration.FlowSid" (string) - The studio flow SID, where the webhook should be sent to.
- * @param "Configuration.Method" (string) - The HTTP method to be used when sending a webhook request.
- * @param "Configuration.Triggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
- * @param "Configuration.Url" (string) - The absolute url the webhook request should be sent to.
+ * @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
+ * @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+ * @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
+ * @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+ * @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
 @return ConversationsV1ConversationConversationScopedWebhook
 */
-func (c *DefaultApiService) UpdateConversationScopedWebhook(conversationSid string, sid string, params *UpdateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
+func (c *DefaultApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid string, params *UpdateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
-	if params != nil && params.Configuration.Filters != nil {
-		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	if params != nil && params.ConfigurationFilters != nil {
+		data.Set("ConfigurationFilters",  strings.Join(*params.ConfigurationFilters, ","))
 	}
-	if params != nil && params.Configuration.FlowSid != nil {
-		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid) 
 	}
-	if params != nil && params.Configuration.Method != nil {
-		data.Set("Configuration.Method", *params.Configuration.Method)
+	if params != nil && params.ConfigurationMethod != nil {
+		data.Set("ConfigurationMethod", *params.ConfigurationMethod) 
 	}
-	if params != nil && params.Configuration.Triggers != nil {
-		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	if params != nil && params.ConfigurationTriggers != nil {
+		data.Set("ConfigurationTriggers",  strings.Join(*params.ConfigurationTriggers, ","))
 	}
-	if params != nil && params.Configuration.Url != nil {
-		data.Set("Configuration.Url", *params.Configuration.Url)
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("ConfigurationUrl", *params.ConfigurationUrl) 
 	}
 
 
@@ -3163,7 +3238,7 @@ type UpdateCredentialParams struct {
 /*
 UpdateCredential Method for UpdateCredential
 Update an existing push notification credential on your account
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateCredentialOpts - Optional Parameters:
  * @param "ApiKey" (string) - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
  * @param "Certificate" (string) - [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
@@ -3174,33 +3249,34 @@ Update an existing push notification credential on your account
  * @param "Type" (string) - The type of push-notification service the credential is for. Can be: `fcm`, `gcm`, or `apn`.
 @return ConversationsV1Credential
 */
-func (c *DefaultApiService) UpdateCredential(sid string, params *UpdateCredentialParams) (*ConversationsV1Credential, error) {
+func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*ConversationsV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ApiKey != nil {
-		data.Set("ApiKey", *params.ApiKey)
+		data.Set("ApiKey", *params.ApiKey) 
 	}
 	if params != nil && params.Certificate != nil {
-		data.Set("Certificate", *params.Certificate)
+		data.Set("Certificate", *params.Certificate) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PrivateKey != nil {
-		data.Set("PrivateKey", *params.PrivateKey)
+		data.Set("PrivateKey", *params.PrivateKey) 
 	}
 	if params != nil && params.Sandbox != nil {
-		data.Set("Sandbox", string(*params.Sandbox))
+		data.Set("Sandbox", fmt.Sprint(*params.Sandbox)) 
 	}
 	if params != nil && params.Secret != nil {
-		data.Set("Secret", *params.Secret)
+		data.Set("Secret", *params.Secret) 
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", *params.Type) 
 	}
 
 
@@ -3226,20 +3302,21 @@ type UpdateRoleParams struct {
 /*
 UpdateRole Method for UpdateRole
 Update an existing user role in your account&#39;s default service
- * @param sid The SID of the Role resource to update.
+ * @param Sid The SID of the Role resource to update.
  * @param optional nil or *UpdateRoleOpts - Optional Parameters:
  * @param "Permission" ([]string) - A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
 @return ConversationsV1Role
 */
-func (c *DefaultApiService) UpdateRole(sid string, params *UpdateRoleParams) (*ConversationsV1Role, error) {
+func (c *DefaultApiService) UpdateRole(Sid string, params *UpdateRoleParams) (*ConversationsV1Role, error) {
 	path := "/v1/Roles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", *params.Permission)
+		data.Set("Permission",  strings.Join(*params.Permission, ","))
 	}
 
 
@@ -3268,7 +3345,7 @@ type UpdateServiceConfigurationParams struct {
 /*
 UpdateServiceConfiguration Method for UpdateServiceConfiguration
 Update configuration settings of a conversation service
- * @param chatServiceSid The SID of the Service configuration resource to update.
+ * @param ChatServiceSid The SID of the Service configuration resource to update.
  * @param optional nil or *UpdateServiceConfigurationOpts - Optional Parameters:
  * @param "DefaultChatServiceRoleSid" (string) - The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
  * @param "DefaultConversationCreatorRoleSid" (string) - The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
@@ -3276,24 +3353,25 @@ Update configuration settings of a conversation service
  * @param "ReachabilityEnabled" (bool) - Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
 @return ConversationsV1ServiceServiceConfiguration
 */
-func (c *DefaultApiService) UpdateServiceConfiguration(chatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceServiceConfiguration, error) {
+func (c *DefaultApiService) UpdateServiceConfiguration(ChatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DefaultChatServiceRoleSid != nil {
-		data.Set("DefaultChatServiceRoleSid", *params.DefaultChatServiceRoleSid)
+		data.Set("DefaultChatServiceRoleSid", *params.DefaultChatServiceRoleSid) 
 	}
 	if params != nil && params.DefaultConversationCreatorRoleSid != nil {
-		data.Set("DefaultConversationCreatorRoleSid", *params.DefaultConversationCreatorRoleSid)
+		data.Set("DefaultConversationCreatorRoleSid", *params.DefaultConversationCreatorRoleSid) 
 	}
 	if params != nil && params.DefaultConversationRoleSid != nil {
-		data.Set("DefaultConversationRoleSid", *params.DefaultConversationRoleSid)
+		data.Set("DefaultConversationRoleSid", *params.DefaultConversationRoleSid) 
 	}
 	if params != nil && params.ReachabilityEnabled != nil {
-		data.Set("ReachabilityEnabled", string(*params.ReachabilityEnabled))
+		data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled)) 
 	}
 
 
@@ -3313,23 +3391,23 @@ func (c *DefaultApiService) UpdateServiceConfiguration(chatServiceSid string, pa
 }
 // UpdateServiceConversationParams Optional parameters for the method 'UpdateServiceConversation'
 type UpdateServiceConversationParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	Timers.Closed *string `json:"Timers.Closed,omitempty"`
-	Timers.Inactive *string `json:"Timers.Inactive,omitempty"`
+	TimersClosed *string `json:"TimersClosed,omitempty"`
+	TimersInactive *string `json:"TimersInactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
 UpdateServiceConversation Method for UpdateServiceConversation
 Update an existing conversation in your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
- * @param sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+ * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
  * @param optional nil or *UpdateServiceConversationOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -3338,49 +3416,50 @@ Update an existing conversation in your service
  * @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
  * @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
- * @param "Timers.Closed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
- * @param "Timers.Inactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+ * @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 @return ConversationsV1ServiceServiceConversation
 */
-func (c *DefaultApiService) UpdateServiceConversation(chatServiceSid string, sid string, params *UpdateServiceConversationParams) (*ConversationsV1ServiceServiceConversation, error) {
+func (c *DefaultApiService) UpdateServiceConversation(ChatServiceSid string, Sid string, params *UpdateServiceConversationParams) (*ConversationsV1ServiceServiceConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid) 
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", *params.State) 
 	}
-	if params != nil && params.Timers.Closed != nil {
-		data.Set("Timers.Closed", *params.Timers.Closed)
+	if params != nil && params.TimersClosed != nil {
+		data.Set("TimersClosed", *params.TimersClosed) 
 	}
-	if params != nil && params.Timers.Inactive != nil {
-		data.Set("Timers.Inactive", *params.Timers.Inactive)
+	if params != nil && params.TimersInactive != nil {
+		data.Set("TimersInactive", *params.TimersInactive) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3399,7 +3478,7 @@ func (c *DefaultApiService) UpdateServiceConversation(chatServiceSid string, sid
 }
 // UpdateServiceConversationMessageParams Optional parameters for the method 'UpdateServiceConversationMessage'
 type UpdateServiceConversationMessageParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	Author *string `json:"Author,omitempty"`
 	Body *string `json:"Body,omitempty"`
@@ -3410,9 +3489,9 @@ type UpdateServiceConversationMessageParams struct {
 /*
 UpdateServiceConversationMessage Method for UpdateServiceConversationMessage
 Update an existing message in the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateServiceConversationMessageOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -3422,33 +3501,34 @@ Update an existing message in the conversation
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
 @return ConversationsV1ServiceServiceConversationServiceConversationMessage
 */
-func (c *DefaultApiService) UpdateServiceConversationMessage(chatServiceSid string, conversationSid string, sid string, params *UpdateServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
+func (c *DefaultApiService) UpdateServiceConversationMessage(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.Author != nil {
-		data.Set("Author", *params.Author)
+		data.Set("Author", *params.Author) 
 	}
 	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body)
+		data.Set("Body", *params.Body) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3467,24 +3547,24 @@ func (c *DefaultApiService) UpdateServiceConversationMessage(chatServiceSid stri
 }
 // UpdateServiceConversationParticipantParams Optional parameters for the method 'UpdateServiceConversationParticipant'
 type UpdateServiceConversationParticipantParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
 	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
 	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
-	MessagingBinding.ProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
-	MessagingBinding.ProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
 UpdateServiceConversationParticipant Method for UpdateServiceConversationParticipant
 Update an existing participant in the conversation
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateServiceConversationParticipantOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
@@ -3493,50 +3573,51 @@ Update an existing participant in the conversation
  * @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
  * @param "LastReadMessageIndex" (*int32) - Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
  * @param "LastReadTimestamp" (string) - Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
- * @param "MessagingBinding.ProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
- * @param "MessagingBinding.ProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
+ * @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
+ * @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
  * @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
 */
-func (c *DefaultApiService) UpdateServiceConversationParticipant(chatServiceSid string, conversationSid string, sid string, params *UpdateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
+func (c *DefaultApiService) UpdateServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", string(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", string(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 	if params != nil && params.LastReadMessageIndex != nil {
-		data.Set("LastReadMessageIndex", string(*params.LastReadMessageIndex))
+		data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex)) 
 	}
 	if params != nil && params.LastReadTimestamp != nil {
-		data.Set("LastReadTimestamp", *params.LastReadTimestamp)
+		data.Set("LastReadTimestamp", *params.LastReadTimestamp) 
 	}
-	if params != nil && params.MessagingBinding.ProjectedAddress != nil {
-		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBinding.ProjectedAddress)
+	if params != nil && params.MessagingBindingProjectedAddress != nil {
+		data.Set("MessagingBindingProjectedAddress", *params.MessagingBindingProjectedAddress) 
 	}
-	if params != nil && params.MessagingBinding.ProxyAddress != nil {
-		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBinding.ProxyAddress)
+	if params != nil && params.MessagingBindingProxyAddress != nil {
+		data.Set("MessagingBindingProxyAddress", *params.MessagingBindingProxyAddress) 
 	}
 	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+		data.Set("RoleSid", *params.RoleSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3555,50 +3636,51 @@ func (c *DefaultApiService) UpdateServiceConversationParticipant(chatServiceSid 
 }
 // UpdateServiceConversationScopedWebhookParams Optional parameters for the method 'UpdateServiceConversationScopedWebhook'
 type UpdateServiceConversationScopedWebhookParams struct {
-	Configuration.Filters *[]string `json:"Configuration.Filters,omitempty"`
-	Configuration.FlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	Configuration.Method *string `json:"Configuration.Method,omitempty"`
-	Configuration.Triggers *[]string `json:"Configuration.Triggers,omitempty"`
-	Configuration.Url *string `json:"Configuration.Url,omitempty"`
+	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
+	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
+	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
+	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
+	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
 }
 
 /*
 UpdateServiceConversationScopedWebhook Method for UpdateServiceConversationScopedWebhook
 Update an existing conversation-scoped webhook
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
- * @param conversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+ * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateServiceConversationScopedWebhookOpts - Optional Parameters:
- * @param "Configuration.Filters" ([]string) - The list of events, firing webhook event for this Conversation.
- * @param "Configuration.FlowSid" (string) - The studio flow SID, where the webhook should be sent to.
- * @param "Configuration.Method" (string) - The HTTP method to be used when sending a webhook request.
- * @param "Configuration.Triggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
- * @param "Configuration.Url" (string) - The absolute url the webhook request should be sent to.
+ * @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
+ * @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+ * @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
+ * @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+ * @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 */
-func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(chatServiceSid string, conversationSid string, sid string, params *UpdateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
+func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", conversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
-	if params != nil && params.Configuration.Filters != nil {
-		data.Set("Configuration.Filters", *params.Configuration.Filters)
+	if params != nil && params.ConfigurationFilters != nil {
+		data.Set("ConfigurationFilters",  strings.Join(*params.ConfigurationFilters, ","))
 	}
-	if params != nil && params.Configuration.FlowSid != nil {
-		data.Set("Configuration.FlowSid", *params.Configuration.FlowSid)
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid) 
 	}
-	if params != nil && params.Configuration.Method != nil {
-		data.Set("Configuration.Method", *params.Configuration.Method)
+	if params != nil && params.ConfigurationMethod != nil {
+		data.Set("ConfigurationMethod", *params.ConfigurationMethod) 
 	}
-	if params != nil && params.Configuration.Triggers != nil {
-		data.Set("Configuration.Triggers", *params.Configuration.Triggers)
+	if params != nil && params.ConfigurationTriggers != nil {
+		data.Set("ConfigurationTriggers",  strings.Join(*params.ConfigurationTriggers, ","))
 	}
-	if params != nil && params.Configuration.Url != nil {
-		data.Set("Configuration.Url", *params.Configuration.Url)
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("ConfigurationUrl", *params.ConfigurationUrl) 
 	}
 
 
@@ -3618,76 +3700,77 @@ func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(chatServiceSi
 }
 // UpdateServiceNotificationParams Optional parameters for the method 'UpdateServiceNotification'
 type UpdateServiceNotificationParams struct {
-	AddedToConversation.Enabled *bool `json:"AddedToConversation.Enabled,omitempty"`
-	AddedToConversation.Sound *string `json:"AddedToConversation.Sound,omitempty"`
-	AddedToConversation.Template *string `json:"AddedToConversation.Template,omitempty"`
+	AddedToConversationEnabled *bool `json:"AddedToConversationEnabled,omitempty"`
+	AddedToConversationSound *string `json:"AddedToConversationSound,omitempty"`
+	AddedToConversationTemplate *string `json:"AddedToConversationTemplate,omitempty"`
 	LogEnabled *bool `json:"LogEnabled,omitempty"`
-	NewMessage.BadgeCountEnabled *bool `json:"NewMessage.BadgeCountEnabled,omitempty"`
-	NewMessage.Enabled *bool `json:"NewMessage.Enabled,omitempty"`
-	NewMessage.Sound *string `json:"NewMessage.Sound,omitempty"`
-	NewMessage.Template *string `json:"NewMessage.Template,omitempty"`
-	RemovedFromConversation.Enabled *bool `json:"RemovedFromConversation.Enabled,omitempty"`
-	RemovedFromConversation.Sound *string `json:"RemovedFromConversation.Sound,omitempty"`
-	RemovedFromConversation.Template *string `json:"RemovedFromConversation.Template,omitempty"`
+	NewMessageBadgeCountEnabled *bool `json:"NewMessageBadgeCountEnabled,omitempty"`
+	NewMessageEnabled *bool `json:"NewMessageEnabled,omitempty"`
+	NewMessageSound *string `json:"NewMessageSound,omitempty"`
+	NewMessageTemplate *string `json:"NewMessageTemplate,omitempty"`
+	RemovedFromConversationEnabled *bool `json:"RemovedFromConversationEnabled,omitempty"`
+	RemovedFromConversationSound *string `json:"RemovedFromConversationSound,omitempty"`
+	RemovedFromConversationTemplate *string `json:"RemovedFromConversationTemplate,omitempty"`
 }
 
 /*
 UpdateServiceNotification Method for UpdateServiceNotification
 Update push notification service settings
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
  * @param optional nil or *UpdateServiceNotificationOpts - Optional Parameters:
- * @param "AddedToConversation.Enabled" (bool) - Whether to send a notification when a participant is added to a conversation. The default is `false`.
- * @param "AddedToConversation.Sound" (string) - The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
- * @param "AddedToConversation.Template" (string) - The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+ * @param "AddedToConversationEnabled" (bool) - Whether to send a notification when a participant is added to a conversation. The default is `false`.
+ * @param "AddedToConversationSound" (string) - The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+ * @param "AddedToConversationTemplate" (string) - The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
  * @param "LogEnabled" (bool) - Weather the notification logging is enabled.
- * @param "NewMessage.BadgeCountEnabled" (bool) - Whether the new message badge is enabled. The default is `false`.
- * @param "NewMessage.Enabled" (bool) - Whether to send a notification when a new message is added to a conversation. The default is `false`.
- * @param "NewMessage.Sound" (string) - The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
- * @param "NewMessage.Template" (string) - The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
- * @param "RemovedFromConversation.Enabled" (bool) - Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
- * @param "RemovedFromConversation.Sound" (string) - The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
- * @param "RemovedFromConversation.Template" (string) - The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+ * @param "NewMessageBadgeCountEnabled" (bool) - Whether the new message badge is enabled. The default is `false`.
+ * @param "NewMessageEnabled" (bool) - Whether to send a notification when a new message is added to a conversation. The default is `false`.
+ * @param "NewMessageSound" (string) - The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+ * @param "NewMessageTemplate" (string) - The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+ * @param "RemovedFromConversationEnabled" (bool) - Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+ * @param "RemovedFromConversationSound" (string) - The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+ * @param "RemovedFromConversationTemplate" (string) - The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
 @return ConversationsV1ServiceServiceConfigurationServiceNotification
 */
-func (c *DefaultApiService) UpdateServiceNotification(chatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
+func (c *DefaultApiService) UpdateServiceNotification(ChatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
-	if params != nil && params.AddedToConversation.Enabled != nil {
-		data.Set("AddedToConversation.Enabled", string(*params.AddedToConversation.Enabled))
+	if params != nil && params.AddedToConversationEnabled != nil {
+		data.Set("AddedToConversationEnabled", fmt.Sprint(*params.AddedToConversationEnabled)) 
 	}
-	if params != nil && params.AddedToConversation.Sound != nil {
-		data.Set("AddedToConversation.Sound", *params.AddedToConversation.Sound)
+	if params != nil && params.AddedToConversationSound != nil {
+		data.Set("AddedToConversationSound", *params.AddedToConversationSound) 
 	}
-	if params != nil && params.AddedToConversation.Template != nil {
-		data.Set("AddedToConversation.Template", *params.AddedToConversation.Template)
+	if params != nil && params.AddedToConversationTemplate != nil {
+		data.Set("AddedToConversationTemplate", *params.AddedToConversationTemplate) 
 	}
 	if params != nil && params.LogEnabled != nil {
-		data.Set("LogEnabled", string(*params.LogEnabled))
+		data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled)) 
 	}
-	if params != nil && params.NewMessage.BadgeCountEnabled != nil {
-		data.Set("NewMessage.BadgeCountEnabled", string(*params.NewMessage.BadgeCountEnabled))
+	if params != nil && params.NewMessageBadgeCountEnabled != nil {
+		data.Set("NewMessageBadgeCountEnabled", fmt.Sprint(*params.NewMessageBadgeCountEnabled)) 
 	}
-	if params != nil && params.NewMessage.Enabled != nil {
-		data.Set("NewMessage.Enabled", string(*params.NewMessage.Enabled))
+	if params != nil && params.NewMessageEnabled != nil {
+		data.Set("NewMessageEnabled", fmt.Sprint(*params.NewMessageEnabled)) 
 	}
-	if params != nil && params.NewMessage.Sound != nil {
-		data.Set("NewMessage.Sound", *params.NewMessage.Sound)
+	if params != nil && params.NewMessageSound != nil {
+		data.Set("NewMessageSound", *params.NewMessageSound) 
 	}
-	if params != nil && params.NewMessage.Template != nil {
-		data.Set("NewMessage.Template", *params.NewMessage.Template)
+	if params != nil && params.NewMessageTemplate != nil {
+		data.Set("NewMessageTemplate", *params.NewMessageTemplate) 
 	}
-	if params != nil && params.RemovedFromConversation.Enabled != nil {
-		data.Set("RemovedFromConversation.Enabled", string(*params.RemovedFromConversation.Enabled))
+	if params != nil && params.RemovedFromConversationEnabled != nil {
+		data.Set("RemovedFromConversationEnabled", fmt.Sprint(*params.RemovedFromConversationEnabled)) 
 	}
-	if params != nil && params.RemovedFromConversation.Sound != nil {
-		data.Set("RemovedFromConversation.Sound", *params.RemovedFromConversation.Sound)
+	if params != nil && params.RemovedFromConversationSound != nil {
+		data.Set("RemovedFromConversationSound", *params.RemovedFromConversationSound) 
 	}
-	if params != nil && params.RemovedFromConversation.Template != nil {
-		data.Set("RemovedFromConversation.Template", *params.RemovedFromConversation.Template)
+	if params != nil && params.RemovedFromConversationTemplate != nil {
+		data.Set("RemovedFromConversationTemplate", *params.RemovedFromConversationTemplate) 
 	}
 
 
@@ -3713,22 +3796,23 @@ type UpdateServiceRoleParams struct {
 /*
 UpdateServiceRole Method for UpdateServiceRole
 Update an existing user role in your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to update the Role resource in.
- * @param sid The SID of the Role resource to update.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to update the Role resource in.
+ * @param Sid The SID of the Role resource to update.
  * @param optional nil or *UpdateServiceRoleOpts - Optional Parameters:
  * @param "Permission" ([]string) - A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
 @return ConversationsV1ServiceServiceRole
 */
-func (c *DefaultApiService) UpdateServiceRole(chatServiceSid string, sid string, params *UpdateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
+func (c *DefaultApiService) UpdateServiceRole(ChatServiceSid string, Sid string, params *UpdateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", *params.Permission)
+		data.Set("Permission",  strings.Join(*params.Permission, ","))
 	}
 
 
@@ -3748,7 +3832,7 @@ func (c *DefaultApiService) UpdateServiceRole(chatServiceSid string, sid string,
 }
 // UpdateServiceUserParams Optional parameters for the method 'UpdateServiceUser'
 type UpdateServiceUserParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
@@ -3757,8 +3841,8 @@ type UpdateServiceUserParams struct {
 /*
 UpdateServiceUser Method for UpdateServiceUser
 Update an existing conversation user in your service
- * @param chatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
- * @param sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+ * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
+ * @param Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
  * @param optional nil or *UpdateServiceUserOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
@@ -3766,26 +3850,27 @@ Update an existing conversation user in your service
  * @param "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 @return ConversationsV1ServiceServiceUser
 */
-func (c *DefaultApiService) UpdateServiceUser(chatServiceSid string, sid string, params *UpdateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
+func (c *DefaultApiService) UpdateServiceUser(ChatServiceSid string, Sid string, params *UpdateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", chatServiceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+		data.Set("RoleSid", *params.RoleSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3804,7 +3889,7 @@ func (c *DefaultApiService) UpdateServiceUser(chatServiceSid string, sid string,
 }
 // UpdateUserParams Optional parameters for the method 'UpdateUser'
 type UpdateUserParams struct {
-	X-Twilio-Webhook-Enabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 	Attributes *string `json:"Attributes,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
@@ -3813,7 +3898,7 @@ type UpdateUserParams struct {
 /*
 UpdateUser Method for UpdateUser
 Update an existing conversation user in your account&#39;s default service
- * @param sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+ * @param Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
  * @param optional nil or *UpdateUserOpts - Optional Parameters:
  * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
@@ -3821,25 +3906,26 @@ Update an existing conversation user in your account&#39;s default service
  * @param "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 @return ConversationsV1User
 */
-func (c *DefaultApiService) UpdateUser(sid string, params *UpdateUserParams) (*ConversationsV1User, error) {
+func (c *DefaultApiService) UpdateUser(Sid string, params *UpdateUserParams) (*ConversationsV1User, error) {
 	path := "/v1/Users/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.RoleSid != nil {
-		data.Set("RoleSid", *params.RoleSid)
+		data.Set("RoleSid", *params.RoleSid) 
 	}
 
-	if params != nil && params.X-Twilio-Webhook-Enabled != nil {
-		headers["X-Twilio-Webhook-Enabled"] = *params.X-Twilio-Webhook-Enabled
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)

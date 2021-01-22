@@ -14,21 +14,21 @@ import (
 )
 // TaskrouterV1WorkspaceEvent struct for TaskrouterV1WorkspaceEvent
 type TaskrouterV1WorkspaceEvent struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ActorSid string `json:"actor_sid,omitempty"`
-	ActorType string `json:"actor_type,omitempty"`
-	ActorUrl string `json:"actor_url,omitempty"`
-	Description string `json:"description,omitempty"`
-	EventData map[string]interface{} `json:"event_data,omitempty"`
-	EventDate time.Time `json:"event_date,omitempty"`
-	EventDateMs int32 `json:"event_date_ms,omitempty"`
-	EventType string `json:"event_type,omitempty"`
-	ResourceSid string `json:"resource_sid,omitempty"`
-	ResourceType string `json:"resource_type,omitempty"`
-	ResourceUrl string `json:"resource_url,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Source string `json:"source,omitempty"`
-	SourceIpAddress string `json:"source_ip_address,omitempty"`
-	Url string `json:"url,omitempty"`
-	WorkspaceSid string `json:"workspace_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ActorSid string `json:"ActorSid,omitempty"`
+	ActorType string `json:"ActorType,omitempty"`
+	ActorUrl string `json:"ActorUrl,omitempty"`
+	Description string `json:"Description,omitempty"`
+	EventData map[string]interface{} `json:"EventData,omitempty"`
+	EventDate time.Time `json:"EventDate,omitempty"`
+	EventDateMs int32 `json:"EventDateMs,omitempty"`
+	EventType string `json:"EventType,omitempty"`
+	ResourceSid string `json:"ResourceSid,omitempty"`
+	ResourceType string `json:"ResourceType,omitempty"`
+	ResourceUrl string `json:"ResourceUrl,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Source string `json:"Source,omitempty"`
+	SourceIpAddress string `json:"SourceIpAddress,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
 }

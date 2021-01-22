@@ -14,14 +14,14 @@ import (
 )
 // VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack struct for VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack
 type VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack struct {
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Enabled bool `json:"enabled,omitempty"`
-	Kind string `json:"kind,omitempty"`
-	Name string `json:"name,omitempty"`
-	ParticipantSid string `json:"participant_sid,omitempty"`
-	PublisherSid string `json:"publisher_sid,omitempty"`
-	RoomSid string `json:"room_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Enabled bool `json:"Enabled,omitempty"`
+	Kind string `json:"Kind,omitempty"`
+	Name string `json:"Name,omitempty"`
+	ParticipantSid string `json:"ParticipantSid,omitempty"`
+	PublisherSid string `json:"PublisherSid,omitempty"`
+	RoomSid string `json:"RoomSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

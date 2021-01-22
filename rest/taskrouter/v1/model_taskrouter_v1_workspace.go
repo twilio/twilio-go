@@ -14,19 +14,19 @@ import (
 )
 // TaskrouterV1Workspace struct for TaskrouterV1Workspace
 type TaskrouterV1Workspace struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DefaultActivityName string `json:"default_activity_name,omitempty"`
-	DefaultActivitySid string `json:"default_activity_sid,omitempty"`
-	EventCallbackUrl string `json:"event_callback_url,omitempty"`
-	EventsFilter string `json:"events_filter,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	MultiTaskEnabled bool `json:"multi_task_enabled,omitempty"`
-	PrioritizeQueueOrder string `json:"prioritize_queue_order,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	TimeoutActivityName string `json:"timeout_activity_name,omitempty"`
-	TimeoutActivitySid string `json:"timeout_activity_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DefaultActivityName string `json:"DefaultActivityName,omitempty"`
+	DefaultActivitySid string `json:"DefaultActivitySid,omitempty"`
+	EventCallbackUrl string `json:"EventCallbackUrl,omitempty"`
+	EventsFilter string `json:"EventsFilter,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	MultiTaskEnabled bool `json:"MultiTaskEnabled,omitempty"`
+	PrioritizeQueueOrder string `json:"PrioritizeQueueOrder,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TimeoutActivityName string `json:"TimeoutActivityName,omitempty"`
+	TimeoutActivitySid string `json:"TimeoutActivitySid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

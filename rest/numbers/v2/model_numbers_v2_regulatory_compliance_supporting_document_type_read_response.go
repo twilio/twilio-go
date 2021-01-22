@@ -11,6 +11,6 @@
 package openapi
 // NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse struct for NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse
 type NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse struct {
-	Meta NumbersV2RegulatoryComplianceBundleReadResponseMeta `json:"meta,omitempty"`
-	SupportingDocumentTypes []NumbersV2RegulatoryComplianceSupportingDocumentType `json:"supporting_document_types,omitempty"`
+	Meta NumbersV2RegulatoryComplianceBundleReadResponseMeta `json:"Meta,omitempty"`
+	SupportingDocumentTypes []NumbersV2RegulatoryComplianceSupportingDocumentType `json:"SupportingDocumentTypes,omitempty"`
 }

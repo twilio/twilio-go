@@ -11,6 +11,6 @@
 package openapi
 // FaxV1FaxReadResponse struct for FaxV1FaxReadResponse
 type FaxV1FaxReadResponse struct {
-	Faxes []FaxV1Fax `json:"faxes,omitempty"`
-	Meta FaxV1FaxReadResponseMeta `json:"meta,omitempty"`
+	Faxes []FaxV1Fax `json:"Faxes,omitempty"`
+	Meta FaxV1FaxReadResponseMeta `json:"Meta,omitempty"`
 }

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## FetchAlert
 
-> MonitorV1AlertInstance FetchAlert(ctx, sid)
+> MonitorV1AlertInstance FetchAlert(ctx, Sid)
 
 
 
@@ -23,7 +23,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Alert resource to fetch. | 
+**Sid** | **string**| The SID of the Alert resource to fetch. | 
 
 ### Return type
 
@@ -45,7 +45,7 @@ Name | Type | Description  | Notes
 
 ## FetchEvent
 
-> MonitorV1Event FetchEvent(ctx, sid)
+> MonitorV1Event FetchEvent(ctx, Sid)
 
 
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The SID of the Event resource to fetch. | 
+**Sid** | **string**| The SID of the Event resource to fetch. | 
 
 ### Return type
 
@@ -96,10 +96,10 @@ Optional parameters are passed through a pointer to a ListAlertOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **logLevel** | **optional.String**| Only show alerts for this log-level.  Can be: &#x60;error&#x60;, &#x60;warning&#x60;, &#x60;notice&#x60;, or &#x60;debug&#x60;. | 
- **startDate** | **optional.Time**| Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as &#x60;YYYY-MM-DD&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;. Queries for alerts older than 30 days are not supported. | 
- **endDate** | **optional.Time**| Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as &#x60;YYYY-MM-DD&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;. Queries for alerts older than 30 days are not supported. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **LogLevel** | **optional.String**| Only show alerts for this log-level.  Can be: &#x60;error&#x60;, &#x60;warning&#x60;, &#x60;notice&#x60;, or &#x60;debug&#x60;. | 
+ **StartDate** | **optional.Time**| Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as &#x60;YYYY-MM-DD&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;. Queries for alerts older than 30 days are not supported. | 
+ **EndDate** | **optional.Time**| Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as &#x60;YYYY-MM-DD&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;. Queries for alerts older than 30 days are not supported. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -142,13 +142,13 @@ Optional parameters are passed through a pointer to a ListEventOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **actorSid** | **optional.String**| Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. | 
- **eventType** | **optional.String**| Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). | 
- **resourceSid** | **optional.String**| Only include events that refer to this resource. Useful for discovering the history of a specific resource. | 
- **sourceIpAddress** | **optional.String**| Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console. | 
- **startDate** | **optional.Time**| Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. | 
- **endDate** | **optional.Time**| Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **ActorSid** | **optional.String**| Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. | 
+ **EventType** | **optional.String**| Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). | 
+ **ResourceSid** | **optional.String**| Only include events that refer to this resource. Useful for discovering the history of a specific resource. | 
+ **SourceIpAddress** | **optional.String**| Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console. | 
+ **StartDate** | **optional.Time**| Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. | 
+ **EndDate** | **optional.Time**| Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

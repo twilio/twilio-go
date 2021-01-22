@@ -14,12 +14,12 @@ import (
 )
 // PreviewDeployedDevicesFleetDeployment struct for PreviewDeployedDevicesFleetDeployment
 type PreviewDeployedDevicesFleetDeployment struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FleetSid string `json:"fleet_sid,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SyncServiceSid string `json:"sync_service_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FleetSid string `json:"FleetSid,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SyncServiceSid string `json:"SyncServiceSid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

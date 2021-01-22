@@ -47,9 +47,9 @@ Optional parameters are passed through a pointer to a CreateSinkOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **description** | **optional.String**| A human readable description for the Sink | 
- **sinkConfiguration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The information required for Twilio to connect to the provided Sink encoded as JSON. | 
- **sinkType** | **optional.String**| The Sink type. Can only be \\\&quot;kinesis\\\&quot; currently. | 
+ **Description** | **optional.String**| A human readable description for the Sink | 
+ **SinkConfiguration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The information required for Twilio to connect to the provided Sink encoded as JSON. | 
+ **SinkType** | **optional.String**| The Sink type. Can only be \\\&quot;kinesis\\\&quot; currently. | 
 
 ### Return type
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ## CreateSinkTest
 
-> EventsV1SinkSinkTest CreateSinkTest(ctx, sid)
+> EventsV1SinkSinkTest CreateSinkTest(ctx, Sid)
 
 
 
@@ -83,7 +83,7 @@ Create a new Sink Test Event for the given Sink.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies the Sink to be Tested. | 
+**Sid** | **string**| A 34 character string that uniquely identifies the Sink to be Tested. | 
 
 ### Return type
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ## CreateSinkValidate
 
-> EventsV1SinkSinkValidate CreateSinkValidate(ctx, sid, optional)
+> EventsV1SinkSinkValidate CreateSinkValidate(ctx, Sid, optional)
 
 
 
@@ -117,7 +117,7 @@ Validate that a test event for a Sink was received.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
  **optional** | ***CreateSinkValidateOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -128,7 +128,7 @@ Optional parameters are passed through a pointer to a CreateSinkValidateOpts str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **testId** | **optional.String**| A 34 character string that uniquely identifies the test event for a Sink being validated. | 
+ **TestId** | **optional.String**| A 34 character string that uniquely identifies the test event for a Sink being validated. | 
 
 ### Return type
 
@@ -171,9 +171,9 @@ Optional parameters are passed through a pointer to a CreateSubscriptionOpts str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **description** | **optional.String**| A human readable description for the Subscription | 
- **sinkSid** | **optional.String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
- **types** | [**optional.Interface of []map[string]interface{}**](map[string]interface{}.md)| Contains a dictionary of URL links to nested resources of this Subscription. | 
+ **Description** | **optional.String**| A human readable description for the Subscription | 
+ **SinkSid** | **optional.String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
+ **Types** | [**optional.Interface of []map[string]interface{}**](map[string]interface{}.md)| Contains a dictionary of URL links to nested resources of this Subscription. | 
 
 ### Return type
 
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSink
 
-> DeleteSink(ctx, sid)
+> DeleteSink(ctx, Sid)
 
 
 
@@ -207,7 +207,7 @@ Delete a specific Sink.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this Sink. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this Sink. | 
 
 ### Return type
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSubscription
 
-> DeleteSubscription(ctx, sid)
+> DeleteSubscription(ctx, Sid)
 
 
 
@@ -241,7 +241,7 @@ Delete a specific Subscription.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
 
 ### Return type
 
@@ -263,7 +263,7 @@ Name | Type | Description  | Notes
 
 ## FetchEventType
 
-> EventsV1EventType FetchEventType(ctx, type_)
+> EventsV1EventType FetchEventType(ctx, Type)
 
 
 
@@ -275,7 +275,7 @@ Fetch a specific Event Type.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**type_** | **string**| A string that uniquely identifies this Event Type. | 
+**Type** | **string**| A string that uniquely identifies this Event Type. | 
 
 ### Return type
 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 ## FetchSchema
 
-> EventsV1Schema FetchSchema(ctx, id)
+> EventsV1Schema FetchSchema(ctx, Id)
 
 
 
@@ -309,7 +309,7 @@ Fetch a specific schema with its nested versions.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
+**Id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
 
 ### Return type
 
@@ -331,7 +331,7 @@ Name | Type | Description  | Notes
 
 ## FetchSink
 
-> EventsV1Sink FetchSink(ctx, sid)
+> EventsV1Sink FetchSink(ctx, Sid)
 
 
 
@@ -343,7 +343,7 @@ Fetch a specific Sink.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this Sink. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this Sink. | 
 
 ### Return type
 
@@ -365,7 +365,7 @@ Name | Type | Description  | Notes
 
 ## FetchSubscription
 
-> EventsV1Subscription FetchSubscription(ctx, sid)
+> EventsV1Subscription FetchSubscription(ctx, Sid)
 
 
 
@@ -377,7 +377,7 @@ Fetch a specific Subscription.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
 
 ### Return type
 
@@ -399,7 +399,7 @@ Name | Type | Description  | Notes
 
 ## FetchVersion
 
-> EventsV1SchemaVersion FetchVersion(ctx, id, schemaVersion)
+> EventsV1SchemaVersion FetchVersion(ctx, Id, SchemaVersion)
 
 
 
@@ -411,8 +411,8 @@ Fetch a specific schema and version.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
-**schemaVersion** | **int32**| The version of the schema | 
+**Id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
+**SchemaVersion** | **int32**| The version of the schema | 
 
 ### Return type
 
@@ -455,7 +455,7 @@ Optional parameters are passed through a pointer to a ListEventTypeOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -498,7 +498,7 @@ Optional parameters are passed through a pointer to a ListSinkOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -520,7 +520,7 @@ Name | Type | Description  | Notes
 
 ## ListSubscribedEvent
 
-> EventsV1SubscriptionSubscribedEventReadResponse ListSubscribedEvent(ctx, subscriptionSid, optional)
+> EventsV1SubscriptionSubscribedEventReadResponse ListSubscribedEvent(ctx, SubscriptionSid, optional)
 
 
 
@@ -532,7 +532,7 @@ Retrieve a list of all Subscribed Event types for a Subscription.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**subscriptionSid** | **string**| The unique SID identifier of the Subscription. | 
+**SubscriptionSid** | **string**| The unique SID identifier of the Subscription. | 
  **optional** | ***ListSubscribedEventOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -543,7 +543,7 @@ Optional parameters are passed through a pointer to a ListSubscribedEventOpts st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -586,8 +586,8 @@ Optional parameters are passed through a pointer to a ListSubscriptionOpts struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sinkSid** | **optional.String**| The SID of the sink that the list of Subscriptions should be filtered by. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **SinkSid** | **optional.String**| The SID of the sink that the list of Subscriptions should be filtered by. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -609,7 +609,7 @@ Name | Type | Description  | Notes
 
 ## ListVersion
 
-> EventsV1SchemaVersionReadResponse ListVersion(ctx, id, optional)
+> EventsV1SchemaVersionReadResponse ListVersion(ctx, Id, optional)
 
 
 
@@ -621,7 +621,7 @@ Retrieve a paginated list of versions of the schema.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
+**Id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
  **optional** | ***ListVersionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -632,7 +632,7 @@ Optional parameters are passed through a pointer to a ListVersionOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -654,7 +654,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSubscription
 
-> EventsV1Subscription UpdateSubscription(ctx, sid, optional)
+> EventsV1Subscription UpdateSubscription(ctx, Sid, optional)
 
 
 
@@ -666,7 +666,7 @@ Update a Subscription.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
+**Sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
  **optional** | ***UpdateSubscriptionOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -677,8 +677,8 @@ Optional parameters are passed through a pointer to a UpdateSubscriptionOpts str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **description** | **optional.String**| A human readable description for the Subscription. | 
- **sinkSid** | **optional.String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
+ **Description** | **optional.String**| A human readable description for the Subscription. | 
+ **SinkSid** | **optional.String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
 
 ### Return type
 

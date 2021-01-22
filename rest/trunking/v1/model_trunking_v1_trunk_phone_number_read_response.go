@@ -11,6 +11,6 @@
 package openapi
 // TrunkingV1TrunkPhoneNumberReadResponse struct for TrunkingV1TrunkPhoneNumberReadResponse
 type TrunkingV1TrunkPhoneNumberReadResponse struct {
-	Meta TrunkingV1TrunkReadResponseMeta `json:"meta,omitempty"`
-	PhoneNumbers []TrunkingV1TrunkPhoneNumber `json:"phone_numbers,omitempty"`
+	Meta TrunkingV1TrunkReadResponseMeta `json:"Meta,omitempty"`
+	PhoneNumbers []TrunkingV1TrunkPhoneNumber `json:"PhoneNumbers,omitempty"`
 }

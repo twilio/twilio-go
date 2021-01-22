@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -60,38 +61,39 @@ CreateChannel Method for CreateChannel
 func (c *DefaultApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel, error) {
 	path := "/v1/Channels"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChatFriendlyName != nil {
-		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+		data.Set("ChatFriendlyName", *params.ChatFriendlyName) 
 	}
 	if params != nil && params.ChatUniqueName != nil {
-		data.Set("ChatUniqueName", *params.ChatUniqueName)
+		data.Set("ChatUniqueName", *params.ChatUniqueName) 
 	}
 	if params != nil && params.ChatUserFriendlyName != nil {
-		data.Set("ChatUserFriendlyName", *params.ChatUserFriendlyName)
+		data.Set("ChatUserFriendlyName", *params.ChatUserFriendlyName) 
 	}
 	if params != nil && params.FlexFlowSid != nil {
-		data.Set("FlexFlowSid", *params.FlexFlowSid)
+		data.Set("FlexFlowSid", *params.FlexFlowSid) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 	if params != nil && params.LongLived != nil {
-		data.Set("LongLived", string(*params.LongLived))
+		data.Set("LongLived", fmt.Sprint(*params.LongLived)) 
 	}
 	if params != nil && params.PreEngagementData != nil {
-		data.Set("PreEngagementData", *params.PreEngagementData)
+		data.Set("PreEngagementData", *params.PreEngagementData) 
 	}
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", *params.Target) 
 	}
 	if params != nil && params.TaskAttributes != nil {
-		data.Set("TaskAttributes", *params.TaskAttributes)
+		data.Set("TaskAttributes", *params.TaskAttributes) 
 	}
 	if params != nil && params.TaskSid != nil {
-		data.Set("TaskSid", *params.TaskSid)
+		data.Set("TaskSid", *params.TaskSid) 
 	}
 
 
@@ -116,15 +118,15 @@ type CreateFlexFlowParams struct {
 	ContactIdentity *string `json:"ContactIdentity,omitempty"`
 	Enabled *bool `json:"Enabled,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Integration.Channel *string `json:"Integration.Channel,omitempty"`
-	Integration.CreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
-	Integration.FlowSid *string `json:"Integration.FlowSid,omitempty"`
-	Integration.Priority *int32 `json:"Integration.Priority,omitempty"`
-	Integration.RetryCount *int32 `json:"Integration.RetryCount,omitempty"`
-	Integration.Timeout *int32 `json:"Integration.Timeout,omitempty"`
-	Integration.Url *string `json:"Integration.Url,omitempty"`
-	Integration.WorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
-	Integration.WorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
+	IntegrationChannel *string `json:"IntegrationChannel,omitempty"`
+	IntegrationCreationOnMessage *bool `json:"IntegrationCreationOnMessage,omitempty"`
+	IntegrationFlowSid *string `json:"IntegrationFlowSid,omitempty"`
+	IntegrationPriority *int32 `json:"IntegrationPriority,omitempty"`
+	IntegrationRetryCount *int32 `json:"IntegrationRetryCount,omitempty"`
+	IntegrationTimeout *int32 `json:"IntegrationTimeout,omitempty"`
+	IntegrationUrl *string `json:"IntegrationUrl,omitempty"`
+	IntegrationWorkflowSid *string `json:"IntegrationWorkflowSid,omitempty"`
+	IntegrationWorkspaceSid *string `json:"IntegrationWorkspaceSid,omitempty"`
 	IntegrationType *string `json:"IntegrationType,omitempty"`
 	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
 	LongLived *bool `json:"LongLived,omitempty"`
@@ -138,15 +140,15 @@ CreateFlexFlow Method for CreateFlexFlow
  * @param "ContactIdentity" (string) - The channel contact's Identity.
  * @param "Enabled" (bool) - Whether the new Flex Flow is enabled.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
- * @param "Integration.Channel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
- * @param "Integration.CreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
- * @param "Integration.FlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
- * @param "Integration.Priority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
- * @param "Integration.RetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
- * @param "Integration.Timeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
- * @param "Integration.Url" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
- * @param "Integration.WorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
- * @param "Integration.WorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
+ * @param "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
+ * @param "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+ * @param "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
+ * @param "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+ * @param "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
+ * @param "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+ * @param "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
+ * @param "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
+ * @param "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
  * @param "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
  * @param "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
  * @param "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
@@ -155,59 +157,60 @@ CreateFlexFlow Method for CreateFlexFlow
 func (c *DefaultApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelType != nil {
-		data.Set("ChannelType", *params.ChannelType)
+		data.Set("ChannelType", *params.ChannelType) 
 	}
 	if params != nil && params.ChatServiceSid != nil {
-		data.Set("ChatServiceSid", *params.ChatServiceSid)
+		data.Set("ChatServiceSid", *params.ChatServiceSid) 
 	}
 	if params != nil && params.ContactIdentity != nil {
-		data.Set("ContactIdentity", *params.ContactIdentity)
+		data.Set("ContactIdentity", *params.ContactIdentity) 
 	}
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
-	if params != nil && params.Integration.Channel != nil {
-		data.Set("Integration.Channel", *params.Integration.Channel)
+	if params != nil && params.IntegrationChannel != nil {
+		data.Set("IntegrationChannel", *params.IntegrationChannel) 
 	}
-	if params != nil && params.Integration.CreationOnMessage != nil {
-		data.Set("Integration.CreationOnMessage", string(*params.Integration.CreationOnMessage))
+	if params != nil && params.IntegrationCreationOnMessage != nil {
+		data.Set("IntegrationCreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage)) 
 	}
-	if params != nil && params.Integration.FlowSid != nil {
-		data.Set("Integration.FlowSid", *params.Integration.FlowSid)
+	if params != nil && params.IntegrationFlowSid != nil {
+		data.Set("IntegrationFlowSid", *params.IntegrationFlowSid) 
 	}
-	if params != nil && params.Integration.Priority != nil {
-		data.Set("Integration.Priority", string(*params.Integration.Priority))
+	if params != nil && params.IntegrationPriority != nil {
+		data.Set("IntegrationPriority", fmt.Sprint(*params.IntegrationPriority)) 
 	}
-	if params != nil && params.Integration.RetryCount != nil {
-		data.Set("Integration.RetryCount", string(*params.Integration.RetryCount))
+	if params != nil && params.IntegrationRetryCount != nil {
+		data.Set("IntegrationRetryCount", fmt.Sprint(*params.IntegrationRetryCount)) 
 	}
-	if params != nil && params.Integration.Timeout != nil {
-		data.Set("Integration.Timeout", string(*params.Integration.Timeout))
+	if params != nil && params.IntegrationTimeout != nil {
+		data.Set("IntegrationTimeout", fmt.Sprint(*params.IntegrationTimeout)) 
 	}
-	if params != nil && params.Integration.Url != nil {
-		data.Set("Integration.Url", *params.Integration.Url)
+	if params != nil && params.IntegrationUrl != nil {
+		data.Set("IntegrationUrl", *params.IntegrationUrl) 
 	}
-	if params != nil && params.Integration.WorkflowSid != nil {
-		data.Set("Integration.WorkflowSid", *params.Integration.WorkflowSid)
+	if params != nil && params.IntegrationWorkflowSid != nil {
+		data.Set("IntegrationWorkflowSid", *params.IntegrationWorkflowSid) 
 	}
-	if params != nil && params.Integration.WorkspaceSid != nil {
-		data.Set("Integration.WorkspaceSid", *params.Integration.WorkspaceSid)
+	if params != nil && params.IntegrationWorkspaceSid != nil {
+		data.Set("IntegrationWorkspaceSid", *params.IntegrationWorkspaceSid) 
 	}
 	if params != nil && params.IntegrationType != nil {
-		data.Set("IntegrationType", *params.IntegrationType)
+		data.Set("IntegrationType", *params.IntegrationType) 
 	}
 	if params != nil && params.JanitorEnabled != nil {
-		data.Set("JanitorEnabled", string(*params.JanitorEnabled))
+		data.Set("JanitorEnabled", fmt.Sprint(*params.JanitorEnabled)) 
 	}
 	if params != nil && params.LongLived != nil {
-		data.Set("LongLived", string(*params.LongLived))
+		data.Set("LongLived", fmt.Sprint(*params.LongLived)) 
 	}
 
 
@@ -249,26 +252,27 @@ CreateWebChannel Method for CreateWebChannel
 func (c *DefaultApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChatFriendlyName != nil {
-		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+		data.Set("ChatFriendlyName", *params.ChatFriendlyName) 
 	}
 	if params != nil && params.ChatUniqueName != nil {
-		data.Set("ChatUniqueName", *params.ChatUniqueName)
+		data.Set("ChatUniqueName", *params.ChatUniqueName) 
 	}
 	if params != nil && params.CustomerFriendlyName != nil {
-		data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
+		data.Set("CustomerFriendlyName", *params.CustomerFriendlyName) 
 	}
 	if params != nil && params.FlexFlowSid != nil {
-		data.Set("FlexFlowSid", *params.FlexFlowSid)
+		data.Set("FlexFlowSid", *params.FlexFlowSid) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 	if params != nil && params.PreEngagementData != nil {
-		data.Set("PreEngagementData", *params.PreEngagementData)
+		data.Set("PreEngagementData", *params.PreEngagementData) 
 	}
 
 
@@ -289,13 +293,14 @@ func (c *DefaultApiService) CreateWebChannel(params *CreateWebChannelParams) (*F
 
 /*
 DeleteChannel Method for DeleteChannel
- * @param sid The SID of the Flex chat channel resource to delete.
+ * @param Sid The SID of the Flex chat channel resource to delete.
 */
-func (c *DefaultApiService) DeleteChannel(sid string) (error) {
+func (c *DefaultApiService) DeleteChannel(Sid string) (error) {
 	path := "/v1/Channels/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -312,13 +317,14 @@ func (c *DefaultApiService) DeleteChannel(sid string) (error) {
 
 /*
 DeleteFlexFlow Method for DeleteFlexFlow
- * @param sid The SID of the Flex Flow resource to delete.
+ * @param Sid The SID of the Flex Flow resource to delete.
 */
-func (c *DefaultApiService) DeleteFlexFlow(sid string) (error) {
+func (c *DefaultApiService) DeleteFlexFlow(Sid string) (error) {
 	path := "/v1/FlexFlows/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -335,13 +341,14 @@ func (c *DefaultApiService) DeleteFlexFlow(sid string) (error) {
 
 /*
 DeleteWebChannel Method for DeleteWebChannel
- * @param sid The SID of the WebChannel resource to delete.
+ * @param Sid The SID of the WebChannel resource to delete.
 */
-func (c *DefaultApiService) DeleteWebChannel(sid string) (error) {
+func (c *DefaultApiService) DeleteWebChannel(Sid string) (error) {
 	path := "/v1/WebChannels/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -358,14 +365,15 @@ func (c *DefaultApiService) DeleteWebChannel(sid string) (error) {
 
 /*
 FetchChannel Method for FetchChannel
- * @param sid The SID of the Flex chat channel resource to fetch.
+ * @param Sid The SID of the Flex chat channel resource to fetch.
 @return FlexV1Channel
 */
-func (c *DefaultApiService) FetchChannel(sid string) (*FlexV1Channel, error) {
+func (c *DefaultApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	path := "/v1/Channels/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -398,11 +406,12 @@ FetchConfiguration Method for FetchConfiguration
 func (c *DefaultApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UiVersion != nil {
-		data.Set("UiVersion", *params.UiVersion)
+		data.Set("UiVersion", *params.UiVersion) 
 	}
 
 
@@ -423,14 +432,15 @@ func (c *DefaultApiService) FetchConfiguration(params *FetchConfigurationParams)
 
 /*
 FetchFlexFlow Method for FetchFlexFlow
- * @param sid The SID of the Flex Flow resource to fetch.
+ * @param Sid The SID of the Flex Flow resource to fetch.
 @return FlexV1FlexFlow
 */
-func (c *DefaultApiService) FetchFlexFlow(sid string) (*FlexV1FlexFlow, error) {
+func (c *DefaultApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -452,14 +462,15 @@ func (c *DefaultApiService) FetchFlexFlow(sid string) (*FlexV1FlexFlow, error) {
 
 /*
 FetchWebChannel Method for FetchWebChannel
- * @param sid The SID of the WebChannel resource to fetch.
+ * @param Sid The SID of the WebChannel resource to fetch.
 @return FlexV1WebChannel
 */
-func (c *DefaultApiService) FetchWebChannel(sid string) (*FlexV1WebChannel, error) {
+func (c *DefaultApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -492,11 +503,12 @@ ListChannel Method for ListChannel
 func (c *DefaultApiService) ListChannel(params *ListChannelParams) (*FlexV1ChannelReadResponse, error) {
 	path := "/v1/Channels"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -530,14 +542,15 @@ ListFlexFlow Method for ListFlexFlow
 func (c *DefaultApiService) ListFlexFlow(params *ListFlexFlowParams) (*FlexV1FlexFlowReadResponse, error) {
 	path := "/v1/FlexFlows"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -569,11 +582,12 @@ ListWebChannel Method for ListWebChannel
 func (c *DefaultApiService) ListWebChannel(params *ListWebChannelParams) (*FlexV1WebChannelReadResponse, error) {
 	path := "/v1/WebChannels"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -599,7 +613,8 @@ UpdateConfiguration Method for UpdateConfiguration
 func (c *DefaultApiService) UpdateConfiguration() (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -625,15 +640,15 @@ type UpdateFlexFlowParams struct {
 	ContactIdentity *string `json:"ContactIdentity,omitempty"`
 	Enabled *bool `json:"Enabled,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Integration.Channel *string `json:"Integration.Channel,omitempty"`
-	Integration.CreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
-	Integration.FlowSid *string `json:"Integration.FlowSid,omitempty"`
-	Integration.Priority *int32 `json:"Integration.Priority,omitempty"`
-	Integration.RetryCount *int32 `json:"Integration.RetryCount,omitempty"`
-	Integration.Timeout *int32 `json:"Integration.Timeout,omitempty"`
-	Integration.Url *string `json:"Integration.Url,omitempty"`
-	Integration.WorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
-	Integration.WorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
+	IntegrationChannel *string `json:"IntegrationChannel,omitempty"`
+	IntegrationCreationOnMessage *bool `json:"IntegrationCreationOnMessage,omitempty"`
+	IntegrationFlowSid *string `json:"IntegrationFlowSid,omitempty"`
+	IntegrationPriority *int32 `json:"IntegrationPriority,omitempty"`
+	IntegrationRetryCount *int32 `json:"IntegrationRetryCount,omitempty"`
+	IntegrationTimeout *int32 `json:"IntegrationTimeout,omitempty"`
+	IntegrationUrl *string `json:"IntegrationUrl,omitempty"`
+	IntegrationWorkflowSid *string `json:"IntegrationWorkflowSid,omitempty"`
+	IntegrationWorkspaceSid *string `json:"IntegrationWorkspaceSid,omitempty"`
 	IntegrationType *string `json:"IntegrationType,omitempty"`
 	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
 	LongLived *bool `json:"LongLived,omitempty"`
@@ -641,84 +656,85 @@ type UpdateFlexFlowParams struct {
 
 /*
 UpdateFlexFlow Method for UpdateFlexFlow
- * @param sid The SID of the Flex Flow resource to update.
+ * @param Sid The SID of the Flex Flow resource to update.
  * @param optional nil or *UpdateFlexFlowOpts - Optional Parameters:
  * @param "ChannelType" (string) - The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
  * @param "ChatServiceSid" (string) - The SID of the chat service.
  * @param "ContactIdentity" (string) - The channel contact's Identity.
  * @param "Enabled" (bool) - Whether the new Flex Flow is enabled.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
- * @param "Integration.Channel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
- * @param "Integration.CreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
- * @param "Integration.FlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
- * @param "Integration.Priority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
- * @param "Integration.RetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
- * @param "Integration.Timeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
- * @param "Integration.Url" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
- * @param "Integration.WorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
- * @param "Integration.WorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
+ * @param "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
+ * @param "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+ * @param "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
+ * @param "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+ * @param "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
+ * @param "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+ * @param "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
+ * @param "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
+ * @param "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
  * @param "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
  * @param "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
  * @param "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
 @return FlexV1FlexFlow
 */
-func (c *DefaultApiService) UpdateFlexFlow(sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
+func (c *DefaultApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelType != nil {
-		data.Set("ChannelType", *params.ChannelType)
+		data.Set("ChannelType", *params.ChannelType) 
 	}
 	if params != nil && params.ChatServiceSid != nil {
-		data.Set("ChatServiceSid", *params.ChatServiceSid)
+		data.Set("ChatServiceSid", *params.ChatServiceSid) 
 	}
 	if params != nil && params.ContactIdentity != nil {
-		data.Set("ContactIdentity", *params.ContactIdentity)
+		data.Set("ContactIdentity", *params.ContactIdentity) 
 	}
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
-	if params != nil && params.Integration.Channel != nil {
-		data.Set("Integration.Channel", *params.Integration.Channel)
+	if params != nil && params.IntegrationChannel != nil {
+		data.Set("IntegrationChannel", *params.IntegrationChannel) 
 	}
-	if params != nil && params.Integration.CreationOnMessage != nil {
-		data.Set("Integration.CreationOnMessage", string(*params.Integration.CreationOnMessage))
+	if params != nil && params.IntegrationCreationOnMessage != nil {
+		data.Set("IntegrationCreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage)) 
 	}
-	if params != nil && params.Integration.FlowSid != nil {
-		data.Set("Integration.FlowSid", *params.Integration.FlowSid)
+	if params != nil && params.IntegrationFlowSid != nil {
+		data.Set("IntegrationFlowSid", *params.IntegrationFlowSid) 
 	}
-	if params != nil && params.Integration.Priority != nil {
-		data.Set("Integration.Priority", string(*params.Integration.Priority))
+	if params != nil && params.IntegrationPriority != nil {
+		data.Set("IntegrationPriority", fmt.Sprint(*params.IntegrationPriority)) 
 	}
-	if params != nil && params.Integration.RetryCount != nil {
-		data.Set("Integration.RetryCount", string(*params.Integration.RetryCount))
+	if params != nil && params.IntegrationRetryCount != nil {
+		data.Set("IntegrationRetryCount", fmt.Sprint(*params.IntegrationRetryCount)) 
 	}
-	if params != nil && params.Integration.Timeout != nil {
-		data.Set("Integration.Timeout", string(*params.Integration.Timeout))
+	if params != nil && params.IntegrationTimeout != nil {
+		data.Set("IntegrationTimeout", fmt.Sprint(*params.IntegrationTimeout)) 
 	}
-	if params != nil && params.Integration.Url != nil {
-		data.Set("Integration.Url", *params.Integration.Url)
+	if params != nil && params.IntegrationUrl != nil {
+		data.Set("IntegrationUrl", *params.IntegrationUrl) 
 	}
-	if params != nil && params.Integration.WorkflowSid != nil {
-		data.Set("Integration.WorkflowSid", *params.Integration.WorkflowSid)
+	if params != nil && params.IntegrationWorkflowSid != nil {
+		data.Set("IntegrationWorkflowSid", *params.IntegrationWorkflowSid) 
 	}
-	if params != nil && params.Integration.WorkspaceSid != nil {
-		data.Set("Integration.WorkspaceSid", *params.Integration.WorkspaceSid)
+	if params != nil && params.IntegrationWorkspaceSid != nil {
+		data.Set("IntegrationWorkspaceSid", *params.IntegrationWorkspaceSid) 
 	}
 	if params != nil && params.IntegrationType != nil {
-		data.Set("IntegrationType", *params.IntegrationType)
+		data.Set("IntegrationType", *params.IntegrationType) 
 	}
 	if params != nil && params.JanitorEnabled != nil {
-		data.Set("JanitorEnabled", string(*params.JanitorEnabled))
+		data.Set("JanitorEnabled", fmt.Sprint(*params.JanitorEnabled)) 
 	}
 	if params != nil && params.LongLived != nil {
-		data.Set("LongLived", string(*params.LongLived))
+		data.Set("LongLived", fmt.Sprint(*params.LongLived)) 
 	}
 
 
@@ -744,24 +760,25 @@ type UpdateWebChannelParams struct {
 
 /*
 UpdateWebChannel Method for UpdateWebChannel
- * @param sid The SID of the WebChannel resource to update.
+ * @param Sid The SID of the WebChannel resource to update.
  * @param optional nil or *UpdateWebChannelOpts - Optional Parameters:
  * @param "ChatStatus" (string) - The chat status. Can only be `inactive`.
  * @param "PostEngagementData" (string) - The post-engagement data.
 @return FlexV1WebChannel
 */
-func (c *DefaultApiService) UpdateWebChannel(sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
+func (c *DefaultApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChatStatus != nil {
-		data.Set("ChatStatus", *params.ChatStatus)
+		data.Set("ChatStatus", *params.ChatStatus) 
 	}
 	if params != nil && params.PostEngagementData != nil {
-		data.Set("PostEngagementData", *params.PostEngagementData)
+		data.Set("PostEngagementData", *params.PostEngagementData) 
 	}
 
 

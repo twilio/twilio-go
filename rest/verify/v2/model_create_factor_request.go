@@ -12,17 +12,17 @@ package openapi
 // CreateFactorRequest struct for CreateFactorRequest
 type CreateFactorRequest struct {
 	// The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`
-	BindingAlg string `json:"Binding.Alg,omitempty"`
+	BindingAlg string `json:"BindingAlg,omitempty"`
 	// The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64
-	BindingPublicKey string `json:"Binding.PublicKey,omitempty"`
+	BindingPublicKey string `json:"BindingPublicKey,omitempty"`
 	// The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. Required when `factor_type` is `push`
-	ConfigAppId string `json:"Config.AppId,omitempty"`
+	ConfigAppId string `json:"ConfigAppId,omitempty"`
 	// The transport technology used to generate the Notification Token. Can be `apn` or `fcm`. Required when `factor_type` is `push`
-	ConfigNotificationPlatform string `json:"Config.NotificationPlatform,omitempty"`
+	ConfigNotificationPlatform string `json:"ConfigNotificationPlatform,omitempty"`
 	// For APN, the device token. For FCM the registration token. It used to send the push notifications. Required when `factor_type` is `push`
-	ConfigNotificationToken string `json:"Config.NotificationToken,omitempty"`
+	ConfigNotificationToken string `json:"ConfigNotificationToken,omitempty"`
 	// The Verify Push SDK version used to configure the factor
-	ConfigSdkVersion string `json:"Config.SdkVersion,omitempty"`
+	ConfigSdkVersion string `json:"ConfigSdkVersion,omitempty"`
 	// The Type of this Factor. Currently only `push` is supported
 	FactorType string `json:"FactorType"`
 	// The friendly name of this Factor

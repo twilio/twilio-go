@@ -14,16 +14,16 @@ import (
 )
 // StudioV1FlowEngagementStep struct for StudioV1FlowEngagementStep
 type StudioV1FlowEngagementStep struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Context map[string]interface{} `json:"context,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	EngagementSid string `json:"engagement_sid,omitempty"`
-	FlowSid string `json:"flow_sid,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Name string `json:"name,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	TransitionedFrom string `json:"transitioned_from,omitempty"`
-	TransitionedTo string `json:"transitioned_to,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Context map[string]interface{} `json:"Context,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	EngagementSid string `json:"EngagementSid,omitempty"`
+	FlowSid string `json:"FlowSid,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Name string `json:"Name,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TransitionedFrom string `json:"TransitionedFrom,omitempty"`
+	TransitionedTo string `json:"TransitionedTo,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

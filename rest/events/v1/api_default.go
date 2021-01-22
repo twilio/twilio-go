@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -47,11 +48,12 @@ Create a new Sink
 func (c *DefaultApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error) {
 	path := "/v1/Sinks"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Description != nil {
-		data.Set("Description", *params.Description)
+		data.Set("Description", *params.Description) 
 	}
 	if params != nil && params.SinkConfiguration != nil {
 		v, err := json.Marshal(params.SinkConfiguration)
@@ -60,10 +62,10 @@ func (c *DefaultApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink,
 			return nil, err
 		}
 
-		data.Set("SinkConfiguration", string(v))
+		data.Set("SinkConfiguration", fmt.Sprint(v))
 	}
 	if params != nil && params.SinkType != nil {
-		data.Set("SinkType", *params.SinkType)
+		data.Set("SinkType", *params.SinkType) 
 	}
 
 
@@ -85,14 +87,15 @@ func (c *DefaultApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink,
 /*
 CreateSinkTest Method for CreateSinkTest
 Create a new Sink Test Event for the given Sink.
- * @param sid A 34 character string that uniquely identifies the Sink to be Tested.
+ * @param Sid A 34 character string that uniquely identifies the Sink to be Tested.
 @return EventsV1SinkSinkTest
 */
-func (c *DefaultApiService) CreateSinkTest(sid string) (*EventsV1SinkSinkTest, error) {
+func (c *DefaultApiService) CreateSinkTest(Sid string) (*EventsV1SinkSinkTest, error) {
 	path := "/v1/Sinks/{Sid}/Test"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -119,20 +122,21 @@ type CreateSinkValidateParams struct {
 /*
 CreateSinkValidate Method for CreateSinkValidate
 Validate that a test event for a Sink was received.
- * @param sid
+ * @param Sid
  * @param optional nil or *CreateSinkValidateOpts - Optional Parameters:
  * @param "TestId" (string) - A 34 character string that uniquely identifies the test event for a Sink being validated.
 @return EventsV1SinkSinkValidate
 */
-func (c *DefaultApiService) CreateSinkValidate(sid string, params *CreateSinkValidateParams) (*EventsV1SinkSinkValidate, error) {
+func (c *DefaultApiService) CreateSinkValidate(Sid string, params *CreateSinkValidateParams) (*EventsV1SinkSinkValidate, error) {
 	path := "/v1/Sinks/{Sid}/Validate"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TestId != nil {
-		data.Set("TestId", *params.TestId)
+		data.Set("TestId", *params.TestId) 
 	}
 
 
@@ -169,14 +173,15 @@ Create a new Subscription.
 func (c *DefaultApiService) CreateSubscription(params *CreateSubscriptionParams) (*EventsV1Subscription, error) {
 	path := "/v1/Subscriptions"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Description != nil {
-		data.Set("Description", *params.Description)
+		data.Set("Description", *params.Description) 
 	}
 	if params != nil && params.SinkSid != nil {
-		data.Set("SinkSid", *params.SinkSid)
+		data.Set("SinkSid", *params.SinkSid) 
 	}
 	if params != nil && params.Types != nil {
 		v, err := json.Marshal(params.Types)
@@ -185,7 +190,7 @@ func (c *DefaultApiService) CreateSubscription(params *CreateSubscriptionParams)
 			return nil, err
 		}
 
-		data.Set("Types", string(v))
+		data.Set("Types", fmt.Sprint(v))
 	}
 
 
@@ -207,13 +212,14 @@ func (c *DefaultApiService) CreateSubscription(params *CreateSubscriptionParams)
 /*
 DeleteSink Method for DeleteSink
 Delete a specific Sink.
- * @param sid A 34 character string that uniquely identifies this Sink.
+ * @param Sid A 34 character string that uniquely identifies this Sink.
 */
-func (c *DefaultApiService) DeleteSink(sid string) (error) {
+func (c *DefaultApiService) DeleteSink(Sid string) (error) {
 	path := "/v1/Sinks/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -231,13 +237,14 @@ func (c *DefaultApiService) DeleteSink(sid string) (error) {
 /*
 DeleteSubscription Method for DeleteSubscription
 Delete a specific Subscription.
- * @param sid A 34 character string that uniquely identifies this Subscription.
+ * @param Sid A 34 character string that uniquely identifies this Subscription.
 */
-func (c *DefaultApiService) DeleteSubscription(sid string) (error) {
+func (c *DefaultApiService) DeleteSubscription(Sid string) (error) {
 	path := "/v1/Subscriptions/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -255,14 +262,15 @@ func (c *DefaultApiService) DeleteSubscription(sid string) (error) {
 /*
 FetchEventType Method for FetchEventType
 Fetch a specific Event Type.
- * @param type_ A string that uniquely identifies this Event Type.
+ * @param Type A string that uniquely identifies this Event Type.
 @return EventsV1EventType
 */
-func (c *DefaultApiService) FetchEventType(type_ string) (*EventsV1EventType, error) {
+func (c *DefaultApiService) FetchEventType(Type string) (*EventsV1EventType, error) {
 	path := "/v1/Types/{Type}"
-	path = strings.Replace(path, "{"+"Type"+"}", type_, -1)
+	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -285,14 +293,15 @@ func (c *DefaultApiService) FetchEventType(type_ string) (*EventsV1EventType, er
 /*
 FetchSchema Method for FetchSchema
 Fetch a specific schema with its nested versions.
- * @param id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+ * @param Id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
 @return EventsV1Schema
 */
-func (c *DefaultApiService) FetchSchema(id string) (*EventsV1Schema, error) {
+func (c *DefaultApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
 	path := "/v1/Schemas/{Id}"
-	path = strings.Replace(path, "{"+"Id"+"}", id, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -315,14 +324,15 @@ func (c *DefaultApiService) FetchSchema(id string) (*EventsV1Schema, error) {
 /*
 FetchSink Method for FetchSink
 Fetch a specific Sink.
- * @param sid A 34 character string that uniquely identifies this Sink.
+ * @param Sid A 34 character string that uniquely identifies this Sink.
 @return EventsV1Sink
 */
-func (c *DefaultApiService) FetchSink(sid string) (*EventsV1Sink, error) {
+func (c *DefaultApiService) FetchSink(Sid string) (*EventsV1Sink, error) {
 	path := "/v1/Sinks/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -345,14 +355,15 @@ func (c *DefaultApiService) FetchSink(sid string) (*EventsV1Sink, error) {
 /*
 FetchSubscription Method for FetchSubscription
 Fetch a specific Subscription.
- * @param sid A 34 character string that uniquely identifies this Subscription.
+ * @param Sid A 34 character string that uniquely identifies this Subscription.
 @return EventsV1Subscription
 */
-func (c *DefaultApiService) FetchSubscription(sid string) (*EventsV1Subscription, error) {
+func (c *DefaultApiService) FetchSubscription(Sid string) (*EventsV1Subscription, error) {
 	path := "/v1/Subscriptions/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -375,16 +386,17 @@ func (c *DefaultApiService) FetchSubscription(sid string) (*EventsV1Subscription
 /*
 FetchVersion Method for FetchVersion
 Fetch a specific schema and version.
- * @param id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
- * @param schemaVersion The version of the schema
+ * @param Id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+ * @param SchemaVersion The version of the schema
 @return EventsV1SchemaVersion
 */
-func (c *DefaultApiService) FetchVersion(id string, schemaVersion int32) (*EventsV1SchemaVersion, error) {
+func (c *DefaultApiService) FetchVersion(Id string, SchemaVersion int32) (*EventsV1SchemaVersion, error) {
 	path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
-	path = strings.Replace(path, "{"+"Id"+"}", id, -1)
-	path = strings.Replace(path, "{"+"SchemaVersion"+"}", schemaVersion, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"SchemaVersion"+"}", fmt.Sprint(SchemaVersion), -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -418,11 +430,12 @@ Retrieve a paginated list of all the available Event Types.
 func (c *DefaultApiService) ListEventType(params *ListEventTypeParams) (*EventsV1EventTypeReadResponse, error) {
 	path := "/v1/Types"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -455,11 +468,12 @@ Retrieve a paginated list of Sinks belonging to the account used to make the req
 func (c *DefaultApiService) ListSink(params *ListSinkParams) (*EventsV1SinkReadResponse, error) {
 	path := "/v1/Sinks"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -485,20 +499,21 @@ type ListSubscribedEventParams struct {
 /*
 ListSubscribedEvent Method for ListSubscribedEvent
 Retrieve a list of all Subscribed Event types for a Subscription.
- * @param subscriptionSid The unique SID identifier of the Subscription.
+ * @param SubscriptionSid The unique SID identifier of the Subscription.
  * @param optional nil or *ListSubscribedEventOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return EventsV1SubscriptionSubscribedEventReadResponse
 */
-func (c *DefaultApiService) ListSubscribedEvent(subscriptionSid string, params *ListSubscribedEventParams) (*EventsV1SubscriptionSubscribedEventReadResponse, error) {
+func (c *DefaultApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) (*EventsV1SubscriptionSubscribedEventReadResponse, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
-	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", subscriptionSid, -1)
+	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -533,14 +548,15 @@ Retrieve a paginated list of Subscriptions belonging to the account used to make
 func (c *DefaultApiService) ListSubscription(params *ListSubscriptionParams) (*EventsV1SubscriptionReadResponse, error) {
 	path := "/v1/Subscriptions"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.SinkSid != nil {
-		data.Set("SinkSid", *params.SinkSid)
+		data.Set("SinkSid", *params.SinkSid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -566,20 +582,21 @@ type ListVersionParams struct {
 /*
 ListVersion Method for ListVersion
 Retrieve a paginated list of versions of the schema.
- * @param id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+ * @param Id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
  * @param optional nil or *ListVersionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return EventsV1SchemaVersionReadResponse
 */
-func (c *DefaultApiService) ListVersion(id string, params *ListVersionParams) (*EventsV1SchemaVersionReadResponse, error) {
+func (c *DefaultApiService) ListVersion(Id string, params *ListVersionParams) (*EventsV1SchemaVersionReadResponse, error) {
 	path := "/v1/Schemas/{Id}/Versions"
-	path = strings.Replace(path, "{"+"Id"+"}", id, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -606,24 +623,25 @@ type UpdateSubscriptionParams struct {
 /*
 UpdateSubscription Method for UpdateSubscription
 Update a Subscription.
- * @param sid A 34 character string that uniquely identifies this Subscription.
+ * @param Sid A 34 character string that uniquely identifies this Subscription.
  * @param optional nil or *UpdateSubscriptionOpts - Optional Parameters:
  * @param "Description" (string) - A human readable description for the Subscription.
  * @param "SinkSid" (string) - The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 @return EventsV1Subscription
 */
-func (c *DefaultApiService) UpdateSubscription(sid string, params *UpdateSubscriptionParams) (*EventsV1Subscription, error) {
+func (c *DefaultApiService) UpdateSubscription(Sid string, params *UpdateSubscriptionParams) (*EventsV1Subscription, error) {
 	path := "/v1/Subscriptions/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Description != nil {
-		data.Set("Description", *params.Description)
+		data.Set("Description", *params.Description) 
 	}
 	if params != nil && params.SinkSid != nil {
-		data.Set("SinkSid", *params.SinkSid)
+		data.Set("SinkSid", *params.SinkSid) 
 	}
 
 

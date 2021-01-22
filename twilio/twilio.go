@@ -3,7 +3,7 @@ package twilio
 
 import (
 	"github.com/twilio/twilio-go/client"
-	studioV2 "github.com/twilio/twilio-go/studio/v2"
+	studioV2 "github.com/twilio/twilio-go/rest/studio/v2"
 	"time"
 )
 

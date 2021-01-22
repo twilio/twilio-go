@@ -11,6 +11,6 @@
 package openapi
 // PreviewBulkExportsExportDayReadResponse struct for PreviewBulkExportsExportDayReadResponse
 type PreviewBulkExportsExportDayReadResponse struct {
-	Days []PreviewBulkExportsExportDay `json:"days,omitempty"`
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
+	Days []PreviewBulkExportsExportDay `json:"Days,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

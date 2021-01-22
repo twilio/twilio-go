@@ -11,6 +11,6 @@
 package openapi
 // ChatV1CredentialReadResponse struct for ChatV1CredentialReadResponse
 type ChatV1CredentialReadResponse struct {
-	Credentials []ChatV1Credential `json:"credentials,omitempty"`
-	Meta ChatV1CredentialReadResponseMeta `json:"meta,omitempty"`
+	Credentials []ChatV1Credential `json:"Credentials,omitempty"`
+	Meta ChatV1CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

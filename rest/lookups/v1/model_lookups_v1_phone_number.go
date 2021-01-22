@@ -11,11 +11,11 @@
 package openapi
 // LookupsV1PhoneNumber struct for LookupsV1PhoneNumber
 type LookupsV1PhoneNumber struct {
-	AddOns map[string]interface{} `json:"add_ons,omitempty"`
-	CallerName map[string]interface{} `json:"caller_name,omitempty"`
-	Carrier map[string]interface{} `json:"carrier,omitempty"`
-	CountryCode string `json:"country_code,omitempty"`
-	NationalFormat string `json:"national_format,omitempty"`
-	PhoneNumber string `json:"phone_number,omitempty"`
-	Url string `json:"url,omitempty"`
+	AddOns map[string]interface{} `json:"AddOns,omitempty"`
+	CallerName map[string]interface{} `json:"CallerName,omitempty"`
+	Carrier map[string]interface{} `json:"Carrier,omitempty"`
+	CountryCode string `json:"CountryCode,omitempty"`
+	NationalFormat string `json:"NationalFormat,omitempty"`
+	PhoneNumber string `json:"PhoneNumber,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

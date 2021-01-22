@@ -27,9 +27,9 @@ type UpdateServiceConversationRequest struct {
 	// Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
 	State string `json:"State,omitempty"`
 	// ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-	TimersClosed string `json:"Timers.Closed,omitempty"`
+	TimersClosed string `json:"TimersClosed,omitempty"`
 	// ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-	TimersInactive string `json:"Timers.Inactive,omitempty"`
+	TimersInactive string `json:"TimersInactive,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 	UniqueName string `json:"UniqueName,omitempty"`
 }

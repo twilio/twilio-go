@@ -14,19 +14,19 @@ import (
 )
 // VoiceV1ByocTrunk struct for VoiceV1ByocTrunk
 type VoiceV1ByocTrunk struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CnamLookupEnabled bool `json:"cnam_lookup_enabled,omitempty"`
-	ConnectionPolicySid string `json:"connection_policy_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	FromDomainSid string `json:"from_domain_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	StatusCallbackMethod string `json:"status_callback_method,omitempty"`
-	StatusCallbackUrl string `json:"status_callback_url,omitempty"`
-	Url string `json:"url,omitempty"`
-	VoiceFallbackMethod string `json:"voice_fallback_method,omitempty"`
-	VoiceFallbackUrl string `json:"voice_fallback_url,omitempty"`
-	VoiceMethod string `json:"voice_method,omitempty"`
-	VoiceUrl string `json:"voice_url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CnamLookupEnabled bool `json:"CnamLookupEnabled,omitempty"`
+	ConnectionPolicySid string `json:"ConnectionPolicySid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	FromDomainSid string `json:"FromDomainSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	StatusCallbackMethod string `json:"StatusCallbackMethod,omitempty"`
+	StatusCallbackUrl string `json:"StatusCallbackUrl,omitempty"`
+	Url string `json:"Url,omitempty"`
+	VoiceFallbackMethod string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod string `json:"VoiceMethod,omitempty"`
+	VoiceUrl string `json:"VoiceUrl,omitempty"`
 }

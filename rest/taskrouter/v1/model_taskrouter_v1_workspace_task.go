@@ -14,25 +14,25 @@ import (
 )
 // TaskrouterV1WorkspaceTask struct for TaskrouterV1WorkspaceTask
 type TaskrouterV1WorkspaceTask struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Addons string `json:"addons,omitempty"`
-	Age int32 `json:"age,omitempty"`
-	AssignmentStatus string `json:"assignment_status,omitempty"`
-	Attributes string `json:"attributes,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Priority int32 `json:"priority,omitempty"`
-	Reason string `json:"reason,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	TaskChannelSid string `json:"task_channel_sid,omitempty"`
-	TaskChannelUniqueName string `json:"task_channel_unique_name,omitempty"`
-	TaskQueueEnteredDate time.Time `json:"task_queue_entered_date,omitempty"`
-	TaskQueueFriendlyName string `json:"task_queue_friendly_name,omitempty"`
-	TaskQueueSid string `json:"task_queue_sid,omitempty"`
-	Timeout int32 `json:"timeout,omitempty"`
-	Url string `json:"url,omitempty"`
-	WorkflowFriendlyName string `json:"workflow_friendly_name,omitempty"`
-	WorkflowSid string `json:"workflow_sid,omitempty"`
-	WorkspaceSid string `json:"workspace_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Addons string `json:"Addons,omitempty"`
+	Age int32 `json:"Age,omitempty"`
+	AssignmentStatus string `json:"AssignmentStatus,omitempty"`
+	Attributes string `json:"Attributes,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Priority int32 `json:"Priority,omitempty"`
+	Reason string `json:"Reason,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TaskChannelSid string `json:"TaskChannelSid,omitempty"`
+	TaskChannelUniqueName string `json:"TaskChannelUniqueName,omitempty"`
+	TaskQueueEnteredDate time.Time `json:"TaskQueueEnteredDate,omitempty"`
+	TaskQueueFriendlyName string `json:"TaskQueueFriendlyName,omitempty"`
+	TaskQueueSid string `json:"TaskQueueSid,omitempty"`
+	Timeout int32 `json:"Timeout,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WorkflowFriendlyName string `json:"WorkflowFriendlyName,omitempty"`
+	WorkflowSid string `json:"WorkflowSid,omitempty"`
+	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
 }

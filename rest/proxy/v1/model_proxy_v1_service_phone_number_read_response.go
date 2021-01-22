@@ -11,6 +11,6 @@
 package openapi
 // ProxyV1ServicePhoneNumberReadResponse struct for ProxyV1ServicePhoneNumberReadResponse
 type ProxyV1ServicePhoneNumberReadResponse struct {
-	Meta ProxyV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	PhoneNumbers []ProxyV1ServicePhoneNumber `json:"phone_numbers,omitempty"`
+	Meta ProxyV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	PhoneNumbers []ProxyV1ServicePhoneNumber `json:"PhoneNumbers,omitempty"`
 }

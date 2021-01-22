@@ -11,7 +11,7 @@
 package openapi
 // BulkexportsV1Export struct for BulkexportsV1Export
 type BulkexportsV1Export struct {
-	Links map[string]interface{} `json:"links,omitempty"`
-	ResourceType string `json:"resource_type,omitempty"`
-	Url string `json:"url,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	ResourceType string `json:"ResourceType,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

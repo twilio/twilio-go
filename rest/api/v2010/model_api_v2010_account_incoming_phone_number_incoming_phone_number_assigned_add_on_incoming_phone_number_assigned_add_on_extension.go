@@ -11,13 +11,13 @@
 package openapi
 // ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension struct for ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension
 type ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssignedAddOnSid string `json:"assigned_add_on_sid,omitempty"`
-	Enabled bool `json:"enabled,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	ProductName string `json:"product_name,omitempty"`
-	ResourceSid string `json:"resource_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssignedAddOnSid string `json:"AssignedAddOnSid,omitempty"`
+	Enabled bool `json:"Enabled,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	ProductName string `json:"ProductName,omitempty"`
+	ResourceSid string `json:"ResourceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

@@ -14,23 +14,23 @@ import (
 )
 // MonitorV1AlertInstance struct for MonitorV1AlertInstance
 type MonitorV1AlertInstance struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AlertText string `json:"alert_text,omitempty"`
-	ApiVersion string `json:"api_version,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateGenerated time.Time `json:"date_generated,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	ErrorCode string `json:"error_code,omitempty"`
-	LogLevel string `json:"log_level,omitempty"`
-	MoreInfo string `json:"more_info,omitempty"`
-	RequestHeaders string `json:"request_headers,omitempty"`
-	RequestMethod string `json:"request_method,omitempty"`
-	RequestUrl string `json:"request_url,omitempty"`
-	RequestVariables string `json:"request_variables,omitempty"`
-	ResourceSid string `json:"resource_sid,omitempty"`
-	ResponseBody string `json:"response_body,omitempty"`
-	ResponseHeaders string `json:"response_headers,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AlertText string `json:"AlertText,omitempty"`
+	ApiVersion string `json:"ApiVersion,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateGenerated time.Time `json:"DateGenerated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	ErrorCode string `json:"ErrorCode,omitempty"`
+	LogLevel string `json:"LogLevel,omitempty"`
+	MoreInfo string `json:"MoreInfo,omitempty"`
+	RequestHeaders string `json:"RequestHeaders,omitempty"`
+	RequestMethod string `json:"RequestMethod,omitempty"`
+	RequestUrl string `json:"RequestUrl,omitempty"`
+	RequestVariables string `json:"RequestVariables,omitempty"`
+	ResourceSid string `json:"ResourceSid,omitempty"`
+	ResponseBody string `json:"ResponseBody,omitempty"`
+	ResponseHeaders string `json:"ResponseHeaders,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

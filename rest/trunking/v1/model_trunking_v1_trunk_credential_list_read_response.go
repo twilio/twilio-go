@@ -11,6 +11,6 @@
 package openapi
 // TrunkingV1TrunkCredentialListReadResponse struct for TrunkingV1TrunkCredentialListReadResponse
 type TrunkingV1TrunkCredentialListReadResponse struct {
-	CredentialLists []TrunkingV1TrunkCredentialList `json:"credential_lists,omitempty"`
-	Meta TrunkingV1TrunkReadResponseMeta `json:"meta,omitempty"`
+	CredentialLists []TrunkingV1TrunkCredentialList `json:"CredentialLists,omitempty"`
+	Meta TrunkingV1TrunkReadResponseMeta `json:"Meta,omitempty"`
 }

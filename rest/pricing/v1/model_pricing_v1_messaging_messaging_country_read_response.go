@@ -11,6 +11,6 @@
 package openapi
 // PricingV1MessagingMessagingCountryReadResponse struct for PricingV1MessagingMessagingCountryReadResponse
 type PricingV1MessagingMessagingCountryReadResponse struct {
-	Countries []PricingV1MessagingMessagingCountry `json:"countries,omitempty"`
-	Meta PricingV1MessagingMessagingCountryReadResponseMeta `json:"meta,omitempty"`
+	Countries []PricingV1MessagingMessagingCountry `json:"Countries,omitempty"`
+	Meta PricingV1MessagingMessagingCountryReadResponseMeta `json:"Meta,omitempty"`
 }

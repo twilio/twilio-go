@@ -11,6 +11,6 @@
 package openapi
 // InsightsV1CallMetricReadResponse struct for InsightsV1CallMetricReadResponse
 type InsightsV1CallMetricReadResponse struct {
-	Meta InsightsV1VideoRoomSummaryReadResponseMeta `json:"meta,omitempty"`
-	Metrics []InsightsV1CallMetric `json:"metrics,omitempty"`
+	Meta InsightsV1VideoRoomSummaryReadResponseMeta `json:"Meta,omitempty"`
+	Metrics []InsightsV1CallMetric `json:"Metrics,omitempty"`
 }

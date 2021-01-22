@@ -14,16 +14,16 @@ import (
 )
 // AutopilotV1RestoreAssistant struct for AutopilotV1RestoreAssistant
 type AutopilotV1RestoreAssistant struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CallbackEvents string `json:"callback_events,omitempty"`
-	CallbackUrl string `json:"callback_url,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DevelopmentStage string `json:"development_stage,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	LatestModelBuildSid string `json:"latest_model_build_sid,omitempty"`
-	LogQueries bool `json:"log_queries,omitempty"`
-	NeedsModelBuild bool `json:"needs_model_build,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CallbackEvents string `json:"CallbackEvents,omitempty"`
+	CallbackUrl string `json:"CallbackUrl,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DevelopmentStage string `json:"DevelopmentStage,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	LatestModelBuildSid string `json:"LatestModelBuildSid,omitempty"`
+	LogQueries bool `json:"LogQueries,omitempty"`
+	NeedsModelBuild bool `json:"NeedsModelBuild,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
 }

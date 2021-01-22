@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -31,14 +32,15 @@ func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
 
 /*
 FetchMessagingCountry Method for FetchMessagingCountry
- * @param isoCountry The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
+ * @param IsoCountry The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
 @return PricingV1MessagingMessagingCountryInstance
 */
-func (c *DefaultApiService) FetchMessagingCountry(isoCountry string) (*PricingV1MessagingMessagingCountryInstance, error) {
+func (c *DefaultApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1MessagingMessagingCountryInstance, error) {
 	path := "/v1/Messaging/Countries/{IsoCountry}"
-	path = strings.Replace(path, "{"+"IsoCountry"+"}", isoCountry, -1)
+	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -60,14 +62,15 @@ func (c *DefaultApiService) FetchMessagingCountry(isoCountry string) (*PricingV1
 
 /*
 FetchPhoneNumberCountry Method for FetchPhoneNumberCountry
- * @param isoCountry The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
+ * @param IsoCountry The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
 @return PricingV1PhoneNumberPhoneNumberCountryInstance
 */
-func (c *DefaultApiService) FetchPhoneNumberCountry(isoCountry string) (*PricingV1PhoneNumberPhoneNumberCountryInstance, error) {
+func (c *DefaultApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1PhoneNumberPhoneNumberCountryInstance, error) {
 	path := "/v1/PhoneNumbers/Countries/{IsoCountry}"
-	path = strings.Replace(path, "{"+"IsoCountry"+"}", isoCountry, -1)
+	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -89,14 +92,15 @@ func (c *DefaultApiService) FetchPhoneNumberCountry(isoCountry string) (*Pricing
 
 /*
 FetchVoiceCountry Method for FetchVoiceCountry
- * @param isoCountry The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
+ * @param IsoCountry The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
 @return PricingV1VoiceVoiceCountryInstance
 */
-func (c *DefaultApiService) FetchVoiceCountry(isoCountry string) (*PricingV1VoiceVoiceCountryInstance, error) {
+func (c *DefaultApiService) FetchVoiceCountry(IsoCountry string) (*PricingV1VoiceVoiceCountryInstance, error) {
 	path := "/v1/Voice/Countries/{IsoCountry}"
-	path = strings.Replace(path, "{"+"IsoCountry"+"}", isoCountry, -1)
+	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -118,14 +122,15 @@ func (c *DefaultApiService) FetchVoiceCountry(isoCountry string) (*PricingV1Voic
 
 /*
 FetchVoiceNumber Method for FetchVoiceNumber
- * @param number The phone number to fetch.
+ * @param Number The phone number to fetch.
 @return PricingV1VoiceVoiceNumber
 */
-func (c *DefaultApiService) FetchVoiceNumber(number string) (*PricingV1VoiceVoiceNumber, error) {
+func (c *DefaultApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceVoiceNumber, error) {
 	path := "/v1/Voice/Numbers/{Number}"
-	path = strings.Replace(path, "{"+"Number"+"}", number, -1)
+	path = strings.Replace(path, "{"+"Number"+"}", Number, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -158,11 +163,12 @@ ListMessagingCountry Method for ListMessagingCountry
 func (c *DefaultApiService) ListMessagingCountry(params *ListMessagingCountryParams) (*PricingV1MessagingMessagingCountryReadResponse, error) {
 	path := "/v1/Messaging/Countries"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -194,11 +200,12 @@ ListPhoneNumberCountry Method for ListPhoneNumberCountry
 func (c *DefaultApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams) (*PricingV1PhoneNumberPhoneNumberCountryReadResponse, error) {
 	path := "/v1/PhoneNumbers/Countries"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -230,11 +237,12 @@ ListVoiceCountry Method for ListVoiceCountry
 func (c *DefaultApiService) ListVoiceCountry(params *ListVoiceCountryParams) (*PricingV1VoiceVoiceCountryReadResponse, error) {
 	path := "/v1/Voice/Countries"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 

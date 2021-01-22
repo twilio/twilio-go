@@ -14,16 +14,16 @@ import (
 )
 // PreviewDeployedDevicesFleetDevice struct for PreviewDeployedDevicesFleetDevice
 type PreviewDeployedDevicesFleetDevice struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateAuthenticated time.Time `json:"date_authenticated,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DeploymentSid string `json:"deployment_sid,omitempty"`
-	Enabled bool `json:"enabled,omitempty"`
-	FleetSid string `json:"fleet_sid,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Identity string `json:"identity,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateAuthenticated time.Time `json:"DateAuthenticated,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DeploymentSid string `json:"DeploymentSid,omitempty"`
+	Enabled bool `json:"Enabled,omitempty"`
+	FleetSid string `json:"FleetSid,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Identity string `json:"Identity,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

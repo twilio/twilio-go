@@ -11,6 +11,6 @@
 package openapi
 // AutopilotV1AssistantTaskReadResponse struct for AutopilotV1AssistantTaskReadResponse
 type AutopilotV1AssistantTaskReadResponse struct {
-	Meta AutopilotV1AssistantReadResponseMeta `json:"meta,omitempty"`
-	Tasks []AutopilotV1AssistantTask `json:"tasks,omitempty"`
+	Meta AutopilotV1AssistantReadResponseMeta `json:"Meta,omitempty"`
+	Tasks []AutopilotV1AssistantTask `json:"Tasks,omitempty"`
 }

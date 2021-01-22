@@ -11,6 +11,6 @@
 package openapi
 // ChatV2ServiceChannelMessageReadResponse struct for ChatV2ServiceChannelMessageReadResponse
 type ChatV2ServiceChannelMessageReadResponse struct {
-	Messages []ChatV2ServiceChannelMessage `json:"messages,omitempty"`
-	Meta ChatV2CredentialReadResponseMeta `json:"meta,omitempty"`
+	Messages []ChatV2ServiceChannelMessage `json:"Messages,omitempty"`
+	Meta ChatV2CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

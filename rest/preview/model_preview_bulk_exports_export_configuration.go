@@ -11,9 +11,9 @@
 package openapi
 // PreviewBulkExportsExportConfiguration struct for PreviewBulkExportsExportConfiguration
 type PreviewBulkExportsExportConfiguration struct {
-	Enabled bool `json:"enabled,omitempty"`
-	ResourceType string `json:"resource_type,omitempty"`
-	Url string `json:"url,omitempty"`
-	WebhookMethod string `json:"webhook_method,omitempty"`
-	WebhookUrl string `json:"webhook_url,omitempty"`
+	Enabled bool `json:"Enabled,omitempty"`
+	ResourceType string `json:"ResourceType,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WebhookMethod string `json:"WebhookMethod,omitempty"`
+	WebhookUrl string `json:"WebhookUrl,omitempty"`
 }

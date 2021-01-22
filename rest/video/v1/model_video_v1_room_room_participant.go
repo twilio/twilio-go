@@ -14,16 +14,16 @@ import (
 )
 // VideoV1RoomRoomParticipant struct for VideoV1RoomRoomParticipant
 type VideoV1RoomRoomParticipant struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Duration *int32 `json:"duration,omitempty"`
-	EndTime time.Time `json:"end_time,omitempty"`
-	Identity string `json:"identity,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	RoomSid string `json:"room_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	StartTime time.Time `json:"start_time,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Duration *int32 `json:"Duration,omitempty"`
+	EndTime time.Time `json:"EndTime,omitempty"`
+	Identity string `json:"Identity,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	RoomSid string `json:"RoomSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	StartTime time.Time `json:"StartTime,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

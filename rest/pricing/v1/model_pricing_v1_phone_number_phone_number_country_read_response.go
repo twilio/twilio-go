@@ -11,6 +11,6 @@
 package openapi
 // PricingV1PhoneNumberPhoneNumberCountryReadResponse struct for PricingV1PhoneNumberPhoneNumberCountryReadResponse
 type PricingV1PhoneNumberPhoneNumberCountryReadResponse struct {
-	Countries []PricingV1PhoneNumberPhoneNumberCountry `json:"countries,omitempty"`
-	Meta PricingV1MessagingMessagingCountryReadResponseMeta `json:"meta,omitempty"`
+	Countries []PricingV1PhoneNumberPhoneNumberCountry `json:"Countries,omitempty"`
+	Meta PricingV1MessagingMessagingCountryReadResponseMeta `json:"Meta,omitempty"`
 }

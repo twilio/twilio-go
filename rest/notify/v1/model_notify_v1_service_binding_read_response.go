@@ -11,6 +11,6 @@
 package openapi
 // NotifyV1ServiceBindingReadResponse struct for NotifyV1ServiceBindingReadResponse
 type NotifyV1ServiceBindingReadResponse struct {
-	Bindings []NotifyV1ServiceBinding `json:"bindings,omitempty"`
-	Meta NotifyV1CredentialReadResponseMeta `json:"meta,omitempty"`
+	Bindings []NotifyV1ServiceBinding `json:"Bindings,omitempty"`
+	Meta NotifyV1CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

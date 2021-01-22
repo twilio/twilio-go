@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type EventsTagApiService struct {
@@ -36,24 +37,25 @@ type ListEventParams struct {
 
 /*
 ListEvent Method for ListEvent
- * @param callSid
+ * @param CallSid
  * @param optional nil or *ListEventOpts - Optional Parameters:
  * @param "Edge" (string) - 
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return InsightsV1CallEventReadResponse
 */
-func (c *EventsTagApiService) ListEvent(callSid string, params *ListEventParams) (*InsightsV1CallEventReadResponse, error) {
+func (c *EventsTagApiService) ListEvent(CallSid string, params *ListEventParams) (*InsightsV1CallEventReadResponse, error) {
 	path := "/v1/Voice/{CallSid}/Events"
-	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Edge != nil {
-		data.Set("Edge", *params.Edge)
+		data.Set("Edge", *params.Edge) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 

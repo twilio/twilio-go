@@ -11,6 +11,6 @@
 package openapi
 // VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse struct for VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse
 type VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse struct {
-	Meta VideoV1CompositionHookReadResponseMeta `json:"meta,omitempty"`
-	SubscribedTracks []VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack `json:"subscribed_tracks,omitempty"`
+	Meta VideoV1CompositionHookReadResponseMeta `json:"Meta,omitempty"`
+	SubscribedTracks []VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack `json:"SubscribedTracks,omitempty"`
 }

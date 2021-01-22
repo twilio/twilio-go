@@ -14,13 +14,13 @@ import (
 )
 // MessagingV1ServiceShortCode struct for MessagingV1ServiceShortCode
 type MessagingV1ServiceShortCode struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Capabilities []string `json:"capabilities,omitempty"`
-	CountryCode string `json:"country_code,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	ShortCode string `json:"short_code,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Capabilities []string `json:"Capabilities,omitempty"`
+	CountryCode string `json:"CountryCode,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	ShortCode string `json:"ShortCode,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

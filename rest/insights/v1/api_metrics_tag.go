@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type MetricsTagApiService struct {
@@ -37,28 +38,29 @@ type ListMetricParams struct {
 
 /*
 ListMetric Method for ListMetric
- * @param callSid
+ * @param CallSid
  * @param optional nil or *ListMetricOpts - Optional Parameters:
  * @param "Edge" (string) - 
  * @param "Direction" (string) - 
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return InsightsV1CallMetricReadResponse
 */
-func (c *MetricsTagApiService) ListMetric(callSid string, params *ListMetricParams) (*InsightsV1CallMetricReadResponse, error) {
+func (c *MetricsTagApiService) ListMetric(CallSid string, params *ListMetricParams) (*InsightsV1CallMetricReadResponse, error) {
 	path := "/v1/Voice/{CallSid}/Metrics"
-	path = strings.Replace(path, "{"+"CallSid"+"}", callSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Edge != nil {
-		data.Set("Edge", *params.Edge)
+		data.Set("Edge", *params.Edge) 
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		data.Set("Direction", *params.Direction) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 

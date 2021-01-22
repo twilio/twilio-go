@@ -11,6 +11,6 @@
 package openapi
 // AccountsV1CredentialCredentialPublicKeyReadResponse struct for AccountsV1CredentialCredentialPublicKeyReadResponse
 type AccountsV1CredentialCredentialPublicKeyReadResponse struct {
-	Credentials []AccountsV1CredentialCredentialPublicKey `json:"credentials,omitempty"`
-	Meta AccountsV1CredentialCredentialAwsReadResponseMeta `json:"meta,omitempty"`
+	Credentials []AccountsV1CredentialCredentialPublicKey `json:"Credentials,omitempty"`
+	Meta AccountsV1CredentialCredentialAwsReadResponseMeta `json:"Meta,omitempty"`
 }

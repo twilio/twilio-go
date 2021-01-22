@@ -11,6 +11,6 @@
 package openapi
 // MonitorV1EventReadResponse struct for MonitorV1EventReadResponse
 type MonitorV1EventReadResponse struct {
-	Events []MonitorV1Event `json:"events,omitempty"`
-	Meta MonitorV1AlertReadResponseMeta `json:"meta,omitempty"`
+	Events []MonitorV1Event `json:"Events,omitempty"`
+	Meta MonitorV1AlertReadResponseMeta `json:"Meta,omitempty"`
 }

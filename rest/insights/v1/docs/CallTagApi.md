@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchCall
 
-> InsightsV1Call FetchCall(ctx, sid)
+> InsightsV1Call FetchCall(ctx, Sid)
 
 
 
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**|  | 
+**Sid** | **string**|  | 
 
 ### Return type
 

@@ -11,6 +11,6 @@
 package openapi
 // SyncV1ServiceSyncStreamStreamMessage struct for SyncV1ServiceSyncStreamStreamMessage
 type SyncV1ServiceSyncStreamStreamMessage struct {
-	Data map[string]interface{} `json:"data,omitempty"`
-	Sid string `json:"sid,omitempty"`
+	Data map[string]interface{} `json:"Data,omitempty"`
+	Sid string `json:"Sid,omitempty"`
 }

@@ -11,15 +11,15 @@
 package openapi
 // ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn struct for ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
 type ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Configuration map[string]interface{} `json:"configuration,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	Description string `json:"description,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	ResourceSid string `json:"resource_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SubresourceUris map[string]interface{} `json:"subresource_uris,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Configuration map[string]interface{} `json:"Configuration,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	Description string `json:"Description,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	ResourceSid string `json:"ResourceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

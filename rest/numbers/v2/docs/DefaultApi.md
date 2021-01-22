@@ -58,13 +58,13 @@ Optional parameters are passed through a pointer to a CreateBundleOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **email** | **optional.String**| The email address that will receive updates when the Bundle resource changes status. | 
- **endUserType** | **optional.String**| The type of End User of the Bundle resource. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **isoCountry** | **optional.String**| The ISO country code of the Bundle&#39;s phone number country ownership request. | 
- **numberType** | **optional.String**| The type of phone number of the Bundle&#39;s ownership request. | 
- **regulationSid** | **optional.String**| The unique string of a regulation that is associated to the Bundle resource. | 
- **statusCallback** | **optional.String**| The URL we call to inform your application of status changes. | 
+ **Email** | **optional.String**| The email address that will receive updates when the Bundle resource changes status. | 
+ **EndUserType** | **optional.String**| The type of End User of the Bundle resource. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
+ **IsoCountry** | **optional.String**| The ISO country code of the Bundle&#39;s phone number country ownership request. | 
+ **NumberType** | **optional.String**| The type of phone number of the Bundle&#39;s ownership request. | 
+ **RegulationSid** | **optional.String**| The unique string of a regulation that is associated to the Bundle resource. | 
+ **StatusCallback** | **optional.String**| The URL we call to inform your application of status changes. | 
 
 ### Return type
 
@@ -107,9 +107,9 @@ Optional parameters are passed through a pointer to a CreateEndUserOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **type_** | **optional.String**| The type of end user of the Bundle resource - can be &#x60;individual&#x60; or &#x60;business&#x60;. | 
+ **Attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
+ **Type** | **optional.String**| The type of end user of the Bundle resource - can be &#x60;individual&#x60; or &#x60;business&#x60;. | 
 
 ### Return type
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ## CreateEvaluation
 
-> NumbersV2RegulatoryComplianceBundleEvaluation CreateEvaluation(ctx, bundleSid)
+> NumbersV2RegulatoryComplianceBundleEvaluation CreateEvaluation(ctx, BundleSid)
 
 
 
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bundleSid** | **string**|  | 
+**BundleSid** | **string**|  | 
 
 ### Return type
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 ## CreateItemAssignment
 
-> NumbersV2RegulatoryComplianceBundleItemAssignment CreateItemAssignment(ctx, bundleSid, optional)
+> NumbersV2RegulatoryComplianceBundleItemAssignment CreateItemAssignment(ctx, BundleSid, optional)
 
 
 
@@ -175,7 +175,7 @@ Create a new Assigned Item.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
+**BundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
  **optional** | ***CreateItemAssignmentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -186,7 +186,7 @@ Optional parameters are passed through a pointer to a CreateItemAssignmentOpts s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **objectSid** | **optional.String**| The SID of an object bag that holds information of the different items. | 
+ **ObjectSid** | **optional.String**| The SID of an object bag that holds information of the different items. | 
 
 ### Return type
 
@@ -229,9 +229,9 @@ Optional parameters are passed through a pointer to a CreateSupportingDocumentOp
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **type_** | **optional.String**| The type of the Supporting Document. | 
+ **Attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
+ **Type** | **optional.String**| The type of the Supporting Document. | 
 
 ### Return type
 
@@ -253,7 +253,7 @@ Name | Type | Description  | Notes
 
 ## DeleteBundle
 
-> DeleteBundle(ctx, sid)
+> DeleteBundle(ctx, Sid)
 
 
 
@@ -265,7 +265,7 @@ Delete a specific Bundle.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that we created to identify the Bundle resource. | 
+**Sid** | **string**| The unique string that we created to identify the Bundle resource. | 
 
 ### Return type
 
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 
 ## DeleteEndUser
 
-> DeleteEndUser(ctx, sid)
+> DeleteEndUser(ctx, Sid)
 
 
 
@@ -299,7 +299,7 @@ Delete a specific End User.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string created by Twilio to identify the End User resource. | 
+**Sid** | **string**| The unique string created by Twilio to identify the End User resource. | 
 
 ### Return type
 
@@ -321,7 +321,7 @@ Name | Type | Description  | Notes
 
 ## DeleteItemAssignment
 
-> DeleteItemAssignment(ctx, bundleSid, sid)
+> DeleteItemAssignment(ctx, BundleSid, Sid)
 
 
 
@@ -333,8 +333,8 @@ Remove an Assignment Item Instance.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
-**sid** | **string**| The unique string that we created to identify the Identity resource. | 
+**BundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
+**Sid** | **string**| The unique string that we created to identify the Identity resource. | 
 
 ### Return type
 
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSupportingDocument
 
-> DeleteSupportingDocument(ctx, sid)
+> DeleteSupportingDocument(ctx, Sid)
 
 
 
@@ -368,7 +368,7 @@ Delete a specific Supporting Document.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string created by Twilio to identify the Supporting Document resource. | 
+**Sid** | **string**| The unique string created by Twilio to identify the Supporting Document resource. | 
 
 ### Return type
 
@@ -390,7 +390,7 @@ Name | Type | Description  | Notes
 
 ## FetchBundle
 
-> NumbersV2RegulatoryComplianceBundle FetchBundle(ctx, sid)
+> NumbersV2RegulatoryComplianceBundle FetchBundle(ctx, Sid)
 
 
 
@@ -402,7 +402,7 @@ Fetch a specific Bundle instance.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that we created to identify the Bundle resource. | 
+**Sid** | **string**| The unique string that we created to identify the Bundle resource. | 
 
 ### Return type
 
@@ -424,7 +424,7 @@ Name | Type | Description  | Notes
 
 ## FetchEndUser
 
-> NumbersV2RegulatoryComplianceEndUser FetchEndUser(ctx, sid)
+> NumbersV2RegulatoryComplianceEndUser FetchEndUser(ctx, Sid)
 
 
 
@@ -436,7 +436,7 @@ Fetch specific End User Instance.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string created by Twilio to identify the End User resource. | 
+**Sid** | **string**| The unique string created by Twilio to identify the End User resource. | 
 
 ### Return type
 
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 
 ## FetchEndUserType
 
-> NumbersV2RegulatoryComplianceEndUserType FetchEndUserType(ctx, sid)
+> NumbersV2RegulatoryComplianceEndUserType FetchEndUserType(ctx, Sid)
 
 
 
@@ -470,7 +470,7 @@ Fetch a specific End-User Type Instance.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that identifies the End-User Type resource. | 
+**Sid** | **string**| The unique string that identifies the End-User Type resource. | 
 
 ### Return type
 
@@ -492,7 +492,7 @@ Name | Type | Description  | Notes
 
 ## FetchEvaluation
 
-> NumbersV2RegulatoryComplianceBundleEvaluation FetchEvaluation(ctx, bundleSid, sid)
+> NumbersV2RegulatoryComplianceBundleEvaluation FetchEvaluation(ctx, BundleSid, Sid)
 
 
 
@@ -504,8 +504,8 @@ Fetch specific Evaluation Instance.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
-**sid** | **string**| The unique string that identifies the Evaluation resource. | 
+**BundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
+**Sid** | **string**| The unique string that identifies the Evaluation resource. | 
 
 ### Return type
 
@@ -527,7 +527,7 @@ Name | Type | Description  | Notes
 
 ## FetchItemAssignment
 
-> NumbersV2RegulatoryComplianceBundleItemAssignment FetchItemAssignment(ctx, bundleSid, sid)
+> NumbersV2RegulatoryComplianceBundleItemAssignment FetchItemAssignment(ctx, BundleSid, Sid)
 
 
 
@@ -539,8 +539,8 @@ Fetch specific Assigned Item Instance.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
-**sid** | **string**| The unique string that we created to identify the Identity resource. | 
+**BundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
+**Sid** | **string**| The unique string that we created to identify the Identity resource. | 
 
 ### Return type
 
@@ -562,7 +562,7 @@ Name | Type | Description  | Notes
 
 ## FetchRegulation
 
-> NumbersV2RegulatoryComplianceRegulation FetchRegulation(ctx, sid)
+> NumbersV2RegulatoryComplianceRegulation FetchRegulation(ctx, Sid)
 
 
 
@@ -574,7 +574,7 @@ Fetch specific Regulation Instance.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that identifies the Regulation resource. | 
+**Sid** | **string**| The unique string that identifies the Regulation resource. | 
 
 ### Return type
 
@@ -596,7 +596,7 @@ Name | Type | Description  | Notes
 
 ## FetchSupportingDocument
 
-> NumbersV2RegulatoryComplianceSupportingDocument FetchSupportingDocument(ctx, sid)
+> NumbersV2RegulatoryComplianceSupportingDocument FetchSupportingDocument(ctx, Sid)
 
 
 
@@ -608,7 +608,7 @@ Fetch specific Supporting Document Instance.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string created by Twilio to identify the Supporting Document resource. | 
+**Sid** | **string**| The unique string created by Twilio to identify the Supporting Document resource. | 
 
 ### Return type
 
@@ -630,7 +630,7 @@ Name | Type | Description  | Notes
 
 ## FetchSupportingDocumentType
 
-> NumbersV2RegulatoryComplianceSupportingDocumentType FetchSupportingDocumentType(ctx, sid)
+> NumbersV2RegulatoryComplianceSupportingDocumentType FetchSupportingDocumentType(ctx, Sid)
 
 
 
@@ -642,7 +642,7 @@ Fetch a specific Supporting Document Type Instance.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that identifies the Supporting Document Type resource. | 
+**Sid** | **string**| The unique string that identifies the Supporting Document Type resource. | 
 
 ### Return type
 
@@ -685,12 +685,12 @@ Optional parameters are passed through a pointer to a ListBundleOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **status** | **optional.String**| The verification status of the Bundle resource. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **regulationSid** | **optional.String**| The unique string of a regulation that is associated to the Bundle resource. | 
- **isoCountry** | **optional.String**| The ISO country code of the Bundle&#39;s phone number country ownership request. | 
- **numberType** | **optional.String**| The type of phone number of the Bundle&#39;s ownership request. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **Status** | **optional.String**| The verification status of the Bundle resource. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
+ **RegulationSid** | **optional.String**| The unique string of a regulation that is associated to the Bundle resource. | 
+ **IsoCountry** | **optional.String**| The ISO country code of the Bundle&#39;s phone number country ownership request. | 
+ **NumberType** | **optional.String**| The type of phone number of the Bundle&#39;s ownership request. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -733,7 +733,7 @@ Optional parameters are passed through a pointer to a ListEndUserOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -776,7 +776,7 @@ Optional parameters are passed through a pointer to a ListEndUserTypeOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -798,7 +798,7 @@ Name | Type | Description  | Notes
 
 ## ListEvaluation
 
-> NumbersV2RegulatoryComplianceBundleEvaluationReadResponse ListEvaluation(ctx, bundleSid, optional)
+> NumbersV2RegulatoryComplianceBundleEvaluationReadResponse ListEvaluation(ctx, BundleSid, optional)
 
 
 
@@ -810,7 +810,7 @@ Retrieve a list of Evaluations associated to the Bundle resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bundleSid** | **string**|  | 
+**BundleSid** | **string**|  | 
  **optional** | ***ListEvaluationOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -821,7 +821,7 @@ Optional parameters are passed through a pointer to a ListEvaluationOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -843,7 +843,7 @@ Name | Type | Description  | Notes
 
 ## ListItemAssignment
 
-> NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse ListItemAssignment(ctx, bundleSid, optional)
+> NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse ListItemAssignment(ctx, BundleSid, optional)
 
 
 
@@ -855,7 +855,7 @@ Retrieve a list of all Assigned Items for an account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
+**BundleSid** | **string**| The unique string that we created to identify the Bundle resource. | 
  **optional** | ***ListItemAssignmentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -866,7 +866,7 @@ Optional parameters are passed through a pointer to a ListItemAssignmentOpts str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -909,10 +909,10 @@ Optional parameters are passed through a pointer to a ListRegulationOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **endUserType** | **optional.String**| The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;. | 
- **isoCountry** | **optional.String**| The ISO country code of the phone number&#39;s country. | 
- **numberType** | **optional.String**| The type of phone number that the regulatory requiremnt is restricting. | 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **EndUserType** | **optional.String**| The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;. | 
+ **IsoCountry** | **optional.String**| The ISO country code of the phone number&#39;s country. | 
+ **NumberType** | **optional.String**| The type of phone number that the regulatory requiremnt is restricting. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -955,7 +955,7 @@ Optional parameters are passed through a pointer to a ListSupportingDocumentOpts
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -998,7 +998,7 @@ Optional parameters are passed through a pointer to a ListSupportingDocumentType
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1020,7 +1020,7 @@ Name | Type | Description  | Notes
 
 ## UpdateBundle
 
-> NumbersV2RegulatoryComplianceBundle UpdateBundle(ctx, sid, optional)
+> NumbersV2RegulatoryComplianceBundle UpdateBundle(ctx, Sid, optional)
 
 
 
@@ -1032,7 +1032,7 @@ Updates a Bundle in an account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that we created to identify the Bundle resource. | 
+**Sid** | **string**| The unique string that we created to identify the Bundle resource. | 
  **optional** | ***UpdateBundleOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1043,10 +1043,10 @@ Optional parameters are passed through a pointer to a UpdateBundleOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **email** | **optional.String**| The email address that will receive updates when the Bundle resource changes status. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **status** | **optional.String**| The verification status of the Bundle resource. | 
- **statusCallback** | **optional.String**| The URL we call to inform your application of status changes. | 
+ **Email** | **optional.String**| The email address that will receive updates when the Bundle resource changes status. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
+ **Status** | **optional.String**| The verification status of the Bundle resource. | 
+ **StatusCallback** | **optional.String**| The URL we call to inform your application of status changes. | 
 
 ### Return type
 
@@ -1068,7 +1068,7 @@ Name | Type | Description  | Notes
 
 ## UpdateEndUser
 
-> NumbersV2RegulatoryComplianceEndUser UpdateEndUser(ctx, sid, optional)
+> NumbersV2RegulatoryComplianceEndUser UpdateEndUser(ctx, Sid, optional)
 
 
 
@@ -1080,7 +1080,7 @@ Update an existing End User.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string created by Twilio to identify the End User resource. | 
+**Sid** | **string**| The unique string created by Twilio to identify the End User resource. | 
  **optional** | ***UpdateEndUserOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1091,8 +1091,8 @@ Optional parameters are passed through a pointer to a UpdateEndUserOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
+ **Attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
 
 ### Return type
 
@@ -1114,7 +1114,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSupportingDocument
 
-> NumbersV2RegulatoryComplianceSupportingDocument UpdateSupportingDocument(ctx, sid, optional)
+> NumbersV2RegulatoryComplianceSupportingDocument UpdateSupportingDocument(ctx, Sid, optional)
 
 
 
@@ -1126,7 +1126,7 @@ Update an existing Supporting Document.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string created by Twilio to identify the Supporting Document resource. | 
+**Sid** | **string**| The unique string created by Twilio to identify the Supporting Document resource. | 
  **optional** | ***UpdateSupportingDocumentOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1137,8 +1137,8 @@ Optional parameters are passed through a pointer to a UpdateSupportingDocumentOp
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
+ **Attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
 
 ### Return type
 

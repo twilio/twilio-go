@@ -11,6 +11,6 @@
 package openapi
 // SupersimV1CommandReadResponse struct for SupersimV1CommandReadResponse
 type SupersimV1CommandReadResponse struct {
-	Commands []SupersimV1Command `json:"commands,omitempty"`
-	Meta SupersimV1CommandReadResponseMeta `json:"meta,omitempty"`
+	Commands []SupersimV1Command `json:"Commands,omitempty"`
+	Meta SupersimV1CommandReadResponseMeta `json:"Meta,omitempty"`
 }

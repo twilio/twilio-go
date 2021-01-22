@@ -11,6 +11,6 @@
 package openapi
 // VoiceV1ByocTrunkReadResponse struct for VoiceV1ByocTrunkReadResponse
 type VoiceV1ByocTrunkReadResponse struct {
-	ByocTrunks []VoiceV1ByocTrunk `json:"byoc_trunks,omitempty"`
-	Meta VoiceV1ByocTrunkReadResponseMeta `json:"meta,omitempty"`
+	ByocTrunks []VoiceV1ByocTrunk `json:"ByocTrunks,omitempty"`
+	Meta VoiceV1ByocTrunkReadResponseMeta `json:"Meta,omitempty"`
 }

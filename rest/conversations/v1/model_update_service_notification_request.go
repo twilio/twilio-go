@@ -12,25 +12,25 @@ package openapi
 // UpdateServiceNotificationRequest struct for UpdateServiceNotificationRequest
 type UpdateServiceNotificationRequest struct {
 	// Whether to send a notification when a participant is added to a conversation. The default is `false`.
-	AddedToConversationEnabled bool `json:"AddedToConversation.Enabled,omitempty"`
+	AddedToConversationEnabled bool `json:"AddedToConversationEnabled,omitempty"`
 	// The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-	AddedToConversationSound string `json:"AddedToConversation.Sound,omitempty"`
+	AddedToConversationSound string `json:"AddedToConversationSound,omitempty"`
 	// The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-	AddedToConversationTemplate string `json:"AddedToConversation.Template,omitempty"`
+	AddedToConversationTemplate string `json:"AddedToConversationTemplate,omitempty"`
 	// Weather the notification logging is enabled.
 	LogEnabled bool `json:"LogEnabled,omitempty"`
 	// Whether the new message badge is enabled. The default is `false`.
-	NewMessageBadgeCountEnabled bool `json:"NewMessage.BadgeCountEnabled,omitempty"`
+	NewMessageBadgeCountEnabled bool `json:"NewMessageBadgeCountEnabled,omitempty"`
 	// Whether to send a notification when a new message is added to a conversation. The default is `false`.
-	NewMessageEnabled bool `json:"NewMessage.Enabled,omitempty"`
+	NewMessageEnabled bool `json:"NewMessageEnabled,omitempty"`
 	// The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
-	NewMessageSound string `json:"NewMessage.Sound,omitempty"`
+	NewMessageSound string `json:"NewMessageSound,omitempty"`
 	// The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
-	NewMessageTemplate string `json:"NewMessage.Template,omitempty"`
+	NewMessageTemplate string `json:"NewMessageTemplate,omitempty"`
 	// Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
-	RemovedFromConversationEnabled bool `json:"RemovedFromConversation.Enabled,omitempty"`
+	RemovedFromConversationEnabled bool `json:"RemovedFromConversationEnabled,omitempty"`
 	// The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-	RemovedFromConversationSound string `json:"RemovedFromConversation.Sound,omitempty"`
+	RemovedFromConversationSound string `json:"RemovedFromConversationSound,omitempty"`
 	// The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-	RemovedFromConversationTemplate string `json:"RemovedFromConversation.Template,omitempty"`
+	RemovedFromConversationTemplate string `json:"RemovedFromConversationTemplate,omitempty"`
 }

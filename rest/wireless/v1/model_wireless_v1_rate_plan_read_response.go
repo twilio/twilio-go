@@ -11,6 +11,6 @@
 package openapi
 // WirelessV1RatePlanReadResponse struct for WirelessV1RatePlanReadResponse
 type WirelessV1RatePlanReadResponse struct {
-	Meta WirelessV1CommandReadResponseMeta `json:"meta,omitempty"`
-	RatePlans []WirelessV1RatePlan `json:"rate_plans,omitempty"`
+	Meta WirelessV1CommandReadResponseMeta `json:"Meta,omitempty"`
+	RatePlans []WirelessV1RatePlan `json:"RatePlans,omitempty"`
 }

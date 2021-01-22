@@ -14,18 +14,18 @@ import (
 )
 // PreviewTrustedCommsCurrentCall struct for PreviewTrustedCommsCurrentCall
 type PreviewTrustedCommsCurrentCall struct {
-	BgColor string `json:"bg_color,omitempty"`
-	Caller string `json:"caller,omitempty"`
-	CreatedAt time.Time `json:"created_at,omitempty"`
-	FontColor string `json:"font_color,omitempty"`
-	From string `json:"from,omitempty"`
-	Logo string `json:"logo,omitempty"`
-	Manager string `json:"manager,omitempty"`
-	Reason string `json:"reason,omitempty"`
-	ShieldImg string `json:"shield_img,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	To string `json:"to,omitempty"`
-	Url string `json:"url,omitempty"`
-	UseCase string `json:"use_case,omitempty"`
+	BgColor string `json:"BgColor,omitempty"`
+	Caller string `json:"Caller,omitempty"`
+	CreatedAt time.Time `json:"CreatedAt,omitempty"`
+	FontColor string `json:"FontColor,omitempty"`
+	From string `json:"From,omitempty"`
+	Logo string `json:"Logo,omitempty"`
+	Manager string `json:"Manager,omitempty"`
+	Reason string `json:"Reason,omitempty"`
+	ShieldImg string `json:"ShieldImg,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	To string `json:"To,omitempty"`
+	Url string `json:"Url,omitempty"`
+	UseCase string `json:"UseCase,omitempty"`
 }

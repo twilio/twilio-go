@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchSummary
 
-> InsightsV1CallSummary FetchSummary(ctx, callSid, optional)
+> InsightsV1CallSummary FetchSummary(ctx, CallSid, optional)
 
 
 
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**callSid** | **string**|  | 
+**CallSid** | **string**|  | 
  **optional** | ***FetchSummaryOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -31,7 +31,7 @@ Optional parameters are passed through a pointer to a FetchSummaryOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **processingState** | **optional.String**|  | 
+ **ProcessingState** | **optional.String**|  | 
 
 ### Return type
 

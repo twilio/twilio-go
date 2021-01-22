@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -56,14 +57,15 @@ CreateAssistant Method for CreateAssistant
 func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*PreviewUnderstandAssistant, error) {
 	path := "/understand/Assistants"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackEvents != nil {
-		data.Set("CallbackEvents", *params.CallbackEvents)
+		data.Set("CallbackEvents", *params.CallbackEvents) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.FallbackActions != nil {
 		v, err := json.Marshal(params.FallbackActions)
@@ -72,10 +74,10 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Pre
 			return nil, err
 		}
 
-		data.Set("FallbackActions", string(v))
+		data.Set("FallbackActions", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.InitiationActions != nil {
 		v, err := json.Marshal(params.InitiationActions)
@@ -84,10 +86,10 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Pre
 			return nil, err
 		}
 
-		data.Set("InitiationActions", string(v))
+		data.Set("InitiationActions", fmt.Sprint(v))
 	}
 	if params != nil && params.LogQueries != nil {
-		data.Set("LogQueries", string(*params.LogQueries))
+		data.Set("LogQueries", fmt.Sprint(*params.LogQueries)) 
 	}
 	if params != nil && params.StyleSheet != nil {
 		v, err := json.Marshal(params.StyleSheet)
@@ -96,10 +98,10 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Pre
 			return nil, err
 		}
 
-		data.Set("StyleSheet", string(v))
+		data.Set("StyleSheet", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -142,26 +144,27 @@ Create an AuthorizationDocument for authorizing the hosting of phone number capa
 func (c *DefaultApiService) CreateAuthorizationDocument(params *CreateAuthorizationDocumentParams) (*PreviewHostedNumbersAuthorizationDocument, error) {
 	path := "/HostedNumbers/AuthorizationDocuments"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
+		data.Set("AddressSid", *params.AddressSid) 
 	}
 	if params != nil && params.CcEmails != nil {
-		data.Set("CcEmails", *params.CcEmails)
+		data.Set("CcEmails",  strings.Join(*params.CcEmails, ","))
 	}
 	if params != nil && params.ContactPhoneNumber != nil {
-		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
+		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber) 
 	}
 	if params != nil && params.ContactTitle != nil {
-		data.Set("ContactTitle", *params.ContactTitle)
+		data.Set("ContactTitle", *params.ContactTitle) 
 	}
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
+		data.Set("Email", *params.Email) 
 	}
 	if params != nil && params.HostedNumberOrderSids != nil {
-		data.Set("HostedNumberOrderSids", *params.HostedNumberOrderSids)
+		data.Set("HostedNumberOrderSids",  strings.Join(*params.HostedNumberOrderSids, ","))
 	}
 
 
@@ -189,28 +192,29 @@ type CreateCertificateParams struct {
 /*
 CreateCertificate Method for CreateCertificate
 Enroll a new Certificate credential to the Fleet, optionally giving it a friendly name and assigning to a Device.
- * @param fleetSid
+ * @param FleetSid
  * @param optional nil or *CreateCertificateOpts - Optional Parameters:
  * @param "CertificateData" (string) - Provides a URL encoded representation of the public certificate in PEM format.
  * @param "DeviceSid" (string) - Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
  * @param "FriendlyName" (string) - Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
 @return PreviewDeployedDevicesFleetCertificate
 */
-func (c *DefaultApiService) CreateCertificate(fleetSid string, params *CreateCertificateParams) (*PreviewDeployedDevicesFleetCertificate, error) {
+func (c *DefaultApiService) CreateCertificate(FleetSid string, params *CreateCertificateParams) (*PreviewDeployedDevicesFleetCertificate, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CertificateData != nil {
-		data.Set("CertificateData", *params.CertificateData)
+		data.Set("CertificateData", *params.CertificateData) 
 	}
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid)
+		data.Set("DeviceSid", *params.DeviceSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -236,20 +240,21 @@ type CreateChannelParams struct {
 /*
 CreateChannel Method for CreateChannel
 Associate a channel to a branded channel
- * @param brandedChannelSid The unique SID identifier of the Branded Channel. The given phone number is going to be assigned to this Branded Channel
+ * @param BrandedChannelSid The unique SID identifier of the Branded Channel. The given phone number is going to be assigned to this Branded Channel
  * @param optional nil or *CreateChannelOpts - Optional Parameters:
  * @param "PhoneNumberSid" (string) - The unique SID identifier of the Phone Number of the Phone number to be assigned to the Branded Channel.
 @return PreviewTrustedCommsBrandedChannelChannel
 */
-func (c *DefaultApiService) CreateChannel(brandedChannelSid string, params *CreateChannelParams) (*PreviewTrustedCommsBrandedChannelChannel, error) {
+func (c *DefaultApiService) CreateChannel(BrandedChannelSid string, params *CreateChannelParams) (*PreviewTrustedCommsBrandedChannelChannel, error) {
 	path := "/TrustedComms/BrandedChannels/{BrandedChannelSid}/Channels"
-	path = strings.Replace(path, "{"+"BrandedChannelSid"+"}", brandedChannelSid, -1)
+	path = strings.Replace(path, "{"+"BrandedChannelSid"+"}", BrandedChannelSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PhoneNumberSid != nil {
-		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
+		data.Set("PhoneNumberSid", *params.PhoneNumberSid) 
 	}
 
 
@@ -293,29 +298,30 @@ CreateCommand Method for CreateCommand
 func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*PreviewWirelessCommand, error) {
 	path := "/wireless/Commands"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
+		data.Set("CallbackMethod", *params.CallbackMethod) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.Command != nil {
-		data.Set("Command", *params.Command)
+		data.Set("Command", *params.Command) 
 	}
 	if params != nil && params.CommandMode != nil {
-		data.Set("CommandMode", *params.CommandMode)
+		data.Set("CommandMode", *params.CommandMode) 
 	}
 	if params != nil && params.Device != nil {
-		data.Set("Device", *params.Device)
+		data.Set("Device", *params.Device) 
 	}
 	if params != nil && params.IncludeSid != nil {
-		data.Set("IncludeSid", *params.IncludeSid)
+		data.Set("IncludeSid", *params.IncludeSid) 
 	}
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		data.Set("Sim", *params.Sim) 
 	}
 
 
@@ -342,24 +348,25 @@ type CreateDeploymentParams struct {
 /*
 CreateDeployment Method for CreateDeployment
 Create a new Deployment in the Fleet, optionally giving it a friendly name and linking to a specific Twilio Sync service instance.
- * @param fleetSid
+ * @param FleetSid
  * @param optional nil or *CreateDeploymentOpts - Optional Parameters:
  * @param "FriendlyName" (string) - Provides a human readable descriptive text for this Deployment, up to 256 characters long.
  * @param "SyncServiceSid" (string) - Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
 @return PreviewDeployedDevicesFleetDeployment
 */
-func (c *DefaultApiService) CreateDeployment(fleetSid string, params *CreateDeploymentParams) (*PreviewDeployedDevicesFleetDeployment, error) {
+func (c *DefaultApiService) CreateDeployment(FleetSid string, params *CreateDeploymentParams) (*PreviewDeployedDevicesFleetDeployment, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.SyncServiceSid != nil {
-		data.Set("SyncServiceSid", *params.SyncServiceSid)
+		data.Set("SyncServiceSid", *params.SyncServiceSid) 
 	}
 
 
@@ -389,7 +396,7 @@ type CreateDeviceParams struct {
 /*
 CreateDevice Method for CreateDevice
 Create a new Device in the Fleet, optionally giving it a unique name, friendly name, and assigning to a Deployment and/or human identity.
- * @param fleetSid
+ * @param FleetSid
  * @param optional nil or *CreateDeviceOpts - Optional Parameters:
  * @param "DeploymentSid" (string) - Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
  * @param "Enabled" (bool) - 
@@ -398,27 +405,28 @@ Create a new Device in the Fleet, optionally giving it a unique name, friendly n
  * @param "UniqueName" (string) - Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
 @return PreviewDeployedDevicesFleetDevice
 */
-func (c *DefaultApiService) CreateDevice(fleetSid string, params *CreateDeviceParams) (*PreviewDeployedDevicesFleetDevice, error) {
+func (c *DefaultApiService) CreateDevice(FleetSid string, params *CreateDeviceParams) (*PreviewDeployedDevicesFleetDevice, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Devices"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeploymentSid != nil {
-		data.Set("DeploymentSid", *params.DeploymentSid)
+		data.Set("DeploymentSid", *params.DeploymentSid) 
 	}
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -444,15 +452,16 @@ type CreateDocumentParams struct {
 
 /*
 CreateDocument Method for CreateDocument
- * @param serviceSid
+ * @param ServiceSid
  * @param optional nil or *CreateDocumentOpts - Optional Parameters:
  * @param "Data" (map[string]interface{}) - 
  * @param "UniqueName" (string) - 
 @return PreviewSyncServiceDocument
 */
-func (c *DefaultApiService) CreateDocument(serviceSid string, params *CreateDocumentParams) (*PreviewSyncServiceDocument, error) {
+func (c *DefaultApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*PreviewSyncServiceDocument, error) {
 	path := "/Sync/Services/{ServiceSid}/Documents"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -464,10 +473,10 @@ func (c *DefaultApiService) CreateDocument(serviceSid string, params *CreateDocu
 			return nil, err
 		}
 
-		data.Set("Data", string(v))
+		data.Set("Data", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -497,7 +506,7 @@ type CreateExportCustomJobParams struct {
 
 /*
 CreateExportCustomJob Method for CreateExportCustomJob
- * @param resourceType The type of communication – Messages or Calls
+ * @param ResourceType The type of communication – Messages or Calls
  * @param optional nil or *CreateExportCustomJobOpts - Optional Parameters:
  * @param "Email" (string) - The optional email to send the completion notification to
  * @param "EndDay" (string) - The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
@@ -507,30 +516,31 @@ CreateExportCustomJob Method for CreateExportCustomJob
  * @param "WebhookUrl" (string) - The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied.
 @return PreviewBulkExportsExportExportCustomJob
 */
-func (c *DefaultApiService) CreateExportCustomJob(resourceType string, params *CreateExportCustomJobParams) (*PreviewBulkExportsExportExportCustomJob, error) {
+func (c *DefaultApiService) CreateExportCustomJob(ResourceType string, params *CreateExportCustomJobParams) (*PreviewBulkExportsExportExportCustomJob, error) {
 	path := "/BulkExports/Exports/{ResourceType}/Jobs"
-	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
+		data.Set("Email", *params.Email) 
 	}
 	if params != nil && params.EndDay != nil {
-		data.Set("EndDay", *params.EndDay)
+		data.Set("EndDay", *params.EndDay) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.StartDay != nil {
-		data.Set("StartDay", *params.StartDay)
+		data.Set("StartDay", *params.StartDay) 
 	}
 	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod)
+		data.Set("WebhookMethod", *params.WebhookMethod) 
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl)
+		data.Set("WebhookUrl", *params.WebhookUrl) 
 	}
 
 
@@ -556,26 +566,27 @@ type CreateFieldParams struct {
 
 /*
 CreateField Method for CreateField
- * @param assistantSid The unique ID of the parent Assistant.
- * @param taskSid The unique ID of the Task associated with this Field.
+ * @param AssistantSid The unique ID of the parent Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Field.
  * @param optional nil or *CreateFieldOpts - Optional Parameters:
  * @param "FieldType" (string) - The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type.
  * @param "UniqueName" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 @return PreviewUnderstandAssistantTaskField
 */
-func (c *DefaultApiService) CreateField(assistantSid string, taskSid string, params *CreateFieldParams) (*PreviewUnderstandAssistantTaskField, error) {
+func (c *DefaultApiService) CreateField(AssistantSid string, TaskSid string, params *CreateFieldParams) (*PreviewUnderstandAssistantTaskField, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FieldType != nil {
-		data.Set("FieldType", *params.FieldType)
+		data.Set("FieldType", *params.FieldType) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -601,24 +612,25 @@ type CreateFieldTypeParams struct {
 
 /*
 CreateFieldType Method for CreateFieldType
- * @param assistantSid
+ * @param AssistantSid
  * @param optional nil or *CreateFieldTypeOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @param "UniqueName" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 @return PreviewUnderstandAssistantFieldType
 */
-func (c *DefaultApiService) CreateFieldType(assistantSid string, params *CreateFieldTypeParams) (*PreviewUnderstandAssistantFieldType, error) {
+func (c *DefaultApiService) CreateFieldType(AssistantSid string, params *CreateFieldTypeParams) (*PreviewUnderstandAssistantFieldType, error) {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -645,30 +657,31 @@ type CreateFieldValueParams struct {
 
 /*
 CreateFieldValue Method for CreateFieldValue
- * @param assistantSid
- * @param fieldTypeSid
+ * @param AssistantSid
+ * @param FieldTypeSid
  * @param optional nil or *CreateFieldValueOpts - Optional Parameters:
  * @param "Language" (string) - An ISO language-country string of the value.
  * @param "SynonymOf" (string) - A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
  * @param "Value" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 @return PreviewUnderstandAssistantFieldTypeFieldValue
 */
-func (c *DefaultApiService) CreateFieldValue(assistantSid string, fieldTypeSid string, params *CreateFieldValueParams) (*PreviewUnderstandAssistantFieldTypeFieldValue, error) {
+func (c *DefaultApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, params *CreateFieldValueParams) (*PreviewUnderstandAssistantFieldTypeFieldValue, error) {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language)
+		data.Set("Language", *params.Language) 
 	}
 	if params != nil && params.SynonymOf != nil {
-		data.Set("SynonymOf", *params.SynonymOf)
+		data.Set("SynonymOf", *params.SynonymOf) 
 	}
 	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value)
+		data.Set("Value", *params.Value) 
 	}
 
 
@@ -701,11 +714,12 @@ Create a new Fleet for scoping of deployed devices within your account.
 func (c *DefaultApiService) CreateFleet(params *CreateFleetParams) (*PreviewDeployedDevicesFleet, error) {
 	path := "/DeployedDevices/Fleets"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -770,59 +784,60 @@ Host a phone number&#39;s capability on Twilio&#39;s platform.
 func (c *DefaultApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderParams) (*PreviewHostedNumbersHostedNumberOrder, error) {
 	path := "/HostedNumbers/HostedNumberOrders"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid)
+		data.Set("AccountSid", *params.AccountSid) 
 	}
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
+		data.Set("AddressSid", *params.AddressSid) 
 	}
 	if params != nil && params.CcEmails != nil {
-		data.Set("CcEmails", *params.CcEmails)
+		data.Set("CcEmails",  strings.Join(*params.CcEmails, ","))
 	}
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
+		data.Set("Email", *params.Email) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.SmsApplicationSid != nil {
-		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid) 
 	}
 	if params != nil && params.SmsCapability != nil {
-		data.Set("SmsCapability", string(*params.SmsCapability))
+		data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability)) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.StatusCallbackUrl != nil {
-		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.VerificationDocumentSid != nil {
-		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid)
+		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid) 
 	}
 	if params != nil && params.VerificationType != nil {
-		data.Set("VerificationType", *params.VerificationType)
+		data.Set("VerificationType", *params.VerificationType) 
 	}
 
 
@@ -861,14 +876,15 @@ Install an Add-on for the Account specified.
 func (c *DefaultApiService) CreateInstalledAddOn(params *CreateInstalledAddOnParams) (*PreviewMarketplaceInstalledAddOn, error) {
 	path := "/marketplace/InstalledAddOns"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AcceptTermsOfService != nil {
-		data.Set("AcceptTermsOfService", string(*params.AcceptTermsOfService))
+		data.Set("AcceptTermsOfService", fmt.Sprint(*params.AcceptTermsOfService)) 
 	}
 	if params != nil && params.AvailableAddOnSid != nil {
-		data.Set("AvailableAddOnSid", *params.AvailableAddOnSid)
+		data.Set("AvailableAddOnSid", *params.AvailableAddOnSid) 
 	}
 	if params != nil && params.Configuration != nil {
 		v, err := json.Marshal(params.Configuration)
@@ -877,10 +893,10 @@ func (c *DefaultApiService) CreateInstalledAddOn(params *CreateInstalledAddOnPar
 			return nil, err
 		}
 
-		data.Set("Configuration", string(v))
+		data.Set("Configuration", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -907,24 +923,25 @@ type CreateKeyParams struct {
 /*
 CreateKey Method for CreateKey
 Create a new Key credential in the Fleet, optionally giving it a friendly name and assigning to a Device.
- * @param fleetSid
+ * @param FleetSid
  * @param optional nil or *CreateKeyOpts - Optional Parameters:
  * @param "DeviceSid" (string) - Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
  * @param "FriendlyName" (string) - Provides a human readable descriptive text for this Key credential, up to 256 characters long.
 @return PreviewDeployedDevicesFleetKey
 */
-func (c *DefaultApiService) CreateKey(fleetSid string, params *CreateKeyParams) (*PreviewDeployedDevicesFleetKey, error) {
+func (c *DefaultApiService) CreateKey(FleetSid string, params *CreateKeyParams) (*PreviewDeployedDevicesFleetKey, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Keys"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid)
+		data.Set("DeviceSid", *params.DeviceSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -950,24 +967,25 @@ type CreateModelBuildParams struct {
 
 /*
 CreateModelBuild Method for CreateModelBuild
- * @param assistantSid
+ * @param AssistantSid
  * @param optional nil or *CreateModelBuildOpts - Optional Parameters:
  * @param "StatusCallback" (string) - 
  * @param "UniqueName" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
 @return PreviewUnderstandAssistantModelBuild
 */
-func (c *DefaultApiService) CreateModelBuild(assistantSid string, params *CreateModelBuildParams) (*PreviewUnderstandAssistantModelBuild, error) {
+func (c *DefaultApiService) CreateModelBuild(AssistantSid string, params *CreateModelBuildParams) (*PreviewUnderstandAssistantModelBuild, error) {
 	path := "/understand/Assistants/{AssistantSid}/ModelBuilds"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -996,7 +1014,7 @@ type CreateQueryParams struct {
 
 /*
 CreateQuery Method for CreateQuery
- * @param assistantSid The unique ID of the parent Assistant.
+ * @param AssistantSid The unique ID of the parent Assistant.
  * @param optional nil or *CreateQueryOpts - Optional Parameters:
  * @param "Field" (string) - Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
  * @param "Language" (string) - An ISO language-country string of the sample.
@@ -1005,27 +1023,28 @@ CreateQuery Method for CreateQuery
  * @param "Tasks" (string) - Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
 @return PreviewUnderstandAssistantQuery
 */
-func (c *DefaultApiService) CreateQuery(assistantSid string, params *CreateQueryParams) (*PreviewUnderstandAssistantQuery, error) {
+func (c *DefaultApiService) CreateQuery(AssistantSid string, params *CreateQueryParams) (*PreviewUnderstandAssistantQuery, error) {
 	path := "/understand/Assistants/{AssistantSid}/Queries"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Field != nil {
-		data.Set("Field", *params.Field)
+		data.Set("Field", *params.Field) 
 	}
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language)
+		data.Set("Language", *params.Language) 
 	}
 	if params != nil && params.ModelBuild != nil {
-		data.Set("ModelBuild", *params.ModelBuild)
+		data.Set("ModelBuild", *params.ModelBuild) 
 	}
 	if params != nil && params.Query != nil {
-		data.Set("Query", *params.Query)
+		data.Set("Query", *params.Query) 
 	}
 	if params != nil && params.Tasks != nil {
-		data.Set("Tasks", *params.Tasks)
+		data.Set("Tasks", *params.Tasks) 
 	}
 
 
@@ -1075,38 +1094,39 @@ CreateRatePlan Method for CreateRatePlan
 func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*PreviewWirelessRatePlan, error) {
 	path := "/wireless/RatePlans"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CommandsEnabled != nil {
-		data.Set("CommandsEnabled", string(*params.CommandsEnabled))
+		data.Set("CommandsEnabled", fmt.Sprint(*params.CommandsEnabled)) 
 	}
 	if params != nil && params.DataEnabled != nil {
-		data.Set("DataEnabled", string(*params.DataEnabled))
+		data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled)) 
 	}
 	if params != nil && params.DataLimit != nil {
-		data.Set("DataLimit", string(*params.DataLimit))
+		data.Set("DataLimit", fmt.Sprint(*params.DataLimit)) 
 	}
 	if params != nil && params.DataMetering != nil {
-		data.Set("DataMetering", *params.DataMetering)
+		data.Set("DataMetering", *params.DataMetering) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.InternationalRoaming != nil {
-		data.Set("InternationalRoaming", *params.InternationalRoaming)
+		data.Set("InternationalRoaming",  strings.Join(*params.InternationalRoaming, ","))
 	}
 	if params != nil && params.MessagingEnabled != nil {
-		data.Set("MessagingEnabled", string(*params.MessagingEnabled))
+		data.Set("MessagingEnabled", fmt.Sprint(*params.MessagingEnabled)) 
 	}
 	if params != nil && params.NationalRoamingEnabled != nil {
-		data.Set("NationalRoamingEnabled", string(*params.NationalRoamingEnabled))
+		data.Set("NationalRoamingEnabled", fmt.Sprint(*params.NationalRoamingEnabled)) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", string(*params.VoiceEnabled))
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
 	}
 
 
@@ -1133,30 +1153,31 @@ type CreateSampleParams struct {
 
 /*
 CreateSample Method for CreateSample
- * @param assistantSid The unique ID of the Assistant.
- * @param taskSid The unique ID of the Task associated with this Sample.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Sample.
  * @param optional nil or *CreateSampleOpts - Optional Parameters:
  * @param "Language" (string) - An ISO language-country string of the sample.
  * @param "SourceChannel" (string) - The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
  * @param "TaggedText" (string) - The text example of how end-users may express this task. The sample may contain Field tag blocks.
 @return PreviewUnderstandAssistantTaskSample
 */
-func (c *DefaultApiService) CreateSample(assistantSid string, taskSid string, params *CreateSampleParams) (*PreviewUnderstandAssistantTaskSample, error) {
+func (c *DefaultApiService) CreateSample(AssistantSid string, TaskSid string, params *CreateSampleParams) (*PreviewUnderstandAssistantTaskSample, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language)
+		data.Set("Language", *params.Language) 
 	}
 	if params != nil && params.SourceChannel != nil {
-		data.Set("SourceChannel", *params.SourceChannel)
+		data.Set("SourceChannel", *params.SourceChannel) 
 	}
 	if params != nil && params.TaggedText != nil {
-		data.Set("TaggedText", *params.TaggedText)
+		data.Set("TaggedText", *params.TaggedText) 
 	}
 
 
@@ -1194,20 +1215,21 @@ CreateService Method for CreateService
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*PreviewSyncService, error) {
 	path := "/Sync/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AclEnabled != nil {
-		data.Set("AclEnabled", string(*params.AclEnabled))
+		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.ReachabilityWebhooksEnabled != nil {
-		data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
+		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled)) 
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl)
+		data.Set("WebhookUrl", *params.WebhookUrl) 
 	}
 
 
@@ -1232,20 +1254,21 @@ type CreateSyncListParams struct {
 
 /*
 CreateSyncList Method for CreateSyncList
- * @param serviceSid
+ * @param ServiceSid
  * @param optional nil or *CreateSyncListOpts - Optional Parameters:
  * @param "UniqueName" (string) - 
 @return PreviewSyncServiceSyncList
 */
-func (c *DefaultApiService) CreateSyncList(serviceSid string, params *CreateSyncListParams) (*PreviewSyncServiceSyncList, error) {
+func (c *DefaultApiService) CreateSyncList(ServiceSid string, params *CreateSyncListParams) (*PreviewSyncServiceSyncList, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -1270,16 +1293,17 @@ type CreateSyncListItemParams struct {
 
 /*
 CreateSyncListItem Method for CreateSyncListItem
- * @param serviceSid
- * @param listSid
+ * @param ServiceSid
+ * @param ListSid
  * @param optional nil or *CreateSyncListItemOpts - Optional Parameters:
  * @param "Data" (map[string]interface{}) - 
 @return PreviewSyncServiceSyncListSyncListItem
 */
-func (c *DefaultApiService) CreateSyncListItem(serviceSid string, listSid string, params *CreateSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItem, error) {
+func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItem, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -1291,7 +1315,7 @@ func (c *DefaultApiService) CreateSyncListItem(serviceSid string, listSid string
 			return nil, err
 		}
 
-		data.Set("Data", string(v))
+		data.Set("Data", fmt.Sprint(v))
 	}
 
 
@@ -1316,20 +1340,21 @@ type CreateSyncMapParams struct {
 
 /*
 CreateSyncMap Method for CreateSyncMap
- * @param serviceSid
+ * @param ServiceSid
  * @param optional nil or *CreateSyncMapOpts - Optional Parameters:
  * @param "UniqueName" (string) - 
 @return PreviewSyncServiceSyncMap
 */
-func (c *DefaultApiService) CreateSyncMap(serviceSid string, params *CreateSyncMapParams) (*PreviewSyncServiceSyncMap, error) {
+func (c *DefaultApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParams) (*PreviewSyncServiceSyncMap, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -1355,17 +1380,18 @@ type CreateSyncMapItemParams struct {
 
 /*
 CreateSyncMapItem Method for CreateSyncMapItem
- * @param serviceSid
- * @param mapSid
+ * @param ServiceSid
+ * @param MapSid
  * @param optional nil or *CreateSyncMapItemOpts - Optional Parameters:
  * @param "Data" (map[string]interface{}) - 
  * @param "Key" (string) - 
 @return PreviewSyncServiceSyncMapSyncMapItem
 */
-func (c *DefaultApiService) CreateSyncMapItem(serviceSid string, mapSid string, params *CreateSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
+func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params *CreateSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -1377,10 +1403,10 @@ func (c *DefaultApiService) CreateSyncMapItem(serviceSid string, mapSid string, 
 			return nil, err
 		}
 
-		data.Set("Data", string(v))
+		data.Set("Data", fmt.Sprint(v))
 	}
 	if params != nil && params.Key != nil {
-		data.Set("Key", *params.Key)
+		data.Set("Key", *params.Key) 
 	}
 
 
@@ -1408,7 +1434,7 @@ type CreateTaskParams struct {
 
 /*
 CreateTask Method for CreateTask
- * @param assistantSid The unique ID of the Assistant.
+ * @param AssistantSid The unique ID of the Assistant.
  * @param optional nil or *CreateTaskOpts - Optional Parameters:
  * @param "Actions" (map[string]interface{}) - A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
  * @param "ActionsUrl" (string) - User-provided HTTP endpoint where from the assistant fetches actions
@@ -1416,9 +1442,10 @@ CreateTask Method for CreateTask
  * @param "UniqueName" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 @return PreviewUnderstandAssistantTask
 */
-func (c *DefaultApiService) CreateTask(assistantSid string, params *CreateTaskParams) (*PreviewUnderstandAssistantTask, error) {
+func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (*PreviewUnderstandAssistantTask, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -1430,16 +1457,16 @@ func (c *DefaultApiService) CreateTask(assistantSid string, params *CreateTaskPa
 			return nil, err
 		}
 
-		data.Set("Actions", string(v))
+		data.Set("Actions", fmt.Sprint(v))
 	}
 	if params != nil && params.ActionsUrl != nil {
-		data.Set("ActionsUrl", *params.ActionsUrl)
+		data.Set("ActionsUrl", *params.ActionsUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -1460,13 +1487,14 @@ func (c *DefaultApiService) CreateTask(assistantSid string, params *CreateTaskPa
 
 /*
 DeleteAssistant Method for DeleteAssistant
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteAssistant(sid string) (error) {
+func (c *DefaultApiService) DeleteAssistant(Sid string) (error) {
 	path := "/understand/Assistants/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1484,15 +1512,16 @@ func (c *DefaultApiService) DeleteAssistant(sid string) (error) {
 /*
 DeleteCertificate Method for DeleteCertificate
 Unregister a specific Certificate credential from the Fleet, effectively disallowing any inbound client connections that are presenting it.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
 */
-func (c *DefaultApiService) DeleteCertificate(fleetSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteCertificate(FleetSid string, Sid string) (error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1510,15 +1539,16 @@ func (c *DefaultApiService) DeleteCertificate(fleetSid string, sid string) (erro
 /*
 DeleteDeployment Method for DeleteDeployment
 Delete a specific Deployment from the Fleet, leaving associated devices effectively undeployed.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Deployment resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Deployment resource.
 */
-func (c *DefaultApiService) DeleteDeployment(fleetSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteDeployment(FleetSid string, Sid string) (error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1536,15 +1566,16 @@ func (c *DefaultApiService) DeleteDeployment(fleetSid string, sid string) (error
 /*
 DeleteDevice Method for DeleteDevice
 Delete a specific Device from the Fleet, also removing it from associated Deployments.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Device resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Device resource.
 */
-func (c *DefaultApiService) DeleteDevice(fleetSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteDevice(FleetSid string, Sid string) (error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1560,27 +1591,28 @@ func (c *DefaultApiService) DeleteDevice(fleetSid string, sid string) (error) {
 }
 // DeleteDocumentParams Optional parameters for the method 'DeleteDocument'
 type DeleteDocumentParams struct {
-	If-Match *string `json:"If-Match,omitempty"`
+	IfMatch *string `json:"If-Match,omitempty"`
 }
 
 /*
 DeleteDocument Method for DeleteDocument
- * @param serviceSid
- * @param sid
+ * @param ServiceSid
+ * @param Sid
  * @param optional nil or *DeleteDocumentOpts - Optional Parameters:
  * @param "If-Match" (string) - The If-Match HTTP request header
 */
-func (c *DefaultApiService) DeleteDocument(serviceSid string, sid string, params *DeleteDocumentParams) (error) {
+func (c *DefaultApiService) DeleteDocument(ServiceSid string, Sid string, params *DeleteDocumentParams) (error) {
 	path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.If-Match != nil {
-		headers["If-Match"] = *params.If-Match
+	if params != nil && params.IfMatch != nil {
+		headers["IfMatch"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1596,17 +1628,18 @@ func (c *DefaultApiService) DeleteDocument(serviceSid string, sid string, params
 /*
 DeleteDocumentPermission Method for DeleteDocumentPermission
 Delete a specific Sync Document Permission.
- * @param serviceSid
- * @param documentSid Identifier of the Sync Document. Either a SID or a unique name.
- * @param identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
+ * @param ServiceSid
+ * @param DocumentSid Identifier of the Sync Document. Either a SID or a unique name.
+ * @param Identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 */
-func (c *DefaultApiService) DeleteDocumentPermission(serviceSid string, documentSid string, identity string) (error) {
+func (c *DefaultApiService) DeleteDocumentPermission(ServiceSid string, DocumentSid string, Identity string) (error) {
 	path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1623,17 +1656,18 @@ func (c *DefaultApiService) DeleteDocumentPermission(serviceSid string, document
 
 /*
 DeleteField Method for DeleteField
- * @param assistantSid The unique ID of the Assistant.
- * @param taskSid The unique ID of the Task associated with this Field.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Field.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteField(assistantSid string, taskSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteField(AssistantSid string, TaskSid string, Sid string) (error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1650,15 +1684,16 @@ func (c *DefaultApiService) DeleteField(assistantSid string, taskSid string, sid
 
 /*
 DeleteFieldType Method for DeleteFieldType
- * @param assistantSid
- * @param sid
+ * @param AssistantSid
+ * @param Sid
 */
-func (c *DefaultApiService) DeleteFieldType(assistantSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteFieldType(AssistantSid string, Sid string) (error) {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1675,17 +1710,18 @@ func (c *DefaultApiService) DeleteFieldType(assistantSid string, sid string) (er
 
 /*
 DeleteFieldValue Method for DeleteFieldValue
- * @param assistantSid
- * @param fieldTypeSid
- * @param sid
+ * @param AssistantSid
+ * @param FieldTypeSid
+ * @param Sid
 */
-func (c *DefaultApiService) DeleteFieldValue(assistantSid string, fieldTypeSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (error) {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1703,13 +1739,14 @@ func (c *DefaultApiService) DeleteFieldValue(assistantSid string, fieldTypeSid s
 /*
 DeleteFleet Method for DeleteFleet
 Delete a specific Fleet from your account, also destroys all nested resources: Devices, Deployments, Certificates, Keys.
- * @param sid Provides a 34 character string that uniquely identifies the requested Fleet resource.
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Fleet resource.
 */
-func (c *DefaultApiService) DeleteFleet(sid string) (error) {
+func (c *DefaultApiService) DeleteFleet(Sid string) (error) {
 	path := "/DeployedDevices/Fleets/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1727,13 +1764,14 @@ func (c *DefaultApiService) DeleteFleet(sid string) (error) {
 /*
 DeleteHostedNumberOrder Method for DeleteHostedNumberOrder
 Cancel the HostedNumberOrder (only available when the status is in &#x60;received&#x60;).
- * @param sid A 34 character string that uniquely identifies this HostedNumberOrder.
+ * @param Sid A 34 character string that uniquely identifies this HostedNumberOrder.
 */
-func (c *DefaultApiService) DeleteHostedNumberOrder(sid string) (error) {
+func (c *DefaultApiService) DeleteHostedNumberOrder(Sid string) (error) {
 	path := "/HostedNumbers/HostedNumberOrders/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1751,13 +1789,14 @@ func (c *DefaultApiService) DeleteHostedNumberOrder(sid string) (error) {
 /*
 DeleteInstalledAddOn Method for DeleteInstalledAddOn
 Remove an Add-on installation from your account
- * @param sid The SID of the InstalledAddOn resource to delete.
+ * @param Sid The SID of the InstalledAddOn resource to delete.
 */
-func (c *DefaultApiService) DeleteInstalledAddOn(sid string) (error) {
+func (c *DefaultApiService) DeleteInstalledAddOn(Sid string) (error) {
 	path := "/marketplace/InstalledAddOns/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1774,13 +1813,14 @@ func (c *DefaultApiService) DeleteInstalledAddOn(sid string) (error) {
 
 /*
 DeleteJob Method for DeleteJob
- * @param jobSid The unique string that that we created to identify the Bulk Export job
+ * @param JobSid The unique string that that we created to identify the Bulk Export job
 */
-func (c *DefaultApiService) DeleteJob(jobSid string) (error) {
+func (c *DefaultApiService) DeleteJob(JobSid string) (error) {
 	path := "/BulkExports/Exports/Jobs/{JobSid}"
-	path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
+	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1798,15 +1838,16 @@ func (c *DefaultApiService) DeleteJob(jobSid string) (error) {
 /*
 DeleteKey Method for DeleteKey
 Delete a specific Key credential from the Fleet, effectively disallowing any inbound client connections that are presenting it.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Key credential resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Key credential resource.
 */
-func (c *DefaultApiService) DeleteKey(fleetSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteKey(FleetSid string, Sid string) (error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1823,15 +1864,16 @@ func (c *DefaultApiService) DeleteKey(fleetSid string, sid string) (error) {
 
 /*
 DeleteModelBuild Method for DeleteModelBuild
- * @param assistantSid
- * @param sid
+ * @param AssistantSid
+ * @param Sid
 */
-func (c *DefaultApiService) DeleteModelBuild(assistantSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteModelBuild(AssistantSid string, Sid string) (error) {
 	path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1848,15 +1890,16 @@ func (c *DefaultApiService) DeleteModelBuild(assistantSid string, sid string) (e
 
 /*
 DeleteQuery Method for DeleteQuery
- * @param assistantSid The unique ID of the Assistant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteQuery(assistantSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) (error) {
 	path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1873,13 +1916,14 @@ func (c *DefaultApiService) DeleteQuery(assistantSid string, sid string) (error)
 
 /*
 DeleteRatePlan Method for DeleteRatePlan
- * @param sid
+ * @param Sid
 */
-func (c *DefaultApiService) DeleteRatePlan(sid string) (error) {
+func (c *DefaultApiService) DeleteRatePlan(Sid string) (error) {
 	path := "/wireless/RatePlans/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1896,17 +1940,18 @@ func (c *DefaultApiService) DeleteRatePlan(sid string) (error) {
 
 /*
 DeleteSample Method for DeleteSample
- * @param assistantSid The unique ID of the Assistant.
- * @param taskSid The unique ID of the Task associated with this Sample.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Sample.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteSample(assistantSid string, taskSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Sid string) (error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1923,13 +1968,14 @@ func (c *DefaultApiService) DeleteSample(assistantSid string, taskSid string, si
 
 /*
 DeleteService Method for DeleteService
- * @param sid
+ * @param Sid
 */
-func (c *DefaultApiService) DeleteService(sid string) (error) {
+func (c *DefaultApiService) DeleteService(Sid string) (error) {
 	path := "/Sync/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1946,15 +1992,16 @@ func (c *DefaultApiService) DeleteService(sid string) (error) {
 
 /*
 DeleteSyncList Method for DeleteSyncList
- * @param serviceSid
- * @param sid
+ * @param ServiceSid
+ * @param Sid
 */
-func (c *DefaultApiService) DeleteSyncList(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteSyncList(ServiceSid string, Sid string) (error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1970,29 +2017,30 @@ func (c *DefaultApiService) DeleteSyncList(serviceSid string, sid string) (error
 }
 // DeleteSyncListItemParams Optional parameters for the method 'DeleteSyncListItem'
 type DeleteSyncListItemParams struct {
-	If-Match *string `json:"If-Match,omitempty"`
+	IfMatch *string `json:"If-Match,omitempty"`
 }
 
 /*
 DeleteSyncListItem Method for DeleteSyncListItem
- * @param serviceSid
- * @param listSid
- * @param index
+ * @param ServiceSid
+ * @param ListSid
+ * @param Index
  * @param optional nil or *DeleteSyncListItemOpts - Optional Parameters:
  * @param "If-Match" (string) - The If-Match HTTP request header
 */
-func (c *DefaultApiService) DeleteSyncListItem(serviceSid string, listSid string, index int32, params *DeleteSyncListItemParams) (error) {
+func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int32, params *DeleteSyncListItemParams) (error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-	path = strings.Replace(path, "{"+"Index"+"}", index, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.If-Match != nil {
-		headers["If-Match"] = *params.If-Match
+	if params != nil && params.IfMatch != nil {
+		headers["IfMatch"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -2008,17 +2056,18 @@ func (c *DefaultApiService) DeleteSyncListItem(serviceSid string, listSid string
 /*
 DeleteSyncListPermission Method for DeleteSyncListPermission
 Delete a specific Sync List Permission.
- * @param serviceSid
- * @param listSid Identifier of the Sync List. Either a SID or a unique name.
- * @param identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
+ * @param ServiceSid
+ * @param ListSid Identifier of the Sync List. Either a SID or a unique name.
+ * @param Identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 */
-func (c *DefaultApiService) DeleteSyncListPermission(serviceSid string, listSid string, identity string) (error) {
+func (c *DefaultApiService) DeleteSyncListPermission(ServiceSid string, ListSid string, Identity string) (error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2035,15 +2084,16 @@ func (c *DefaultApiService) DeleteSyncListPermission(serviceSid string, listSid 
 
 /*
 DeleteSyncMap Method for DeleteSyncMap
- * @param serviceSid
- * @param sid
+ * @param ServiceSid
+ * @param Sid
 */
-func (c *DefaultApiService) DeleteSyncMap(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteSyncMap(ServiceSid string, Sid string) (error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2059,29 +2109,30 @@ func (c *DefaultApiService) DeleteSyncMap(serviceSid string, sid string) (error)
 }
 // DeleteSyncMapItemParams Optional parameters for the method 'DeleteSyncMapItem'
 type DeleteSyncMapItemParams struct {
-	If-Match *string `json:"If-Match,omitempty"`
+	IfMatch *string `json:"If-Match,omitempty"`
 }
 
 /*
 DeleteSyncMapItem Method for DeleteSyncMapItem
- * @param serviceSid
- * @param mapSid
- * @param key
+ * @param ServiceSid
+ * @param MapSid
+ * @param Key
  * @param optional nil or *DeleteSyncMapItemOpts - Optional Parameters:
  * @param "If-Match" (string) - The If-Match HTTP request header
 */
-func (c *DefaultApiService) DeleteSyncMapItem(serviceSid string, mapSid string, key string, params *DeleteSyncMapItemParams) (error) {
+func (c *DefaultApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key string, params *DeleteSyncMapItemParams) (error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-	path = strings.Replace(path, "{"+"Key"+"}", key, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.If-Match != nil {
-		headers["If-Match"] = *params.If-Match
+	if params != nil && params.IfMatch != nil {
+		headers["IfMatch"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -2097,17 +2148,18 @@ func (c *DefaultApiService) DeleteSyncMapItem(serviceSid string, mapSid string, 
 /*
 DeleteSyncMapPermission Method for DeleteSyncMapPermission
 Delete a specific Sync Map Permission.
- * @param serviceSid
- * @param mapSid Identifier of the Sync Map. Either a SID or a unique name.
- * @param identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
+ * @param ServiceSid
+ * @param MapSid Identifier of the Sync Map. Either a SID or a unique name.
+ * @param Identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 */
-func (c *DefaultApiService) DeleteSyncMapPermission(serviceSid string, mapSid string, identity string) (error) {
+func (c *DefaultApiService) DeleteSyncMapPermission(ServiceSid string, MapSid string, Identity string) (error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2124,15 +2176,16 @@ func (c *DefaultApiService) DeleteSyncMapPermission(serviceSid string, mapSid st
 
 /*
 DeleteTask Method for DeleteTask
- * @param assistantSid The unique ID of the Assistant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteTask(assistantSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteTask(AssistantSid string, Sid string) (error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2149,14 +2202,15 @@ func (c *DefaultApiService) DeleteTask(assistantSid string, sid string) (error) 
 
 /*
 FetchAssistant Method for FetchAssistant
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return PreviewUnderstandAssistant
 */
-func (c *DefaultApiService) FetchAssistant(sid string) (*PreviewUnderstandAssistant, error) {
+func (c *DefaultApiService) FetchAssistant(Sid string) (*PreviewUnderstandAssistant, error) {
 	path := "/understand/Assistants/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2178,14 +2232,15 @@ func (c *DefaultApiService) FetchAssistant(sid string) (*PreviewUnderstandAssist
 
 /*
 FetchAssistantFallbackActions Method for FetchAssistantFallbackActions
- * @param assistantSid
+ * @param AssistantSid
 @return PreviewUnderstandAssistantAssistantFallbackActions
 */
-func (c *DefaultApiService) FetchAssistantFallbackActions(assistantSid string) (*PreviewUnderstandAssistantAssistantFallbackActions, error) {
+func (c *DefaultApiService) FetchAssistantFallbackActions(AssistantSid string) (*PreviewUnderstandAssistantAssistantFallbackActions, error) {
 	path := "/understand/Assistants/{AssistantSid}/FallbackActions"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2207,14 +2262,15 @@ func (c *DefaultApiService) FetchAssistantFallbackActions(assistantSid string) (
 
 /*
 FetchAssistantInitiationActions Method for FetchAssistantInitiationActions
- * @param assistantSid
+ * @param AssistantSid
 @return PreviewUnderstandAssistantAssistantInitiationActions
 */
-func (c *DefaultApiService) FetchAssistantInitiationActions(assistantSid string) (*PreviewUnderstandAssistantAssistantInitiationActions, error) {
+func (c *DefaultApiService) FetchAssistantInitiationActions(AssistantSid string) (*PreviewUnderstandAssistantAssistantInitiationActions, error) {
 	path := "/understand/Assistants/{AssistantSid}/InitiationActions"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2237,14 +2293,15 @@ func (c *DefaultApiService) FetchAssistantInitiationActions(assistantSid string)
 /*
 FetchAuthorizationDocument Method for FetchAuthorizationDocument
 Fetch a specific AuthorizationDocument.
- * @param sid A 34 character string that uniquely identifies this AuthorizationDocument.
+ * @param Sid A 34 character string that uniquely identifies this AuthorizationDocument.
 @return PreviewHostedNumbersAuthorizationDocument
 */
-func (c *DefaultApiService) FetchAuthorizationDocument(sid string) (*PreviewHostedNumbersAuthorizationDocument, error) {
+func (c *DefaultApiService) FetchAuthorizationDocument(Sid string) (*PreviewHostedNumbersAuthorizationDocument, error) {
 	path := "/HostedNumbers/AuthorizationDocuments/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2267,14 +2324,15 @@ func (c *DefaultApiService) FetchAuthorizationDocument(sid string) (*PreviewHost
 /*
 FetchAvailableAddOn Method for FetchAvailableAddOn
 Fetch an instance of an Add-on currently available to be installed.
- * @param sid The SID of the AvailableAddOn resource to fetch.
+ * @param Sid The SID of the AvailableAddOn resource to fetch.
 @return PreviewMarketplaceAvailableAddOn
 */
-func (c *DefaultApiService) FetchAvailableAddOn(sid string) (*PreviewMarketplaceAvailableAddOn, error) {
+func (c *DefaultApiService) FetchAvailableAddOn(Sid string) (*PreviewMarketplaceAvailableAddOn, error) {
 	path := "/marketplace/AvailableAddOns/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2297,16 +2355,17 @@ func (c *DefaultApiService) FetchAvailableAddOn(sid string) (*PreviewMarketplace
 /*
 FetchAvailableAddOnExtension Method for FetchAvailableAddOnExtension
 Fetch an instance of an Extension for the Available Add-on.
- * @param availableAddOnSid The SID of the AvailableAddOn resource with the extension to fetch.
- * @param sid The SID of the AvailableAddOn Extension resource to fetch.
+ * @param AvailableAddOnSid The SID of the AvailableAddOn resource with the extension to fetch.
+ * @param Sid The SID of the AvailableAddOn Extension resource to fetch.
 @return PreviewMarketplaceAvailableAddOnAvailableAddOnExtension
 */
-func (c *DefaultApiService) FetchAvailableAddOnExtension(availableAddOnSid string, sid string) (*PreviewMarketplaceAvailableAddOnAvailableAddOnExtension, error) {
+func (c *DefaultApiService) FetchAvailableAddOnExtension(AvailableAddOnSid string, Sid string) (*PreviewMarketplaceAvailableAddOnAvailableAddOnExtension, error) {
 	path := "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid}"
-	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", availableAddOnSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", AvailableAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2329,14 +2388,15 @@ func (c *DefaultApiService) FetchAvailableAddOnExtension(availableAddOnSid strin
 /*
 FetchBrandedChannel Method for FetchBrandedChannel
 Fetch a specific Branded Channel.
- * @param sid The unique SID identifier of the Branded Channel.
+ * @param Sid The unique SID identifier of the Branded Channel.
 @return PreviewTrustedCommsBrandedChannel
 */
-func (c *DefaultApiService) FetchBrandedChannel(sid string) (*PreviewTrustedCommsBrandedChannel, error) {
+func (c *DefaultApiService) FetchBrandedChannel(Sid string) (*PreviewTrustedCommsBrandedChannel, error) {
 	path := "/TrustedComms/BrandedChannels/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2357,7 +2417,7 @@ func (c *DefaultApiService) FetchBrandedChannel(sid string) (*PreviewTrustedComm
 }
 // FetchBrandsInformationParams Optional parameters for the method 'FetchBrandsInformation'
 type FetchBrandsInformationParams struct {
-	If-None-Match *string `json:"If-None-Match,omitempty"`
+	IfNoneMatch *string `json:"If-None-Match,omitempty"`
 }
 
 /*
@@ -2370,12 +2430,13 @@ Retrieve the newest available BrandInformation
 func (c *DefaultApiService) FetchBrandsInformation(params *FetchBrandsInformationParams) (*PreviewTrustedCommsBrandsInformation, error) {
 	path := "/TrustedComms/BrandsInformation"
 
+
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.If-None-Match != nil {
-		headers["If-None-Match"] = *params.If-None-Match
+	if params != nil && params.IfNoneMatch != nil {
+		headers["IfNoneMatch"] = *params.IfNoneMatch
 	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
@@ -2396,16 +2457,17 @@ func (c *DefaultApiService) FetchBrandsInformation(params *FetchBrandsInformatio
 /*
 FetchCertificate Method for FetchCertificate
 Fetch information about a specific Certificate credential in the Fleet.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
 @return PreviewDeployedDevicesFleetCertificate
 */
-func (c *DefaultApiService) FetchCertificate(fleetSid string, sid string) (*PreviewDeployedDevicesFleetCertificate, error) {
+func (c *DefaultApiService) FetchCertificate(FleetSid string, Sid string) (*PreviewDeployedDevicesFleetCertificate, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2427,14 +2489,15 @@ func (c *DefaultApiService) FetchCertificate(fleetSid string, sid string) (*Prev
 
 /*
 FetchCommand Method for FetchCommand
- * @param sid
+ * @param Sid
 @return PreviewWirelessCommand
 */
-func (c *DefaultApiService) FetchCommand(sid string) (*PreviewWirelessCommand, error) {
+func (c *DefaultApiService) FetchCommand(Sid string) (*PreviewWirelessCommand, error) {
 	path := "/wireless/Commands/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2455,7 +2518,7 @@ func (c *DefaultApiService) FetchCommand(sid string) (*PreviewWirelessCommand, e
 }
 // FetchCpsParams Optional parameters for the method 'FetchCps'
 type FetchCpsParams struct {
-	X-Xcnam-Sensitive-Phone-Number *string `json:"X-Xcnam-Sensitive-Phone-Number,omitempty"`
+	XXcnamSensitivePhoneNumber *string `json:"X-Xcnam-Sensitive-Phone-Number,omitempty"`
 }
 
 /*
@@ -2468,12 +2531,13 @@ Fetch a specific Call Placement Service (CPS) given a phone number via &#x60;X-X
 func (c *DefaultApiService) FetchCps(params *FetchCpsParams) (*PreviewTrustedCommsCps, error) {
 	path := "/TrustedComms/CPS"
 
+
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Xcnam-Sensitive-Phone-Number != nil {
-		headers["X-Xcnam-Sensitive-Phone-Number"] = *params.X-Xcnam-Sensitive-Phone-Number
+	if params != nil && params.XXcnamSensitivePhoneNumber != nil {
+		headers["XXcnamSensitivePhoneNumber"] = *params.XXcnamSensitivePhoneNumber
 	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
@@ -2492,8 +2556,8 @@ func (c *DefaultApiService) FetchCps(params *FetchCpsParams) (*PreviewTrustedCom
 }
 // FetchCurrentCallParams Optional parameters for the method 'FetchCurrentCall'
 type FetchCurrentCallParams struct {
-	X-Xcnam-Sensitive-Phone-Number-From *string `json:"X-Xcnam-Sensitive-Phone-Number-From,omitempty"`
-	X-Xcnam-Sensitive-Phone-Number-To *string `json:"X-Xcnam-Sensitive-Phone-Number-To,omitempty"`
+	XXcnamSensitivePhoneNumberFrom *string `json:"X-Xcnam-Sensitive-Phone-Number-From,omitempty"`
+	XXcnamSensitivePhoneNumberTo *string `json:"X-Xcnam-Sensitive-Phone-Number-To,omitempty"`
 }
 
 /*
@@ -2507,15 +2571,16 @@ Retrieve a current call given the originating and terminating number via &#x60;X
 func (c *DefaultApiService) FetchCurrentCall(params *FetchCurrentCallParams) (*PreviewTrustedCommsCurrentCall, error) {
 	path := "/TrustedComms/CurrentCall"
 
+
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
 
-	if params != nil && params.X-Xcnam-Sensitive-Phone-Number-From != nil {
-		headers["X-Xcnam-Sensitive-Phone-Number-From"] = *params.X-Xcnam-Sensitive-Phone-Number-From
+	if params != nil && params.XXcnamSensitivePhoneNumberFrom != nil {
+		headers["XXcnamSensitivePhoneNumberFrom"] = *params.XXcnamSensitivePhoneNumberFrom
 	}
-	if params != nil && params.X-Xcnam-Sensitive-Phone-Number-To != nil {
-		headers["X-Xcnam-Sensitive-Phone-Number-To"] = *params.X-Xcnam-Sensitive-Phone-Number-To
+	if params != nil && params.XXcnamSensitivePhoneNumberTo != nil {
+		headers["XXcnamSensitivePhoneNumberTo"] = *params.XXcnamSensitivePhoneNumberTo
 	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
@@ -2536,15 +2601,16 @@ func (c *DefaultApiService) FetchCurrentCall(params *FetchCurrentCallParams) (*P
 /*
 FetchDay Method for FetchDay
 Fetch a specific Day.
- * @param resourceType The type of communication – Messages, Calls
- * @param day The ISO 8601 format date of the resources in the file, for a UTC day
+ * @param ResourceType The type of communication – Messages, Calls
+ * @param Day The ISO 8601 format date of the resources in the file, for a UTC day
 */
-func (c *DefaultApiService) FetchDay(resourceType string, day string) (error) {
+func (c *DefaultApiService) FetchDay(ResourceType string, Day string) (error) {
 	path := "/BulkExports/Exports/{ResourceType}/Days/{Day}"
-	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
-	path = strings.Replace(path, "{"+"Day"+"}", day, -1)
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+	path = strings.Replace(path, "{"+"Day"+"}", Day, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2562,16 +2628,17 @@ func (c *DefaultApiService) FetchDay(resourceType string, day string) (error) {
 /*
 FetchDeployment Method for FetchDeployment
 Fetch information about a specific Deployment in the Fleet.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Deployment resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Deployment resource.
 @return PreviewDeployedDevicesFleetDeployment
 */
-func (c *DefaultApiService) FetchDeployment(fleetSid string, sid string) (*PreviewDeployedDevicesFleetDeployment, error) {
+func (c *DefaultApiService) FetchDeployment(FleetSid string, Sid string) (*PreviewDeployedDevicesFleetDeployment, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2594,16 +2661,17 @@ func (c *DefaultApiService) FetchDeployment(fleetSid string, sid string) (*Previ
 /*
 FetchDevice Method for FetchDevice
 Fetch information about a specific Device in the Fleet.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Device resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Device resource.
 @return PreviewDeployedDevicesFleetDevice
 */
-func (c *DefaultApiService) FetchDevice(fleetSid string, sid string) (*PreviewDeployedDevicesFleetDevice, error) {
+func (c *DefaultApiService) FetchDevice(FleetSid string, Sid string) (*PreviewDeployedDevicesFleetDevice, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2625,16 +2693,17 @@ func (c *DefaultApiService) FetchDevice(fleetSid string, sid string) (*PreviewDe
 
 /*
 FetchDialogue Method for FetchDialogue
- * @param assistantSid
- * @param sid
+ * @param AssistantSid
+ * @param Sid
 @return PreviewUnderstandAssistantDialogue
 */
-func (c *DefaultApiService) FetchDialogue(assistantSid string, sid string) (*PreviewUnderstandAssistantDialogue, error) {
+func (c *DefaultApiService) FetchDialogue(AssistantSid string, Sid string) (*PreviewUnderstandAssistantDialogue, error) {
 	path := "/understand/Assistants/{AssistantSid}/Dialogues/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2656,16 +2725,17 @@ func (c *DefaultApiService) FetchDialogue(assistantSid string, sid string) (*Pre
 
 /*
 FetchDocument Method for FetchDocument
- * @param serviceSid
- * @param sid
+ * @param ServiceSid
+ * @param Sid
 @return PreviewSyncServiceDocument
 */
-func (c *DefaultApiService) FetchDocument(serviceSid string, sid string) (*PreviewSyncServiceDocument, error) {
+func (c *DefaultApiService) FetchDocument(ServiceSid string, Sid string) (*PreviewSyncServiceDocument, error) {
 	path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2688,18 +2758,19 @@ func (c *DefaultApiService) FetchDocument(serviceSid string, sid string) (*Previ
 /*
 FetchDocumentPermission Method for FetchDocumentPermission
 Fetch a specific Sync Document Permission.
- * @param serviceSid
- * @param documentSid Identifier of the Sync Document. Either a SID or a unique name.
- * @param identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
+ * @param ServiceSid
+ * @param DocumentSid Identifier of the Sync Document. Either a SID or a unique name.
+ * @param Identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 @return PreviewSyncServiceDocumentDocumentPermission
 */
-func (c *DefaultApiService) FetchDocumentPermission(serviceSid string, documentSid string, identity string) (*PreviewSyncServiceDocumentDocumentPermission, error) {
+func (c *DefaultApiService) FetchDocumentPermission(ServiceSid string, DocumentSid string, Identity string) (*PreviewSyncServiceDocumentDocumentPermission, error) {
 	path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2722,14 +2793,15 @@ func (c *DefaultApiService) FetchDocumentPermission(serviceSid string, documentS
 /*
 FetchExport Method for FetchExport
 Fetch a specific Export.
- * @param resourceType The type of communication – Messages, Calls
+ * @param ResourceType The type of communication – Messages, Calls
 @return PreviewBulkExportsExport
 */
-func (c *DefaultApiService) FetchExport(resourceType string) (*PreviewBulkExportsExport, error) {
+func (c *DefaultApiService) FetchExport(ResourceType string) (*PreviewBulkExportsExport, error) {
 	path := "/BulkExports/Exports/{ResourceType}"
-	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2752,14 +2824,15 @@ func (c *DefaultApiService) FetchExport(resourceType string) (*PreviewBulkExport
 /*
 FetchExportConfiguration Method for FetchExportConfiguration
 Fetch a specific Export Configuration.
- * @param resourceType The type of communication – Messages, Calls
+ * @param ResourceType The type of communication – Messages, Calls
 @return PreviewBulkExportsExportConfiguration
 */
-func (c *DefaultApiService) FetchExportConfiguration(resourceType string) (*PreviewBulkExportsExportConfiguration, error) {
+func (c *DefaultApiService) FetchExportConfiguration(ResourceType string) (*PreviewBulkExportsExportConfiguration, error) {
 	path := "/BulkExports/Exports/{ResourceType}/Configuration"
-	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2781,18 +2854,19 @@ func (c *DefaultApiService) FetchExportConfiguration(resourceType string) (*Prev
 
 /*
 FetchField Method for FetchField
- * @param assistantSid The unique ID of the Assistant.
- * @param taskSid The unique ID of the Task associated with this Field.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Field.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return PreviewUnderstandAssistantTaskField
 */
-func (c *DefaultApiService) FetchField(assistantSid string, taskSid string, sid string) (*PreviewUnderstandAssistantTaskField, error) {
+func (c *DefaultApiService) FetchField(AssistantSid string, TaskSid string, Sid string) (*PreviewUnderstandAssistantTaskField, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2814,16 +2888,17 @@ func (c *DefaultApiService) FetchField(assistantSid string, taskSid string, sid 
 
 /*
 FetchFieldType Method for FetchFieldType
- * @param assistantSid
- * @param sid
+ * @param AssistantSid
+ * @param Sid
 @return PreviewUnderstandAssistantFieldType
 */
-func (c *DefaultApiService) FetchFieldType(assistantSid string, sid string) (*PreviewUnderstandAssistantFieldType, error) {
+func (c *DefaultApiService) FetchFieldType(AssistantSid string, Sid string) (*PreviewUnderstandAssistantFieldType, error) {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2845,18 +2920,19 @@ func (c *DefaultApiService) FetchFieldType(assistantSid string, sid string) (*Pr
 
 /*
 FetchFieldValue Method for FetchFieldValue
- * @param assistantSid
- * @param fieldTypeSid
- * @param sid
+ * @param AssistantSid
+ * @param FieldTypeSid
+ * @param Sid
 @return PreviewUnderstandAssistantFieldTypeFieldValue
 */
-func (c *DefaultApiService) FetchFieldValue(assistantSid string, fieldTypeSid string, sid string) (*PreviewUnderstandAssistantFieldTypeFieldValue, error) {
+func (c *DefaultApiService) FetchFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (*PreviewUnderstandAssistantFieldTypeFieldValue, error) {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2879,14 +2955,15 @@ func (c *DefaultApiService) FetchFieldValue(assistantSid string, fieldTypeSid st
 /*
 FetchFleet Method for FetchFleet
 Fetch information about a specific Fleet in your account.
- * @param sid Provides a 34 character string that uniquely identifies the requested Fleet resource.
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Fleet resource.
 @return PreviewDeployedDevicesFleet
 */
-func (c *DefaultApiService) FetchFleet(sid string) (*PreviewDeployedDevicesFleet, error) {
+func (c *DefaultApiService) FetchFleet(Sid string) (*PreviewDeployedDevicesFleet, error) {
 	path := "/DeployedDevices/Fleets/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2909,14 +2986,15 @@ func (c *DefaultApiService) FetchFleet(sid string) (*PreviewDeployedDevicesFleet
 /*
 FetchHostedNumberOrder Method for FetchHostedNumberOrder
 Fetch a specific HostedNumberOrder.
- * @param sid A 34 character string that uniquely identifies this HostedNumberOrder.
+ * @param Sid A 34 character string that uniquely identifies this HostedNumberOrder.
 @return PreviewHostedNumbersHostedNumberOrder
 */
-func (c *DefaultApiService) FetchHostedNumberOrder(sid string) (*PreviewHostedNumbersHostedNumberOrder, error) {
+func (c *DefaultApiService) FetchHostedNumberOrder(Sid string) (*PreviewHostedNumbersHostedNumberOrder, error) {
 	path := "/HostedNumbers/HostedNumberOrders/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2939,14 +3017,15 @@ func (c *DefaultApiService) FetchHostedNumberOrder(sid string) (*PreviewHostedNu
 /*
 FetchInstalledAddOn Method for FetchInstalledAddOn
 Fetch an instance of an Add-on currently installed on this Account.
- * @param sid The SID of the InstalledAddOn resource to fetch.
+ * @param Sid The SID of the InstalledAddOn resource to fetch.
 @return PreviewMarketplaceInstalledAddOn
 */
-func (c *DefaultApiService) FetchInstalledAddOn(sid string) (*PreviewMarketplaceInstalledAddOn, error) {
+func (c *DefaultApiService) FetchInstalledAddOn(Sid string) (*PreviewMarketplaceInstalledAddOn, error) {
 	path := "/marketplace/InstalledAddOns/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -2969,16 +3048,17 @@ func (c *DefaultApiService) FetchInstalledAddOn(sid string) (*PreviewMarketplace
 /*
 FetchInstalledAddOnExtension Method for FetchInstalledAddOnExtension
 Fetch an instance of an Extension for the Installed Add-on.
- * @param installedAddOnSid The SID of the InstalledAddOn resource with the extension to fetch.
- * @param sid The SID of the InstalledAddOn Extension resource to fetch.
+ * @param InstalledAddOnSid The SID of the InstalledAddOn resource with the extension to fetch.
+ * @param Sid The SID of the InstalledAddOn Extension resource to fetch.
 @return PreviewMarketplaceInstalledAddOnInstalledAddOnExtension
 */
-func (c *DefaultApiService) FetchInstalledAddOnExtension(installedAddOnSid string, sid string) (*PreviewMarketplaceInstalledAddOnInstalledAddOnExtension, error) {
+func (c *DefaultApiService) FetchInstalledAddOnExtension(InstalledAddOnSid string, Sid string) (*PreviewMarketplaceInstalledAddOnInstalledAddOnExtension, error) {
 	path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
-	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", installedAddOnSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3000,14 +3080,15 @@ func (c *DefaultApiService) FetchInstalledAddOnExtension(installedAddOnSid strin
 
 /*
 FetchJob Method for FetchJob
- * @param jobSid
+ * @param JobSid
 @return PreviewBulkExportsExportJob
 */
-func (c *DefaultApiService) FetchJob(jobSid string) (*PreviewBulkExportsExportJob, error) {
+func (c *DefaultApiService) FetchJob(JobSid string) (*PreviewBulkExportsExportJob, error) {
 	path := "/BulkExports/Exports/Jobs/{JobSid}"
-	path = strings.Replace(path, "{"+"JobSid"+"}", jobSid, -1)
+	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3030,16 +3111,17 @@ func (c *DefaultApiService) FetchJob(jobSid string) (*PreviewBulkExportsExportJo
 /*
 FetchKey Method for FetchKey
 Fetch information about a specific Key credential in the Fleet.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Key credential resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Key credential resource.
 @return PreviewDeployedDevicesFleetKey
 */
-func (c *DefaultApiService) FetchKey(fleetSid string, sid string) (*PreviewDeployedDevicesFleetKey, error) {
+func (c *DefaultApiService) FetchKey(FleetSid string, Sid string) (*PreviewDeployedDevicesFleetKey, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3061,16 +3143,17 @@ func (c *DefaultApiService) FetchKey(fleetSid string, sid string) (*PreviewDeplo
 
 /*
 FetchModelBuild Method for FetchModelBuild
- * @param assistantSid
- * @param sid
+ * @param AssistantSid
+ * @param Sid
 @return PreviewUnderstandAssistantModelBuild
 */
-func (c *DefaultApiService) FetchModelBuild(assistantSid string, sid string) (*PreviewUnderstandAssistantModelBuild, error) {
+func (c *DefaultApiService) FetchModelBuild(AssistantSid string, Sid string) (*PreviewUnderstandAssistantModelBuild, error) {
 	path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3092,16 +3175,17 @@ func (c *DefaultApiService) FetchModelBuild(assistantSid string, sid string) (*P
 
 /*
 FetchQuery Method for FetchQuery
- * @param assistantSid The unique ID of the Assistant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return PreviewUnderstandAssistantQuery
 */
-func (c *DefaultApiService) FetchQuery(assistantSid string, sid string) (*PreviewUnderstandAssistantQuery, error) {
+func (c *DefaultApiService) FetchQuery(AssistantSid string, Sid string) (*PreviewUnderstandAssistantQuery, error) {
 	path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3123,14 +3207,15 @@ func (c *DefaultApiService) FetchQuery(assistantSid string, sid string) (*Previe
 
 /*
 FetchRatePlan Method for FetchRatePlan
- * @param sid
+ * @param Sid
 @return PreviewWirelessRatePlan
 */
-func (c *DefaultApiService) FetchRatePlan(sid string) (*PreviewWirelessRatePlan, error) {
+func (c *DefaultApiService) FetchRatePlan(Sid string) (*PreviewWirelessRatePlan, error) {
 	path := "/wireless/RatePlans/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3152,18 +3237,19 @@ func (c *DefaultApiService) FetchRatePlan(sid string) (*PreviewWirelessRatePlan,
 
 /*
 FetchSample Method for FetchSample
- * @param assistantSid The unique ID of the Assistant.
- * @param taskSid The unique ID of the Task associated with this Sample.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Sample.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return PreviewUnderstandAssistantTaskSample
 */
-func (c *DefaultApiService) FetchSample(assistantSid string, taskSid string, sid string) (*PreviewUnderstandAssistantTaskSample, error) {
+func (c *DefaultApiService) FetchSample(AssistantSid string, TaskSid string, Sid string) (*PreviewUnderstandAssistantTaskSample, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3185,14 +3271,15 @@ func (c *DefaultApiService) FetchSample(assistantSid string, taskSid string, sid
 
 /*
 FetchService Method for FetchService
- * @param sid
+ * @param Sid
 @return PreviewSyncService
 */
-func (c *DefaultApiService) FetchService(sid string) (*PreviewSyncService, error) {
+func (c *DefaultApiService) FetchService(Sid string) (*PreviewSyncService, error) {
 	path := "/Sync/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3214,14 +3301,15 @@ func (c *DefaultApiService) FetchService(sid string) (*PreviewSyncService, error
 
 /*
 FetchSim Method for FetchSim
- * @param sid
+ * @param Sid
 @return PreviewWirelessSim
 */
-func (c *DefaultApiService) FetchSim(sid string) (*PreviewWirelessSim, error) {
+func (c *DefaultApiService) FetchSim(Sid string) (*PreviewWirelessSim, error) {
 	path := "/wireless/Sims/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3244,14 +3332,15 @@ func (c *DefaultApiService) FetchSim(sid string) (*PreviewWirelessSim, error) {
 /*
 FetchStyleSheet Method for FetchStyleSheet
 Returns Style sheet JSON object for this Assistant
- * @param assistantSid The unique ID of the Assistant
+ * @param AssistantSid The unique ID of the Assistant
 @return PreviewUnderstandAssistantStyleSheet
 */
-func (c *DefaultApiService) FetchStyleSheet(assistantSid string) (*PreviewUnderstandAssistantStyleSheet, error) {
+func (c *DefaultApiService) FetchStyleSheet(AssistantSid string) (*PreviewUnderstandAssistantStyleSheet, error) {
 	path := "/understand/Assistants/{AssistantSid}/StyleSheet"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3273,16 +3362,17 @@ func (c *DefaultApiService) FetchStyleSheet(assistantSid string) (*PreviewUnders
 
 /*
 FetchSyncList Method for FetchSyncList
- * @param serviceSid
- * @param sid
+ * @param ServiceSid
+ * @param Sid
 @return PreviewSyncServiceSyncList
 */
-func (c *DefaultApiService) FetchSyncList(serviceSid string, sid string) (*PreviewSyncServiceSyncList, error) {
+func (c *DefaultApiService) FetchSyncList(ServiceSid string, Sid string) (*PreviewSyncServiceSyncList, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3304,18 +3394,19 @@ func (c *DefaultApiService) FetchSyncList(serviceSid string, sid string) (*Previ
 
 /*
 FetchSyncListItem Method for FetchSyncListItem
- * @param serviceSid
- * @param listSid
- * @param index
+ * @param ServiceSid
+ * @param ListSid
+ * @param Index
 @return PreviewSyncServiceSyncListSyncListItem
 */
-func (c *DefaultApiService) FetchSyncListItem(serviceSid string, listSid string, index int32) (*PreviewSyncServiceSyncListSyncListItem, error) {
+func (c *DefaultApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int32) (*PreviewSyncServiceSyncListSyncListItem, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-	path = strings.Replace(path, "{"+"Index"+"}", index, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3338,18 +3429,19 @@ func (c *DefaultApiService) FetchSyncListItem(serviceSid string, listSid string,
 /*
 FetchSyncListPermission Method for FetchSyncListPermission
 Fetch a specific Sync List Permission.
- * @param serviceSid
- * @param listSid Identifier of the Sync List. Either a SID or a unique name.
- * @param identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
+ * @param ServiceSid
+ * @param ListSid Identifier of the Sync List. Either a SID or a unique name.
+ * @param Identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 @return PreviewSyncServiceSyncListSyncListPermission
 */
-func (c *DefaultApiService) FetchSyncListPermission(serviceSid string, listSid string, identity string) (*PreviewSyncServiceSyncListSyncListPermission, error) {
+func (c *DefaultApiService) FetchSyncListPermission(ServiceSid string, ListSid string, Identity string) (*PreviewSyncServiceSyncListSyncListPermission, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3371,16 +3463,17 @@ func (c *DefaultApiService) FetchSyncListPermission(serviceSid string, listSid s
 
 /*
 FetchSyncMap Method for FetchSyncMap
- * @param serviceSid
- * @param sid
+ * @param ServiceSid
+ * @param Sid
 @return PreviewSyncServiceSyncMap
 */
-func (c *DefaultApiService) FetchSyncMap(serviceSid string, sid string) (*PreviewSyncServiceSyncMap, error) {
+func (c *DefaultApiService) FetchSyncMap(ServiceSid string, Sid string) (*PreviewSyncServiceSyncMap, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3402,18 +3495,19 @@ func (c *DefaultApiService) FetchSyncMap(serviceSid string, sid string) (*Previe
 
 /*
 FetchSyncMapItem Method for FetchSyncMapItem
- * @param serviceSid
- * @param mapSid
- * @param key
+ * @param ServiceSid
+ * @param MapSid
+ * @param Key
 @return PreviewSyncServiceSyncMapSyncMapItem
 */
-func (c *DefaultApiService) FetchSyncMapItem(serviceSid string, mapSid string, key string) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
+func (c *DefaultApiService) FetchSyncMapItem(ServiceSid string, MapSid string, Key string) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-	path = strings.Replace(path, "{"+"Key"+"}", key, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3436,18 +3530,19 @@ func (c *DefaultApiService) FetchSyncMapItem(serviceSid string, mapSid string, k
 /*
 FetchSyncMapPermission Method for FetchSyncMapPermission
 Fetch a specific Sync Map Permission.
- * @param serviceSid
- * @param mapSid Identifier of the Sync Map. Either a SID or a unique name.
- * @param identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
+ * @param ServiceSid
+ * @param MapSid Identifier of the Sync Map. Either a SID or a unique name.
+ * @param Identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 @return PreviewSyncServiceSyncMapSyncMapPermission
 */
-func (c *DefaultApiService) FetchSyncMapPermission(serviceSid string, mapSid string, identity string) (*PreviewSyncServiceSyncMapSyncMapPermission, error) {
+func (c *DefaultApiService) FetchSyncMapPermission(ServiceSid string, MapSid string, Identity string) (*PreviewSyncServiceSyncMapSyncMapPermission, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3469,16 +3564,17 @@ func (c *DefaultApiService) FetchSyncMapPermission(serviceSid string, mapSid str
 
 /*
 FetchTask Method for FetchTask
- * @param assistantSid The unique ID of the Assistant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
 @return PreviewUnderstandAssistantTask
 */
-func (c *DefaultApiService) FetchTask(assistantSid string, sid string) (*PreviewUnderstandAssistantTask, error) {
+func (c *DefaultApiService) FetchTask(AssistantSid string, Sid string) (*PreviewUnderstandAssistantTask, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3501,16 +3597,17 @@ func (c *DefaultApiService) FetchTask(assistantSid string, sid string) (*Preview
 /*
 FetchTaskActions Method for FetchTaskActions
 Returns JSON actions for this Task.
- * @param assistantSid The unique ID of the parent Assistant.
- * @param taskSid The unique ID of the Task.
+ * @param AssistantSid The unique ID of the parent Assistant.
+ * @param TaskSid The unique ID of the Task.
 @return PreviewUnderstandAssistantTaskTaskActions
 */
-func (c *DefaultApiService) FetchTaskActions(assistantSid string, taskSid string) (*PreviewUnderstandAssistantTaskTaskActions, error) {
+func (c *DefaultApiService) FetchTaskActions(AssistantSid string, TaskSid string) (*PreviewUnderstandAssistantTaskTaskActions, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3532,16 +3629,17 @@ func (c *DefaultApiService) FetchTaskActions(assistantSid string, taskSid string
 
 /*
 FetchTaskStatistics Method for FetchTaskStatistics
- * @param assistantSid The unique ID of the parent Assistant.
- * @param taskSid The unique ID of the Task associated with this Field.
+ * @param AssistantSid The unique ID of the parent Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Field.
 @return PreviewUnderstandAssistantTaskTaskStatistics
 */
-func (c *DefaultApiService) FetchTaskStatistics(assistantSid string, taskSid string) (*PreviewUnderstandAssistantTaskTaskStatistics, error) {
+func (c *DefaultApiService) FetchTaskStatistics(AssistantSid string, TaskSid string) (*PreviewUnderstandAssistantTaskTaskStatistics, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -3568,24 +3666,25 @@ type FetchUsageParams struct {
 
 /*
 FetchUsage Method for FetchUsage
- * @param simSid
+ * @param SimSid
  * @param optional nil or *FetchUsageOpts - Optional Parameters:
  * @param "End" (string) - 
  * @param "Start" (string) - 
 @return PreviewWirelessSimUsage
 */
-func (c *DefaultApiService) FetchUsage(simSid string, params *FetchUsageParams) (*PreviewWirelessSimUsage, error) {
+func (c *DefaultApiService) FetchUsage(SimSid string, params *FetchUsageParams) (*PreviewWirelessSimUsage, error) {
 	path := "/wireless/Sims/{SimSid}/Usage"
-	path = strings.Replace(path, "{"+"SimSid"+"}", simSid, -1)
+	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.End != nil {
-		data.Set("End", *params.End)
+		data.Set("End", *params.End) 
 	}
 	if params != nil && params.Start != nil {
-		data.Set("Start", *params.Start)
+		data.Set("Start", *params.Start) 
 	}
 
 
@@ -3617,11 +3716,12 @@ ListAssistant Method for ListAssistant
 func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*PreviewUnderstandAssistantReadResponse, error) {
 	path := "/understand/Assistants"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -3658,17 +3758,18 @@ Retrieve a list of AuthorizationDocuments belonging to the account initiating th
 func (c *DefaultApiService) ListAuthorizationDocument(params *ListAuthorizationDocumentParams) (*PreviewHostedNumbersAuthorizationDocumentReadResponse, error) {
 	path := "/HostedNumbers/AuthorizationDocuments"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
+		data.Set("Email", *params.Email) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -3701,11 +3802,12 @@ Retrieve a list of Add-ons currently available to be installed.
 func (c *DefaultApiService) ListAvailableAddOn(params *ListAvailableAddOnParams) (*PreviewMarketplaceAvailableAddOnReadResponse, error) {
 	path := "/marketplace/AvailableAddOns"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -3731,20 +3833,21 @@ type ListAvailableAddOnExtensionParams struct {
 /*
 ListAvailableAddOnExtension Method for ListAvailableAddOnExtension
 Retrieve a list of Extensions for the Available Add-on.
- * @param availableAddOnSid The SID of the AvailableAddOn resource with the extensions to read.
+ * @param AvailableAddOnSid The SID of the AvailableAddOn resource with the extensions to read.
  * @param optional nil or *ListAvailableAddOnExtensionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse
 */
-func (c *DefaultApiService) ListAvailableAddOnExtension(availableAddOnSid string, params *ListAvailableAddOnExtensionParams) (*PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse, error) {
+func (c *DefaultApiService) ListAvailableAddOnExtension(AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams) (*PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse, error) {
 	path := "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions"
-	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", availableAddOnSid, -1)
+	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", AvailableAddOnSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -3771,24 +3874,25 @@ type ListCertificateParams struct {
 /*
 ListCertificate Method for ListCertificate
 Retrieve a list of all Certificate credentials belonging to the Fleet.
- * @param fleetSid
+ * @param FleetSid
  * @param optional nil or *ListCertificateOpts - Optional Parameters:
  * @param "DeviceSid" (string) - Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewDeployedDevicesFleetCertificateReadResponse
 */
-func (c *DefaultApiService) ListCertificate(fleetSid string, params *ListCertificateParams) (*PreviewDeployedDevicesFleetCertificateReadResponse, error) {
+func (c *DefaultApiService) ListCertificate(FleetSid string, params *ListCertificateParams) (*PreviewDeployedDevicesFleetCertificateReadResponse, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid)
+		data.Set("DeviceSid", *params.DeviceSid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -3828,23 +3932,24 @@ ListCommand Method for ListCommand
 func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*PreviewWirelessCommandReadResponse, error) {
 	path := "/wireless/Commands"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Device != nil {
-		data.Set("Device", *params.Device)
+		data.Set("Device", *params.Device) 
 	}
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
+		data.Set("Sim", *params.Sim) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		data.Set("Direction", *params.Direction) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -3870,20 +3975,21 @@ type ListDayParams struct {
 /*
 ListDay Method for ListDay
 Retrieve a list of all Days for a resource.
- * @param resourceType The type of communication – Messages, Calls
+ * @param ResourceType The type of communication – Messages, Calls
  * @param optional nil or *ListDayOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewBulkExportsExportDayReadResponse
 */
-func (c *DefaultApiService) ListDay(resourceType string, params *ListDayParams) (*PreviewBulkExportsExportDayReadResponse, error) {
+func (c *DefaultApiService) ListDay(ResourceType string, params *ListDayParams) (*PreviewBulkExportsExportDayReadResponse, error) {
 	path := "/BulkExports/Exports/{ResourceType}/Days"
-	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -3914,7 +4020,7 @@ type ListDependentHostedNumberOrderParams struct {
 /*
 ListDependentHostedNumberOrder Method for ListDependentHostedNumberOrder
 Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument.
- * @param signingDocumentSid
+ * @param SigningDocumentSid
  * @param optional nil or *ListDependentHostedNumberOrderOpts - Optional Parameters:
  * @param "Status" (string) - Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
  * @param "PhoneNumber" (string) - An E164 formatted phone number hosted by this HostedNumberOrder.
@@ -3924,30 +4030,31 @@ Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDo
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse
 */
-func (c *DefaultApiService) ListDependentHostedNumberOrder(signingDocumentSid string, params *ListDependentHostedNumberOrderParams) (*PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse, error) {
+func (c *DefaultApiService) ListDependentHostedNumberOrder(SigningDocumentSid string, params *ListDependentHostedNumberOrderParams) (*PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse, error) {
 	path := "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders"
-	path = strings.Replace(path, "{"+"SigningDocumentSid"+"}", signingDocumentSid, -1)
+	path = strings.Replace(path, "{"+"SigningDocumentSid"+"}", SigningDocumentSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.IncomingPhoneNumberSid != nil {
-		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
+		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -3973,20 +4080,21 @@ type ListDeploymentParams struct {
 /*
 ListDeployment Method for ListDeployment
 Retrieve a list of all Deployments belonging to the Fleet.
- * @param fleetSid
+ * @param FleetSid
  * @param optional nil or *ListDeploymentOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewDeployedDevicesFleetDeploymentReadResponse
 */
-func (c *DefaultApiService) ListDeployment(fleetSid string, params *ListDeploymentParams) (*PreviewDeployedDevicesFleetDeploymentReadResponse, error) {
+func (c *DefaultApiService) ListDeployment(FleetSid string, params *ListDeploymentParams) (*PreviewDeployedDevicesFleetDeploymentReadResponse, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4013,24 +4121,25 @@ type ListDeviceParams struct {
 /*
 ListDevice Method for ListDevice
 Retrieve a list of all Devices belonging to the Fleet.
- * @param fleetSid
+ * @param FleetSid
  * @param optional nil or *ListDeviceOpts - Optional Parameters:
  * @param "DeploymentSid" (string) - Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewDeployedDevicesFleetDeviceReadResponse
 */
-func (c *DefaultApiService) ListDevice(fleetSid string, params *ListDeviceParams) (*PreviewDeployedDevicesFleetDeviceReadResponse, error) {
+func (c *DefaultApiService) ListDevice(FleetSid string, params *ListDeviceParams) (*PreviewDeployedDevicesFleetDeviceReadResponse, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Devices"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeploymentSid != nil {
-		data.Set("DeploymentSid", *params.DeploymentSid)
+		data.Set("DeploymentSid", *params.DeploymentSid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4055,20 +4164,21 @@ type ListDocumentParams struct {
 
 /*
 ListDocument Method for ListDocument
- * @param serviceSid
+ * @param ServiceSid
  * @param optional nil or *ListDocumentOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewSyncServiceDocumentReadResponse
 */
-func (c *DefaultApiService) ListDocument(serviceSid string, params *ListDocumentParams) (*PreviewSyncServiceDocumentReadResponse, error) {
+func (c *DefaultApiService) ListDocument(ServiceSid string, params *ListDocumentParams) (*PreviewSyncServiceDocumentReadResponse, error) {
 	path := "/Sync/Services/{ServiceSid}/Documents"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4094,22 +4204,23 @@ type ListDocumentPermissionParams struct {
 /*
 ListDocumentPermission Method for ListDocumentPermission
 Retrieve a list of all Permissions applying to a Sync Document.
- * @param serviceSid
- * @param documentSid Identifier of the Sync Document. Either a SID or a unique name.
+ * @param ServiceSid
+ * @param DocumentSid Identifier of the Sync Document. Either a SID or a unique name.
  * @param optional nil or *ListDocumentPermissionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewSyncServiceDocumentDocumentPermissionReadResponse
 */
-func (c *DefaultApiService) ListDocumentPermission(serviceSid string, documentSid string, params *ListDocumentPermissionParams) (*PreviewSyncServiceDocumentDocumentPermissionReadResponse, error) {
+func (c *DefaultApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) (*PreviewSyncServiceDocumentDocumentPermissionReadResponse, error) {
 	path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4134,20 +4245,21 @@ type ListExportCustomJobParams struct {
 
 /*
 ListExportCustomJob Method for ListExportCustomJob
- * @param resourceType The type of communication – Messages, Calls
+ * @param ResourceType The type of communication – Messages, Calls
  * @param optional nil or *ListExportCustomJobOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewBulkExportsExportExportCustomJobReadResponse
 */
-func (c *DefaultApiService) ListExportCustomJob(resourceType string, params *ListExportCustomJobParams) (*PreviewBulkExportsExportExportCustomJobReadResponse, error) {
+func (c *DefaultApiService) ListExportCustomJob(ResourceType string, params *ListExportCustomJobParams) (*PreviewBulkExportsExportExportCustomJobReadResponse, error) {
 	path := "/BulkExports/Exports/{ResourceType}/Jobs"
-	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4172,22 +4284,23 @@ type ListFieldParams struct {
 
 /*
 ListField Method for ListField
- * @param assistantSid The unique ID of the Assistant.
- * @param taskSid The unique ID of the Task associated with this Field.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Field.
  * @param optional nil or *ListFieldOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewUnderstandAssistantTaskFieldReadResponse
 */
-func (c *DefaultApiService) ListField(assistantSid string, taskSid string, params *ListFieldParams) (*PreviewUnderstandAssistantTaskFieldReadResponse, error) {
+func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, params *ListFieldParams) (*PreviewUnderstandAssistantTaskFieldReadResponse, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4212,20 +4325,21 @@ type ListFieldTypeParams struct {
 
 /*
 ListFieldType Method for ListFieldType
- * @param assistantSid
+ * @param AssistantSid
  * @param optional nil or *ListFieldTypeOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewUnderstandAssistantFieldTypeReadResponse
 */
-func (c *DefaultApiService) ListFieldType(assistantSid string, params *ListFieldTypeParams) (*PreviewUnderstandAssistantFieldTypeReadResponse, error) {
+func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams) (*PreviewUnderstandAssistantFieldTypeReadResponse, error) {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4251,26 +4365,27 @@ type ListFieldValueParams struct {
 
 /*
 ListFieldValue Method for ListFieldValue
- * @param assistantSid
- * @param fieldTypeSid
+ * @param AssistantSid
+ * @param FieldTypeSid
  * @param optional nil or *ListFieldValueOpts - Optional Parameters:
  * @param "Language" (string) - An ISO language-country string of the value. For example: *en-US*
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewUnderstandAssistantFieldTypeFieldValueReadResponse
 */
-func (c *DefaultApiService) ListFieldValue(assistantSid string, fieldTypeSid string, params *ListFieldValueParams) (*PreviewUnderstandAssistantFieldTypeFieldValueReadResponse, error) {
+func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) (*PreviewUnderstandAssistantFieldTypeFieldValueReadResponse, error) {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", fieldTypeSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language)
+		data.Set("Language", *params.Language) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4303,11 +4418,12 @@ Retrieve a list of all Fleets belonging to your account.
 func (c *DefaultApiService) ListFleet(params *ListFleetParams) (*PreviewDeployedDevicesFleetReadResponse, error) {
 	path := "/DeployedDevices/Fleets"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4350,26 +4466,27 @@ Retrieve a list of HostedNumberOrders belonging to the account initiating the re
 func (c *DefaultApiService) ListHostedNumberOrder(params *ListHostedNumberOrderParams) (*PreviewHostedNumbersHostedNumberOrderReadResponse, error) {
 	path := "/HostedNumbers/HostedNumberOrders"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.IncomingPhoneNumberSid != nil {
-		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
+		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4402,11 +4519,12 @@ Retrieve a list of Add-ons currently installed on this Account.
 func (c *DefaultApiService) ListInstalledAddOn(params *ListInstalledAddOnParams) (*PreviewMarketplaceInstalledAddOnReadResponse, error) {
 	path := "/marketplace/InstalledAddOns"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4432,20 +4550,21 @@ type ListInstalledAddOnExtensionParams struct {
 /*
 ListInstalledAddOnExtension Method for ListInstalledAddOnExtension
 Retrieve a list of Extensions for the Installed Add-on.
- * @param installedAddOnSid The SID of the InstalledAddOn resource with the extensions to read.
+ * @param InstalledAddOnSid The SID of the InstalledAddOn resource with the extensions to read.
  * @param optional nil or *ListInstalledAddOnExtensionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse
 */
-func (c *DefaultApiService) ListInstalledAddOnExtension(installedAddOnSid string, params *ListInstalledAddOnExtensionParams) (*PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse, error) {
+func (c *DefaultApiService) ListInstalledAddOnExtension(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) (*PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse, error) {
 	path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions"
-	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", installedAddOnSid, -1)
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4472,24 +4591,25 @@ type ListKeyParams struct {
 /*
 ListKey Method for ListKey
 Retrieve a list of all Keys credentials belonging to the Fleet.
- * @param fleetSid
+ * @param FleetSid
  * @param optional nil or *ListKeyOpts - Optional Parameters:
  * @param "DeviceSid" (string) - Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewDeployedDevicesFleetKeyReadResponse
 */
-func (c *DefaultApiService) ListKey(fleetSid string, params *ListKeyParams) (*PreviewDeployedDevicesFleetKeyReadResponse, error) {
+func (c *DefaultApiService) ListKey(FleetSid string, params *ListKeyParams) (*PreviewDeployedDevicesFleetKeyReadResponse, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Keys"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid)
+		data.Set("DeviceSid", *params.DeviceSid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4514,20 +4634,21 @@ type ListModelBuildParams struct {
 
 /*
 ListModelBuild Method for ListModelBuild
- * @param assistantSid
+ * @param AssistantSid
  * @param optional nil or *ListModelBuildOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewUnderstandAssistantModelBuildReadResponse
 */
-func (c *DefaultApiService) ListModelBuild(assistantSid string, params *ListModelBuildParams) (*PreviewUnderstandAssistantModelBuildReadResponse, error) {
+func (c *DefaultApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams) (*PreviewUnderstandAssistantModelBuildReadResponse, error) {
 	path := "/understand/Assistants/{AssistantSid}/ModelBuilds"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4555,7 +4676,7 @@ type ListQueryParams struct {
 
 /*
 ListQuery Method for ListQuery
- * @param assistantSid The unique ID of the parent Assistant.
+ * @param AssistantSid The unique ID of the parent Assistant.
  * @param optional nil or *ListQueryOpts - Optional Parameters:
  * @param "Language" (string) - An ISO language-country string of the sample.
  * @param "ModelBuild" (string) - The Model Build Sid or unique name of the Model Build to be queried.
@@ -4563,24 +4684,25 @@ ListQuery Method for ListQuery
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewUnderstandAssistantQueryReadResponse
 */
-func (c *DefaultApiService) ListQuery(assistantSid string, params *ListQueryParams) (*PreviewUnderstandAssistantQueryReadResponse, error) {
+func (c *DefaultApiService) ListQuery(AssistantSid string, params *ListQueryParams) (*PreviewUnderstandAssistantQueryReadResponse, error) {
 	path := "/understand/Assistants/{AssistantSid}/Queries"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language)
+		data.Set("Language", *params.Language) 
 	}
 	if params != nil && params.ModelBuild != nil {
-		data.Set("ModelBuild", *params.ModelBuild)
+		data.Set("ModelBuild", *params.ModelBuild) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4612,11 +4734,12 @@ ListRatePlan Method for ListRatePlan
 func (c *DefaultApiService) ListRatePlan(params *ListRatePlanParams) (*PreviewWirelessRatePlanReadResponse, error) {
 	path := "/wireless/RatePlans"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4642,26 +4765,27 @@ type ListSampleParams struct {
 
 /*
 ListSample Method for ListSample
- * @param assistantSid The unique ID of the Assistant.
- * @param taskSid The unique ID of the Task associated with this Sample.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Sample.
  * @param optional nil or *ListSampleOpts - Optional Parameters:
  * @param "Language" (string) - An ISO language-country string of the sample.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewUnderstandAssistantTaskSampleReadResponse
 */
-func (c *DefaultApiService) ListSample(assistantSid string, taskSid string, params *ListSampleParams) (*PreviewUnderstandAssistantTaskSampleReadResponse, error) {
+func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, params *ListSampleParams) (*PreviewUnderstandAssistantTaskSampleReadResponse, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language)
+		data.Set("Language", *params.Language) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4693,11 +4817,12 @@ ListService Method for ListService
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*PreviewSyncServiceReadResponse, error) {
 	path := "/Sync/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4739,26 +4864,27 @@ ListSim Method for ListSim
 func (c *DefaultApiService) ListSim(params *ListSimParams) (*PreviewWirelessSimReadResponse, error) {
 	path := "/wireless/Sims"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.Iccid != nil {
-		data.Set("Iccid", *params.Iccid)
+		data.Set("Iccid", *params.Iccid) 
 	}
 	if params != nil && params.RatePlan != nil {
-		data.Set("RatePlan", *params.RatePlan)
+		data.Set("RatePlan", *params.RatePlan) 
 	}
 	if params != nil && params.EId != nil {
-		data.Set("EId", *params.EId)
+		data.Set("EId", *params.EId) 
 	}
 	if params != nil && params.SimRegistrationCode != nil {
-		data.Set("SimRegistrationCode", *params.SimRegistrationCode)
+		data.Set("SimRegistrationCode", *params.SimRegistrationCode) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4783,20 +4909,21 @@ type ListSyncListParams struct {
 
 /*
 ListSyncList Method for ListSyncList
- * @param serviceSid
+ * @param ServiceSid
  * @param optional nil or *ListSyncListOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewSyncServiceSyncListReadResponse
 */
-func (c *DefaultApiService) ListSyncList(serviceSid string, params *ListSyncListParams) (*PreviewSyncServiceSyncListReadResponse, error) {
+func (c *DefaultApiService) ListSyncList(ServiceSid string, params *ListSyncListParams) (*PreviewSyncServiceSyncListReadResponse, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4824,8 +4951,8 @@ type ListSyncListItemParams struct {
 
 /*
 ListSyncListItem Method for ListSyncListItem
- * @param serviceSid
- * @param listSid
+ * @param ServiceSid
+ * @param ListSid
  * @param optional nil or *ListSyncListItemOpts - Optional Parameters:
  * @param "Order" (string) - 
  * @param "From" (string) - 
@@ -4833,25 +4960,26 @@ ListSyncListItem Method for ListSyncListItem
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewSyncServiceSyncListSyncListItemReadResponse
 */
-func (c *DefaultApiService) ListSyncListItem(serviceSid string, listSid string, params *ListSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItemReadResponse, error) {
+func (c *DefaultApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItemReadResponse, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		data.Set("Order", *params.Order) 
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.Bounds != nil {
-		data.Set("Bounds", *params.Bounds)
+		data.Set("Bounds", *params.Bounds) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4877,22 +5005,23 @@ type ListSyncListPermissionParams struct {
 /*
 ListSyncListPermission Method for ListSyncListPermission
 Retrieve a list of all Permissions applying to a Sync List.
- * @param serviceSid
- * @param listSid Identifier of the Sync List. Either a SID or a unique name.
+ * @param ServiceSid
+ * @param ListSid Identifier of the Sync List. Either a SID or a unique name.
  * @param optional nil or *ListSyncListPermissionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewSyncServiceSyncListSyncListPermissionReadResponse
 */
-func (c *DefaultApiService) ListSyncListPermission(serviceSid string, listSid string, params *ListSyncListPermissionParams) (*PreviewSyncServiceSyncListSyncListPermissionReadResponse, error) {
+func (c *DefaultApiService) ListSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams) (*PreviewSyncServiceSyncListSyncListPermissionReadResponse, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4917,20 +5046,21 @@ type ListSyncMapParams struct {
 
 /*
 ListSyncMap Method for ListSyncMap
- * @param serviceSid
+ * @param ServiceSid
  * @param optional nil or *ListSyncMapOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewSyncServiceSyncMapReadResponse
 */
-func (c *DefaultApiService) ListSyncMap(serviceSid string, params *ListSyncMapParams) (*PreviewSyncServiceSyncMapReadResponse, error) {
+func (c *DefaultApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams) (*PreviewSyncServiceSyncMapReadResponse, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4958,8 +5088,8 @@ type ListSyncMapItemParams struct {
 
 /*
 ListSyncMapItem Method for ListSyncMapItem
- * @param serviceSid
- * @param mapSid
+ * @param ServiceSid
+ * @param MapSid
  * @param optional nil or *ListSyncMapItemOpts - Optional Parameters:
  * @param "Order" (string) - 
  * @param "From" (string) - 
@@ -4967,25 +5097,26 @@ ListSyncMapItem Method for ListSyncMapItem
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewSyncServiceSyncMapSyncMapItemReadResponse
 */
-func (c *DefaultApiService) ListSyncMapItem(serviceSid string, mapSid string, params *ListSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItemReadResponse, error) {
+func (c *DefaultApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItemReadResponse, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
+		data.Set("Order", *params.Order) 
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.Bounds != nil {
-		data.Set("Bounds", *params.Bounds)
+		data.Set("Bounds", *params.Bounds) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5011,22 +5142,23 @@ type ListSyncMapPermissionParams struct {
 /*
 ListSyncMapPermission Method for ListSyncMapPermission
 Retrieve a list of all Permissions applying to a Sync Map.
- * @param serviceSid
- * @param mapSid Identifier of the Sync Map. Either a SID or a unique name.
+ * @param ServiceSid
+ * @param MapSid Identifier of the Sync Map. Either a SID or a unique name.
  * @param optional nil or *ListSyncMapPermissionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewSyncServiceSyncMapSyncMapPermissionReadResponse
 */
-func (c *DefaultApiService) ListSyncMapPermission(serviceSid string, mapSid string, params *ListSyncMapPermissionParams) (*PreviewSyncServiceSyncMapSyncMapPermissionReadResponse, error) {
+func (c *DefaultApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) (*PreviewSyncServiceSyncMapSyncMapPermissionReadResponse, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5051,20 +5183,21 @@ type ListTaskParams struct {
 
 /*
 ListTask Method for ListTask
- * @param assistantSid The unique ID of the Assistant.
+ * @param AssistantSid The unique ID of the Assistant.
  * @param optional nil or *ListTaskOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return PreviewUnderstandAssistantTaskReadResponse
 */
-func (c *DefaultApiService) ListTask(assistantSid string, params *ListTaskParams) (*PreviewUnderstandAssistantTaskReadResponse, error) {
+func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams) (*PreviewUnderstandAssistantTaskReadResponse, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5096,7 +5229,7 @@ type UpdateAssistantParams struct {
 
 /*
 UpdateAssistant Method for UpdateAssistant
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateAssistantOpts - Optional Parameters:
  * @param "CallbackEvents" (string) - Space-separated list of callback events that will trigger callbacks.
  * @param "CallbackUrl" (string) - A user-provided URL to send event callbacks to.
@@ -5108,18 +5241,19 @@ UpdateAssistant Method for UpdateAssistant
  * @param "UniqueName" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 @return PreviewUnderstandAssistant
 */
-func (c *DefaultApiService) UpdateAssistant(sid string, params *UpdateAssistantParams) (*PreviewUnderstandAssistant, error) {
+func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) (*PreviewUnderstandAssistant, error) {
 	path := "/understand/Assistants/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackEvents != nil {
-		data.Set("CallbackEvents", *params.CallbackEvents)
+		data.Set("CallbackEvents", *params.CallbackEvents) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.FallbackActions != nil {
 		v, err := json.Marshal(params.FallbackActions)
@@ -5128,10 +5262,10 @@ func (c *DefaultApiService) UpdateAssistant(sid string, params *UpdateAssistantP
 			return nil, err
 		}
 
-		data.Set("FallbackActions", string(v))
+		data.Set("FallbackActions", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.InitiationActions != nil {
 		v, err := json.Marshal(params.InitiationActions)
@@ -5140,10 +5274,10 @@ func (c *DefaultApiService) UpdateAssistant(sid string, params *UpdateAssistantP
 			return nil, err
 		}
 
-		data.Set("InitiationActions", string(v))
+		data.Set("InitiationActions", fmt.Sprint(v))
 	}
 	if params != nil && params.LogQueries != nil {
-		data.Set("LogQueries", string(*params.LogQueries))
+		data.Set("LogQueries", fmt.Sprint(*params.LogQueries)) 
 	}
 	if params != nil && params.StyleSheet != nil {
 		v, err := json.Marshal(params.StyleSheet)
@@ -5152,10 +5286,10 @@ func (c *DefaultApiService) UpdateAssistant(sid string, params *UpdateAssistantP
 			return nil, err
 		}
 
-		data.Set("StyleSheet", string(v))
+		data.Set("StyleSheet", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -5180,14 +5314,15 @@ type UpdateAssistantFallbackActionsParams struct {
 
 /*
 UpdateAssistantFallbackActions Method for UpdateAssistantFallbackActions
- * @param assistantSid
+ * @param AssistantSid
  * @param optional nil or *UpdateAssistantFallbackActionsOpts - Optional Parameters:
  * @param "FallbackActions" (map[string]interface{}) - 
 @return PreviewUnderstandAssistantAssistantFallbackActions
 */
-func (c *DefaultApiService) UpdateAssistantFallbackActions(assistantSid string, params *UpdateAssistantFallbackActionsParams) (*PreviewUnderstandAssistantAssistantFallbackActions, error) {
+func (c *DefaultApiService) UpdateAssistantFallbackActions(AssistantSid string, params *UpdateAssistantFallbackActionsParams) (*PreviewUnderstandAssistantAssistantFallbackActions, error) {
 	path := "/understand/Assistants/{AssistantSid}/FallbackActions"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -5199,7 +5334,7 @@ func (c *DefaultApiService) UpdateAssistantFallbackActions(assistantSid string, 
 			return nil, err
 		}
 
-		data.Set("FallbackActions", string(v))
+		data.Set("FallbackActions", fmt.Sprint(v))
 	}
 
 
@@ -5224,14 +5359,15 @@ type UpdateAssistantInitiationActionsParams struct {
 
 /*
 UpdateAssistantInitiationActions Method for UpdateAssistantInitiationActions
- * @param assistantSid
+ * @param AssistantSid
  * @param optional nil or *UpdateAssistantInitiationActionsOpts - Optional Parameters:
  * @param "InitiationActions" (map[string]interface{}) - 
 @return PreviewUnderstandAssistantAssistantInitiationActions
 */
-func (c *DefaultApiService) UpdateAssistantInitiationActions(assistantSid string, params *UpdateAssistantInitiationActionsParams) (*PreviewUnderstandAssistantAssistantInitiationActions, error) {
+func (c *DefaultApiService) UpdateAssistantInitiationActions(AssistantSid string, params *UpdateAssistantInitiationActionsParams) (*PreviewUnderstandAssistantAssistantInitiationActions, error) {
 	path := "/understand/Assistants/{AssistantSid}/InitiationActions"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -5243,7 +5379,7 @@ func (c *DefaultApiService) UpdateAssistantInitiationActions(assistantSid string
 			return nil, err
 		}
 
-		data.Set("InitiationActions", string(v))
+		data.Set("InitiationActions", fmt.Sprint(v))
 	}
 
 
@@ -5275,7 +5411,7 @@ type UpdateAuthorizationDocumentParams struct {
 /*
 UpdateAuthorizationDocument Method for UpdateAuthorizationDocument
 Updates a specific AuthorizationDocument.
- * @param sid
+ * @param Sid
  * @param optional nil or *UpdateAuthorizationDocumentOpts - Optional Parameters:
  * @param "AddressSid" (string) - A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
  * @param "CcEmails" ([]string) - Email recipients who will be informed when an Authorization Document has been sent and signed
@@ -5286,33 +5422,34 @@ Updates a specific AuthorizationDocument.
  * @param "Status" (string) - Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
 @return PreviewHostedNumbersAuthorizationDocument
 */
-func (c *DefaultApiService) UpdateAuthorizationDocument(sid string, params *UpdateAuthorizationDocumentParams) (*PreviewHostedNumbersAuthorizationDocument, error) {
+func (c *DefaultApiService) UpdateAuthorizationDocument(Sid string, params *UpdateAuthorizationDocumentParams) (*PreviewHostedNumbersAuthorizationDocument, error) {
 	path := "/HostedNumbers/AuthorizationDocuments/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
+		data.Set("AddressSid", *params.AddressSid) 
 	}
 	if params != nil && params.CcEmails != nil {
-		data.Set("CcEmails", *params.CcEmails)
+		data.Set("CcEmails",  strings.Join(*params.CcEmails, ","))
 	}
 	if params != nil && params.ContactPhoneNumber != nil {
-		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
+		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber) 
 	}
 	if params != nil && params.ContactTitle != nil {
-		data.Set("ContactTitle", *params.ContactTitle)
+		data.Set("ContactTitle", *params.ContactTitle) 
 	}
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
+		data.Set("Email", *params.Email) 
 	}
 	if params != nil && params.HostedNumberOrderSids != nil {
-		data.Set("HostedNumberOrderSids", *params.HostedNumberOrderSids)
+		data.Set("HostedNumberOrderSids",  strings.Join(*params.HostedNumberOrderSids, ","))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 
@@ -5339,26 +5476,27 @@ type UpdateCertificateParams struct {
 /*
 UpdateCertificate Method for UpdateCertificate
 Update the given properties of a specific Certificate credential in the Fleet, giving it a friendly name or assigning to a Device.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
  * @param optional nil or *UpdateCertificateOpts - Optional Parameters:
  * @param "DeviceSid" (string) - Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
  * @param "FriendlyName" (string) - Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
 @return PreviewDeployedDevicesFleetCertificate
 */
-func (c *DefaultApiService) UpdateCertificate(fleetSid string, sid string, params *UpdateCertificateParams) (*PreviewDeployedDevicesFleetCertificate, error) {
+func (c *DefaultApiService) UpdateCertificate(FleetSid string, Sid string, params *UpdateCertificateParams) (*PreviewDeployedDevicesFleetCertificate, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid)
+		data.Set("DeviceSid", *params.DeviceSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -5385,26 +5523,27 @@ type UpdateDeploymentParams struct {
 /*
 UpdateDeployment Method for UpdateDeployment
 Update the given properties of a specific Deployment credential in the Fleet, giving it a friendly name or linking to a specific Twilio Sync service instance.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Deployment resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Deployment resource.
  * @param optional nil or *UpdateDeploymentOpts - Optional Parameters:
  * @param "FriendlyName" (string) - Provides a human readable descriptive text for this Deployment, up to 64 characters long
  * @param "SyncServiceSid" (string) - Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
 @return PreviewDeployedDevicesFleetDeployment
 */
-func (c *DefaultApiService) UpdateDeployment(fleetSid string, sid string, params *UpdateDeploymentParams) (*PreviewDeployedDevicesFleetDeployment, error) {
+func (c *DefaultApiService) UpdateDeployment(FleetSid string, Sid string, params *UpdateDeploymentParams) (*PreviewDeployedDevicesFleetDeployment, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.SyncServiceSid != nil {
-		data.Set("SyncServiceSid", *params.SyncServiceSid)
+		data.Set("SyncServiceSid", *params.SyncServiceSid) 
 	}
 
 
@@ -5433,8 +5572,8 @@ type UpdateDeviceParams struct {
 /*
 UpdateDevice Method for UpdateDevice
 Update the given properties of a specific Device in the Fleet, giving it a friendly name, assigning to a Deployment, or a human identity.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Device resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Device resource.
  * @param optional nil or *UpdateDeviceOpts - Optional Parameters:
  * @param "DeploymentSid" (string) - Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
  * @param "Enabled" (bool) - 
@@ -5442,25 +5581,26 @@ Update the given properties of a specific Device in the Fleet, giving it a frien
  * @param "Identity" (string) - Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
 @return PreviewDeployedDevicesFleetDevice
 */
-func (c *DefaultApiService) UpdateDevice(fleetSid string, sid string, params *UpdateDeviceParams) (*PreviewDeployedDevicesFleetDevice, error) {
+func (c *DefaultApiService) UpdateDevice(FleetSid string, Sid string, params *UpdateDeviceParams) (*PreviewDeployedDevicesFleetDevice, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeploymentSid != nil {
-		data.Set("DeploymentSid", *params.DeploymentSid)
+		data.Set("DeploymentSid", *params.DeploymentSid) 
 	}
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 
 
@@ -5480,23 +5620,24 @@ func (c *DefaultApiService) UpdateDevice(fleetSid string, sid string, params *Up
 }
 // UpdateDocumentParams Optional parameters for the method 'UpdateDocument'
 type UpdateDocumentParams struct {
-	If-Match *string `json:"If-Match,omitempty"`
+	IfMatch *string `json:"If-Match,omitempty"`
 	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
 UpdateDocument Method for UpdateDocument
- * @param serviceSid
- * @param sid
+ * @param ServiceSid
+ * @param Sid
  * @param optional nil or *UpdateDocumentOpts - Optional Parameters:
  * @param "If-Match" (string) - The If-Match HTTP request header
  * @param "Data" (map[string]interface{}) - 
 @return PreviewSyncServiceDocument
 */
-func (c *DefaultApiService) UpdateDocument(serviceSid string, sid string, params *UpdateDocumentParams) (*PreviewSyncServiceDocument, error) {
+func (c *DefaultApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*PreviewSyncServiceDocument, error) {
 	path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -5508,11 +5649,11 @@ func (c *DefaultApiService) UpdateDocument(serviceSid string, sid string, params
 			return nil, err
 		}
 
-		data.Set("Data", string(v))
+		data.Set("Data", fmt.Sprint(v))
 	}
 
-	if params != nil && params.If-Match != nil {
-		headers["If-Match"] = *params.If-Match
+	if params != nil && params.IfMatch != nil {
+		headers["IfMatch"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -5539,32 +5680,33 @@ type UpdateDocumentPermissionParams struct {
 /*
 UpdateDocumentPermission Method for UpdateDocumentPermission
 Update an identity&#39;s access to a specific Sync Document.
- * @param serviceSid The unique SID identifier of the Sync Service Instance.
- * @param documentSid Identifier of the Sync Document. Either a SID or a unique name.
- * @param identity Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+ * @param ServiceSid The unique SID identifier of the Sync Service Instance.
+ * @param DocumentSid Identifier of the Sync Document. Either a SID or a unique name.
+ * @param Identity Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
  * @param optional nil or *UpdateDocumentPermissionOpts - Optional Parameters:
  * @param "Manage" (bool) - Boolean flag specifying whether the identity can delete the Sync Document.
  * @param "Read" (bool) - Boolean flag specifying whether the identity can read the Sync Document.
  * @param "Write" (bool) - Boolean flag specifying whether the identity can update the Sync Document.
 @return PreviewSyncServiceDocumentDocumentPermission
 */
-func (c *DefaultApiService) UpdateDocumentPermission(serviceSid string, documentSid string, identity string, params *UpdateDocumentPermissionParams) (*PreviewSyncServiceDocumentDocumentPermission, error) {
+func (c *DefaultApiService) UpdateDocumentPermission(ServiceSid string, DocumentSid string, Identity string, params *UpdateDocumentPermissionParams) (*PreviewSyncServiceDocumentDocumentPermission, error) {
 	path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"DocumentSid"+"}", documentSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Manage != nil {
-		data.Set("Manage", string(*params.Manage))
+		data.Set("Manage", fmt.Sprint(*params.Manage)) 
 	}
 	if params != nil && params.Read != nil {
-		data.Set("Read", string(*params.Read))
+		data.Set("Read", fmt.Sprint(*params.Read)) 
 	}
 	if params != nil && params.Write != nil {
-		data.Set("Write", string(*params.Write))
+		data.Set("Write", fmt.Sprint(*params.Write)) 
 	}
 
 
@@ -5592,28 +5734,29 @@ type UpdateExportConfigurationParams struct {
 /*
 UpdateExportConfiguration Method for UpdateExportConfiguration
 Update a specific Export Configuration.
- * @param resourceType The type of communication – Messages, Calls
+ * @param ResourceType The type of communication – Messages, Calls
  * @param optional nil or *UpdateExportConfigurationOpts - Optional Parameters:
  * @param "Enabled" (bool) - If true, Twilio will automatically generate every day's file when the day is over.
  * @param "WebhookMethod" (string) - Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
  * @param "WebhookUrl" (string) - Stores the URL destination for the method specified in webhook_method.
 @return PreviewBulkExportsExportConfiguration
 */
-func (c *DefaultApiService) UpdateExportConfiguration(resourceType string, params *UpdateExportConfigurationParams) (*PreviewBulkExportsExportConfiguration, error) {
+func (c *DefaultApiService) UpdateExportConfiguration(ResourceType string, params *UpdateExportConfigurationParams) (*PreviewBulkExportsExportConfiguration, error) {
 	path := "/BulkExports/Exports/{ResourceType}/Configuration"
-	path = strings.Replace(path, "{"+"ResourceType"+"}", resourceType, -1)
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod)
+		data.Set("WebhookMethod", *params.WebhookMethod) 
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl)
+		data.Set("WebhookUrl", *params.WebhookUrl) 
 	}
 
 
@@ -5639,26 +5782,27 @@ type UpdateFieldTypeParams struct {
 
 /*
 UpdateFieldType Method for UpdateFieldType
- * @param assistantSid
- * @param sid
+ * @param AssistantSid
+ * @param Sid
  * @param optional nil or *UpdateFieldTypeOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @param "UniqueName" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 @return PreviewUnderstandAssistantFieldType
 */
-func (c *DefaultApiService) UpdateFieldType(assistantSid string, sid string, params *UpdateFieldTypeParams) (*PreviewUnderstandAssistantFieldType, error) {
+func (c *DefaultApiService) UpdateFieldType(AssistantSid string, Sid string, params *UpdateFieldTypeParams) (*PreviewUnderstandAssistantFieldType, error) {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -5685,24 +5829,25 @@ type UpdateFleetParams struct {
 /*
 UpdateFleet Method for UpdateFleet
 Update the friendly name property of a specific Fleet in your account.
- * @param sid Provides a 34 character string that uniquely identifies the requested Fleet resource.
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Fleet resource.
  * @param optional nil or *UpdateFleetOpts - Optional Parameters:
  * @param "DefaultDeploymentSid" (string) - Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
  * @param "FriendlyName" (string) - Provides a human readable descriptive text for this Fleet, up to 256 characters long.
 @return PreviewDeployedDevicesFleet
 */
-func (c *DefaultApiService) UpdateFleet(sid string, params *UpdateFleetParams) (*PreviewDeployedDevicesFleet, error) {
+func (c *DefaultApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*PreviewDeployedDevicesFleet, error) {
 	path := "/DeployedDevices/Fleets/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DefaultDeploymentSid != nil {
-		data.Set("DefaultDeploymentSid", *params.DefaultDeploymentSid)
+		data.Set("DefaultDeploymentSid", *params.DefaultDeploymentSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -5737,7 +5882,7 @@ type UpdateHostedNumberOrderParams struct {
 /*
 UpdateHostedNumberOrder Method for UpdateHostedNumberOrder
 Updates a specific HostedNumberOrder.
- * @param sid
+ * @param Sid
  * @param optional nil or *UpdateHostedNumberOrderOpts - Optional Parameters:
  * @param "CallDelay" (int32) - The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
  * @param "CcEmails" ([]string) - Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
@@ -5751,42 +5896,43 @@ Updates a specific HostedNumberOrder.
  * @param "VerificationType" (string) - Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill.
 @return PreviewHostedNumbersHostedNumberOrder
 */
-func (c *DefaultApiService) UpdateHostedNumberOrder(sid string, params *UpdateHostedNumberOrderParams) (*PreviewHostedNumbersHostedNumberOrder, error) {
+func (c *DefaultApiService) UpdateHostedNumberOrder(Sid string, params *UpdateHostedNumberOrderParams) (*PreviewHostedNumbersHostedNumberOrder, error) {
 	path := "/HostedNumbers/HostedNumberOrders/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallDelay != nil {
-		data.Set("CallDelay", string(*params.CallDelay))
+		data.Set("CallDelay", fmt.Sprint(*params.CallDelay)) 
 	}
 	if params != nil && params.CcEmails != nil {
-		data.Set("CcEmails", *params.CcEmails)
+		data.Set("CcEmails",  strings.Join(*params.CcEmails, ","))
 	}
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
+		data.Set("Email", *params.Email) 
 	}
 	if params != nil && params.Extension != nil {
-		data.Set("Extension", *params.Extension)
+		data.Set("Extension", *params.Extension) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.VerificationCode != nil {
-		data.Set("VerificationCode", *params.VerificationCode)
+		data.Set("VerificationCode", *params.VerificationCode) 
 	}
 	if params != nil && params.VerificationDocumentSid != nil {
-		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid)
+		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid) 
 	}
 	if params != nil && params.VerificationType != nil {
-		data.Set("VerificationType", *params.VerificationType)
+		data.Set("VerificationType", *params.VerificationType) 
 	}
 
 
@@ -5813,15 +5959,16 @@ type UpdateInstalledAddOnParams struct {
 /*
 UpdateInstalledAddOn Method for UpdateInstalledAddOn
 Update an Add-on installation for the Account specified.
- * @param sid The SID of the InstalledAddOn resource to update.
+ * @param Sid The SID of the InstalledAddOn resource to update.
  * @param optional nil or *UpdateInstalledAddOnOpts - Optional Parameters:
  * @param "Configuration" (map[string]interface{}) - Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
 @return PreviewMarketplaceInstalledAddOn
 */
-func (c *DefaultApiService) UpdateInstalledAddOn(sid string, params *UpdateInstalledAddOnParams) (*PreviewMarketplaceInstalledAddOn, error) {
+func (c *DefaultApiService) UpdateInstalledAddOn(Sid string, params *UpdateInstalledAddOnParams) (*PreviewMarketplaceInstalledAddOn, error) {
 	path := "/marketplace/InstalledAddOns/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -5833,10 +5980,10 @@ func (c *DefaultApiService) UpdateInstalledAddOn(sid string, params *UpdateInsta
 			return nil, err
 		}
 
-		data.Set("Configuration", string(v))
+		data.Set("Configuration", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -5862,22 +6009,23 @@ type UpdateInstalledAddOnExtensionParams struct {
 /*
 UpdateInstalledAddOnExtension Method for UpdateInstalledAddOnExtension
 Update an Extension for an Add-on installation.
- * @param installedAddOnSid The SID of the InstalledAddOn resource with the extension to update.
- * @param sid The SID of the InstalledAddOn Extension resource to update.
+ * @param InstalledAddOnSid The SID of the InstalledAddOn resource with the extension to update.
+ * @param Sid The SID of the InstalledAddOn Extension resource to update.
  * @param optional nil or *UpdateInstalledAddOnExtensionOpts - Optional Parameters:
  * @param "Enabled" (bool) - Whether the Extension should be invoked.
 @return PreviewMarketplaceInstalledAddOnInstalledAddOnExtension
 */
-func (c *DefaultApiService) UpdateInstalledAddOnExtension(installedAddOnSid string, sid string, params *UpdateInstalledAddOnExtensionParams) (*PreviewMarketplaceInstalledAddOnInstalledAddOnExtension, error) {
+func (c *DefaultApiService) UpdateInstalledAddOnExtension(InstalledAddOnSid string, Sid string, params *UpdateInstalledAddOnExtensionParams) (*PreviewMarketplaceInstalledAddOnInstalledAddOnExtension, error) {
 	path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
-	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", installedAddOnSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 
 
@@ -5904,26 +6052,27 @@ type UpdateKeyParams struct {
 /*
 UpdateKey Method for UpdateKey
 Update the given properties of a specific Key credential in the Fleet, giving it a friendly name or assigning to a Device.
- * @param fleetSid
- * @param sid Provides a 34 character string that uniquely identifies the requested Key credential resource.
+ * @param FleetSid
+ * @param Sid Provides a 34 character string that uniquely identifies the requested Key credential resource.
  * @param optional nil or *UpdateKeyOpts - Optional Parameters:
  * @param "DeviceSid" (string) - Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
  * @param "FriendlyName" (string) - Provides a human readable descriptive text for this Key credential, up to 256 characters long.
 @return PreviewDeployedDevicesFleetKey
 */
-func (c *DefaultApiService) UpdateKey(fleetSid string, sid string, params *UpdateKeyParams) (*PreviewDeployedDevicesFleetKey, error) {
+func (c *DefaultApiService) UpdateKey(FleetSid string, Sid string, params *UpdateKeyParams) (*PreviewDeployedDevicesFleetKey, error) {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
-	path = strings.Replace(path, "{"+"FleetSid"+"}", fleetSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid)
+		data.Set("DeviceSid", *params.DeviceSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -5948,22 +6097,23 @@ type UpdateModelBuildParams struct {
 
 /*
 UpdateModelBuild Method for UpdateModelBuild
- * @param assistantSid
- * @param sid
+ * @param AssistantSid
+ * @param Sid
  * @param optional nil or *UpdateModelBuildOpts - Optional Parameters:
  * @param "UniqueName" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
 @return PreviewUnderstandAssistantModelBuild
 */
-func (c *DefaultApiService) UpdateModelBuild(assistantSid string, sid string, params *UpdateModelBuildParams) (*PreviewUnderstandAssistantModelBuild, error) {
+func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, params *UpdateModelBuildParams) (*PreviewUnderstandAssistantModelBuild, error) {
 	path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -5989,26 +6139,27 @@ type UpdateQueryParams struct {
 
 /*
 UpdateQuery Method for UpdateQuery
- * @param assistantSid The unique ID of the parent Assistant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the parent Assistant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateQueryOpts - Optional Parameters:
  * @param "SampleSid" (string) - An optional reference to the Sample created from this query.
  * @param "Status" (string) - A string that described the query status. The values can be: pending_review, reviewed, discarded
 @return PreviewUnderstandAssistantQuery
 */
-func (c *DefaultApiService) UpdateQuery(assistantSid string, sid string, params *UpdateQueryParams) (*PreviewUnderstandAssistantQuery, error) {
+func (c *DefaultApiService) UpdateQuery(AssistantSid string, Sid string, params *UpdateQueryParams) (*PreviewUnderstandAssistantQuery, error) {
 	path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.SampleSid != nil {
-		data.Set("SampleSid", *params.SampleSid)
+		data.Set("SampleSid", *params.SampleSid) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 
@@ -6034,24 +6185,25 @@ type UpdateRatePlanParams struct {
 
 /*
 UpdateRatePlan Method for UpdateRatePlan
- * @param sid
+ * @param Sid
  * @param optional nil or *UpdateRatePlanOpts - Optional Parameters:
  * @param "FriendlyName" (string) - 
  * @param "UniqueName" (string) - 
 @return PreviewWirelessRatePlan
 */
-func (c *DefaultApiService) UpdateRatePlan(sid string, params *UpdateRatePlanParams) (*PreviewWirelessRatePlan, error) {
+func (c *DefaultApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*PreviewWirelessRatePlan, error) {
 	path := "/wireless/RatePlans/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -6078,32 +6230,33 @@ type UpdateSampleParams struct {
 
 /*
 UpdateSample Method for UpdateSample
- * @param assistantSid The unique ID of the Assistant.
- * @param taskSid The unique ID of the Task associated with this Sample.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param TaskSid The unique ID of the Task associated with this Sample.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateSampleOpts - Optional Parameters:
  * @param "Language" (string) - An ISO language-country string of the sample.
  * @param "SourceChannel" (string) - The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
  * @param "TaggedText" (string) - The text example of how end-users may express this task. The sample may contain Field tag blocks.
 @return PreviewUnderstandAssistantTaskSample
 */
-func (c *DefaultApiService) UpdateSample(assistantSid string, taskSid string, sid string, params *UpdateSampleParams) (*PreviewUnderstandAssistantTaskSample, error) {
+func (c *DefaultApiService) UpdateSample(AssistantSid string, TaskSid string, Sid string, params *UpdateSampleParams) (*PreviewUnderstandAssistantTaskSample, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language)
+		data.Set("Language", *params.Language) 
 	}
 	if params != nil && params.SourceChannel != nil {
-		data.Set("SourceChannel", *params.SourceChannel)
+		data.Set("SourceChannel", *params.SourceChannel) 
 	}
 	if params != nil && params.TaggedText != nil {
-		data.Set("TaggedText", *params.TaggedText)
+		data.Set("TaggedText", *params.TaggedText) 
 	}
 
 
@@ -6131,7 +6284,7 @@ type UpdateServiceParams struct {
 
 /*
 UpdateService Method for UpdateService
- * @param sid
+ * @param Sid
  * @param optional nil or *UpdateServiceOpts - Optional Parameters:
  * @param "AclEnabled" (bool) - 
  * @param "FriendlyName" (string) - 
@@ -6139,24 +6292,25 @@ UpdateService Method for UpdateService
  * @param "WebhookUrl" (string) - 
 @return PreviewSyncService
 */
-func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*PreviewSyncService, error) {
+func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*PreviewSyncService, error) {
 	path := "/Sync/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AclEnabled != nil {
-		data.Set("AclEnabled", string(*params.AclEnabled))
+		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.ReachabilityWebhooksEnabled != nil {
-		data.Set("ReachabilityWebhooksEnabled", string(*params.ReachabilityWebhooksEnabled))
+		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled)) 
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl)
+		data.Set("WebhookUrl", *params.WebhookUrl) 
 	}
 
 
@@ -6196,7 +6350,7 @@ type UpdateSimParams struct {
 
 /*
 UpdateSim Method for UpdateSim
- * @param sid
+ * @param Sid
  * @param optional nil or *UpdateSimOpts - Optional Parameters:
  * @param "CallbackMethod" (string) - 
  * @param "CallbackUrl" (string) - 
@@ -6216,60 +6370,61 @@ UpdateSim Method for UpdateSim
  * @param "VoiceUrl" (string) - 
 @return PreviewWirelessSim
 */
-func (c *DefaultApiService) UpdateSim(sid string, params *UpdateSimParams) (*PreviewWirelessSim, error) {
+func (c *DefaultApiService) UpdateSim(Sid string, params *UpdateSimParams) (*PreviewWirelessSim, error) {
 	path := "/wireless/Sims/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
+		data.Set("CallbackMethod", *params.CallbackMethod) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.CommandsCallbackMethod != nil {
-		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
+		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod) 
 	}
 	if params != nil && params.CommandsCallbackUrl != nil {
-		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
+		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.RatePlan != nil {
-		data.Set("RatePlan", *params.RatePlan)
+		data.Set("RatePlan", *params.RatePlan) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -6295,14 +6450,15 @@ type UpdateStyleSheetParams struct {
 /*
 UpdateStyleSheet Method for UpdateStyleSheet
 Updates the style sheet for an assistant identified by {AssistantSid} or {AssistantUniqueName}.
- * @param assistantSid The unique ID of the Assistant
+ * @param AssistantSid The unique ID of the Assistant
  * @param optional nil or *UpdateStyleSheetOpts - Optional Parameters:
  * @param "StyleSheet" (map[string]interface{}) - The JSON Style sheet string
 @return PreviewUnderstandAssistantStyleSheet
 */
-func (c *DefaultApiService) UpdateStyleSheet(assistantSid string, params *UpdateStyleSheetParams) (*PreviewUnderstandAssistantStyleSheet, error) {
+func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSheetParams) (*PreviewUnderstandAssistantStyleSheet, error) {
 	path := "/understand/Assistants/{AssistantSid}/StyleSheet"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -6314,7 +6470,7 @@ func (c *DefaultApiService) UpdateStyleSheet(assistantSid string, params *Update
 			return nil, err
 		}
 
-		data.Set("StyleSheet", string(v))
+		data.Set("StyleSheet", fmt.Sprint(v))
 	}
 
 
@@ -6334,25 +6490,26 @@ func (c *DefaultApiService) UpdateStyleSheet(assistantSid string, params *Update
 }
 // UpdateSyncListItemParams Optional parameters for the method 'UpdateSyncListItem'
 type UpdateSyncListItemParams struct {
-	If-Match *string `json:"If-Match,omitempty"`
+	IfMatch *string `json:"If-Match,omitempty"`
 	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
 UpdateSyncListItem Method for UpdateSyncListItem
- * @param serviceSid
- * @param listSid
- * @param index
+ * @param ServiceSid
+ * @param ListSid
+ * @param Index
  * @param optional nil or *UpdateSyncListItemOpts - Optional Parameters:
  * @param "If-Match" (string) - The If-Match HTTP request header
  * @param "Data" (map[string]interface{}) - 
 @return PreviewSyncServiceSyncListSyncListItem
 */
-func (c *DefaultApiService) UpdateSyncListItem(serviceSid string, listSid string, index int32, params *UpdateSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItem, error) {
+func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int32, params *UpdateSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItem, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-	path = strings.Replace(path, "{"+"Index"+"}", index, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -6364,11 +6521,11 @@ func (c *DefaultApiService) UpdateSyncListItem(serviceSid string, listSid string
 			return nil, err
 		}
 
-		data.Set("Data", string(v))
+		data.Set("Data", fmt.Sprint(v))
 	}
 
-	if params != nil && params.If-Match != nil {
-		headers["If-Match"] = *params.If-Match
+	if params != nil && params.IfMatch != nil {
+		headers["IfMatch"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -6395,32 +6552,33 @@ type UpdateSyncListPermissionParams struct {
 /*
 UpdateSyncListPermission Method for UpdateSyncListPermission
 Update an identity&#39;s access to a specific Sync List.
- * @param serviceSid The unique SID identifier of the Sync Service Instance.
- * @param listSid Identifier of the Sync List. Either a SID or a unique name.
- * @param identity Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+ * @param ServiceSid The unique SID identifier of the Sync Service Instance.
+ * @param ListSid Identifier of the Sync List. Either a SID or a unique name.
+ * @param Identity Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
  * @param optional nil or *UpdateSyncListPermissionOpts - Optional Parameters:
  * @param "Manage" (bool) - Boolean flag specifying whether the identity can delete the Sync List.
  * @param "Read" (bool) - Boolean flag specifying whether the identity can read the Sync List.
  * @param "Write" (bool) - Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
 @return PreviewSyncServiceSyncListSyncListPermission
 */
-func (c *DefaultApiService) UpdateSyncListPermission(serviceSid string, listSid string, identity string, params *UpdateSyncListPermissionParams) (*PreviewSyncServiceSyncListSyncListPermission, error) {
+func (c *DefaultApiService) UpdateSyncListPermission(ServiceSid string, ListSid string, Identity string, params *UpdateSyncListPermissionParams) (*PreviewSyncServiceSyncListSyncListPermission, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", listSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Manage != nil {
-		data.Set("Manage", string(*params.Manage))
+		data.Set("Manage", fmt.Sprint(*params.Manage)) 
 	}
 	if params != nil && params.Read != nil {
-		data.Set("Read", string(*params.Read))
+		data.Set("Read", fmt.Sprint(*params.Read)) 
 	}
 	if params != nil && params.Write != nil {
-		data.Set("Write", string(*params.Write))
+		data.Set("Write", fmt.Sprint(*params.Write)) 
 	}
 
 
@@ -6440,25 +6598,26 @@ func (c *DefaultApiService) UpdateSyncListPermission(serviceSid string, listSid 
 }
 // UpdateSyncMapItemParams Optional parameters for the method 'UpdateSyncMapItem'
 type UpdateSyncMapItemParams struct {
-	If-Match *string `json:"If-Match,omitempty"`
+	IfMatch *string `json:"If-Match,omitempty"`
 	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
 UpdateSyncMapItem Method for UpdateSyncMapItem
- * @param serviceSid
- * @param mapSid
- * @param key
+ * @param ServiceSid
+ * @param MapSid
+ * @param Key
  * @param optional nil or *UpdateSyncMapItemOpts - Optional Parameters:
  * @param "If-Match" (string) - The If-Match HTTP request header
  * @param "Data" (map[string]interface{}) - 
 @return PreviewSyncServiceSyncMapSyncMapItem
 */
-func (c *DefaultApiService) UpdateSyncMapItem(serviceSid string, mapSid string, key string, params *UpdateSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
+func (c *DefaultApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key string, params *UpdateSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-	path = strings.Replace(path, "{"+"Key"+"}", key, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
+
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -6470,11 +6629,11 @@ func (c *DefaultApiService) UpdateSyncMapItem(serviceSid string, mapSid string, 
 			return nil, err
 		}
 
-		data.Set("Data", string(v))
+		data.Set("Data", fmt.Sprint(v))
 	}
 
-	if params != nil && params.If-Match != nil {
-		headers["If-Match"] = *params.If-Match
+	if params != nil && params.IfMatch != nil {
+		headers["IfMatch"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -6501,32 +6660,33 @@ type UpdateSyncMapPermissionParams struct {
 /*
 UpdateSyncMapPermission Method for UpdateSyncMapPermission
 Update an identity&#39;s access to a specific Sync Map.
- * @param serviceSid The unique SID identifier of the Sync Service Instance.
- * @param mapSid Identifier of the Sync Map. Either a SID or a unique name.
- * @param identity Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+ * @param ServiceSid The unique SID identifier of the Sync Service Instance.
+ * @param MapSid Identifier of the Sync Map. Either a SID or a unique name.
+ * @param Identity Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
  * @param optional nil or *UpdateSyncMapPermissionOpts - Optional Parameters:
  * @param "Manage" (bool) - Boolean flag specifying whether the identity can delete the Sync Map.
  * @param "Read" (bool) - Boolean flag specifying whether the identity can read the Sync Map.
  * @param "Write" (bool) - Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
 @return PreviewSyncServiceSyncMapSyncMapPermission
 */
-func (c *DefaultApiService) UpdateSyncMapPermission(serviceSid string, mapSid string, identity string, params *UpdateSyncMapPermissionParams) (*PreviewSyncServiceSyncMapSyncMapPermission, error) {
+func (c *DefaultApiService) UpdateSyncMapPermission(ServiceSid string, MapSid string, Identity string, params *UpdateSyncMapPermissionParams) (*PreviewSyncServiceSyncMapSyncMapPermission, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"MapSid"+"}", mapSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", identity, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Manage != nil {
-		data.Set("Manage", string(*params.Manage))
+		data.Set("Manage", fmt.Sprint(*params.Manage)) 
 	}
 	if params != nil && params.Read != nil {
-		data.Set("Read", string(*params.Read))
+		data.Set("Read", fmt.Sprint(*params.Read)) 
 	}
 	if params != nil && params.Write != nil {
-		data.Set("Write", string(*params.Write))
+		data.Set("Write", fmt.Sprint(*params.Write)) 
 	}
 
 
@@ -6554,8 +6714,8 @@ type UpdateTaskParams struct {
 
 /*
 UpdateTask Method for UpdateTask
- * @param assistantSid The unique ID of the Assistant.
- * @param sid A 34 character string that uniquely identifies this resource.
+ * @param AssistantSid The unique ID of the Assistant.
+ * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateTaskOpts - Optional Parameters:
  * @param "Actions" (map[string]interface{}) - A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
  * @param "ActionsUrl" (string) - User-provided HTTP endpoint where from the assistant fetches actions
@@ -6563,10 +6723,11 @@ UpdateTask Method for UpdateTask
  * @param "UniqueName" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 @return PreviewUnderstandAssistantTask
 */
-func (c *DefaultApiService) UpdateTask(assistantSid string, sid string, params *UpdateTaskParams) (*PreviewUnderstandAssistantTask, error) {
+func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateTaskParams) (*PreviewUnderstandAssistantTask, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -6578,16 +6739,16 @@ func (c *DefaultApiService) UpdateTask(assistantSid string, sid string, params *
 			return nil, err
 		}
 
-		data.Set("Actions", string(v))
+		data.Set("Actions", fmt.Sprint(v))
 	}
 	if params != nil && params.ActionsUrl != nil {
-		data.Set("ActionsUrl", *params.ActionsUrl)
+		data.Set("ActionsUrl", *params.ActionsUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -6613,16 +6774,17 @@ type UpdateTaskActionsParams struct {
 /*
 UpdateTaskActions Method for UpdateTaskActions
 Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
- * @param assistantSid The unique ID of the parent Assistant.
- * @param taskSid The unique ID of the Task.
+ * @param AssistantSid The unique ID of the parent Assistant.
+ * @param TaskSid The unique ID of the Task.
  * @param optional nil or *UpdateTaskActionsOpts - Optional Parameters:
  * @param "Actions" (map[string]interface{}) - The JSON actions that instruct the Assistant how to perform this task.
 @return PreviewUnderstandAssistantTaskTaskActions
 */
-func (c *DefaultApiService) UpdateTaskActions(assistantSid string, taskSid string, params *UpdateTaskActionsParams) (*PreviewUnderstandAssistantTaskTaskActions, error) {
+func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid string, params *UpdateTaskActionsParams) (*PreviewUnderstandAssistantTaskTaskActions, error) {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
-	path = strings.Replace(path, "{"+"AssistantSid"+"}", assistantSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -6634,7 +6796,7 @@ func (c *DefaultApiService) UpdateTaskActions(assistantSid string, taskSid strin
 			return nil, err
 		}
 
-		data.Set("Actions", string(v))
+		data.Set("Actions", fmt.Sprint(v))
 	}
 
 

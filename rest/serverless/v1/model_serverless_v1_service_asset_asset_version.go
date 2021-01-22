@@ -14,12 +14,12 @@ import (
 )
 // ServerlessV1ServiceAssetAssetVersion struct for ServerlessV1ServiceAssetAssetVersion
 type ServerlessV1ServiceAssetAssetVersion struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssetSid string `json:"asset_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	Path string `json:"path,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
-	Visibility string `json:"visibility,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssetSid string `json:"AssetSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	Path string `json:"Path,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
+	Visibility string `json:"Visibility,omitempty"`
 }

@@ -11,6 +11,6 @@
 package openapi
 // SupersimV1UsageRecordReadResponse struct for SupersimV1UsageRecordReadResponse
 type SupersimV1UsageRecordReadResponse struct {
-	Meta SupersimV1CommandReadResponseMeta `json:"meta,omitempty"`
-	UsageRecords []SupersimV1UsageRecord `json:"usage_records,omitempty"`
+	Meta SupersimV1CommandReadResponseMeta `json:"Meta,omitempty"`
+	UsageRecords []SupersimV1UsageRecord `json:"UsageRecords,omitempty"`
 }

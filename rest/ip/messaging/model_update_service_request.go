@@ -16,23 +16,23 @@ type UpdateServiceRequest struct {
 	DefaultChannelRoleSid string `json:"DefaultChannelRoleSid,omitempty"`
 	DefaultServiceRoleSid string `json:"DefaultServiceRoleSid,omitempty"`
 	FriendlyName string `json:"FriendlyName,omitempty"`
-	LimitsChannelMembers int32 `json:"Limits.ChannelMembers,omitempty"`
-	LimitsUserChannels int32 `json:"Limits.UserChannels,omitempty"`
-	MediaCompatibilityMessage string `json:"Media.CompatibilityMessage,omitempty"`
-	NotificationsAddedToChannelEnabled bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
-	NotificationsAddedToChannelSound string `json:"Notifications.AddedToChannel.Sound,omitempty"`
-	NotificationsAddedToChannelTemplate string `json:"Notifications.AddedToChannel.Template,omitempty"`
-	NotificationsInvitedToChannelEnabled bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
-	NotificationsInvitedToChannelSound string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
-	NotificationsInvitedToChannelTemplate string `json:"Notifications.InvitedToChannel.Template,omitempty"`
-	NotificationsLogEnabled bool `json:"Notifications.LogEnabled,omitempty"`
-	NotificationsNewMessageBadgeCountEnabled bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
-	NotificationsNewMessageEnabled bool `json:"Notifications.NewMessage.Enabled,omitempty"`
-	NotificationsNewMessageSound string `json:"Notifications.NewMessage.Sound,omitempty"`
-	NotificationsNewMessageTemplate string `json:"Notifications.NewMessage.Template,omitempty"`
-	NotificationsRemovedFromChannelEnabled bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
-	NotificationsRemovedFromChannelSound string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
-	NotificationsRemovedFromChannelTemplate string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
+	LimitsChannelMembers int32 `json:"LimitsChannelMembers,omitempty"`
+	LimitsUserChannels int32 `json:"LimitsUserChannels,omitempty"`
+	MediaCompatibilityMessage string `json:"MediaCompatibilityMessage,omitempty"`
+	NotificationsAddedToChannelEnabled bool `json:"NotificationsAddedToChannelEnabled,omitempty"`
+	NotificationsAddedToChannelSound string `json:"NotificationsAddedToChannelSound,omitempty"`
+	NotificationsAddedToChannelTemplate string `json:"NotificationsAddedToChannelTemplate,omitempty"`
+	NotificationsInvitedToChannelEnabled bool `json:"NotificationsInvitedToChannelEnabled,omitempty"`
+	NotificationsInvitedToChannelSound string `json:"NotificationsInvitedToChannelSound,omitempty"`
+	NotificationsInvitedToChannelTemplate string `json:"NotificationsInvitedToChannelTemplate,omitempty"`
+	NotificationsLogEnabled bool `json:"NotificationsLogEnabled,omitempty"`
+	NotificationsNewMessageBadgeCountEnabled bool `json:"NotificationsNewMessageBadgeCountEnabled,omitempty"`
+	NotificationsNewMessageEnabled bool `json:"NotificationsNewMessageEnabled,omitempty"`
+	NotificationsNewMessageSound string `json:"NotificationsNewMessageSound,omitempty"`
+	NotificationsNewMessageTemplate string `json:"NotificationsNewMessageTemplate,omitempty"`
+	NotificationsRemovedFromChannelEnabled bool `json:"NotificationsRemovedFromChannelEnabled,omitempty"`
+	NotificationsRemovedFromChannelSound string `json:"NotificationsRemovedFromChannelSound,omitempty"`
+	NotificationsRemovedFromChannelTemplate string `json:"NotificationsRemovedFromChannelTemplate,omitempty"`
 	PostWebhookRetryCount int32 `json:"PostWebhookRetryCount,omitempty"`
 	PostWebhookUrl string `json:"PostWebhookUrl,omitempty"`
 	PreWebhookRetryCount int32 `json:"PreWebhookRetryCount,omitempty"`

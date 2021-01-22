@@ -11,6 +11,6 @@
 package openapi
 // InsightsV1CallEventReadResponse struct for InsightsV1CallEventReadResponse
 type InsightsV1CallEventReadResponse struct {
-	Events []InsightsV1CallEvent `json:"events,omitempty"`
-	Meta InsightsV1VideoRoomSummaryReadResponseMeta `json:"meta,omitempty"`
+	Events []InsightsV1CallEvent `json:"Events,omitempty"`
+	Meta InsightsV1VideoRoomSummaryReadResponseMeta `json:"Meta,omitempty"`
 }

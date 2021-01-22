@@ -14,18 +14,18 @@ import (
 )
 // ConversationsV1ConversationConversationMessage struct for ConversationsV1ConversationConversationMessage
 type ConversationsV1ConversationConversationMessage struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Attributes string `json:"attributes,omitempty"`
-	Author string `json:"author,omitempty"`
-	Body string `json:"body,omitempty"`
-	ConversationSid string `json:"conversation_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Delivery map[string]interface{} `json:"delivery,omitempty"`
-	Index int32 `json:"index,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Media []map[string]interface{} `json:"media,omitempty"`
-	ParticipantSid string `json:"participant_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Attributes string `json:"Attributes,omitempty"`
+	Author string `json:"Author,omitempty"`
+	Body string `json:"Body,omitempty"`
+	ConversationSid string `json:"ConversationSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Delivery map[string]interface{} `json:"Delivery,omitempty"`
+	Index int32 `json:"Index,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Media []map[string]interface{} `json:"Media,omitempty"`
+	ParticipantSid string `json:"ParticipantSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

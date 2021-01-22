@@ -11,9 +11,9 @@
 package openapi
 // ApiV2010AccountNewKey struct for ApiV2010AccountNewKey
 type ApiV2010AccountNewKey struct {
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Secret string `json:"secret,omitempty"`
-	Sid string `json:"sid,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Secret string `json:"Secret,omitempty"`
+	Sid string `json:"Sid,omitempty"`
 }

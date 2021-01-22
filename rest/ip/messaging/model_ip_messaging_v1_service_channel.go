@@ -14,18 +14,18 @@ import (
 )
 // IpMessagingV1ServiceChannel struct for IpMessagingV1ServiceChannel
 type IpMessagingV1ServiceChannel struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Attributes string `json:"attributes,omitempty"`
-	CreatedBy string `json:"created_by,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	MembersCount int32 `json:"members_count,omitempty"`
-	MessagesCount int32 `json:"messages_count,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Type string `json:"type,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Attributes string `json:"Attributes,omitempty"`
+	CreatedBy string `json:"CreatedBy,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	MembersCount int32 `json:"MembersCount,omitempty"`
+	MessagesCount int32 `json:"MessagesCount,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Type string `json:"Type,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

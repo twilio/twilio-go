@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -55,29 +56,30 @@ Create a new Bundle.
 func (c *DefaultApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2RegulatoryComplianceBundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
+		data.Set("Email", *params.Email) 
 	}
 	if params != nil && params.EndUserType != nil {
-		data.Set("EndUserType", *params.EndUserType)
+		data.Set("EndUserType", *params.EndUserType) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		data.Set("IsoCountry", *params.IsoCountry) 
 	}
 	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType)
+		data.Set("NumberType", *params.NumberType) 
 	}
 	if params != nil && params.RegulationSid != nil {
-		data.Set("RegulationSid", *params.RegulationSid)
+		data.Set("RegulationSid", *params.RegulationSid) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 
 
@@ -114,6 +116,7 @@ Create a new End User.
 func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2RegulatoryComplianceEndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
+
 	data := url.Values{}
 	headers := 0
 
@@ -124,13 +127,13 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Numbers
 			return nil, err
 		}
 
-		data.Set("Attributes", string(v))
+		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", *params.Type) 
 	}
 
 
@@ -151,14 +154,15 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Numbers
 
 /*
 CreateEvaluation Method for CreateEvaluation
- * @param bundleSid
+ * @param BundleSid
 @return NumbersV2RegulatoryComplianceBundleEvaluation
 */
-func (c *DefaultApiService) CreateEvaluation(bundleSid string) (*NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+func (c *DefaultApiService) CreateEvaluation(BundleSid string) (*NumbersV2RegulatoryComplianceBundleEvaluation, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -185,20 +189,21 @@ type CreateItemAssignmentParams struct {
 /*
 CreateItemAssignment Method for CreateItemAssignment
 Create a new Assigned Item.
- * @param bundleSid The unique string that we created to identify the Bundle resource.
+ * @param BundleSid The unique string that we created to identify the Bundle resource.
  * @param optional nil or *CreateItemAssignmentOpts - Optional Parameters:
  * @param "ObjectSid" (string) - The SID of an object bag that holds information of the different items.
 @return NumbersV2RegulatoryComplianceBundleItemAssignment
 */
-func (c *DefaultApiService) CreateItemAssignment(bundleSid string, params *CreateItemAssignmentParams) (*NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+func (c *DefaultApiService) CreateItemAssignment(BundleSid string, params *CreateItemAssignmentParams) (*NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ObjectSid != nil {
-		data.Set("ObjectSid", *params.ObjectSid)
+		data.Set("ObjectSid", *params.ObjectSid) 
 	}
 
 
@@ -235,6 +240,7 @@ Create a new Supporting Document.
 func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
+
 	data := url.Values{}
 	headers := 0
 
@@ -245,13 +251,13 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 			return nil, err
 		}
 
-		data.Set("Attributes", string(v))
+		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", *params.Type) 
 	}
 
 
@@ -273,13 +279,14 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 /*
 DeleteBundle Method for DeleteBundle
 Delete a specific Bundle.
- * @param sid The unique string that we created to identify the Bundle resource.
+ * @param Sid The unique string that we created to identify the Bundle resource.
 */
-func (c *DefaultApiService) DeleteBundle(sid string) (error) {
+func (c *DefaultApiService) DeleteBundle(Sid string) (error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -297,13 +304,14 @@ func (c *DefaultApiService) DeleteBundle(sid string) (error) {
 /*
 DeleteEndUser Method for DeleteEndUser
 Delete a specific End User.
- * @param sid The unique string created by Twilio to identify the End User resource.
+ * @param Sid The unique string created by Twilio to identify the End User resource.
 */
-func (c *DefaultApiService) DeleteEndUser(sid string) (error) {
+func (c *DefaultApiService) DeleteEndUser(Sid string) (error) {
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -321,15 +329,16 @@ func (c *DefaultApiService) DeleteEndUser(sid string) (error) {
 /*
 DeleteItemAssignment Method for DeleteItemAssignment
 Remove an Assignment Item Instance.
- * @param bundleSid The unique string that we created to identify the Bundle resource.
- * @param sid The unique string that we created to identify the Identity resource.
+ * @param BundleSid The unique string that we created to identify the Bundle resource.
+ * @param Sid The unique string that we created to identify the Identity resource.
 */
-func (c *DefaultApiService) DeleteItemAssignment(bundleSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteItemAssignment(BundleSid string, Sid string) (error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -347,13 +356,14 @@ func (c *DefaultApiService) DeleteItemAssignment(bundleSid string, sid string) (
 /*
 DeleteSupportingDocument Method for DeleteSupportingDocument
 Delete a specific Supporting Document.
- * @param sid The unique string created by Twilio to identify the Supporting Document resource.
+ * @param Sid The unique string created by Twilio to identify the Supporting Document resource.
 */
-func (c *DefaultApiService) DeleteSupportingDocument(sid string) (error) {
+func (c *DefaultApiService) DeleteSupportingDocument(Sid string) (error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -371,14 +381,15 @@ func (c *DefaultApiService) DeleteSupportingDocument(sid string) (error) {
 /*
 FetchBundle Method for FetchBundle
 Fetch a specific Bundle instance.
- * @param sid The unique string that we created to identify the Bundle resource.
+ * @param Sid The unique string that we created to identify the Bundle resource.
 @return NumbersV2RegulatoryComplianceBundle
 */
-func (c *DefaultApiService) FetchBundle(sid string) (*NumbersV2RegulatoryComplianceBundle, error) {
+func (c *DefaultApiService) FetchBundle(Sid string) (*NumbersV2RegulatoryComplianceBundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -401,14 +412,15 @@ func (c *DefaultApiService) FetchBundle(sid string) (*NumbersV2RegulatoryComplia
 /*
 FetchEndUser Method for FetchEndUser
 Fetch specific End User Instance.
- * @param sid The unique string created by Twilio to identify the End User resource.
+ * @param Sid The unique string created by Twilio to identify the End User resource.
 @return NumbersV2RegulatoryComplianceEndUser
 */
-func (c *DefaultApiService) FetchEndUser(sid string) (*NumbersV2RegulatoryComplianceEndUser, error) {
+func (c *DefaultApiService) FetchEndUser(Sid string) (*NumbersV2RegulatoryComplianceEndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -431,14 +443,15 @@ func (c *DefaultApiService) FetchEndUser(sid string) (*NumbersV2RegulatoryCompli
 /*
 FetchEndUserType Method for FetchEndUserType
 Fetch a specific End-User Type Instance.
- * @param sid The unique string that identifies the End-User Type resource.
+ * @param Sid The unique string that identifies the End-User Type resource.
 @return NumbersV2RegulatoryComplianceEndUserType
 */
-func (c *DefaultApiService) FetchEndUserType(sid string) (*NumbersV2RegulatoryComplianceEndUserType, error) {
+func (c *DefaultApiService) FetchEndUserType(Sid string) (*NumbersV2RegulatoryComplianceEndUserType, error) {
 	path := "/v2/RegulatoryCompliance/EndUserTypes/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -461,16 +474,17 @@ func (c *DefaultApiService) FetchEndUserType(sid string) (*NumbersV2RegulatoryCo
 /*
 FetchEvaluation Method for FetchEvaluation
 Fetch specific Evaluation Instance.
- * @param bundleSid The unique string that we created to identify the Bundle resource.
- * @param sid The unique string that identifies the Evaluation resource.
+ * @param BundleSid The unique string that we created to identify the Bundle resource.
+ * @param Sid The unique string that identifies the Evaluation resource.
 @return NumbersV2RegulatoryComplianceBundleEvaluation
 */
-func (c *DefaultApiService) FetchEvaluation(bundleSid string, sid string) (*NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+func (c *DefaultApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2RegulatoryComplianceBundleEvaluation, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -493,16 +507,17 @@ func (c *DefaultApiService) FetchEvaluation(bundleSid string, sid string) (*Numb
 /*
 FetchItemAssignment Method for FetchItemAssignment
 Fetch specific Assigned Item Instance.
- * @param bundleSid The unique string that we created to identify the Bundle resource.
- * @param sid The unique string that we created to identify the Identity resource.
+ * @param BundleSid The unique string that we created to identify the Bundle resource.
+ * @param Sid The unique string that we created to identify the Identity resource.
 @return NumbersV2RegulatoryComplianceBundleItemAssignment
 */
-func (c *DefaultApiService) FetchItemAssignment(bundleSid string, sid string) (*NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+func (c *DefaultApiService) FetchItemAssignment(BundleSid string, Sid string) (*NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -525,14 +540,15 @@ func (c *DefaultApiService) FetchItemAssignment(bundleSid string, sid string) (*
 /*
 FetchRegulation Method for FetchRegulation
 Fetch specific Regulation Instance.
- * @param sid The unique string that identifies the Regulation resource.
+ * @param Sid The unique string that identifies the Regulation resource.
 @return NumbersV2RegulatoryComplianceRegulation
 */
-func (c *DefaultApiService) FetchRegulation(sid string) (*NumbersV2RegulatoryComplianceRegulation, error) {
+func (c *DefaultApiService) FetchRegulation(Sid string) (*NumbersV2RegulatoryComplianceRegulation, error) {
 	path := "/v2/RegulatoryCompliance/Regulations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -555,14 +571,15 @@ func (c *DefaultApiService) FetchRegulation(sid string) (*NumbersV2RegulatoryCom
 /*
 FetchSupportingDocument Method for FetchSupportingDocument
 Fetch specific Supporting Document Instance.
- * @param sid The unique string created by Twilio to identify the Supporting Document resource.
+ * @param Sid The unique string created by Twilio to identify the Supporting Document resource.
 @return NumbersV2RegulatoryComplianceSupportingDocument
 */
-func (c *DefaultApiService) FetchSupportingDocument(sid string) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
+func (c *DefaultApiService) FetchSupportingDocument(Sid string) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -585,14 +602,15 @@ func (c *DefaultApiService) FetchSupportingDocument(sid string) (*NumbersV2Regul
 /*
 FetchSupportingDocumentType Method for FetchSupportingDocumentType
 Fetch a specific Supporting Document Type Instance.
- * @param sid The unique string that identifies the Supporting Document Type resource.
+ * @param Sid The unique string that identifies the Supporting Document Type resource.
 @return NumbersV2RegulatoryComplianceSupportingDocumentType
 */
-func (c *DefaultApiService) FetchSupportingDocumentType(sid string) (*NumbersV2RegulatoryComplianceSupportingDocumentType, error) {
+func (c *DefaultApiService) FetchSupportingDocumentType(Sid string) (*NumbersV2RegulatoryComplianceSupportingDocumentType, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -636,26 +654,27 @@ Retrieve a list of all Bundles for an account.
 func (c *DefaultApiService) ListBundle(params *ListBundleParams) (*NumbersV2RegulatoryComplianceBundleReadResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.RegulationSid != nil {
-		data.Set("RegulationSid", *params.RegulationSid)
+		data.Set("RegulationSid", *params.RegulationSid) 
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		data.Set("IsoCountry", *params.IsoCountry) 
 	}
 	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType)
+		data.Set("NumberType", *params.NumberType) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -688,11 +707,12 @@ Retrieve a list of all End User for an account.
 func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*NumbersV2RegulatoryComplianceEndUserReadResponse, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -725,11 +745,12 @@ Retrieve a list of all End-User Types.
 func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*NumbersV2RegulatoryComplianceEndUserTypeReadResponse, error) {
 	path := "/v2/RegulatoryCompliance/EndUserTypes"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -755,20 +776,21 @@ type ListEvaluationParams struct {
 /*
 ListEvaluation Method for ListEvaluation
 Retrieve a list of Evaluations associated to the Bundle resource.
- * @param bundleSid
+ * @param BundleSid
  * @param optional nil or *ListEvaluationOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return NumbersV2RegulatoryComplianceBundleEvaluationReadResponse
 */
-func (c *DefaultApiService) ListEvaluation(bundleSid string, params *ListEvaluationParams) (*NumbersV2RegulatoryComplianceBundleEvaluationReadResponse, error) {
+func (c *DefaultApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams) (*NumbersV2RegulatoryComplianceBundleEvaluationReadResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -794,20 +816,21 @@ type ListItemAssignmentParams struct {
 /*
 ListItemAssignment Method for ListItemAssignment
 Retrieve a list of all Assigned Items for an account.
- * @param bundleSid The unique string that we created to identify the Bundle resource.
+ * @param BundleSid The unique string that we created to identify the Bundle resource.
  * @param optional nil or *ListItemAssignmentOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse
 */
-func (c *DefaultApiService) ListItemAssignment(bundleSid string, params *ListItemAssignmentParams) (*NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse, error) {
+func (c *DefaultApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams) (*NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", bundleSid, -1)
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -846,20 +869,21 @@ Retrieve a list of all Regulations.
 func (c *DefaultApiService) ListRegulation(params *ListRegulationParams) (*NumbersV2RegulatoryComplianceRegulationReadResponse, error) {
 	path := "/v2/RegulatoryCompliance/Regulations"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndUserType != nil {
-		data.Set("EndUserType", *params.EndUserType)
+		data.Set("EndUserType", *params.EndUserType) 
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		data.Set("IsoCountry", *params.IsoCountry) 
 	}
 	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType)
+		data.Set("NumberType", *params.NumberType) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -892,11 +916,12 @@ Retrieve a list of all Supporting Document for an account.
 func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocumentReadResponse, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -929,11 +954,12 @@ Retrieve a list of all Supporting Document Types.
 func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) (*NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -962,7 +988,7 @@ type UpdateBundleParams struct {
 /*
 UpdateBundle Method for UpdateBundle
 Updates a Bundle in an account.
- * @param sid The unique string that we created to identify the Bundle resource.
+ * @param Sid The unique string that we created to identify the Bundle resource.
  * @param optional nil or *UpdateBundleOpts - Optional Parameters:
  * @param "Email" (string) - The email address that will receive updates when the Bundle resource changes status.
  * @param "FriendlyName" (string) - The string that you assigned to describe the resource.
@@ -970,24 +996,25 @@ Updates a Bundle in an account.
  * @param "StatusCallback" (string) - The URL we call to inform your application of status changes.
 @return NumbersV2RegulatoryComplianceBundle
 */
-func (c *DefaultApiService) UpdateBundle(sid string, params *UpdateBundleParams) (*NumbersV2RegulatoryComplianceBundle, error) {
+func (c *DefaultApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*NumbersV2RegulatoryComplianceBundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email)
+		data.Set("Email", *params.Email) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 
 
@@ -1014,15 +1041,16 @@ type UpdateEndUserParams struct {
 /*
 UpdateEndUser Method for UpdateEndUser
 Update an existing End User.
- * @param sid The unique string created by Twilio to identify the End User resource.
+ * @param Sid The unique string created by Twilio to identify the End User resource.
  * @param optional nil or *UpdateEndUserOpts - Optional Parameters:
  * @param "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the End User resource which are derived End User Types.
  * @param "FriendlyName" (string) - The string that you assigned to describe the resource.
 @return NumbersV2RegulatoryComplianceEndUser
 */
-func (c *DefaultApiService) UpdateEndUser(sid string, params *UpdateEndUserParams) (*NumbersV2RegulatoryComplianceEndUser, error) {
+func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*NumbersV2RegulatoryComplianceEndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -1034,10 +1062,10 @@ func (c *DefaultApiService) UpdateEndUser(sid string, params *UpdateEndUserParam
 			return nil, err
 		}
 
-		data.Set("Attributes", string(v))
+		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -1064,15 +1092,16 @@ type UpdateSupportingDocumentParams struct {
 /*
 UpdateSupportingDocument Method for UpdateSupportingDocument
 Update an existing Supporting Document.
- * @param sid The unique string created by Twilio to identify the Supporting Document resource.
+ * @param Sid The unique string created by Twilio to identify the Supporting Document resource.
  * @param optional nil or *UpdateSupportingDocumentOpts - Optional Parameters:
  * @param "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
  * @param "FriendlyName" (string) - The string that you assigned to describe the resource.
 @return NumbersV2RegulatoryComplianceSupportingDocument
 */
-func (c *DefaultApiService) UpdateSupportingDocument(sid string, params *UpdateSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
+func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -1084,10 +1113,10 @@ func (c *DefaultApiService) UpdateSupportingDocument(sid string, params *UpdateS
 			return nil, err
 		}
 
-		data.Set("Attributes", string(v))
+		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 

@@ -11,6 +11,6 @@
 package openapi
 // PreviewHostedNumbersHostedNumberOrderReadResponse struct for PreviewHostedNumbersHostedNumberOrderReadResponse
 type PreviewHostedNumbersHostedNumberOrderReadResponse struct {
-	Items []PreviewHostedNumbersHostedNumberOrder `json:"items,omitempty"`
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
+	Items []PreviewHostedNumbersHostedNumberOrder `json:"Items,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

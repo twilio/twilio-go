@@ -14,13 +14,13 @@ import (
 )
 // ServerlessV1ServiceFunctionFunctionVersion struct for ServerlessV1ServiceFunctionFunctionVersion
 type ServerlessV1ServiceFunctionFunctionVersion struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	FunctionSid string `json:"function_sid,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Path string `json:"path,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
-	Visibility string `json:"visibility,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	FunctionSid string `json:"FunctionSid,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Path string `json:"Path,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
+	Visibility string `json:"Visibility,omitempty"`
 }

@@ -14,18 +14,18 @@ import (
 )
 // IpMessagingV1ServiceUser struct for IpMessagingV1ServiceUser
 type IpMessagingV1ServiceUser struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Attributes string `json:"attributes,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Identity string `json:"identity,omitempty"`
-	IsNotifiable bool `json:"is_notifiable,omitempty"`
-	IsOnline bool `json:"is_online,omitempty"`
-	JoinedChannelsCount int32 `json:"joined_channels_count,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	RoleSid string `json:"role_sid,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Attributes string `json:"Attributes,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Identity string `json:"Identity,omitempty"`
+	IsNotifiable bool `json:"IsNotifiable,omitempty"`
+	IsOnline bool `json:"IsOnline,omitempty"`
+	JoinedChannelsCount int32 `json:"JoinedChannelsCount,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	RoleSid string `json:"RoleSid,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

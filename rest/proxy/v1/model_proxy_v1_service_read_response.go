@@ -11,6 +11,6 @@
 package openapi
 // ProxyV1ServiceReadResponse struct for ProxyV1ServiceReadResponse
 type ProxyV1ServiceReadResponse struct {
-	Meta ProxyV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	Services []ProxyV1Service `json:"services,omitempty"`
+	Meta ProxyV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	Services []ProxyV1Service `json:"Services,omitempty"`
 }

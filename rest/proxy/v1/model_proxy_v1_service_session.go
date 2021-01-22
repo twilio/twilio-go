@@ -14,20 +14,20 @@ import (
 )
 // ProxyV1ServiceSession struct for ProxyV1ServiceSession
 type ProxyV1ServiceSession struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ClosedReason string `json:"closed_reason,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateEnded time.Time `json:"date_ended,omitempty"`
-	DateExpiry time.Time `json:"date_expiry,omitempty"`
-	DateLastInteraction time.Time `json:"date_last_interaction,omitempty"`
-	DateStarted time.Time `json:"date_started,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Mode string `json:"mode,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Ttl int32 `json:"ttl,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ClosedReason string `json:"ClosedReason,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateEnded time.Time `json:"DateEnded,omitempty"`
+	DateExpiry time.Time `json:"DateExpiry,omitempty"`
+	DateLastInteraction time.Time `json:"DateLastInteraction,omitempty"`
+	DateStarted time.Time `json:"DateStarted,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Mode string `json:"Mode,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Ttl int32 `json:"Ttl,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

@@ -11,6 +11,6 @@
 package openapi
 // SupersimV1SimReadResponse struct for SupersimV1SimReadResponse
 type SupersimV1SimReadResponse struct {
-	Meta SupersimV1CommandReadResponseMeta `json:"meta,omitempty"`
-	Sims []SupersimV1Sim `json:"sims,omitempty"`
+	Meta SupersimV1CommandReadResponseMeta `json:"Meta,omitempty"`
+	Sims []SupersimV1Sim `json:"Sims,omitempty"`
 }

@@ -11,12 +11,12 @@
 package openapi
 // VideoV1CompositionSettings struct for VideoV1CompositionSettings
 type VideoV1CompositionSettings struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AwsCredentialsSid string `json:"aws_credentials_sid,omitempty"`
-	AwsS3Url string `json:"aws_s3_url,omitempty"`
-	AwsStorageEnabled bool `json:"aws_storage_enabled,omitempty"`
-	EncryptionEnabled bool `json:"encryption_enabled,omitempty"`
-	EncryptionKeySid string `json:"encryption_key_sid,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AwsCredentialsSid string `json:"AwsCredentialsSid,omitempty"`
+	AwsS3Url string `json:"AwsS3Url,omitempty"`
+	AwsStorageEnabled bool `json:"AwsStorageEnabled,omitempty"`
+	EncryptionEnabled bool `json:"EncryptionEnabled,omitempty"`
+	EncryptionKeySid string `json:"EncryptionKeySid,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

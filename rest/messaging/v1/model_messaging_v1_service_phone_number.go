@@ -14,13 +14,13 @@ import (
 )
 // MessagingV1ServicePhoneNumber struct for MessagingV1ServicePhoneNumber
 type MessagingV1ServicePhoneNumber struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Capabilities []string `json:"capabilities,omitempty"`
-	CountryCode string `json:"country_code,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	PhoneNumber string `json:"phone_number,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Capabilities []string `json:"Capabilities,omitempty"`
+	CountryCode string `json:"CountryCode,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	PhoneNumber string `json:"PhoneNumber,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

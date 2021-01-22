@@ -14,24 +14,24 @@ import (
 )
 // NotifyV1ServiceNotification struct for NotifyV1ServiceNotification
 type NotifyV1ServiceNotification struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Action string `json:"action,omitempty"`
-	Alexa map[string]interface{} `json:"alexa,omitempty"`
-	Apn map[string]interface{} `json:"apn,omitempty"`
-	Body string `json:"body,omitempty"`
-	Data map[string]interface{} `json:"data,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	FacebookMessenger map[string]interface{} `json:"facebook_messenger,omitempty"`
-	Fcm map[string]interface{} `json:"fcm,omitempty"`
-	Gcm map[string]interface{} `json:"gcm,omitempty"`
-	Identities []string `json:"identities,omitempty"`
-	Priority string `json:"priority,omitempty"`
-	Segments []string `json:"segments,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Sms map[string]interface{} `json:"sms,omitempty"`
-	Sound string `json:"sound,omitempty"`
-	Tags []string `json:"tags,omitempty"`
-	Title string `json:"title,omitempty"`
-	Ttl int32 `json:"ttl,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Action string `json:"Action,omitempty"`
+	Alexa map[string]interface{} `json:"Alexa,omitempty"`
+	Apn map[string]interface{} `json:"Apn,omitempty"`
+	Body string `json:"Body,omitempty"`
+	Data map[string]interface{} `json:"Data,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	FacebookMessenger map[string]interface{} `json:"FacebookMessenger,omitempty"`
+	Fcm map[string]interface{} `json:"Fcm,omitempty"`
+	Gcm map[string]interface{} `json:"Gcm,omitempty"`
+	Identities []string `json:"Identities,omitempty"`
+	Priority string `json:"Priority,omitempty"`
+	Segments []string `json:"Segments,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Sms map[string]interface{} `json:"Sms,omitempty"`
+	Sound string `json:"Sound,omitempty"`
+	Tags []string `json:"Tags,omitempty"`
+	Title string `json:"Title,omitempty"`
+	Ttl int32 `json:"Ttl,omitempty"`
 }

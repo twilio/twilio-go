@@ -11,6 +11,6 @@
 package openapi
 // MessagingV1ServiceAlphaSenderReadResponse struct for MessagingV1ServiceAlphaSenderReadResponse
 type MessagingV1ServiceAlphaSenderReadResponse struct {
-	AlphaSenders []MessagingV1ServiceAlphaSender `json:"alpha_senders,omitempty"`
-	Meta MessagingV1ServiceReadResponseMeta `json:"meta,omitempty"`
+	AlphaSenders []MessagingV1ServiceAlphaSender `json:"AlphaSenders,omitempty"`
+	Meta MessagingV1ServiceReadResponseMeta `json:"Meta,omitempty"`
 }

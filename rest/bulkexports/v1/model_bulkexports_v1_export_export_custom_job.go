@@ -11,13 +11,13 @@
 package openapi
 // BulkexportsV1ExportExportCustomJob struct for BulkexportsV1ExportExportCustomJob
 type BulkexportsV1ExportExportCustomJob struct {
-	Details map[string]interface{} `json:"details,omitempty"`
-	Email string `json:"email,omitempty"`
-	EndDay string `json:"end_day,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	JobSid string `json:"job_sid,omitempty"`
-	ResourceType string `json:"resource_type,omitempty"`
-	StartDay string `json:"start_day,omitempty"`
-	WebhookMethod string `json:"webhook_method,omitempty"`
-	WebhookUrl string `json:"webhook_url,omitempty"`
+	Details map[string]interface{} `json:"Details,omitempty"`
+	Email string `json:"Email,omitempty"`
+	EndDay string `json:"EndDay,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	JobSid string `json:"JobSid,omitempty"`
+	ResourceType string `json:"ResourceType,omitempty"`
+	StartDay string `json:"StartDay,omitempty"`
+	WebhookMethod string `json:"WebhookMethod,omitempty"`
+	WebhookUrl string `json:"WebhookUrl,omitempty"`
 }

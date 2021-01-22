@@ -11,6 +11,6 @@
 package openapi
 // SupersimV1FleetReadResponse struct for SupersimV1FleetReadResponse
 type SupersimV1FleetReadResponse struct {
-	Fleets []SupersimV1Fleet `json:"fleets,omitempty"`
-	Meta SupersimV1CommandReadResponseMeta `json:"meta,omitempty"`
+	Fleets []SupersimV1Fleet `json:"Fleets,omitempty"`
+	Meta SupersimV1CommandReadResponseMeta `json:"Meta,omitempty"`
 }

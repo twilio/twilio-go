@@ -14,22 +14,22 @@ import (
 )
 // VideoV1Room struct for VideoV1Room
 type VideoV1Room struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Duration *int32 `json:"duration,omitempty"`
-	EnableTurn bool `json:"enable_turn,omitempty"`
-	EndTime time.Time `json:"end_time,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	MaxParticipants int32 `json:"max_participants,omitempty"`
-	MediaRegion string `json:"media_region,omitempty"`
-	RecordParticipantsOnConnect bool `json:"record_participants_on_connect,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	StatusCallback string `json:"status_callback,omitempty"`
-	StatusCallbackMethod string `json:"status_callback_method,omitempty"`
-	Type string `json:"type,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
-	VideoCodecs []string `json:"video_codecs,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Duration *int32 `json:"Duration,omitempty"`
+	EnableTurn bool `json:"EnableTurn,omitempty"`
+	EndTime time.Time `json:"EndTime,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	MaxParticipants int32 `json:"MaxParticipants,omitempty"`
+	MediaRegion string `json:"MediaRegion,omitempty"`
+	RecordParticipantsOnConnect bool `json:"RecordParticipantsOnConnect,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	StatusCallback string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod string `json:"StatusCallbackMethod,omitempty"`
+	Type string `json:"Type,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
+	VideoCodecs []string `json:"VideoCodecs,omitempty"`
 }

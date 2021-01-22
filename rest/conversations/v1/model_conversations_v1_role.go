@@ -14,13 +14,13 @@ import (
 )
 // ConversationsV1Role struct for ConversationsV1Role
 type ConversationsV1Role struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ChatServiceSid string `json:"chat_service_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Permissions []string `json:"permissions,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Type string `json:"type,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ChatServiceSid string `json:"ChatServiceSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Permissions []string `json:"Permissions,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Type string `json:"Type,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

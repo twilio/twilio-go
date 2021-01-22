@@ -11,6 +11,6 @@
 package openapi
 // VerifyV2ServiceMessagingConfigurationReadResponse struct for VerifyV2ServiceMessagingConfigurationReadResponse
 type VerifyV2ServiceMessagingConfigurationReadResponse struct {
-	MessagingConfigurations []VerifyV2ServiceMessagingConfiguration `json:"messaging_configurations,omitempty"`
-	Meta VerifyV2ServiceReadResponseMeta `json:"meta,omitempty"`
+	MessagingConfigurations []VerifyV2ServiceMessagingConfiguration `json:"MessagingConfigurations,omitempty"`
+	Meta VerifyV2ServiceReadResponseMeta `json:"Meta,omitempty"`
 }

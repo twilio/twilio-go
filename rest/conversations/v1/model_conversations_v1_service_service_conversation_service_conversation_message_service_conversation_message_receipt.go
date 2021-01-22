@@ -14,16 +14,16 @@ import (
 )
 // ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt struct for ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt
 type ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ChannelMessageSid string `json:"channel_message_sid,omitempty"`
-	ChatServiceSid string `json:"chat_service_sid,omitempty"`
-	ConversationSid string `json:"conversation_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	ErrorCode int32 `json:"error_code,omitempty"`
-	MessageSid string `json:"message_sid,omitempty"`
-	ParticipantSid string `json:"participant_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ChannelMessageSid string `json:"ChannelMessageSid,omitempty"`
+	ChatServiceSid string `json:"ChatServiceSid,omitempty"`
+	ConversationSid string `json:"ConversationSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	ErrorCode int32 `json:"ErrorCode,omitempty"`
+	MessageSid string `json:"MessageSid,omitempty"`
+	ParticipantSid string `json:"ParticipantSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

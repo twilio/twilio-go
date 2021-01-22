@@ -11,9 +11,9 @@
 package openapi
 // StudioV1FlowEngagementEngagementContext struct for StudioV1FlowEngagementEngagementContext
 type StudioV1FlowEngagementEngagementContext struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Context map[string]interface{} `json:"context,omitempty"`
-	EngagementSid string `json:"engagement_sid,omitempty"`
-	FlowSid string `json:"flow_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Context map[string]interface{} `json:"Context,omitempty"`
+	EngagementSid string `json:"EngagementSid,omitempty"`
+	FlowSid string `json:"FlowSid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

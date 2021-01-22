@@ -14,17 +14,17 @@ import (
 )
 // TaskrouterV1WorkspaceWorkerWorkerChannel struct for TaskrouterV1WorkspaceWorkerWorkerChannel
 type TaskrouterV1WorkspaceWorkerWorkerChannel struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssignedTasks int32 `json:"assigned_tasks,omitempty"`
-	Available bool `json:"available,omitempty"`
-	AvailableCapacityPercentage int32 `json:"available_capacity_percentage,omitempty"`
-	ConfiguredCapacity int32 `json:"configured_capacity,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	TaskChannelSid string `json:"task_channel_sid,omitempty"`
-	TaskChannelUniqueName string `json:"task_channel_unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
-	WorkerSid string `json:"worker_sid,omitempty"`
-	WorkspaceSid string `json:"workspace_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssignedTasks int32 `json:"AssignedTasks,omitempty"`
+	Available bool `json:"Available,omitempty"`
+	AvailableCapacityPercentage int32 `json:"AvailableCapacityPercentage,omitempty"`
+	ConfiguredCapacity int32 `json:"ConfiguredCapacity,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TaskChannelSid string `json:"TaskChannelSid,omitempty"`
+	TaskChannelUniqueName string `json:"TaskChannelUniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WorkerSid string `json:"WorkerSid,omitempty"`
+	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
 }

@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -37,28 +39,29 @@ type CreateMessageInteractionParams struct {
 /*
 CreateMessageInteraction Method for CreateMessageInteraction
 Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The &#x60;inbound&#x60; properties for the Interaction will always be empty.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
- * @param participantSid The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
+ * @param ParticipantSid The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
  * @param optional nil or *CreateMessageInteractionOpts - Optional Parameters:
  * @param "Body" (string) - The message to send to the participant
  * @param "MediaUrl" ([]string) - Reserved. Not currently supported.
 @return ProxyV1ServiceSessionParticipantMessageInteraction
 */
-func (c *DefaultApiService) CreateMessageInteraction(serviceSid string, sessionSid string, participantSid string, params *CreateMessageInteractionParams) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+func (c *DefaultApiService) CreateMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *CreateMessageInteractionParams) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body)
+		data.Set("Body", *params.Body) 
 	}
 	if params != nil && params.MediaUrl != nil {
-		data.Set("MediaUrl", *params.MediaUrl)
+		data.Set("MediaUrl",  strings.Join(*params.MediaUrl, ","))
 	}
 
 
@@ -88,8 +91,8 @@ type CreateParticipantParams struct {
 /*
 CreateParticipant Method for CreateParticipant
 Add a new Participant to the Session
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
  * @param optional nil or *CreateParticipantOpts - Optional Parameters:
  * @param "FailOnParticipantConflict" (bool) - [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Participant create request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
  * @param "FriendlyName" (string) - The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
@@ -98,28 +101,29 @@ Add a new Participant to the Session
  * @param "ProxyIdentifierSid" (string) - The SID of the Proxy Identifier to assign to the Participant.
 @return ProxyV1ServiceSessionParticipant
 */
-func (c *DefaultApiService) CreateParticipant(serviceSid string, sessionSid string, params *CreateParticipantParams) (*ProxyV1ServiceSessionParticipant, error) {
+func (c *DefaultApiService) CreateParticipant(ServiceSid string, SessionSid string, params *CreateParticipantParams) (*ProxyV1ServiceSessionParticipant, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FailOnParticipantConflict != nil {
-		data.Set("FailOnParticipantConflict", string(*params.FailOnParticipantConflict))
+		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Identifier != nil {
-		data.Set("Identifier", *params.Identifier)
+		data.Set("Identifier", *params.Identifier) 
 	}
 	if params != nil && params.ProxyIdentifier != nil {
-		data.Set("ProxyIdentifier", *params.ProxyIdentifier)
+		data.Set("ProxyIdentifier", *params.ProxyIdentifier) 
 	}
 	if params != nil && params.ProxyIdentifierSid != nil {
-		data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid)
+		data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid) 
 	}
 
 
@@ -147,28 +151,29 @@ type CreatePhoneNumberParams struct {
 /*
 CreatePhoneNumber Method for CreatePhoneNumber
 Add a Phone Number to a Service&#39;s Proxy Number Pool.
- * @param serviceSid The SID parent [Service](https://www.twilio.com/docs/proxy/api/service) resource of the new PhoneNumber resource.
+ * @param ServiceSid The SID parent [Service](https://www.twilio.com/docs/proxy/api/service) resource of the new PhoneNumber resource.
  * @param optional nil or *CreatePhoneNumberOpts - Optional Parameters:
  * @param "IsReserved" (bool) - Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
  * @param "PhoneNumber" (string) - The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
  * @param "Sid" (string) - The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service.
 @return ProxyV1ServicePhoneNumber
 */
-func (c *DefaultApiService) CreatePhoneNumber(serviceSid string, params *CreatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
+func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.IsReserved != nil {
-		data.Set("IsReserved", string(*params.IsReserved))
+		data.Set("IsReserved", fmt.Sprint(*params.IsReserved)) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.Sid != nil {
-		data.Set("Sid", *params.Sid)
+		data.Set("Sid", *params.Sid) 
 	}
 
 
@@ -215,32 +220,33 @@ Create a new Service for Twilio Proxy
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ProxyV1Service, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.ChatInstanceSid != nil {
-		data.Set("ChatInstanceSid", *params.ChatInstanceSid)
+		data.Set("ChatInstanceSid", *params.ChatInstanceSid) 
 	}
 	if params != nil && params.DefaultTtl != nil {
-		data.Set("DefaultTtl", string(*params.DefaultTtl))
+		data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl)) 
 	}
 	if params != nil && params.GeoMatchLevel != nil {
-		data.Set("GeoMatchLevel", *params.GeoMatchLevel)
+		data.Set("GeoMatchLevel", *params.GeoMatchLevel) 
 	}
 	if params != nil && params.InterceptCallbackUrl != nil {
-		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
+		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl) 
 	}
 	if params != nil && params.NumberSelectionBehavior != nil {
-		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
+		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior) 
 	}
 	if params != nil && params.OutOfSessionCallbackUrl != nil {
-		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
+		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -272,7 +278,7 @@ type CreateSessionParams struct {
 /*
 CreateSession Method for CreateSession
 Create a new Session
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
  * @param optional nil or *CreateSessionOpts - Optional Parameters:
  * @param "DateExpiry" (time.Time) - The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
  * @param "FailOnParticipantConflict" (bool) - [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Session create (with Participants) request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
@@ -283,21 +289,22 @@ Create a new Session
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
 @return ProxyV1ServiceSession
 */
-func (c *DefaultApiService) CreateSession(serviceSid string, params *CreateSessionParams) (*ProxyV1ServiceSession, error) {
+func (c *DefaultApiService) CreateSession(ServiceSid string, params *CreateSessionParams) (*ProxyV1ServiceSession, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DateExpiry != nil {
-		data.Set("DateExpiry", string(*params.DateExpiry))
+		data.Set("DateExpiry", fmt.Sprint(*params.DateExpiry)) 
 	}
 	if params != nil && params.FailOnParticipantConflict != nil {
-		data.Set("FailOnParticipantConflict", string(*params.FailOnParticipantConflict))
+		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict)) 
 	}
 	if params != nil && params.Mode != nil {
-		data.Set("Mode", *params.Mode)
+		data.Set("Mode", *params.Mode) 
 	}
 	if params != nil && params.Participants != nil {
 		v, err := json.Marshal(params.Participants)
@@ -306,16 +313,16 @@ func (c *DefaultApiService) CreateSession(serviceSid string, params *CreateSessi
 			return nil, err
 		}
 
-		data.Set("Participants", string(v))
+		data.Set("Participants", fmt.Sprint(v))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", string(*params.Ttl))
+		data.Set("Ttl", fmt.Sprint(*params.Ttl)) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -341,20 +348,21 @@ type CreateShortCodeParams struct {
 /*
 CreateShortCode Method for CreateShortCode
 Add a Short Code to the Proxy Number Pool for the Service.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
  * @param optional nil or *CreateShortCodeOpts - Optional Parameters:
  * @param "Sid" (string) - The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
 @return ProxyV1ServiceShortCode
 */
-func (c *DefaultApiService) CreateShortCode(serviceSid string, params *CreateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
+func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Sid != nil {
-		data.Set("Sid", *params.Sid)
+		data.Set("Sid", *params.Sid) 
 	}
 
 
@@ -376,17 +384,18 @@ func (c *DefaultApiService) CreateShortCode(serviceSid string, params *CreateSho
 /*
 DeleteInteraction Method for DeleteInteraction
 Delete a specific Interaction.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete.
- * @param sid The Twilio-provided string that uniquely identifies the Interaction resource to delete.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the Interaction resource to delete.
 */
-func (c *DefaultApiService) DeleteInteraction(serviceSid string, sessionSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteInteraction(ServiceSid string, SessionSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -404,17 +413,18 @@ func (c *DefaultApiService) DeleteInteraction(serviceSid string, sessionSid stri
 /*
 DeleteParticipant Method for DeleteParticipant
 Delete a specific Participant. This is a soft-delete. The participant remains associated with the session and cannot be re-added. Participants are only permanently deleted when the [Session](https://www.twilio.com/docs/proxy/api/session) is deleted.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete.
- * @param sid The Twilio-provided string that uniquely identifies the Participant resource to delete.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the Participant resource to delete.
 */
-func (c *DefaultApiService) DeleteParticipant(serviceSid string, sessionSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteParticipant(ServiceSid string, SessionSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -432,15 +442,16 @@ func (c *DefaultApiService) DeleteParticipant(serviceSid string, sessionSid stri
 /*
 DeletePhoneNumber Method for DeletePhoneNumber
 Delete a specific Phone Number from a Service.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to delete.
- * @param sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to delete.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to delete.
 */
-func (c *DefaultApiService) DeletePhoneNumber(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -458,13 +469,14 @@ func (c *DefaultApiService) DeletePhoneNumber(serviceSid string, sid string) (er
 /*
 DeleteService Method for DeleteService
 Delete a specific Service.
- * @param sid The Twilio-provided string that uniquely identifies the Service resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the Service resource to delete.
 */
-func (c *DefaultApiService) DeleteService(sid string) (error) {
+func (c *DefaultApiService) DeleteService(Sid string) (error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -482,15 +494,16 @@ func (c *DefaultApiService) DeleteService(sid string) (error) {
 /*
 DeleteSession Method for DeleteSession
 Delete a specific Session.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
- * @param sid The Twilio-provided string that uniquely identifies the Session resource to delete.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
+ * @param Sid The Twilio-provided string that uniquely identifies the Session resource to delete.
 */
-func (c *DefaultApiService) DeleteSession(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteSession(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -508,15 +521,16 @@ func (c *DefaultApiService) DeleteSession(serviceSid string, sid string) (error)
 /*
 DeleteShortCode Method for DeleteShortCode
 Delete a specific Short Code from a Service.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource to delete the ShortCode resource from.
- * @param sid The Twilio-provided string that uniquely identifies the ShortCode resource to delete.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource to delete the ShortCode resource from.
+ * @param Sid The Twilio-provided string that uniquely identifies the ShortCode resource to delete.
 */
-func (c *DefaultApiService) DeleteShortCode(serviceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) (error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -534,18 +548,19 @@ func (c *DefaultApiService) DeleteShortCode(serviceSid string, sid string) (erro
 /*
 FetchInteraction Method for FetchInteraction
 Retrieve a list of Interactions for a given [Session](https://www.twilio.com/docs/proxy/api/session).
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
- * @param sid The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
 @return ProxyV1ServiceSessionInteraction
 */
-func (c *DefaultApiService) FetchInteraction(serviceSid string, sessionSid string, sid string) (*ProxyV1ServiceSessionInteraction, error) {
+func (c *DefaultApiService) FetchInteraction(ServiceSid string, SessionSid string, Sid string) (*ProxyV1ServiceSessionInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -567,20 +582,21 @@ func (c *DefaultApiService) FetchInteraction(serviceSid string, sessionSid strin
 
 /*
 FetchMessageInteraction Method for FetchMessageInteraction
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
- * @param participantSid The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
- * @param sid The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
+ * @param ParticipantSid The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
+ * @param Sid The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
 @return ProxyV1ServiceSessionParticipantMessageInteraction
 */
-func (c *DefaultApiService) FetchMessageInteraction(serviceSid string, sessionSid string, participantSid string, sid string) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+func (c *DefaultApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -603,18 +619,19 @@ func (c *DefaultApiService) FetchMessageInteraction(serviceSid string, sessionSi
 /*
 FetchParticipant Method for FetchParticipant
 Fetch a specific Participant.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
- * @param sid The Twilio-provided string that uniquely identifies the Participant resource to fetch.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the Participant resource to fetch.
 @return ProxyV1ServiceSessionParticipant
 */
-func (c *DefaultApiService) FetchParticipant(serviceSid string, sessionSid string, sid string) (*ProxyV1ServiceSessionParticipant, error) {
+func (c *DefaultApiService) FetchParticipant(ServiceSid string, SessionSid string, Sid string) (*ProxyV1ServiceSessionParticipant, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -637,16 +654,17 @@ func (c *DefaultApiService) FetchParticipant(serviceSid string, sessionSid strin
 /*
 FetchPhoneNumber Method for FetchPhoneNumber
 Fetch a specific Phone Number.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to fetch.
- * @param sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to fetch.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to fetch.
 @return ProxyV1ServicePhoneNumber
 */
-func (c *DefaultApiService) FetchPhoneNumber(serviceSid string, sid string) (*ProxyV1ServicePhoneNumber, error) {
+func (c *DefaultApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*ProxyV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -669,14 +687,15 @@ func (c *DefaultApiService) FetchPhoneNumber(serviceSid string, sid string) (*Pr
 /*
 FetchService Method for FetchService
 Fetch a specific Service.
- * @param sid The Twilio-provided string that uniquely identifies the Service resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the Service resource to fetch.
 @return ProxyV1Service
 */
-func (c *DefaultApiService) FetchService(sid string) (*ProxyV1Service, error) {
+func (c *DefaultApiService) FetchService(Sid string) (*ProxyV1Service, error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -699,16 +718,17 @@ func (c *DefaultApiService) FetchService(sid string) (*ProxyV1Service, error) {
 /*
 FetchSession Method for FetchSession
 Fetch a specific Session.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
- * @param sid The Twilio-provided string that uniquely identifies the Session resource to fetch.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+ * @param Sid The Twilio-provided string that uniquely identifies the Session resource to fetch.
 @return ProxyV1ServiceSession
 */
-func (c *DefaultApiService) FetchSession(serviceSid string, sid string) (*ProxyV1ServiceSession, error) {
+func (c *DefaultApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1ServiceSession, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -731,16 +751,17 @@ func (c *DefaultApiService) FetchSession(serviceSid string, sid string) (*ProxyV
 /*
 FetchShortCode Method for FetchShortCode
 Fetch a specific Short Code.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to fetch the resource from.
- * @param sid The Twilio-provided string that uniquely identifies the ShortCode resource to fetch.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to fetch the resource from.
+ * @param Sid The Twilio-provided string that uniquely identifies the ShortCode resource to fetch.
 @return ProxyV1ServiceShortCode
 */
-func (c *DefaultApiService) FetchShortCode(serviceSid string, sid string) (*ProxyV1ServiceShortCode, error) {
+func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*ProxyV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -767,22 +788,23 @@ type ListInteractionParams struct {
 /*
 ListInteraction Method for ListInteraction
 Retrieve a list of all Interactions for a Session. A maximum of 100 records will be returned per page.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
  * @param optional nil or *ListInteractionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ProxyV1ServiceSessionInteractionReadResponse
 */
-func (c *DefaultApiService) ListInteraction(serviceSid string, sessionSid string, params *ListInteractionParams) (*ProxyV1ServiceSessionInteractionReadResponse, error) {
+func (c *DefaultApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) (*ProxyV1ServiceSessionInteractionReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -807,24 +829,25 @@ type ListMessageInteractionParams struct {
 
 /*
 ListMessageInteraction Method for ListMessageInteraction
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
- * @param participantSid The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) to read the resources from.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
+ * @param ParticipantSid The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) to read the resources from.
  * @param optional nil or *ListMessageInteractionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ProxyV1ServiceSessionParticipantMessageInteractionReadResponse
 */
-func (c *DefaultApiService) ListMessageInteraction(serviceSid string, sessionSid string, participantSid string, params *ListMessageInteractionParams) (*ProxyV1ServiceSessionParticipantMessageInteractionReadResponse, error) {
+func (c *DefaultApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (*ProxyV1ServiceSessionParticipantMessageInteractionReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -850,22 +873,23 @@ type ListParticipantParams struct {
 /*
 ListParticipant Method for ListParticipant
 Retrieve a list of all Participants in a Session.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resources to read.
- * @param sessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resources to read.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resources to read.
+ * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resources to read.
  * @param optional nil or *ListParticipantOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ProxyV1ServiceSessionParticipantReadResponse
 */
-func (c *DefaultApiService) ListParticipant(serviceSid string, sessionSid string, params *ListParticipantParams) (*ProxyV1ServiceSessionParticipantReadResponse, error) {
+func (c *DefaultApiService) ListParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams) (*ProxyV1ServiceSessionParticipantReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", sessionSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -891,20 +915,21 @@ type ListPhoneNumberParams struct {
 /*
 ListPhoneNumber Method for ListPhoneNumber
 Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resources to read.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resources to read.
  * @param optional nil or *ListPhoneNumberOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ProxyV1ServicePhoneNumberReadResponse
 */
-func (c *DefaultApiService) ListPhoneNumber(serviceSid string, params *ListPhoneNumberParams) (*ProxyV1ServicePhoneNumberReadResponse, error) {
+func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) (*ProxyV1ServicePhoneNumberReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -937,11 +962,12 @@ Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will 
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ProxyV1ServiceReadResponse, error) {
 	path := "/v1/Services"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -967,20 +993,21 @@ type ListSessionParams struct {
 /*
 ListSession Method for ListSession
 Retrieve a list of all Sessions for the Service. A maximum of 100 records will be returned per page.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read.
  * @param optional nil or *ListSessionOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ProxyV1ServiceSessionReadResponse
 */
-func (c *DefaultApiService) ListSession(serviceSid string, params *ListSessionParams) (*ProxyV1ServiceSessionReadResponse, error) {
+func (c *DefaultApiService) ListSession(ServiceSid string, params *ListSessionParams) (*ProxyV1ServiceSessionReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1006,20 +1033,21 @@ type ListShortCodeParams struct {
 /*
 ListShortCode Method for ListShortCode
 Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
  * @param optional nil or *ListShortCodeOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ProxyV1ServiceShortCodeReadResponse
 */
-func (c *DefaultApiService) ListShortCode(serviceSid string, params *ListShortCodeParams) (*ProxyV1ServiceShortCodeReadResponse, error) {
+func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) (*ProxyV1ServiceShortCodeReadResponse, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1045,22 +1073,23 @@ type UpdatePhoneNumberParams struct {
 /*
 UpdatePhoneNumber Method for UpdatePhoneNumber
 Update a specific Proxy Number.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to update.
- * @param sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to update.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to update.
  * @param optional nil or *UpdatePhoneNumberOpts - Optional Parameters:
  * @param "IsReserved" (bool) - Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
 @return ProxyV1ServicePhoneNumber
 */
-func (c *DefaultApiService) UpdatePhoneNumber(serviceSid string, sid string, params *UpdatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
+func (c *DefaultApiService) UpdatePhoneNumber(ServiceSid string, Sid string, params *UpdatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.IsReserved != nil {
-		data.Set("IsReserved", string(*params.IsReserved))
+		data.Set("IsReserved", fmt.Sprint(*params.IsReserved)) 
 	}
 
 
@@ -1093,7 +1122,7 @@ type UpdateServiceParams struct {
 /*
 UpdateService Method for UpdateService
 Update a specific Service.
- * @param sid The Twilio-provided string that uniquely identifies the Service resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the Service resource to update.
  * @param optional nil or *UpdateServiceOpts - Optional Parameters:
  * @param "CallbackUrl" (string) - The URL we should call when the interaction status changes.
  * @param "ChatInstanceSid" (string) - The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
@@ -1105,36 +1134,37 @@ Update a specific Service.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
 @return ProxyV1Service
 */
-func (c *DefaultApiService) UpdateService(sid string, params *UpdateServiceParams) (*ProxyV1Service, error) {
+func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*ProxyV1Service, error) {
 	path := "/v1/Services/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.ChatInstanceSid != nil {
-		data.Set("ChatInstanceSid", *params.ChatInstanceSid)
+		data.Set("ChatInstanceSid", *params.ChatInstanceSid) 
 	}
 	if params != nil && params.DefaultTtl != nil {
-		data.Set("DefaultTtl", string(*params.DefaultTtl))
+		data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl)) 
 	}
 	if params != nil && params.GeoMatchLevel != nil {
-		data.Set("GeoMatchLevel", *params.GeoMatchLevel)
+		data.Set("GeoMatchLevel", *params.GeoMatchLevel) 
 	}
 	if params != nil && params.InterceptCallbackUrl != nil {
-		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
+		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl) 
 	}
 	if params != nil && params.NumberSelectionBehavior != nil {
-		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
+		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior) 
 	}
 	if params != nil && params.OutOfSessionCallbackUrl != nil {
-		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
+		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -1163,8 +1193,8 @@ type UpdateSessionParams struct {
 /*
 UpdateSession Method for UpdateSession
 Update a specific Session.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.
- * @param sid The Twilio-provided string that uniquely identifies the Session resource to update.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the Session resource to update.
  * @param optional nil or *UpdateSessionOpts - Optional Parameters:
  * @param "DateExpiry" (time.Time) - The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
  * @param "FailOnParticipantConflict" (bool) - [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to return a 400 error (Twilio error code 80604) when a request to set a Session to in-progress would cause Participants with the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not provided, requests will be allowed to succeed, and a Debugger notification (80801) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
@@ -1172,25 +1202,26 @@ Update a specific Session.
  * @param "Ttl" (int32) - The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
 @return ProxyV1ServiceSession
 */
-func (c *DefaultApiService) UpdateSession(serviceSid string, sid string, params *UpdateSessionParams) (*ProxyV1ServiceSession, error) {
+func (c *DefaultApiService) UpdateSession(ServiceSid string, Sid string, params *UpdateSessionParams) (*ProxyV1ServiceSession, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DateExpiry != nil {
-		data.Set("DateExpiry", string(*params.DateExpiry))
+		data.Set("DateExpiry", fmt.Sprint(*params.DateExpiry)) 
 	}
 	if params != nil && params.FailOnParticipantConflict != nil {
-		data.Set("FailOnParticipantConflict", string(*params.FailOnParticipantConflict))
+		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict)) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", string(*params.Ttl))
+		data.Set("Ttl", fmt.Sprint(*params.Ttl)) 
 	}
 
 
@@ -1216,22 +1247,23 @@ type UpdateShortCodeParams struct {
 /*
 UpdateShortCode Method for UpdateShortCode
 Update a specific Short Code.
- * @param serviceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.
- * @param sid The Twilio-provided string that uniquely identifies the ShortCode resource to update.
+ * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.
+ * @param Sid The Twilio-provided string that uniquely identifies the ShortCode resource to update.
  * @param optional nil or *UpdateShortCodeOpts - Optional Parameters:
  * @param "IsReserved" (bool) - Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
 @return ProxyV1ServiceShortCode
 */
-func (c *DefaultApiService) UpdateShortCode(serviceSid string, sid string, params *UpdateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
+func (c *DefaultApiService) UpdateShortCode(ServiceSid string, Sid string, params *UpdateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", serviceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.IsReserved != nil {
-		data.Set("IsReserved", string(*params.IsReserved))
+		data.Set("IsReserved", fmt.Sprint(*params.IsReserved)) 
 	}
 
 

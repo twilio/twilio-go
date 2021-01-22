@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## FetchMessagingCountry
 
-> PricingV1MessagingMessagingCountryInstance FetchMessagingCountry(ctx, isoCountry)
+> PricingV1MessagingMessagingCountryInstance FetchMessagingCountry(ctx, IsoCountry)
 
 
 
@@ -26,7 +26,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**isoCountry** | **string**| The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch. | 
+**IsoCountry** | **string**| The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch. | 
 
 ### Return type
 
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 
 ## FetchPhoneNumberCountry
 
-> PricingV1PhoneNumberPhoneNumberCountryInstance FetchPhoneNumberCountry(ctx, isoCountry)
+> PricingV1PhoneNumberPhoneNumberCountryInstance FetchPhoneNumberCountry(ctx, IsoCountry)
 
 
 
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**isoCountry** | **string**| The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch. | 
+**IsoCountry** | **string**| The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch. | 
 
 ### Return type
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## FetchVoiceCountry
 
-> PricingV1VoiceVoiceCountryInstance FetchVoiceCountry(ctx, isoCountry)
+> PricingV1VoiceVoiceCountryInstance FetchVoiceCountry(ctx, IsoCountry)
 
 
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**isoCountry** | **string**| The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch. | 
+**IsoCountry** | **string**| The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch. | 
 
 ### Return type
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 
 ## FetchVoiceNumber
 
-> PricingV1VoiceVoiceNumber FetchVoiceNumber(ctx, number)
+> PricingV1VoiceVoiceNumber FetchVoiceNumber(ctx, Number)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**number** | **string**| The phone number to fetch. | 
+**Number** | **string**| The phone number to fetch. | 
 
 ### Return type
 
@@ -163,7 +163,7 @@ Optional parameters are passed through a pointer to a ListMessagingCountryOpts s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -204,7 +204,7 @@ Optional parameters are passed through a pointer to a ListPhoneNumberCountryOpts
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -245,7 +245,7 @@ Optional parameters are passed through a pointer to a ListVoiceCountryOpts struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

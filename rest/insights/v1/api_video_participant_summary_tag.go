@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type VideoParticipantSummaryTagApiService struct {
@@ -31,16 +32,17 @@ func NewVideoParticipantSummaryTagApiService(client *twilio.Client) *VideoPartic
 
 /*
 FetchVideoParticipantSummary Method for FetchVideoParticipantSummary
- * @param roomSid
- * @param participantSid
+ * @param RoomSid
+ * @param ParticipantSid
 @return InsightsV1VideoRoomSummaryVideoParticipantSummary
 */
-func (c *VideoParticipantSummaryTagApiService) FetchVideoParticipantSummary(roomSid string, participantSid string) (*InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
+func (c *VideoParticipantSummaryTagApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid string) (*InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -66,20 +68,21 @@ type ListVideoParticipantSummaryParams struct {
 
 /*
 ListVideoParticipantSummary Method for ListVideoParticipantSummary
- * @param roomSid
+ * @param RoomSid
  * @param optional nil or *ListVideoParticipantSummaryOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return InsightsV1VideoRoomSummaryVideoParticipantSummaryReadResponse
 */
-func (c *VideoParticipantSummaryTagApiService) ListVideoParticipantSummary(roomSid string, params *ListVideoParticipantSummaryParams) (*InsightsV1VideoRoomSummaryVideoParticipantSummaryReadResponse, error) {
+func (c *VideoParticipantSummaryTagApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) (*InsightsV1VideoRoomSummaryVideoParticipantSummaryReadResponse, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 

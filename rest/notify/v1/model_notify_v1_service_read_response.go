@@ -11,6 +11,6 @@
 package openapi
 // NotifyV1ServiceReadResponse struct for NotifyV1ServiceReadResponse
 type NotifyV1ServiceReadResponse struct {
-	Meta NotifyV1CredentialReadResponseMeta `json:"meta,omitempty"`
-	Services []NotifyV1Service `json:"services,omitempty"`
+	Meta NotifyV1CredentialReadResponseMeta `json:"Meta,omitempty"`
+	Services []NotifyV1Service `json:"Services,omitempty"`
 }

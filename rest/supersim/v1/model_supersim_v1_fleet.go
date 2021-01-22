@@ -14,17 +14,17 @@ import (
 )
 // SupersimV1Fleet struct for SupersimV1Fleet
 type SupersimV1Fleet struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CommandsEnabled bool `json:"commands_enabled,omitempty"`
-	CommandsMethod string `json:"commands_method,omitempty"`
-	CommandsUrl string `json:"commands_url,omitempty"`
-	DataEnabled bool `json:"data_enabled,omitempty"`
-	DataLimit int32 `json:"data_limit,omitempty"`
-	DataMetering string `json:"data_metering,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	NetworkAccessProfileSid string `json:"network_access_profile_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CommandsEnabled bool `json:"CommandsEnabled,omitempty"`
+	CommandsMethod string `json:"CommandsMethod,omitempty"`
+	CommandsUrl string `json:"CommandsUrl,omitempty"`
+	DataEnabled bool `json:"DataEnabled,omitempty"`
+	DataLimit int32 `json:"DataLimit,omitempty"`
+	DataMetering string `json:"DataMetering,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	NetworkAccessProfileSid string `json:"NetworkAccessProfileSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

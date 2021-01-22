@@ -11,6 +11,6 @@
 package openapi
 // EventsV1SchemaVersionReadResponse struct for EventsV1SchemaVersionReadResponse
 type EventsV1SchemaVersionReadResponse struct {
-	Meta EventsV1SchemaVersionReadResponseMeta `json:"meta,omitempty"`
-	SchemaVersions []EventsV1SchemaVersion `json:"schema_versions,omitempty"`
+	Meta EventsV1SchemaVersionReadResponseMeta `json:"Meta,omitempty"`
+	SchemaVersions []EventsV1SchemaVersion `json:"SchemaVersions,omitempty"`
 }

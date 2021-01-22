@@ -14,16 +14,16 @@ import (
 )
 // StudioV2FlowFlowRevision struct for StudioV2FlowFlowRevision
 type StudioV2FlowFlowRevision struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CommitMessage string `json:"commit_message,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Definition map[string]interface{} `json:"definition,omitempty"`
-	Errors []map[string]interface{} `json:"errors,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Revision int32 `json:"revision,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
-	Valid bool `json:"valid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CommitMessage string `json:"CommitMessage,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Definition map[string]interface{} `json:"Definition,omitempty"`
+	Errors []map[string]interface{} `json:"Errors,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Revision int32 `json:"Revision,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
+	Valid bool `json:"Valid,omitempty"`
 }

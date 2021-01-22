@@ -11,6 +11,6 @@
 package openapi
 // PreviewWirelessCommandReadResponse struct for PreviewWirelessCommandReadResponse
 type PreviewWirelessCommandReadResponse struct {
-	Commands []PreviewWirelessCommand `json:"commands,omitempty"`
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
+	Commands []PreviewWirelessCommand `json:"Commands,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
 }

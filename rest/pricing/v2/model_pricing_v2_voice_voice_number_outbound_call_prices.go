@@ -11,7 +11,7 @@
 package openapi
 // PricingV2VoiceVoiceNumberOutboundCallPrices struct for PricingV2VoiceVoiceNumberOutboundCallPrices
 type PricingV2VoiceVoiceNumberOutboundCallPrices struct {
-	BasePrice float32 `json:"base_price,omitempty"`
-	CurrentPrice float32 `json:"current_price,omitempty"`
-	OriginationPrefixes []string `json:"origination_prefixes,omitempty"`
+	BasePrice float32 `json:"BasePrice,omitempty"`
+	CurrentPrice float32 `json:"CurrentPrice,omitempty"`
+	OriginationPrefixes []string `json:"OriginationPrefixes,omitempty"`
 }

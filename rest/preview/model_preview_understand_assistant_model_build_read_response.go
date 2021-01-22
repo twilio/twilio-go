@@ -11,6 +11,6 @@
 package openapi
 // PreviewUnderstandAssistantModelBuildReadResponse struct for PreviewUnderstandAssistantModelBuildReadResponse
 type PreviewUnderstandAssistantModelBuildReadResponse struct {
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
-	ModelBuilds []PreviewUnderstandAssistantModelBuild `json:"model_builds,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
+	ModelBuilds []PreviewUnderstandAssistantModelBuild `json:"ModelBuilds,omitempty"`
 }

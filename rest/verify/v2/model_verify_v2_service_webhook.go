@@ -14,15 +14,15 @@ import (
 )
 // VerifyV2ServiceWebhook struct for VerifyV2ServiceWebhook
 type VerifyV2ServiceWebhook struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	EventTypes []string `json:"event_types,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
-	WebhookMethod string `json:"webhook_method,omitempty"`
-	WebhookUrl string `json:"webhook_url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	EventTypes []string `json:"EventTypes,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WebhookMethod string `json:"WebhookMethod,omitempty"`
+	WebhookUrl string `json:"WebhookUrl,omitempty"`
 }

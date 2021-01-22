@@ -11,14 +11,14 @@
 package openapi
 // ApiV2010AccountRecordingRecordingAddOnResult struct for ApiV2010AccountRecordingRecordingAddOnResult
 type ApiV2010AccountRecordingRecordingAddOnResult struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AddOnConfigurationSid string `json:"add_on_configuration_sid,omitempty"`
-	AddOnSid string `json:"add_on_sid,omitempty"`
-	DateCompleted string `json:"date_completed,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	ReferenceSid string `json:"reference_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	SubresourceUris map[string]interface{} `json:"subresource_uris,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AddOnConfigurationSid string `json:"AddOnConfigurationSid,omitempty"`
+	AddOnSid string `json:"AddOnSid,omitempty"`
+	DateCompleted string `json:"DateCompleted,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	ReferenceSid string `json:"ReferenceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
 }

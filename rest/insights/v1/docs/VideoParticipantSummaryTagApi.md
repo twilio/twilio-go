@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchVideoParticipantSummary
 
-> InsightsV1VideoRoomSummaryVideoParticipantSummary FetchVideoParticipantSummary(ctx, roomSid, participantSid)
+> InsightsV1VideoRoomSummaryVideoParticipantSummary FetchVideoParticipantSummary(ctx, RoomSid, ParticipantSid)
 
 
 
@@ -21,8 +21,8 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roomSid** | **string**|  | 
-**participantSid** | **string**|  | 
+**RoomSid** | **string**|  | 
+**ParticipantSid** | **string**|  | 
 
 ### Return type
 
@@ -44,7 +44,7 @@ Name | Type | Description  | Notes
 
 ## ListVideoParticipantSummary
 
-> InsightsV1VideoRoomSummaryVideoParticipantSummaryReadResponse ListVideoParticipantSummary(ctx, roomSid, optional)
+> InsightsV1VideoRoomSummaryVideoParticipantSummaryReadResponse ListVideoParticipantSummary(ctx, RoomSid, optional)
 
 
 
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roomSid** | **string**|  | 
+**RoomSid** | **string**|  | 
  **optional** | ***ListVideoParticipantSummaryOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -65,7 +65,7 @@ Optional parameters are passed through a pointer to a ListVideoParticipantSummar
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

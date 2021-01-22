@@ -11,6 +11,6 @@
 package openapi
 // ChatV2ServiceBindingReadResponse struct for ChatV2ServiceBindingReadResponse
 type ChatV2ServiceBindingReadResponse struct {
-	Bindings []ChatV2ServiceBinding `json:"bindings,omitempty"`
-	Meta ChatV2CredentialReadResponseMeta `json:"meta,omitempty"`
+	Bindings []ChatV2ServiceBinding `json:"Bindings,omitempty"`
+	Meta ChatV2CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

@@ -11,6 +11,6 @@
 package openapi
 // SyncV1ServiceSyncListSyncListItemReadResponse struct for SyncV1ServiceSyncListSyncListItemReadResponse
 type SyncV1ServiceSyncListSyncListItemReadResponse struct {
-	Items []SyncV1ServiceSyncListSyncListItem `json:"items,omitempty"`
-	Meta SyncV1ServiceReadResponseMeta `json:"meta,omitempty"`
+	Items []SyncV1ServiceSyncListSyncListItem `json:"Items,omitempty"`
+	Meta SyncV1ServiceReadResponseMeta `json:"Meta,omitempty"`
 }

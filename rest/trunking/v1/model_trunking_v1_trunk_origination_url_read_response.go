@@ -11,6 +11,6 @@
 package openapi
 // TrunkingV1TrunkOriginationUrlReadResponse struct for TrunkingV1TrunkOriginationUrlReadResponse
 type TrunkingV1TrunkOriginationUrlReadResponse struct {
-	Meta TrunkingV1TrunkReadResponseMeta `json:"meta,omitempty"`
-	OriginationUrls []TrunkingV1TrunkOriginationUrl `json:"origination_urls,omitempty"`
+	Meta TrunkingV1TrunkReadResponseMeta `json:"Meta,omitempty"`
+	OriginationUrls []TrunkingV1TrunkOriginationUrl `json:"OriginationUrls,omitempty"`
 }

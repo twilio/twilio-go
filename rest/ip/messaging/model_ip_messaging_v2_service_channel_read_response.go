@@ -11,6 +11,6 @@
 package openapi
 // IpMessagingV2ServiceChannelReadResponse struct for IpMessagingV2ServiceChannelReadResponse
 type IpMessagingV2ServiceChannelReadResponse struct {
-	Channels []IpMessagingV2ServiceChannel `json:"channels,omitempty"`
-	Meta IpMessagingV2CredentialReadResponseMeta `json:"meta,omitempty"`
+	Channels []IpMessagingV2ServiceChannel `json:"Channels,omitempty"`
+	Meta IpMessagingV2CredentialReadResponseMeta `json:"Meta,omitempty"`
 }

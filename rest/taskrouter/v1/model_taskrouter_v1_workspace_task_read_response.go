@@ -11,6 +11,6 @@
 package openapi
 // TaskrouterV1WorkspaceTaskReadResponse struct for TaskrouterV1WorkspaceTaskReadResponse
 type TaskrouterV1WorkspaceTaskReadResponse struct {
-	Meta TaskrouterV1WorkspaceReadResponseMeta `json:"meta,omitempty"`
-	Tasks []TaskrouterV1WorkspaceTask `json:"tasks,omitempty"`
+	Meta TaskrouterV1WorkspaceReadResponseMeta `json:"Meta,omitempty"`
+	Tasks []TaskrouterV1WorkspaceTask `json:"Tasks,omitempty"`
 }

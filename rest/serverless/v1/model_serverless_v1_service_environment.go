@@ -14,15 +14,15 @@ import (
 )
 // ServerlessV1ServiceEnvironment struct for ServerlessV1ServiceEnvironment
 type ServerlessV1ServiceEnvironment struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	BuildSid string `json:"build_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DomainName string `json:"domain_name,omitempty"`
-	DomainSuffix string `json:"domain_suffix,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	BuildSid string `json:"BuildSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DomainName string `json:"DomainName,omitempty"`
+	DomainSuffix string `json:"DomainSuffix,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

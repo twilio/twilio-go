@@ -14,12 +14,12 @@ import (
 )
 // ConversationsV1ConversationConversationScopedWebhook struct for ConversationsV1ConversationConversationScopedWebhook
 type ConversationsV1ConversationConversationScopedWebhook struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Configuration map[string]interface{} `json:"configuration,omitempty"`
-	ConversationSid string `json:"conversation_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Target string `json:"target,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Configuration map[string]interface{} `json:"Configuration,omitempty"`
+	ConversationSid string `json:"ConversationSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Target string `json:"Target,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

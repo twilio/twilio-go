@@ -14,18 +14,18 @@ import (
 )
 // ApiV2010AccountCallCallFeedbackSummary struct for ApiV2010AccountCallCallFeedbackSummary
 type ApiV2010AccountCallCallFeedbackSummary struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CallCount int32 `json:"call_count,omitempty"`
-	CallFeedbackCount int32 `json:"call_feedback_count,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	EndDate time.Time `json:"end_date,omitempty"`
-	IncludeSubaccounts bool `json:"include_subaccounts,omitempty"`
-	Issues []map[string]interface{} `json:"issues,omitempty"`
-	QualityScoreAverage float32 `json:"quality_score_average,omitempty"`
-	QualityScoreMedian float32 `json:"quality_score_median,omitempty"`
-	QualityScoreStandardDeviation float32 `json:"quality_score_standard_deviation,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	StartDate time.Time `json:"start_date,omitempty"`
-	Status string `json:"status,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CallCount int32 `json:"CallCount,omitempty"`
+	CallFeedbackCount int32 `json:"CallFeedbackCount,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	EndDate time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts bool `json:"IncludeSubaccounts,omitempty"`
+	Issues []map[string]interface{} `json:"Issues,omitempty"`
+	QualityScoreAverage float32 `json:"QualityScoreAverage,omitempty"`
+	QualityScoreMedian float32 `json:"QualityScoreMedian,omitempty"`
+	QualityScoreStandardDeviation float32 `json:"QualityScoreStandardDeviation,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	StartDate time.Time `json:"StartDate,omitempty"`
+	Status string `json:"Status,omitempty"`
 }

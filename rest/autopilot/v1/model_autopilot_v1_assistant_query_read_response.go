@@ -11,6 +11,6 @@
 package openapi
 // AutopilotV1AssistantQueryReadResponse struct for AutopilotV1AssistantQueryReadResponse
 type AutopilotV1AssistantQueryReadResponse struct {
-	Meta AutopilotV1AssistantReadResponseMeta `json:"meta,omitempty"`
-	Queries []AutopilotV1AssistantQuery `json:"queries,omitempty"`
+	Meta AutopilotV1AssistantReadResponseMeta `json:"Meta,omitempty"`
+	Queries []AutopilotV1AssistantQuery `json:"Queries,omitempty"`
 }

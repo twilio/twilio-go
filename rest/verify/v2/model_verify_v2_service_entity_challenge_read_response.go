@@ -11,6 +11,6 @@
 package openapi
 // VerifyV2ServiceEntityChallengeReadResponse struct for VerifyV2ServiceEntityChallengeReadResponse
 type VerifyV2ServiceEntityChallengeReadResponse struct {
-	Challenges []VerifyV2ServiceEntityChallenge `json:"challenges,omitempty"`
-	Meta VerifyV2ServiceReadResponseMeta `json:"meta,omitempty"`
+	Challenges []VerifyV2ServiceEntityChallenge `json:"Challenges,omitempty"`
+	Meta VerifyV2ServiceReadResponseMeta `json:"Meta,omitempty"`
 }

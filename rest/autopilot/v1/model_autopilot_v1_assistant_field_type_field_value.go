@@ -14,14 +14,14 @@ import (
 )
 // AutopilotV1AssistantFieldTypeFieldValue struct for AutopilotV1AssistantFieldTypeFieldValue
 type AutopilotV1AssistantFieldTypeFieldValue struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssistantSid string `json:"assistant_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FieldTypeSid string `json:"field_type_sid,omitempty"`
-	Language string `json:"language,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SynonymOf string `json:"synonym_of,omitempty"`
-	Url string `json:"url,omitempty"`
-	Value string `json:"value,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssistantSid string `json:"AssistantSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FieldTypeSid string `json:"FieldTypeSid,omitempty"`
+	Language string `json:"Language,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SynonymOf string `json:"SynonymOf,omitempty"`
+	Url string `json:"Url,omitempty"`
+	Value string `json:"Value,omitempty"`
 }

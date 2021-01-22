@@ -14,22 +14,22 @@ import (
 )
 // FaxV1Fax struct for FaxV1Fax
 type FaxV1Fax struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ApiVersion string `json:"api_version,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Direction string `json:"direction,omitempty"`
-	Duration *int32 `json:"duration,omitempty"`
-	From string `json:"from,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	MediaSid string `json:"media_sid,omitempty"`
-	MediaUrl string `json:"media_url,omitempty"`
-	NumPages *int32 `json:"num_pages,omitempty"`
-	Price float32 `json:"price,omitempty"`
-	PriceUnit string `json:"price_unit,omitempty"`
-	Quality string `json:"quality,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	To string `json:"to,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ApiVersion string `json:"ApiVersion,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Direction string `json:"Direction,omitempty"`
+	Duration *int32 `json:"Duration,omitempty"`
+	From string `json:"From,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	MediaSid string `json:"MediaSid,omitempty"`
+	MediaUrl string `json:"MediaUrl,omitempty"`
+	NumPages *int32 `json:"NumPages,omitempty"`
+	Price float32 `json:"Price,omitempty"`
+	PriceUnit string `json:"PriceUnit,omitempty"`
+	Quality string `json:"Quality,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	To string `json:"To,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

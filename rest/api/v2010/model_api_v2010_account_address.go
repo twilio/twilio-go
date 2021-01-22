@@ -11,19 +11,19 @@
 package openapi
 // ApiV2010AccountAddress struct for ApiV2010AccountAddress
 type ApiV2010AccountAddress struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	City string `json:"city,omitempty"`
-	CustomerName string `json:"customer_name,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	EmergencyEnabled bool `json:"emergency_enabled,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	IsoCountry string `json:"iso_country,omitempty"`
-	PostalCode string `json:"postal_code,omitempty"`
-	Region string `json:"region,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Street string `json:"street,omitempty"`
-	Uri string `json:"uri,omitempty"`
-	Validated bool `json:"validated,omitempty"`
-	Verified bool `json:"verified,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	City string `json:"City,omitempty"`
+	CustomerName string `json:"CustomerName,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	EmergencyEnabled bool `json:"EmergencyEnabled,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	IsoCountry string `json:"IsoCountry,omitempty"`
+	PostalCode string `json:"PostalCode,omitempty"`
+	Region string `json:"Region,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Street string `json:"Street,omitempty"`
+	Uri string `json:"Uri,omitempty"`
+	Validated bool `json:"Validated,omitempty"`
+	Verified bool `json:"Verified,omitempty"`
 }

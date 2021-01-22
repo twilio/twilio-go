@@ -11,8 +11,8 @@
 package openapi
 // AutopilotV1AssistantStyleSheet struct for AutopilotV1AssistantStyleSheet
 type AutopilotV1AssistantStyleSheet struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssistantSid string `json:"assistant_sid,omitempty"`
-	Data map[string]interface{} `json:"data,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssistantSid string `json:"AssistantSid,omitempty"`
+	Data map[string]interface{} `json:"Data,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

@@ -11,6 +11,6 @@
 package openapi
 // WirelessV1SimReadResponse struct for WirelessV1SimReadResponse
 type WirelessV1SimReadResponse struct {
-	Meta WirelessV1CommandReadResponseMeta `json:"meta,omitempty"`
-	Sims []WirelessV1Sim `json:"sims,omitempty"`
+	Meta WirelessV1CommandReadResponseMeta `json:"Meta,omitempty"`
+	Sims []WirelessV1Sim `json:"Sims,omitempty"`
 }

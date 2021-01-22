@@ -14,19 +14,19 @@ import (
 )
 // VideoV1CompositionHook struct for VideoV1CompositionHook
 type VideoV1CompositionHook struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AudioSources []string `json:"audio_sources,omitempty"`
-	AudioSourcesExcluded []string `json:"audio_sources_excluded,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	Enabled bool `json:"enabled,omitempty"`
-	Format string `json:"format,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Resolution string `json:"resolution,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	StatusCallback *string `json:"status_callback,omitempty"`
-	StatusCallbackMethod string `json:"status_callback_method,omitempty"`
-	Trim bool `json:"trim,omitempty"`
-	Url string `json:"url,omitempty"`
-	VideoLayout map[string]interface{} `json:"video_layout,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AudioSources []string `json:"AudioSources,omitempty"`
+	AudioSourcesExcluded []string `json:"AudioSourcesExcluded,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	Enabled bool `json:"Enabled,omitempty"`
+	Format string `json:"Format,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Resolution string `json:"Resolution,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod string `json:"StatusCallbackMethod,omitempty"`
+	Trim bool `json:"Trim,omitempty"`
+	Url string `json:"Url,omitempty"`
+	VideoLayout map[string]interface{} `json:"VideoLayout,omitempty"`
 }

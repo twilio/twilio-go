@@ -11,9 +11,9 @@
 package openapi
 // WirelessV1SimUsageRecord struct for WirelessV1SimUsageRecord
 type WirelessV1SimUsageRecord struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Commands map[string]interface{} `json:"commands,omitempty"`
-	Data map[string]interface{} `json:"data,omitempty"`
-	Period map[string]interface{} `json:"period,omitempty"`
-	SimSid string `json:"sim_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Commands map[string]interface{} `json:"Commands,omitempty"`
+	Data map[string]interface{} `json:"Data,omitempty"`
+	Period map[string]interface{} `json:"Period,omitempty"`
+	SimSid string `json:"SimSid,omitempty"`
 }

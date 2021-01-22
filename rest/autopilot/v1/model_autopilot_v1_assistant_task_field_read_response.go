@@ -11,6 +11,6 @@
 package openapi
 // AutopilotV1AssistantTaskFieldReadResponse struct for AutopilotV1AssistantTaskFieldReadResponse
 type AutopilotV1AssistantTaskFieldReadResponse struct {
-	Fields []AutopilotV1AssistantTaskField `json:"fields,omitempty"`
-	Meta AutopilotV1AssistantReadResponseMeta `json:"meta,omitempty"`
+	Fields []AutopilotV1AssistantTaskField `json:"Fields,omitempty"`
+	Meta AutopilotV1AssistantReadResponseMeta `json:"Meta,omitempty"`
 }

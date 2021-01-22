@@ -11,6 +11,6 @@
 package openapi
 // PreviewWirelessSimReadResponse struct for PreviewWirelessSimReadResponse
 type PreviewWirelessSimReadResponse struct {
-	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"meta,omitempty"`
-	Sims []PreviewWirelessSim `json:"sims,omitempty"`
+	Meta PreviewBulkExportsExportDayReadResponseMeta `json:"Meta,omitempty"`
+	Sims []PreviewWirelessSim `json:"Sims,omitempty"`
 }

@@ -11,6 +11,6 @@
 package openapi
 // StudioV1FlowEngagementReadResponse struct for StudioV1FlowEngagementReadResponse
 type StudioV1FlowEngagementReadResponse struct {
-	Engagements []StudioV1FlowEngagement `json:"engagements,omitempty"`
-	Meta StudioV1FlowReadResponseMeta `json:"meta,omitempty"`
+	Engagements []StudioV1FlowEngagement `json:"Engagements,omitempty"`
+	Meta StudioV1FlowReadResponseMeta `json:"Meta,omitempty"`
 }

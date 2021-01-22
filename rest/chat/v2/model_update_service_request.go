@@ -22,39 +22,39 @@ type UpdateServiceRequest struct {
 	// A descriptive string that you create to describe the resource.
 	FriendlyName string `json:"FriendlyName,omitempty"`
 	// The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-	LimitsChannelMembers int32 `json:"Limits.ChannelMembers,omitempty"`
+	LimitsChannelMembers int32 `json:"LimitsChannelMembers,omitempty"`
 	// The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
-	LimitsUserChannels int32 `json:"Limits.UserChannels,omitempty"`
+	LimitsUserChannels int32 `json:"LimitsUserChannels,omitempty"`
 	// The message to send when a media message has no text. Can be used as placeholder message.
-	MediaCompatibilityMessage string `json:"Media.CompatibilityMessage,omitempty"`
+	MediaCompatibilityMessage string `json:"MediaCompatibilityMessage,omitempty"`
 	// Whether to send a notification when a member is added to a channel. The default is `false`.
-	NotificationsAddedToChannelEnabled bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	NotificationsAddedToChannelEnabled bool `json:"NotificationsAddedToChannelEnabled,omitempty"`
 	// The name of the sound to play when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-	NotificationsAddedToChannelSound string `json:"Notifications.AddedToChannel.Sound,omitempty"`
+	NotificationsAddedToChannelSound string `json:"NotificationsAddedToChannelSound,omitempty"`
 	// The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-	NotificationsAddedToChannelTemplate string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	NotificationsAddedToChannelTemplate string `json:"NotificationsAddedToChannelTemplate,omitempty"`
 	// Whether to send a notification when a user is invited to a channel. The default is `false`.
-	NotificationsInvitedToChannelEnabled bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	NotificationsInvitedToChannelEnabled bool `json:"NotificationsInvitedToChannelEnabled,omitempty"`
 	// The name of the sound to play when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-	NotificationsInvitedToChannelSound string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
+	NotificationsInvitedToChannelSound string `json:"NotificationsInvitedToChannelSound,omitempty"`
 	// The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-	NotificationsInvitedToChannelTemplate string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	NotificationsInvitedToChannelTemplate string `json:"NotificationsInvitedToChannelTemplate,omitempty"`
 	// Whether to log notifications. The default is `false`.
-	NotificationsLogEnabled bool `json:"Notifications.LogEnabled,omitempty"`
+	NotificationsLogEnabled bool `json:"NotificationsLogEnabled,omitempty"`
 	// Whether the new message badge is enabled. The default is `false`.
-	NotificationsNewMessageBadgeCountEnabled bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
+	NotificationsNewMessageBadgeCountEnabled bool `json:"NotificationsNewMessageBadgeCountEnabled,omitempty"`
 	// Whether to send a notification when a new message is added to a channel. The default is `false`.
-	NotificationsNewMessageEnabled bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	NotificationsNewMessageEnabled bool `json:"NotificationsNewMessageEnabled,omitempty"`
 	// The name of the sound to play when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-	NotificationsNewMessageSound string `json:"Notifications.NewMessage.Sound,omitempty"`
+	NotificationsNewMessageSound string `json:"NotificationsNewMessageSound,omitempty"`
 	// The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-	NotificationsNewMessageTemplate string `json:"Notifications.NewMessage.Template,omitempty"`
+	NotificationsNewMessageTemplate string `json:"NotificationsNewMessageTemplate,omitempty"`
 	// Whether to send a notification to a user when they are removed from a channel. The default is `false`.
-	NotificationsRemovedFromChannelEnabled bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	NotificationsRemovedFromChannelEnabled bool `json:"NotificationsRemovedFromChannelEnabled,omitempty"`
 	// The name of the sound to play to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-	NotificationsRemovedFromChannelSound string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
+	NotificationsRemovedFromChannelSound string `json:"NotificationsRemovedFromChannelSound,omitempty"`
 	// The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-	NotificationsRemovedFromChannelTemplate string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
+	NotificationsRemovedFromChannelTemplate string `json:"NotificationsRemovedFromChannelTemplate,omitempty"`
 	// The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won't be retried.
 	PostWebhookRetryCount int32 `json:"PostWebhookRetryCount,omitempty"`
 	// The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.

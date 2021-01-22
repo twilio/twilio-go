@@ -14,14 +14,14 @@ import (
 )
 // PreviewUnderstandAssistantTaskSample struct for PreviewUnderstandAssistantTaskSample
 type PreviewUnderstandAssistantTaskSample struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssistantSid string `json:"assistant_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Language string `json:"language,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SourceChannel string `json:"source_channel,omitempty"`
-	TaggedText string `json:"tagged_text,omitempty"`
-	TaskSid string `json:"task_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssistantSid string `json:"AssistantSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Language string `json:"Language,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SourceChannel string `json:"SourceChannel,omitempty"`
+	TaggedText string `json:"TaggedText,omitempty"`
+	TaskSid string `json:"TaskSid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

@@ -14,15 +14,15 @@ import (
 )
 // PreviewSyncServiceDocument struct for PreviewSyncServiceDocument
 type PreviewSyncServiceDocument struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CreatedBy string `json:"created_by,omitempty"`
-	Data map[string]interface{} `json:"data,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Revision string `json:"revision,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CreatedBy string `json:"CreatedBy,omitempty"`
+	Data map[string]interface{} `json:"Data,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Revision string `json:"Revision,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

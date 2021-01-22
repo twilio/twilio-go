@@ -33,7 +33,7 @@ Method | HTTP request | Description
 
 ## CreateCredentialList
 
-> TrunkingV1TrunkCredentialList CreateCredentialList(ctx, trunkSid, optional)
+> TrunkingV1TrunkCredentialList CreateCredentialList(ctx, TrunkSid, optional)
 
 
 
@@ -43,7 +43,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk to associate the credential list with. | 
+**TrunkSid** | **string**| The SID of the Trunk to associate the credential list with. | 
  **optional** | ***CreateCredentialListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -54,7 +54,7 @@ Optional parameters are passed through a pointer to a CreateCredentialListOpts s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **credentialListSid** | **optional.String**| The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list. | 
+ **CredentialListSid** | **optional.String**| The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list. | 
 
 ### Return type
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ## CreateIpAccessControlList
 
-> TrunkingV1TrunkIpAccessControlList CreateIpAccessControlList(ctx, trunkSid, optional)
+> TrunkingV1TrunkIpAccessControlList CreateIpAccessControlList(ctx, TrunkSid, optional)
 
 
 
@@ -88,7 +88,7 @@ Associate an IP Access Control List with a Trunk
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk to associate the IP Access Control List with. | 
+**TrunkSid** | **string**| The SID of the Trunk to associate the IP Access Control List with. | 
  **optional** | ***CreateIpAccessControlListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -99,7 +99,7 @@ Optional parameters are passed through a pointer to a CreateIpAccessControlListO
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **ipAccessControlListSid** | **optional.String**| The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk. | 
+ **IpAccessControlListSid** | **optional.String**| The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk. | 
 
 ### Return type
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ## CreateOriginationUrl
 
-> TrunkingV1TrunkOriginationUrl CreateOriginationUrl(ctx, trunkSid, optional)
+> TrunkingV1TrunkOriginationUrl CreateOriginationUrl(ctx, TrunkSid, optional)
 
 
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk to associate the resource with. | 
+**TrunkSid** | **string**| The SID of the Trunk to associate the resource with. | 
  **optional** | ***CreateOriginationUrlOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -142,11 +142,11 @@ Optional parameters are passed through a pointer to a CreateOriginationUrlOpts s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **enabled** | **optional.Bool**| Whether the URL is enabled. The default is &#x60;true&#x60;. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **priority** | **optional.Int32**| The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. | 
- **sipUrl** | **optional.String**| The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. | 
- **weight** | **optional.Int32**| The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. | 
+ **Enabled** | **optional.Bool**| Whether the URL is enabled. The default is &#x60;true&#x60;. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **Priority** | **optional.Int32**| The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. | 
+ **SipUrl** | **optional.String**| The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. | 
+ **Weight** | **optional.Int32**| The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. | 
 
 ### Return type
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## CreatePhoneNumber
 
-> TrunkingV1TrunkPhoneNumber CreatePhoneNumber(ctx, trunkSid, optional)
+> TrunkingV1TrunkPhoneNumber CreatePhoneNumber(ctx, TrunkSid, optional)
 
 
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk to associate the phone number with. | 
+**TrunkSid** | **string**| The SID of the Trunk to associate the phone number with. | 
  **optional** | ***CreatePhoneNumberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -189,7 +189,7 @@ Optional parameters are passed through a pointer to a CreatePhoneNumberOpts stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **phoneNumberSid** | **optional.String**| The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk. | 
+ **PhoneNumberSid** | **optional.String**| The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk. | 
 
 ### Return type
 
@@ -230,13 +230,13 @@ Optional parameters are passed through a pointer to a CreateTrunkOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
- **disasterRecoveryMethod** | **optional.String**| The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **disasterRecoveryUrl** | **optional.String**| The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. | 
- **domainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **secure** | **optional.Bool**| Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. | 
- **transferMode** | **optional.String**| The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. | 
+ **CnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
+ **DisasterRecoveryMethod** | **optional.String**| The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+ **DisasterRecoveryUrl** | **optional.String**| The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. | 
+ **DomainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **Secure** | **optional.Bool**| Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. | 
+ **TransferMode** | **optional.String**| The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. | 
 
 ### Return type
 
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCredentialList
 
-> DeleteCredentialList(ctx, trunkSid, sid)
+> DeleteCredentialList(ctx, TrunkSid, Sid)
 
 
 
@@ -268,8 +268,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to delete the credential list. | 
-**sid** | **string**| The unique string that we created to identify the CredentialList resource to delete. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to delete the credential list. | 
+**Sid** | **string**| The unique string that we created to identify the CredentialList resource to delete. | 
 
 ### Return type
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ## DeleteIpAccessControlList
 
-> DeleteIpAccessControlList(ctx, trunkSid, sid)
+> DeleteIpAccessControlList(ctx, TrunkSid, Sid)
 
 
 
@@ -303,8 +303,8 @@ Remove an associated IP Access Control List from a Trunk
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to delete the IP Access Control List. | 
-**sid** | **string**| The unique string that we created to identify the IpAccessControlList resource to delete. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to delete the IP Access Control List. | 
+**Sid** | **string**| The unique string that we created to identify the IpAccessControlList resource to delete. | 
 
 ### Return type
 
@@ -326,7 +326,7 @@ Name | Type | Description  | Notes
 
 ## DeleteOriginationUrl
 
-> DeleteOriginationUrl(ctx, trunkSid, sid)
+> DeleteOriginationUrl(ctx, TrunkSid, Sid)
 
 
 
@@ -336,8 +336,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to delete the OriginationUrl. | 
-**sid** | **string**| The unique string that we created to identify the OriginationUrl resource to delete. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to delete the OriginationUrl. | 
+**Sid** | **string**| The unique string that we created to identify the OriginationUrl resource to delete. | 
 
 ### Return type
 
@@ -359,7 +359,7 @@ Name | Type | Description  | Notes
 
 ## DeletePhoneNumber
 
-> DeletePhoneNumber(ctx, trunkSid, sid)
+> DeletePhoneNumber(ctx, TrunkSid, Sid)
 
 
 
@@ -369,8 +369,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to delete the PhoneNumber resource. | 
-**sid** | **string**| The unique string that we created to identify the PhoneNumber resource to delete. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to delete the PhoneNumber resource. | 
+**Sid** | **string**| The unique string that we created to identify the PhoneNumber resource to delete. | 
 
 ### Return type
 
@@ -392,7 +392,7 @@ Name | Type | Description  | Notes
 
 ## DeleteTrunk
 
-> DeleteTrunk(ctx, sid)
+> DeleteTrunk(ctx, Sid)
 
 
 
@@ -402,7 +402,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that we created to identify the Trunk resource to delete. | 
+**Sid** | **string**| The unique string that we created to identify the Trunk resource to delete. | 
 
 ### Return type
 
@@ -424,7 +424,7 @@ Name | Type | Description  | Notes
 
 ## FetchCredentialList
 
-> TrunkingV1TrunkCredentialList FetchCredentialList(ctx, trunkSid, sid)
+> TrunkingV1TrunkCredentialList FetchCredentialList(ctx, TrunkSid, Sid)
 
 
 
@@ -434,8 +434,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to fetch the credential list. | 
-**sid** | **string**| The unique string that we created to identify the CredentialList resource to fetch. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to fetch the credential list. | 
+**Sid** | **string**| The unique string that we created to identify the CredentialList resource to fetch. | 
 
 ### Return type
 
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 ## FetchIpAccessControlList
 
-> TrunkingV1TrunkIpAccessControlList FetchIpAccessControlList(ctx, trunkSid, sid)
+> TrunkingV1TrunkIpAccessControlList FetchIpAccessControlList(ctx, TrunkSid, Sid)
 
 
 
@@ -467,8 +467,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to fetch the IP Access Control List. | 
-**sid** | **string**| The unique string that we created to identify the IpAccessControlList resource to fetch. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to fetch the IP Access Control List. | 
+**Sid** | **string**| The unique string that we created to identify the IpAccessControlList resource to fetch. | 
 
 ### Return type
 
@@ -490,7 +490,7 @@ Name | Type | Description  | Notes
 
 ## FetchOriginationUrl
 
-> TrunkingV1TrunkOriginationUrl FetchOriginationUrl(ctx, trunkSid, sid)
+> TrunkingV1TrunkOriginationUrl FetchOriginationUrl(ctx, TrunkSid, Sid)
 
 
 
@@ -500,8 +500,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to fetch the OriginationUrl. | 
-**sid** | **string**| The unique string that we created to identify the OriginationUrl resource to fetch. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to fetch the OriginationUrl. | 
+**Sid** | **string**| The unique string that we created to identify the OriginationUrl resource to fetch. | 
 
 ### Return type
 
@@ -523,7 +523,7 @@ Name | Type | Description  | Notes
 
 ## FetchPhoneNumber
 
-> TrunkingV1TrunkPhoneNumber FetchPhoneNumber(ctx, trunkSid, sid)
+> TrunkingV1TrunkPhoneNumber FetchPhoneNumber(ctx, TrunkSid, Sid)
 
 
 
@@ -533,8 +533,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to fetch the PhoneNumber resource. | 
-**sid** | **string**| The unique string that we created to identify the PhoneNumber resource to fetch. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to fetch the PhoneNumber resource. | 
+**Sid** | **string**| The unique string that we created to identify the PhoneNumber resource to fetch. | 
 
 ### Return type
 
@@ -556,7 +556,7 @@ Name | Type | Description  | Notes
 
 ## FetchRecording
 
-> TrunkingV1TrunkRecording FetchRecording(ctx, trunkSid)
+> TrunkingV1TrunkRecording FetchRecording(ctx, TrunkSid)
 
 
 
@@ -566,7 +566,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to fetch the recording settings. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to fetch the recording settings. | 
 
 ### Return type
 
@@ -588,7 +588,7 @@ Name | Type | Description  | Notes
 
 ## FetchTrunk
 
-> TrunkingV1Trunk FetchTrunk(ctx, sid)
+> TrunkingV1Trunk FetchTrunk(ctx, Sid)
 
 
 
@@ -598,7 +598,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that we created to identify the Trunk resource to fetch. | 
+**Sid** | **string**| The unique string that we created to identify the Trunk resource to fetch. | 
 
 ### Return type
 
@@ -620,7 +620,7 @@ Name | Type | Description  | Notes
 
 ## ListCredentialList
 
-> TrunkingV1TrunkCredentialListReadResponse ListCredentialList(ctx, trunkSid, optional)
+> TrunkingV1TrunkCredentialListReadResponse ListCredentialList(ctx, TrunkSid, optional)
 
 
 
@@ -630,7 +630,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to read the credential lists. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to read the credential lists. | 
  **optional** | ***ListCredentialListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -641,7 +641,7 @@ Optional parameters are passed through a pointer to a ListCredentialListOpts str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -663,7 +663,7 @@ Name | Type | Description  | Notes
 
 ## ListIpAccessControlList
 
-> TrunkingV1TrunkIpAccessControlListReadResponse ListIpAccessControlList(ctx, trunkSid, optional)
+> TrunkingV1TrunkIpAccessControlListReadResponse ListIpAccessControlList(ctx, TrunkSid, optional)
 
 
 
@@ -675,7 +675,7 @@ List all IP Access Control Lists for a Trunk
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to read the IP Access Control Lists. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to read the IP Access Control Lists. | 
  **optional** | ***ListIpAccessControlListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -686,7 +686,7 @@ Optional parameters are passed through a pointer to a ListIpAccessControlListOpt
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -708,7 +708,7 @@ Name | Type | Description  | Notes
 
 ## ListOriginationUrl
 
-> TrunkingV1TrunkOriginationUrlReadResponse ListOriginationUrl(ctx, trunkSid, optional)
+> TrunkingV1TrunkOriginationUrlReadResponse ListOriginationUrl(ctx, TrunkSid, optional)
 
 
 
@@ -718,7 +718,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to read the OriginationUrl. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to read the OriginationUrl. | 
  **optional** | ***ListOriginationUrlOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -729,7 +729,7 @@ Optional parameters are passed through a pointer to a ListOriginationUrlOpts str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -751,7 +751,7 @@ Name | Type | Description  | Notes
 
 ## ListPhoneNumber
 
-> TrunkingV1TrunkPhoneNumberReadResponse ListPhoneNumber(ctx, trunkSid, optional)
+> TrunkingV1TrunkPhoneNumberReadResponse ListPhoneNumber(ctx, TrunkSid, optional)
 
 
 
@@ -761,7 +761,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to read the PhoneNumber resources. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to read the PhoneNumber resources. | 
  **optional** | ***ListPhoneNumberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -772,7 +772,7 @@ Optional parameters are passed through a pointer to a ListPhoneNumberOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -813,7 +813,7 @@ Optional parameters are passed through a pointer to a ListTrunkOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -835,7 +835,7 @@ Name | Type | Description  | Notes
 
 ## UpdateOriginationUrl
 
-> TrunkingV1TrunkOriginationUrl UpdateOriginationUrl(ctx, trunkSid, sid, optional)
+> TrunkingV1TrunkOriginationUrl UpdateOriginationUrl(ctx, TrunkSid, Sid, optional)
 
 
 
@@ -845,8 +845,8 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk from which to update the OriginationUrl. | 
-**sid** | **string**| The unique string that we created to identify the OriginationUrl resource to update. | 
+**TrunkSid** | **string**| The SID of the Trunk from which to update the OriginationUrl. | 
+**Sid** | **string**| The unique string that we created to identify the OriginationUrl resource to update. | 
  **optional** | ***UpdateOriginationUrlOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -858,11 +858,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **enabled** | **optional.Bool**| Whether the URL is enabled. The default is &#x60;true&#x60;. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **priority** | **optional.Int32**| The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. | 
- **sipUrl** | **optional.String**| The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported. | 
- **weight** | **optional.Int32**| The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. | 
+ **Enabled** | **optional.Bool**| Whether the URL is enabled. The default is &#x60;true&#x60;. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **Priority** | **optional.Int32**| The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. | 
+ **SipUrl** | **optional.String**| The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported. | 
+ **Weight** | **optional.Int32**| The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. | 
 
 ### Return type
 
@@ -884,7 +884,7 @@ Name | Type | Description  | Notes
 
 ## UpdateRecording
 
-> TrunkingV1TrunkRecording UpdateRecording(ctx, trunkSid, optional)
+> TrunkingV1TrunkRecording UpdateRecording(ctx, TrunkSid, optional)
 
 
 
@@ -894,7 +894,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**trunkSid** | **string**| The SID of the Trunk that will have its recording settings updated. | 
+**TrunkSid** | **string**| The SID of the Trunk that will have its recording settings updated. | 
  **optional** | ***UpdateRecordingOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -905,8 +905,8 @@ Optional parameters are passed through a pointer to a UpdateRecordingOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **mode** | **optional.String**| The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual. | 
- **trim** | **optional.String**| The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence. | 
+ **Mode** | **optional.String**| The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual. | 
+ **Trim** | **optional.String**| The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence. | 
 
 ### Return type
 
@@ -928,7 +928,7 @@ Name | Type | Description  | Notes
 
 ## UpdateTrunk
 
-> TrunkingV1Trunk UpdateTrunk(ctx, sid, optional)
+> TrunkingV1Trunk UpdateTrunk(ctx, Sid, optional)
 
 
 
@@ -938,7 +938,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The unique string that we created to identify the OriginationUrl resource to update. | 
+**Sid** | **string**| The unique string that we created to identify the OriginationUrl resource to update. | 
  **optional** | ***UpdateTrunkOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -949,13 +949,13 @@ Optional parameters are passed through a pointer to a UpdateTrunkOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
- **disasterRecoveryMethod** | **optional.String**| The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **disasterRecoveryUrl** | **optional.String**| The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. | 
- **domainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **secure** | **optional.Bool**| Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. | 
- **transferMode** | **optional.String**| The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. | 
+ **CnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
+ **DisasterRecoveryMethod** | **optional.String**| The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+ **DisasterRecoveryUrl** | **optional.String**| The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. | 
+ **DomainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **Secure** | **optional.Bool**| Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. | 
+ **TransferMode** | **optional.String**| The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. | 
 
 ### Return type
 

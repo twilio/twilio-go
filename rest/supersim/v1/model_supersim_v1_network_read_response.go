@@ -11,6 +11,6 @@
 package openapi
 // SupersimV1NetworkReadResponse struct for SupersimV1NetworkReadResponse
 type SupersimV1NetworkReadResponse struct {
-	Meta SupersimV1CommandReadResponseMeta `json:"meta,omitempty"`
-	Networks []SupersimV1Network `json:"networks,omitempty"`
+	Meta SupersimV1CommandReadResponseMeta `json:"Meta,omitempty"`
+	Networks []SupersimV1Network `json:"Networks,omitempty"`
 }

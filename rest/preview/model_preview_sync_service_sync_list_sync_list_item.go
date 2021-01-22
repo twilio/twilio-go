@@ -14,14 +14,14 @@ import (
 )
 // PreviewSyncServiceSyncListSyncListItem struct for PreviewSyncServiceSyncListSyncListItem
 type PreviewSyncServiceSyncListSyncListItem struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	CreatedBy string `json:"created_by,omitempty"`
-	Data map[string]interface{} `json:"data,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Index int32 `json:"index,omitempty"`
-	ListSid string `json:"list_sid,omitempty"`
-	Revision string `json:"revision,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	CreatedBy string `json:"CreatedBy,omitempty"`
+	Data map[string]interface{} `json:"Data,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Index int32 `json:"Index,omitempty"`
+	ListSid string `json:"ListSid,omitempty"`
+	Revision string `json:"Revision,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

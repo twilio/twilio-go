@@ -14,11 +14,11 @@ import (
 )
 // EventsV1EventType struct for EventsV1EventType
 type EventsV1EventType struct {
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Description string `json:"description,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	SchemaId string `json:"schema_id,omitempty"`
-	Type string `json:"type,omitempty"`
-	Url string `json:"url,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Description string `json:"Description,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	SchemaId string `json:"SchemaId,omitempty"`
+	Type string `json:"Type,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

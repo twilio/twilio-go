@@ -11,13 +11,13 @@
 package openapi
 // TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics struct for TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics
 type TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	LongestTaskWaitingAge int32 `json:"longest_task_waiting_age,omitempty"`
-	LongestTaskWaitingSid string `json:"longest_task_waiting_sid,omitempty"`
-	TasksByPriority map[string]interface{} `json:"tasks_by_priority,omitempty"`
-	TasksByStatus map[string]interface{} `json:"tasks_by_status,omitempty"`
-	TotalTasks int32 `json:"total_tasks,omitempty"`
-	Url string `json:"url,omitempty"`
-	WorkflowSid string `json:"workflow_sid,omitempty"`
-	WorkspaceSid string `json:"workspace_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	LongestTaskWaitingAge int32 `json:"LongestTaskWaitingAge,omitempty"`
+	LongestTaskWaitingSid string `json:"LongestTaskWaitingSid,omitempty"`
+	TasksByPriority map[string]interface{} `json:"TasksByPriority,omitempty"`
+	TasksByStatus map[string]interface{} `json:"TasksByStatus,omitempty"`
+	TotalTasks int32 `json:"TotalTasks,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WorkflowSid string `json:"WorkflowSid,omitempty"`
+	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
 }

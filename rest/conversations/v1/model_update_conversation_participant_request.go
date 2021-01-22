@@ -27,9 +27,9 @@ type UpdateConversationParticipantRequest struct {
 	// Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 	LastReadTimestamp string `json:"LastReadTimestamp,omitempty"`
 	// The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
-	MessagingBindingProjectedAddress string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProjectedAddress string `json:"MessagingBindingProjectedAddress,omitempty"`
 	// The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
-	MessagingBindingProxyAddress string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	MessagingBindingProxyAddress string `json:"MessagingBindingProxyAddress,omitempty"`
 	// The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 	RoleSid string `json:"RoleSid,omitempty"`
 }

@@ -14,19 +14,19 @@ import (
 )
 // ApiV2010AccountUsageUsageRecordUsageRecordToday struct for ApiV2010AccountUsageUsageRecordUsageRecordToday
 type ApiV2010AccountUsageUsageRecordUsageRecordToday struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ApiVersion string `json:"api_version,omitempty"`
-	AsOf string `json:"as_of,omitempty"`
-	Category string `json:"category,omitempty"`
-	Count string `json:"count,omitempty"`
-	CountUnit string `json:"count_unit,omitempty"`
-	Description string `json:"description,omitempty"`
-	EndDate time.Time `json:"end_date,omitempty"`
-	Price float32 `json:"price,omitempty"`
-	PriceUnit string `json:"price_unit,omitempty"`
-	StartDate time.Time `json:"start_date,omitempty"`
-	SubresourceUris map[string]interface{} `json:"subresource_uris,omitempty"`
-	Uri string `json:"uri,omitempty"`
-	Usage string `json:"usage,omitempty"`
-	UsageUnit string `json:"usage_unit,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ApiVersion string `json:"ApiVersion,omitempty"`
+	AsOf string `json:"AsOf,omitempty"`
+	Category string `json:"Category,omitempty"`
+	Count string `json:"Count,omitempty"`
+	CountUnit string `json:"CountUnit,omitempty"`
+	Description string `json:"Description,omitempty"`
+	EndDate time.Time `json:"EndDate,omitempty"`
+	Price float32 `json:"Price,omitempty"`
+	PriceUnit string `json:"PriceUnit,omitempty"`
+	StartDate time.Time `json:"StartDate,omitempty"`
+	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
+	Uri string `json:"Uri,omitempty"`
+	Usage string `json:"Usage,omitempty"`
+	UsageUnit string `json:"UsageUnit,omitempty"`
 }

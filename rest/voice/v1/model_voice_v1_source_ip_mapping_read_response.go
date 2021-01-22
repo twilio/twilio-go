@@ -11,6 +11,6 @@
 package openapi
 // VoiceV1SourceIpMappingReadResponse struct for VoiceV1SourceIpMappingReadResponse
 type VoiceV1SourceIpMappingReadResponse struct {
-	Meta VoiceV1ByocTrunkReadResponseMeta `json:"meta,omitempty"`
-	SourceIpMappings []VoiceV1SourceIpMapping `json:"source_ip_mappings,omitempty"`
+	Meta VoiceV1ByocTrunkReadResponseMeta `json:"Meta,omitempty"`
+	SourceIpMappings []VoiceV1SourceIpMapping `json:"SourceIpMappings,omitempty"`
 }

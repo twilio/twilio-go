@@ -11,6 +11,6 @@
 package openapi
 // IpMessagingV2ServiceChannelChannelWebhookReadResponse struct for IpMessagingV2ServiceChannelChannelWebhookReadResponse
 type IpMessagingV2ServiceChannelChannelWebhookReadResponse struct {
-	Meta IpMessagingV2CredentialReadResponseMeta `json:"meta,omitempty"`
-	Webhooks []IpMessagingV2ServiceChannelChannelWebhook `json:"webhooks,omitempty"`
+	Meta IpMessagingV2CredentialReadResponseMeta `json:"Meta,omitempty"`
+	Webhooks []IpMessagingV2ServiceChannelChannelWebhook `json:"Webhooks,omitempty"`
 }

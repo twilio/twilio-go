@@ -11,6 +11,6 @@
 package openapi
 // TrunkingV1TrunkRecording struct for TrunkingV1TrunkRecording
 type TrunkingV1TrunkRecording struct {
-	Mode string `json:"mode,omitempty"`
-	Trim string `json:"trim,omitempty"`
+	Mode string `json:"Mode,omitempty"`
+	Trim string `json:"Trim,omitempty"`
 }

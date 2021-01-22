@@ -32,10 +32,10 @@ Optional parameters are passed through a pointer to a CreateFlowOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **commitMessage** | **optional.String**| Description on change made in the revision. | 
- **definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
- **friendlyName** | **optional.String**| The string that you assigned to describe the Flow. | 
- **status** | **optional.String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
+ **CommitMessage** | **optional.String**| Description on change made in the revision. | 
+ **Definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
+ **FriendlyName** | **optional.String**| The string that you assigned to describe the Flow. | 
+ **Status** | **optional.String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
 
 ### Return type
 
@@ -78,7 +78,7 @@ Optional parameters are passed through a pointer to a ListFlowOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

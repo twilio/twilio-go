@@ -11,6 +11,6 @@
 package openapi
 // ServerlessV1ServiceEnvironmentVariableReadResponse struct for ServerlessV1ServiceEnvironmentVariableReadResponse
 type ServerlessV1ServiceEnvironmentVariableReadResponse struct {
-	Meta ServerlessV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	Variables []ServerlessV1ServiceEnvironmentVariable `json:"variables,omitempty"`
+	Meta ServerlessV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	Variables []ServerlessV1ServiceEnvironmentVariable `json:"Variables,omitempty"`
 }

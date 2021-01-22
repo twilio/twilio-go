@@ -11,6 +11,6 @@
 package openapi
 // ChatV2ServiceRoleReadResponse struct for ChatV2ServiceRoleReadResponse
 type ChatV2ServiceRoleReadResponse struct {
-	Meta ChatV2CredentialReadResponseMeta `json:"meta,omitempty"`
-	Roles []ChatV2ServiceRole `json:"roles,omitempty"`
+	Meta ChatV2CredentialReadResponseMeta `json:"Meta,omitempty"`
+	Roles []ChatV2ServiceRole `json:"Roles,omitempty"`
 }

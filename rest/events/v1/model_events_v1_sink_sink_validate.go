@@ -11,5 +11,5 @@
 package openapi
 // EventsV1SinkSinkValidate struct for EventsV1SinkSinkValidate
 type EventsV1SinkSinkValidate struct {
-	Result string `json:"result,omitempty"`
+	Result string `json:"Result,omitempty"`
 }

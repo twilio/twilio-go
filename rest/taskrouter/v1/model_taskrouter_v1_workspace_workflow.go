@@ -14,17 +14,17 @@ import (
 )
 // TaskrouterV1WorkspaceWorkflow struct for TaskrouterV1WorkspaceWorkflow
 type TaskrouterV1WorkspaceWorkflow struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssignmentCallbackUrl string `json:"assignment_callback_url,omitempty"`
-	Configuration string `json:"configuration,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DocumentContentType string `json:"document_content_type,omitempty"`
-	FallbackAssignmentCallbackUrl string `json:"fallback_assignment_callback_url,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	TaskReservationTimeout int32 `json:"task_reservation_timeout,omitempty"`
-	Url string `json:"url,omitempty"`
-	WorkspaceSid string `json:"workspace_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssignmentCallbackUrl string `json:"AssignmentCallbackUrl,omitempty"`
+	Configuration string `json:"Configuration,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DocumentContentType string `json:"DocumentContentType,omitempty"`
+	FallbackAssignmentCallbackUrl string `json:"FallbackAssignmentCallbackUrl,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TaskReservationTimeout int32 `json:"TaskReservationTimeout,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
 }

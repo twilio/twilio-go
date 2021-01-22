@@ -14,9 +14,9 @@ import (
 )
 // EventsV1Schema struct for EventsV1Schema
 type EventsV1Schema struct {
-	Id string `json:"id,omitempty"`
-	LastCreated time.Time `json:"last_created,omitempty"`
-	LastVersion int32 `json:"last_version,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Url string `json:"url,omitempty"`
+	Id string `json:"Id,omitempty"`
+	LastCreated time.Time `json:"LastCreated,omitempty"`
+	LastVersion int32 `json:"LastVersion,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

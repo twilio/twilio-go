@@ -14,19 +14,19 @@ import (
 )
 // MonitorV1Alert struct for MonitorV1Alert
 type MonitorV1Alert struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AlertText string `json:"alert_text,omitempty"`
-	ApiVersion string `json:"api_version,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateGenerated time.Time `json:"date_generated,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	ErrorCode string `json:"error_code,omitempty"`
-	LogLevel string `json:"log_level,omitempty"`
-	MoreInfo string `json:"more_info,omitempty"`
-	RequestMethod string `json:"request_method,omitempty"`
-	RequestUrl string `json:"request_url,omitempty"`
-	ResourceSid string `json:"resource_sid,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AlertText string `json:"AlertText,omitempty"`
+	ApiVersion string `json:"ApiVersion,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateGenerated time.Time `json:"DateGenerated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	ErrorCode string `json:"ErrorCode,omitempty"`
+	LogLevel string `json:"LogLevel,omitempty"`
+	MoreInfo string `json:"MoreInfo,omitempty"`
+	RequestMethod string `json:"RequestMethod,omitempty"`
+	RequestUrl string `json:"RequestUrl,omitempty"`
+	ResourceSid string `json:"ResourceSid,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

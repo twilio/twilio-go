@@ -11,6 +11,6 @@
 package openapi
 // VoiceV1ConnectionPolicyReadResponse struct for VoiceV1ConnectionPolicyReadResponse
 type VoiceV1ConnectionPolicyReadResponse struct {
-	ConnectionPolicies []VoiceV1ConnectionPolicy `json:"connection_policies,omitempty"`
-	Meta VoiceV1ByocTrunkReadResponseMeta `json:"meta,omitempty"`
+	ConnectionPolicies []VoiceV1ConnectionPolicy `json:"ConnectionPolicies,omitempty"`
+	Meta VoiceV1ByocTrunkReadResponseMeta `json:"Meta,omitempty"`
 }

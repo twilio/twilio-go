@@ -49,11 +49,12 @@ Create a Flow.
 func (c *FlowsApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, error) {
 	path := "/v2/Flows"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CommitMessage != nil {
-		data.Set("CommitMessage", *params.CommitMessage)
+		data.Set("CommitMessage", *params.CommitMessage) 
 	}
 	if params != nil && params.Definition != nil {
 		v, err := json.Marshal(params.Definition)
@@ -62,13 +63,13 @@ func (c *FlowsApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, e
 			return nil, err
 		}
 
-		data.Set("Definition", string(v))
+		data.Set("Definition", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 
@@ -101,11 +102,12 @@ Retrieve a list of all Flows.
 func (c *FlowsApiService) ListFlow(params *ListFlowParams) (*StudioV2FlowReadResponse, error) {
 	path := "/v2/Flows"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 

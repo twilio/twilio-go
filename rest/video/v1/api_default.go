@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -58,32 +60,33 @@ CreateComposition Method for CreateComposition
 func (c *DefaultApiService) CreateComposition(params *CreateCompositionParams) (*VideoV1Composition, error) {
 	path := "/v1/Compositions"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AudioSources != nil {
-		data.Set("AudioSources", *params.AudioSources)
+		data.Set("AudioSources",  strings.Join(*params.AudioSources, ","))
 	}
 	if params != nil && params.AudioSourcesExcluded != nil {
-		data.Set("AudioSourcesExcluded", *params.AudioSourcesExcluded)
+		data.Set("AudioSourcesExcluded",  strings.Join(*params.AudioSourcesExcluded, ","))
 	}
 	if params != nil && params.Format != nil {
-		data.Set("Format", *params.Format)
+		data.Set("Format", *params.Format) 
 	}
 	if params != nil && params.Resolution != nil {
-		data.Set("Resolution", *params.Resolution)
+		data.Set("Resolution", *params.Resolution) 
 	}
 	if params != nil && params.RoomSid != nil {
-		data.Set("RoomSid", *params.RoomSid)
+		data.Set("RoomSid", *params.RoomSid) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.Trim != nil {
-		data.Set("Trim", string(*params.Trim))
+		data.Set("Trim", fmt.Sprint(*params.Trim)) 
 	}
 	if params != nil && params.VideoLayout != nil {
 		v, err := json.Marshal(params.VideoLayout)
@@ -92,7 +95,7 @@ func (c *DefaultApiService) CreateComposition(params *CreateCompositionParams) (
 			return nil, err
 		}
 
-		data.Set("VideoLayout", string(v))
+		data.Set("VideoLayout", fmt.Sprint(v))
 	}
 
 
@@ -142,35 +145,36 @@ CreateCompositionHook Method for CreateCompositionHook
 func (c *DefaultApiService) CreateCompositionHook(params *CreateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AudioSources != nil {
-		data.Set("AudioSources", *params.AudioSources)
+		data.Set("AudioSources",  strings.Join(*params.AudioSources, ","))
 	}
 	if params != nil && params.AudioSourcesExcluded != nil {
-		data.Set("AudioSourcesExcluded", *params.AudioSourcesExcluded)
+		data.Set("AudioSourcesExcluded",  strings.Join(*params.AudioSourcesExcluded, ","))
 	}
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.Format != nil {
-		data.Set("Format", *params.Format)
+		data.Set("Format", *params.Format) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Resolution != nil {
-		data.Set("Resolution", *params.Resolution)
+		data.Set("Resolution", *params.Resolution) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.Trim != nil {
-		data.Set("Trim", string(*params.Trim))
+		data.Set("Trim", fmt.Sprint(*params.Trim)) 
 	}
 	if params != nil && params.VideoLayout != nil {
 		v, err := json.Marshal(params.VideoLayout)
@@ -179,7 +183,7 @@ func (c *DefaultApiService) CreateCompositionHook(params *CreateCompositionHookP
 			return nil, err
 		}
 
-		data.Set("VideoLayout", string(v))
+		data.Set("VideoLayout", fmt.Sprint(v))
 	}
 
 
@@ -221,26 +225,27 @@ CreateCompositionSettings Method for CreateCompositionSettings
 func (c *DefaultApiService) CreateCompositionSettings(params *CreateCompositionSettingsParams) (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AwsCredentialsSid != nil {
-		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
+		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid) 
 	}
 	if params != nil && params.AwsS3Url != nil {
-		data.Set("AwsS3Url", *params.AwsS3Url)
+		data.Set("AwsS3Url", *params.AwsS3Url) 
 	}
 	if params != nil && params.AwsStorageEnabled != nil {
-		data.Set("AwsStorageEnabled", string(*params.AwsStorageEnabled))
+		data.Set("AwsStorageEnabled", fmt.Sprint(*params.AwsStorageEnabled)) 
 	}
 	if params != nil && params.EncryptionEnabled != nil {
-		data.Set("EncryptionEnabled", string(*params.EncryptionEnabled))
+		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled)) 
 	}
 	if params != nil && params.EncryptionKeySid != nil {
-		data.Set("EncryptionKeySid", *params.EncryptionKeySid)
+		data.Set("EncryptionKeySid", *params.EncryptionKeySid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -282,26 +287,27 @@ CreateRecordingSettings Method for CreateRecordingSettings
 func (c *DefaultApiService) CreateRecordingSettings(params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AwsCredentialsSid != nil {
-		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
+		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid) 
 	}
 	if params != nil && params.AwsS3Url != nil {
-		data.Set("AwsS3Url", *params.AwsS3Url)
+		data.Set("AwsS3Url", *params.AwsS3Url) 
 	}
 	if params != nil && params.AwsStorageEnabled != nil {
-		data.Set("AwsStorageEnabled", string(*params.AwsStorageEnabled))
+		data.Set("AwsStorageEnabled", fmt.Sprint(*params.AwsStorageEnabled)) 
 	}
 	if params != nil && params.EncryptionEnabled != nil {
-		data.Set("EncryptionEnabled", string(*params.EncryptionEnabled))
+		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled)) 
 	}
 	if params != nil && params.EncryptionKeySid != nil {
-		data.Set("EncryptionKeySid", *params.EncryptionKeySid)
+		data.Set("EncryptionKeySid", *params.EncryptionKeySid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -349,35 +355,36 @@ CreateRoom Method for CreateRoom
 func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EnableTurn != nil {
-		data.Set("EnableTurn", string(*params.EnableTurn))
+		data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn)) 
 	}
 	if params != nil && params.MaxParticipants != nil {
-		data.Set("MaxParticipants", string(*params.MaxParticipants))
+		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants)) 
 	}
 	if params != nil && params.MediaRegion != nil {
-		data.Set("MediaRegion", *params.MediaRegion)
+		data.Set("MediaRegion", *params.MediaRegion) 
 	}
 	if params != nil && params.RecordParticipantsOnConnect != nil {
-		data.Set("RecordParticipantsOnConnect", string(*params.RecordParticipantsOnConnect))
+		data.Set("RecordParticipantsOnConnect", fmt.Sprint(*params.RecordParticipantsOnConnect)) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", *params.Type) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.VideoCodecs != nil {
-		data.Set("VideoCodecs", *params.VideoCodecs)
+		data.Set("VideoCodecs",  strings.Join(*params.VideoCodecs, ","))
 	}
 
 
@@ -399,13 +406,14 @@ func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, 
 /*
 DeleteComposition Method for DeleteComposition
 Delete a Recording Composition resource identified by a Composition SID.
- * @param sid The SID of the Composition resource to delete.
+ * @param Sid The SID of the Composition resource to delete.
 */
-func (c *DefaultApiService) DeleteComposition(sid string) (error) {
+func (c *DefaultApiService) DeleteComposition(Sid string) (error) {
 	path := "/v1/Compositions/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -423,13 +431,14 @@ func (c *DefaultApiService) DeleteComposition(sid string) (error) {
 /*
 DeleteCompositionHook Method for DeleteCompositionHook
 Delete a Recording CompositionHook resource identified by a &#x60;CompositionHook SID&#x60;.
- * @param sid The SID of the CompositionHook resource to delete.
+ * @param Sid The SID of the CompositionHook resource to delete.
 */
-func (c *DefaultApiService) DeleteCompositionHook(sid string) (error) {
+func (c *DefaultApiService) DeleteCompositionHook(Sid string) (error) {
 	path := "/v1/CompositionHooks/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -447,13 +456,14 @@ func (c *DefaultApiService) DeleteCompositionHook(sid string) (error) {
 /*
 DeleteRecording Method for DeleteRecording
 Delete a Recording resource identified by a Recording SID.
- * @param sid The SID of the Recording resource to delete.
+ * @param Sid The SID of the Recording resource to delete.
 */
-func (c *DefaultApiService) DeleteRecording(sid string) (error) {
+func (c *DefaultApiService) DeleteRecording(Sid string) (error) {
 	path := "/v1/Recordings/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -470,15 +480,16 @@ func (c *DefaultApiService) DeleteRecording(sid string) (error) {
 
 /*
 DeleteRoomRecording Method for DeleteRoomRecording
- * @param roomSid The SID of the room with the RoomRecording resource to delete.
- * @param sid The SID of the RoomRecording resource to delete.
+ * @param RoomSid The SID of the room with the RoomRecording resource to delete.
+ * @param Sid The SID of the RoomRecording resource to delete.
 */
-func (c *DefaultApiService) DeleteRoomRecording(roomSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteRoomRecording(RoomSid string, Sid string) (error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -496,14 +507,15 @@ func (c *DefaultApiService) DeleteRoomRecording(roomSid string, sid string) (err
 /*
 FetchComposition Method for FetchComposition
 Returns a single Composition resource identified by a Composition SID.
- * @param sid The SID of the Composition resource to fetch.
+ * @param Sid The SID of the Composition resource to fetch.
 @return VideoV1Composition
 */
-func (c *DefaultApiService) FetchComposition(sid string) (*VideoV1Composition, error) {
+func (c *DefaultApiService) FetchComposition(Sid string) (*VideoV1Composition, error) {
 	path := "/v1/Compositions/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -526,14 +538,15 @@ func (c *DefaultApiService) FetchComposition(sid string) (*VideoV1Composition, e
 /*
 FetchCompositionHook Method for FetchCompositionHook
 Returns a single CompositionHook resource identified by a CompositionHook SID.
- * @param sid The SID of the CompositionHook resource to fetch.
+ * @param Sid The SID of the CompositionHook resource to fetch.
 @return VideoV1CompositionHook
 */
-func (c *DefaultApiService) FetchCompositionHook(sid string) (*VideoV1CompositionHook, error) {
+func (c *DefaultApiService) FetchCompositionHook(Sid string) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -560,7 +573,8 @@ FetchCompositionSettings Method for FetchCompositionSettings
 func (c *DefaultApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -583,14 +597,15 @@ func (c *DefaultApiService) FetchCompositionSettings() (*VideoV1CompositionSetti
 /*
 FetchRecording Method for FetchRecording
 Returns a single Recording resource identified by a Recording SID.
- * @param sid The SID of the Recording resource to fetch.
+ * @param Sid The SID of the Recording resource to fetch.
 @return VideoV1Recording
 */
-func (c *DefaultApiService) FetchRecording(sid string) (*VideoV1Recording, error) {
+func (c *DefaultApiService) FetchRecording(Sid string) (*VideoV1Recording, error) {
 	path := "/v1/Recordings/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -617,7 +632,8 @@ FetchRecordingSettings Method for FetchRecordingSettings
 func (c *DefaultApiService) FetchRecordingSettings() (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -639,14 +655,15 @@ func (c *DefaultApiService) FetchRecordingSettings() (*VideoV1RecordingSettings,
 
 /*
 FetchRoom Method for FetchRoom
- * @param sid The SID of the Room resource to fetch.
+ * @param Sid The SID of the Room resource to fetch.
 @return VideoV1Room
 */
-func (c *DefaultApiService) FetchRoom(sid string) (*VideoV1Room, error) {
+func (c *DefaultApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -668,16 +685,17 @@ func (c *DefaultApiService) FetchRoom(sid string) (*VideoV1Room, error) {
 
 /*
 FetchRoomParticipant Method for FetchRoomParticipant
- * @param roomSid The SID of the room with the Participant resource to fetch.
- * @param sid The SID of the RoomParticipant resource to fetch.
+ * @param RoomSid The SID of the room with the Participant resource to fetch.
+ * @param Sid The SID of the RoomParticipant resource to fetch.
 @return VideoV1RoomRoomParticipant
 */
-func (c *DefaultApiService) FetchRoomParticipant(roomSid string, sid string) (*VideoV1RoomRoomParticipant, error) {
+func (c *DefaultApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1RoomRoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -700,18 +718,19 @@ func (c *DefaultApiService) FetchRoomParticipant(roomSid string, sid string) (*V
 /*
 FetchRoomParticipantPublishedTrack Method for FetchRoomParticipantPublishedTrack
 Returns a single Track resource represented by TrackName or SID.
- * @param roomSid The SID of the Room resource where the Track resource to fetch is published.
- * @param participantSid The SID of the Participant resource with the published track to fetch.
- * @param sid The SID of the RoomParticipantPublishedTrack resource to fetch.
+ * @param RoomSid The SID of the Room resource where the Track resource to fetch is published.
+ * @param ParticipantSid The SID of the Participant resource with the published track to fetch.
+ * @param Sid The SID of the RoomParticipantPublishedTrack resource to fetch.
 @return VideoV1RoomRoomParticipantRoomParticipantPublishedTrack
 */
-func (c *DefaultApiService) FetchRoomParticipantPublishedTrack(roomSid string, participantSid string, sid string) (*VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, error) {
+func (c *DefaultApiService) FetchRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -734,16 +753,17 @@ func (c *DefaultApiService) FetchRoomParticipantPublishedTrack(roomSid string, p
 /*
 FetchRoomParticipantSubscribeRule Method for FetchRoomParticipantSubscribeRule
 Returns a list of Subscribe Rules for the Participant.
- * @param roomSid The SID of the Room resource where the subscribe rules to fetch apply.
- * @param participantSid The SID of the Participant resource with the subscribe rules to fetch.
+ * @param RoomSid The SID of the Room resource where the subscribe rules to fetch apply.
+ * @param ParticipantSid The SID of the Participant resource with the subscribe rules to fetch.
 @return VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 */
-func (c *DefaultApiService) FetchRoomParticipantSubscribeRule(roomSid string, participantSid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
+func (c *DefaultApiService) FetchRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -766,18 +786,19 @@ func (c *DefaultApiService) FetchRoomParticipantSubscribeRule(roomSid string, pa
 /*
 FetchRoomParticipantSubscribedTrack Method for FetchRoomParticipantSubscribedTrack
 Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
- * @param roomSid The SID of the Room where the Track resource to fetch is subscribed.
- * @param participantSid The SID of the participant that subscribes to the Track resource to fetch.
- * @param sid The SID of the RoomParticipantSubscribedTrack resource to fetch.
+ * @param RoomSid The SID of the Room where the Track resource to fetch is subscribed.
+ * @param ParticipantSid The SID of the participant that subscribes to the Track resource to fetch.
+ * @param Sid The SID of the RoomParticipantSubscribedTrack resource to fetch.
 @return VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack
 */
-func (c *DefaultApiService) FetchRoomParticipantSubscribedTrack(roomSid string, participantSid string, sid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
+func (c *DefaultApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -799,16 +820,17 @@ func (c *DefaultApiService) FetchRoomParticipantSubscribedTrack(roomSid string, 
 
 /*
 FetchRoomRecording Method for FetchRoomRecording
- * @param roomSid The SID of the Room resource with the recording to fetch.
- * @param sid The SID of the RoomRecording resource to fetch.
+ * @param RoomSid The SID of the Room resource with the recording to fetch.
+ * @param Sid The SID of the RoomRecording resource to fetch.
 @return VideoV1RoomRoomRecording
 */
-func (c *DefaultApiService) FetchRoomRecording(roomSid string, sid string) (*VideoV1RoomRoomRecording, error) {
+func (c *DefaultApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1RoomRoomRecording, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -831,14 +853,15 @@ func (c *DefaultApiService) FetchRoomRecording(roomSid string, sid string) (*Vid
 /*
 FetchRoomRecordingRule Method for FetchRoomRecordingRule
 Returns a list of Recording Rules for the Room.
- * @param roomSid The SID of the Room resource where the recording rules to fetch apply.
+ * @param RoomSid The SID of the Room resource where the recording rules to fetch apply.
 @return VideoV1RoomRoomRecordingRule
 */
-func (c *DefaultApiService) FetchRoomRecordingRule(roomSid string) (*VideoV1RoomRoomRecordingRule, error) {
+func (c *DefaultApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRoomRecordingRule, error) {
 	path := "/v1/Rooms/{RoomSid}/RecordingRules"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -880,23 +903,24 @@ List of all Recording compositions.
 func (c *DefaultApiService) ListComposition(params *ListCompositionParams) (*VideoV1CompositionReadResponse, error) {
 	path := "/v1/Compositions"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.RoomSid != nil {
-		data.Set("RoomSid", *params.RoomSid)
+		data.Set("RoomSid", *params.RoomSid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -937,23 +961,24 @@ List of all Recording CompositionHook resources.
 func (c *DefaultApiService) ListCompositionHook(params *ListCompositionHookParams) (*VideoV1CompositionHookReadResponse, error) {
 	path := "/v1/CompositionHooks"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -998,29 +1023,30 @@ List of all Track recordings.
 func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*VideoV1RecordingReadResponse, error) {
 	path := "/v1/Recordings"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.SourceSid != nil {
-		data.Set("SourceSid", *params.SourceSid)
+		data.Set("SourceSid", *params.SourceSid) 
 	}
 	if params != nil && params.GroupingSid != nil {
-		data.Set("GroupingSid", string(*params.GroupingSid))
+		data.Set("GroupingSid",  strings.Join(*params.GroupingSid, ","))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.MediaType != nil {
-		data.Set("MediaType", *params.MediaType)
+		data.Set("MediaType", *params.MediaType) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1060,23 +1086,24 @@ ListRoom Method for ListRoom
 func (c *DefaultApiService) ListRoom(params *ListRoomParams) (*VideoV1RoomReadResponse, error) {
 	path := "/v1/Rooms"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1105,7 +1132,7 @@ type ListRoomParticipantParams struct {
 
 /*
 ListRoomParticipant Method for ListRoomParticipant
- * @param roomSid The SID of the room with the Participant resources to read.
+ * @param RoomSid The SID of the room with the Participant resources to read.
  * @param optional nil or *ListRoomParticipantOpts - Optional Parameters:
  * @param "Status" (string) - Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
  * @param "Identity" (string) - Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
@@ -1114,27 +1141,28 @@ ListRoomParticipant Method for ListRoomParticipant
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return VideoV1RoomRoomParticipantReadResponse
 */
-func (c *DefaultApiService) ListRoomParticipant(roomSid string, params *ListRoomParticipantParams) (*VideoV1RoomRoomParticipantReadResponse, error) {
+func (c *DefaultApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams) (*VideoV1RoomRoomParticipantReadResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity)
+		data.Set("Identity", *params.Identity) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1160,22 +1188,23 @@ type ListRoomParticipantPublishedTrackParams struct {
 /*
 ListRoomParticipantPublishedTrack Method for ListRoomParticipantPublishedTrack
 Returns a list of tracks associated with a given Participant. Only &#x60;currently&#x60; Published Tracks are in the list resource.
- * @param roomSid The SID of the Room resource where the Track resources to read are published.
- * @param participantSid The SID of the Participant resource with the published tracks to read.
+ * @param RoomSid The SID of the Room resource where the Track resources to read are published.
+ * @param ParticipantSid The SID of the Participant resource with the published tracks to read.
  * @param optional nil or *ListRoomParticipantPublishedTrackOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return VideoV1RoomRoomParticipantRoomParticipantPublishedTrackReadResponse
 */
-func (c *DefaultApiService) ListRoomParticipantPublishedTrack(roomSid string, participantSid string, params *ListRoomParticipantPublishedTrackParams) (*VideoV1RoomRoomParticipantRoomParticipantPublishedTrackReadResponse, error) {
+func (c *DefaultApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (*VideoV1RoomRoomParticipantRoomParticipantPublishedTrackReadResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1201,22 +1230,23 @@ type ListRoomParticipantSubscribedTrackParams struct {
 /*
 ListRoomParticipantSubscribedTrack Method for ListRoomParticipantSubscribedTrack
 Returns a list of tracks that are subscribed for the participant.
- * @param roomSid The SID of the Room resource with the Track resources to read.
- * @param participantSid The SID of the participant that subscribes to the Track resources to read.
+ * @param RoomSid The SID of the Room resource with the Track resources to read.
+ * @param ParticipantSid The SID of the participant that subscribes to the Track resources to read.
  * @param optional nil or *ListRoomParticipantSubscribedTrackOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse
 */
-func (c *DefaultApiService) ListRoomParticipantSubscribedTrack(roomSid string, participantSid string, params *ListRoomParticipantSubscribedTrackParams) (*VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse, error) {
+func (c *DefaultApiService) ListRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) (*VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1245,7 +1275,7 @@ type ListRoomRecordingParams struct {
 
 /*
 ListRoomRecording Method for ListRoomRecording
- * @param roomSid The SID of the room with the RoomRecording resources to read.
+ * @param RoomSid The SID of the room with the RoomRecording resources to read.
  * @param optional nil or *ListRoomRecordingOpts - Optional Parameters:
  * @param "Status" (string) - Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
  * @param "SourceSid" (string) - Read only the recordings that have this `source_sid`.
@@ -1254,27 +1284,28 @@ ListRoomRecording Method for ListRoomRecording
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return VideoV1RoomRoomRecordingReadResponse
 */
-func (c *DefaultApiService) ListRoomRecording(roomSid string, params *ListRoomRecordingParams) (*VideoV1RoomRoomRecordingReadResponse, error) {
+func (c *DefaultApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams) (*VideoV1RoomRoomRecordingReadResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.SourceSid != nil {
-		data.Set("SourceSid", *params.SourceSid)
+		data.Set("SourceSid", *params.SourceSid) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", string(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", string(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1308,7 +1339,7 @@ type UpdateCompositionHookParams struct {
 
 /*
 UpdateCompositionHook Method for UpdateCompositionHook
- * @param sid The SID of the CompositionHook resource to update.
+ * @param Sid The SID of the CompositionHook resource to update.
  * @param optional nil or *UpdateCompositionHookOpts - Optional Parameters:
  * @param "AudioSources" ([]string) - An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
  * @param "AudioSourcesExcluded" ([]string) - An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
@@ -1322,39 +1353,40 @@ UpdateCompositionHook Method for UpdateCompositionHook
  * @param "VideoLayout" (map[string]interface{}) - A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 @return VideoV1CompositionHook
 */
-func (c *DefaultApiService) UpdateCompositionHook(sid string, params *UpdateCompositionHookParams) (*VideoV1CompositionHook, error) {
+func (c *DefaultApiService) UpdateCompositionHook(Sid string, params *UpdateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AudioSources != nil {
-		data.Set("AudioSources", *params.AudioSources)
+		data.Set("AudioSources",  strings.Join(*params.AudioSources, ","))
 	}
 	if params != nil && params.AudioSourcesExcluded != nil {
-		data.Set("AudioSourcesExcluded", *params.AudioSourcesExcluded)
+		data.Set("AudioSourcesExcluded",  strings.Join(*params.AudioSourcesExcluded, ","))
 	}
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", string(*params.Enabled))
+		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
 	}
 	if params != nil && params.Format != nil {
-		data.Set("Format", *params.Format)
+		data.Set("Format", *params.Format) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Resolution != nil {
-		data.Set("Resolution", *params.Resolution)
+		data.Set("Resolution", *params.Resolution) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.Trim != nil {
-		data.Set("Trim", string(*params.Trim))
+		data.Set("Trim", fmt.Sprint(*params.Trim)) 
 	}
 	if params != nil && params.VideoLayout != nil {
 		v, err := json.Marshal(params.VideoLayout)
@@ -1363,7 +1395,7 @@ func (c *DefaultApiService) UpdateCompositionHook(sid string, params *UpdateComp
 			return nil, err
 		}
 
-		data.Set("VideoLayout", string(v))
+		data.Set("VideoLayout", fmt.Sprint(v))
 	}
 
 
@@ -1388,20 +1420,21 @@ type UpdateRoomParams struct {
 
 /*
 UpdateRoom Method for UpdateRoom
- * @param sid The SID of the Room resource to update.
+ * @param Sid The SID of the Room resource to update.
  * @param optional nil or *UpdateRoomOpts - Optional Parameters:
  * @param "Status" (string) - The new status of the resource. Set to `completed` to end the room.
 @return VideoV1Room
 */
-func (c *DefaultApiService) UpdateRoom(sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
+func (c *DefaultApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 
@@ -1426,22 +1459,23 @@ type UpdateRoomParticipantParams struct {
 
 /*
 UpdateRoomParticipant Method for UpdateRoomParticipant
- * @param roomSid The SID of the room with the participant to update.
- * @param sid The SID of the RoomParticipant resource to update.
+ * @param RoomSid The SID of the room with the participant to update.
+ * @param Sid The SID of the RoomParticipant resource to update.
  * @param optional nil or *UpdateRoomParticipantOpts - Optional Parameters:
  * @param "Status" (string) - The new status of the resource. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
 @return VideoV1RoomRoomParticipant
 */
-func (c *DefaultApiService) UpdateRoomParticipant(roomSid string, sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomRoomParticipant, error) {
+func (c *DefaultApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomRoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 
@@ -1467,16 +1501,17 @@ type UpdateRoomParticipantSubscribeRuleParams struct {
 /*
 UpdateRoomParticipantSubscribeRule Method for UpdateRoomParticipantSubscribeRule
 Update the Subscribe Rules for the Participant
- * @param roomSid The SID of the Room resource where the subscribe rules to update apply.
- * @param participantSid The SID of the Participant resource to update the Subscribe Rules.
+ * @param RoomSid The SID of the Room resource where the subscribe rules to update apply.
+ * @param ParticipantSid The SID of the Participant resource to update the Subscribe Rules.
  * @param optional nil or *UpdateRoomParticipantSubscribeRuleOpts - Optional Parameters:
  * @param "Rules" (map[string]interface{}) - A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 @return VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 */
-func (c *DefaultApiService) UpdateRoomParticipantSubscribeRule(roomSid string, participantSid string, params *UpdateRoomParticipantSubscribeRuleParams) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
+func (c *DefaultApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string, params *UpdateRoomParticipantSubscribeRuleParams) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", participantSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -1488,7 +1523,7 @@ func (c *DefaultApiService) UpdateRoomParticipantSubscribeRule(roomSid string, p
 			return nil, err
 		}
 
-		data.Set("Rules", string(v))
+		data.Set("Rules", fmt.Sprint(v))
 	}
 
 
@@ -1514,14 +1549,15 @@ type UpdateRoomRecordingRuleParams struct {
 /*
 UpdateRoomRecordingRule Method for UpdateRoomRecordingRule
 Update the Recording Rules for the Room
- * @param roomSid The SID of the Room resource where the recording rules to update apply.
+ * @param RoomSid The SID of the Room resource where the recording rules to update apply.
  * @param optional nil or *UpdateRoomRecordingRuleOpts - Optional Parameters:
  * @param "Rules" (map[string]interface{}) - A JSON-encoded array of recording rules.
 @return VideoV1RoomRoomRecordingRule
 */
-func (c *DefaultApiService) UpdateRoomRecordingRule(roomSid string, params *UpdateRoomRecordingRuleParams) (*VideoV1RoomRoomRecordingRule, error) {
+func (c *DefaultApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomRecordingRuleParams) (*VideoV1RoomRoomRecordingRule, error) {
 	path := "/v1/Rooms/{RoomSid}/RecordingRules"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", roomSid, -1)
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
@@ -1533,7 +1569,7 @@ func (c *DefaultApiService) UpdateRoomRecordingRule(roomSid string, params *Upda
 			return nil, err
 		}
 
-		data.Set("Rules", string(v))
+		data.Set("Rules", fmt.Sprint(v))
 	}
 
 

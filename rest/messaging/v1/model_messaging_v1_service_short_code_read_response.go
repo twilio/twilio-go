@@ -11,6 +11,6 @@
 package openapi
 // MessagingV1ServiceShortCodeReadResponse struct for MessagingV1ServiceShortCodeReadResponse
 type MessagingV1ServiceShortCodeReadResponse struct {
-	Meta MessagingV1ServiceReadResponseMeta `json:"meta,omitempty"`
-	ShortCodes []MessagingV1ServiceShortCode `json:"short_codes,omitempty"`
+	Meta MessagingV1ServiceReadResponseMeta `json:"Meta,omitempty"`
+	ShortCodes []MessagingV1ServiceShortCode `json:"ShortCodes,omitempty"`
 }

@@ -11,6 +11,6 @@
 package openapi
 // TaskrouterV1WorkspaceWorkerWorkerReservationReadResponse struct for TaskrouterV1WorkspaceWorkerWorkerReservationReadResponse
 type TaskrouterV1WorkspaceWorkerWorkerReservationReadResponse struct {
-	Meta TaskrouterV1WorkspaceReadResponseMeta `json:"meta,omitempty"`
-	Reservations []TaskrouterV1WorkspaceWorkerWorkerReservation `json:"reservations,omitempty"`
+	Meta TaskrouterV1WorkspaceReadResponseMeta `json:"Meta,omitempty"`
+	Reservations []TaskrouterV1WorkspaceWorkerWorkerReservation `json:"Reservations,omitempty"`
 }

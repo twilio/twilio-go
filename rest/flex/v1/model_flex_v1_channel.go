@@ -14,12 +14,12 @@ import (
 )
 // FlexV1Channel struct for FlexV1Channel
 type FlexV1Channel struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FlexFlowSid string `json:"flex_flow_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	TaskSid string `json:"task_sid,omitempty"`
-	Url string `json:"url,omitempty"`
-	UserSid string `json:"user_sid,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FlexFlowSid string `json:"FlexFlowSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	TaskSid string `json:"TaskSid,omitempty"`
+	Url string `json:"Url,omitempty"`
+	UserSid string `json:"UserSid,omitempty"`
 }

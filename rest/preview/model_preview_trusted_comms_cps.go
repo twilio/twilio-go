@@ -11,7 +11,7 @@
 package openapi
 // PreviewTrustedCommsCps struct for PreviewTrustedCommsCps
 type PreviewTrustedCommsCps struct {
-	CpsUrl string `json:"cps_url,omitempty"`
-	PhoneNumber string `json:"phone_number,omitempty"`
-	Url string `json:"url,omitempty"`
+	CpsUrl string `json:"CpsUrl,omitempty"`
+	PhoneNumber string `json:"PhoneNumber,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

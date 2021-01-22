@@ -11,11 +11,11 @@
 package openapi
 // ConversationsV1ServiceServiceConfigurationServiceNotification struct for ConversationsV1ServiceServiceConfigurationServiceNotification
 type ConversationsV1ServiceServiceConfigurationServiceNotification struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AddedToConversation map[string]interface{} `json:"added_to_conversation,omitempty"`
-	ChatServiceSid string `json:"chat_service_sid,omitempty"`
-	LogEnabled bool `json:"log_enabled,omitempty"`
-	NewMessage map[string]interface{} `json:"new_message,omitempty"`
-	RemovedFromConversation map[string]interface{} `json:"removed_from_conversation,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AddedToConversation map[string]interface{} `json:"AddedToConversation,omitempty"`
+	ChatServiceSid string `json:"ChatServiceSid,omitempty"`
+	LogEnabled bool `json:"LogEnabled,omitempty"`
+	NewMessage map[string]interface{} `json:"NewMessage,omitempty"`
+	RemovedFromConversation map[string]interface{} `json:"RemovedFromConversation,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

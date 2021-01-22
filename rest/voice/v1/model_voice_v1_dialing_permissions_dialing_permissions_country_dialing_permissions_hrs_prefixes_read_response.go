@@ -11,6 +11,6 @@
 package openapi
 // VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse struct for VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse
 type VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse struct {
-	Content []VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes `json:"content,omitempty"`
-	Meta VoiceV1ByocTrunkReadResponseMeta `json:"meta,omitempty"`
+	Content []VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes `json:"Content,omitempty"`
+	Meta VoiceV1ByocTrunkReadResponseMeta `json:"Meta,omitempty"`
 }

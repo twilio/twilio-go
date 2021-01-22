@@ -11,6 +11,6 @@
 package openapi
 // TrunkingV1TrunkIpAccessControlListReadResponse struct for TrunkingV1TrunkIpAccessControlListReadResponse
 type TrunkingV1TrunkIpAccessControlListReadResponse struct {
-	IpAccessControlLists []TrunkingV1TrunkIpAccessControlList `json:"ip_access_control_lists,omitempty"`
-	Meta TrunkingV1TrunkReadResponseMeta `json:"meta,omitempty"`
+	IpAccessControlLists []TrunkingV1TrunkIpAccessControlList `json:"IpAccessControlLists,omitempty"`
+	Meta TrunkingV1TrunkReadResponseMeta `json:"Meta,omitempty"`
 }

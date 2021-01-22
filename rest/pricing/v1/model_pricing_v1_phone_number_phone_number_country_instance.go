@@ -11,9 +11,9 @@
 package openapi
 // PricingV1PhoneNumberPhoneNumberCountryInstance struct for PricingV1PhoneNumberPhoneNumberCountryInstance
 type PricingV1PhoneNumberPhoneNumberCountryInstance struct {
-	Country string `json:"country,omitempty"`
-	IsoCountry string `json:"iso_country,omitempty"`
-	PhoneNumberPrices []PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"phone_number_prices,omitempty"`
-	PriceUnit string `json:"price_unit,omitempty"`
-	Url string `json:"url,omitempty"`
+	Country string `json:"Country,omitempty"`
+	IsoCountry string `json:"IsoCountry,omitempty"`
+	PhoneNumberPrices []PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"PhoneNumberPrices,omitempty"`
+	PriceUnit string `json:"PriceUnit,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

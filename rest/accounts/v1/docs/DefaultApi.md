@@ -43,9 +43,9 @@ Optional parameters are passed through a pointer to a CreateCredentialAwsOpts st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountSid** | **optional.String**| The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request. | 
- **credentials** | **optional.String**| A string that contains the AWS access credentials in the format &#x60;&lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;&#x60;. For example, &#x60;AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#x60; | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **AccountSid** | **optional.String**| The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request. | 
+ **Credentials** | **optional.String**| A string that contains the AWS access credentials in the format &#x60;&lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;&#x60;. For example, &#x60;AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#x60; | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -88,9 +88,9 @@ Optional parameters are passed through a pointer to a CreateCredentialPublicKeyO
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountSid** | **optional.String**| The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request | 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **publicKey** | **optional.String**| A URL encoded representation of the public key. For example, &#x60;-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----&#x60; | 
+ **AccountSid** | **optional.String**| The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **PublicKey** | **optional.String**| A URL encoded representation of the public key. For example, &#x60;-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----&#x60; | 
 
 ### Return type
 
@@ -142,7 +142,7 @@ This endpoint does not need any parameter.
 
 ## DeleteCredentialAws
 
-> DeleteCredentialAws(ctx, sid)
+> DeleteCredentialAws(ctx, Sid)
 
 
 
@@ -154,7 +154,7 @@ Delete a Credential from your account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the AWS resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the AWS resource to delete. | 
 
 ### Return type
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCredentialPublicKey
 
-> DeleteCredentialPublicKey(ctx, sid)
+> DeleteCredentialPublicKey(ctx, Sid)
 
 
 
@@ -188,7 +188,7 @@ Delete a Credential from your account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the PublicKey resource to delete. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the PublicKey resource to delete. | 
 
 ### Return type
 
@@ -240,7 +240,7 @@ This endpoint does not need any parameter.
 
 ## FetchCredentialAws
 
-> AccountsV1CredentialCredentialAws FetchCredentialAws(ctx, sid)
+> AccountsV1CredentialCredentialAws FetchCredentialAws(ctx, Sid)
 
 
 
@@ -252,7 +252,7 @@ Fetch the AWS credentials specified by the provided Credential Sid
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the AWS resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the AWS resource to fetch. | 
 
 ### Return type
 
@@ -274,7 +274,7 @@ Name | Type | Description  | Notes
 
 ## FetchCredentialPublicKey
 
-> AccountsV1CredentialCredentialPublicKey FetchCredentialPublicKey(ctx, sid)
+> AccountsV1CredentialCredentialPublicKey FetchCredentialPublicKey(ctx, Sid)
 
 
 
@@ -286,7 +286,7 @@ Fetch the public key specified by the provided Credential Sid
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the PublicKey resource to fetch. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the PublicKey resource to fetch. | 
 
 ### Return type
 
@@ -329,7 +329,7 @@ Optional parameters are passed through a pointer to a ListCredentialAwsOpts stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -372,7 +372,7 @@ Optional parameters are passed through a pointer to a ListCredentialPublicKeyOpt
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -424,7 +424,7 @@ This endpoint does not need any parameter.
 
 ## UpdateCredentialAws
 
-> AccountsV1CredentialCredentialAws UpdateCredentialAws(ctx, sid, optional)
+> AccountsV1CredentialCredentialAws UpdateCredentialAws(ctx, Sid, optional)
 
 
 
@@ -436,7 +436,7 @@ Modify the properties of a given Account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the AWS resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the AWS resource to update. | 
  **optional** | ***UpdateCredentialAwsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -447,7 +447,7 @@ Optional parameters are passed through a pointer to a UpdateCredentialAwsOpts st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -469,7 +469,7 @@ Name | Type | Description  | Notes
 
 ## UpdateCredentialPublicKey
 
-> AccountsV1CredentialCredentialPublicKey UpdateCredentialPublicKey(ctx, sid, optional)
+> AccountsV1CredentialCredentialPublicKey UpdateCredentialPublicKey(ctx, Sid, optional)
 
 
 
@@ -481,7 +481,7 @@ Modify the properties of a given Account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string**| The Twilio-provided string that uniquely identifies the PublicKey resource to update. | 
+**Sid** | **string**| The Twilio-provided string that uniquely identifies the PublicKey resource to update. | 
  **optional** | ***UpdateCredentialPublicKeyOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -492,7 +492,7 @@ Optional parameters are passed through a pointer to a UpdateCredentialPublicKeyO
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **friendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+ **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 

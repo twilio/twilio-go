@@ -11,5 +11,5 @@
 package openapi
 // EventsV1SinkSinkTest struct for EventsV1SinkSinkTest
 type EventsV1SinkSinkTest struct {
-	Result string `json:"result,omitempty"`
+	Result string `json:"Result,omitempty"`
 }

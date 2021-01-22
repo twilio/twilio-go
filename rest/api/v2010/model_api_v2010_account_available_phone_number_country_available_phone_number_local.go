@@ -11,17 +11,17 @@
 package openapi
 // ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal struct for ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal
 type ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal struct {
-	AddressRequirements string `json:"address_requirements,omitempty"`
-	Beta bool `json:"beta,omitempty"`
-	Capabilities map[string]interface{} `json:"capabilities,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	IsoCountry string `json:"iso_country,omitempty"`
-	Lata string `json:"lata,omitempty"`
-	Latitude float32 `json:"latitude,omitempty"`
-	Locality string `json:"locality,omitempty"`
-	Longitude float32 `json:"longitude,omitempty"`
-	PhoneNumber string `json:"phone_number,omitempty"`
-	PostalCode string `json:"postal_code,omitempty"`
-	RateCenter string `json:"rate_center,omitempty"`
-	Region string `json:"region,omitempty"`
+	AddressRequirements string `json:"AddressRequirements,omitempty"`
+	Beta bool `json:"Beta,omitempty"`
+	Capabilities map[string]interface{} `json:"Capabilities,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	IsoCountry string `json:"IsoCountry,omitempty"`
+	Lata string `json:"Lata,omitempty"`
+	Latitude float32 `json:"Latitude,omitempty"`
+	Locality string `json:"Locality,omitempty"`
+	Longitude float32 `json:"Longitude,omitempty"`
+	PhoneNumber string `json:"PhoneNumber,omitempty"`
+	PostalCode string `json:"PostalCode,omitempty"`
+	RateCenter string `json:"RateCenter,omitempty"`
+	Region string `json:"Region,omitempty"`
 }

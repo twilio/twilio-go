@@ -11,6 +11,6 @@
 package openapi
 // ChatV2ServiceChannelChannelWebhookReadResponse struct for ChatV2ServiceChannelChannelWebhookReadResponse
 type ChatV2ServiceChannelChannelWebhookReadResponse struct {
-	Meta ChatV2CredentialReadResponseMeta `json:"meta,omitempty"`
-	Webhooks []ChatV2ServiceChannelChannelWebhook `json:"webhooks,omitempty"`
+	Meta ChatV2CredentialReadResponseMeta `json:"Meta,omitempty"`
+	Webhooks []ChatV2ServiceChannelChannelWebhook `json:"Webhooks,omitempty"`
 }

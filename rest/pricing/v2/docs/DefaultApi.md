@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## FetchVoiceCountry
 
-> PricingV2VoiceVoiceCountryInstance FetchVoiceCountry(ctx, isoCountry)
+> PricingV2VoiceVoiceCountryInstance FetchVoiceCountry(ctx, IsoCountry)
 
 
 
@@ -24,7 +24,7 @@ Fetch a specific Country.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**isoCountry** | **string**| The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch. | 
+**IsoCountry** | **string**| The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch. | 
 
 ### Return type
 
@@ -46,7 +46,7 @@ Name | Type | Description  | Notes
 
 ## FetchVoiceNumber
 
-> PricingV2VoiceVoiceNumber FetchVoiceNumber(ctx, destinationNumber, optional)
+> PricingV2VoiceVoiceNumber FetchVoiceNumber(ctx, DestinationNumber, optional)
 
 
 
@@ -58,7 +58,7 @@ Fetch pricing information for a specific destination and, optionally, originatio
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**destinationNumber** | **string**| The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
+**DestinationNumber** | **string**| The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
  **optional** | ***FetchVoiceNumberOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -69,7 +69,7 @@ Optional parameters are passed through a pointer to a FetchVoiceNumberOpts struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **originationNumber** | **optional.String**| The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
+ **OriginationNumber** | **optional.String**| The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
 
 ### Return type
 
@@ -110,7 +110,7 @@ Optional parameters are passed through a pointer to a ListVoiceCountryOpts struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

@@ -11,16 +11,16 @@
 package openapi
 // ApiV2010AccountShortCode struct for ApiV2010AccountShortCode
 type ApiV2010AccountShortCode struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	ApiVersion string `json:"api_version,omitempty"`
-	DateCreated string `json:"date_created,omitempty"`
-	DateUpdated string `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	ShortCode string `json:"short_code,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SmsFallbackMethod string `json:"sms_fallback_method,omitempty"`
-	SmsFallbackUrl string `json:"sms_fallback_url,omitempty"`
-	SmsMethod string `json:"sms_method,omitempty"`
-	SmsUrl string `json:"sms_url,omitempty"`
-	Uri string `json:"uri,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	ApiVersion string `json:"ApiVersion,omitempty"`
+	DateCreated string `json:"DateCreated,omitempty"`
+	DateUpdated string `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	ShortCode string `json:"ShortCode,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SmsFallbackMethod string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod string `json:"SmsMethod,omitempty"`
+	SmsUrl string `json:"SmsUrl,omitempty"`
+	Uri string `json:"Uri,omitempty"`
 }

@@ -11,6 +11,6 @@
 package openapi
 // WirelessV1SimDataSessionReadResponse struct for WirelessV1SimDataSessionReadResponse
 type WirelessV1SimDataSessionReadResponse struct {
-	DataSessions []WirelessV1SimDataSession `json:"data_sessions,omitempty"`
-	Meta WirelessV1CommandReadResponseMeta `json:"meta,omitempty"`
+	DataSessions []WirelessV1SimDataSession `json:"DataSessions,omitempty"`
+	Meta WirelessV1CommandReadResponseMeta `json:"Meta,omitempty"`
 }

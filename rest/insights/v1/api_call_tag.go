@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type CallTagApiService struct {
@@ -31,14 +32,15 @@ func NewCallTagApiService(client *twilio.Client) *CallTagApiService {
 
 /*
 FetchCall Method for FetchCall
- * @param sid
+ * @param Sid
 @return InsightsV1Call
 */
-func (c *CallTagApiService) FetchCall(sid string) (*InsightsV1Call, error) {
+func (c *CallTagApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
 	path := "/v1/Voice/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 

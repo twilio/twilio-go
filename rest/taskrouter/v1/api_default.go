@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -36,24 +38,25 @@ type CreateActivityParams struct {
 
 /*
 CreateActivity Method for CreateActivity
- * @param workspaceSid The SID of the Workspace that the new Activity belongs to.
+ * @param WorkspaceSid The SID of the Workspace that the new Activity belongs to.
  * @param optional nil or *CreateActivityOpts - Optional Parameters:
  * @param "Available" (bool) - Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
 @return TaskrouterV1WorkspaceActivity
 */
-func (c *DefaultApiService) CreateActivity(workspaceSid string, params *CreateActivityParams) (*TaskrouterV1WorkspaceActivity, error) {
+func (c *DefaultApiService) CreateActivity(WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1WorkspaceActivity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Available != nil {
-		data.Set("Available", string(*params.Available))
+		data.Set("Available", fmt.Sprint(*params.Available)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -82,7 +85,7 @@ type CreateTaskParams struct {
 
 /*
 CreateTask Method for CreateTask
- * @param workspaceSid The SID of the Workspace that the new Task belongs to.
+ * @param WorkspaceSid The SID of the Workspace that the new Task belongs to.
  * @param optional nil or *CreateTaskOpts - Optional Parameters:
  * @param "Attributes" (string) - A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
  * @param "Priority" (int32) - The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
@@ -91,27 +94,28 @@ CreateTask Method for CreateTask
  * @param "WorkflowSid" (string) - The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
 @return TaskrouterV1WorkspaceTask
 */
-func (c *DefaultApiService) CreateTask(workspaceSid string, params *CreateTaskParams) (*TaskrouterV1WorkspaceTask, error) {
+func (c *DefaultApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (*TaskrouterV1WorkspaceTask, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", string(*params.Priority))
+		data.Set("Priority", fmt.Sprint(*params.Priority)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 	if params != nil && params.Timeout != nil {
-		data.Set("Timeout", string(*params.Timeout))
+		data.Set("Timeout", fmt.Sprint(*params.Timeout)) 
 	}
 	if params != nil && params.WorkflowSid != nil {
-		data.Set("WorkflowSid", *params.WorkflowSid)
+		data.Set("WorkflowSid", *params.WorkflowSid) 
 	}
 
 
@@ -138,28 +142,29 @@ type CreateTaskChannelParams struct {
 
 /*
 CreateTaskChannel Method for CreateTaskChannel
- * @param workspaceSid The SID of the Workspace that the new Task Channel belongs to.
+ * @param WorkspaceSid The SID of the Workspace that the new Task Channel belongs to.
  * @param optional nil or *CreateTaskChannelOpts - Optional Parameters:
  * @param "ChannelOptimizedRouting" (bool) - Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
 @return TaskrouterV1WorkspaceTaskChannel
 */
-func (c *DefaultApiService) CreateTaskChannel(workspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannel, error) {
+func (c *DefaultApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelOptimizedRouting != nil {
-		data.Set("ChannelOptimizedRouting", string(*params.ChannelOptimizedRouting))
+		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName)
+		data.Set("UniqueName", *params.UniqueName) 
 	}
 
 
@@ -189,7 +194,7 @@ type CreateTaskQueueParams struct {
 
 /*
 CreateTaskQueue Method for CreateTaskQueue
- * @param workspaceSid The SID of the Workspace that the new TaskQueue belongs to.
+ * @param WorkspaceSid The SID of the Workspace that the new TaskQueue belongs to.
  * @param optional nil or *CreateTaskQueueOpts - Optional Parameters:
  * @param "AssignmentActivitySid" (string) - The SID of the Activity to assign Workers when a task is assigned to them.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
@@ -199,30 +204,31 @@ CreateTaskQueue Method for CreateTaskQueue
  * @param "TaskOrder" (string) - How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign most recently created Task first or FIFO to assign the oldest Task first. Default is `FIFO`. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.
 @return TaskrouterV1WorkspaceTaskQueue
 */
-func (c *DefaultApiService) CreateTaskQueue(workspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueue, error) {
+func (c *DefaultApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentActivitySid != nil {
-		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
+		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MaxReservedWorkers != nil {
-		data.Set("MaxReservedWorkers", string(*params.MaxReservedWorkers))
+		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers)) 
 	}
 	if params != nil && params.ReservationActivitySid != nil {
-		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
+		data.Set("ReservationActivitySid", *params.ReservationActivitySid) 
 	}
 	if params != nil && params.TargetWorkers != nil {
-		data.Set("TargetWorkers", *params.TargetWorkers)
+		data.Set("TargetWorkers", *params.TargetWorkers) 
 	}
 	if params != nil && params.TaskOrder != nil {
-		data.Set("TaskOrder", *params.TaskOrder)
+		data.Set("TaskOrder", *params.TaskOrder) 
 	}
 
 
@@ -249,28 +255,29 @@ type CreateWorkerParams struct {
 
 /*
 CreateWorker Method for CreateWorker
- * @param workspaceSid The SID of the Workspace that the new Worker belongs to.
+ * @param WorkspaceSid The SID of the Workspace that the new Worker belongs to.
  * @param optional nil or *CreateWorkerOpts - Optional Parameters:
  * @param "ActivitySid" (string) - The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
  * @param "Attributes" (string) - A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
 @return TaskrouterV1WorkspaceWorker
 */
-func (c *DefaultApiService) CreateWorker(workspaceSid string, params *CreateWorkerParams) (*TaskrouterV1WorkspaceWorker, error) {
+func (c *DefaultApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParams) (*TaskrouterV1WorkspaceWorker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ActivitySid != nil {
-		data.Set("ActivitySid", *params.ActivitySid)
+		data.Set("ActivitySid", *params.ActivitySid) 
 	}
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -299,7 +306,7 @@ type CreateWorkflowParams struct {
 
 /*
 CreateWorkflow Method for CreateWorkflow
- * @param workspaceSid The SID of the Workspace that the new Workflow to create belongs to.
+ * @param WorkspaceSid The SID of the Workspace that the new Workflow to create belongs to.
  * @param optional nil or *CreateWorkflowOpts - Optional Parameters:
  * @param "AssignmentCallbackUrl" (string) - The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
  * @param "Configuration" (string) - A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
@@ -308,27 +315,28 @@ CreateWorkflow Method for CreateWorkflow
  * @param "TaskReservationTimeout" (int32) - How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
 @return TaskrouterV1WorkspaceWorkflow
 */
-func (c *DefaultApiService) CreateWorkflow(workspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1WorkspaceWorkflow, error) {
+func (c *DefaultApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1WorkspaceWorkflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentCallbackUrl != nil {
-		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
+		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl) 
 	}
 	if params != nil && params.Configuration != nil {
-		data.Set("Configuration", *params.Configuration)
+		data.Set("Configuration", *params.Configuration) 
 	}
 	if params != nil && params.FallbackAssignmentCallbackUrl != nil {
-		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
+		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.TaskReservationTimeout != nil {
-		data.Set("TaskReservationTimeout", string(*params.TaskReservationTimeout))
+		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout)) 
 	}
 
 
@@ -370,26 +378,27 @@ CreateWorkspace Method for CreateWorkspace
 func (c *DefaultApiService) CreateWorkspace(params *CreateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EventCallbackUrl != nil {
-		data.Set("EventCallbackUrl", *params.EventCallbackUrl)
+		data.Set("EventCallbackUrl", *params.EventCallbackUrl) 
 	}
 	if params != nil && params.EventsFilter != nil {
-		data.Set("EventsFilter", *params.EventsFilter)
+		data.Set("EventsFilter", *params.EventsFilter) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MultiTaskEnabled != nil {
-		data.Set("MultiTaskEnabled", string(*params.MultiTaskEnabled))
+		data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled)) 
 	}
 	if params != nil && params.PrioritizeQueueOrder != nil {
-		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
+		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder) 
 	}
 	if params != nil && params.Template != nil {
-		data.Set("Template", *params.Template)
+		data.Set("Template", *params.Template) 
 	}
 
 
@@ -410,15 +419,16 @@ func (c *DefaultApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Tas
 
 /*
 DeleteActivity Method for DeleteActivity
- * @param workspaceSid The SID of the Workspace with the Activity resources to delete.
- * @param sid The SID of the Activity resource to delete.
+ * @param WorkspaceSid The SID of the Workspace with the Activity resources to delete.
+ * @param Sid The SID of the Activity resource to delete.
 */
-func (c *DefaultApiService) DeleteActivity(workspaceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteActivity(WorkspaceSid string, Sid string) (error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -435,15 +445,16 @@ func (c *DefaultApiService) DeleteActivity(workspaceSid string, sid string) (err
 
 /*
 DeleteTask Method for DeleteTask
- * @param workspaceSid The SID of the Workspace with the Task to delete.
- * @param sid The SID of the Task resource to delete.
+ * @param WorkspaceSid The SID of the Workspace with the Task to delete.
+ * @param Sid The SID of the Task resource to delete.
 */
-func (c *DefaultApiService) DeleteTask(workspaceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteTask(WorkspaceSid string, Sid string) (error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -460,15 +471,16 @@ func (c *DefaultApiService) DeleteTask(workspaceSid string, sid string) (error) 
 
 /*
 DeleteTaskChannel Method for DeleteTaskChannel
- * @param workspaceSid The SID of the Workspace with the Task Channel to delete.
- * @param sid The SID of the Task Channel resource to delete.
+ * @param WorkspaceSid The SID of the Workspace with the Task Channel to delete.
+ * @param Sid The SID of the Task Channel resource to delete.
 */
-func (c *DefaultApiService) DeleteTaskChannel(workspaceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) (error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -485,15 +497,16 @@ func (c *DefaultApiService) DeleteTaskChannel(workspaceSid string, sid string) (
 
 /*
 DeleteTaskQueue Method for DeleteTaskQueue
- * @param workspaceSid The SID of the Workspace with the TaskQueue to delete.
- * @param sid The SID of the TaskQueue resource to delete.
+ * @param WorkspaceSid The SID of the Workspace with the TaskQueue to delete.
+ * @param Sid The SID of the TaskQueue resource to delete.
 */
-func (c *DefaultApiService) DeleteTaskQueue(workspaceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) (error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -510,15 +523,16 @@ func (c *DefaultApiService) DeleteTaskQueue(workspaceSid string, sid string) (er
 
 /*
 DeleteWorker Method for DeleteWorker
- * @param workspaceSid The SID of the Workspace with the Worker to delete.
- * @param sid The SID of the Worker resource to delete.
+ * @param WorkspaceSid The SID of the Workspace with the Worker to delete.
+ * @param Sid The SID of the Worker resource to delete.
 */
-func (c *DefaultApiService) DeleteWorker(workspaceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteWorker(WorkspaceSid string, Sid string) (error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -535,15 +549,16 @@ func (c *DefaultApiService) DeleteWorker(workspaceSid string, sid string) (error
 
 /*
 DeleteWorkflow Method for DeleteWorkflow
- * @param workspaceSid The SID of the Workspace with the Workflow to delete.
- * @param sid The SID of the Workflow resource to delete.
+ * @param WorkspaceSid The SID of the Workspace with the Workflow to delete.
+ * @param Sid The SID of the Workflow resource to delete.
 */
-func (c *DefaultApiService) DeleteWorkflow(workspaceSid string, sid string) (error) {
+func (c *DefaultApiService) DeleteWorkflow(WorkspaceSid string, Sid string) (error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -560,13 +575,14 @@ func (c *DefaultApiService) DeleteWorkflow(workspaceSid string, sid string) (err
 
 /*
 DeleteWorkspace Method for DeleteWorkspace
- * @param sid The SID of the Workspace resource to delete.
+ * @param Sid The SID of the Workspace resource to delete.
 */
-func (c *DefaultApiService) DeleteWorkspace(sid string) (error) {
+func (c *DefaultApiService) DeleteWorkspace(Sid string) (error) {
 	path := "/v1/Workspaces/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -583,16 +599,17 @@ func (c *DefaultApiService) DeleteWorkspace(sid string) (error) {
 
 /*
 FetchActivity Method for FetchActivity
- * @param workspaceSid The SID of the Workspace with the Activity resources to fetch.
- * @param sid The SID of the Activity resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the Activity resources to fetch.
+ * @param Sid The SID of the Activity resource to fetch.
 @return TaskrouterV1WorkspaceActivity
 */
-func (c *DefaultApiService) FetchActivity(workspaceSid string, sid string) (*TaskrouterV1WorkspaceActivity, error) {
+func (c *DefaultApiService) FetchActivity(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceActivity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -614,16 +631,17 @@ func (c *DefaultApiService) FetchActivity(workspaceSid string, sid string) (*Tas
 
 /*
 FetchEvent Method for FetchEvent
- * @param workspaceSid The SID of the Workspace with the Event to fetch.
- * @param sid The SID of the Event resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the Event to fetch.
+ * @param Sid The SID of the Event resource to fetch.
 @return TaskrouterV1WorkspaceEvent
 */
-func (c *DefaultApiService) FetchEvent(workspaceSid string, sid string) (*TaskrouterV1WorkspaceEvent, error) {
+func (c *DefaultApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceEvent, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -645,16 +663,17 @@ func (c *DefaultApiService) FetchEvent(workspaceSid string, sid string) (*Taskro
 
 /*
 FetchTask Method for FetchTask
- * @param workspaceSid The SID of the Workspace with the Task to fetch.
- * @param sid The SID of the Task resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the Task to fetch.
+ * @param Sid The SID of the Task resource to fetch.
 @return TaskrouterV1WorkspaceTask
 */
-func (c *DefaultApiService) FetchTask(workspaceSid string, sid string) (*TaskrouterV1WorkspaceTask, error) {
+func (c *DefaultApiService) FetchTask(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceTask, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -676,16 +695,17 @@ func (c *DefaultApiService) FetchTask(workspaceSid string, sid string) (*Taskrou
 
 /*
 FetchTaskChannel Method for FetchTaskChannel
- * @param workspaceSid The SID of the Workspace with the Task Channel to fetch.
- * @param sid The SID of the Task Channel resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the Task Channel to fetch.
+ * @param Sid The SID of the Task Channel resource to fetch.
 @return TaskrouterV1WorkspaceTaskChannel
 */
-func (c *DefaultApiService) FetchTaskChannel(workspaceSid string, sid string) (*TaskrouterV1WorkspaceTaskChannel, error) {
+func (c *DefaultApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceTaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -707,16 +727,17 @@ func (c *DefaultApiService) FetchTaskChannel(workspaceSid string, sid string) (*
 
 /*
 FetchTaskQueue Method for FetchTaskQueue
- * @param workspaceSid The SID of the Workspace with the TaskQueue to fetch.
- * @param sid The SID of the TaskQueue resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
+ * @param Sid The SID of the TaskQueue resource to fetch.
 @return TaskrouterV1WorkspaceTaskQueue
 */
-func (c *DefaultApiService) FetchTaskQueue(workspaceSid string, sid string) (*TaskrouterV1WorkspaceTaskQueue, error) {
+func (c *DefaultApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceTaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -746,8 +767,8 @@ type FetchTaskQueueCumulativeStatisticsParams struct {
 
 /*
 FetchTaskQueueCumulativeStatistics Method for FetchTaskQueueCumulativeStatistics
- * @param workspaceSid The SID of the Workspace with the TaskQueue to fetch.
- * @param taskQueueSid The SID of the TaskQueue for which to fetch statistics.
+ * @param WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
+ * @param TaskQueueSid The SID of the TaskQueue for which to fetch statistics.
  * @param optional nil or *FetchTaskQueueCumulativeStatisticsOpts - Optional Parameters:
  * @param "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @param "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default is 15 minutes.
@@ -756,28 +777,29 @@ FetchTaskQueueCumulativeStatistics Method for FetchTaskQueueCumulativeStatistics
  * @param "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
 @return TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics
 */
-func (c *DefaultApiService) FetchTaskQueueCumulativeStatistics(workspaceSid string, taskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics, error) {
+func (c *DefaultApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", taskQueueSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
 	}
 
 
@@ -802,22 +824,23 @@ type FetchTaskQueueRealTimeStatisticsParams struct {
 
 /*
 FetchTaskQueueRealTimeStatistics Method for FetchTaskQueueRealTimeStatistics
- * @param workspaceSid The SID of the Workspace with the TaskQueue to fetch.
- * @param taskQueueSid The SID of the TaskQueue for which to fetch statistics.
+ * @param WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
+ * @param TaskQueueSid The SID of the TaskQueue for which to fetch statistics.
  * @param optional nil or *FetchTaskQueueRealTimeStatisticsOpts - Optional Parameters:
  * @param "TaskChannel" (string) - The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 @return TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics
 */
-func (c *DefaultApiService) FetchTaskQueueRealTimeStatistics(workspaceSid string, taskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics, error) {
+func (c *DefaultApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", taskQueueSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 
 
@@ -846,8 +869,8 @@ type FetchTaskQueueStatisticsParams struct {
 
 /*
 FetchTaskQueueStatistics Method for FetchTaskQueueStatistics
- * @param workspaceSid The SID of the Workspace with the TaskQueue to fetch.
- * @param taskQueueSid The SID of the TaskQueue for which to fetch statistics.
+ * @param WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
+ * @param TaskQueueSid The SID of the TaskQueue for which to fetch statistics.
  * @param optional nil or *FetchTaskQueueStatisticsOpts - Optional Parameters:
  * @param "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @param "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default is 15 minutes.
@@ -856,28 +879,29 @@ FetchTaskQueueStatistics Method for FetchTaskQueueStatistics
  * @param "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
 @return TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics
 */
-func (c *DefaultApiService) FetchTaskQueueStatistics(workspaceSid string, taskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics, error) {
+func (c *DefaultApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", taskQueueSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
 	}
 
 
@@ -898,18 +922,19 @@ func (c *DefaultApiService) FetchTaskQueueStatistics(workspaceSid string, taskQu
 
 /*
 FetchTaskReservation Method for FetchTaskReservation
- * @param workspaceSid The SID of the Workspace with the TaskReservation resource to fetch.
- * @param taskSid The SID of the reserved Task resource with the TaskReservation resource to fetch.
- * @param sid The SID of the TaskReservation resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the TaskReservation resource to fetch.
+ * @param TaskSid The SID of the reserved Task resource with the TaskReservation resource to fetch.
+ * @param Sid The SID of the TaskReservation resource to fetch.
 @return TaskrouterV1WorkspaceTaskTaskReservation
 */
-func (c *DefaultApiService) FetchTaskReservation(workspaceSid string, taskSid string, sid string) (*TaskrouterV1WorkspaceTaskTaskReservation, error) {
+func (c *DefaultApiService) FetchTaskReservation(WorkspaceSid string, TaskSid string, Sid string) (*TaskrouterV1WorkspaceTaskTaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -931,16 +956,17 @@ func (c *DefaultApiService) FetchTaskReservation(workspaceSid string, taskSid st
 
 /*
 FetchWorker Method for FetchWorker
- * @param workspaceSid The SID of the Workspace with the Worker to fetch.
- * @param sid The SID of the Worker resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the Worker to fetch.
+ * @param Sid The SID of the Worker resource to fetch.
 @return TaskrouterV1WorkspaceWorker
 */
-func (c *DefaultApiService) FetchWorker(workspaceSid string, sid string) (*TaskrouterV1WorkspaceWorker, error) {
+func (c *DefaultApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceWorker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -962,18 +988,19 @@ func (c *DefaultApiService) FetchWorker(workspaceSid string, sid string) (*Taskr
 
 /*
 FetchWorkerChannel Method for FetchWorkerChannel
- * @param workspaceSid The SID of the Workspace with the WorkerChannel to fetch.
- * @param workerSid The SID of the Worker with the WorkerChannel to fetch.
- * @param sid The SID of the WorkerChannel to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the WorkerChannel to fetch.
+ * @param WorkerSid The SID of the Worker with the WorkerChannel to fetch.
+ * @param Sid The SID of the WorkerChannel to fetch.
 @return TaskrouterV1WorkspaceWorkerWorkerChannel
 */
-func (c *DefaultApiService) FetchWorkerChannel(workspaceSid string, workerSid string, sid string) (*TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+func (c *DefaultApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkerSid"+"}", workerSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1002,8 +1029,8 @@ type FetchWorkerInstanceStatisticsParams struct {
 
 /*
 FetchWorkerInstanceStatistics Method for FetchWorkerInstanceStatistics
- * @param workspaceSid The SID of the Workspace with the WorkerChannel to fetch.
- * @param workerSid The SID of the Worker with the WorkerChannel to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the WorkerChannel to fetch.
+ * @param WorkerSid The SID of the Worker with the WorkerChannel to fetch.
  * @param optional nil or *FetchWorkerInstanceStatisticsOpts - Optional Parameters:
  * @param "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
  * @param "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -1011,25 +1038,26 @@ FetchWorkerInstanceStatistics Method for FetchWorkerInstanceStatistics
  * @param "TaskChannel" (string) - Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 @return TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics
 */
-func (c *DefaultApiService) FetchWorkerInstanceStatistics(workspaceSid string, workerSid string, params *FetchWorkerInstanceStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics, error) {
+func (c *DefaultApiService) FetchWorkerInstanceStatistics(WorkspaceSid string, WorkerSid string, params *FetchWorkerInstanceStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Statistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkerSid"+"}", workerSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 
 
@@ -1050,18 +1078,19 @@ func (c *DefaultApiService) FetchWorkerInstanceStatistics(workspaceSid string, w
 
 /*
 FetchWorkerReservation Method for FetchWorkerReservation
- * @param workspaceSid The SID of the Workspace with the WorkerReservation resource to fetch.
- * @param workerSid The SID of the reserved Worker resource with the WorkerReservation resource to fetch.
- * @param sid The SID of the WorkerReservation resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the WorkerReservation resource to fetch.
+ * @param WorkerSid The SID of the reserved Worker resource with the WorkerReservation resource to fetch.
+ * @param Sid The SID of the WorkerReservation resource to fetch.
 @return TaskrouterV1WorkspaceWorkerWorkerReservation
 */
-func (c *DefaultApiService) FetchWorkerReservation(workspaceSid string, workerSid string, sid string) (*TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
+func (c *DefaultApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkerSid"+"}", workerSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1093,7 +1122,7 @@ type FetchWorkerStatisticsParams struct {
 
 /*
 FetchWorkerStatistics Method for FetchWorkerStatistics
- * @param workspaceSid The SID of the Workspace with the Worker to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the Worker to fetch.
  * @param optional nil or *FetchWorkerStatisticsOpts - Optional Parameters:
  * @param "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
  * @param "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -1104,33 +1133,34 @@ FetchWorkerStatistics Method for FetchWorkerStatistics
  * @param "TaskChannel" (string) - Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 @return TaskrouterV1WorkspaceWorkerWorkerStatistics
 */
-func (c *DefaultApiService) FetchWorkerStatistics(workspaceSid string, params *FetchWorkerStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkerStatistics, error) {
+func (c *DefaultApiService) FetchWorkerStatistics(WorkspaceSid string, params *FetchWorkerStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkerStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/Statistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid)
+		data.Set("TaskQueueSid", *params.TaskQueueSid) 
 	}
 	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName)
+		data.Set("TaskQueueName", *params.TaskQueueName) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 
 
@@ -1158,7 +1188,7 @@ type FetchWorkersCumulativeStatisticsParams struct {
 
 /*
 FetchWorkersCumulativeStatistics Method for FetchWorkersCumulativeStatistics
- * @param workspaceSid The SID of the Workspace with the resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the resource to fetch.
  * @param optional nil or *FetchWorkersCumulativeStatisticsOpts - Optional Parameters:
  * @param "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
  * @param "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
@@ -1166,24 +1196,25 @@ FetchWorkersCumulativeStatistics Method for FetchWorkersCumulativeStatistics
  * @param "TaskChannel" (string) - Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 @return TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics
 */
-func (c *DefaultApiService) FetchWorkersCumulativeStatistics(workspaceSid string, params *FetchWorkersCumulativeStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics, error) {
+func (c *DefaultApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string, params *FetchWorkersCumulativeStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 
 
@@ -1208,20 +1239,21 @@ type FetchWorkersRealTimeStatisticsParams struct {
 
 /*
 FetchWorkersRealTimeStatistics Method for FetchWorkersRealTimeStatistics
- * @param workspaceSid The SID of the Workspace with the resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the resource to fetch.
  * @param optional nil or *FetchWorkersRealTimeStatisticsOpts - Optional Parameters:
  * @param "TaskChannel" (string) - Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 @return TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics
 */
-func (c *DefaultApiService) FetchWorkersRealTimeStatistics(workspaceSid string, params *FetchWorkersRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics, error) {
+func (c *DefaultApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, params *FetchWorkersRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 
 
@@ -1242,16 +1274,17 @@ func (c *DefaultApiService) FetchWorkersRealTimeStatistics(workspaceSid string, 
 
 /*
 FetchWorkflow Method for FetchWorkflow
- * @param workspaceSid The SID of the Workspace with the Workflow to fetch.
- * @param sid The SID of the Workflow resource to fetch.
+ * @param WorkspaceSid The SID of the Workspace with the Workflow to fetch.
+ * @param Sid The SID of the Workflow resource to fetch.
 @return TaskrouterV1WorkspaceWorkflow
 */
-func (c *DefaultApiService) FetchWorkflow(workspaceSid string, sid string) (*TaskrouterV1WorkspaceWorkflow, error) {
+func (c *DefaultApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceWorkflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1281,8 +1314,8 @@ type FetchWorkflowCumulativeStatisticsParams struct {
 
 /*
 FetchWorkflowCumulativeStatistics Method for FetchWorkflowCumulativeStatistics
- * @param workspaceSid The SID of the Workspace with the resource to fetch.
- * @param workflowSid Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+ * @param WorkspaceSid The SID of the Workspace with the resource to fetch.
+ * @param WorkflowSid Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
  * @param optional nil or *FetchWorkflowCumulativeStatisticsOpts - Optional Parameters:
  * @param "EndDate" (time.Time) - Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @param "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
@@ -1291,28 +1324,29 @@ FetchWorkflowCumulativeStatistics Method for FetchWorkflowCumulativeStatistics
  * @param "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
 @return TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics
 */
-func (c *DefaultApiService) FetchWorkflowCumulativeStatistics(workspaceSid string, workflowSid string, params *FetchWorkflowCumulativeStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics, error) {
+func (c *DefaultApiService) FetchWorkflowCumulativeStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowCumulativeStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/CumulativeStatistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkflowSid"+"}", workflowSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
 	}
 
 
@@ -1337,22 +1371,23 @@ type FetchWorkflowRealTimeStatisticsParams struct {
 
 /*
 FetchWorkflowRealTimeStatistics Method for FetchWorkflowRealTimeStatistics
- * @param workspaceSid The SID of the Workspace with the Workflow to fetch.
- * @param workflowSid Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
+ * @param WorkspaceSid The SID of the Workspace with the Workflow to fetch.
+ * @param WorkflowSid Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
  * @param optional nil or *FetchWorkflowRealTimeStatisticsOpts - Optional Parameters:
  * @param "TaskChannel" (string) - Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 @return TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics
 */
-func (c *DefaultApiService) FetchWorkflowRealTimeStatistics(workspaceSid string, workflowSid string, params *FetchWorkflowRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics, error) {
+func (c *DefaultApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkflowSid"+"}", workflowSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 
 
@@ -1381,8 +1416,8 @@ type FetchWorkflowStatisticsParams struct {
 
 /*
 FetchWorkflowStatistics Method for FetchWorkflowStatistics
- * @param workspaceSid The SID of the Workspace with the Workflow to fetch.
- * @param workflowSid Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
+ * @param WorkspaceSid The SID of the Workspace with the Workflow to fetch.
+ * @param WorkflowSid Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
  * @param optional nil or *FetchWorkflowStatisticsOpts - Optional Parameters:
  * @param "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
  * @param "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -1391,28 +1426,29 @@ FetchWorkflowStatistics Method for FetchWorkflowStatistics
  * @param "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
 @return TaskrouterV1WorkspaceWorkflowWorkflowStatistics
 */
-func (c *DefaultApiService) FetchWorkflowStatistics(workspaceSid string, workflowSid string, params *FetchWorkflowStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowStatistics, error) {
+func (c *DefaultApiService) FetchWorkflowStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkflowSid"+"}", workflowSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
 	}
 
 
@@ -1433,14 +1469,15 @@ func (c *DefaultApiService) FetchWorkflowStatistics(workspaceSid string, workflo
 
 /*
 FetchWorkspace Method for FetchWorkspace
- * @param sid The SID of the Workspace resource to fetch.
+ * @param Sid The SID of the Workspace resource to fetch.
 @return TaskrouterV1Workspace
 */
-func (c *DefaultApiService) FetchWorkspace(sid string) (*TaskrouterV1Workspace, error) {
+func (c *DefaultApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-	data := 0
+
+	data := url.Values{}
 	headers := 0
 
 
@@ -1470,7 +1507,7 @@ type FetchWorkspaceCumulativeStatisticsParams struct {
 
 /*
 FetchWorkspaceCumulativeStatistics Method for FetchWorkspaceCumulativeStatistics
- * @param workspaceSid The SID of the Workspace to fetch.
+ * @param WorkspaceSid The SID of the Workspace to fetch.
  * @param optional nil or *FetchWorkspaceCumulativeStatisticsOpts - Optional Parameters:
  * @param "EndDate" (time.Time) - Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @param "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
@@ -1479,27 +1516,28 @@ FetchWorkspaceCumulativeStatistics Method for FetchWorkspaceCumulativeStatistics
  * @param "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
 @return TaskrouterV1WorkspaceWorkspaceCumulativeStatistics
 */
-func (c *DefaultApiService) FetchWorkspaceCumulativeStatistics(workspaceSid string, params *FetchWorkspaceCumulativeStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceCumulativeStatistics, error) {
+func (c *DefaultApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid string, params *FetchWorkspaceCumulativeStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/CumulativeStatistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
 	}
 
 
@@ -1524,20 +1562,21 @@ type FetchWorkspaceRealTimeStatisticsParams struct {
 
 /*
 FetchWorkspaceRealTimeStatistics Method for FetchWorkspaceRealTimeStatistics
- * @param workspaceSid The SID of the Workspace to fetch.
+ * @param WorkspaceSid The SID of the Workspace to fetch.
  * @param optional nil or *FetchWorkspaceRealTimeStatisticsOpts - Optional Parameters:
  * @param "TaskChannel" (string) - Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 @return TaskrouterV1WorkspaceWorkspaceRealTimeStatistics
 */
-func (c *DefaultApiService) FetchWorkspaceRealTimeStatistics(workspaceSid string, params *FetchWorkspaceRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceRealTimeStatistics, error) {
+func (c *DefaultApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string, params *FetchWorkspaceRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/RealTimeStatistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 
 
@@ -1566,7 +1605,7 @@ type FetchWorkspaceStatisticsParams struct {
 
 /*
 FetchWorkspaceStatistics Method for FetchWorkspaceStatistics
- * @param workspaceSid The SID of the Workspace to fetch.
+ * @param WorkspaceSid The SID of the Workspace to fetch.
  * @param optional nil or *FetchWorkspaceStatisticsOpts - Optional Parameters:
  * @param "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
  * @param "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -1575,27 +1614,28 @@ FetchWorkspaceStatistics Method for FetchWorkspaceStatistics
  * @param "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
 @return TaskrouterV1WorkspaceWorkspaceStatistics
 */
-func (c *DefaultApiService) FetchWorkspaceStatistics(workspaceSid string, params *FetchWorkspaceStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceStatistics, error) {
+func (c *DefaultApiService) FetchWorkspaceStatistics(WorkspaceSid string, params *FetchWorkspaceStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Statistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
 	}
 
 
@@ -1622,28 +1662,29 @@ type ListActivityParams struct {
 
 /*
 ListActivity Method for ListActivity
- * @param workspaceSid The SID of the Workspace with the Activity resources to read.
+ * @param WorkspaceSid The SID of the Workspace with the Activity resources to read.
  * @param optional nil or *ListActivityOpts - Optional Parameters:
  * @param "FriendlyName" (string) - The `friendly_name` of the Activity resources to read.
  * @param "Available" (string) - Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceActivityReadResponse
 */
-func (c *DefaultApiService) ListActivity(workspaceSid string, params *ListActivityParams) (*TaskrouterV1WorkspaceActivityReadResponse, error) {
+func (c *DefaultApiService) ListActivity(WorkspaceSid string, params *ListActivityParams) (*TaskrouterV1WorkspaceActivityReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Available != nil {
-		data.Set("Available", *params.Available)
+		data.Set("Available", *params.Available) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1679,7 +1720,7 @@ type ListEventParams struct {
 
 /*
 ListEvent Method for ListEvent
- * @param workspaceSid The SID of the Workspace with the Events to read. Returns only the Events that pertain to the specified Workspace.
+ * @param WorkspaceSid The SID of the Workspace with the Events to read. Returns only the Events that pertain to the specified Workspace.
  * @param optional nil or *ListEventOpts - Optional Parameters:
  * @param "EndDate" (time.Time) - Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @param "EventType" (string) - The type of Events to read. Returns only Events of the type specified.
@@ -1695,48 +1736,49 @@ ListEvent Method for ListEvent
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceEventReadResponse
 */
-func (c *DefaultApiService) ListEvent(workspaceSid string, params *ListEventParams) (*TaskrouterV1WorkspaceEventReadResponse, error) {
+func (c *DefaultApiService) ListEvent(WorkspaceSid string, params *ListEventParams) (*TaskrouterV1WorkspaceEventReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.EventType != nil {
-		data.Set("EventType", *params.EventType)
+		data.Set("EventType", *params.EventType) 
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.ReservationSid != nil {
-		data.Set("ReservationSid", *params.ReservationSid)
+		data.Set("ReservationSid", *params.ReservationSid) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid)
+		data.Set("TaskQueueSid", *params.TaskQueueSid) 
 	}
 	if params != nil && params.TaskSid != nil {
-		data.Set("TaskSid", *params.TaskSid)
+		data.Set("TaskSid", *params.TaskSid) 
 	}
 	if params != nil && params.WorkerSid != nil {
-		data.Set("WorkerSid", *params.WorkerSid)
+		data.Set("WorkerSid", *params.WorkerSid) 
 	}
 	if params != nil && params.WorkflowSid != nil {
-		data.Set("WorkflowSid", *params.WorkflowSid)
+		data.Set("WorkflowSid", *params.WorkflowSid) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 	if params != nil && params.Sid != nil {
-		data.Set("Sid", *params.Sid)
+		data.Set("Sid", *params.Sid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1770,7 +1812,7 @@ type ListTaskParams struct {
 
 /*
 ListTask Method for ListTask
- * @param workspaceSid The SID of the Workspace with the Tasks to read.
+ * @param WorkspaceSid The SID of the Workspace with the Tasks to read.
  * @param optional nil or *ListTaskOpts - Optional Parameters:
  * @param "Priority" (int32) - The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
  * @param "AssignmentStatus" ([]string) - The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
@@ -1784,42 +1826,43 @@ ListTask Method for ListTask
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceTaskReadResponse
 */
-func (c *DefaultApiService) ListTask(workspaceSid string, params *ListTaskParams) (*TaskrouterV1WorkspaceTaskReadResponse, error) {
+func (c *DefaultApiService) ListTask(WorkspaceSid string, params *ListTaskParams) (*TaskrouterV1WorkspaceTaskReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", string(*params.Priority))
+		data.Set("Priority", fmt.Sprint(*params.Priority)) 
 	}
 	if params != nil && params.AssignmentStatus != nil {
-		data.Set("AssignmentStatus", string(*params.AssignmentStatus))
+		data.Set("AssignmentStatus",  strings.Join(*params.AssignmentStatus, ","))
 	}
 	if params != nil && params.WorkflowSid != nil {
-		data.Set("WorkflowSid", *params.WorkflowSid)
+		data.Set("WorkflowSid", *params.WorkflowSid) 
 	}
 	if params != nil && params.WorkflowName != nil {
-		data.Set("WorkflowName", *params.WorkflowName)
+		data.Set("WorkflowName", *params.WorkflowName) 
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid)
+		data.Set("TaskQueueSid", *params.TaskQueueSid) 
 	}
 	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName)
+		data.Set("TaskQueueName", *params.TaskQueueName) 
 	}
 	if params != nil && params.EvaluateTaskAttributes != nil {
-		data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes)
+		data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes) 
 	}
 	if params != nil && params.Ordering != nil {
-		data.Set("Ordering", *params.Ordering)
+		data.Set("Ordering", *params.Ordering) 
 	}
 	if params != nil && params.HasAddons != nil {
-		data.Set("HasAddons", string(*params.HasAddons))
+		data.Set("HasAddons", fmt.Sprint(*params.HasAddons)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1844,20 +1887,21 @@ type ListTaskChannelParams struct {
 
 /*
 ListTaskChannel Method for ListTaskChannel
- * @param workspaceSid The SID of the Workspace with the Task Channel to read.
+ * @param WorkspaceSid The SID of the Workspace with the Task Channel to read.
  * @param optional nil or *ListTaskChannelOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceTaskChannelReadResponse
 */
-func (c *DefaultApiService) ListTaskChannel(workspaceSid string, params *ListTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannelReadResponse, error) {
+func (c *DefaultApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannelReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1885,7 +1929,7 @@ type ListTaskQueueParams struct {
 
 /*
 ListTaskQueue Method for ListTaskQueue
- * @param workspaceSid The SID of the Workspace with the TaskQueue to read.
+ * @param WorkspaceSid The SID of the Workspace with the TaskQueue to read.
  * @param optional nil or *ListTaskQueueOpts - Optional Parameters:
  * @param "FriendlyName" (string) - The `friendly_name` of the TaskQueue resources to read.
  * @param "EvaluateWorkerAttributes" (string) - The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
@@ -1893,24 +1937,25 @@ ListTaskQueue Method for ListTaskQueue
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceTaskQueueReadResponse
 */
-func (c *DefaultApiService) ListTaskQueue(workspaceSid string, params *ListTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueueReadResponse, error) {
+func (c *DefaultApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueueReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.EvaluateWorkerAttributes != nil {
-		data.Set("EvaluateWorkerAttributes", *params.EvaluateWorkerAttributes)
+		data.Set("EvaluateWorkerAttributes", *params.EvaluateWorkerAttributes) 
 	}
 	if params != nil && params.WorkerSid != nil {
-		data.Set("WorkerSid", *params.WorkerSid)
+		data.Set("WorkerSid", *params.WorkerSid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -1941,7 +1986,7 @@ type ListTaskQueuesStatisticsParams struct {
 
 /*
 ListTaskQueuesStatistics Method for ListTaskQueuesStatistics
- * @param workspaceSid The SID of the Workspace with the TaskQueues to read.
+ * @param WorkspaceSid The SID of the Workspace with the TaskQueues to read.
  * @param optional nil or *ListTaskQueuesStatisticsOpts - Optional Parameters:
  * @param "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @param "FriendlyName" (string) - The `friendly_name` of the TaskQueue statistics to read.
@@ -1952,33 +1997,34 @@ ListTaskQueuesStatistics Method for ListTaskQueuesStatistics
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceTaskQueueTaskQueuesStatisticsReadResponse
 */
-func (c *DefaultApiService) ListTaskQueuesStatistics(workspaceSid string, params *ListTaskQueuesStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueuesStatisticsReadResponse, error) {
+func (c *DefaultApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueuesStatisticsReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", string(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", string(*params.Minutes))
+		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", string(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2004,26 +2050,27 @@ type ListTaskReservationParams struct {
 
 /*
 ListTaskReservation Method for ListTaskReservation
- * @param workspaceSid The SID of the Workspace with the TaskReservation resources to read.
- * @param taskSid The SID of the reserved Task resource with the TaskReservation resources to read.
+ * @param WorkspaceSid The SID of the Workspace with the TaskReservation resources to read.
+ * @param TaskSid The SID of the reserved Task resource with the TaskReservation resources to read.
  * @param optional nil or *ListTaskReservationOpts - Optional Parameters:
  * @param "ReservationStatus" (string) - Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceTaskTaskReservationReadResponse
 */
-func (c *DefaultApiService) ListTaskReservation(workspaceSid string, taskSid string, params *ListTaskReservationParams) (*TaskrouterV1WorkspaceTaskTaskReservationReadResponse, error) {
+func (c *DefaultApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) (*TaskrouterV1WorkspaceTaskTaskReservationReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus)
+		data.Set("ReservationStatus", *params.ReservationStatus) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2055,7 +2102,7 @@ type ListWorkerParams struct {
 
 /*
 ListWorker Method for ListWorker
- * @param workspaceSid The SID of the Workspace with the Workers to read.
+ * @param WorkspaceSid The SID of the Workspace with the Workers to read.
  * @param optional nil or *ListWorkerOpts - Optional Parameters:
  * @param "ActivityName" (string) - The `activity_name` of the Worker resources to read.
  * @param "ActivitySid" (string) - The `activity_sid` of the Worker resources to read.
@@ -2067,36 +2114,37 @@ ListWorker Method for ListWorker
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceWorkerReadResponse
 */
-func (c *DefaultApiService) ListWorker(workspaceSid string, params *ListWorkerParams) (*TaskrouterV1WorkspaceWorkerReadResponse, error) {
+func (c *DefaultApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) (*TaskrouterV1WorkspaceWorkerReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ActivityName != nil {
-		data.Set("ActivityName", *params.ActivityName)
+		data.Set("ActivityName", *params.ActivityName) 
 	}
 	if params != nil && params.ActivitySid != nil {
-		data.Set("ActivitySid", *params.ActivitySid)
+		data.Set("ActivitySid", *params.ActivitySid) 
 	}
 	if params != nil && params.Available != nil {
-		data.Set("Available", *params.Available)
+		data.Set("Available", *params.Available) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.TargetWorkersExpression != nil {
-		data.Set("TargetWorkersExpression", *params.TargetWorkersExpression)
+		data.Set("TargetWorkersExpression", *params.TargetWorkersExpression) 
 	}
 	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName)
+		data.Set("TaskQueueName", *params.TaskQueueName) 
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid)
+		data.Set("TaskQueueSid", *params.TaskQueueSid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2121,22 +2169,23 @@ type ListWorkerChannelParams struct {
 
 /*
 ListWorkerChannel Method for ListWorkerChannel
- * @param workspaceSid The SID of the Workspace with the WorkerChannels to read.
- * @param workerSid The SID of the Worker with the WorkerChannels to read.
+ * @param WorkspaceSid The SID of the Workspace with the WorkerChannels to read.
+ * @param WorkerSid The SID of the Worker with the WorkerChannels to read.
  * @param optional nil or *ListWorkerChannelOpts - Optional Parameters:
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceWorkerWorkerChannelReadResponse
 */
-func (c *DefaultApiService) ListWorkerChannel(workspaceSid string, workerSid string, params *ListWorkerChannelParams) (*TaskrouterV1WorkspaceWorkerWorkerChannelReadResponse, error) {
+func (c *DefaultApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (*TaskrouterV1WorkspaceWorkerWorkerChannelReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkerSid"+"}", workerSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2162,26 +2211,27 @@ type ListWorkerReservationParams struct {
 
 /*
 ListWorkerReservation Method for ListWorkerReservation
- * @param workspaceSid The SID of the Workspace with the WorkerReservation resources to read.
- * @param workerSid The SID of the reserved Worker resource with the WorkerReservation resources to read.
+ * @param WorkspaceSid The SID of the Workspace with the WorkerReservation resources to read.
+ * @param WorkerSid The SID of the reserved Worker resource with the WorkerReservation resources to read.
  * @param optional nil or *ListWorkerReservationOpts - Optional Parameters:
  * @param "ReservationStatus" (string) - Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceWorkerWorkerReservationReadResponse
 */
-func (c *DefaultApiService) ListWorkerReservation(workspaceSid string, workerSid string, params *ListWorkerReservationParams) (*TaskrouterV1WorkspaceWorkerWorkerReservationReadResponse, error) {
+func (c *DefaultApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) (*TaskrouterV1WorkspaceWorkerWorkerReservationReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkerSid"+"}", workerSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus)
+		data.Set("ReservationStatus", *params.ReservationStatus) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2207,24 +2257,25 @@ type ListWorkflowParams struct {
 
 /*
 ListWorkflow Method for ListWorkflow
- * @param workspaceSid The SID of the Workspace with the Workflow to read.
+ * @param WorkspaceSid The SID of the Workspace with the Workflow to read.
  * @param optional nil or *ListWorkflowOpts - Optional Parameters:
  * @param "FriendlyName" (string) - The `friendly_name` of the Workflow resources to read.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return TaskrouterV1WorkspaceWorkflowReadResponse
 */
-func (c *DefaultApiService) ListWorkflow(workspaceSid string, params *ListWorkflowParams) (*TaskrouterV1WorkspaceWorkflowReadResponse, error) {
+func (c *DefaultApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams) (*TaskrouterV1WorkspaceWorkflowReadResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2258,14 +2309,15 @@ ListWorkspace Method for ListWorkspace
 func (c *DefaultApiService) ListWorkspace(params *ListWorkspaceParams) (*TaskrouterV1WorkspaceReadResponse, error) {
 	path := "/v1/Workspaces"
 
+
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", string(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -2290,22 +2342,23 @@ type UpdateActivityParams struct {
 
 /*
 UpdateActivity Method for UpdateActivity
- * @param workspaceSid The SID of the Workspace with the Activity resources to update.
- * @param sid The SID of the Activity resource to update.
+ * @param WorkspaceSid The SID of the Workspace with the Activity resources to update.
+ * @param Sid The SID of the Activity resource to update.
  * @param optional nil or *UpdateActivityOpts - Optional Parameters:
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
 @return TaskrouterV1WorkspaceActivity
 */
-func (c *DefaultApiService) UpdateActivity(workspaceSid string, sid string, params *UpdateActivityParams) (*TaskrouterV1WorkspaceActivity, error) {
+func (c *DefaultApiService) UpdateActivity(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1WorkspaceActivity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -2334,8 +2387,8 @@ type UpdateTaskParams struct {
 
 /*
 UpdateTask Method for UpdateTask
- * @param workspaceSid The SID of the Workspace with the Task to update.
- * @param sid The SID of the Task resource to update.
+ * @param WorkspaceSid The SID of the Workspace with the Task to update.
+ * @param Sid The SID of the Task resource to update.
  * @param optional nil or *UpdateTaskOpts - Optional Parameters:
  * @param "AssignmentStatus" (string) - The new status of the task. Can be: `canceled`, to cancel a Task that is currently `pending` or `reserved`; `wrapping`, to move the Task to wrapup state; or `completed`, to move a Task to the completed state.
  * @param "Attributes" (string) - The JSON string that describes the custom attributes of the task.
@@ -2344,28 +2397,29 @@ UpdateTask Method for UpdateTask
  * @param "TaskChannel" (string) - When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 @return TaskrouterV1WorkspaceTask
 */
-func (c *DefaultApiService) UpdateTask(workspaceSid string, sid string, params *UpdateTaskParams) (*TaskrouterV1WorkspaceTask, error) {
+func (c *DefaultApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateTaskParams) (*TaskrouterV1WorkspaceTask, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentStatus != nil {
-		data.Set("AssignmentStatus", *params.AssignmentStatus)
+		data.Set("AssignmentStatus", *params.AssignmentStatus) 
 	}
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", string(*params.Priority))
+		data.Set("Priority", fmt.Sprint(*params.Priority)) 
 	}
 	if params != nil && params.Reason != nil {
-		data.Set("Reason", *params.Reason)
+		data.Set("Reason", *params.Reason) 
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
+		data.Set("TaskChannel", *params.TaskChannel) 
 	}
 
 
@@ -2391,26 +2445,27 @@ type UpdateTaskChannelParams struct {
 
 /*
 UpdateTaskChannel Method for UpdateTaskChannel
- * @param workspaceSid The SID of the Workspace with the Task Channel to update.
- * @param sid The SID of the Task Channel resource to update.
+ * @param WorkspaceSid The SID of the Workspace with the Task Channel to update.
+ * @param Sid The SID of the Task Channel resource to update.
  * @param optional nil or *UpdateTaskChannelOpts - Optional Parameters:
  * @param "ChannelOptimizedRouting" (bool) - Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
 @return TaskrouterV1WorkspaceTaskChannel
 */
-func (c *DefaultApiService) UpdateTaskChannel(workspaceSid string, sid string, params *UpdateTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannel, error) {
+func (c *DefaultApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelOptimizedRouting != nil {
-		data.Set("ChannelOptimizedRouting", string(*params.ChannelOptimizedRouting))
+		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -2440,8 +2495,8 @@ type UpdateTaskQueueParams struct {
 
 /*
 UpdateTaskQueue Method for UpdateTaskQueue
- * @param workspaceSid The SID of the Workspace with the TaskQueue to update.
- * @param sid The SID of the TaskQueue resource to update.
+ * @param WorkspaceSid The SID of the Workspace with the TaskQueue to update.
+ * @param Sid The SID of the TaskQueue resource to update.
  * @param optional nil or *UpdateTaskQueueOpts - Optional Parameters:
  * @param "AssignmentActivitySid" (string) - The SID of the Activity to assign Workers when a task is assigned for them.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
@@ -2451,31 +2506,32 @@ UpdateTaskQueue Method for UpdateTaskQueue
  * @param "TaskOrder" (string) - How Tasks will be assigned to Workers. Can be: `FIFO` or `LIFO` and the default is `FIFO`. Use `FIFO` to assign the oldest task first and `LIFO` to assign the most recent task first. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
 @return TaskrouterV1WorkspaceTaskQueue
 */
-func (c *DefaultApiService) UpdateTaskQueue(workspaceSid string, sid string, params *UpdateTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueue, error) {
+func (c *DefaultApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentActivitySid != nil {
-		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
+		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MaxReservedWorkers != nil {
-		data.Set("MaxReservedWorkers", string(*params.MaxReservedWorkers))
+		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers)) 
 	}
 	if params != nil && params.ReservationActivitySid != nil {
-		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
+		data.Set("ReservationActivitySid", *params.ReservationActivitySid) 
 	}
 	if params != nil && params.TargetWorkers != nil {
-		data.Set("TargetWorkers", *params.TargetWorkers)
+		data.Set("TargetWorkers", *params.TargetWorkers) 
 	}
 	if params != nil && params.TaskOrder != nil {
-		data.Set("TaskOrder", *params.TaskOrder)
+		data.Set("TaskOrder", *params.TaskOrder) 
 	}
 
 
@@ -2552,9 +2608,9 @@ type UpdateTaskReservationParams struct {
 
 /*
 UpdateTaskReservation Method for UpdateTaskReservation
- * @param workspaceSid The SID of the Workspace with the TaskReservation resources to update.
- * @param taskSid The SID of the reserved Task resource with the TaskReservation resources to update.
- * @param sid The SID of the TaskReservation resource to update.
+ * @param WorkspaceSid The SID of the Workspace with the TaskReservation resources to update.
+ * @param TaskSid The SID of the reserved Task resource with the TaskReservation resources to update.
+ * @param Sid The SID of the TaskReservation resource to update.
  * @param optional nil or *UpdateTaskReservationOpts - Optional Parameters:
  * @param "Beep" (string) - Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
  * @param "BeepOnCustomerEntrance" (bool) - Whether to play a notification beep when the customer joins.
@@ -2611,173 +2667,174 @@ UpdateTaskReservation Method for UpdateTaskReservation
  * @param "WorkerActivitySid" (string) - The new worker activity SID if rejecting a reservation.
 @return TaskrouterV1WorkspaceTaskTaskReservation
 */
-func (c *DefaultApiService) UpdateTaskReservation(workspaceSid string, taskSid string, sid string, params *UpdateTaskReservationParams) (*TaskrouterV1WorkspaceTaskTaskReservation, error) {
+func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, Sid string, params *UpdateTaskReservationParams) (*TaskrouterV1WorkspaceTaskTaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", taskSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Beep != nil {
-		data.Set("Beep", *params.Beep)
+		data.Set("Beep", *params.Beep) 
 	}
 	if params != nil && params.BeepOnCustomerEntrance != nil {
-		data.Set("BeepOnCustomerEntrance", string(*params.BeepOnCustomerEntrance))
+		data.Set("BeepOnCustomerEntrance", fmt.Sprint(*params.BeepOnCustomerEntrance)) 
 	}
 	if params != nil && params.CallAccept != nil {
-		data.Set("CallAccept", string(*params.CallAccept))
+		data.Set("CallAccept", fmt.Sprint(*params.CallAccept)) 
 	}
 	if params != nil && params.CallFrom != nil {
-		data.Set("CallFrom", *params.CallFrom)
+		data.Set("CallFrom", *params.CallFrom) 
 	}
 	if params != nil && params.CallRecord != nil {
-		data.Set("CallRecord", *params.CallRecord)
+		data.Set("CallRecord", *params.CallRecord) 
 	}
 	if params != nil && params.CallStatusCallbackUrl != nil {
-		data.Set("CallStatusCallbackUrl", *params.CallStatusCallbackUrl)
+		data.Set("CallStatusCallbackUrl", *params.CallStatusCallbackUrl) 
 	}
 	if params != nil && params.CallTimeout != nil {
-		data.Set("CallTimeout", string(*params.CallTimeout))
+		data.Set("CallTimeout", fmt.Sprint(*params.CallTimeout)) 
 	}
 	if params != nil && params.CallTo != nil {
-		data.Set("CallTo", *params.CallTo)
+		data.Set("CallTo", *params.CallTo) 
 	}
 	if params != nil && params.CallUrl != nil {
-		data.Set("CallUrl", *params.CallUrl)
+		data.Set("CallUrl", *params.CallUrl) 
 	}
 	if params != nil && params.ConferenceRecord != nil {
-		data.Set("ConferenceRecord", *params.ConferenceRecord)
+		data.Set("ConferenceRecord", *params.ConferenceRecord) 
 	}
 	if params != nil && params.ConferenceRecordingStatusCallback != nil {
-		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
+		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback) 
 	}
 	if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
-		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
+		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod) 
 	}
 	if params != nil && params.ConferenceStatusCallback != nil {
-		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
+		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback) 
 	}
 	if params != nil && params.ConferenceStatusCallbackEvent != nil {
-		data.Set("ConferenceStatusCallbackEvent", *params.ConferenceStatusCallbackEvent)
+		data.Set("ConferenceStatusCallbackEvent",  strings.Join(*params.ConferenceStatusCallbackEvent, ","))
 	}
 	if params != nil && params.ConferenceStatusCallbackMethod != nil {
-		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
+		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod) 
 	}
 	if params != nil && params.ConferenceTrim != nil {
-		data.Set("ConferenceTrim", *params.ConferenceTrim)
+		data.Set("ConferenceTrim", *params.ConferenceTrim) 
 	}
 	if params != nil && params.DequeueFrom != nil {
-		data.Set("DequeueFrom", *params.DequeueFrom)
+		data.Set("DequeueFrom", *params.DequeueFrom) 
 	}
 	if params != nil && params.DequeuePostWorkActivitySid != nil {
-		data.Set("DequeuePostWorkActivitySid", *params.DequeuePostWorkActivitySid)
+		data.Set("DequeuePostWorkActivitySid", *params.DequeuePostWorkActivitySid) 
 	}
 	if params != nil && params.DequeueRecord != nil {
-		data.Set("DequeueRecord", *params.DequeueRecord)
+		data.Set("DequeueRecord", *params.DequeueRecord) 
 	}
 	if params != nil && params.DequeueStatusCallbackEvent != nil {
-		data.Set("DequeueStatusCallbackEvent", *params.DequeueStatusCallbackEvent)
+		data.Set("DequeueStatusCallbackEvent",  strings.Join(*params.DequeueStatusCallbackEvent, ","))
 	}
 	if params != nil && params.DequeueStatusCallbackUrl != nil {
-		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl)
+		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl) 
 	}
 	if params != nil && params.DequeueTimeout != nil {
-		data.Set("DequeueTimeout", string(*params.DequeueTimeout))
+		data.Set("DequeueTimeout", fmt.Sprint(*params.DequeueTimeout)) 
 	}
 	if params != nil && params.DequeueTo != nil {
-		data.Set("DequeueTo", *params.DequeueTo)
+		data.Set("DequeueTo", *params.DequeueTo) 
 	}
 	if params != nil && params.EarlyMedia != nil {
-		data.Set("EarlyMedia", string(*params.EarlyMedia))
+		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia)) 
 	}
 	if params != nil && params.EndConferenceOnCustomerExit != nil {
-		data.Set("EndConferenceOnCustomerExit", string(*params.EndConferenceOnCustomerExit))
+		data.Set("EndConferenceOnCustomerExit", fmt.Sprint(*params.EndConferenceOnCustomerExit)) 
 	}
 	if params != nil && params.EndConferenceOnExit != nil {
-		data.Set("EndConferenceOnExit", string(*params.EndConferenceOnExit))
+		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit)) 
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.Instruction != nil {
-		data.Set("Instruction", *params.Instruction)
+		data.Set("Instruction", *params.Instruction) 
 	}
 	if params != nil && params.MaxParticipants != nil {
-		data.Set("MaxParticipants", string(*params.MaxParticipants))
+		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants)) 
 	}
 	if params != nil && params.Muted != nil {
-		data.Set("Muted", string(*params.Muted))
+		data.Set("Muted", fmt.Sprint(*params.Muted)) 
 	}
 	if params != nil && params.PostWorkActivitySid != nil {
-		data.Set("PostWorkActivitySid", *params.PostWorkActivitySid)
+		data.Set("PostWorkActivitySid", *params.PostWorkActivitySid) 
 	}
 	if params != nil && params.Record != nil {
-		data.Set("Record", string(*params.Record))
+		data.Set("Record", fmt.Sprint(*params.Record)) 
 	}
 	if params != nil && params.RecordingChannels != nil {
-		data.Set("RecordingChannels", *params.RecordingChannels)
+		data.Set("RecordingChannels", *params.RecordingChannels) 
 	}
 	if params != nil && params.RecordingStatusCallback != nil {
-		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback) 
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
-		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod) 
 	}
 	if params != nil && params.RedirectAccept != nil {
-		data.Set("RedirectAccept", string(*params.RedirectAccept))
+		data.Set("RedirectAccept", fmt.Sprint(*params.RedirectAccept)) 
 	}
 	if params != nil && params.RedirectCallSid != nil {
-		data.Set("RedirectCallSid", *params.RedirectCallSid)
+		data.Set("RedirectCallSid", *params.RedirectCallSid) 
 	}
 	if params != nil && params.RedirectUrl != nil {
-		data.Set("RedirectUrl", *params.RedirectUrl)
+		data.Set("RedirectUrl", *params.RedirectUrl) 
 	}
 	if params != nil && params.Region != nil {
-		data.Set("Region", *params.Region)
+		data.Set("Region", *params.Region) 
 	}
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus)
+		data.Set("ReservationStatus", *params.ReservationStatus) 
 	}
 	if params != nil && params.SipAuthPassword != nil {
-		data.Set("SipAuthPassword", *params.SipAuthPassword)
+		data.Set("SipAuthPassword", *params.SipAuthPassword) 
 	}
 	if params != nil && params.SipAuthUsername != nil {
-		data.Set("SipAuthUsername", *params.SipAuthUsername)
+		data.Set("SipAuthUsername", *params.SipAuthUsername) 
 	}
 	if params != nil && params.StartConferenceOnEnter != nil {
-		data.Set("StartConferenceOnEnter", string(*params.StartConferenceOnEnter))
+		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter)) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
-		data.Set("StatusCallbackEvent", *params.StatusCallbackEvent)
+		data.Set("StatusCallbackEvent",  strings.Join(*params.StatusCallbackEvent, ","))
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.Supervisor != nil {
-		data.Set("Supervisor", *params.Supervisor)
+		data.Set("Supervisor", *params.Supervisor) 
 	}
 	if params != nil && params.SupervisorMode != nil {
-		data.Set("SupervisorMode", *params.SupervisorMode)
+		data.Set("SupervisorMode", *params.SupervisorMode) 
 	}
 	if params != nil && params.Timeout != nil {
-		data.Set("Timeout", string(*params.Timeout))
+		data.Set("Timeout", fmt.Sprint(*params.Timeout)) 
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		data.Set("To", *params.To) 
 	}
 	if params != nil && params.WaitMethod != nil {
-		data.Set("WaitMethod", *params.WaitMethod)
+		data.Set("WaitMethod", *params.WaitMethod) 
 	}
 	if params != nil && params.WaitUrl != nil {
-		data.Set("WaitUrl", *params.WaitUrl)
+		data.Set("WaitUrl", *params.WaitUrl) 
 	}
 	if params != nil && params.WorkerActivitySid != nil {
-		data.Set("WorkerActivitySid", *params.WorkerActivitySid)
+		data.Set("WorkerActivitySid", *params.WorkerActivitySid) 
 	}
 
 
@@ -2805,8 +2862,8 @@ type UpdateWorkerParams struct {
 
 /*
 UpdateWorker Method for UpdateWorker
- * @param workspaceSid The SID of the Workspace with the Worker to update.
- * @param sid The SID of the Worker resource to update.
+ * @param WorkspaceSid The SID of the Workspace with the Worker to update.
+ * @param Sid The SID of the Worker resource to update.
  * @param optional nil or *UpdateWorkerOpts - Optional Parameters:
  * @param "ActivitySid" (string) - The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
  * @param "Attributes" (string) - The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
@@ -2814,25 +2871,26 @@ UpdateWorker Method for UpdateWorker
  * @param "RejectPendingReservations" (bool) - Whether to reject pending reservations.
 @return TaskrouterV1WorkspaceWorker
 */
-func (c *DefaultApiService) UpdateWorker(workspaceSid string, sid string, params *UpdateWorkerParams) (*TaskrouterV1WorkspaceWorker, error) {
+func (c *DefaultApiService) UpdateWorker(WorkspaceSid string, Sid string, params *UpdateWorkerParams) (*TaskrouterV1WorkspaceWorker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ActivitySid != nil {
-		data.Set("ActivitySid", *params.ActivitySid)
+		data.Set("ActivitySid", *params.ActivitySid) 
 	}
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes)
+		data.Set("Attributes", *params.Attributes) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.RejectPendingReservations != nil {
-		data.Set("RejectPendingReservations", string(*params.RejectPendingReservations))
+		data.Set("RejectPendingReservations", fmt.Sprint(*params.RejectPendingReservations)) 
 	}
 
 
@@ -2858,28 +2916,29 @@ type UpdateWorkerChannelParams struct {
 
 /*
 UpdateWorkerChannel Method for UpdateWorkerChannel
- * @param workspaceSid The SID of the Workspace with the WorkerChannel to update.
- * @param workerSid The SID of the Worker with the WorkerChannel to update.
- * @param sid The SID of the WorkerChannel to update.
+ * @param WorkspaceSid The SID of the Workspace with the WorkerChannel to update.
+ * @param WorkerSid The SID of the Worker with the WorkerChannel to update.
+ * @param Sid The SID of the WorkerChannel to update.
  * @param optional nil or *UpdateWorkerChannelOpts - Optional Parameters:
  * @param "Available" (bool) - Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
  * @param "Capacity" (int32) - The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
 @return TaskrouterV1WorkspaceWorkerWorkerChannel
 */
-func (c *DefaultApiService) UpdateWorkerChannel(workspaceSid string, workerSid string, sid string, params *UpdateWorkerChannelParams) (*TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+func (c *DefaultApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerChannelParams) (*TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkerSid"+"}", workerSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Available != nil {
-		data.Set("Available", string(*params.Available))
+		data.Set("Available", fmt.Sprint(*params.Available)) 
 	}
 	if params != nil && params.Capacity != nil {
-		data.Set("Capacity", string(*params.Capacity))
+		data.Set("Capacity", fmt.Sprint(*params.Capacity)) 
 	}
 
 
@@ -2954,9 +3013,9 @@ type UpdateWorkerReservationParams struct {
 
 /*
 UpdateWorkerReservation Method for UpdateWorkerReservation
- * @param workspaceSid The SID of the Workspace with the WorkerReservation resources to update.
- * @param workerSid The SID of the reserved Worker resource with the WorkerReservation resources to update.
- * @param sid The SID of the WorkerReservation resource to update.
+ * @param WorkspaceSid The SID of the Workspace with the WorkerReservation resources to update.
+ * @param WorkerSid The SID of the reserved Worker resource with the WorkerReservation resources to update.
+ * @param Sid The SID of the WorkerReservation resource to update.
  * @param optional nil or *UpdateWorkerReservationOpts - Optional Parameters:
  * @param "Beep" (string) - Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
  * @param "BeepOnCustomerEntrance" (bool) - Whether to play a notification beep when the customer joins.
@@ -3011,167 +3070,168 @@ UpdateWorkerReservation Method for UpdateWorkerReservation
  * @param "WorkerActivitySid" (string) - The new worker activity SID if rejecting a reservation.
 @return TaskrouterV1WorkspaceWorkerWorkerReservation
 */
-func (c *DefaultApiService) UpdateWorkerReservation(workspaceSid string, workerSid string, sid string, params *UpdateWorkerReservationParams) (*TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
+func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerReservationParams) (*TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkerSid"+"}", workerSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Beep != nil {
-		data.Set("Beep", *params.Beep)
+		data.Set("Beep", *params.Beep) 
 	}
 	if params != nil && params.BeepOnCustomerEntrance != nil {
-		data.Set("BeepOnCustomerEntrance", string(*params.BeepOnCustomerEntrance))
+		data.Set("BeepOnCustomerEntrance", fmt.Sprint(*params.BeepOnCustomerEntrance)) 
 	}
 	if params != nil && params.CallAccept != nil {
-		data.Set("CallAccept", string(*params.CallAccept))
+		data.Set("CallAccept", fmt.Sprint(*params.CallAccept)) 
 	}
 	if params != nil && params.CallFrom != nil {
-		data.Set("CallFrom", *params.CallFrom)
+		data.Set("CallFrom", *params.CallFrom) 
 	}
 	if params != nil && params.CallRecord != nil {
-		data.Set("CallRecord", *params.CallRecord)
+		data.Set("CallRecord", *params.CallRecord) 
 	}
 	if params != nil && params.CallStatusCallbackUrl != nil {
-		data.Set("CallStatusCallbackUrl", *params.CallStatusCallbackUrl)
+		data.Set("CallStatusCallbackUrl", *params.CallStatusCallbackUrl) 
 	}
 	if params != nil && params.CallTimeout != nil {
-		data.Set("CallTimeout", string(*params.CallTimeout))
+		data.Set("CallTimeout", fmt.Sprint(*params.CallTimeout)) 
 	}
 	if params != nil && params.CallTo != nil {
-		data.Set("CallTo", *params.CallTo)
+		data.Set("CallTo", *params.CallTo) 
 	}
 	if params != nil && params.CallUrl != nil {
-		data.Set("CallUrl", *params.CallUrl)
+		data.Set("CallUrl", *params.CallUrl) 
 	}
 	if params != nil && params.ConferenceRecord != nil {
-		data.Set("ConferenceRecord", *params.ConferenceRecord)
+		data.Set("ConferenceRecord", *params.ConferenceRecord) 
 	}
 	if params != nil && params.ConferenceRecordingStatusCallback != nil {
-		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
+		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback) 
 	}
 	if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
-		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
+		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod) 
 	}
 	if params != nil && params.ConferenceStatusCallback != nil {
-		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
+		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback) 
 	}
 	if params != nil && params.ConferenceStatusCallbackEvent != nil {
-		data.Set("ConferenceStatusCallbackEvent", *params.ConferenceStatusCallbackEvent)
+		data.Set("ConferenceStatusCallbackEvent",  strings.Join(*params.ConferenceStatusCallbackEvent, ","))
 	}
 	if params != nil && params.ConferenceStatusCallbackMethod != nil {
-		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
+		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod) 
 	}
 	if params != nil && params.ConferenceTrim != nil {
-		data.Set("ConferenceTrim", *params.ConferenceTrim)
+		data.Set("ConferenceTrim", *params.ConferenceTrim) 
 	}
 	if params != nil && params.DequeueFrom != nil {
-		data.Set("DequeueFrom", *params.DequeueFrom)
+		data.Set("DequeueFrom", *params.DequeueFrom) 
 	}
 	if params != nil && params.DequeuePostWorkActivitySid != nil {
-		data.Set("DequeuePostWorkActivitySid", *params.DequeuePostWorkActivitySid)
+		data.Set("DequeuePostWorkActivitySid", *params.DequeuePostWorkActivitySid) 
 	}
 	if params != nil && params.DequeueRecord != nil {
-		data.Set("DequeueRecord", *params.DequeueRecord)
+		data.Set("DequeueRecord", *params.DequeueRecord) 
 	}
 	if params != nil && params.DequeueStatusCallbackEvent != nil {
-		data.Set("DequeueStatusCallbackEvent", *params.DequeueStatusCallbackEvent)
+		data.Set("DequeueStatusCallbackEvent",  strings.Join(*params.DequeueStatusCallbackEvent, ","))
 	}
 	if params != nil && params.DequeueStatusCallbackUrl != nil {
-		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl)
+		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl) 
 	}
 	if params != nil && params.DequeueTimeout != nil {
-		data.Set("DequeueTimeout", string(*params.DequeueTimeout))
+		data.Set("DequeueTimeout", fmt.Sprint(*params.DequeueTimeout)) 
 	}
 	if params != nil && params.DequeueTo != nil {
-		data.Set("DequeueTo", *params.DequeueTo)
+		data.Set("DequeueTo", *params.DequeueTo) 
 	}
 	if params != nil && params.EarlyMedia != nil {
-		data.Set("EarlyMedia", string(*params.EarlyMedia))
+		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia)) 
 	}
 	if params != nil && params.EndConferenceOnCustomerExit != nil {
-		data.Set("EndConferenceOnCustomerExit", string(*params.EndConferenceOnCustomerExit))
+		data.Set("EndConferenceOnCustomerExit", fmt.Sprint(*params.EndConferenceOnCustomerExit)) 
 	}
 	if params != nil && params.EndConferenceOnExit != nil {
-		data.Set("EndConferenceOnExit", string(*params.EndConferenceOnExit))
+		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit)) 
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.Instruction != nil {
-		data.Set("Instruction", *params.Instruction)
+		data.Set("Instruction", *params.Instruction) 
 	}
 	if params != nil && params.MaxParticipants != nil {
-		data.Set("MaxParticipants", string(*params.MaxParticipants))
+		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants)) 
 	}
 	if params != nil && params.Muted != nil {
-		data.Set("Muted", string(*params.Muted))
+		data.Set("Muted", fmt.Sprint(*params.Muted)) 
 	}
 	if params != nil && params.PostWorkActivitySid != nil {
-		data.Set("PostWorkActivitySid", *params.PostWorkActivitySid)
+		data.Set("PostWorkActivitySid", *params.PostWorkActivitySid) 
 	}
 	if params != nil && params.Record != nil {
-		data.Set("Record", string(*params.Record))
+		data.Set("Record", fmt.Sprint(*params.Record)) 
 	}
 	if params != nil && params.RecordingChannels != nil {
-		data.Set("RecordingChannels", *params.RecordingChannels)
+		data.Set("RecordingChannels", *params.RecordingChannels) 
 	}
 	if params != nil && params.RecordingStatusCallback != nil {
-		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback) 
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
-		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod) 
 	}
 	if params != nil && params.RedirectAccept != nil {
-		data.Set("RedirectAccept", string(*params.RedirectAccept))
+		data.Set("RedirectAccept", fmt.Sprint(*params.RedirectAccept)) 
 	}
 	if params != nil && params.RedirectCallSid != nil {
-		data.Set("RedirectCallSid", *params.RedirectCallSid)
+		data.Set("RedirectCallSid", *params.RedirectCallSid) 
 	}
 	if params != nil && params.RedirectUrl != nil {
-		data.Set("RedirectUrl", *params.RedirectUrl)
+		data.Set("RedirectUrl", *params.RedirectUrl) 
 	}
 	if params != nil && params.Region != nil {
-		data.Set("Region", *params.Region)
+		data.Set("Region", *params.Region) 
 	}
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus)
+		data.Set("ReservationStatus", *params.ReservationStatus) 
 	}
 	if params != nil && params.SipAuthPassword != nil {
-		data.Set("SipAuthPassword", *params.SipAuthPassword)
+		data.Set("SipAuthPassword", *params.SipAuthPassword) 
 	}
 	if params != nil && params.SipAuthUsername != nil {
-		data.Set("SipAuthUsername", *params.SipAuthUsername)
+		data.Set("SipAuthUsername", *params.SipAuthUsername) 
 	}
 	if params != nil && params.StartConferenceOnEnter != nil {
-		data.Set("StartConferenceOnEnter", string(*params.StartConferenceOnEnter))
+		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter)) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
-		data.Set("StatusCallbackEvent", *params.StatusCallbackEvent)
+		data.Set("StatusCallbackEvent",  strings.Join(*params.StatusCallbackEvent, ","))
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.Timeout != nil {
-		data.Set("Timeout", string(*params.Timeout))
+		data.Set("Timeout", fmt.Sprint(*params.Timeout)) 
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		data.Set("To", *params.To) 
 	}
 	if params != nil && params.WaitMethod != nil {
-		data.Set("WaitMethod", *params.WaitMethod)
+		data.Set("WaitMethod", *params.WaitMethod) 
 	}
 	if params != nil && params.WaitUrl != nil {
-		data.Set("WaitUrl", *params.WaitUrl)
+		data.Set("WaitUrl", *params.WaitUrl) 
 	}
 	if params != nil && params.WorkerActivitySid != nil {
-		data.Set("WorkerActivitySid", *params.WorkerActivitySid)
+		data.Set("WorkerActivitySid", *params.WorkerActivitySid) 
 	}
 
 
@@ -3201,8 +3261,8 @@ type UpdateWorkflowParams struct {
 
 /*
 UpdateWorkflow Method for UpdateWorkflow
- * @param workspaceSid The SID of the Workspace with the Workflow to update.
- * @param sid The SID of the Workflow resource to update.
+ * @param WorkspaceSid The SID of the Workspace with the Workflow to update.
+ * @param Sid The SID of the Workflow resource to update.
  * @param optional nil or *UpdateWorkflowOpts - Optional Parameters:
  * @param "AssignmentCallbackUrl" (string) - The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
  * @param "Configuration" (string) - A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
@@ -3212,31 +3272,32 @@ UpdateWorkflow Method for UpdateWorkflow
  * @param "TaskReservationTimeout" (int32) - How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
 @return TaskrouterV1WorkspaceWorkflow
 */
-func (c *DefaultApiService) UpdateWorkflow(workspaceSid string, sid string, params *UpdateWorkflowParams) (*TaskrouterV1WorkspaceWorkflow, error) {
+func (c *DefaultApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1WorkspaceWorkflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", workspaceSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentCallbackUrl != nil {
-		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
+		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl) 
 	}
 	if params != nil && params.Configuration != nil {
-		data.Set("Configuration", *params.Configuration)
+		data.Set("Configuration", *params.Configuration) 
 	}
 	if params != nil && params.FallbackAssignmentCallbackUrl != nil {
-		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
+		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.ReEvaluateTasks != nil {
-		data.Set("ReEvaluateTasks", *params.ReEvaluateTasks)
+		data.Set("ReEvaluateTasks", *params.ReEvaluateTasks) 
 	}
 	if params != nil && params.TaskReservationTimeout != nil {
-		data.Set("TaskReservationTimeout", string(*params.TaskReservationTimeout))
+		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout)) 
 	}
 
 
@@ -3267,7 +3328,7 @@ type UpdateWorkspaceParams struct {
 
 /*
 UpdateWorkspace Method for UpdateWorkspace
- * @param sid The SID of the Workspace resource to update.
+ * @param Sid The SID of the Workspace resource to update.
  * @param optional nil or *UpdateWorkspaceOpts - Optional Parameters:
  * @param "DefaultActivitySid" (string) - The SID of the Activity that will be used when new Workers are created in the Workspace.
  * @param "EventCallbackUrl" (string) - The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information.
@@ -3278,33 +3339,34 @@ UpdateWorkspace Method for UpdateWorkspace
  * @param "TimeoutActivitySid" (string) - The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
 @return TaskrouterV1Workspace
 */
-func (c *DefaultApiService) UpdateWorkspace(sid string, params *UpdateWorkspaceParams) (*TaskrouterV1Workspace, error) {
+func (c *DefaultApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", sid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
 
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DefaultActivitySid != nil {
-		data.Set("DefaultActivitySid", *params.DefaultActivitySid)
+		data.Set("DefaultActivitySid", *params.DefaultActivitySid) 
 	}
 	if params != nil && params.EventCallbackUrl != nil {
-		data.Set("EventCallbackUrl", *params.EventCallbackUrl)
+		data.Set("EventCallbackUrl", *params.EventCallbackUrl) 
 	}
 	if params != nil && params.EventsFilter != nil {
-		data.Set("EventsFilter", *params.EventsFilter)
+		data.Set("EventsFilter", *params.EventsFilter) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MultiTaskEnabled != nil {
-		data.Set("MultiTaskEnabled", string(*params.MultiTaskEnabled))
+		data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled)) 
 	}
 	if params != nil && params.PrioritizeQueueOrder != nil {
-		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
+		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder) 
 	}
 	if params != nil && params.TimeoutActivitySid != nil {
-		data.Set("TimeoutActivitySid", *params.TimeoutActivitySid)
+		data.Set("TimeoutActivitySid", *params.TimeoutActivitySid) 
 	}
 
 

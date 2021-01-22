@@ -14,23 +14,23 @@ import (
 )
 // ProxyV1ServiceSessionInteraction struct for ProxyV1ServiceSessionInteraction
 type ProxyV1ServiceSessionInteraction struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Data string `json:"data,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	InboundParticipantSid string `json:"inbound_participant_sid,omitempty"`
-	InboundResourceSid string `json:"inbound_resource_sid,omitempty"`
-	InboundResourceStatus string `json:"inbound_resource_status,omitempty"`
-	InboundResourceType string `json:"inbound_resource_type,omitempty"`
-	InboundResourceUrl string `json:"inbound_resource_url,omitempty"`
-	OutboundParticipantSid string `json:"outbound_participant_sid,omitempty"`
-	OutboundResourceSid string `json:"outbound_resource_sid,omitempty"`
-	OutboundResourceStatus string `json:"outbound_resource_status,omitempty"`
-	OutboundResourceType string `json:"outbound_resource_type,omitempty"`
-	OutboundResourceUrl string `json:"outbound_resource_url,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	SessionSid string `json:"session_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Type string `json:"type,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Data string `json:"Data,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	InboundParticipantSid string `json:"InboundParticipantSid,omitempty"`
+	InboundResourceSid string `json:"InboundResourceSid,omitempty"`
+	InboundResourceStatus string `json:"InboundResourceStatus,omitempty"`
+	InboundResourceType string `json:"InboundResourceType,omitempty"`
+	InboundResourceUrl string `json:"InboundResourceUrl,omitempty"`
+	OutboundParticipantSid string `json:"OutboundParticipantSid,omitempty"`
+	OutboundResourceSid string `json:"OutboundResourceSid,omitempty"`
+	OutboundResourceStatus string `json:"OutboundResourceStatus,omitempty"`
+	OutboundResourceType string `json:"OutboundResourceType,omitempty"`
+	OutboundResourceUrl string `json:"OutboundResourceUrl,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	SessionSid string `json:"SessionSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Type string `json:"Type,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

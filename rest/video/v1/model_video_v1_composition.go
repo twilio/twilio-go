@@ -14,22 +14,22 @@ import (
 )
 // VideoV1Composition struct for VideoV1Composition
 type VideoV1Composition struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AudioSources []string `json:"audio_sources,omitempty"`
-	AudioSourcesExcluded []string `json:"audio_sources_excluded,omitempty"`
-	Bitrate int32 `json:"bitrate,omitempty"`
-	DateCompleted *time.Time `json:"date_completed,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateDeleted *time.Time `json:"date_deleted,omitempty"`
-	Duration int32 `json:"duration,omitempty"`
-	Format string `json:"format,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	Resolution string `json:"resolution,omitempty"`
-	RoomSid string `json:"room_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Size int32 `json:"size,omitempty"`
-	Status string `json:"status,omitempty"`
-	Trim bool `json:"trim,omitempty"`
-	Url string `json:"url,omitempty"`
-	VideoLayout map[string]interface{} `json:"video_layout,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AudioSources []string `json:"AudioSources,omitempty"`
+	AudioSourcesExcluded []string `json:"AudioSourcesExcluded,omitempty"`
+	Bitrate int32 `json:"Bitrate,omitempty"`
+	DateCompleted *time.Time `json:"DateCompleted,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateDeleted *time.Time `json:"DateDeleted,omitempty"`
+	Duration int32 `json:"Duration,omitempty"`
+	Format string `json:"Format,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	Resolution string `json:"Resolution,omitempty"`
+	RoomSid string `json:"RoomSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Size int32 `json:"Size,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Trim bool `json:"Trim,omitempty"`
+	Url string `json:"Url,omitempty"`
+	VideoLayout map[string]interface{} `json:"VideoLayout,omitempty"`
 }

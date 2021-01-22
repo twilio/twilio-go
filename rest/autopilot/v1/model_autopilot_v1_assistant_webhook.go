@@ -14,14 +14,14 @@ import (
 )
 // AutopilotV1AssistantWebhook struct for AutopilotV1AssistantWebhook
 type AutopilotV1AssistantWebhook struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	AssistantSid string `json:"assistant_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Events string `json:"events,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
-	WebhookMethod string `json:"webhook_method,omitempty"`
-	WebhookUrl string `json:"webhook_url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	AssistantSid string `json:"AssistantSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Events string `json:"Events,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
+	WebhookMethod string `json:"WebhookMethod,omitempty"`
+	WebhookUrl string `json:"WebhookUrl,omitempty"`
 }

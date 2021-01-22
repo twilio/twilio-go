@@ -11,6 +11,6 @@
 package openapi
 // VideoV1RecordingReadResponse struct for VideoV1RecordingReadResponse
 type VideoV1RecordingReadResponse struct {
-	Meta VideoV1CompositionHookReadResponseMeta `json:"meta,omitempty"`
-	Recordings []VideoV1Recording `json:"recordings,omitempty"`
+	Meta VideoV1CompositionHookReadResponseMeta `json:"Meta,omitempty"`
+	Recordings []VideoV1Recording `json:"Recordings,omitempty"`
 }

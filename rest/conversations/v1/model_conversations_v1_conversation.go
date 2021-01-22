@@ -14,17 +14,17 @@ import (
 )
 // ConversationsV1Conversation struct for ConversationsV1Conversation
 type ConversationsV1Conversation struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Attributes string `json:"attributes,omitempty"`
-	ChatServiceSid string `json:"chat_service_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Links map[string]interface{} `json:"links,omitempty"`
-	MessagingServiceSid string `json:"messaging_service_sid,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	State string `json:"state,omitempty"`
-	Timers map[string]interface{} `json:"timers,omitempty"`
-	UniqueName string `json:"unique_name,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Attributes string `json:"Attributes,omitempty"`
+	ChatServiceSid string `json:"ChatServiceSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Links map[string]interface{} `json:"Links,omitempty"`
+	MessagingServiceSid string `json:"MessagingServiceSid,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	State string `json:"State,omitempty"`
+	Timers map[string]interface{} `json:"Timers,omitempty"`
+	UniqueName string `json:"UniqueName,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

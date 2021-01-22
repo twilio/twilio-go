@@ -11,6 +11,6 @@
 package openapi
 // WirelessV1AccountUsageRecordReadResponse struct for WirelessV1AccountUsageRecordReadResponse
 type WirelessV1AccountUsageRecordReadResponse struct {
-	Meta WirelessV1CommandReadResponseMeta `json:"meta,omitempty"`
-	UsageRecords []WirelessV1AccountUsageRecord `json:"usage_records,omitempty"`
+	Meta WirelessV1CommandReadResponseMeta `json:"Meta,omitempty"`
+	UsageRecords []WirelessV1AccountUsageRecord `json:"UsageRecords,omitempty"`
 }

@@ -14,13 +14,13 @@ import (
 )
 // PreviewDeployedDevicesFleetCertificate struct for PreviewDeployedDevicesFleetCertificate
 type PreviewDeployedDevicesFleetCertificate struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	DeviceSid string `json:"device_sid,omitempty"`
-	FleetSid string `json:"fleet_sid,omitempty"`
-	FriendlyName string `json:"friendly_name,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	Thumbprint string `json:"thumbprint,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	DeviceSid string `json:"DeviceSid,omitempty"`
+	FleetSid string `json:"FleetSid,omitempty"`
+	FriendlyName string `json:"FriendlyName,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	Thumbprint string `json:"Thumbprint,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

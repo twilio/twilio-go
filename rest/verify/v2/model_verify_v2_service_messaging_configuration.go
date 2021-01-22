@@ -14,11 +14,11 @@ import (
 )
 // VerifyV2ServiceMessagingConfiguration struct for VerifyV2ServiceMessagingConfiguration
 type VerifyV2ServiceMessagingConfiguration struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Country string `json:"country,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	MessagingServiceSid string `json:"messaging_service_sid,omitempty"`
-	ServiceSid string `json:"service_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Country string `json:"Country,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	MessagingServiceSid string `json:"MessagingServiceSid,omitempty"`
+	ServiceSid string `json:"ServiceSid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

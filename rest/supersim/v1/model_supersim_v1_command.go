@@ -14,13 +14,13 @@ import (
 )
 // SupersimV1Command struct for SupersimV1Command
 type SupersimV1Command struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Command string `json:"command,omitempty"`
-	DateCreated time.Time `json:"date_created,omitempty"`
-	DateUpdated time.Time `json:"date_updated,omitempty"`
-	Direction string `json:"direction,omitempty"`
-	Sid string `json:"sid,omitempty"`
-	SimSid string `json:"sim_sid,omitempty"`
-	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Command string `json:"Command,omitempty"`
+	DateCreated time.Time `json:"DateCreated,omitempty"`
+	DateUpdated time.Time `json:"DateUpdated,omitempty"`
+	Direction string `json:"Direction,omitempty"`
+	Sid string `json:"Sid,omitempty"`
+	SimSid string `json:"SimSid,omitempty"`
+	Status string `json:"Status,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

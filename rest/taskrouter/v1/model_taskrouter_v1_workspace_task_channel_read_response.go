@@ -11,6 +11,6 @@
 package openapi
 // TaskrouterV1WorkspaceTaskChannelReadResponse struct for TaskrouterV1WorkspaceTaskChannelReadResponse
 type TaskrouterV1WorkspaceTaskChannelReadResponse struct {
-	Channels []TaskrouterV1WorkspaceTaskChannel `json:"channels,omitempty"`
-	Meta TaskrouterV1WorkspaceReadResponseMeta `json:"meta,omitempty"`
+	Channels []TaskrouterV1WorkspaceTaskChannel `json:"Channels,omitempty"`
+	Meta TaskrouterV1WorkspaceReadResponseMeta `json:"Meta,omitempty"`
 }

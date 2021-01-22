@@ -11,9 +11,9 @@
 package openapi
 // StudioV2FlowExecutionExecutionContext struct for StudioV2FlowExecutionExecutionContext
 type StudioV2FlowExecutionExecutionContext struct {
-	AccountSid string `json:"account_sid,omitempty"`
-	Context map[string]interface{} `json:"context,omitempty"`
-	ExecutionSid string `json:"execution_sid,omitempty"`
-	FlowSid string `json:"flow_sid,omitempty"`
-	Url string `json:"url,omitempty"`
+	AccountSid string `json:"AccountSid,omitempty"`
+	Context map[string]interface{} `json:"Context,omitempty"`
+	ExecutionSid string `json:"ExecutionSid,omitempty"`
+	FlowSid string `json:"FlowSid,omitempty"`
+	Url string `json:"Url,omitempty"`
 }

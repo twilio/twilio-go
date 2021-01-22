@@ -11,6 +11,6 @@
 package openapi
 // VoiceV1IpRecordReadResponse struct for VoiceV1IpRecordReadResponse
 type VoiceV1IpRecordReadResponse struct {
-	IpRecords []VoiceV1IpRecord `json:"ip_records,omitempty"`
-	Meta VoiceV1ByocTrunkReadResponseMeta `json:"meta,omitempty"`
+	IpRecords []VoiceV1IpRecord `json:"IpRecords,omitempty"`
+	Meta VoiceV1ByocTrunkReadResponseMeta `json:"Meta,omitempty"`
 }

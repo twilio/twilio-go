@@ -23,11 +23,11 @@ type CreateServiceConversationParticipantRequest struct {
 	// A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
 	Identity string `json:"Identity,omitempty"`
 	// The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-	MessagingBindingAddress string `json:"MessagingBinding.Address,omitempty"`
+	MessagingBindingAddress string `json:"MessagingBindingAddress,omitempty"`
 	// The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
-	MessagingBindingProjectedAddress string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProjectedAddress string `json:"MessagingBindingProjectedAddress,omitempty"`
 	// The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-	MessagingBindingProxyAddress string `json:"MessagingBinding.ProxyAddress,omitempty"`
+	MessagingBindingProxyAddress string `json:"MessagingBindingProxyAddress,omitempty"`
 	// The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 	RoleSid string `json:"RoleSid,omitempty"`
 }
