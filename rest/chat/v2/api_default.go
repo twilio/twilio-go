@@ -46,7 +46,7 @@ type CreateChannelParams struct {
 CreateChannel Method for CreateChannel
  * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the Channel resource under.
  * @param optional nil or *CreateChannelOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A valid JSON string that contains application-specific data.
  * @param "CreatedBy" (string) - The `identity` of the User that created the channel. Default is: `system`.
  * @param "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
@@ -106,12 +106,12 @@ func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChann
 }
 // CreateChannelWebhookParams Optional parameters for the method 'CreateChannelWebhook'
 type CreateChannelWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationRetryCount *int32 `json:"ConfigurationRetryCount,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 	Type *string `json:"Type,omitempty"`
 }
 
@@ -305,7 +305,7 @@ CreateMember Method for CreateMember
  * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the Member resource under.
  * @param ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the new Member resource belongs to. This value can be the Channel resource's `sid` or `unique_name`.
  * @param optional nil or *CreateMemberOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A valid JSON string that contains application-specific data.
  * @param "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this parameter should only be used when a Member is being recreated from a backup/separate source.
  * @param "DateUpdated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used when a Member is being recreated from a backup/separate source and where a Member was previously updated.
@@ -381,7 +381,7 @@ CreateMessage Method for CreateMessage
  * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the Message resource under.
  * @param ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the new Message resource belongs to. This value can be the Channel resource's `sid` or `unique_name`.
  * @param optional nil or *CreateMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A valid JSON string that contains application-specific data.
  * @param "Body" (string) - The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
  * @param "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
@@ -539,7 +539,7 @@ type CreateUserParams struct {
 CreateUser Method for CreateUser
  * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the User resource under.
  * @param optional nil or *CreateUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A valid JSON string that contains application-specific data.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the new resource. This value is often used for display purposes.
  * @param "Identity" (string) - The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). This value is often a username or email address. See the Identity documentation for more info.
@@ -621,7 +621,7 @@ DeleteChannel Method for DeleteChannel
  * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
  * @param Sid The SID of the Channel resource to delete.  This value can be either the `sid` or the `unique_name` of the Channel resource to delete.
  * @param optional nil or *DeleteChannelOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteChannel(ServiceSid string, Sid string, params *DeleteChannelParams) (error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
@@ -737,7 +737,7 @@ DeleteMember Method for DeleteMember
  * @param ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource to delete belongs to. This value can be the Channel resource's `sid` or `unique_name`.
  * @param Sid The SID of the Member resource to delete. This value can be either the Member's `sid` or its `identity` value.
  * @param optional nil or *DeleteMemberOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string, params *DeleteMemberParams) (error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
@@ -774,7 +774,7 @@ DeleteMessage Method for DeleteMessage
  * @param ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Message resource to delete belongs to. This value can be the Channel resource's `sid` or `unique_name`.
  * @param Sid The SID of the Message resource to delete.
  * @param optional nil or *DeleteMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string, params *DeleteMessageParams) (error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
@@ -1853,7 +1853,7 @@ UpdateChannel Method for UpdateChannel
  * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Channel resource in.
  * @param Sid The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
  * @param optional nil or *UpdateChannelOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A valid JSON string that contains application-specific data.
  * @param "CreatedBy" (string) - The `identity` of the User that created the channel. Default is: `system`.
  * @param "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
@@ -1910,12 +1910,12 @@ func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params 
 }
 // UpdateChannelWebhookParams Optional parameters for the method 'UpdateChannelWebhook'
 type UpdateChannelWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationRetryCount *int32 `json:"ConfigurationRetryCount,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -2057,7 +2057,7 @@ UpdateMember Method for UpdateMember
  * @param ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource to update belongs to. This value can be the Channel resource's `sid` or `unique_name`.
  * @param Sid The SID of the Member resource to update. This value can be either the Member's `sid` or its `identity` value.
  * @param optional nil or *UpdateMemberOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A valid JSON string that contains application-specific data.
  * @param "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this parameter should only be used when a Member is being recreated from a backup/separate source.
  * @param "DateUpdated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
@@ -2130,7 +2130,7 @@ UpdateMessage Method for UpdateMessage
  * @param ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Message resource to update belongs to. This value can be the Channel resource's `sid` or `unique_name`.
  * @param Sid The SID of the Message resource to update.
  * @param optional nil or *UpdateMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A valid JSON string that contains application-specific data.
  * @param "Body" (string) - The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
  * @param "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
@@ -2234,23 +2234,23 @@ type UpdateServiceParams struct {
 	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
 	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	LimitsChannelMembers *int32 `json:"LimitsChannelMembers,omitempty"`
-	LimitsUserChannels *int32 `json:"LimitsUserChannels,omitempty"`
-	MediaCompatibilityMessage *string `json:"MediaCompatibilityMessage,omitempty"`
-	NotificationsAddedToChannelEnabled *bool `json:"NotificationsAddedToChannelEnabled,omitempty"`
-	NotificationsAddedToChannelSound *string `json:"NotificationsAddedToChannelSound,omitempty"`
-	NotificationsAddedToChannelTemplate *string `json:"NotificationsAddedToChannelTemplate,omitempty"`
-	NotificationsInvitedToChannelEnabled *bool `json:"NotificationsInvitedToChannelEnabled,omitempty"`
-	NotificationsInvitedToChannelSound *string `json:"NotificationsInvitedToChannelSound,omitempty"`
-	NotificationsInvitedToChannelTemplate *string `json:"NotificationsInvitedToChannelTemplate,omitempty"`
-	NotificationsLogEnabled *bool `json:"NotificationsLogEnabled,omitempty"`
-	NotificationsNewMessageBadgeCountEnabled *bool `json:"NotificationsNewMessageBadgeCountEnabled,omitempty"`
-	NotificationsNewMessageEnabled *bool `json:"NotificationsNewMessageEnabled,omitempty"`
-	NotificationsNewMessageSound *string `json:"NotificationsNewMessageSound,omitempty"`
-	NotificationsNewMessageTemplate *string `json:"NotificationsNewMessageTemplate,omitempty"`
-	NotificationsRemovedFromChannelEnabled *bool `json:"NotificationsRemovedFromChannelEnabled,omitempty"`
-	NotificationsRemovedFromChannelSound *string `json:"NotificationsRemovedFromChannelSound,omitempty"`
-	NotificationsRemovedFromChannelTemplate *string `json:"NotificationsRemovedFromChannelTemplate,omitempty"`
+	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	MediaCompatibilityMessage *string `json:"Media.CompatibilityMessage,omitempty"`
+	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	NotificationsAddedToChannelSound *string `json:"Notifications.AddedToChannel.Sound,omitempty"`
+	NotificationsAddedToChannelTemplate *string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	NotificationsInvitedToChannelEnabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	NotificationsInvitedToChannelSound *string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
+	NotificationsInvitedToChannelTemplate *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	NotificationsLogEnabled *bool `json:"Notifications.LogEnabled,omitempty"`
+	NotificationsNewMessageBadgeCountEnabled *bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
+	NotificationsNewMessageEnabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	NotificationsNewMessageSound *string `json:"Notifications.NewMessage.Sound,omitempty"`
+	NotificationsNewMessageTemplate *string `json:"Notifications.NewMessage.Template,omitempty"`
+	NotificationsRemovedFromChannelEnabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	NotificationsRemovedFromChannelSound *string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
+	NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
 	PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
 	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
 	PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
@@ -2429,7 +2429,7 @@ UpdateUser Method for UpdateUser
  * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the User resource in.
  * @param Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
  * @param optional nil or *UpdateUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A valid JSON string that contains application-specific data.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is often used for display purposes.
  * @param "RoleSid" (string) - The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.

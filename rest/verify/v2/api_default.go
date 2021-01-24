@@ -124,8 +124,8 @@ func (c *DefaultApiService) CreateBucket(ServiceSid string, RateLimitSid string,
 }
 // CreateChallengeParams Optional parameters for the method 'CreateChallenge'
 type CreateChallengeParams struct {
-	DetailsFields *[]map[string]interface{} `json:"DetailsFields,omitempty"`
-	DetailsMessage *string `json:"DetailsMessage,omitempty"`
+	DetailsFields *[]map[string]interface{} `json:"Details.Fields,omitempty"`
+	DetailsMessage *string `json:"Details.Message,omitempty"`
 	ExpirationDate *time.Time `json:"ExpirationDate,omitempty"`
 	FactorSid *string `json:"FactorSid,omitempty"`
 	HiddenDetails *map[string]interface{} `json:"HiddenDetails,omitempty"`
@@ -238,12 +238,12 @@ func (c *DefaultApiService) CreateEntity(ServiceSid string, params *CreateEntity
 }
 // CreateFactorParams Optional parameters for the method 'CreateFactor'
 type CreateFactorParams struct {
-	BindingAlg *string `json:"BindingAlg,omitempty"`
-	BindingPublicKey *string `json:"BindingPublicKey,omitempty"`
-	ConfigAppId *string `json:"ConfigAppId,omitempty"`
-	ConfigNotificationPlatform *string `json:"ConfigNotificationPlatform,omitempty"`
-	ConfigNotificationToken *string `json:"ConfigNotificationToken,omitempty"`
-	ConfigSdkVersion *string `json:"ConfigSdkVersion,omitempty"`
+	BindingAlg *string `json:"Binding.Alg,omitempty"`
+	BindingPublicKey *string `json:"Binding.PublicKey,omitempty"`
+	ConfigAppId *string `json:"Config.AppId,omitempty"`
+	ConfigNotificationPlatform *string `json:"Config.NotificationPlatform,omitempty"`
+	ConfigNotificationToken *string `json:"Config.NotificationToken,omitempty"`
+	ConfigSdkVersion *string `json:"Config.SdkVersion,omitempty"`
 	FactorType *string `json:"FactorType,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
@@ -412,9 +412,9 @@ type CreateServiceParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	LookupEnabled *bool `json:"LookupEnabled,omitempty"`
 	Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
-	PushApnCredentialSid *string `json:"PushApnCredentialSid,omitempty"`
-	PushFcmCredentialSid *string `json:"PushFcmCredentialSid,omitempty"`
-	PushIncludeDate *bool `json:"PushIncludeDate,omitempty"`
+	PushApnCredentialSid *string `json:"Push.ApnCredentialSid,omitempty"`
+	PushFcmCredentialSid *string `json:"Push.FcmCredentialSid,omitempty"`
+	PushIncludeDate *bool `json:"Push.IncludeDate,omitempty"`
 	SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`
 	TtsName *string `json:"TtsName,omitempty"`
 }
@@ -1671,8 +1671,8 @@ func (c *DefaultApiService) UpdateChallenge(ServiceSid string, Identity string, 
 // UpdateFactorParams Optional parameters for the method 'UpdateFactor'
 type UpdateFactorParams struct {
 	AuthPayload *string `json:"AuthPayload,omitempty"`
-	ConfigNotificationToken *string `json:"ConfigNotificationToken,omitempty"`
-	ConfigSdkVersion *string `json:"ConfigSdkVersion,omitempty"`
+	ConfigNotificationToken *string `json:"Config.NotificationToken,omitempty"`
+	ConfigSdkVersion *string `json:"Config.SdkVersion,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -1820,9 +1820,9 @@ type UpdateServiceParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	LookupEnabled *bool `json:"LookupEnabled,omitempty"`
 	Psd2Enabled *bool `json:"Psd2Enabled,omitempty"`
-	PushApnCredentialSid *string `json:"PushApnCredentialSid,omitempty"`
-	PushFcmCredentialSid *string `json:"PushFcmCredentialSid,omitempty"`
-	PushIncludeDate *bool `json:"PushIncludeDate,omitempty"`
+	PushApnCredentialSid *string `json:"Push.ApnCredentialSid,omitempty"`
+	PushFcmCredentialSid *string `json:"Push.FcmCredentialSid,omitempty"`
+	PushIncludeDate *bool `json:"Push.IncludeDate,omitempty"`
 	SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`
 	TtsName *string `json:"TtsName,omitempty"`
 }

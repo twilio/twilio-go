@@ -422,7 +422,7 @@ Class | Method | HTTP request | Description
 
 
 
-## accountSid_authToken
+## AccountSid_authToken
 
 - **Type**: HTTP basic authentication
 

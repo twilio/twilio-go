@@ -46,7 +46,7 @@ type CreateChannelParams struct {
 CreateChannel Method for CreateChannel
  * @param ServiceSid
  * @param optional nil or *CreateChannelOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - 
  * @param "CreatedBy" (string) - 
  * @param "DateCreated" (time.Time) - 
@@ -106,12 +106,12 @@ func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChann
 }
 // CreateChannelWebhookParams Optional parameters for the method 'CreateChannelWebhook'
 type CreateChannelWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationRetryCount *int32 `json:"ConfigurationRetryCount,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 	Type *string `json:"Type,omitempty"`
 }
 
@@ -305,7 +305,7 @@ CreateMember Method for CreateMember
  * @param ServiceSid
  * @param ChannelSid
  * @param optional nil or *CreateMemberOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - 
  * @param "DateCreated" (time.Time) - 
  * @param "DateUpdated" (time.Time) - 
@@ -381,7 +381,7 @@ CreateMessage Method for CreateMessage
  * @param ServiceSid
  * @param ChannelSid
  * @param optional nil or *CreateMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - 
  * @param "Body" (string) - 
  * @param "DateCreated" (time.Time) - 
@@ -539,7 +539,7 @@ type CreateUserParams struct {
 CreateUser Method for CreateUser
  * @param ServiceSid
  * @param optional nil or *CreateUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - 
  * @param "FriendlyName" (string) - 
  * @param "Identity" (string) - 
@@ -621,7 +621,7 @@ DeleteChannel Method for DeleteChannel
  * @param ServiceSid
  * @param Sid
  * @param optional nil or *DeleteChannelOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteChannel(ServiceSid string, Sid string, params *DeleteChannelParams) (error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
@@ -737,7 +737,7 @@ DeleteMember Method for DeleteMember
  * @param ChannelSid
  * @param Sid
  * @param optional nil or *DeleteMemberOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string, params *DeleteMemberParams) (error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
@@ -774,7 +774,7 @@ DeleteMessage Method for DeleteMessage
  * @param ChannelSid
  * @param Sid
  * @param optional nil or *DeleteMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string, params *DeleteMessageParams) (error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
@@ -1851,7 +1851,7 @@ UpdateChannel Method for UpdateChannel
  * @param ServiceSid
  * @param Sid
  * @param optional nil or *UpdateChannelOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - 
  * @param "CreatedBy" (string) - 
  * @param "DateCreated" (time.Time) - 
@@ -1908,12 +1908,12 @@ func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params 
 }
 // UpdateChannelWebhookParams Optional parameters for the method 'UpdateChannelWebhook'
 type UpdateChannelWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationRetryCount *int32 `json:"ConfigurationRetryCount,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -2055,7 +2055,7 @@ UpdateMember Method for UpdateMember
  * @param ChannelSid
  * @param Sid
  * @param optional nil or *UpdateMemberOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - 
  * @param "DateCreated" (time.Time) - 
  * @param "DateUpdated" (time.Time) - 
@@ -2128,7 +2128,7 @@ UpdateMessage Method for UpdateMessage
  * @param ChannelSid
  * @param Sid
  * @param optional nil or *UpdateMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - 
  * @param "Body" (string) - 
  * @param "DateCreated" (time.Time) - 
@@ -2232,23 +2232,23 @@ type UpdateServiceParams struct {
 	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
 	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	LimitsChannelMembers *int32 `json:"LimitsChannelMembers,omitempty"`
-	LimitsUserChannels *int32 `json:"LimitsUserChannels,omitempty"`
-	MediaCompatibilityMessage *string `json:"MediaCompatibilityMessage,omitempty"`
-	NotificationsAddedToChannelEnabled *bool `json:"NotificationsAddedToChannelEnabled,omitempty"`
-	NotificationsAddedToChannelSound *string `json:"NotificationsAddedToChannelSound,omitempty"`
-	NotificationsAddedToChannelTemplate *string `json:"NotificationsAddedToChannelTemplate,omitempty"`
-	NotificationsInvitedToChannelEnabled *bool `json:"NotificationsInvitedToChannelEnabled,omitempty"`
-	NotificationsInvitedToChannelSound *string `json:"NotificationsInvitedToChannelSound,omitempty"`
-	NotificationsInvitedToChannelTemplate *string `json:"NotificationsInvitedToChannelTemplate,omitempty"`
-	NotificationsLogEnabled *bool `json:"NotificationsLogEnabled,omitempty"`
-	NotificationsNewMessageBadgeCountEnabled *bool `json:"NotificationsNewMessageBadgeCountEnabled,omitempty"`
-	NotificationsNewMessageEnabled *bool `json:"NotificationsNewMessageEnabled,omitempty"`
-	NotificationsNewMessageSound *string `json:"NotificationsNewMessageSound,omitempty"`
-	NotificationsNewMessageTemplate *string `json:"NotificationsNewMessageTemplate,omitempty"`
-	NotificationsRemovedFromChannelEnabled *bool `json:"NotificationsRemovedFromChannelEnabled,omitempty"`
-	NotificationsRemovedFromChannelSound *string `json:"NotificationsRemovedFromChannelSound,omitempty"`
-	NotificationsRemovedFromChannelTemplate *string `json:"NotificationsRemovedFromChannelTemplate,omitempty"`
+	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	MediaCompatibilityMessage *string `json:"Media.CompatibilityMessage,omitempty"`
+	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	NotificationsAddedToChannelSound *string `json:"Notifications.AddedToChannel.Sound,omitempty"`
+	NotificationsAddedToChannelTemplate *string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	NotificationsInvitedToChannelEnabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	NotificationsInvitedToChannelSound *string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
+	NotificationsInvitedToChannelTemplate *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	NotificationsLogEnabled *bool `json:"Notifications.LogEnabled,omitempty"`
+	NotificationsNewMessageBadgeCountEnabled *bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
+	NotificationsNewMessageEnabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	NotificationsNewMessageSound *string `json:"Notifications.NewMessage.Sound,omitempty"`
+	NotificationsNewMessageTemplate *string `json:"Notifications.NewMessage.Template,omitempty"`
+	NotificationsRemovedFromChannelEnabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	NotificationsRemovedFromChannelSound *string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
+	NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
 	PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
 	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
 	PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
@@ -2427,7 +2427,7 @@ UpdateUser Method for UpdateUser
  * @param ServiceSid
  * @param Sid
  * @param optional nil or *UpdateUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - 
  * @param "FriendlyName" (string) - 
  * @param "RoleSid" (string) - 

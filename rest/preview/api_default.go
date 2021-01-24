@@ -1599,7 +1599,7 @@ DeleteDocument Method for DeleteDocument
  * @param ServiceSid
  * @param Sid
  * @param optional nil or *DeleteDocumentOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteDocument(ServiceSid string, Sid string, params *DeleteDocumentParams) (error) {
 	path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
@@ -2026,7 +2026,7 @@ DeleteSyncListItem Method for DeleteSyncListItem
  * @param ListSid
  * @param Index
  * @param optional nil or *DeleteSyncListItemOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int32, params *DeleteSyncListItemParams) (error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
@@ -2118,7 +2118,7 @@ DeleteSyncMapItem Method for DeleteSyncMapItem
  * @param MapSid
  * @param Key
  * @param optional nil or *DeleteSyncMapItemOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key string, params *DeleteSyncMapItemParams) (error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
@@ -2424,7 +2424,7 @@ type FetchBrandsInformationParams struct {
 FetchBrandsInformation Method for FetchBrandsInformation
 Retrieve the newest available BrandInformation
  * @param optional nil or *FetchBrandsInformationOpts - Optional Parameters:
- * @param "If-None-Match" (string) - The If-None-Match HTTP request header
+ * @param "IfNoneMatch" (string) - The If-None-Match HTTP request header
 @return PreviewTrustedCommsBrandsInformation
 */
 func (c *DefaultApiService) FetchBrandsInformation(params *FetchBrandsInformationParams) (*PreviewTrustedCommsBrandsInformation, error) {
@@ -2525,7 +2525,7 @@ type FetchCpsParams struct {
 FetchCps Method for FetchCps
 Fetch a specific Call Placement Service (CPS) given a phone number via &#x60;X-XCNAM-Sensitive-Phone-Number&#x60; header.
  * @param optional nil or *FetchCpsOpts - Optional Parameters:
- * @param "X-Xcnam-Sensitive-Phone-Number" (string) - The X-Xcnam-Sensitive-Phone-Number HTTP request header
+ * @param "XXcnamSensitivePhoneNumber" (string) - The X-Xcnam-Sensitive-Phone-Number HTTP request header
 @return PreviewTrustedCommsCps
 */
 func (c *DefaultApiService) FetchCps(params *FetchCpsParams) (*PreviewTrustedCommsCps, error) {
@@ -2564,8 +2564,8 @@ type FetchCurrentCallParams struct {
 FetchCurrentCall Method for FetchCurrentCall
 Retrieve a current call given the originating and terminating number via &#x60;X-XCNAM-Sensitive-Phone-Number-From&#x60; and &#x60;X-XCNAM-Sensitive-Phone-Number-To&#x60; headers.
  * @param optional nil or *FetchCurrentCallOpts - Optional Parameters:
- * @param "X-Xcnam-Sensitive-Phone-Number-From" (string) - The X-Xcnam-Sensitive-Phone-Number-From HTTP request header
- * @param "X-Xcnam-Sensitive-Phone-Number-To" (string) - The X-Xcnam-Sensitive-Phone-Number-To HTTP request header
+ * @param "XXcnamSensitivePhoneNumberFrom" (string) - The X-Xcnam-Sensitive-Phone-Number-From HTTP request header
+ * @param "XXcnamSensitivePhoneNumberTo" (string) - The X-Xcnam-Sensitive-Phone-Number-To HTTP request header
 @return PreviewTrustedCommsCurrentCall
 */
 func (c *DefaultApiService) FetchCurrentCall(params *FetchCurrentCallParams) (*PreviewTrustedCommsCurrentCall, error) {
@@ -5629,7 +5629,7 @@ UpdateDocument Method for UpdateDocument
  * @param ServiceSid
  * @param Sid
  * @param optional nil or *UpdateDocumentOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
  * @param "Data" (map[string]interface{}) - 
 @return PreviewSyncServiceDocument
 */
@@ -6500,7 +6500,7 @@ UpdateSyncListItem Method for UpdateSyncListItem
  * @param ListSid
  * @param Index
  * @param optional nil or *UpdateSyncListItemOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
  * @param "Data" (map[string]interface{}) - 
 @return PreviewSyncServiceSyncListSyncListItem
 */
@@ -6608,7 +6608,7 @@ UpdateSyncMapItem Method for UpdateSyncMapItem
  * @param MapSid
  * @param Key
  * @param optional nil or *UpdateSyncMapItemOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
  * @param "Data" (map[string]interface{}) - 
 @return PreviewSyncServiceSyncMapSyncMapItem
 */

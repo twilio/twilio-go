@@ -481,7 +481,7 @@ DeleteDocument Method for DeleteDocument
  * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to delete.
  * @param Sid The SID of the Document resource to delete.
  * @param optional nil or *DeleteDocumentOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteDocument(ServiceSid string, Sid string, params *DeleteDocumentParams) (error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
@@ -596,7 +596,7 @@ DeleteSyncListItem Method for DeleteSyncListItem
  * @param ListSid The SID of the Sync List with the Sync List Item resource to delete. Can be the Sync List resource's `sid` or its `unique_name`.
  * @param Index The index of the Sync List Item resource to delete.
  * @param optional nil or *DeleteSyncListItemOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int32, params *DeleteSyncListItemParams) (error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
@@ -688,7 +688,7 @@ DeleteSyncMapItem Method for DeleteSyncMapItem
  * @param MapSid The SID of the Sync Map with the Sync Map Item resource to delete. Can be the Sync Map's `sid` or its `unique_name`.
  * @param Key The `key` value of the Sync Map Item resource to delete.
  * @param optional nil or *DeleteSyncMapItemOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
 */
 func (c *DefaultApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key string, params *DeleteSyncMapItemParams) (error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
@@ -1576,7 +1576,7 @@ UpdateDocument Method for UpdateDocument
  * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to update.
  * @param Sid The SID of the Document resource to update.
  * @param optional nil or *UpdateDocumentOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
  * @param "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16KB in length.
  * @param "Ttl" (int32) - How long, in seconds, before the Sync Document expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Document resource does not expire. The Document resource will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
 @return SyncV1ServiceDocument
@@ -1805,7 +1805,7 @@ UpdateSyncListItem Method for UpdateSyncListItem
  * @param ListSid The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
  * @param Index The index of the Sync List Item resource to update.
  * @param optional nil or *UpdateSyncListItemOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
  * @param "CollectionTtl" (int32) - How long, in seconds, before the List Item's parent Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the parent Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
  * @param "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16KB in length.
  * @param "ItemTtl" (int32) - How long, in seconds, before the List Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the List Item does not expire. The List Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
@@ -1974,7 +1974,7 @@ UpdateSyncMapItem Method for UpdateSyncMapItem
  * @param MapSid The SID of the Sync Map with the Sync Map Item resource to update. Can be the Sync Map's `sid` or its `unique_name`.
  * @param Key The `key` value of the Sync Map Item resource to update. 
  * @param optional nil or *UpdateSyncMapItemOpts - Optional Parameters:
- * @param "If-Match" (string) - The If-Match HTTP request header
+ * @param "IfMatch" (string) - The If-Match HTTP request header
  * @param "CollectionTtl" (int32) - How long, in seconds, before the Map Item's parent Sync Map expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the parent Sync Map does not expire. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
  * @param "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16KB in length.
  * @param "ItemTtl" (int32) - How long, in seconds, before the Map Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Map Item does not expire. The Map Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.

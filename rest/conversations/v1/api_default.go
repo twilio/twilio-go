@@ -39,8 +39,8 @@ type CreateConversationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	TimersClosed *string `json:"TimersClosed,omitempty"`
-	TimersInactive *string `json:"TimersInactive,omitempty"`
+	TimersClosed *string `json:"Timers.Closed,omitempty"`
+	TimersInactive *string `json:"Timers.Inactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -48,7 +48,7 @@ type CreateConversationParams struct {
 CreateConversation Method for CreateConversation
 Create a new conversation in your account&#39;s default service
  * @param optional nil or *CreateConversationOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
@@ -129,7 +129,7 @@ CreateConversationMessage Method for CreateConversationMessage
 Add a new message to the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
  * @param optional nil or *CreateConversationMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
  * @param "Body" (string) - The content of the message, can be up to 1,600 characters long.
@@ -190,9 +190,9 @@ type CreateConversationParticipantParams struct {
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
-	MessagingBindingAddress *string `json:"MessagingBindingAddress,omitempty"`
-	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
-	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
+	MessagingBindingAddress *string `json:"MessagingBinding.Address,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
@@ -201,7 +201,7 @@ CreateConversationParticipant Method for CreateConversationParticipant
 Add a new participant to the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
  * @param optional nil or *CreateConversationParticipantOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
@@ -265,12 +265,12 @@ func (c *DefaultApiService) CreateConversationParticipant(ConversationSid string
 }
 // CreateConversationScopedWebhookParams Optional parameters for the method 'CreateConversationScopedWebhook'
 type CreateConversationScopedWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationReplayAfter *int32 `json:"ConfigurationReplayAfter,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 	Target *string `json:"Target,omitempty"`
 }
 
@@ -496,8 +496,8 @@ type CreateServiceConversationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	TimersClosed *string `json:"TimersClosed,omitempty"`
-	TimersInactive *string `json:"TimersInactive,omitempty"`
+	TimersClosed *string `json:"Timers.Closed,omitempty"`
+	TimersInactive *string `json:"Timers.Inactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -506,7 +506,7 @@ CreateServiceConversation Method for CreateServiceConversation
 Create a new conversation in your service
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
  * @param optional nil or *CreateServiceConversationOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
@@ -589,7 +589,7 @@ Add a new message to the conversation in a specific service
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
  * @param optional nil or *CreateServiceConversationMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
  * @param "Body" (string) - The content of the message, can be up to 1,600 characters long.
@@ -651,9 +651,9 @@ type CreateServiceConversationParticipantParams struct {
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
-	MessagingBindingAddress *string `json:"MessagingBindingAddress,omitempty"`
-	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
-	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
+	MessagingBindingAddress *string `json:"MessagingBinding.Address,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
@@ -663,7 +663,7 @@ Add a new participant to the conversation in a specific service
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
  * @param optional nil or *CreateServiceConversationParticipantOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
@@ -728,12 +728,12 @@ func (c *DefaultApiService) CreateServiceConversationParticipant(ChatServiceSid 
 }
 // CreateServiceConversationScopedWebhookParams Optional parameters for the method 'CreateServiceConversationScopedWebhook'
 type CreateServiceConversationScopedWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationReplayAfter *int32 `json:"ConfigurationReplayAfter,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 	Target *string `json:"Target,omitempty"`
 }
 
@@ -862,7 +862,7 @@ CreateServiceUser Method for CreateServiceUser
 Add a new conversation user to your service
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
  * @param optional nil or *CreateServiceUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
  * @param "FriendlyName" (string) - The string that you assigned to describe the resource.
  * @param "Identity" (string) - The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
@@ -921,7 +921,7 @@ type CreateUserParams struct {
 CreateUser Method for CreateUser
 Add a new conversation user to your account&#39;s default service
  * @param optional nil or *CreateUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
  * @param "FriendlyName" (string) - The string that you assigned to describe the resource.
  * @param "Identity" (string) - The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
@@ -976,7 +976,7 @@ DeleteConversation Method for DeleteConversation
 Remove a conversation from your account&#39;s default service
  * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
  * @param optional nil or *DeleteConversationOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteConversation(Sid string, params *DeleteConversationParams) (error) {
 	path := "/v1/Conversations/{Sid}"
@@ -1011,7 +1011,7 @@ Remove a message from the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *DeleteConversationMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteConversationMessage(ConversationSid string, Sid string, params *DeleteConversationMessageParams) (error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
@@ -1047,7 +1047,7 @@ Remove a participant from the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *DeleteConversationParticipantOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteConversationParticipant(ConversationSid string, Sid string, params *DeleteConversationParticipantParams) (error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
@@ -1212,7 +1212,7 @@ Remove a conversation from your service
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
  * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
  * @param optional nil or *DeleteServiceConversationOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteServiceConversation(ChatServiceSid string, Sid string, params *DeleteServiceConversationParams) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
@@ -1249,7 +1249,7 @@ Remove a message from the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *DeleteServiceConversationMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteServiceConversationMessage(ChatServiceSid string, ConversationSid string, Sid string, params *DeleteServiceConversationMessageParams) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
@@ -1287,7 +1287,7 @@ Remove a participant from the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *DeleteServiceConversationParticipantOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string, params *DeleteServiceConversationParticipantParams) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
@@ -1380,7 +1380,7 @@ Remove a conversation user from your service
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the User resource from.
  * @param Sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
  * @param optional nil or *DeleteServiceUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteServiceUser(ChatServiceSid string, Sid string, params *DeleteServiceUserParams) (error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
@@ -1415,7 +1415,7 @@ DeleteUser Method for DeleteUser
 Remove a conversation user from your account&#39;s default service
  * @param Sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
  * @param optional nil or *DeleteUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
 */
 func (c *DefaultApiService) DeleteUser(Sid string, params *DeleteUserParams) (error) {
 	path := "/v1/Users/{Sid}"
@@ -2932,8 +2932,8 @@ type UpdateConversationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	TimersClosed *string `json:"TimersClosed,omitempty"`
-	TimersInactive *string `json:"TimersInactive,omitempty"`
+	TimersClosed *string `json:"Timers.Closed,omitempty"`
+	TimersInactive *string `json:"Timers.Inactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -2942,7 +2942,7 @@ UpdateConversation Method for UpdateConversation
 Update an existing conversation in your account&#39;s default service
  * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
  * @param optional nil or *UpdateConversationOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
@@ -3024,7 +3024,7 @@ Update an existing message in the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateConversationMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
  * @param "Body" (string) - The content of the message, can be up to 1,600 characters long.
@@ -3084,8 +3084,8 @@ type UpdateConversationParticipantParams struct {
 	Identity *string `json:"Identity,omitempty"`
 	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
 	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
-	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
-	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
@@ -3095,7 +3095,7 @@ Update an existing participant in the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateConversationParticipantOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
@@ -3164,11 +3164,11 @@ func (c *DefaultApiService) UpdateConversationParticipant(ConversationSid string
 }
 // UpdateConversationScopedWebhookParams Optional parameters for the method 'UpdateConversationScopedWebhook'
 type UpdateConversationScopedWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -3398,8 +3398,8 @@ type UpdateServiceConversationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	TimersClosed *string `json:"TimersClosed,omitempty"`
-	TimersInactive *string `json:"TimersInactive,omitempty"`
+	TimersClosed *string `json:"Timers.Closed,omitempty"`
+	TimersInactive *string `json:"Timers.Inactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -3409,7 +3409,7 @@ Update an existing conversation in your service
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
  * @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
  * @param optional nil or *UpdateServiceConversationOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
@@ -3493,7 +3493,7 @@ Update an existing message in the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateServiceConversationMessageOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
  * @param "Body" (string) - The content of the message, can be up to 1,600 characters long.
@@ -3554,8 +3554,8 @@ type UpdateServiceConversationParticipantParams struct {
 	Identity *string `json:"Identity,omitempty"`
 	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
 	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
-	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
-	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
@@ -3566,7 +3566,7 @@ Update an existing participant in the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateServiceConversationParticipantOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
@@ -3636,11 +3636,11 @@ func (c *DefaultApiService) UpdateServiceConversationParticipant(ChatServiceSid 
 }
 // UpdateServiceConversationScopedWebhookParams Optional parameters for the method 'UpdateServiceConversationScopedWebhook'
 type UpdateServiceConversationScopedWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -3700,17 +3700,17 @@ func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(ChatServiceSi
 }
 // UpdateServiceNotificationParams Optional parameters for the method 'UpdateServiceNotification'
 type UpdateServiceNotificationParams struct {
-	AddedToConversationEnabled *bool `json:"AddedToConversationEnabled,omitempty"`
-	AddedToConversationSound *string `json:"AddedToConversationSound,omitempty"`
-	AddedToConversationTemplate *string `json:"AddedToConversationTemplate,omitempty"`
+	AddedToConversationEnabled *bool `json:"AddedToConversation.Enabled,omitempty"`
+	AddedToConversationSound *string `json:"AddedToConversation.Sound,omitempty"`
+	AddedToConversationTemplate *string `json:"AddedToConversation.Template,omitempty"`
 	LogEnabled *bool `json:"LogEnabled,omitempty"`
-	NewMessageBadgeCountEnabled *bool `json:"NewMessageBadgeCountEnabled,omitempty"`
-	NewMessageEnabled *bool `json:"NewMessageEnabled,omitempty"`
-	NewMessageSound *string `json:"NewMessageSound,omitempty"`
-	NewMessageTemplate *string `json:"NewMessageTemplate,omitempty"`
-	RemovedFromConversationEnabled *bool `json:"RemovedFromConversationEnabled,omitempty"`
-	RemovedFromConversationSound *string `json:"RemovedFromConversationSound,omitempty"`
-	RemovedFromConversationTemplate *string `json:"RemovedFromConversationTemplate,omitempty"`
+	NewMessageBadgeCountEnabled *bool `json:"NewMessage.BadgeCountEnabled,omitempty"`
+	NewMessageEnabled *bool `json:"NewMessage.Enabled,omitempty"`
+	NewMessageSound *string `json:"NewMessage.Sound,omitempty"`
+	NewMessageTemplate *string `json:"NewMessage.Template,omitempty"`
+	RemovedFromConversationEnabled *bool `json:"RemovedFromConversation.Enabled,omitempty"`
+	RemovedFromConversationSound *string `json:"RemovedFromConversation.Sound,omitempty"`
+	RemovedFromConversationTemplate *string `json:"RemovedFromConversation.Template,omitempty"`
 }
 
 /*
@@ -3844,7 +3844,7 @@ Update an existing conversation user in your service
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
  * @param Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
  * @param optional nil or *UpdateServiceUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
  * @param "FriendlyName" (string) - The string that you assigned to describe the resource.
  * @param "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
@@ -3900,7 +3900,7 @@ UpdateUser Method for UpdateUser
 Update an existing conversation user in your account&#39;s default service
  * @param Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
  * @param optional nil or *UpdateUserOpts - Optional Parameters:
- * @param "X-Twilio-Webhook-Enabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+ * @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
  * @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
  * @param "FriendlyName" (string) - The string that you assigned to describe the resource.
  * @param "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.

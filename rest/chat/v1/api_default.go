@@ -1536,16 +1536,16 @@ type UpdateServiceParams struct {
 	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
 	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	LimitsChannelMembers *int32 `json:"LimitsChannelMembers,omitempty"`
-	LimitsUserChannels *int32 `json:"LimitsUserChannels,omitempty"`
-	NotificationsAddedToChannelEnabled *bool `json:"NotificationsAddedToChannelEnabled,omitempty"`
-	NotificationsAddedToChannelTemplate *string `json:"NotificationsAddedToChannelTemplate,omitempty"`
-	NotificationsInvitedToChannelEnabled *bool `json:"NotificationsInvitedToChannelEnabled,omitempty"`
-	NotificationsInvitedToChannelTemplate *string `json:"NotificationsInvitedToChannelTemplate,omitempty"`
-	NotificationsNewMessageEnabled *bool `json:"NotificationsNewMessageEnabled,omitempty"`
-	NotificationsNewMessageTemplate *string `json:"NotificationsNewMessageTemplate,omitempty"`
-	NotificationsRemovedFromChannelEnabled *bool `json:"NotificationsRemovedFromChannelEnabled,omitempty"`
-	NotificationsRemovedFromChannelTemplate *string `json:"NotificationsRemovedFromChannelTemplate,omitempty"`
+	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	NotificationsAddedToChannelTemplate *string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	NotificationsInvitedToChannelEnabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	NotificationsInvitedToChannelTemplate *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	NotificationsNewMessageEnabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	NotificationsNewMessageTemplate *string `json:"Notifications.NewMessage.Template,omitempty"`
+	NotificationsRemovedFromChannelEnabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
 	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
 	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
 	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
@@ -1553,38 +1553,38 @@ type UpdateServiceParams struct {
 	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
 	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhooksOnChannelAddMethod *string `json:"WebhooksOnChannelAddMethod,omitempty"`
-	WebhooksOnChannelAddUrl *string `json:"WebhooksOnChannelAddUrl,omitempty"`
-	WebhooksOnChannelAddedMethod *string `json:"WebhooksOnChannelAddedMethod,omitempty"`
-	WebhooksOnChannelAddedUrl *string `json:"WebhooksOnChannelAddedUrl,omitempty"`
-	WebhooksOnChannelDestroyMethod *string `json:"WebhooksOnChannelDestroyMethod,omitempty"`
-	WebhooksOnChannelDestroyUrl *string `json:"WebhooksOnChannelDestroyUrl,omitempty"`
-	WebhooksOnChannelDestroyedMethod *string `json:"WebhooksOnChannelDestroyedMethod,omitempty"`
-	WebhooksOnChannelDestroyedUrl *string `json:"WebhooksOnChannelDestroyedUrl,omitempty"`
-	WebhooksOnChannelUpdateMethod *string `json:"WebhooksOnChannelUpdateMethod,omitempty"`
-	WebhooksOnChannelUpdateUrl *string `json:"WebhooksOnChannelUpdateUrl,omitempty"`
-	WebhooksOnChannelUpdatedMethod *string `json:"WebhooksOnChannelUpdatedMethod,omitempty"`
-	WebhooksOnChannelUpdatedUrl *string `json:"WebhooksOnChannelUpdatedUrl,omitempty"`
-	WebhooksOnMemberAddMethod *string `json:"WebhooksOnMemberAddMethod,omitempty"`
-	WebhooksOnMemberAddUrl *string `json:"WebhooksOnMemberAddUrl,omitempty"`
-	WebhooksOnMemberAddedMethod *string `json:"WebhooksOnMemberAddedMethod,omitempty"`
-	WebhooksOnMemberAddedUrl *string `json:"WebhooksOnMemberAddedUrl,omitempty"`
-	WebhooksOnMemberRemoveMethod *string `json:"WebhooksOnMemberRemoveMethod,omitempty"`
-	WebhooksOnMemberRemoveUrl *string `json:"WebhooksOnMemberRemoveUrl,omitempty"`
-	WebhooksOnMemberRemovedMethod *string `json:"WebhooksOnMemberRemovedMethod,omitempty"`
-	WebhooksOnMemberRemovedUrl *string `json:"WebhooksOnMemberRemovedUrl,omitempty"`
-	WebhooksOnMessageRemoveMethod *string `json:"WebhooksOnMessageRemoveMethod,omitempty"`
-	WebhooksOnMessageRemoveUrl *string `json:"WebhooksOnMessageRemoveUrl,omitempty"`
-	WebhooksOnMessageRemovedMethod *string `json:"WebhooksOnMessageRemovedMethod,omitempty"`
-	WebhooksOnMessageRemovedUrl *string `json:"WebhooksOnMessageRemovedUrl,omitempty"`
-	WebhooksOnMessageSendMethod *string `json:"WebhooksOnMessageSendMethod,omitempty"`
-	WebhooksOnMessageSendUrl *string `json:"WebhooksOnMessageSendUrl,omitempty"`
-	WebhooksOnMessageSentMethod *string `json:"WebhooksOnMessageSentMethod,omitempty"`
-	WebhooksOnMessageSentUrl *string `json:"WebhooksOnMessageSentUrl,omitempty"`
-	WebhooksOnMessageUpdateMethod *string `json:"WebhooksOnMessageUpdateMethod,omitempty"`
-	WebhooksOnMessageUpdateUrl *string `json:"WebhooksOnMessageUpdateUrl,omitempty"`
-	WebhooksOnMessageUpdatedMethod *string `json:"WebhooksOnMessageUpdatedMethod,omitempty"`
-	WebhooksOnMessageUpdatedUrl *string `json:"WebhooksOnMessageUpdatedUrl,omitempty"`
+	WebhooksOnChannelAddMethod *string `json:"Webhooks.OnChannelAdd.Method,omitempty"`
+	WebhooksOnChannelAddUrl *string `json:"Webhooks.OnChannelAdd.Url,omitempty"`
+	WebhooksOnChannelAddedMethod *string `json:"Webhooks.OnChannelAdded.Method,omitempty"`
+	WebhooksOnChannelAddedUrl *string `json:"Webhooks.OnChannelAdded.Url,omitempty"`
+	WebhooksOnChannelDestroyMethod *string `json:"Webhooks.OnChannelDestroy.Method,omitempty"`
+	WebhooksOnChannelDestroyUrl *string `json:"Webhooks.OnChannelDestroy.Url,omitempty"`
+	WebhooksOnChannelDestroyedMethod *string `json:"Webhooks.OnChannelDestroyed.Method,omitempty"`
+	WebhooksOnChannelDestroyedUrl *string `json:"Webhooks.OnChannelDestroyed.Url,omitempty"`
+	WebhooksOnChannelUpdateMethod *string `json:"Webhooks.OnChannelUpdate.Method,omitempty"`
+	WebhooksOnChannelUpdateUrl *string `json:"Webhooks.OnChannelUpdate.Url,omitempty"`
+	WebhooksOnChannelUpdatedMethod *string `json:"Webhooks.OnChannelUpdated.Method,omitempty"`
+	WebhooksOnChannelUpdatedUrl *string `json:"Webhooks.OnChannelUpdated.Url,omitempty"`
+	WebhooksOnMemberAddMethod *string `json:"Webhooks.OnMemberAdd.Method,omitempty"`
+	WebhooksOnMemberAddUrl *string `json:"Webhooks.OnMemberAdd.Url,omitempty"`
+	WebhooksOnMemberAddedMethod *string `json:"Webhooks.OnMemberAdded.Method,omitempty"`
+	WebhooksOnMemberAddedUrl *string `json:"Webhooks.OnMemberAdded.Url,omitempty"`
+	WebhooksOnMemberRemoveMethod *string `json:"Webhooks.OnMemberRemove.Method,omitempty"`
+	WebhooksOnMemberRemoveUrl *string `json:"Webhooks.OnMemberRemove.Url,omitempty"`
+	WebhooksOnMemberRemovedMethod *string `json:"Webhooks.OnMemberRemoved.Method,omitempty"`
+	WebhooksOnMemberRemovedUrl *string `json:"Webhooks.OnMemberRemoved.Url,omitempty"`
+	WebhooksOnMessageRemoveMethod *string `json:"Webhooks.OnMessageRemove.Method,omitempty"`
+	WebhooksOnMessageRemoveUrl *string `json:"Webhooks.OnMessageRemove.Url,omitempty"`
+	WebhooksOnMessageRemovedMethod *string `json:"Webhooks.OnMessageRemoved.Method,omitempty"`
+	WebhooksOnMessageRemovedUrl *string `json:"Webhooks.OnMessageRemoved.Url,omitempty"`
+	WebhooksOnMessageSendMethod *string `json:"Webhooks.OnMessageSend.Method,omitempty"`
+	WebhooksOnMessageSendUrl *string `json:"Webhooks.OnMessageSend.Url,omitempty"`
+	WebhooksOnMessageSentMethod *string `json:"Webhooks.OnMessageSent.Method,omitempty"`
+	WebhooksOnMessageSentUrl *string `json:"Webhooks.OnMessageSent.Url,omitempty"`
+	WebhooksOnMessageUpdateMethod *string `json:"Webhooks.OnMessageUpdate.Method,omitempty"`
+	WebhooksOnMessageUpdateUrl *string `json:"Webhooks.OnMessageUpdate.Url,omitempty"`
+	WebhooksOnMessageUpdatedMethod *string `json:"Webhooks.OnMessageUpdated.Method,omitempty"`
+	WebhooksOnMessageUpdatedUrl *string `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
 }
 
 /*

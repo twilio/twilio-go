@@ -118,15 +118,15 @@ type CreateFlexFlowParams struct {
 	ContactIdentity *string `json:"ContactIdentity,omitempty"`
 	Enabled *bool `json:"Enabled,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	IntegrationChannel *string `json:"IntegrationChannel,omitempty"`
-	IntegrationCreationOnMessage *bool `json:"IntegrationCreationOnMessage,omitempty"`
-	IntegrationFlowSid *string `json:"IntegrationFlowSid,omitempty"`
-	IntegrationPriority *int32 `json:"IntegrationPriority,omitempty"`
-	IntegrationRetryCount *int32 `json:"IntegrationRetryCount,omitempty"`
-	IntegrationTimeout *int32 `json:"IntegrationTimeout,omitempty"`
-	IntegrationUrl *string `json:"IntegrationUrl,omitempty"`
-	IntegrationWorkflowSid *string `json:"IntegrationWorkflowSid,omitempty"`
-	IntegrationWorkspaceSid *string `json:"IntegrationWorkspaceSid,omitempty"`
+	IntegrationChannel *string `json:"Integration.Channel,omitempty"`
+	IntegrationCreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
+	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
+	IntegrationPriority *int32 `json:"Integration.Priority,omitempty"`
+	IntegrationRetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	IntegrationTimeout *int32 `json:"Integration.Timeout,omitempty"`
+	IntegrationUrl *string `json:"Integration.Url,omitempty"`
+	IntegrationWorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
+	IntegrationWorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
 	IntegrationType *string `json:"IntegrationType,omitempty"`
 	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
 	LongLived *bool `json:"LongLived,omitempty"`
@@ -640,15 +640,15 @@ type UpdateFlexFlowParams struct {
 	ContactIdentity *string `json:"ContactIdentity,omitempty"`
 	Enabled *bool `json:"Enabled,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	IntegrationChannel *string `json:"IntegrationChannel,omitempty"`
-	IntegrationCreationOnMessage *bool `json:"IntegrationCreationOnMessage,omitempty"`
-	IntegrationFlowSid *string `json:"IntegrationFlowSid,omitempty"`
-	IntegrationPriority *int32 `json:"IntegrationPriority,omitempty"`
-	IntegrationRetryCount *int32 `json:"IntegrationRetryCount,omitempty"`
-	IntegrationTimeout *int32 `json:"IntegrationTimeout,omitempty"`
-	IntegrationUrl *string `json:"IntegrationUrl,omitempty"`
-	IntegrationWorkflowSid *string `json:"IntegrationWorkflowSid,omitempty"`
-	IntegrationWorkspaceSid *string `json:"IntegrationWorkspaceSid,omitempty"`
+	IntegrationChannel *string `json:"Integration.Channel,omitempty"`
+	IntegrationCreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
+	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
+	IntegrationPriority *int32 `json:"Integration.Priority,omitempty"`
+	IntegrationRetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	IntegrationTimeout *int32 `json:"Integration.Timeout,omitempty"`
+	IntegrationUrl *string `json:"Integration.Url,omitempty"`
+	IntegrationWorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
+	IntegrationWorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
 	IntegrationType *string `json:"IntegrationType,omitempty"`
 	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
 	LongLived *bool `json:"LongLived,omitempty"`
