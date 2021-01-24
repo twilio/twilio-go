@@ -1536,16 +1536,16 @@ type UpdateServiceParams struct {
 	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
 	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	LimitsChannelMembers *int32 `json:"LimitsChannelMembers,omitempty"`
-	LimitsUserChannels *int32 `json:"LimitsUserChannels,omitempty"`
-	NotificationsAddedToChannelEnabled *bool `json:"NotificationsAddedToChannelEnabled,omitempty"`
-	NotificationsAddedToChannelTemplate *string `json:"NotificationsAddedToChannelTemplate,omitempty"`
-	NotificationsInvitedToChannelEnabled *bool `json:"NotificationsInvitedToChannelEnabled,omitempty"`
-	NotificationsInvitedToChannelTemplate *string `json:"NotificationsInvitedToChannelTemplate,omitempty"`
-	NotificationsNewMessageEnabled *bool `json:"NotificationsNewMessageEnabled,omitempty"`
-	NotificationsNewMessageTemplate *string `json:"NotificationsNewMessageTemplate,omitempty"`
-	NotificationsRemovedFromChannelEnabled *bool `json:"NotificationsRemovedFromChannelEnabled,omitempty"`
-	NotificationsRemovedFromChannelTemplate *string `json:"NotificationsRemovedFromChannelTemplate,omitempty"`
+	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	NotificationsAddedToChannelTemplate *string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	NotificationsInvitedToChannelEnabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	NotificationsInvitedToChannelTemplate *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	NotificationsNewMessageEnabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	NotificationsNewMessageTemplate *string `json:"Notifications.NewMessage.Template,omitempty"`
+	NotificationsRemovedFromChannelEnabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
 	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
 	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
 	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
@@ -1553,38 +1553,38 @@ type UpdateServiceParams struct {
 	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
 	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhooksOnChannelAddMethod *string `json:"WebhooksOnChannelAddMethod,omitempty"`
-	WebhooksOnChannelAddUrl *string `json:"WebhooksOnChannelAddUrl,omitempty"`
-	WebhooksOnChannelAddedMethod *string `json:"WebhooksOnChannelAddedMethod,omitempty"`
-	WebhooksOnChannelAddedUrl *string `json:"WebhooksOnChannelAddedUrl,omitempty"`
-	WebhooksOnChannelDestroyMethod *string `json:"WebhooksOnChannelDestroyMethod,omitempty"`
-	WebhooksOnChannelDestroyUrl *string `json:"WebhooksOnChannelDestroyUrl,omitempty"`
-	WebhooksOnChannelDestroyedMethod *string `json:"WebhooksOnChannelDestroyedMethod,omitempty"`
-	WebhooksOnChannelDestroyedUrl *string `json:"WebhooksOnChannelDestroyedUrl,omitempty"`
-	WebhooksOnChannelUpdateMethod *string `json:"WebhooksOnChannelUpdateMethod,omitempty"`
-	WebhooksOnChannelUpdateUrl *string `json:"WebhooksOnChannelUpdateUrl,omitempty"`
-	WebhooksOnChannelUpdatedMethod *string `json:"WebhooksOnChannelUpdatedMethod,omitempty"`
-	WebhooksOnChannelUpdatedUrl *string `json:"WebhooksOnChannelUpdatedUrl,omitempty"`
-	WebhooksOnMemberAddMethod *string `json:"WebhooksOnMemberAddMethod,omitempty"`
-	WebhooksOnMemberAddUrl *string `json:"WebhooksOnMemberAddUrl,omitempty"`
-	WebhooksOnMemberAddedMethod *string `json:"WebhooksOnMemberAddedMethod,omitempty"`
-	WebhooksOnMemberAddedUrl *string `json:"WebhooksOnMemberAddedUrl,omitempty"`
-	WebhooksOnMemberRemoveMethod *string `json:"WebhooksOnMemberRemoveMethod,omitempty"`
-	WebhooksOnMemberRemoveUrl *string `json:"WebhooksOnMemberRemoveUrl,omitempty"`
-	WebhooksOnMemberRemovedMethod *string `json:"WebhooksOnMemberRemovedMethod,omitempty"`
-	WebhooksOnMemberRemovedUrl *string `json:"WebhooksOnMemberRemovedUrl,omitempty"`
-	WebhooksOnMessageRemoveMethod *string `json:"WebhooksOnMessageRemoveMethod,omitempty"`
-	WebhooksOnMessageRemoveUrl *string `json:"WebhooksOnMessageRemoveUrl,omitempty"`
-	WebhooksOnMessageRemovedMethod *string `json:"WebhooksOnMessageRemovedMethod,omitempty"`
-	WebhooksOnMessageRemovedUrl *string `json:"WebhooksOnMessageRemovedUrl,omitempty"`
-	WebhooksOnMessageSendMethod *string `json:"WebhooksOnMessageSendMethod,omitempty"`
-	WebhooksOnMessageSendUrl *string `json:"WebhooksOnMessageSendUrl,omitempty"`
-	WebhooksOnMessageSentMethod *string `json:"WebhooksOnMessageSentMethod,omitempty"`
-	WebhooksOnMessageSentUrl *string `json:"WebhooksOnMessageSentUrl,omitempty"`
-	WebhooksOnMessageUpdateMethod *string `json:"WebhooksOnMessageUpdateMethod,omitempty"`
-	WebhooksOnMessageUpdateUrl *string `json:"WebhooksOnMessageUpdateUrl,omitempty"`
-	WebhooksOnMessageUpdatedMethod *string `json:"WebhooksOnMessageUpdatedMethod,omitempty"`
-	WebhooksOnMessageUpdatedUrl *string `json:"WebhooksOnMessageUpdatedUrl,omitempty"`
+	WebhooksOnChannelAddMethod *string `json:"Webhooks.OnChannelAdd.Method,omitempty"`
+	WebhooksOnChannelAddUrl *string `json:"Webhooks.OnChannelAdd.Url,omitempty"`
+	WebhooksOnChannelAddedMethod *string `json:"Webhooks.OnChannelAdded.Method,omitempty"`
+	WebhooksOnChannelAddedUrl *string `json:"Webhooks.OnChannelAdded.Url,omitempty"`
+	WebhooksOnChannelDestroyMethod *string `json:"Webhooks.OnChannelDestroy.Method,omitempty"`
+	WebhooksOnChannelDestroyUrl *string `json:"Webhooks.OnChannelDestroy.Url,omitempty"`
+	WebhooksOnChannelDestroyedMethod *string `json:"Webhooks.OnChannelDestroyed.Method,omitempty"`
+	WebhooksOnChannelDestroyedUrl *string `json:"Webhooks.OnChannelDestroyed.Url,omitempty"`
+	WebhooksOnChannelUpdateMethod *string `json:"Webhooks.OnChannelUpdate.Method,omitempty"`
+	WebhooksOnChannelUpdateUrl *string `json:"Webhooks.OnChannelUpdate.Url,omitempty"`
+	WebhooksOnChannelUpdatedMethod *string `json:"Webhooks.OnChannelUpdated.Method,omitempty"`
+	WebhooksOnChannelUpdatedUrl *string `json:"Webhooks.OnChannelUpdated.Url,omitempty"`
+	WebhooksOnMemberAddMethod *string `json:"Webhooks.OnMemberAdd.Method,omitempty"`
+	WebhooksOnMemberAddUrl *string `json:"Webhooks.OnMemberAdd.Url,omitempty"`
+	WebhooksOnMemberAddedMethod *string `json:"Webhooks.OnMemberAdded.Method,omitempty"`
+	WebhooksOnMemberAddedUrl *string `json:"Webhooks.OnMemberAdded.Url,omitempty"`
+	WebhooksOnMemberRemoveMethod *string `json:"Webhooks.OnMemberRemove.Method,omitempty"`
+	WebhooksOnMemberRemoveUrl *string `json:"Webhooks.OnMemberRemove.Url,omitempty"`
+	WebhooksOnMemberRemovedMethod *string `json:"Webhooks.OnMemberRemoved.Method,omitempty"`
+	WebhooksOnMemberRemovedUrl *string `json:"Webhooks.OnMemberRemoved.Url,omitempty"`
+	WebhooksOnMessageRemoveMethod *string `json:"Webhooks.OnMessageRemove.Method,omitempty"`
+	WebhooksOnMessageRemoveUrl *string `json:"Webhooks.OnMessageRemove.Url,omitempty"`
+	WebhooksOnMessageRemovedMethod *string `json:"Webhooks.OnMessageRemoved.Method,omitempty"`
+	WebhooksOnMessageRemovedUrl *string `json:"Webhooks.OnMessageRemoved.Url,omitempty"`
+	WebhooksOnMessageSendMethod *string `json:"Webhooks.OnMessageSend.Method,omitempty"`
+	WebhooksOnMessageSendUrl *string `json:"Webhooks.OnMessageSend.Url,omitempty"`
+	WebhooksOnMessageSentMethod *string `json:"Webhooks.OnMessageSent.Method,omitempty"`
+	WebhooksOnMessageSentUrl *string `json:"Webhooks.OnMessageSent.Url,omitempty"`
+	WebhooksOnMessageUpdateMethod *string `json:"Webhooks.OnMessageUpdate.Method,omitempty"`
+	WebhooksOnMessageUpdateUrl *string `json:"Webhooks.OnMessageUpdate.Url,omitempty"`
+	WebhooksOnMessageUpdatedMethod *string `json:"Webhooks.OnMessageUpdated.Method,omitempty"`
+	WebhooksOnMessageUpdatedUrl *string `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
 }
 
 /*
@@ -1596,16 +1596,16 @@ UpdateService Method for UpdateService
  * @param "DefaultChannelRoleSid" (string) - The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
  * @param "DefaultServiceRoleSid" (string) - The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @param "LimitsChannelMembers" (int32) - The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
- * @param "LimitsUserChannels" (int32) - The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
- * @param "NotificationsAddedToChannelEnabled" (bool) - Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
- * @param "NotificationsAddedToChannelTemplate" (string) - The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
- * @param "NotificationsInvitedToChannelEnabled" (bool) - Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
- * @param "NotificationsInvitedToChannelTemplate" (string) - The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
- * @param "NotificationsNewMessageEnabled" (bool) - Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
- * @param "NotificationsNewMessageTemplate" (string) - The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
- * @param "NotificationsRemovedFromChannelEnabled" (bool) - Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
- * @param "NotificationsRemovedFromChannelTemplate" (string) - The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+ * @param "Limits.ChannelMembers" (int32) - The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
+ * @param "Limits.UserChannels" (int32) - The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
+ * @param "Notifications.AddedToChannel.Enabled" (bool) - Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
+ * @param "Notifications.AddedToChannel.Template" (string) - The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+ * @param "Notifications.InvitedToChannel.Enabled" (bool) - Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
+ * @param "Notifications.InvitedToChannel.Template" (string) - The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+ * @param "Notifications.NewMessage.Enabled" (bool) - Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
+ * @param "Notifications.NewMessage.Template" (string) - The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+ * @param "Notifications.RemovedFromChannel.Enabled" (bool) - Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
+ * @param "Notifications.RemovedFromChannel.Template" (string) - The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
  * @param "PostWebhookUrl" (string) - The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
  * @param "PreWebhookUrl" (string) - The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
  * @param "ReachabilityEnabled" (bool) - Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
@@ -1613,38 +1613,38 @@ UpdateService Method for UpdateService
  * @param "TypingIndicatorTimeout" (int32) - How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
  * @param "WebhookFilters" ([]string) - The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
  * @param "WebhookMethod" (string) - The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
- * @param "WebhooksOnChannelAddMethod" (string) - The HTTP method to use when calling the `webhooks.on_channel_add.url`.
- * @param "WebhooksOnChannelAddUrl" (string) - The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
- * @param "WebhooksOnChannelAddedMethod" (string) - The URL of the webhook to call in response to the `on_channel_added` event`.
- * @param "WebhooksOnChannelAddedUrl" (string) - The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
- * @param "WebhooksOnChannelDestroyMethod" (string) - The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
- * @param "WebhooksOnChannelDestroyUrl" (string) - The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
- * @param "WebhooksOnChannelDestroyedMethod" (string) - The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
- * @param "WebhooksOnChannelDestroyedUrl" (string) - The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
- * @param "WebhooksOnChannelUpdateMethod" (string) - The HTTP method to use when calling the `webhooks.on_channel_update.url`.
- * @param "WebhooksOnChannelUpdateUrl" (string) - The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
- * @param "WebhooksOnChannelUpdatedMethod" (string) - The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
- * @param "WebhooksOnChannelUpdatedUrl" (string) - The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
- * @param "WebhooksOnMemberAddMethod" (string) - The HTTP method to use when calling the `webhooks.on_member_add.url`.
- * @param "WebhooksOnMemberAddUrl" (string) - The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
- * @param "WebhooksOnMemberAddedMethod" (string) - The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
- * @param "WebhooksOnMemberAddedUrl" (string) - The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
- * @param "WebhooksOnMemberRemoveMethod" (string) - The HTTP method to use when calling the `webhooks.on_member_remove.url`.
- * @param "WebhooksOnMemberRemoveUrl" (string) - The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
- * @param "WebhooksOnMemberRemovedMethod" (string) - The HTTP method to use when calling the `webhooks.on_member_removed.url`.
- * @param "WebhooksOnMemberRemovedUrl" (string) - The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
- * @param "WebhooksOnMessageRemoveMethod" (string) - The HTTP method to use when calling the `webhooks.on_message_remove.url`.
- * @param "WebhooksOnMessageRemoveUrl" (string) - The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
- * @param "WebhooksOnMessageRemovedMethod" (string) - The HTTP method to use when calling the `webhooks.on_message_removed.url`.
- * @param "WebhooksOnMessageRemovedUrl" (string) - The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
- * @param "WebhooksOnMessageSendMethod" (string) - The HTTP method to use when calling the `webhooks.on_message_send.url`.
- * @param "WebhooksOnMessageSendUrl" (string) - The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
- * @param "WebhooksOnMessageSentMethod" (string) - The URL of the webhook to call in response to the `on_message_sent` event`.
- * @param "WebhooksOnMessageSentUrl" (string) - The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
- * @param "WebhooksOnMessageUpdateMethod" (string) - The HTTP method to use when calling the `webhooks.on_message_update.url`.
- * @param "WebhooksOnMessageUpdateUrl" (string) - The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
- * @param "WebhooksOnMessageUpdatedMethod" (string) - The HTTP method to use when calling the `webhooks.on_message_updated.url`.
- * @param "WebhooksOnMessageUpdatedUrl" (string) - The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
+ * @param "Webhooks.OnChannelAdd.Method" (string) - The HTTP method to use when calling the `webhooks.on_channel_add.url`.
+ * @param "Webhooks.OnChannelAdd.Url" (string) - The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
+ * @param "Webhooks.OnChannelAdded.Method" (string) - The URL of the webhook to call in response to the `on_channel_added` event`.
+ * @param "Webhooks.OnChannelAdded.Url" (string) - The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
+ * @param "Webhooks.OnChannelDestroy.Method" (string) - The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
+ * @param "Webhooks.OnChannelDestroy.Url" (string) - The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
+ * @param "Webhooks.OnChannelDestroyed.Method" (string) - The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
+ * @param "Webhooks.OnChannelDestroyed.Url" (string) - The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
+ * @param "Webhooks.OnChannelUpdate.Method" (string) - The HTTP method to use when calling the `webhooks.on_channel_update.url`.
+ * @param "Webhooks.OnChannelUpdate.Url" (string) - The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
+ * @param "Webhooks.OnChannelUpdated.Method" (string) - The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+ * @param "Webhooks.OnChannelUpdated.Url" (string) - The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+ * @param "Webhooks.OnMemberAdd.Method" (string) - The HTTP method to use when calling the `webhooks.on_member_add.url`.
+ * @param "Webhooks.OnMemberAdd.Url" (string) - The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
+ * @param "Webhooks.OnMemberAdded.Method" (string) - The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+ * @param "Webhooks.OnMemberAdded.Url" (string) - The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+ * @param "Webhooks.OnMemberRemove.Method" (string) - The HTTP method to use when calling the `webhooks.on_member_remove.url`.
+ * @param "Webhooks.OnMemberRemove.Url" (string) - The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
+ * @param "Webhooks.OnMemberRemoved.Method" (string) - The HTTP method to use when calling the `webhooks.on_member_removed.url`.
+ * @param "Webhooks.OnMemberRemoved.Url" (string) - The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
+ * @param "Webhooks.OnMessageRemove.Method" (string) - The HTTP method to use when calling the `webhooks.on_message_remove.url`.
+ * @param "Webhooks.OnMessageRemove.Url" (string) - The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
+ * @param "Webhooks.OnMessageRemoved.Method" (string) - The HTTP method to use when calling the `webhooks.on_message_removed.url`.
+ * @param "Webhooks.OnMessageRemoved.Url" (string) - The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
+ * @param "Webhooks.OnMessageSend.Method" (string) - The HTTP method to use when calling the `webhooks.on_message_send.url`.
+ * @param "Webhooks.OnMessageSend.Url" (string) - The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
+ * @param "Webhooks.OnMessageSent.Method" (string) - The URL of the webhook to call in response to the `on_message_sent` event`.
+ * @param "Webhooks.OnMessageSent.Url" (string) - The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
+ * @param "Webhooks.OnMessageUpdate.Method" (string) - The HTTP method to use when calling the `webhooks.on_message_update.url`.
+ * @param "Webhooks.OnMessageUpdate.Url" (string) - The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
+ * @param "Webhooks.OnMessageUpdated.Method" (string) - The HTTP method to use when calling the `webhooks.on_message_updated.url`.
+ * @param "Webhooks.OnMessageUpdated.Url" (string) - The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
 @return ChatV1Service
 */
 func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*ChatV1Service, error) {

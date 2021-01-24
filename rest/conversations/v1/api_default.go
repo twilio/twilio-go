@@ -39,8 +39,8 @@ type CreateConversationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	TimersClosed *string `json:"TimersClosed,omitempty"`
-	TimersInactive *string `json:"TimersInactive,omitempty"`
+	TimersClosed *string `json:"Timers.Closed,omitempty"`
+	TimersInactive *string `json:"Timers.Inactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -55,8 +55,8 @@ Create a new conversation in your account&#39;s default service
  * @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
  * @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
- * @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
- * @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @param "Timers.Closed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+ * @param "Timers.Inactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 @return ConversationsV1Conversation
 */
@@ -190,9 +190,9 @@ type CreateConversationParticipantParams struct {
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
-	MessagingBindingAddress *string `json:"MessagingBindingAddress,omitempty"`
-	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
-	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
+	MessagingBindingAddress *string `json:"MessagingBinding.Address,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
@@ -206,9 +206,9 @@ Add a new participant to the conversation
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
  * @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
- * @param "MessagingBindingAddress" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
- * @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
- * @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+ * @param "MessagingBinding.Address" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+ * @param "MessagingBinding.ProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+ * @param "MessagingBinding.ProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
  * @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 @return ConversationsV1ConversationConversationParticipant
 */
@@ -265,12 +265,12 @@ func (c *DefaultApiService) CreateConversationParticipant(ConversationSid string
 }
 // CreateConversationScopedWebhookParams Optional parameters for the method 'CreateConversationScopedWebhook'
 type CreateConversationScopedWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationReplayAfter *int32 `json:"ConfigurationReplayAfter,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 	Target *string `json:"Target,omitempty"`
 }
 
@@ -279,12 +279,12 @@ CreateConversationScopedWebhook Method for CreateConversationScopedWebhook
 Create a new webhook scoped to the conversation
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
  * @param optional nil or *CreateConversationScopedWebhookOpts - Optional Parameters:
- * @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
- * @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
- * @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
- * @param "ConfigurationReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
- * @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
- * @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
+ * @param "Configuration.Filters" ([]string) - The list of events, firing webhook event for this Conversation.
+ * @param "Configuration.FlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+ * @param "Configuration.Method" (string) - The HTTP method to be used when sending a webhook request.
+ * @param "Configuration.ReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
+ * @param "Configuration.Triggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+ * @param "Configuration.Url" (string) - The absolute url the webhook request should be sent to.
  * @param "Target" (string) - The target of this webhook: `webhook`, `studio`, `trigger`
 @return ConversationsV1ConversationConversationScopedWebhook
 */
@@ -496,8 +496,8 @@ type CreateServiceConversationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	TimersClosed *string `json:"TimersClosed,omitempty"`
-	TimersInactive *string `json:"TimersInactive,omitempty"`
+	TimersClosed *string `json:"Timers.Closed,omitempty"`
+	TimersInactive *string `json:"Timers.Inactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -513,8 +513,8 @@ Create a new conversation in your service
  * @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
  * @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
- * @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
- * @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @param "Timers.Closed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+ * @param "Timers.Inactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 @return ConversationsV1ServiceServiceConversation
 */
@@ -651,9 +651,9 @@ type CreateServiceConversationParticipantParams struct {
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	Identity *string `json:"Identity,omitempty"`
-	MessagingBindingAddress *string `json:"MessagingBindingAddress,omitempty"`
-	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
-	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
+	MessagingBindingAddress *string `json:"MessagingBinding.Address,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
@@ -668,9 +668,9 @@ Add a new participant to the conversation in a specific service
  * @param "DateCreated" (time.Time) - The date that this resource was created.
  * @param "DateUpdated" (time.Time) - The date that this resource was last updated.
  * @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
- * @param "MessagingBindingAddress" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
- * @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
- * @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+ * @param "MessagingBinding.Address" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+ * @param "MessagingBinding.ProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+ * @param "MessagingBinding.ProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
  * @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
 */
@@ -728,12 +728,12 @@ func (c *DefaultApiService) CreateServiceConversationParticipant(ChatServiceSid 
 }
 // CreateServiceConversationScopedWebhookParams Optional parameters for the method 'CreateServiceConversationScopedWebhook'
 type CreateServiceConversationScopedWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationReplayAfter *int32 `json:"ConfigurationReplayAfter,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 	Target *string `json:"Target,omitempty"`
 }
 
@@ -743,12 +743,12 @@ Create a new webhook scoped to the conversation in a specific service
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
  * @param optional nil or *CreateServiceConversationScopedWebhookOpts - Optional Parameters:
- * @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
- * @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
- * @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
- * @param "ConfigurationReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
- * @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
- * @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
+ * @param "Configuration.Filters" ([]string) - The list of events, firing webhook event for this Conversation.
+ * @param "Configuration.FlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+ * @param "Configuration.Method" (string) - The HTTP method to be used when sending a webhook request.
+ * @param "Configuration.ReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
+ * @param "Configuration.Triggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+ * @param "Configuration.Url" (string) - The absolute url the webhook request should be sent to.
  * @param "Target" (string) - The target of this webhook: `webhook`, `studio`, `trigger`
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 */
@@ -2932,8 +2932,8 @@ type UpdateConversationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	TimersClosed *string `json:"TimersClosed,omitempty"`
-	TimersInactive *string `json:"TimersInactive,omitempty"`
+	TimersClosed *string `json:"Timers.Closed,omitempty"`
+	TimersInactive *string `json:"Timers.Inactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -2949,8 +2949,8 @@ Update an existing conversation in your account&#39;s default service
  * @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
  * @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
- * @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
- * @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @param "Timers.Closed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+ * @param "Timers.Inactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 @return ConversationsV1Conversation
 */
@@ -3084,8 +3084,8 @@ type UpdateConversationParticipantParams struct {
 	Identity *string `json:"Identity,omitempty"`
 	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
 	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
-	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
-	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
@@ -3102,8 +3102,8 @@ Update an existing participant in the conversation
  * @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
  * @param "LastReadMessageIndex" (*int32) - Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
  * @param "LastReadTimestamp" (string) - Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
- * @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
- * @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
+ * @param "MessagingBinding.ProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
+ * @param "MessagingBinding.ProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
  * @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 @return ConversationsV1ConversationConversationParticipant
 */
@@ -3164,11 +3164,11 @@ func (c *DefaultApiService) UpdateConversationParticipant(ConversationSid string
 }
 // UpdateConversationScopedWebhookParams Optional parameters for the method 'UpdateConversationScopedWebhook'
 type UpdateConversationScopedWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -3177,11 +3177,11 @@ Update an existing conversation-scoped webhook
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateConversationScopedWebhookOpts - Optional Parameters:
- * @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
- * @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
- * @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
- * @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
- * @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
+ * @param "Configuration.Filters" ([]string) - The list of events, firing webhook event for this Conversation.
+ * @param "Configuration.FlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+ * @param "Configuration.Method" (string) - The HTTP method to be used when sending a webhook request.
+ * @param "Configuration.Triggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+ * @param "Configuration.Url" (string) - The absolute url the webhook request should be sent to.
 @return ConversationsV1ConversationConversationScopedWebhook
 */
 func (c *DefaultApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid string, params *UpdateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
@@ -3398,8 +3398,8 @@ type UpdateServiceConversationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 	State *string `json:"State,omitempty"`
-	TimersClosed *string `json:"TimersClosed,omitempty"`
-	TimersInactive *string `json:"TimersInactive,omitempty"`
+	TimersClosed *string `json:"Timers.Closed,omitempty"`
+	TimersInactive *string `json:"Timers.Inactive,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -3416,8 +3416,8 @@ Update an existing conversation in your service
  * @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
  * @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
  * @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
- * @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
- * @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+ * @param "Timers.Closed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+ * @param "Timers.Inactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
  * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 @return ConversationsV1ServiceServiceConversation
 */
@@ -3554,8 +3554,8 @@ type UpdateServiceConversationParticipantParams struct {
 	Identity *string `json:"Identity,omitempty"`
 	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
 	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
-	MessagingBindingProjectedAddress *string `json:"MessagingBindingProjectedAddress,omitempty"`
-	MessagingBindingProxyAddress *string `json:"MessagingBindingProxyAddress,omitempty"`
+	MessagingBindingProjectedAddress *string `json:"MessagingBinding.ProjectedAddress,omitempty"`
+	MessagingBindingProxyAddress *string `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
@@ -3573,8 +3573,8 @@ Update an existing participant in the conversation
  * @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
  * @param "LastReadMessageIndex" (*int32) - Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
  * @param "LastReadTimestamp" (string) - Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
- * @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
- * @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
+ * @param "MessagingBinding.ProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
+ * @param "MessagingBinding.ProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
  * @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
 */
@@ -3636,11 +3636,11 @@ func (c *DefaultApiService) UpdateServiceConversationParticipant(ChatServiceSid 
 }
 // UpdateServiceConversationScopedWebhookParams Optional parameters for the method 'UpdateServiceConversationScopedWebhook'
 type UpdateServiceConversationScopedWebhookParams struct {
-	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -3650,11 +3650,11 @@ Update an existing conversation-scoped webhook
  * @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
  * @param Sid A 34 character string that uniquely identifies this resource.
  * @param optional nil or *UpdateServiceConversationScopedWebhookOpts - Optional Parameters:
- * @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
- * @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
- * @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
- * @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
- * @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
+ * @param "Configuration.Filters" ([]string) - The list of events, firing webhook event for this Conversation.
+ * @param "Configuration.FlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+ * @param "Configuration.Method" (string) - The HTTP method to be used when sending a webhook request.
+ * @param "Configuration.Triggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+ * @param "Configuration.Url" (string) - The absolute url the webhook request should be sent to.
 @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 */
 func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
@@ -3700,17 +3700,17 @@ func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(ChatServiceSi
 }
 // UpdateServiceNotificationParams Optional parameters for the method 'UpdateServiceNotification'
 type UpdateServiceNotificationParams struct {
-	AddedToConversationEnabled *bool `json:"AddedToConversationEnabled,omitempty"`
-	AddedToConversationSound *string `json:"AddedToConversationSound,omitempty"`
-	AddedToConversationTemplate *string `json:"AddedToConversationTemplate,omitempty"`
+	AddedToConversationEnabled *bool `json:"AddedToConversation.Enabled,omitempty"`
+	AddedToConversationSound *string `json:"AddedToConversation.Sound,omitempty"`
+	AddedToConversationTemplate *string `json:"AddedToConversation.Template,omitempty"`
 	LogEnabled *bool `json:"LogEnabled,omitempty"`
-	NewMessageBadgeCountEnabled *bool `json:"NewMessageBadgeCountEnabled,omitempty"`
-	NewMessageEnabled *bool `json:"NewMessageEnabled,omitempty"`
-	NewMessageSound *string `json:"NewMessageSound,omitempty"`
-	NewMessageTemplate *string `json:"NewMessageTemplate,omitempty"`
-	RemovedFromConversationEnabled *bool `json:"RemovedFromConversationEnabled,omitempty"`
-	RemovedFromConversationSound *string `json:"RemovedFromConversationSound,omitempty"`
-	RemovedFromConversationTemplate *string `json:"RemovedFromConversationTemplate,omitempty"`
+	NewMessageBadgeCountEnabled *bool `json:"NewMessage.BadgeCountEnabled,omitempty"`
+	NewMessageEnabled *bool `json:"NewMessage.Enabled,omitempty"`
+	NewMessageSound *string `json:"NewMessage.Sound,omitempty"`
+	NewMessageTemplate *string `json:"NewMessage.Template,omitempty"`
+	RemovedFromConversationEnabled *bool `json:"RemovedFromConversation.Enabled,omitempty"`
+	RemovedFromConversationSound *string `json:"RemovedFromConversation.Sound,omitempty"`
+	RemovedFromConversationTemplate *string `json:"RemovedFromConversation.Template,omitempty"`
 }
 
 /*
@@ -3718,17 +3718,17 @@ UpdateServiceNotification Method for UpdateServiceNotification
 Update push notification service settings
  * @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
  * @param optional nil or *UpdateServiceNotificationOpts - Optional Parameters:
- * @param "AddedToConversationEnabled" (bool) - Whether to send a notification when a participant is added to a conversation. The default is `false`.
- * @param "AddedToConversationSound" (string) - The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
- * @param "AddedToConversationTemplate" (string) - The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+ * @param "AddedToConversation.Enabled" (bool) - Whether to send a notification when a participant is added to a conversation. The default is `false`.
+ * @param "AddedToConversation.Sound" (string) - The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+ * @param "AddedToConversation.Template" (string) - The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
  * @param "LogEnabled" (bool) - Weather the notification logging is enabled.
- * @param "NewMessageBadgeCountEnabled" (bool) - Whether the new message badge is enabled. The default is `false`.
- * @param "NewMessageEnabled" (bool) - Whether to send a notification when a new message is added to a conversation. The default is `false`.
- * @param "NewMessageSound" (string) - The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
- * @param "NewMessageTemplate" (string) - The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
- * @param "RemovedFromConversationEnabled" (bool) - Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
- * @param "RemovedFromConversationSound" (string) - The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
- * @param "RemovedFromConversationTemplate" (string) - The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+ * @param "NewMessage.BadgeCountEnabled" (bool) - Whether the new message badge is enabled. The default is `false`.
+ * @param "NewMessage.Enabled" (bool) - Whether to send a notification when a new message is added to a conversation. The default is `false`.
+ * @param "NewMessage.Sound" (string) - The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+ * @param "NewMessage.Template" (string) - The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+ * @param "RemovedFromConversation.Enabled" (bool) - Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+ * @param "RemovedFromConversation.Sound" (string) - The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+ * @param "RemovedFromConversation.Template" (string) - The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
 @return ConversationsV1ServiceServiceConfigurationServiceNotification
 */
 func (c *DefaultApiService) UpdateServiceNotification(ChatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
