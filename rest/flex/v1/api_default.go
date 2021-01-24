@@ -118,15 +118,15 @@ type CreateFlexFlowParams struct {
 	ContactIdentity *string `json:"ContactIdentity,omitempty"`
 	Enabled *bool `json:"Enabled,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	IntegrationChannel *string `json:"IntegrationChannel,omitempty"`
-	IntegrationCreationOnMessage *bool `json:"IntegrationCreationOnMessage,omitempty"`
-	IntegrationFlowSid *string `json:"IntegrationFlowSid,omitempty"`
-	IntegrationPriority *int32 `json:"IntegrationPriority,omitempty"`
-	IntegrationRetryCount *int32 `json:"IntegrationRetryCount,omitempty"`
-	IntegrationTimeout *int32 `json:"IntegrationTimeout,omitempty"`
-	IntegrationUrl *string `json:"IntegrationUrl,omitempty"`
-	IntegrationWorkflowSid *string `json:"IntegrationWorkflowSid,omitempty"`
-	IntegrationWorkspaceSid *string `json:"IntegrationWorkspaceSid,omitempty"`
+	IntegrationChannel *string `json:"Integration.Channel,omitempty"`
+	IntegrationCreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
+	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
+	IntegrationPriority *int32 `json:"Integration.Priority,omitempty"`
+	IntegrationRetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	IntegrationTimeout *int32 `json:"Integration.Timeout,omitempty"`
+	IntegrationUrl *string `json:"Integration.Url,omitempty"`
+	IntegrationWorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
+	IntegrationWorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
 	IntegrationType *string `json:"IntegrationType,omitempty"`
 	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
 	LongLived *bool `json:"LongLived,omitempty"`
@@ -140,15 +140,15 @@ CreateFlexFlow Method for CreateFlexFlow
  * @param "ContactIdentity" (string) - The channel contact's Identity.
  * @param "Enabled" (bool) - Whether the new Flex Flow is enabled.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
- * @param "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
- * @param "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
- * @param "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
- * @param "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
- * @param "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
- * @param "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
- * @param "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
- * @param "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
- * @param "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
+ * @param "Integration.Channel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
+ * @param "Integration.CreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+ * @param "Integration.FlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
+ * @param "Integration.Priority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+ * @param "Integration.RetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
+ * @param "Integration.Timeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+ * @param "Integration.Url" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
+ * @param "Integration.WorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
+ * @param "Integration.WorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
  * @param "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
  * @param "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
  * @param "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
@@ -640,15 +640,15 @@ type UpdateFlexFlowParams struct {
 	ContactIdentity *string `json:"ContactIdentity,omitempty"`
 	Enabled *bool `json:"Enabled,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	IntegrationChannel *string `json:"IntegrationChannel,omitempty"`
-	IntegrationCreationOnMessage *bool `json:"IntegrationCreationOnMessage,omitempty"`
-	IntegrationFlowSid *string `json:"IntegrationFlowSid,omitempty"`
-	IntegrationPriority *int32 `json:"IntegrationPriority,omitempty"`
-	IntegrationRetryCount *int32 `json:"IntegrationRetryCount,omitempty"`
-	IntegrationTimeout *int32 `json:"IntegrationTimeout,omitempty"`
-	IntegrationUrl *string `json:"IntegrationUrl,omitempty"`
-	IntegrationWorkflowSid *string `json:"IntegrationWorkflowSid,omitempty"`
-	IntegrationWorkspaceSid *string `json:"IntegrationWorkspaceSid,omitempty"`
+	IntegrationChannel *string `json:"Integration.Channel,omitempty"`
+	IntegrationCreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
+	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
+	IntegrationPriority *int32 `json:"Integration.Priority,omitempty"`
+	IntegrationRetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	IntegrationTimeout *int32 `json:"Integration.Timeout,omitempty"`
+	IntegrationUrl *string `json:"Integration.Url,omitempty"`
+	IntegrationWorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
+	IntegrationWorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
 	IntegrationType *string `json:"IntegrationType,omitempty"`
 	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
 	LongLived *bool `json:"LongLived,omitempty"`
@@ -663,15 +663,15 @@ UpdateFlexFlow Method for UpdateFlexFlow
  * @param "ContactIdentity" (string) - The channel contact's Identity.
  * @param "Enabled" (bool) - Whether the new Flex Flow is enabled.
  * @param "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
- * @param "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
- * @param "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
- * @param "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
- * @param "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
- * @param "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
- * @param "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
- * @param "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
- * @param "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
- * @param "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
+ * @param "Integration.Channel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
+ * @param "Integration.CreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+ * @param "Integration.FlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
+ * @param "Integration.Priority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+ * @param "Integration.RetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
+ * @param "Integration.Timeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+ * @param "Integration.Url" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
+ * @param "Integration.WorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
+ * @param "Integration.WorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
  * @param "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
  * @param "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
  * @param "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
