@@ -106,12 +106,12 @@ func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChann
 }
 // CreateChannelWebhookParams Optional parameters for the method 'CreateChannelWebhook'
 type CreateChannelWebhookParams struct {
-	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
-	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
-	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
-	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
-	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
+	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
+	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
+	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
+	ConfigurationRetryCount *int32 `json:"ConfigurationRetryCount,omitempty"`
+	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
+	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
 	Type *string `json:"Type,omitempty"`
 }
 
@@ -120,12 +120,12 @@ CreateChannelWebhook Method for CreateChannelWebhook
  * @param ServiceSid
  * @param ChannelSid
  * @param optional nil or *CreateChannelWebhookOpts - Optional Parameters:
- * @param "Configuration.Filters" ([]string) - 
- * @param "Configuration.FlowSid" (string) - 
- * @param "Configuration.Method" (string) - 
- * @param "Configuration.RetryCount" (int32) - 
- * @param "Configuration.Triggers" ([]string) - 
- * @param "Configuration.Url" (string) - 
+ * @param "ConfigurationFilters" ([]string) - 
+ * @param "ConfigurationFlowSid" (string) - 
+ * @param "ConfigurationMethod" (string) - 
+ * @param "ConfigurationRetryCount" (int32) - 
+ * @param "ConfigurationTriggers" ([]string) - 
+ * @param "ConfigurationUrl" (string) - 
  * @param "Type" (string) - 
 @return IpMessagingV2ServiceChannelChannelWebhook
 */
@@ -1908,12 +1908,12 @@ func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params 
 }
 // UpdateChannelWebhookParams Optional parameters for the method 'UpdateChannelWebhook'
 type UpdateChannelWebhookParams struct {
-	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
-	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
-	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
-	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
-	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
-	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
+	ConfigurationFilters *[]string `json:"ConfigurationFilters,omitempty"`
+	ConfigurationFlowSid *string `json:"ConfigurationFlowSid,omitempty"`
+	ConfigurationMethod *string `json:"ConfigurationMethod,omitempty"`
+	ConfigurationRetryCount *int32 `json:"ConfigurationRetryCount,omitempty"`
+	ConfigurationTriggers *[]string `json:"ConfigurationTriggers,omitempty"`
+	ConfigurationUrl *string `json:"ConfigurationUrl,omitempty"`
 }
 
 /*
@@ -1922,12 +1922,12 @@ UpdateChannelWebhook Method for UpdateChannelWebhook
  * @param ChannelSid
  * @param Sid
  * @param optional nil or *UpdateChannelWebhookOpts - Optional Parameters:
- * @param "Configuration.Filters" ([]string) - 
- * @param "Configuration.FlowSid" (string) - 
- * @param "Configuration.Method" (string) - 
- * @param "Configuration.RetryCount" (int32) - 
- * @param "Configuration.Triggers" ([]string) - 
- * @param "Configuration.Url" (string) - 
+ * @param "ConfigurationFilters" ([]string) - 
+ * @param "ConfigurationFlowSid" (string) - 
+ * @param "ConfigurationMethod" (string) - 
+ * @param "ConfigurationRetryCount" (int32) - 
+ * @param "ConfigurationTriggers" ([]string) - 
+ * @param "ConfigurationUrl" (string) - 
 @return IpMessagingV2ServiceChannelChannelWebhook
 */
 func (c *DefaultApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*IpMessagingV2ServiceChannelChannelWebhook, error) {
@@ -2232,23 +2232,23 @@ type UpdateServiceParams struct {
 	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
 	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
-	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
-	MediaCompatibilityMessage *string `json:"Media.CompatibilityMessage,omitempty"`
-	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
-	NotificationsAddedToChannelSound *string `json:"Notifications.AddedToChannel.Sound,omitempty"`
-	NotificationsAddedToChannelTemplate *string `json:"Notifications.AddedToChannel.Template,omitempty"`
-	NotificationsInvitedToChannelEnabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
-	NotificationsInvitedToChannelSound *string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
-	NotificationsInvitedToChannelTemplate *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
-	NotificationsLogEnabled *bool `json:"Notifications.LogEnabled,omitempty"`
-	NotificationsNewMessageBadgeCountEnabled *bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
-	NotificationsNewMessageEnabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
-	NotificationsNewMessageSound *string `json:"Notifications.NewMessage.Sound,omitempty"`
-	NotificationsNewMessageTemplate *string `json:"Notifications.NewMessage.Template,omitempty"`
-	NotificationsRemovedFromChannelEnabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
-	NotificationsRemovedFromChannelSound *string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
-	NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
+	LimitsChannelMembers *int32 `json:"LimitsChannelMembers,omitempty"`
+	LimitsUserChannels *int32 `json:"LimitsUserChannels,omitempty"`
+	MediaCompatibilityMessage *string `json:"MediaCompatibilityMessage,omitempty"`
+	NotificationsAddedToChannelEnabled *bool `json:"NotificationsAddedToChannelEnabled,omitempty"`
+	NotificationsAddedToChannelSound *string `json:"NotificationsAddedToChannelSound,omitempty"`
+	NotificationsAddedToChannelTemplate *string `json:"NotificationsAddedToChannelTemplate,omitempty"`
+	NotificationsInvitedToChannelEnabled *bool `json:"NotificationsInvitedToChannelEnabled,omitempty"`
+	NotificationsInvitedToChannelSound *string `json:"NotificationsInvitedToChannelSound,omitempty"`
+	NotificationsInvitedToChannelTemplate *string `json:"NotificationsInvitedToChannelTemplate,omitempty"`
+	NotificationsLogEnabled *bool `json:"NotificationsLogEnabled,omitempty"`
+	NotificationsNewMessageBadgeCountEnabled *bool `json:"NotificationsNewMessageBadgeCountEnabled,omitempty"`
+	NotificationsNewMessageEnabled *bool `json:"NotificationsNewMessageEnabled,omitempty"`
+	NotificationsNewMessageSound *string `json:"NotificationsNewMessageSound,omitempty"`
+	NotificationsNewMessageTemplate *string `json:"NotificationsNewMessageTemplate,omitempty"`
+	NotificationsRemovedFromChannelEnabled *bool `json:"NotificationsRemovedFromChannelEnabled,omitempty"`
+	NotificationsRemovedFromChannelSound *string `json:"NotificationsRemovedFromChannelSound,omitempty"`
+	NotificationsRemovedFromChannelTemplate *string `json:"NotificationsRemovedFromChannelTemplate,omitempty"`
 	PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
 	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
 	PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
@@ -2269,23 +2269,23 @@ UpdateService Method for UpdateService
  * @param "DefaultChannelRoleSid" (string) - 
  * @param "DefaultServiceRoleSid" (string) - 
  * @param "FriendlyName" (string) - 
- * @param "Limits.ChannelMembers" (int32) - 
- * @param "Limits.UserChannels" (int32) - 
- * @param "Media.CompatibilityMessage" (string) - 
- * @param "Notifications.AddedToChannel.Enabled" (bool) - 
- * @param "Notifications.AddedToChannel.Sound" (string) - 
- * @param "Notifications.AddedToChannel.Template" (string) - 
- * @param "Notifications.InvitedToChannel.Enabled" (bool) - 
- * @param "Notifications.InvitedToChannel.Sound" (string) - 
- * @param "Notifications.InvitedToChannel.Template" (string) - 
- * @param "Notifications.LogEnabled" (bool) - 
- * @param "Notifications.NewMessage.BadgeCountEnabled" (bool) - 
- * @param "Notifications.NewMessage.Enabled" (bool) - 
- * @param "Notifications.NewMessage.Sound" (string) - 
- * @param "Notifications.NewMessage.Template" (string) - 
- * @param "Notifications.RemovedFromChannel.Enabled" (bool) - 
- * @param "Notifications.RemovedFromChannel.Sound" (string) - 
- * @param "Notifications.RemovedFromChannel.Template" (string) - 
+ * @param "LimitsChannelMembers" (int32) - 
+ * @param "LimitsUserChannels" (int32) - 
+ * @param "MediaCompatibilityMessage" (string) - 
+ * @param "NotificationsAddedToChannelEnabled" (bool) - 
+ * @param "NotificationsAddedToChannelSound" (string) - 
+ * @param "NotificationsAddedToChannelTemplate" (string) - 
+ * @param "NotificationsInvitedToChannelEnabled" (bool) - 
+ * @param "NotificationsInvitedToChannelSound" (string) - 
+ * @param "NotificationsInvitedToChannelTemplate" (string) - 
+ * @param "NotificationsLogEnabled" (bool) - 
+ * @param "NotificationsNewMessageBadgeCountEnabled" (bool) - 
+ * @param "NotificationsNewMessageEnabled" (bool) - 
+ * @param "NotificationsNewMessageSound" (string) - 
+ * @param "NotificationsNewMessageTemplate" (string) - 
+ * @param "NotificationsRemovedFromChannelEnabled" (bool) - 
+ * @param "NotificationsRemovedFromChannelSound" (string) - 
+ * @param "NotificationsRemovedFromChannelTemplate" (string) - 
  * @param "PostWebhookRetryCount" (int32) - 
  * @param "PostWebhookUrl" (string) - 
  * @param "PreWebhookRetryCount" (int32) - 
