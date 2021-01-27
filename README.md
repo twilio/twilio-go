@@ -123,7 +123,6 @@ func main() {
 		fmt.Println(err.Error())
 		err = nil
 	} else {
-		fmt.Print("Success:")
 		fmt.Println(resp)
 	}
 }
