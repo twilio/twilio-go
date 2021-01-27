@@ -58,6 +58,77 @@ func main() {
 }
 ```
 
+### Send a text message
+
+```go
+package main
+import (
+	"fmt"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	"github.com/twilio/twilio-go/twilio"
+	"os"
+)
+func main() {
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	client := twilio.NewClient(accountSid, authToken)
+
+	from := "9999999999"
+	to := "4444444444"
+	text := "Hello there"
+
+	params := &openapi.CreateMessageParams{}
+	params.To = &to
+	params.From = &from
+	params.Body = &text
+
+
+	resp, err := client.ApiV2010.CreateMessage(accountSid, params)
+	if err != nil {
+		fmt.Println(err.Error())
+		err = nil
+	} else {
+		fmt.Println(resp)
+	}
+}
+```
+
+### Make a call
+
+``` go
+package main
+
+import (
+	"fmt"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	"github.com/twilio/twilio-go/twilio"
+	"os"
+)
+func main() {
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	client := twilio.NewClient(accountSid, authToken)
+
+	from := "9999999999"
+	to := "4444444444"
+	callurl := "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient"
+
+	params := &openapi.CreateCallParams{}
+	params.To = &to
+	params.From = &from
+	params.Url = &callurl
+
+	resp, err := client.ApiV2010.CreateCall(accountSid, params)
+	if err != nil {
+		fmt.Println(err.Error())
+		err = nil
+	} else {
+		fmt.Print("Success:")
+		fmt.Println(resp)
+	}
+}
+```
+
 ### Handling Exceptions
 ```go
 package main
