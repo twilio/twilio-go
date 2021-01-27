@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **CarrierEdge** | [**map[string]interface{}**](.md) |  | [optional] 
 **ClientEdge** | [**map[string]interface{}**](.md) |  | [optional] 
 **ConnectDuration** | Pointer to **int32** |  | [optional] 
+**CreatedTime** | [**time.Time**](time.Time.md) |  | [optional] 
 **Duration** | Pointer to **int32** |  | [optional] 
 **EndTime** | [**time.Time**](time.Time.md) |  | [optional] 
 **From** | [**map[string]interface{}**](.md) |  | [optional] 

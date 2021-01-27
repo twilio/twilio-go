@@ -554,7 +554,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages or Calls | 
+**ResourceType** | **string**| The type of communication – Messages or Calls, Conferences, and Participants | 
  **optional** | ***CreateExportCustomJobOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2737,7 +2737,7 @@ Fetch a specific Day.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
 **Day** | **string**| The ISO 8601 format date of the resources in the file, for a UTC day | 
 
 ### Return type
@@ -2944,7 +2944,7 @@ Fetch a specific Export.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
 
 ### Return type
 
@@ -2978,7 +2978,7 @@ Fetch a specific Export Configuration.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
 
 ### Return type
 
@@ -3248,7 +3248,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**JobSid** | **string**|  | 
+**JobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
 
 ### Return type
 
@@ -3886,7 +3886,7 @@ Name | Type | Description  | Notes
 
 ## ListAssistant
 
-> PreviewUnderstandAssistantReadResponse ListAssistant(ctx, optional)
+> ListAssistantResponse ListAssistant(ctx, optional)
 
 
 
@@ -3909,7 +3909,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantReadResponse**](preview_understand_assistantReadResponse.md)
+[**ListAssistantResponse**](ListAssistantResponse.md)
 
 ### Authorization
 
@@ -3927,7 +3927,7 @@ Name | Type | Description  | Notes
 
 ## ListAuthorizationDocument
 
-> PreviewHostedNumbersAuthorizationDocumentReadResponse ListAuthorizationDocument(ctx, optional)
+> ListAuthorizationDocumentResponse ListAuthorizationDocument(ctx, optional)
 
 
 
@@ -3954,7 +3954,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewHostedNumbersAuthorizationDocumentReadResponse**](preview_hosted_numbers_authorization_documentReadResponse.md)
+[**ListAuthorizationDocumentResponse**](ListAuthorizationDocumentResponse.md)
 
 ### Authorization
 
@@ -3972,7 +3972,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailableAddOn
 
-> PreviewMarketplaceAvailableAddOnReadResponse ListAvailableAddOn(ctx, optional)
+> ListAvailableAddOnResponse ListAvailableAddOn(ctx, optional)
 
 
 
@@ -3997,7 +3997,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceAvailableAddOnReadResponse**](preview_marketplace_available_add_onReadResponse.md)
+[**ListAvailableAddOnResponse**](ListAvailableAddOnResponse.md)
 
 ### Authorization
 
@@ -4015,7 +4015,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailableAddOnExtension
 
-> PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse ListAvailableAddOnExtension(ctx, AvailableAddOnSid, optional)
+> ListAvailableAddOnExtensionResponse ListAvailableAddOnExtension(ctx, AvailableAddOnSid, optional)
 
 
 
@@ -4042,7 +4042,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceAvailableAddOnAvailableAddOnExtensionReadResponse**](preview_marketplace_available_add_on_available_add_on_extensionReadResponse.md)
+[**ListAvailableAddOnExtensionResponse**](ListAvailableAddOnExtensionResponse.md)
 
 ### Authorization
 
@@ -4060,7 +4060,7 @@ Name | Type | Description  | Notes
 
 ## ListCertificate
 
-> PreviewDeployedDevicesFleetCertificateReadResponse ListCertificate(ctx, FleetSid, optional)
+> ListCertificateResponse ListCertificate(ctx, FleetSid, optional)
 
 
 
@@ -4088,7 +4088,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetCertificateReadResponse**](preview_deployed_devices_fleet_certificateReadResponse.md)
+[**ListCertificateResponse**](ListCertificateResponse.md)
 
 ### Authorization
 
@@ -4106,7 +4106,7 @@ Name | Type | Description  | Notes
 
 ## ListCommand
 
-> PreviewWirelessCommandReadResponse ListCommand(ctx, optional)
+> ListCommandResponse ListCommand(ctx, optional)
 
 
 
@@ -4133,7 +4133,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessCommandReadResponse**](preview_wireless_commandReadResponse.md)
+[**ListCommandResponse**](ListCommandResponse.md)
 
 ### Authorization
 
@@ -4151,7 +4151,7 @@ Name | Type | Description  | Notes
 
 ## ListDay
 
-> PreviewBulkExportsExportDayReadResponse ListDay(ctx, ResourceType, optional)
+> ListDayResponse ListDay(ctx, ResourceType, optional)
 
 
 
@@ -4163,7 +4163,7 @@ Retrieve a list of all Days for a resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
  **optional** | ***ListDayOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4178,7 +4178,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewBulkExportsExportDayReadResponse**](preview_bulk_exports_export_dayReadResponse.md)
+[**ListDayResponse**](ListDayResponse.md)
 
 ### Authorization
 
@@ -4196,7 +4196,7 @@ Name | Type | Description  | Notes
 
 ## ListDependentHostedNumberOrder
 
-> PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse ListDependentHostedNumberOrder(ctx, SigningDocumentSid, optional)
+> ListDependentHostedNumberOrderResponse ListDependentHostedNumberOrder(ctx, SigningDocumentSid, optional)
 
 
 
@@ -4228,7 +4228,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderReadResponse**](preview_hosted_numbers_authorization_document_dependent_hosted_number_orderReadResponse.md)
+[**ListDependentHostedNumberOrderResponse**](ListDependentHostedNumberOrderResponse.md)
 
 ### Authorization
 
@@ -4246,7 +4246,7 @@ Name | Type | Description  | Notes
 
 ## ListDeployment
 
-> PreviewDeployedDevicesFleetDeploymentReadResponse ListDeployment(ctx, FleetSid, optional)
+> ListDeploymentResponse ListDeployment(ctx, FleetSid, optional)
 
 
 
@@ -4273,7 +4273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetDeploymentReadResponse**](preview_deployed_devices_fleet_deploymentReadResponse.md)
+[**ListDeploymentResponse**](ListDeploymentResponse.md)
 
 ### Authorization
 
@@ -4291,7 +4291,7 @@ Name | Type | Description  | Notes
 
 ## ListDevice
 
-> PreviewDeployedDevicesFleetDeviceReadResponse ListDevice(ctx, FleetSid, optional)
+> ListDeviceResponse ListDevice(ctx, FleetSid, optional)
 
 
 
@@ -4319,7 +4319,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetDeviceReadResponse**](preview_deployed_devices_fleet_deviceReadResponse.md)
+[**ListDeviceResponse**](ListDeviceResponse.md)
 
 ### Authorization
 
@@ -4337,7 +4337,7 @@ Name | Type | Description  | Notes
 
 ## ListDocument
 
-> PreviewSyncServiceDocumentReadResponse ListDocument(ctx, ServiceSid, optional)
+> ListDocumentResponse ListDocument(ctx, ServiceSid, optional)
 
 
 
@@ -4362,7 +4362,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceDocumentReadResponse**](preview_sync_service_documentReadResponse.md)
+[**ListDocumentResponse**](ListDocumentResponse.md)
 
 ### Authorization
 
@@ -4380,7 +4380,7 @@ Name | Type | Description  | Notes
 
 ## ListDocumentPermission
 
-> PreviewSyncServiceDocumentDocumentPermissionReadResponse ListDocumentPermission(ctx, ServiceSid, DocumentSid, optional)
+> ListDocumentPermissionResponse ListDocumentPermission(ctx, ServiceSid, DocumentSid, optional)
 
 
 
@@ -4409,7 +4409,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceDocumentDocumentPermissionReadResponse**](preview_sync_service_document_document_permissionReadResponse.md)
+[**ListDocumentPermissionResponse**](ListDocumentPermissionResponse.md)
 
 ### Authorization
 
@@ -4427,7 +4427,7 @@ Name | Type | Description  | Notes
 
 ## ListExportCustomJob
 
-> PreviewBulkExportsExportExportCustomJobReadResponse ListExportCustomJob(ctx, ResourceType, optional)
+> ListExportCustomJobResponse ListExportCustomJob(ctx, ResourceType, optional)
 
 
 
@@ -4437,7 +4437,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
  **optional** | ***ListExportCustomJobOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -4452,7 +4452,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewBulkExportsExportExportCustomJobReadResponse**](preview_bulk_exports_export_export_custom_jobReadResponse.md)
+[**ListExportCustomJobResponse**](ListExportCustomJobResponse.md)
 
 ### Authorization
 
@@ -4470,7 +4470,7 @@ Name | Type | Description  | Notes
 
 ## ListField
 
-> PreviewUnderstandAssistantTaskFieldReadResponse ListField(ctx, AssistantSid, TaskSid, optional)
+> ListFieldResponse ListField(ctx, AssistantSid, TaskSid, optional)
 
 
 
@@ -4497,7 +4497,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskFieldReadResponse**](preview_understand_assistant_task_fieldReadResponse.md)
+[**ListFieldResponse**](ListFieldResponse.md)
 
 ### Authorization
 
@@ -4515,7 +4515,7 @@ Name | Type | Description  | Notes
 
 ## ListFieldType
 
-> PreviewUnderstandAssistantFieldTypeReadResponse ListFieldType(ctx, AssistantSid, optional)
+> ListFieldTypeResponse ListFieldType(ctx, AssistantSid, optional)
 
 
 
@@ -4540,7 +4540,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantFieldTypeReadResponse**](preview_understand_assistant_field_typeReadResponse.md)
+[**ListFieldTypeResponse**](ListFieldTypeResponse.md)
 
 ### Authorization
 
@@ -4558,7 +4558,7 @@ Name | Type | Description  | Notes
 
 ## ListFieldValue
 
-> PreviewUnderstandAssistantFieldTypeFieldValueReadResponse ListFieldValue(ctx, AssistantSid, FieldTypeSid, optional)
+> ListFieldValueResponse ListFieldValue(ctx, AssistantSid, FieldTypeSid, optional)
 
 
 
@@ -4586,7 +4586,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantFieldTypeFieldValueReadResponse**](preview_understand_assistant_field_type_field_valueReadResponse.md)
+[**ListFieldValueResponse**](ListFieldValueResponse.md)
 
 ### Authorization
 
@@ -4604,7 +4604,7 @@ Name | Type | Description  | Notes
 
 ## ListFleet
 
-> PreviewDeployedDevicesFleetReadResponse ListFleet(ctx, optional)
+> ListFleetResponse ListFleet(ctx, optional)
 
 
 
@@ -4629,7 +4629,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetReadResponse**](preview_deployed_devices_fleetReadResponse.md)
+[**ListFleetResponse**](ListFleetResponse.md)
 
 ### Authorization
 
@@ -4647,7 +4647,7 @@ Name | Type | Description  | Notes
 
 ## ListHostedNumberOrder
 
-> PreviewHostedNumbersHostedNumberOrderReadResponse ListHostedNumberOrder(ctx, optional)
+> ListHostedNumberOrderResponse ListHostedNumberOrder(ctx, optional)
 
 
 
@@ -4677,7 +4677,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewHostedNumbersHostedNumberOrderReadResponse**](preview_hosted_numbers_hosted_number_orderReadResponse.md)
+[**ListHostedNumberOrderResponse**](ListHostedNumberOrderResponse.md)
 
 ### Authorization
 
@@ -4695,7 +4695,7 @@ Name | Type | Description  | Notes
 
 ## ListInstalledAddOn
 
-> PreviewMarketplaceInstalledAddOnReadResponse ListInstalledAddOn(ctx, optional)
+> ListInstalledAddOnResponse ListInstalledAddOn(ctx, optional)
 
 
 
@@ -4720,7 +4720,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceInstalledAddOnReadResponse**](preview_marketplace_installed_add_onReadResponse.md)
+[**ListInstalledAddOnResponse**](ListInstalledAddOnResponse.md)
 
 ### Authorization
 
@@ -4738,7 +4738,7 @@ Name | Type | Description  | Notes
 
 ## ListInstalledAddOnExtension
 
-> PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse ListInstalledAddOnExtension(ctx, InstalledAddOnSid, optional)
+> ListInstalledAddOnExtensionResponse ListInstalledAddOnExtension(ctx, InstalledAddOnSid, optional)
 
 
 
@@ -4765,7 +4765,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceInstalledAddOnInstalledAddOnExtensionReadResponse**](preview_marketplace_installed_add_on_installed_add_on_extensionReadResponse.md)
+[**ListInstalledAddOnExtensionResponse**](ListInstalledAddOnExtensionResponse.md)
 
 ### Authorization
 
@@ -4783,7 +4783,7 @@ Name | Type | Description  | Notes
 
 ## ListKey
 
-> PreviewDeployedDevicesFleetKeyReadResponse ListKey(ctx, FleetSid, optional)
+> ListKeyResponse ListKey(ctx, FleetSid, optional)
 
 
 
@@ -4811,7 +4811,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetKeyReadResponse**](preview_deployed_devices_fleet_keyReadResponse.md)
+[**ListKeyResponse**](ListKeyResponse.md)
 
 ### Authorization
 
@@ -4829,7 +4829,7 @@ Name | Type | Description  | Notes
 
 ## ListModelBuild
 
-> PreviewUnderstandAssistantModelBuildReadResponse ListModelBuild(ctx, AssistantSid, optional)
+> ListModelBuildResponse ListModelBuild(ctx, AssistantSid, optional)
 
 
 
@@ -4854,7 +4854,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantModelBuildReadResponse**](preview_understand_assistant_model_buildReadResponse.md)
+[**ListModelBuildResponse**](ListModelBuildResponse.md)
 
 ### Authorization
 
@@ -4872,7 +4872,7 @@ Name | Type | Description  | Notes
 
 ## ListQuery
 
-> PreviewUnderstandAssistantQueryReadResponse ListQuery(ctx, AssistantSid, optional)
+> ListQueryResponse ListQuery(ctx, AssistantSid, optional)
 
 
 
@@ -4900,7 +4900,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantQueryReadResponse**](preview_understand_assistant_queryReadResponse.md)
+[**ListQueryResponse**](ListQueryResponse.md)
 
 ### Authorization
 
@@ -4918,7 +4918,7 @@ Name | Type | Description  | Notes
 
 ## ListRatePlan
 
-> PreviewWirelessRatePlanReadResponse ListRatePlan(ctx, optional)
+> ListRatePlanResponse ListRatePlan(ctx, optional)
 
 
 
@@ -4941,7 +4941,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessRatePlanReadResponse**](preview_wireless_rate_planReadResponse.md)
+[**ListRatePlanResponse**](ListRatePlanResponse.md)
 
 ### Authorization
 
@@ -4959,7 +4959,7 @@ Name | Type | Description  | Notes
 
 ## ListSample
 
-> PreviewUnderstandAssistantTaskSampleReadResponse ListSample(ctx, AssistantSid, TaskSid, optional)
+> ListSampleResponse ListSample(ctx, AssistantSid, TaskSid, optional)
 
 
 
@@ -4987,7 +4987,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskSampleReadResponse**](preview_understand_assistant_task_sampleReadResponse.md)
+[**ListSampleResponse**](ListSampleResponse.md)
 
 ### Authorization
 
@@ -5005,7 +5005,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> PreviewSyncServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -5028,7 +5028,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceReadResponse**](preview_sync_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 
@@ -5046,7 +5046,7 @@ Name | Type | Description  | Notes
 
 ## ListSim
 
-> PreviewWirelessSimReadResponse ListSim(ctx, optional)
+> ListSimResponse ListSim(ctx, optional)
 
 
 
@@ -5074,7 +5074,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessSimReadResponse**](preview_wireless_simReadResponse.md)
+[**ListSimResponse**](ListSimResponse.md)
 
 ### Authorization
 
@@ -5092,7 +5092,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncList
 
-> PreviewSyncServiceSyncListReadResponse ListSyncList(ctx, ServiceSid, optional)
+> ListSyncListResponse ListSyncList(ctx, ServiceSid, optional)
 
 
 
@@ -5117,7 +5117,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncListReadResponse**](preview_sync_service_sync_listReadResponse.md)
+[**ListSyncListResponse**](ListSyncListResponse.md)
 
 ### Authorization
 
@@ -5135,7 +5135,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncListItem
 
-> PreviewSyncServiceSyncListSyncListItemReadResponse ListSyncListItem(ctx, ServiceSid, ListSid, optional)
+> ListSyncListItemResponse ListSyncListItem(ctx, ServiceSid, ListSid, optional)
 
 
 
@@ -5165,7 +5165,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncListSyncListItemReadResponse**](preview_sync_service_sync_list_sync_list_itemReadResponse.md)
+[**ListSyncListItemResponse**](ListSyncListItemResponse.md)
 
 ### Authorization
 
@@ -5183,7 +5183,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncListPermission
 
-> PreviewSyncServiceSyncListSyncListPermissionReadResponse ListSyncListPermission(ctx, ServiceSid, ListSid, optional)
+> ListSyncListPermissionResponse ListSyncListPermission(ctx, ServiceSid, ListSid, optional)
 
 
 
@@ -5212,7 +5212,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncListSyncListPermissionReadResponse**](preview_sync_service_sync_list_sync_list_permissionReadResponse.md)
+[**ListSyncListPermissionResponse**](ListSyncListPermissionResponse.md)
 
 ### Authorization
 
@@ -5230,7 +5230,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncMap
 
-> PreviewSyncServiceSyncMapReadResponse ListSyncMap(ctx, ServiceSid, optional)
+> ListSyncMapResponse ListSyncMap(ctx, ServiceSid, optional)
 
 
 
@@ -5255,7 +5255,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMapReadResponse**](preview_sync_service_sync_mapReadResponse.md)
+[**ListSyncMapResponse**](ListSyncMapResponse.md)
 
 ### Authorization
 
@@ -5273,7 +5273,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncMapItem
 
-> PreviewSyncServiceSyncMapSyncMapItemReadResponse ListSyncMapItem(ctx, ServiceSid, MapSid, optional)
+> ListSyncMapItemResponse ListSyncMapItem(ctx, ServiceSid, MapSid, optional)
 
 
 
@@ -5303,7 +5303,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMapSyncMapItemReadResponse**](preview_sync_service_sync_map_sync_map_itemReadResponse.md)
+[**ListSyncMapItemResponse**](ListSyncMapItemResponse.md)
 
 ### Authorization
 
@@ -5321,7 +5321,7 @@ Name | Type | Description  | Notes
 
 ## ListSyncMapPermission
 
-> PreviewSyncServiceSyncMapSyncMapPermissionReadResponse ListSyncMapPermission(ctx, ServiceSid, MapSid, optional)
+> ListSyncMapPermissionResponse ListSyncMapPermission(ctx, ServiceSid, MapSid, optional)
 
 
 
@@ -5350,7 +5350,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMapSyncMapPermissionReadResponse**](preview_sync_service_sync_map_sync_map_permissionReadResponse.md)
+[**ListSyncMapPermissionResponse**](ListSyncMapPermissionResponse.md)
 
 ### Authorization
 
@@ -5368,7 +5368,7 @@ Name | Type | Description  | Notes
 
 ## ListTask
 
-> PreviewUnderstandAssistantTaskReadResponse ListTask(ctx, AssistantSid, optional)
+> ListTaskResponse ListTask(ctx, AssistantSid, optional)
 
 
 
@@ -5393,7 +5393,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskReadResponse**](preview_understand_assistant_taskReadResponse.md)
+[**ListTaskResponse**](ListTaskResponse.md)
 
 ### Authorization
 
@@ -5853,7 +5853,7 @@ Update a specific Export Configuration.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
  **optional** | ***UpdateExportConfigurationOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters

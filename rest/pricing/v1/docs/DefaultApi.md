@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
 
 ## ListMessagingCountry
 
-> PricingV1MessagingMessagingCountryReadResponse ListMessagingCountry(ctx, optional)
+> ListMessagingCountryResponse ListMessagingCountry(ctx, optional)
 
 
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV1MessagingMessagingCountryReadResponse**](pricing_v1_messaging_messaging_countryReadResponse.md)
+[**ListMessagingCountryResponse**](ListMessagingCountryResponse.md)
 
 ### Authorization
 
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 
 ## ListPhoneNumberCountry
 
-> PricingV1PhoneNumberPhoneNumberCountryReadResponse ListPhoneNumberCountry(ctx, optional)
+> ListPhoneNumberCountryResponse ListPhoneNumberCountry(ctx, optional)
 
 
 
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV1PhoneNumberPhoneNumberCountryReadResponse**](pricing_v1_phone_number_phone_number_countryReadResponse.md)
+[**ListPhoneNumberCountryResponse**](ListPhoneNumberCountryResponse.md)
 
 ### Authorization
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ## ListVoiceCountry
 
-> PricingV1VoiceVoiceCountryReadResponse ListVoiceCountry(ctx, optional)
+> ListVoiceCountryResponse ListVoiceCountry(ctx, optional)
 
 
 
@@ -249,7 +249,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV1VoiceVoiceCountryReadResponse**](pricing_v1_voice_voice_countryReadResponse.md)
+[**ListVoiceCountryResponse**](ListVoiceCountryResponse.md)
 
 ### Authorization
 

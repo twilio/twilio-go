@@ -790,7 +790,7 @@ Name | Type | Description  | Notes
 
 ## ListInteraction
 
-> ProxyV1ServiceSessionInteractionReadResponse ListInteraction(ctx, ServiceSid, SessionSid, optional)
+> ListInteractionResponse ListInteraction(ctx, ServiceSid, SessionSid, optional)
 
 
 
@@ -819,7 +819,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSessionInteractionReadResponse**](proxy_v1_service_session_interactionReadResponse.md)
+[**ListInteractionResponse**](ListInteractionResponse.md)
 
 ### Authorization
 
@@ -837,7 +837,7 @@ Name | Type | Description  | Notes
 
 ## ListMessageInteraction
 
-> ProxyV1ServiceSessionParticipantMessageInteractionReadResponse ListMessageInteraction(ctx, ServiceSid, SessionSid, ParticipantSid, optional)
+> ListMessageInteractionResponse ListMessageInteraction(ctx, ServiceSid, SessionSid, ParticipantSid, optional)
 
 
 
@@ -866,7 +866,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipantMessageInteractionReadResponse**](proxy_v1_service_session_participant_message_interactionReadResponse.md)
+[**ListMessageInteractionResponse**](ListMessageInteractionResponse.md)
 
 ### Authorization
 
@@ -884,7 +884,7 @@ Name | Type | Description  | Notes
 
 ## ListParticipant
 
-> ProxyV1ServiceSessionParticipantReadResponse ListParticipant(ctx, ServiceSid, SessionSid, optional)
+> ListParticipantResponse ListParticipant(ctx, ServiceSid, SessionSid, optional)
 
 
 
@@ -913,7 +913,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipantReadResponse**](proxy_v1_service_session_participantReadResponse.md)
+[**ListParticipantResponse**](ListParticipantResponse.md)
 
 ### Authorization
 
@@ -931,7 +931,7 @@ Name | Type | Description  | Notes
 
 ## ListPhoneNumber
 
-> ProxyV1ServicePhoneNumberReadResponse ListPhoneNumber(ctx, ServiceSid, optional)
+> ListPhoneNumberResponse ListPhoneNumber(ctx, ServiceSid, optional)
 
 
 
@@ -958,7 +958,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServicePhoneNumberReadResponse**](proxy_v1_service_phone_numberReadResponse.md)
+[**ListPhoneNumberResponse**](ListPhoneNumberResponse.md)
 
 ### Authorization
 
@@ -976,7 +976,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> ProxyV1ServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -1001,7 +1001,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceReadResponse**](proxy_v1_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 
@@ -1019,7 +1019,7 @@ Name | Type | Description  | Notes
 
 ## ListSession
 
-> ProxyV1ServiceSessionReadResponse ListSession(ctx, ServiceSid, optional)
+> ListSessionResponse ListSession(ctx, ServiceSid, optional)
 
 
 
@@ -1046,7 +1046,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSessionReadResponse**](proxy_v1_service_sessionReadResponse.md)
+[**ListSessionResponse**](ListSessionResponse.md)
 
 ### Authorization
 
@@ -1064,7 +1064,7 @@ Name | Type | Description  | Notes
 
 ## ListShortCode
 
-> ProxyV1ServiceShortCodeReadResponse ListShortCode(ctx, ServiceSid, optional)
+> ListShortCodeResponse ListShortCode(ctx, ServiceSid, optional)
 
 
 
@@ -1091,7 +1091,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceShortCodeReadResponse**](proxy_v1_service_short_codeReadResponse.md)
+[**ListShortCodeResponse**](ListShortCodeResponse.md)
 
 ### Authorization
 

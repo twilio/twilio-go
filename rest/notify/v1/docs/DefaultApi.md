@@ -428,7 +428,7 @@ Name | Type | Description  | Notes
 
 ## ListBinding
 
-> NotifyV1ServiceBindingReadResponse ListBinding(ctx, ServiceSid, optional)
+> ListBindingResponse ListBinding(ctx, ServiceSid, optional)
 
 
 
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1ServiceBindingReadResponse**](notify_v1_service_bindingReadResponse.md)
+[**ListBindingResponse**](ListBindingResponse.md)
 
 ### Authorization
 
@@ -475,7 +475,7 @@ Name | Type | Description  | Notes
 
 ## ListCredential
 
-> NotifyV1CredentialReadResponse ListCredential(ctx, optional)
+> ListCredentialResponse ListCredential(ctx, optional)
 
 
 
@@ -498,7 +498,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1CredentialReadResponse**](notify_v1_credentialReadResponse.md)
+[**ListCredentialResponse**](ListCredentialResponse.md)
 
 ### Authorization
 
@@ -516,7 +516,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> NotifyV1ServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -540,7 +540,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1ServiceReadResponse**](notify_v1_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 

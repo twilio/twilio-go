@@ -4,6 +4,9 @@ package twilio
 import (
 	"github.com/twilio/twilio-go/client"
 	studioV2 "github.com/twilio/twilio-go/rest/studio/v2"
+	messagingV1 "github.com/twilio/twilio-go/rest/messaging/v1"
+	numbersV2 "github.com/twilio/twilio-go/rest/numbers/v2"
+	apiv2010 "github.com/twilio/twilio-go/rest/api/v2010"
 	"time"
 )
 
@@ -14,6 +17,9 @@ type Twilio struct {
 	defaultbaseURL *string
 	common         service
 	StudioV2       *studioV2.DefaultApiService
+	MessagingV1    *messagingV1.DefaultApiService
+	NumbersV2    *numbersV2.DefaultApiService
+	ApiV2010    *apiv2010.DefaultApiService
 }
 
 type service struct {
@@ -46,7 +52,9 @@ func NewClient(accountSID string, authToken string) *Twilio {
 
 	c.common.client = c
 	c.StudioV2 = studioV2.NewDefaultApiService(c.Client)
-
+	c.MessagingV1 = messagingV1.NewDefaultApiService(c.Client)
+	c.NumbersV2 = numbersV2.NewDefaultApiService(c.Client)
+	c.ApiV2010 = apiv2010.NewDefaultApiService(c.Client)
 	return c
 }
 

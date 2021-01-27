@@ -2136,7 +2136,7 @@ Name | Type | Description  | Notes
 
 ## ListConversation
 
-> ConversationsV1ConversationReadResponse ListConversation(ctx, optional)
+> ListConversationResponse ListConversation(ctx, optional)
 
 
 
@@ -2161,7 +2161,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationReadResponse**](conversations_v1_conversationReadResponse.md)
+[**ListConversationResponse**](ListConversationResponse.md)
 
 ### Authorization
 
@@ -2179,7 +2179,7 @@ Name | Type | Description  | Notes
 
 ## ListConversationMessage
 
-> ConversationsV1ConversationConversationMessageReadResponse ListConversationMessage(ctx, ConversationSid, optional)
+> ListConversationMessageResponse ListConversationMessage(ctx, ConversationSid, optional)
 
 
 
@@ -2206,7 +2206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationMessageReadResponse**](conversations_v1_conversation_conversation_messageReadResponse.md)
+[**ListConversationMessageResponse**](ListConversationMessageResponse.md)
 
 ### Authorization
 
@@ -2224,7 +2224,7 @@ Name | Type | Description  | Notes
 
 ## ListConversationMessageReceipt
 
-> ConversationsV1ConversationConversationMessageConversationMessageReceiptReadResponse ListConversationMessageReceipt(ctx, ConversationSid, MessageSid, optional)
+> ListConversationMessageReceiptResponse ListConversationMessageReceipt(ctx, ConversationSid, MessageSid, optional)
 
 
 
@@ -2253,7 +2253,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationMessageConversationMessageReceiptReadResponse**](conversations_v1_conversation_conversation_message_conversation_message_receiptReadResponse.md)
+[**ListConversationMessageReceiptResponse**](ListConversationMessageReceiptResponse.md)
 
 ### Authorization
 
@@ -2271,7 +2271,7 @@ Name | Type | Description  | Notes
 
 ## ListConversationParticipant
 
-> ConversationsV1ConversationConversationParticipantReadResponse ListConversationParticipant(ctx, ConversationSid, optional)
+> ListConversationParticipantResponse ListConversationParticipant(ctx, ConversationSid, optional)
 
 
 
@@ -2298,7 +2298,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationParticipantReadResponse**](conversations_v1_conversation_conversation_participantReadResponse.md)
+[**ListConversationParticipantResponse**](ListConversationParticipantResponse.md)
 
 ### Authorization
 
@@ -2316,7 +2316,7 @@ Name | Type | Description  | Notes
 
 ## ListConversationScopedWebhook
 
-> ConversationsV1ConversationConversationScopedWebhookReadResponse ListConversationScopedWebhook(ctx, ConversationSid, optional)
+> ListConversationScopedWebhookResponse ListConversationScopedWebhook(ctx, ConversationSid, optional)
 
 
 
@@ -2343,7 +2343,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationScopedWebhookReadResponse**](conversations_v1_conversation_conversation_scoped_webhookReadResponse.md)
+[**ListConversationScopedWebhookResponse**](ListConversationScopedWebhookResponse.md)
 
 ### Authorization
 
@@ -2361,7 +2361,7 @@ Name | Type | Description  | Notes
 
 ## ListCredential
 
-> ConversationsV1CredentialReadResponse ListCredential(ctx, optional)
+> ListCredentialResponse ListCredential(ctx, optional)
 
 
 
@@ -2386,7 +2386,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1CredentialReadResponse**](conversations_v1_credentialReadResponse.md)
+[**ListCredentialResponse**](ListCredentialResponse.md)
 
 ### Authorization
 
@@ -2404,7 +2404,7 @@ Name | Type | Description  | Notes
 
 ## ListRole
 
-> ConversationsV1RoleReadResponse ListRole(ctx, optional)
+> ListRoleResponse ListRole(ctx, optional)
 
 
 
@@ -2429,7 +2429,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1RoleReadResponse**](conversations_v1_roleReadResponse.md)
+[**ListRoleResponse**](ListRoleResponse.md)
 
 ### Authorization
 
@@ -2447,7 +2447,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> ConversationsV1ServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -2472,7 +2472,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceReadResponse**](conversations_v1_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 
@@ -2490,7 +2490,7 @@ Name | Type | Description  | Notes
 
 ## ListServiceBinding
 
-> ConversationsV1ServiceServiceBindingReadResponse ListServiceBinding(ctx, ChatServiceSid, optional)
+> ListServiceBindingResponse ListServiceBinding(ctx, ChatServiceSid, optional)
 
 
 
@@ -2519,7 +2519,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceBindingReadResponse**](conversations_v1_service_service_bindingReadResponse.md)
+[**ListServiceBindingResponse**](ListServiceBindingResponse.md)
 
 ### Authorization
 
@@ -2537,7 +2537,7 @@ Name | Type | Description  | Notes
 
 ## ListServiceConversation
 
-> ConversationsV1ServiceServiceConversationReadResponse ListServiceConversation(ctx, ChatServiceSid, optional)
+> ListServiceConversationResponse ListServiceConversation(ctx, ChatServiceSid, optional)
 
 
 
@@ -2564,7 +2564,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationReadResponse**](conversations_v1_service_service_conversationReadResponse.md)
+[**ListServiceConversationResponse**](ListServiceConversationResponse.md)
 
 ### Authorization
 
@@ -2582,7 +2582,7 @@ Name | Type | Description  | Notes
 
 ## ListServiceConversationMessage
 
-> ConversationsV1ServiceServiceConversationServiceConversationMessageReadResponse ListServiceConversationMessage(ctx, ChatServiceSid, ConversationSid, optional)
+> ListServiceConversationMessageResponse ListServiceConversationMessage(ctx, ChatServiceSid, ConversationSid, optional)
 
 
 
@@ -2611,7 +2611,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessageReadResponse**](conversations_v1_service_service_conversation_service_conversation_messageReadResponse.md)
+[**ListServiceConversationMessageResponse**](ListServiceConversationMessageResponse.md)
 
 ### Authorization
 
@@ -2629,7 +2629,7 @@ Name | Type | Description  | Notes
 
 ## ListServiceConversationMessageReceipt
 
-> ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceiptReadResponse ListServiceConversationMessageReceipt(ctx, ChatServiceSid, ConversationSid, MessageSid, optional)
+> ListServiceConversationMessageReceiptResponse ListServiceConversationMessageReceipt(ctx, ChatServiceSid, ConversationSid, MessageSid, optional)
 
 
 
@@ -2660,7 +2660,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceiptReadResponse**](conversations_v1_service_service_conversation_service_conversation_message_service_conversation_message_receiptReadResponse.md)
+[**ListServiceConversationMessageReceiptResponse**](ListServiceConversationMessageReceiptResponse.md)
 
 ### Authorization
 
@@ -2678,7 +2678,7 @@ Name | Type | Description  | Notes
 
 ## ListServiceConversationParticipant
 
-> ConversationsV1ServiceServiceConversationServiceConversationParticipantReadResponse ListServiceConversationParticipant(ctx, ChatServiceSid, ConversationSid, optional)
+> ListServiceConversationParticipantResponse ListServiceConversationParticipant(ctx, ChatServiceSid, ConversationSid, optional)
 
 
 
@@ -2707,7 +2707,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationParticipantReadResponse**](conversations_v1_service_service_conversation_service_conversation_participantReadResponse.md)
+[**ListServiceConversationParticipantResponse**](ListServiceConversationParticipantResponse.md)
 
 ### Authorization
 
@@ -2725,7 +2725,7 @@ Name | Type | Description  | Notes
 
 ## ListServiceConversationScopedWebhook
 
-> ConversationsV1ServiceServiceConversationServiceConversationScopedWebhookReadResponse ListServiceConversationScopedWebhook(ctx, ChatServiceSid, ConversationSid, optional)
+> ListServiceConversationScopedWebhookResponse ListServiceConversationScopedWebhook(ctx, ChatServiceSid, ConversationSid, optional)
 
 
 
@@ -2754,7 +2754,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhookReadResponse**](conversations_v1_service_service_conversation_service_conversation_scoped_webhookReadResponse.md)
+[**ListServiceConversationScopedWebhookResponse**](ListServiceConversationScopedWebhookResponse.md)
 
 ### Authorization
 
@@ -2772,7 +2772,7 @@ Name | Type | Description  | Notes
 
 ## ListServiceRole
 
-> ConversationsV1ServiceServiceRoleReadResponse ListServiceRole(ctx, ChatServiceSid, optional)
+> ListServiceRoleResponse ListServiceRole(ctx, ChatServiceSid, optional)
 
 
 
@@ -2799,7 +2799,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceRoleReadResponse**](conversations_v1_service_service_roleReadResponse.md)
+[**ListServiceRoleResponse**](ListServiceRoleResponse.md)
 
 ### Authorization
 
@@ -2817,7 +2817,7 @@ Name | Type | Description  | Notes
 
 ## ListServiceUser
 
-> ConversationsV1ServiceServiceUserReadResponse ListServiceUser(ctx, ChatServiceSid, optional)
+> ListServiceUserResponse ListServiceUser(ctx, ChatServiceSid, optional)
 
 
 
@@ -2844,7 +2844,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceUserReadResponse**](conversations_v1_service_service_userReadResponse.md)
+[**ListServiceUserResponse**](ListServiceUserResponse.md)
 
 ### Authorization
 
@@ -2862,7 +2862,7 @@ Name | Type | Description  | Notes
 
 ## ListUser
 
-> ConversationsV1UserReadResponse ListUser(ctx, optional)
+> ListUserResponse ListUser(ctx, optional)
 
 
 
@@ -2887,7 +2887,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1UserReadResponse**](conversations_v1_userReadResponse.md)
+[**ListUserResponse**](ListUserResponse.md)
 
 ### Authorization
 

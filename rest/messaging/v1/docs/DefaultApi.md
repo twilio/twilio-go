@@ -515,7 +515,7 @@ Name | Type | Description  | Notes
 
 ## ListAlphaSender
 
-> MessagingV1ServiceAlphaSenderReadResponse ListAlphaSender(ctx, ServiceSid, optional)
+> ListAlphaSenderResponse ListAlphaSender(ctx, ServiceSid, optional)
 
 
 
@@ -540,7 +540,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServiceAlphaSenderReadResponse**](messaging_v1_service_alpha_senderReadResponse.md)
+[**ListAlphaSenderResponse**](ListAlphaSenderResponse.md)
 
 ### Authorization
 
@@ -558,7 +558,7 @@ Name | Type | Description  | Notes
 
 ## ListPhoneNumber
 
-> MessagingV1ServicePhoneNumberReadResponse ListPhoneNumber(ctx, ServiceSid, optional)
+> ListPhoneNumberResponse ListPhoneNumber(ctx, ServiceSid, optional)
 
 
 
@@ -583,7 +583,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServicePhoneNumberReadResponse**](messaging_v1_service_phone_numberReadResponse.md)
+[**ListPhoneNumberResponse**](ListPhoneNumberResponse.md)
 
 ### Authorization
 
@@ -601,7 +601,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> MessagingV1ServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -624,7 +624,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServiceReadResponse**](messaging_v1_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 
@@ -642,7 +642,7 @@ Name | Type | Description  | Notes
 
 ## ListShortCode
 
-> MessagingV1ServiceShortCodeReadResponse ListShortCode(ctx, ServiceSid, optional)
+> ListShortCodeResponse ListShortCode(ctx, ServiceSid, optional)
 
 
 
@@ -667,7 +667,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServiceShortCodeReadResponse**](messaging_v1_service_short_codeReadResponse.md)
+[**ListShortCodeResponse**](ListShortCodeResponse.md)
 
 ### Authorization
 

@@ -28,7 +28,7 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages or Calls | 
+**ResourceType** | **string**| The type of communication – Messages or Calls, Conferences, and Participants | 
  **optional** | ***CreateExportCustomJobOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -110,7 +110,7 @@ Fetch a specific Day.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
 **Day** | **string**| The ISO 8601 format date of the resources in the file, for a UTC day | 
 
 ### Return type
@@ -145,7 +145,7 @@ Fetch a specific Export.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
 
 ### Return type
 
@@ -179,7 +179,7 @@ Fetch a specific Export Configuration.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
 
 ### Return type
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**JobSid** | **string**|  | 
+**JobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
 
 ### Return type
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## ListDay
 
-> BulkexportsV1ExportDayReadResponse ListDay(ctx, ResourceType, optional)
+> ListDayResponse ListDay(ctx, ResourceType, optional)
 
 
 
@@ -245,7 +245,7 @@ Retrieve a list of all Days for a resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
  **optional** | ***ListDayOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -260,7 +260,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkexportsV1ExportDayReadResponse**](bulkexports_v1_export_dayReadResponse.md)
+[**ListDayResponse**](ListDayResponse.md)
 
 ### Authorization
 
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ## ListExportCustomJob
 
-> BulkexportsV1ExportExportCustomJobReadResponse ListExportCustomJob(ctx, ResourceType, optional)
+> ListExportCustomJobResponse ListExportCustomJob(ctx, ResourceType, optional)
 
 
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
  **optional** | ***ListExportCustomJobOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkexportsV1ExportExportCustomJobReadResponse**](bulkexports_v1_export_export_custom_jobReadResponse.md)
+[**ListExportCustomJobResponse**](ListExportCustomJobResponse.md)
 
 ### Authorization
 
@@ -333,7 +333,7 @@ Update a specific Export Configuration.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls | 
+**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
  **optional** | ***UpdateExportConfigurationOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters

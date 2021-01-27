@@ -943,7 +943,7 @@ Name | Type | Description  | Notes
 
 ## ListChannel
 
-> ChatV1ServiceChannelReadResponse ListChannel(ctx, ServiceSid, optional)
+> ListChannelResponse ListChannel(ctx, ServiceSid, optional)
 
 
 
@@ -969,7 +969,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelReadResponse**](chat_v1_service_channelReadResponse.md)
+[**ListChannelResponse**](ListChannelResponse.md)
 
 ### Authorization
 
@@ -987,7 +987,7 @@ Name | Type | Description  | Notes
 
 ## ListCredential
 
-> ChatV1CredentialReadResponse ListCredential(ctx, optional)
+> ListCredentialResponse ListCredential(ctx, optional)
 
 
 
@@ -1010,7 +1010,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1CredentialReadResponse**](chat_v1_credentialReadResponse.md)
+[**ListCredentialResponse**](ListCredentialResponse.md)
 
 ### Authorization
 
@@ -1028,7 +1028,7 @@ Name | Type | Description  | Notes
 
 ## ListInvite
 
-> ChatV1ServiceChannelInviteReadResponse ListInvite(ctx, ServiceSid, ChannelSid, optional)
+> ListInviteResponse ListInvite(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1056,7 +1056,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelInviteReadResponse**](chat_v1_service_channel_inviteReadResponse.md)
+[**ListInviteResponse**](ListInviteResponse.md)
 
 ### Authorization
 
@@ -1074,7 +1074,7 @@ Name | Type | Description  | Notes
 
 ## ListMember
 
-> ChatV1ServiceChannelMemberReadResponse ListMember(ctx, ServiceSid, ChannelSid, optional)
+> ListMemberResponse ListMember(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1102,7 +1102,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelMemberReadResponse**](chat_v1_service_channel_memberReadResponse.md)
+[**ListMemberResponse**](ListMemberResponse.md)
 
 ### Authorization
 
@@ -1120,7 +1120,7 @@ Name | Type | Description  | Notes
 
 ## ListMessage
 
-> ChatV1ServiceChannelMessageReadResponse ListMessage(ctx, ServiceSid, ChannelSid, optional)
+> ListMessageResponse ListMessage(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1148,7 +1148,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelMessageReadResponse**](chat_v1_service_channel_messageReadResponse.md)
+[**ListMessageResponse**](ListMessageResponse.md)
 
 ### Authorization
 
@@ -1166,7 +1166,7 @@ Name | Type | Description  | Notes
 
 ## ListRole
 
-> ChatV1ServiceRoleReadResponse ListRole(ctx, ServiceSid, optional)
+> ListRoleResponse ListRole(ctx, ServiceSid, optional)
 
 
 
@@ -1191,7 +1191,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceRoleReadResponse**](chat_v1_service_roleReadResponse.md)
+[**ListRoleResponse**](ListRoleResponse.md)
 
 ### Authorization
 
@@ -1209,7 +1209,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> ChatV1ServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -1232,7 +1232,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceReadResponse**](chat_v1_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 
@@ -1250,7 +1250,7 @@ Name | Type | Description  | Notes
 
 ## ListUser
 
-> ChatV1ServiceUserReadResponse ListUser(ctx, ServiceSid, optional)
+> ListUserResponse ListUser(ctx, ServiceSid, optional)
 
 
 
@@ -1275,7 +1275,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceUserReadResponse**](chat_v1_service_userReadResponse.md)
+[**ListUserResponse**](ListUserResponse.md)
 
 ### Authorization
 
@@ -1293,7 +1293,7 @@ Name | Type | Description  | Notes
 
 ## ListUserChannel
 
-> ChatV1ServiceUserUserChannelReadResponse ListUserChannel(ctx, ServiceSid, UserSid, optional)
+> ListUserChannelResponse ListUserChannel(ctx, ServiceSid, UserSid, optional)
 
 
 
@@ -1322,7 +1322,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceUserUserChannelReadResponse**](chat_v1_service_user_user_channelReadResponse.md)
+[**ListUserChannelResponse**](ListUserChannelResponse.md)
 
 ### Authorization
 

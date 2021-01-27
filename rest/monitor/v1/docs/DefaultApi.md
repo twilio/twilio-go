@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ## ListAlert
 
-> MonitorV1AlertReadResponse ListAlert(ctx, optional)
+> ListAlertResponse ListAlert(ctx, optional)
 
 
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MonitorV1AlertReadResponse**](monitor_v1_alertReadResponse.md)
+[**ListAlertResponse**](ListAlertResponse.md)
 
 ### Authorization
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ## ListEvent
 
-> MonitorV1EventReadResponse ListEvent(ctx, optional)
+> ListEventResponse ListEvent(ctx, optional)
 
 
 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MonitorV1EventReadResponse**](monitor_v1_eventReadResponse.md)
+[**ListEventResponse**](ListEventResponse.md)
 
 ### Authorization
 

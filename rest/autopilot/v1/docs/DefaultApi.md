@@ -1239,7 +1239,7 @@ Name | Type | Description  | Notes
 
 ## ListAssistant
 
-> AutopilotV1AssistantReadResponse ListAssistant(ctx, optional)
+> ListAssistantResponse ListAssistant(ctx, optional)
 
 
 
@@ -1262,7 +1262,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantReadResponse**](autopilot_v1_assistantReadResponse.md)
+[**ListAssistantResponse**](ListAssistantResponse.md)
 
 ### Authorization
 
@@ -1280,7 +1280,7 @@ Name | Type | Description  | Notes
 
 ## ListField
 
-> AutopilotV1AssistantTaskFieldReadResponse ListField(ctx, AssistantSid, TaskSid, optional)
+> ListFieldResponse ListField(ctx, AssistantSid, TaskSid, optional)
 
 
 
@@ -1307,7 +1307,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskFieldReadResponse**](autopilot_v1_assistant_task_fieldReadResponse.md)
+[**ListFieldResponse**](ListFieldResponse.md)
 
 ### Authorization
 
@@ -1325,7 +1325,7 @@ Name | Type | Description  | Notes
 
 ## ListFieldType
 
-> AutopilotV1AssistantFieldTypeReadResponse ListFieldType(ctx, AssistantSid, optional)
+> ListFieldTypeResponse ListFieldType(ctx, AssistantSid, optional)
 
 
 
@@ -1350,7 +1350,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantFieldTypeReadResponse**](autopilot_v1_assistant_field_typeReadResponse.md)
+[**ListFieldTypeResponse**](ListFieldTypeResponse.md)
 
 ### Authorization
 
@@ -1368,7 +1368,7 @@ Name | Type | Description  | Notes
 
 ## ListFieldValue
 
-> AutopilotV1AssistantFieldTypeFieldValueReadResponse ListFieldValue(ctx, AssistantSid, FieldTypeSid, optional)
+> ListFieldValueResponse ListFieldValue(ctx, AssistantSid, FieldTypeSid, optional)
 
 
 
@@ -1396,7 +1396,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantFieldTypeFieldValueReadResponse**](autopilot_v1_assistant_field_type_field_valueReadResponse.md)
+[**ListFieldValueResponse**](ListFieldValueResponse.md)
 
 ### Authorization
 
@@ -1414,7 +1414,7 @@ Name | Type | Description  | Notes
 
 ## ListModelBuild
 
-> AutopilotV1AssistantModelBuildReadResponse ListModelBuild(ctx, AssistantSid, optional)
+> ListModelBuildResponse ListModelBuild(ctx, AssistantSid, optional)
 
 
 
@@ -1439,7 +1439,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantModelBuildReadResponse**](autopilot_v1_assistant_model_buildReadResponse.md)
+[**ListModelBuildResponse**](ListModelBuildResponse.md)
 
 ### Authorization
 
@@ -1457,7 +1457,7 @@ Name | Type | Description  | Notes
 
 ## ListQuery
 
-> AutopilotV1AssistantQueryReadResponse ListQuery(ctx, AssistantSid, optional)
+> ListQueryResponse ListQuery(ctx, AssistantSid, optional)
 
 
 
@@ -1486,7 +1486,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantQueryReadResponse**](autopilot_v1_assistant_queryReadResponse.md)
+[**ListQueryResponse**](ListQueryResponse.md)
 
 ### Authorization
 
@@ -1504,7 +1504,7 @@ Name | Type | Description  | Notes
 
 ## ListSample
 
-> AutopilotV1AssistantTaskSampleReadResponse ListSample(ctx, AssistantSid, TaskSid, optional)
+> ListSampleResponse ListSample(ctx, AssistantSid, TaskSid, optional)
 
 
 
@@ -1532,7 +1532,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskSampleReadResponse**](autopilot_v1_assistant_task_sampleReadResponse.md)
+[**ListSampleResponse**](ListSampleResponse.md)
 
 ### Authorization
 
@@ -1550,7 +1550,7 @@ Name | Type | Description  | Notes
 
 ## ListTask
 
-> AutopilotV1AssistantTaskReadResponse ListTask(ctx, AssistantSid, optional)
+> ListTaskResponse ListTask(ctx, AssistantSid, optional)
 
 
 
@@ -1575,7 +1575,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskReadResponse**](autopilot_v1_assistant_taskReadResponse.md)
+[**ListTaskResponse**](ListTaskResponse.md)
 
 ### Authorization
 
@@ -1593,7 +1593,7 @@ Name | Type | Description  | Notes
 
 ## ListWebhook
 
-> AutopilotV1AssistantWebhookReadResponse ListWebhook(ctx, AssistantSid, optional)
+> ListWebhookResponse ListWebhook(ctx, AssistantSid, optional)
 
 
 
@@ -1618,7 +1618,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantWebhookReadResponse**](autopilot_v1_assistant_webhookReadResponse.md)
+[**ListWebhookResponse**](ListWebhookResponse.md)
 
 ### Authorization
 

@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -340,7 +340,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -466,7 +466,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -518,7 +518,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -586,7 +586,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -633,7 +633,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -698,7 +698,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -763,7 +763,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -828,7 +828,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -888,7 +888,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -933,7 +933,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -976,7 +976,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1021,7 +1021,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1103,7 +1103,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1165,7 +1165,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1211,7 +1211,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1258,7 +1258,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1305,7 +1305,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1352,7 +1352,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1400,7 +1400,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1445,7 +1445,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1492,7 +1492,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1530,7 +1530,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **ByocTrunkSid** | **optional.String**| The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with. | 
- **DomainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot;. | 
+ **DomainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot; and must end with &#x60;sip.twilio.com&#x60;. | 
  **EmergencyCallerSid** | **optional.String**| Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call. | 
  **EmergencyCallingEnabled** | **optional.Bool**| Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses. | 
  **FriendlyName** | **optional.String**| A descriptive string that you created to describe the resource. It can be up to 64 characters long. | 
@@ -1549,7 +1549,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1594,7 +1594,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1641,7 +1641,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1690,7 +1690,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1735,7 +1735,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1786,7 +1786,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1834,7 +1834,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1867,7 +1867,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1902,7 +1902,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1937,7 +1937,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -1972,7 +1972,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2008,7 +2008,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2044,7 +2044,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2079,7 +2079,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2114,7 +2114,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2150,7 +2150,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2183,7 +2183,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2219,7 +2219,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2254,7 +2254,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2289,7 +2289,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2325,7 +2325,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2360,7 +2360,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2395,7 +2395,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2431,7 +2431,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2468,7 +2468,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2502,7 +2502,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2535,7 +2535,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2571,7 +2571,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2607,7 +2607,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2643,7 +2643,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2679,7 +2679,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2714,7 +2714,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2750,7 +2750,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2785,7 +2785,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2820,7 +2820,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2856,7 +2856,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2892,7 +2892,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2927,7 +2927,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2960,7 +2960,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -2994,7 +2994,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3027,7 +3027,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3062,7 +3062,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3097,7 +3097,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3130,7 +3130,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3164,7 +3164,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3199,7 +3199,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3234,7 +3234,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3269,7 +3269,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3303,7 +3303,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3339,7 +3339,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3374,7 +3374,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3410,7 +3410,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3445,7 +3445,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3480,7 +3480,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3516,7 +3516,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3553,7 +3553,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3586,7 +3586,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3622,7 +3622,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3658,7 +3658,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3693,7 +3693,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3728,7 +3728,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3763,7 +3763,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3799,7 +3799,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3834,7 +3834,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3869,7 +3869,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3905,7 +3905,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3942,7 +3942,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -3976,7 +3976,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4011,7 +4011,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4044,7 +4044,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4080,7 +4080,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4116,7 +4116,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4152,7 +4152,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4188,7 +4188,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4223,7 +4223,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4259,7 +4259,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4294,7 +4294,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4329,7 +4329,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4365,7 +4365,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4401,7 +4401,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4436,7 +4436,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4471,7 +4471,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4485,7 +4485,7 @@ Name | Type | Description  | Notes
 
 ## ListAccount
 
-> ApiV2010AccountReadResponse ListAccount(ctx, optional)
+> ListAccountResponse ListAccount(ctx, optional)
 
 
 
@@ -4512,11 +4512,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountReadResponse**](api_v2010_accountReadResponse.md)
+[**ListAccountResponse**](ListAccountResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4530,7 +4530,7 @@ Name | Type | Description  | Notes
 
 ## ListAddress
 
-> ApiV2010AccountAddressReadResponse ListAddress(ctx, AccountSid, optional)
+> ListAddressResponse ListAddress(ctx, AccountSid, optional)
 
 
 
@@ -4558,11 +4558,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAddressReadResponse**](api_v2010_account_addressReadResponse.md)
+[**ListAddressResponse**](ListAddressResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4576,7 +4576,7 @@ Name | Type | Description  | Notes
 
 ## ListApplication
 
-> ApiV2010AccountApplicationReadResponse ListApplication(ctx, AccountSid, optional)
+> ListApplicationResponse ListApplication(ctx, AccountSid, optional)
 
 
 
@@ -4604,11 +4604,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountApplicationReadResponse**](api_v2010_account_applicationReadResponse.md)
+[**ListApplicationResponse**](ListApplicationResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4622,7 +4622,7 @@ Name | Type | Description  | Notes
 
 ## ListAuthorizedConnectApp
 
-> ApiV2010AccountAuthorizedConnectAppReadResponse ListAuthorizedConnectApp(ctx, AccountSid, optional)
+> ListAuthorizedConnectAppResponse ListAuthorizedConnectApp(ctx, AccountSid, optional)
 
 
 
@@ -4649,11 +4649,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAuthorizedConnectAppReadResponse**](api_v2010_account_authorized_connect_appReadResponse.md)
+[**ListAuthorizedConnectAppResponse**](ListAuthorizedConnectAppResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4667,7 +4667,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberCountry
 
-> ApiV2010AccountAvailablePhoneNumberCountryReadResponse ListAvailablePhoneNumberCountry(ctx, AccountSid, optional)
+> ListAvailablePhoneNumberCountryResponse ListAvailablePhoneNumberCountry(ctx, AccountSid, optional)
 
 
 
@@ -4692,11 +4692,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountryReadResponse**](api_v2010_account_available_phone_number_countryReadResponse.md)
+[**ListAvailablePhoneNumberCountryResponse**](ListAvailablePhoneNumberCountryResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4710,7 +4710,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberLocal
 
-> ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalReadResponse ListAvailablePhoneNumberLocal(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberLocalResponse ListAvailablePhoneNumberLocal(ctx, AccountSid, CountryCode, optional)
 
 
 
@@ -4755,11 +4755,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalReadResponse**](api_v2010_account_available_phone_number_country_available_phone_number_localReadResponse.md)
+[**ListAvailablePhoneNumberLocalResponse**](ListAvailablePhoneNumberLocalResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4773,7 +4773,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberMachineToMachine
 
-> ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachineReadResponse ListAvailablePhoneNumberMachineToMachine(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberMachineToMachineResponse ListAvailablePhoneNumberMachineToMachine(ctx, AccountSid, CountryCode, optional)
 
 
 
@@ -4818,11 +4818,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachineReadResponse**](api_v2010_account_available_phone_number_country_available_phone_number_machine_to_machineReadResponse.md)
+[**ListAvailablePhoneNumberMachineToMachineResponse**](ListAvailablePhoneNumberMachineToMachineResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4836,7 +4836,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberMobile
 
-> ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobileReadResponse ListAvailablePhoneNumberMobile(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberMobileResponse ListAvailablePhoneNumberMobile(ctx, AccountSid, CountryCode, optional)
 
 
 
@@ -4881,11 +4881,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobileReadResponse**](api_v2010_account_available_phone_number_country_available_phone_number_mobileReadResponse.md)
+[**ListAvailablePhoneNumberMobileResponse**](ListAvailablePhoneNumberMobileResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4899,7 +4899,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberNational
 
-> ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNationalReadResponse ListAvailablePhoneNumberNational(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberNationalResponse ListAvailablePhoneNumberNational(ctx, AccountSid, CountryCode, optional)
 
 
 
@@ -4944,11 +4944,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNationalReadResponse**](api_v2010_account_available_phone_number_country_available_phone_number_nationalReadResponse.md)
+[**ListAvailablePhoneNumberNationalResponse**](ListAvailablePhoneNumberNationalResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -4962,7 +4962,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberSharedCost
 
-> ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCostReadResponse ListAvailablePhoneNumberSharedCost(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberSharedCostResponse ListAvailablePhoneNumberSharedCost(ctx, AccountSid, CountryCode, optional)
 
 
 
@@ -5007,11 +5007,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCostReadResponse**](api_v2010_account_available_phone_number_country_available_phone_number_shared_costReadResponse.md)
+[**ListAvailablePhoneNumberSharedCostResponse**](ListAvailablePhoneNumberSharedCostResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5025,7 +5025,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberTollFree
 
-> ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFreeReadResponse ListAvailablePhoneNumberTollFree(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberTollFreeResponse ListAvailablePhoneNumberTollFree(ctx, AccountSid, CountryCode, optional)
 
 
 
@@ -5070,11 +5070,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFreeReadResponse**](api_v2010_account_available_phone_number_country_available_phone_number_toll_freeReadResponse.md)
+[**ListAvailablePhoneNumberTollFreeResponse**](ListAvailablePhoneNumberTollFreeResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5088,7 +5088,7 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberVoip
 
-> ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoipReadResponse ListAvailablePhoneNumberVoip(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberVoipResponse ListAvailablePhoneNumberVoip(ctx, AccountSid, CountryCode, optional)
 
 
 
@@ -5133,11 +5133,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoipReadResponse**](api_v2010_account_available_phone_number_country_available_phone_number_voipReadResponse.md)
+[**ListAvailablePhoneNumberVoipResponse**](ListAvailablePhoneNumberVoipResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5151,7 +5151,7 @@ Name | Type | Description  | Notes
 
 ## ListCall
 
-> ApiV2010AccountCallReadResponse ListCall(ctx, AccountSid, optional)
+> ListCallResponse ListCall(ctx, AccountSid, optional)
 
 
 
@@ -5188,11 +5188,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallReadResponse**](api_v2010_account_callReadResponse.md)
+[**ListCallResponse**](ListCallResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5206,7 +5206,7 @@ Name | Type | Description  | Notes
 
 ## ListCallEvent
 
-> ApiV2010AccountCallCallEventReadResponse ListCallEvent(ctx, AccountSid, CallSid, optional)
+> ListCallEventResponse ListCallEvent(ctx, AccountSid, CallSid, optional)
 
 
 
@@ -5235,11 +5235,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallEventReadResponse**](api_v2010_account_call_call_eventReadResponse.md)
+[**ListCallEventResponse**](ListCallEventResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5253,7 +5253,7 @@ Name | Type | Description  | Notes
 
 ## ListCallNotification
 
-> ApiV2010AccountCallCallNotificationReadResponse ListCallNotification(ctx, AccountSid, CallSid, optional)
+> ListCallNotificationResponse ListCallNotification(ctx, AccountSid, CallSid, optional)
 
 
 
@@ -5284,11 +5284,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallNotificationReadResponse**](api_v2010_account_call_call_notificationReadResponse.md)
+[**ListCallNotificationResponse**](ListCallNotificationResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5302,7 +5302,7 @@ Name | Type | Description  | Notes
 
 ## ListCallRecording
 
-> ApiV2010AccountCallCallRecordingReadResponse ListCallRecording(ctx, AccountSid, CallSid, optional)
+> ListCallRecordingResponse ListCallRecording(ctx, AccountSid, CallSid, optional)
 
 
 
@@ -5334,11 +5334,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallRecordingReadResponse**](api_v2010_account_call_call_recordingReadResponse.md)
+[**ListCallRecordingResponse**](ListCallRecordingResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5352,7 +5352,7 @@ Name | Type | Description  | Notes
 
 ## ListConference
 
-> ApiV2010AccountConferenceReadResponse ListConference(ctx, AccountSid, optional)
+> ListConferenceResponse ListConference(ctx, AccountSid, optional)
 
 
 
@@ -5387,11 +5387,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConferenceReadResponse**](api_v2010_account_conferenceReadResponse.md)
+[**ListConferenceResponse**](ListConferenceResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5405,7 +5405,7 @@ Name | Type | Description  | Notes
 
 ## ListConferenceRecording
 
-> ApiV2010AccountConferenceConferenceRecordingReadResponse ListConferenceRecording(ctx, AccountSid, ConferenceSid, optional)
+> ListConferenceRecordingResponse ListConferenceRecording(ctx, AccountSid, ConferenceSid, optional)
 
 
 
@@ -5437,11 +5437,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConferenceConferenceRecordingReadResponse**](api_v2010_account_conference_conference_recordingReadResponse.md)
+[**ListConferenceRecordingResponse**](ListConferenceRecordingResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5455,7 +5455,7 @@ Name | Type | Description  | Notes
 
 ## ListConnectApp
 
-> ApiV2010AccountConnectAppReadResponse ListConnectApp(ctx, AccountSid, optional)
+> ListConnectAppResponse ListConnectApp(ctx, AccountSid, optional)
 
 
 
@@ -5482,11 +5482,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConnectAppReadResponse**](api_v2010_account_connect_appReadResponse.md)
+[**ListConnectAppResponse**](ListConnectAppResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5500,7 +5500,7 @@ Name | Type | Description  | Notes
 
 ## ListDependentPhoneNumber
 
-> ApiV2010AccountAddressDependentPhoneNumberReadResponse ListDependentPhoneNumber(ctx, AccountSid, AddressSid, optional)
+> ListDependentPhoneNumberResponse ListDependentPhoneNumber(ctx, AccountSid, AddressSid, optional)
 
 
 
@@ -5527,11 +5527,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAddressDependentPhoneNumberReadResponse**](api_v2010_account_address_dependent_phone_numberReadResponse.md)
+[**ListDependentPhoneNumberResponse**](ListDependentPhoneNumberResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5545,7 +5545,7 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumberReadResponse ListIncomingPhoneNumber(ctx, AccountSid, optional)
+> ListIncomingPhoneNumberResponse ListIncomingPhoneNumber(ctx, AccountSid, optional)
 
 
 
@@ -5576,11 +5576,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberReadResponse**](api_v2010_account_incoming_phone_numberReadResponse.md)
+[**ListIncomingPhoneNumberResponse**](ListIncomingPhoneNumberResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5594,7 +5594,7 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberAssignedAddOn
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnReadResponse ListIncomingPhoneNumberAssignedAddOn(ctx, AccountSid, ResourceSid, optional)
+> ListIncomingPhoneNumberAssignedAddOnResponse ListIncomingPhoneNumberAssignedAddOn(ctx, AccountSid, ResourceSid, optional)
 
 
 
@@ -5623,11 +5623,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnReadResponse**](api_v2010_account_incoming_phone_number_incoming_phone_number_assigned_add_onReadResponse.md)
+[**ListIncomingPhoneNumberAssignedAddOnResponse**](ListIncomingPhoneNumberAssignedAddOnResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5641,7 +5641,7 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberAssignedAddOnExtension
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtensionReadResponse ListIncomingPhoneNumberAssignedAddOnExtension(ctx, AccountSid, ResourceSid, AssignedAddOnSid, optional)
+> ListIncomingPhoneNumberAssignedAddOnExtensionResponse ListIncomingPhoneNumberAssignedAddOnExtension(ctx, AccountSid, ResourceSid, AssignedAddOnSid, optional)
 
 
 
@@ -5672,11 +5672,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtensionReadResponse**](api_v2010_account_incoming_phone_number_incoming_phone_number_assigned_add_on_incoming_phone_number_assigned_add_on_extensionReadResponse.md)
+[**ListIncomingPhoneNumberAssignedAddOnExtensionResponse**](ListIncomingPhoneNumberAssignedAddOnExtensionResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5690,7 +5690,7 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberLocal
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocalReadResponse ListIncomingPhoneNumberLocal(ctx, AccountSid, optional)
+> ListIncomingPhoneNumberLocalResponse ListIncomingPhoneNumberLocal(ctx, AccountSid, optional)
 
 
 
@@ -5719,11 +5719,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocalReadResponse**](api_v2010_account_incoming_phone_number_incoming_phone_number_localReadResponse.md)
+[**ListIncomingPhoneNumberLocalResponse**](ListIncomingPhoneNumberLocalResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5737,7 +5737,7 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberMobile
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobileReadResponse ListIncomingPhoneNumberMobile(ctx, AccountSid, optional)
+> ListIncomingPhoneNumberMobileResponse ListIncomingPhoneNumberMobile(ctx, AccountSid, optional)
 
 
 
@@ -5766,11 +5766,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobileReadResponse**](api_v2010_account_incoming_phone_number_incoming_phone_number_mobileReadResponse.md)
+[**ListIncomingPhoneNumberMobileResponse**](ListIncomingPhoneNumberMobileResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5784,7 +5784,7 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberTollFree
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFreeReadResponse ListIncomingPhoneNumberTollFree(ctx, AccountSid, optional)
+> ListIncomingPhoneNumberTollFreeResponse ListIncomingPhoneNumberTollFree(ctx, AccountSid, optional)
 
 
 
@@ -5813,11 +5813,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFreeReadResponse**](api_v2010_account_incoming_phone_number_incoming_phone_number_toll_freeReadResponse.md)
+[**ListIncomingPhoneNumberTollFreeResponse**](ListIncomingPhoneNumberTollFreeResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5831,7 +5831,7 @@ Name | Type | Description  | Notes
 
 ## ListKey
 
-> ApiV2010AccountKeyReadResponse ListKey(ctx, AccountSid, optional)
+> ListKeyResponse ListKey(ctx, AccountSid, optional)
 
 
 
@@ -5856,11 +5856,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountKeyReadResponse**](api_v2010_account_keyReadResponse.md)
+[**ListKeyResponse**](ListKeyResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5874,7 +5874,7 @@ Name | Type | Description  | Notes
 
 ## ListMedia
 
-> ApiV2010AccountMessageMediaReadResponse ListMedia(ctx, AccountSid, MessageSid, optional)
+> ListMediaResponse ListMedia(ctx, AccountSid, MessageSid, optional)
 
 
 
@@ -5906,11 +5906,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountMessageMediaReadResponse**](api_v2010_account_message_mediaReadResponse.md)
+[**ListMediaResponse**](ListMediaResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5924,7 +5924,7 @@ Name | Type | Description  | Notes
 
 ## ListMember
 
-> ApiV2010AccountQueueMemberReadResponse ListMember(ctx, AccountSid, QueueSid, optional)
+> ListMemberResponse ListMember(ctx, AccountSid, QueueSid, optional)
 
 
 
@@ -5953,11 +5953,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountQueueMemberReadResponse**](api_v2010_account_queue_memberReadResponse.md)
+[**ListMemberResponse**](ListMemberResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -5971,7 +5971,7 @@ Name | Type | Description  | Notes
 
 ## ListMessage
 
-> ApiV2010AccountMessageReadResponse ListMessage(ctx, AccountSid, optional)
+> ListMessageResponse ListMessage(ctx, AccountSid, optional)
 
 
 
@@ -6003,11 +6003,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountMessageReadResponse**](api_v2010_account_messageReadResponse.md)
+[**ListMessageResponse**](ListMessageResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6021,7 +6021,7 @@ Name | Type | Description  | Notes
 
 ## ListNotification
 
-> ApiV2010AccountNotificationReadResponse ListNotification(ctx, AccountSid, optional)
+> ListNotificationResponse ListNotification(ctx, AccountSid, optional)
 
 
 
@@ -6052,11 +6052,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountNotificationReadResponse**](api_v2010_account_notificationReadResponse.md)
+[**ListNotificationResponse**](ListNotificationResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6070,7 +6070,7 @@ Name | Type | Description  | Notes
 
 ## ListOutgoingCallerId
 
-> ApiV2010AccountOutgoingCallerIdReadResponse ListOutgoingCallerId(ctx, AccountSid, optional)
+> ListOutgoingCallerIdResponse ListOutgoingCallerId(ctx, AccountSid, optional)
 
 
 
@@ -6099,11 +6099,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountOutgoingCallerIdReadResponse**](api_v2010_account_outgoing_caller_idReadResponse.md)
+[**ListOutgoingCallerIdResponse**](ListOutgoingCallerIdResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6117,7 +6117,7 @@ Name | Type | Description  | Notes
 
 ## ListParticipant
 
-> ApiV2010AccountConferenceParticipantReadResponse ListParticipant(ctx, AccountSid, ConferenceSid, optional)
+> ListParticipantResponse ListParticipant(ctx, AccountSid, ConferenceSid, optional)
 
 
 
@@ -6149,11 +6149,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipantReadResponse**](api_v2010_account_conference_participantReadResponse.md)
+[**ListParticipantResponse**](ListParticipantResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6167,7 +6167,7 @@ Name | Type | Description  | Notes
 
 ## ListQueue
 
-> ApiV2010AccountQueueReadResponse ListQueue(ctx, AccountSid, optional)
+> ListQueueResponse ListQueue(ctx, AccountSid, optional)
 
 
 
@@ -6194,11 +6194,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountQueueReadResponse**](api_v2010_account_queueReadResponse.md)
+[**ListQueueResponse**](ListQueueResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6212,7 +6212,7 @@ Name | Type | Description  | Notes
 
 ## ListRecording
 
-> ApiV2010AccountRecordingReadResponse ListRecording(ctx, AccountSid, optional)
+> ListRecordingResponse ListRecording(ctx, AccountSid, optional)
 
 
 
@@ -6244,11 +6244,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountRecordingReadResponse**](api_v2010_account_recordingReadResponse.md)
+[**ListRecordingResponse**](ListRecordingResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6262,7 +6262,7 @@ Name | Type | Description  | Notes
 
 ## ListRecordingAddOnResult
 
-> ApiV2010AccountRecordingRecordingAddOnResultReadResponse ListRecordingAddOnResult(ctx, AccountSid, ReferenceSid, optional)
+> ListRecordingAddOnResultResponse ListRecordingAddOnResult(ctx, AccountSid, ReferenceSid, optional)
 
 
 
@@ -6291,11 +6291,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountRecordingRecordingAddOnResultReadResponse**](api_v2010_account_recording_recording_add_on_resultReadResponse.md)
+[**ListRecordingAddOnResultResponse**](ListRecordingAddOnResultResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6309,7 +6309,7 @@ Name | Type | Description  | Notes
 
 ## ListRecordingAddOnResultPayload
 
-> ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayloadReadResponse ListRecordingAddOnResultPayload(ctx, AccountSid, ReferenceSid, AddOnResultSid, optional)
+> ListRecordingAddOnResultPayloadResponse ListRecordingAddOnResultPayload(ctx, AccountSid, ReferenceSid, AddOnResultSid, optional)
 
 
 
@@ -6340,11 +6340,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayloadReadResponse**](api_v2010_account_recording_recording_add_on_result_recording_add_on_result_payloadReadResponse.md)
+[**ListRecordingAddOnResultPayloadResponse**](ListRecordingAddOnResultPayloadResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6358,7 +6358,7 @@ Name | Type | Description  | Notes
 
 ## ListRecordingTranscription
 
-> ApiV2010AccountRecordingRecordingTranscriptionReadResponse ListRecordingTranscription(ctx, AccountSid, RecordingSid, optional)
+> ListRecordingTranscriptionResponse ListRecordingTranscription(ctx, AccountSid, RecordingSid, optional)
 
 
 
@@ -6385,11 +6385,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountRecordingRecordingTranscriptionReadResponse**](api_v2010_account_recording_recording_transcriptionReadResponse.md)
+[**ListRecordingTranscriptionResponse**](ListRecordingTranscriptionResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6403,7 +6403,7 @@ Name | Type | Description  | Notes
 
 ## ListShortCode
 
-> ApiV2010AccountShortCodeReadResponse ListShortCode(ctx, AccountSid, optional)
+> ListShortCodeResponse ListShortCode(ctx, AccountSid, optional)
 
 
 
@@ -6432,11 +6432,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountShortCodeReadResponse**](api_v2010_account_short_codeReadResponse.md)
+[**ListShortCodeResponse**](ListShortCodeResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6450,7 +6450,7 @@ Name | Type | Description  | Notes
 
 ## ListSigningKey
 
-> ApiV2010AccountSigningKeyReadResponse ListSigningKey(ctx, AccountSid, optional)
+> ListSigningKeyResponse ListSigningKey(ctx, AccountSid, optional)
 
 
 
@@ -6475,11 +6475,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSigningKeyReadResponse**](api_v2010_account_signing_keyReadResponse.md)
+[**ListSigningKeyResponse**](ListSigningKeyResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6493,7 +6493,7 @@ Name | Type | Description  | Notes
 
 ## ListSipAuthCallsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMappingReadResponse ListSipAuthCallsCredentialListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipAuthCallsCredentialListMappingResponse ListSipAuthCallsCredentialListMapping(ctx, AccountSid, DomainSid, optional)
 
 
 
@@ -6522,11 +6522,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMappingReadResponse**](api_v2010_account_sip_sip_domain_sip_auth_sip_auth_calls_sip_auth_calls_credential_list_mappingReadResponse.md)
+[**ListSipAuthCallsCredentialListMappingResponse**](ListSipAuthCallsCredentialListMappingResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6540,7 +6540,7 @@ Name | Type | Description  | Notes
 
 ## ListSipAuthCallsIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMappingReadResponse ListSipAuthCallsIpAccessControlListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipAuthCallsIpAccessControlListMappingResponse ListSipAuthCallsIpAccessControlListMapping(ctx, AccountSid, DomainSid, optional)
 
 
 
@@ -6569,11 +6569,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMappingReadResponse**](api_v2010_account_sip_sip_domain_sip_auth_sip_auth_calls_sip_auth_calls_ip_access_control_list_mappingReadResponse.md)
+[**ListSipAuthCallsIpAccessControlListMappingResponse**](ListSipAuthCallsIpAccessControlListMappingResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6587,7 +6587,7 @@ Name | Type | Description  | Notes
 
 ## ListSipAuthRegistrationsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMappingReadResponse ListSipAuthRegistrationsCredentialListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipAuthRegistrationsCredentialListMappingResponse ListSipAuthRegistrationsCredentialListMapping(ctx, AccountSid, DomainSid, optional)
 
 
 
@@ -6616,11 +6616,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMappingReadResponse**](api_v2010_account_sip_sip_domain_sip_auth_sip_auth_registrations_sip_auth_registrations_credential_list_mappingReadResponse.md)
+[**ListSipAuthRegistrationsCredentialListMappingResponse**](ListSipAuthRegistrationsCredentialListMappingResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6634,7 +6634,7 @@ Name | Type | Description  | Notes
 
 ## ListSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredentialReadResponse ListSipCredential(ctx, AccountSid, CredentialListSid, optional)
+> ListSipCredentialResponse ListSipCredential(ctx, AccountSid, CredentialListSid, optional)
 
 
 
@@ -6663,11 +6663,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialListSipCredentialReadResponse**](api_v2010_account_sip_sip_credential_list_sip_credentialReadResponse.md)
+[**ListSipCredentialResponse**](ListSipCredentialResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6681,7 +6681,7 @@ Name | Type | Description  | Notes
 
 ## ListSipCredentialList
 
-> ApiV2010AccountSipSipCredentialListReadResponse ListSipCredentialList(ctx, AccountSid, optional)
+> ListSipCredentialListResponse ListSipCredentialList(ctx, AccountSid, optional)
 
 
 
@@ -6708,11 +6708,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialListReadResponse**](api_v2010_account_sip_sip_credential_listReadResponse.md)
+[**ListSipCredentialListResponse**](ListSipCredentialListResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6726,7 +6726,7 @@ Name | Type | Description  | Notes
 
 ## ListSipCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipCredentialListMappingReadResponse ListSipCredentialListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipCredentialListMappingResponse ListSipCredentialListMapping(ctx, AccountSid, DomainSid, optional)
 
 
 
@@ -6755,11 +6755,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipCredentialListMappingReadResponse**](api_v2010_account_sip_sip_domain_sip_credential_list_mappingReadResponse.md)
+[**ListSipCredentialListMappingResponse**](ListSipCredentialListMappingResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6773,7 +6773,7 @@ Name | Type | Description  | Notes
 
 ## ListSipDomain
 
-> ApiV2010AccountSipSipDomainReadResponse ListSipDomain(ctx, AccountSid, optional)
+> ListSipDomainResponse ListSipDomain(ctx, AccountSid, optional)
 
 
 
@@ -6800,11 +6800,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainReadResponse**](api_v2010_account_sip_sip_domainReadResponse.md)
+[**ListSipDomainResponse**](ListSipDomainResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6818,7 +6818,7 @@ Name | Type | Description  | Notes
 
 ## ListSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlListReadResponse ListSipIpAccessControlList(ctx, AccountSid, optional)
+> ListSipIpAccessControlListResponse ListSipIpAccessControlList(ctx, AccountSid, optional)
 
 
 
@@ -6845,11 +6845,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlListReadResponse**](api_v2010_account_sip_sip_ip_access_control_listReadResponse.md)
+[**ListSipIpAccessControlListResponse**](ListSipIpAccessControlListResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6863,7 +6863,7 @@ Name | Type | Description  | Notes
 
 ## ListSipIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipIpAccessControlListMappingReadResponse ListSipIpAccessControlListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipIpAccessControlListMappingResponse ListSipIpAccessControlListMapping(ctx, AccountSid, DomainSid, optional)
 
 
 
@@ -6892,11 +6892,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipIpAccessControlListMappingReadResponse**](api_v2010_account_sip_sip_domain_sip_ip_access_control_list_mappingReadResponse.md)
+[**ListSipIpAccessControlListMappingResponse**](ListSipIpAccessControlListMappingResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6910,7 +6910,7 @@ Name | Type | Description  | Notes
 
 ## ListSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddressReadResponse ListSipIpAddress(ctx, AccountSid, IpAccessControlListSid, optional)
+> ListSipIpAddressResponse ListSipIpAddress(ctx, AccountSid, IpAccessControlListSid, optional)
 
 
 
@@ -6939,11 +6939,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlListSipIpAddressReadResponse**](api_v2010_account_sip_sip_ip_access_control_list_sip_ip_addressReadResponse.md)
+[**ListSipIpAddressResponse**](ListSipIpAddressResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -6957,7 +6957,7 @@ Name | Type | Description  | Notes
 
 ## ListTranscription
 
-> ApiV2010AccountTranscriptionReadResponse ListTranscription(ctx, AccountSid, optional)
+> ListTranscriptionResponse ListTranscription(ctx, AccountSid, optional)
 
 
 
@@ -6984,11 +6984,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountTranscriptionReadResponse**](api_v2010_account_transcriptionReadResponse.md)
+[**ListTranscriptionResponse**](ListTranscriptionResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7002,7 +7002,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecord
 
-> ApiV2010AccountUsageUsageRecordReadResponse ListUsageRecord(ctx, AccountSid, optional)
+> ListUsageRecordResponse ListUsageRecord(ctx, AccountSid, optional)
 
 
 
@@ -7033,11 +7033,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageRecordReadResponse**](api_v2010_account_usage_usage_recordReadResponse.md)
+[**ListUsageRecordResponse**](ListUsageRecordResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7051,7 +7051,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordAllTime
 
-> ApiV2010AccountUsageUsageRecordUsageRecordAllTimeReadResponse ListUsageRecordAllTime(ctx, AccountSid, optional)
+> ListUsageRecordAllTimeResponse ListUsageRecordAllTime(ctx, AccountSid, optional)
 
 
 
@@ -7080,11 +7080,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageRecordUsageRecordAllTimeReadResponse**](api_v2010_account_usage_usage_record_usage_record_all_timeReadResponse.md)
+[**ListUsageRecordAllTimeResponse**](ListUsageRecordAllTimeResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7098,7 +7098,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordDaily
 
-> ApiV2010AccountUsageUsageRecordUsageRecordDailyReadResponse ListUsageRecordDaily(ctx, AccountSid, optional)
+> ListUsageRecordDailyResponse ListUsageRecordDaily(ctx, AccountSid, optional)
 
 
 
@@ -7127,11 +7127,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageRecordUsageRecordDailyReadResponse**](api_v2010_account_usage_usage_record_usage_record_dailyReadResponse.md)
+[**ListUsageRecordDailyResponse**](ListUsageRecordDailyResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7145,7 +7145,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordLastMonth
 
-> ApiV2010AccountUsageUsageRecordUsageRecordLastMonthReadResponse ListUsageRecordLastMonth(ctx, AccountSid, optional)
+> ListUsageRecordLastMonthResponse ListUsageRecordLastMonth(ctx, AccountSid, optional)
 
 
 
@@ -7174,11 +7174,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageRecordUsageRecordLastMonthReadResponse**](api_v2010_account_usage_usage_record_usage_record_last_monthReadResponse.md)
+[**ListUsageRecordLastMonthResponse**](ListUsageRecordLastMonthResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7192,7 +7192,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordMonthly
 
-> ApiV2010AccountUsageUsageRecordUsageRecordMonthlyReadResponse ListUsageRecordMonthly(ctx, AccountSid, optional)
+> ListUsageRecordMonthlyResponse ListUsageRecordMonthly(ctx, AccountSid, optional)
 
 
 
@@ -7221,11 +7221,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageRecordUsageRecordMonthlyReadResponse**](api_v2010_account_usage_usage_record_usage_record_monthlyReadResponse.md)
+[**ListUsageRecordMonthlyResponse**](ListUsageRecordMonthlyResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7239,7 +7239,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordThisMonth
 
-> ApiV2010AccountUsageUsageRecordUsageRecordThisMonthReadResponse ListUsageRecordThisMonth(ctx, AccountSid, optional)
+> ListUsageRecordThisMonthResponse ListUsageRecordThisMonth(ctx, AccountSid, optional)
 
 
 
@@ -7268,11 +7268,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageRecordUsageRecordThisMonthReadResponse**](api_v2010_account_usage_usage_record_usage_record_this_monthReadResponse.md)
+[**ListUsageRecordThisMonthResponse**](ListUsageRecordThisMonthResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7286,7 +7286,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordToday
 
-> ApiV2010AccountUsageUsageRecordUsageRecordTodayReadResponse ListUsageRecordToday(ctx, AccountSid, optional)
+> ListUsageRecordTodayResponse ListUsageRecordToday(ctx, AccountSid, optional)
 
 
 
@@ -7315,11 +7315,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageRecordUsageRecordTodayReadResponse**](api_v2010_account_usage_usage_record_usage_record_todayReadResponse.md)
+[**ListUsageRecordTodayResponse**](ListUsageRecordTodayResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7333,7 +7333,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordYearly
 
-> ApiV2010AccountUsageUsageRecordUsageRecordYearlyReadResponse ListUsageRecordYearly(ctx, AccountSid, optional)
+> ListUsageRecordYearlyResponse ListUsageRecordYearly(ctx, AccountSid, optional)
 
 
 
@@ -7362,11 +7362,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageRecordUsageRecordYearlyReadResponse**](api_v2010_account_usage_usage_record_usage_record_yearlyReadResponse.md)
+[**ListUsageRecordYearlyResponse**](ListUsageRecordYearlyResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7380,7 +7380,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordYesterday
 
-> ApiV2010AccountUsageUsageRecordUsageRecordYesterdayReadResponse ListUsageRecordYesterday(ctx, AccountSid, optional)
+> ListUsageRecordYesterdayResponse ListUsageRecordYesterday(ctx, AccountSid, optional)
 
 
 
@@ -7409,11 +7409,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageRecordUsageRecordYesterdayReadResponse**](api_v2010_account_usage_usage_record_usage_record_yesterdayReadResponse.md)
+[**ListUsageRecordYesterdayResponse**](ListUsageRecordYesterdayResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7427,7 +7427,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageTrigger
 
-> ApiV2010AccountUsageUsageTriggerReadResponse ListUsageTrigger(ctx, AccountSid, optional)
+> ListUsageTriggerResponse ListUsageTrigger(ctx, AccountSid, optional)
 
 
 
@@ -7457,11 +7457,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageTriggerReadResponse**](api_v2010_account_usage_usage_triggerReadResponse.md)
+[**ListUsageTriggerResponse**](ListUsageTriggerResponse.md)
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7507,7 +7507,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7559,7 +7559,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7620,7 +7620,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7674,7 +7674,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7722,7 +7722,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7772,7 +7772,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7819,7 +7819,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7869,7 +7869,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7923,7 +7923,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -7992,7 +7992,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8037,7 +8037,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8087,7 +8087,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8134,7 +8134,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8181,7 +8181,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8241,7 +8241,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8293,7 +8293,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8341,7 +8341,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8393,7 +8393,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8438,7 +8438,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8487,7 +8487,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8534,7 +8534,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8574,7 +8574,7 @@ Name | Type | Description  | Notes
 
 
  **ByocTrunkSid** | **optional.String**| The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with. | 
- **DomainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot;. | 
+ **DomainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot; and must end with &#x60;sip.twilio.com&#x60;. | 
  **EmergencyCallerSid** | **optional.String**| Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call. | 
  **EmergencyCallingEnabled** | **optional.Bool**| Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses. | 
  **FriendlyName** | **optional.String**| A descriptive string that you created to describe the resource. It can be up to 64 characters long. | 
@@ -8593,7 +8593,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8640,7 +8640,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8691,7 +8691,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 
@@ -8740,7 +8740,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[AccountSid_authToken](../README.md#AccountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken)
 
 ### HTTP request headers
 

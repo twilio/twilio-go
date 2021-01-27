@@ -1193,7 +1193,7 @@ Name | Type | Description  | Notes
 
 ## ListBucket
 
-> VerifyV2ServiceRateLimitBucketReadResponse ListBucket(ctx, ServiceSid, RateLimitSid, optional)
+> ListBucketResponse ListBucket(ctx, ServiceSid, RateLimitSid, optional)
 
 
 
@@ -1222,7 +1222,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceRateLimitBucketReadResponse**](verify_v2_service_rate_limit_bucketReadResponse.md)
+[**ListBucketResponse**](ListBucketResponse.md)
 
 ### Authorization
 
@@ -1240,7 +1240,7 @@ Name | Type | Description  | Notes
 
 ## ListChallenge
 
-> VerifyV2ServiceEntityChallengeReadResponse ListChallenge(ctx, ServiceSid, Identity, optional)
+> ListChallengeResponse ListChallenge(ctx, ServiceSid, Identity, optional)
 
 
 
@@ -1271,7 +1271,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntityChallengeReadResponse**](verify_v2_service_entity_challengeReadResponse.md)
+[**ListChallengeResponse**](ListChallengeResponse.md)
 
 ### Authorization
 
@@ -1289,7 +1289,7 @@ Name | Type | Description  | Notes
 
 ## ListEntity
 
-> VerifyV2ServiceEntityReadResponse ListEntity(ctx, ServiceSid, optional)
+> ListEntityResponse ListEntity(ctx, ServiceSid, optional)
 
 
 
@@ -1316,7 +1316,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntityReadResponse**](verify_v2_service_entityReadResponse.md)
+[**ListEntityResponse**](ListEntityResponse.md)
 
 ### Authorization
 
@@ -1334,7 +1334,7 @@ Name | Type | Description  | Notes
 
 ## ListFactor
 
-> VerifyV2ServiceEntityFactorReadResponse ListFactor(ctx, ServiceSid, Identity, optional)
+> ListFactorResponse ListFactor(ctx, ServiceSid, Identity, optional)
 
 
 
@@ -1363,7 +1363,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntityFactorReadResponse**](verify_v2_service_entity_factorReadResponse.md)
+[**ListFactorResponse**](ListFactorResponse.md)
 
 ### Authorization
 
@@ -1381,7 +1381,7 @@ Name | Type | Description  | Notes
 
 ## ListMessagingConfiguration
 
-> VerifyV2ServiceMessagingConfigurationReadResponse ListMessagingConfiguration(ctx, ServiceSid, optional)
+> ListMessagingConfigurationResponse ListMessagingConfiguration(ctx, ServiceSid, optional)
 
 
 
@@ -1408,7 +1408,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceMessagingConfigurationReadResponse**](verify_v2_service_messaging_configurationReadResponse.md)
+[**ListMessagingConfigurationResponse**](ListMessagingConfigurationResponse.md)
 
 ### Authorization
 
@@ -1426,7 +1426,7 @@ Name | Type | Description  | Notes
 
 ## ListRateLimit
 
-> VerifyV2ServiceRateLimitReadResponse ListRateLimit(ctx, ServiceSid, optional)
+> ListRateLimitResponse ListRateLimit(ctx, ServiceSid, optional)
 
 
 
@@ -1453,7 +1453,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceRateLimitReadResponse**](verify_v2_service_rate_limitReadResponse.md)
+[**ListRateLimitResponse**](ListRateLimitResponse.md)
 
 ### Authorization
 
@@ -1471,7 +1471,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> VerifyV2ServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -1496,7 +1496,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceReadResponse**](verify_v2_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 
@@ -1514,7 +1514,7 @@ Name | Type | Description  | Notes
 
 ## ListWebhook
 
-> VerifyV2ServiceWebhookReadResponse ListWebhook(ctx, ServiceSid, optional)
+> ListWebhookResponse ListWebhook(ctx, ServiceSid, optional)
 
 
 
@@ -1541,7 +1541,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceWebhookReadResponse**](verify_v2_service_webhookReadResponse.md)
+[**ListWebhookResponse**](ListWebhookResponse.md)
 
 ### Authorization
 

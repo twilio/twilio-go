@@ -1334,7 +1334,7 @@ Name | Type | Description  | Notes
 
 ## ListBinding
 
-> ChatV2ServiceBindingReadResponse ListBinding(ctx, ServiceSid, optional)
+> ListBindingResponse ListBinding(ctx, ServiceSid, optional)
 
 
 
@@ -1361,7 +1361,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceBindingReadResponse**](chat_v2_service_bindingReadResponse.md)
+[**ListBindingResponse**](ListBindingResponse.md)
 
 ### Authorization
 
@@ -1379,7 +1379,7 @@ Name | Type | Description  | Notes
 
 ## ListChannel
 
-> ChatV2ServiceChannelReadResponse ListChannel(ctx, ServiceSid, optional)
+> ListChannelResponse ListChannel(ctx, ServiceSid, optional)
 
 
 
@@ -1405,7 +1405,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceChannelReadResponse**](chat_v2_service_channelReadResponse.md)
+[**ListChannelResponse**](ListChannelResponse.md)
 
 ### Authorization
 
@@ -1423,7 +1423,7 @@ Name | Type | Description  | Notes
 
 ## ListChannelWebhook
 
-> ChatV2ServiceChannelChannelWebhookReadResponse ListChannelWebhook(ctx, ServiceSid, ChannelSid, optional)
+> ListChannelWebhookResponse ListChannelWebhook(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1450,7 +1450,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceChannelChannelWebhookReadResponse**](chat_v2_service_channel_channel_webhookReadResponse.md)
+[**ListChannelWebhookResponse**](ListChannelWebhookResponse.md)
 
 ### Authorization
 
@@ -1468,7 +1468,7 @@ Name | Type | Description  | Notes
 
 ## ListCredential
 
-> ChatV2CredentialReadResponse ListCredential(ctx, optional)
+> ListCredentialResponse ListCredential(ctx, optional)
 
 
 
@@ -1491,7 +1491,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2CredentialReadResponse**](chat_v2_credentialReadResponse.md)
+[**ListCredentialResponse**](ListCredentialResponse.md)
 
 ### Authorization
 
@@ -1509,7 +1509,7 @@ Name | Type | Description  | Notes
 
 ## ListInvite
 
-> ChatV2ServiceChannelInviteReadResponse ListInvite(ctx, ServiceSid, ChannelSid, optional)
+> ListInviteResponse ListInvite(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1537,7 +1537,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceChannelInviteReadResponse**](chat_v2_service_channel_inviteReadResponse.md)
+[**ListInviteResponse**](ListInviteResponse.md)
 
 ### Authorization
 
@@ -1555,7 +1555,7 @@ Name | Type | Description  | Notes
 
 ## ListMember
 
-> ChatV2ServiceChannelMemberReadResponse ListMember(ctx, ServiceSid, ChannelSid, optional)
+> ListMemberResponse ListMember(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1583,7 +1583,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceChannelMemberReadResponse**](chat_v2_service_channel_memberReadResponse.md)
+[**ListMemberResponse**](ListMemberResponse.md)
 
 ### Authorization
 
@@ -1601,7 +1601,7 @@ Name | Type | Description  | Notes
 
 ## ListMessage
 
-> ChatV2ServiceChannelMessageReadResponse ListMessage(ctx, ServiceSid, ChannelSid, optional)
+> ListMessageResponse ListMessage(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1629,7 +1629,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceChannelMessageReadResponse**](chat_v2_service_channel_messageReadResponse.md)
+[**ListMessageResponse**](ListMessageResponse.md)
 
 ### Authorization
 
@@ -1647,7 +1647,7 @@ Name | Type | Description  | Notes
 
 ## ListRole
 
-> ChatV2ServiceRoleReadResponse ListRole(ctx, ServiceSid, optional)
+> ListRoleResponse ListRole(ctx, ServiceSid, optional)
 
 
 
@@ -1672,7 +1672,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceRoleReadResponse**](chat_v2_service_roleReadResponse.md)
+[**ListRoleResponse**](ListRoleResponse.md)
 
 ### Authorization
 
@@ -1690,7 +1690,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> ChatV2ServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -1713,7 +1713,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceReadResponse**](chat_v2_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 
@@ -1731,7 +1731,7 @@ Name | Type | Description  | Notes
 
 ## ListUser
 
-> ChatV2ServiceUserReadResponse ListUser(ctx, ServiceSid, optional)
+> ListUserResponse ListUser(ctx, ServiceSid, optional)
 
 
 
@@ -1756,7 +1756,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceUserReadResponse**](chat_v2_service_userReadResponse.md)
+[**ListUserResponse**](ListUserResponse.md)
 
 ### Authorization
 
@@ -1774,7 +1774,7 @@ Name | Type | Description  | Notes
 
 ## ListUserBinding
 
-> ChatV2ServiceUserUserBindingReadResponse ListUserBinding(ctx, ServiceSid, UserSid, optional)
+> ListUserBindingResponse ListUserBinding(ctx, ServiceSid, UserSid, optional)
 
 
 
@@ -1802,7 +1802,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceUserUserBindingReadResponse**](chat_v2_service_user_user_bindingReadResponse.md)
+[**ListUserBindingResponse**](ListUserBindingResponse.md)
 
 ### Authorization
 
@@ -1820,7 +1820,7 @@ Name | Type | Description  | Notes
 
 ## ListUserChannel
 
-> ChatV2ServiceUserUserChannelReadResponse ListUserChannel(ctx, ServiceSid, UserSid, optional)
+> ListUserChannelResponse ListUserChannel(ctx, ServiceSid, UserSid, optional)
 
 
 
@@ -1849,7 +1849,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV2ServiceUserUserChannelReadResponse**](chat_v2_service_user_user_channelReadResponse.md)
+[**ListUserChannelResponse**](ListUserChannelResponse.md)
 
 ### Authorization
 

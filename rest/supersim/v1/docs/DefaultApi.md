@@ -99,7 +99,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **CommandsEnabled** | **optional.Bool**| Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to &#x60;true&#x60;. | 
  **CommandsMethod** | **optional.String**| A string representing the HTTP method to use when making a request to &#x60;commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;. | 
- **CommandsUrl** | **optional.String**| The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine SMS via Commands. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. | 
+ **CommandsUrl** | **optional.String**| The URL that will receive a webhook when a SIM in the Fleet is used to send an SMS from your device (mobile originated) to the Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. | 
  **DataEnabled** | **optional.Bool**| Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to &#x60;true&#x60;. | 
  **DataLimit** | **optional.Int32**| The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000). | 
  **NetworkAccessProfile** | **optional.String**| The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet&#39;s SIMs can connect to. | 
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **NetworkAccessProfileSid** | **string**| The unique string that identifies the Network Access Profile resource. | 
-**Sid** | **string**|  | 
+**Sid** | **string**| The SID of the Network resource to be removed from the Network Access Profile resource. | 
 
 ### Return type
 
@@ -454,7 +454,7 @@ Name | Type | Description  | Notes
 
 ## ListCommand
 
-> SupersimV1CommandReadResponse ListCommand(ctx, optional)
+> ListCommandResponse ListCommand(ctx, optional)
 
 
 
@@ -482,7 +482,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1CommandReadResponse**](supersim_v1_commandReadResponse.md)
+[**ListCommandResponse**](ListCommandResponse.md)
 
 ### Authorization
 
@@ -500,7 +500,7 @@ Name | Type | Description  | Notes
 
 ## ListFleet
 
-> SupersimV1FleetReadResponse ListFleet(ctx, optional)
+> ListFleetResponse ListFleet(ctx, optional)
 
 
 
@@ -526,7 +526,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1FleetReadResponse**](supersim_v1_fleetReadResponse.md)
+[**ListFleetResponse**](ListFleetResponse.md)
 
 ### Authorization
 
@@ -544,7 +544,7 @@ Name | Type | Description  | Notes
 
 ## ListNetwork
 
-> SupersimV1NetworkReadResponse ListNetwork(ctx, optional)
+> ListNetworkResponse ListNetwork(ctx, optional)
 
 
 
@@ -572,7 +572,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1NetworkReadResponse**](supersim_v1_networkReadResponse.md)
+[**ListNetworkResponse**](ListNetworkResponse.md)
 
 ### Authorization
 
@@ -590,7 +590,7 @@ Name | Type | Description  | Notes
 
 ## ListNetworkAccessProfile
 
-> SupersimV1NetworkAccessProfileReadResponse ListNetworkAccessProfile(ctx, optional)
+> ListNetworkAccessProfileResponse ListNetworkAccessProfile(ctx, optional)
 
 
 
@@ -615,7 +615,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1NetworkAccessProfileReadResponse**](supersim_v1_network_access_profileReadResponse.md)
+[**ListNetworkAccessProfileResponse**](ListNetworkAccessProfileResponse.md)
 
 ### Authorization
 
@@ -633,7 +633,7 @@ Name | Type | Description  | Notes
 
 ## ListNetworkAccessProfileNetwork
 
-> SupersimV1NetworkAccessProfileNetworkAccessProfileNetworkReadResponse ListNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSid, optional)
+> ListNetworkAccessProfileNetworkResponse ListNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSid, optional)
 
 
 
@@ -660,7 +660,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1NetworkAccessProfileNetworkAccessProfileNetworkReadResponse**](supersim_v1_network_access_profile_network_access_profile_networkReadResponse.md)
+[**ListNetworkAccessProfileNetworkResponse**](ListNetworkAccessProfileNetworkResponse.md)
 
 ### Authorization
 
@@ -678,7 +678,7 @@ Name | Type | Description  | Notes
 
 ## ListSim
 
-> SupersimV1SimReadResponse ListSim(ctx, optional)
+> ListSimResponse ListSim(ctx, optional)
 
 
 
@@ -706,7 +706,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1SimReadResponse**](supersim_v1_simReadResponse.md)
+[**ListSimResponse**](ListSimResponse.md)
 
 ### Authorization
 
@@ -724,7 +724,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecord
 
-> SupersimV1UsageRecordReadResponse ListUsageRecord(ctx, optional)
+> ListUsageRecordResponse ListUsageRecord(ctx, optional)
 
 
 
@@ -757,7 +757,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1UsageRecordReadResponse**](supersim_v1_usage_recordReadResponse.md)
+[**ListUsageRecordResponse**](ListUsageRecordResponse.md)
 
 ### Authorization
 
@@ -798,6 +798,8 @@ Optional parameters are passed through a pointer to a UpdateFleetOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **CommandsMethod** | **optional.String**| A string representing the HTTP method to use when making a request to &#x60;commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;. | 
+ **CommandsUrl** | **optional.String**| The URL that will receive a webhook when a SIM in the Fleet is used to send an SMS from your device (mobile originated) to the Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. | 
  **NetworkAccessProfile** | **optional.String**| The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet&#39;s SIMs can connect to. | 
  **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used in place of the resource&#39;s &#x60;sid&#x60; in the URL to address the resource. | 
 

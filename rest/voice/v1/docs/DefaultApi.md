@@ -692,7 +692,7 @@ Name | Type | Description  | Notes
 
 ## ListByocTrunk
 
-> VoiceV1ByocTrunkReadResponse ListByocTrunk(ctx, optional)
+> ListByocTrunkResponse ListByocTrunk(ctx, optional)
 
 
 
@@ -715,7 +715,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ByocTrunkReadResponse**](voice_v1_byoc_trunkReadResponse.md)
+[**ListByocTrunkResponse**](ListByocTrunkResponse.md)
 
 ### Authorization
 
@@ -733,7 +733,7 @@ Name | Type | Description  | Notes
 
 ## ListConnectionPolicy
 
-> VoiceV1ConnectionPolicyReadResponse ListConnectionPolicy(ctx, optional)
+> ListConnectionPolicyResponse ListConnectionPolicy(ctx, optional)
 
 
 
@@ -756,7 +756,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ConnectionPolicyReadResponse**](voice_v1_connection_policyReadResponse.md)
+[**ListConnectionPolicyResponse**](ListConnectionPolicyResponse.md)
 
 ### Authorization
 
@@ -774,7 +774,7 @@ Name | Type | Description  | Notes
 
 ## ListConnectionPolicyTarget
 
-> VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse ListConnectionPolicyTarget(ctx, ConnectionPolicySid, optional)
+> ListConnectionPolicyTargetResponse ListConnectionPolicyTarget(ctx, ConnectionPolicySid, optional)
 
 
 
@@ -799,7 +799,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ConnectionPolicyConnectionPolicyTargetReadResponse**](voice_v1_connection_policy_connection_policy_targetReadResponse.md)
+[**ListConnectionPolicyTargetResponse**](ListConnectionPolicyTargetResponse.md)
 
 ### Authorization
 
@@ -817,7 +817,7 @@ Name | Type | Description  | Notes
 
 ## ListDialingPermissionsCountry
 
-> VoiceV1DialingPermissionsDialingPermissionsCountryReadResponse ListDialingPermissionsCountry(ctx, optional)
+> ListDialingPermissionsCountryResponse ListDialingPermissionsCountry(ctx, optional)
 
 
 
@@ -848,7 +848,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsCountryReadResponse**](voice_v1_dialing_permissions_dialing_permissions_countryReadResponse.md)
+[**ListDialingPermissionsCountryResponse**](ListDialingPermissionsCountryResponse.md)
 
 ### Authorization
 
@@ -866,7 +866,7 @@ Name | Type | Description  | Notes
 
 ## ListDialingPermissionsHrsPrefixes
 
-> VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse ListDialingPermissionsHrsPrefixes(ctx, IsoCode, optional)
+> ListDialingPermissionsHrsPrefixesResponse ListDialingPermissionsHrsPrefixes(ctx, IsoCode, optional)
 
 
 
@@ -893,7 +893,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixesReadResponse**](voice_v1_dialing_permissions_dialing_permissions_country_dialing_permissions_hrs_prefixesReadResponse.md)
+[**ListDialingPermissionsHrsPrefixesResponse**](ListDialingPermissionsHrsPrefixesResponse.md)
 
 ### Authorization
 
@@ -911,7 +911,7 @@ Name | Type | Description  | Notes
 
 ## ListIpRecord
 
-> VoiceV1IpRecordReadResponse ListIpRecord(ctx, optional)
+> ListIpRecordResponse ListIpRecord(ctx, optional)
 
 
 
@@ -934,7 +934,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1IpRecordReadResponse**](voice_v1_ip_recordReadResponse.md)
+[**ListIpRecordResponse**](ListIpRecordResponse.md)
 
 ### Authorization
 
@@ -952,7 +952,7 @@ Name | Type | Description  | Notes
 
 ## ListSourceIpMapping
 
-> VoiceV1SourceIpMappingReadResponse ListSourceIpMapping(ctx, optional)
+> ListSourceIpMappingResponse ListSourceIpMapping(ctx, optional)
 
 
 
@@ -975,7 +975,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1SourceIpMappingReadResponse**](voice_v1_source_ip_mappingReadResponse.md)
+[**ListSourceIpMappingResponse**](ListSourceIpMappingResponse.md)
 
 ### Authorization
 

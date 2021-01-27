@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 
 ## ListCredentialAws
 
-> AccountsV1CredentialCredentialAwsReadResponse ListCredentialAws(ctx, optional)
+> ListCredentialAwsResponse ListCredentialAws(ctx, optional)
 
 
 
@@ -333,7 +333,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountsV1CredentialCredentialAwsReadResponse**](accounts_v1_credential_credential_awsReadResponse.md)
+[**ListCredentialAwsResponse**](ListCredentialAwsResponse.md)
 
 ### Authorization
 
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 ## ListCredentialPublicKey
 
-> AccountsV1CredentialCredentialPublicKeyReadResponse ListCredentialPublicKey(ctx, optional)
+> ListCredentialPublicKeyResponse ListCredentialPublicKey(ctx, optional)
 
 
 
@@ -376,7 +376,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountsV1CredentialCredentialPublicKeyReadResponse**](accounts_v1_credential_credential_public_keyReadResponse.md)
+[**ListCredentialPublicKeyResponse**](ListCredentialPublicKeyResponse.md)
 
 ### Authorization
 

@@ -815,7 +815,7 @@ Name | Type | Description  | Notes
 
 ## ListComposition
 
-> VideoV1CompositionReadResponse ListComposition(ctx, optional)
+> ListCompositionResponse ListComposition(ctx, optional)
 
 
 
@@ -844,7 +844,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1CompositionReadResponse**](video_v1_compositionReadResponse.md)
+[**ListCompositionResponse**](ListCompositionResponse.md)
 
 ### Authorization
 
@@ -862,7 +862,7 @@ Name | Type | Description  | Notes
 
 ## ListCompositionHook
 
-> VideoV1CompositionHookReadResponse ListCompositionHook(ctx, optional)
+> ListCompositionHookResponse ListCompositionHook(ctx, optional)
 
 
 
@@ -891,7 +891,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1CompositionHookReadResponse**](video_v1_composition_hookReadResponse.md)
+[**ListCompositionHookResponse**](ListCompositionHookResponse.md)
 
 ### Authorization
 
@@ -909,7 +909,7 @@ Name | Type | Description  | Notes
 
 ## ListRecording
 
-> VideoV1RecordingReadResponse ListRecording(ctx, optional)
+> ListRecordingResponse ListRecording(ctx, optional)
 
 
 
@@ -940,7 +940,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RecordingReadResponse**](video_v1_recordingReadResponse.md)
+[**ListRecordingResponse**](ListRecordingResponse.md)
 
 ### Authorization
 
@@ -958,7 +958,7 @@ Name | Type | Description  | Notes
 
 ## ListRoom
 
-> VideoV1RoomReadResponse ListRoom(ctx, optional)
+> ListRoomResponse ListRoom(ctx, optional)
 
 
 
@@ -985,7 +985,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomReadResponse**](video_v1_roomReadResponse.md)
+[**ListRoomResponse**](ListRoomResponse.md)
 
 ### Authorization
 
@@ -1003,7 +1003,7 @@ Name | Type | Description  | Notes
 
 ## ListRoomParticipant
 
-> VideoV1RoomRoomParticipantReadResponse ListRoomParticipant(ctx, RoomSid, optional)
+> ListRoomParticipantResponse ListRoomParticipant(ctx, RoomSid, optional)
 
 
 
@@ -1032,7 +1032,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantReadResponse**](video_v1_room_room_participantReadResponse.md)
+[**ListRoomParticipantResponse**](ListRoomParticipantResponse.md)
 
 ### Authorization
 
@@ -1050,7 +1050,7 @@ Name | Type | Description  | Notes
 
 ## ListRoomParticipantPublishedTrack
 
-> VideoV1RoomRoomParticipantRoomParticipantPublishedTrackReadResponse ListRoomParticipantPublishedTrack(ctx, RoomSid, ParticipantSid, optional)
+> ListRoomParticipantPublishedTrackResponse ListRoomParticipantPublishedTrack(ctx, RoomSid, ParticipantSid, optional)
 
 
 
@@ -1079,7 +1079,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantRoomParticipantPublishedTrackReadResponse**](video_v1_room_room_participant_room_participant_published_trackReadResponse.md)
+[**ListRoomParticipantPublishedTrackResponse**](ListRoomParticipantPublishedTrackResponse.md)
 
 ### Authorization
 
@@ -1097,7 +1097,7 @@ Name | Type | Description  | Notes
 
 ## ListRoomParticipantSubscribedTrack
 
-> VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse ListRoomParticipantSubscribedTrack(ctx, RoomSid, ParticipantSid, optional)
+> ListRoomParticipantSubscribedTrackResponse ListRoomParticipantSubscribedTrack(ctx, RoomSid, ParticipantSid, optional)
 
 
 
@@ -1126,7 +1126,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantRoomParticipantSubscribedTrackReadResponse**](video_v1_room_room_participant_room_participant_subscribed_trackReadResponse.md)
+[**ListRoomParticipantSubscribedTrackResponse**](ListRoomParticipantSubscribedTrackResponse.md)
 
 ### Authorization
 
@@ -1144,7 +1144,7 @@ Name | Type | Description  | Notes
 
 ## ListRoomRecording
 
-> VideoV1RoomRoomRecordingReadResponse ListRoomRecording(ctx, RoomSid, optional)
+> ListRoomRecordingResponse ListRoomRecording(ctx, RoomSid, optional)
 
 
 
@@ -1173,7 +1173,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomRecordingReadResponse**](video_v1_room_room_recordingReadResponse.md)
+[**ListRoomRecordingResponse**](ListRoomRecordingResponse.md)
 
 ### Authorization
 

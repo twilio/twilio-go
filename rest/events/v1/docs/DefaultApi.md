@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Description** | **optional.String**| A human readable description for the Sink | 
  **SinkConfiguration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The information required for Twilio to connect to the provided Sink encoded as JSON. | 
- **SinkType** | **optional.String**| The Sink type. Can only be \\\&quot;kinesis\\\&quot; currently. | 
+ **SinkType** | **optional.String**| The Sink type. Can only be \\\&quot;kinesis\\\&quot; or \\\&quot;webhook\\\&quot; currently. | 
 
 ### Return type
 
@@ -434,7 +434,7 @@ Name | Type | Description  | Notes
 
 ## ListEventType
 
-> EventsV1EventTypeReadResponse ListEventType(ctx, optional)
+> ListEventTypeResponse ListEventType(ctx, optional)
 
 
 
@@ -459,7 +459,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1EventTypeReadResponse**](events_v1_event_typeReadResponse.md)
+[**ListEventTypeResponse**](ListEventTypeResponse.md)
 
 ### Authorization
 
@@ -477,7 +477,7 @@ Name | Type | Description  | Notes
 
 ## ListSink
 
-> EventsV1SinkReadResponse ListSink(ctx, optional)
+> ListSinkResponse ListSink(ctx, optional)
 
 
 
@@ -502,7 +502,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1SinkReadResponse**](events_v1_sinkReadResponse.md)
+[**ListSinkResponse**](ListSinkResponse.md)
 
 ### Authorization
 
@@ -520,7 +520,7 @@ Name | Type | Description  | Notes
 
 ## ListSubscribedEvent
 
-> EventsV1SubscriptionSubscribedEventReadResponse ListSubscribedEvent(ctx, SubscriptionSid, optional)
+> ListSubscribedEventResponse ListSubscribedEvent(ctx, SubscriptionSid, optional)
 
 
 
@@ -547,7 +547,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1SubscriptionSubscribedEventReadResponse**](events_v1_subscription_subscribed_eventReadResponse.md)
+[**ListSubscribedEventResponse**](ListSubscribedEventResponse.md)
 
 ### Authorization
 
@@ -565,7 +565,7 @@ Name | Type | Description  | Notes
 
 ## ListSubscription
 
-> EventsV1SubscriptionReadResponse ListSubscription(ctx, optional)
+> ListSubscriptionResponse ListSubscription(ctx, optional)
 
 
 
@@ -591,7 +591,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1SubscriptionReadResponse**](events_v1_subscriptionReadResponse.md)
+[**ListSubscriptionResponse**](ListSubscriptionResponse.md)
 
 ### Authorization
 
@@ -609,7 +609,7 @@ Name | Type | Description  | Notes
 
 ## ListVersion
 
-> EventsV1SchemaVersionReadResponse ListVersion(ctx, Id, optional)
+> ListVersionResponse ListVersion(ctx, Id, optional)
 
 
 
@@ -636,7 +636,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1SchemaVersionReadResponse**](events_v1_schema_versionReadResponse.md)
+[**ListVersionResponse**](ListVersionResponse.md)
 
 ### Authorization
 

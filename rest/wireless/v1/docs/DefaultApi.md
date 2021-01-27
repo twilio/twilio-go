@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 
 ## ListAccountUsageRecord
 
-> WirelessV1AccountUsageRecordReadResponse ListAccountUsageRecord(ctx, optional)
+> ListAccountUsageRecordResponse ListAccountUsageRecord(ctx, optional)
 
 
 
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1AccountUsageRecordReadResponse**](wireless_v1_account_usage_recordReadResponse.md)
+[**ListAccountUsageRecordResponse**](ListAccountUsageRecordResponse.md)
 
 ### Authorization
 
@@ -369,7 +369,7 @@ Name | Type | Description  | Notes
 
 ## ListCommand
 
-> WirelessV1CommandReadResponse ListCommand(ctx, optional)
+> ListCommandResponse ListCommand(ctx, optional)
 
 
 
@@ -398,7 +398,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1CommandReadResponse**](wireless_v1_commandReadResponse.md)
+[**ListCommandResponse**](ListCommandResponse.md)
 
 ### Authorization
 
@@ -416,7 +416,7 @@ Name | Type | Description  | Notes
 
 ## ListDataSession
 
-> WirelessV1SimDataSessionReadResponse ListDataSession(ctx, SimSid, optional)
+> ListDataSessionResponse ListDataSession(ctx, SimSid, optional)
 
 
 
@@ -441,7 +441,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1SimDataSessionReadResponse**](wireless_v1_sim_data_sessionReadResponse.md)
+[**ListDataSessionResponse**](ListDataSessionResponse.md)
 
 ### Authorization
 
@@ -459,7 +459,7 @@ Name | Type | Description  | Notes
 
 ## ListRatePlan
 
-> WirelessV1RatePlanReadResponse ListRatePlan(ctx, optional)
+> ListRatePlanResponse ListRatePlan(ctx, optional)
 
 
 
@@ -482,7 +482,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1RatePlanReadResponse**](wireless_v1_rate_planReadResponse.md)
+[**ListRatePlanResponse**](ListRatePlanResponse.md)
 
 ### Authorization
 
@@ -500,7 +500,7 @@ Name | Type | Description  | Notes
 
 ## ListSim
 
-> WirelessV1SimReadResponse ListSim(ctx, optional)
+> ListSimResponse ListSim(ctx, optional)
 
 
 
@@ -530,7 +530,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1SimReadResponse**](wireless_v1_simReadResponse.md)
+[**ListSimResponse**](ListSimResponse.md)
 
 ### Authorization
 
@@ -548,7 +548,7 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecord
 
-> WirelessV1SimUsageRecordReadResponse ListUsageRecord(ctx, SimSid, optional)
+> ListUsageRecordResponse ListUsageRecord(ctx, SimSid, optional)
 
 
 
@@ -576,7 +576,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1SimUsageRecordReadResponse**](wireless_v1_sim_usage_recordReadResponse.md)
+[**ListUsageRecordResponse**](ListUsageRecordResponse.md)
 
 ### Authorization
 

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **EnableTurn** | **bool** |  | [optional] 
 **EndTime** | [**time.Time**](time.Time.md) |  | [optional] 
 **Links** | [**map[string]interface{}**](.md) |  | [optional] 
+**MaxConcurrentPublishedTracks** | Pointer to **int32** |  | [optional] 
 **MaxParticipants** | **int32** |  | [optional] 
 **MediaRegion** | **string** |  | [optional] 
 **RecordParticipantsOnConnect** | **bool** |  | [optional] 

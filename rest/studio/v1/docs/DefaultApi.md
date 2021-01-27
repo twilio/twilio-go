@@ -545,7 +545,7 @@ Name | Type | Description  | Notes
 
 ## ListEngagement
 
-> StudioV1FlowEngagementReadResponse ListEngagement(ctx, FlowSid, optional)
+> ListEngagementResponse ListEngagement(ctx, FlowSid, optional)
 
 
 
@@ -572,7 +572,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowEngagementReadResponse**](studio_v1_flow_engagementReadResponse.md)
+[**ListEngagementResponse**](ListEngagementResponse.md)
 
 ### Authorization
 
@@ -590,7 +590,7 @@ Name | Type | Description  | Notes
 
 ## ListExecution
 
-> StudioV1FlowExecutionReadResponse ListExecution(ctx, FlowSid, optional)
+> ListExecutionResponse ListExecution(ctx, FlowSid, optional)
 
 
 
@@ -619,7 +619,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowExecutionReadResponse**](studio_v1_flow_executionReadResponse.md)
+[**ListExecutionResponse**](ListExecutionResponse.md)
 
 ### Authorization
 
@@ -637,7 +637,7 @@ Name | Type | Description  | Notes
 
 ## ListExecutionStep
 
-> StudioV1FlowExecutionExecutionStepReadResponse ListExecutionStep(ctx, FlowSid, ExecutionSid, optional)
+> ListExecutionStepResponse ListExecutionStep(ctx, FlowSid, ExecutionSid, optional)
 
 
 
@@ -666,7 +666,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowExecutionExecutionStepReadResponse**](studio_v1_flow_execution_execution_stepReadResponse.md)
+[**ListExecutionStepResponse**](ListExecutionStepResponse.md)
 
 ### Authorization
 
@@ -684,7 +684,7 @@ Name | Type | Description  | Notes
 
 ## ListFlow
 
-> StudioV1FlowReadResponse ListFlow(ctx, optional)
+> ListFlowResponse ListFlow(ctx, optional)
 
 
 
@@ -709,7 +709,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowReadResponse**](studio_v1_flowReadResponse.md)
+[**ListFlowResponse**](ListFlowResponse.md)
 
 ### Authorization
 
@@ -727,7 +727,7 @@ Name | Type | Description  | Notes
 
 ## ListStep
 
-> StudioV1FlowEngagementStepReadResponse ListStep(ctx, FlowSid, EngagementSid, optional)
+> ListStepResponse ListStep(ctx, FlowSid, EngagementSid, optional)
 
 
 
@@ -756,7 +756,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowEngagementStepReadResponse**](studio_v1_flow_engagement_stepReadResponse.md)
+[**ListStepResponse**](ListStepResponse.md)
 
 ### Authorization
 

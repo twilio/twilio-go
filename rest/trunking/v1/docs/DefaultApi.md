@@ -620,7 +620,7 @@ Name | Type | Description  | Notes
 
 ## ListCredentialList
 
-> TrunkingV1TrunkCredentialListReadResponse ListCredentialList(ctx, TrunkSid, optional)
+> ListCredentialListResponse ListCredentialList(ctx, TrunkSid, optional)
 
 
 
@@ -645,7 +645,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkCredentialListReadResponse**](trunking_v1_trunk_credential_listReadResponse.md)
+[**ListCredentialListResponse**](ListCredentialListResponse.md)
 
 ### Authorization
 
@@ -663,7 +663,7 @@ Name | Type | Description  | Notes
 
 ## ListIpAccessControlList
 
-> TrunkingV1TrunkIpAccessControlListReadResponse ListIpAccessControlList(ctx, TrunkSid, optional)
+> ListIpAccessControlListResponse ListIpAccessControlList(ctx, TrunkSid, optional)
 
 
 
@@ -690,7 +690,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkIpAccessControlListReadResponse**](trunking_v1_trunk_ip_access_control_listReadResponse.md)
+[**ListIpAccessControlListResponse**](ListIpAccessControlListResponse.md)
 
 ### Authorization
 
@@ -708,7 +708,7 @@ Name | Type | Description  | Notes
 
 ## ListOriginationUrl
 
-> TrunkingV1TrunkOriginationUrlReadResponse ListOriginationUrl(ctx, TrunkSid, optional)
+> ListOriginationUrlResponse ListOriginationUrl(ctx, TrunkSid, optional)
 
 
 
@@ -733,7 +733,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkOriginationUrlReadResponse**](trunking_v1_trunk_origination_urlReadResponse.md)
+[**ListOriginationUrlResponse**](ListOriginationUrlResponse.md)
 
 ### Authorization
 
@@ -751,7 +751,7 @@ Name | Type | Description  | Notes
 
 ## ListPhoneNumber
 
-> TrunkingV1TrunkPhoneNumberReadResponse ListPhoneNumber(ctx, TrunkSid, optional)
+> ListPhoneNumberResponse ListPhoneNumber(ctx, TrunkSid, optional)
 
 
 
@@ -776,7 +776,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkPhoneNumberReadResponse**](trunking_v1_trunk_phone_numberReadResponse.md)
+[**ListPhoneNumberResponse**](ListPhoneNumberResponse.md)
 
 ### Authorization
 
@@ -794,7 +794,7 @@ Name | Type | Description  | Notes
 
 ## ListTrunk
 
-> TrunkingV1TrunkReadResponse ListTrunk(ctx, optional)
+> ListTrunkResponse ListTrunk(ctx, optional)
 
 
 
@@ -817,7 +817,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkReadResponse**](trunking_v1_trunkReadResponse.md)
+[**ListTrunkResponse**](ListTrunkResponse.md)
 
 ### Authorization
 

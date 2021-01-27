@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 
 ## ListVoiceCountry
 
-> PricingV2VoiceVoiceCountryReadResponse ListVoiceCountry(ctx, optional)
+> ListVoiceCountryResponse ListVoiceCountry(ctx, optional)
 
 
 
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV2VoiceVoiceCountryReadResponse**](pricing_v2_voice_voice_countryReadResponse.md)
+[**ListVoiceCountryResponse**](ListVoiceCountryResponse.md)
 
 ### Authorization
 

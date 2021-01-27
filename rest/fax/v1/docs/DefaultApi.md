@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ## ListFax
 
-> FaxV1FaxReadResponse ListFax(ctx, optional)
+> ListFaxResponse ListFax(ctx, optional)
 
 
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FaxV1FaxReadResponse**](fax_v1_faxReadResponse.md)
+[**ListFaxResponse**](ListFaxResponse.md)
 
 ### Authorization
 
@@ -253,7 +253,7 @@ Name | Type | Description  | Notes
 
 ## ListFaxMedia
 
-> FaxV1FaxFaxMediaReadResponse ListFaxMedia(ctx, FaxSid, optional)
+> ListFaxMediaResponse ListFaxMedia(ctx, FaxSid, optional)
 
 
 
@@ -280,7 +280,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FaxV1FaxFaxMediaReadResponse**](fax_v1_fax_fax_mediaReadResponse.md)
+[**ListFaxMediaResponse**](ListFaxMediaResponse.md)
 
 ### Authorization
 

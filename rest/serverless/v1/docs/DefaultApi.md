@@ -1007,7 +1007,7 @@ Name | Type | Description  | Notes
 
 ## ListAsset
 
-> ServerlessV1ServiceAssetReadResponse ListAsset(ctx, ServiceSid, optional)
+> ListAssetResponse ListAsset(ctx, ServiceSid, optional)
 
 
 
@@ -1034,7 +1034,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceAssetReadResponse**](serverless_v1_service_assetReadResponse.md)
+[**ListAssetResponse**](ListAssetResponse.md)
 
 ### Authorization
 
@@ -1052,7 +1052,7 @@ Name | Type | Description  | Notes
 
 ## ListAssetVersion
 
-> ServerlessV1ServiceAssetAssetVersionReadResponse ListAssetVersion(ctx, ServiceSid, AssetSid, optional)
+> ListAssetVersionResponse ListAssetVersion(ctx, ServiceSid, AssetSid, optional)
 
 
 
@@ -1081,7 +1081,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceAssetAssetVersionReadResponse**](serverless_v1_service_asset_asset_versionReadResponse.md)
+[**ListAssetVersionResponse**](ListAssetVersionResponse.md)
 
 ### Authorization
 
@@ -1099,7 +1099,7 @@ Name | Type | Description  | Notes
 
 ## ListBuild
 
-> ServerlessV1ServiceBuildReadResponse ListBuild(ctx, ServiceSid, optional)
+> ListBuildResponse ListBuild(ctx, ServiceSid, optional)
 
 
 
@@ -1126,7 +1126,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceBuildReadResponse**](serverless_v1_service_buildReadResponse.md)
+[**ListBuildResponse**](ListBuildResponse.md)
 
 ### Authorization
 
@@ -1144,7 +1144,7 @@ Name | Type | Description  | Notes
 
 ## ListDeployment
 
-> ServerlessV1ServiceEnvironmentDeploymentReadResponse ListDeployment(ctx, ServiceSid, EnvironmentSid, optional)
+> ListDeploymentResponse ListDeployment(ctx, ServiceSid, EnvironmentSid, optional)
 
 
 
@@ -1173,7 +1173,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentDeploymentReadResponse**](serverless_v1_service_environment_deploymentReadResponse.md)
+[**ListDeploymentResponse**](ListDeploymentResponse.md)
 
 ### Authorization
 
@@ -1191,7 +1191,7 @@ Name | Type | Description  | Notes
 
 ## ListEnvironment
 
-> ServerlessV1ServiceEnvironmentReadResponse ListEnvironment(ctx, ServiceSid, optional)
+> ListEnvironmentResponse ListEnvironment(ctx, ServiceSid, optional)
 
 
 
@@ -1218,7 +1218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentReadResponse**](serverless_v1_service_environmentReadResponse.md)
+[**ListEnvironmentResponse**](ListEnvironmentResponse.md)
 
 ### Authorization
 
@@ -1236,7 +1236,7 @@ Name | Type | Description  | Notes
 
 ## ListFunction
 
-> ServerlessV1ServiceFunctionReadResponse ListFunction(ctx, ServiceSid, optional)
+> ListFunctionResponse ListFunction(ctx, ServiceSid, optional)
 
 
 
@@ -1263,7 +1263,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceFunctionReadResponse**](serverless_v1_service_functionReadResponse.md)
+[**ListFunctionResponse**](ListFunctionResponse.md)
 
 ### Authorization
 
@@ -1281,7 +1281,7 @@ Name | Type | Description  | Notes
 
 ## ListFunctionVersion
 
-> ServerlessV1ServiceFunctionFunctionVersionReadResponse ListFunctionVersion(ctx, ServiceSid, FunctionSid, optional)
+> ListFunctionVersionResponse ListFunctionVersion(ctx, ServiceSid, FunctionSid, optional)
 
 
 
@@ -1310,7 +1310,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceFunctionFunctionVersionReadResponse**](serverless_v1_service_function_function_versionReadResponse.md)
+[**ListFunctionVersionResponse**](ListFunctionVersionResponse.md)
 
 ### Authorization
 
@@ -1328,7 +1328,7 @@ Name | Type | Description  | Notes
 
 ## ListLog
 
-> ServerlessV1ServiceEnvironmentLogReadResponse ListLog(ctx, ServiceSid, EnvironmentSid, optional)
+> ListLogResponse ListLog(ctx, ServiceSid, EnvironmentSid, optional)
 
 
 
@@ -1360,7 +1360,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentLogReadResponse**](serverless_v1_service_environment_logReadResponse.md)
+[**ListLogResponse**](ListLogResponse.md)
 
 ### Authorization
 
@@ -1378,7 +1378,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> ServerlessV1ServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -1403,7 +1403,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceReadResponse**](serverless_v1_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 
@@ -1421,7 +1421,7 @@ Name | Type | Description  | Notes
 
 ## ListVariable
 
-> ServerlessV1ServiceEnvironmentVariableReadResponse ListVariable(ctx, ServiceSid, EnvironmentSid, optional)
+> ListVariableResponse ListVariable(ctx, ServiceSid, EnvironmentSid, optional)
 
 
 
@@ -1450,7 +1450,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentVariableReadResponse**](serverless_v1_service_environment_variableReadResponse.md)
+[**ListVariableResponse**](ListVariableResponse.md)
 
 ### Authorization
 

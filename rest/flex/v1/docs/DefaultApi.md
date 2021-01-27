@@ -411,7 +411,7 @@ Name | Type | Description  | Notes
 
 ## ListChannel
 
-> FlexV1ChannelReadResponse ListChannel(ctx, optional)
+> ListChannelResponse ListChannel(ctx, optional)
 
 
 
@@ -434,7 +434,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1ChannelReadResponse**](flex_v1_channelReadResponse.md)
+[**ListChannelResponse**](ListChannelResponse.md)
 
 ### Authorization
 
@@ -452,7 +452,7 @@ Name | Type | Description  | Notes
 
 ## ListFlexFlow
 
-> FlexV1FlexFlowReadResponse ListFlexFlow(ctx, optional)
+> ListFlexFlowResponse ListFlexFlow(ctx, optional)
 
 
 
@@ -476,7 +476,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1FlexFlowReadResponse**](flex_v1_flex_flowReadResponse.md)
+[**ListFlexFlowResponse**](ListFlexFlowResponse.md)
 
 ### Authorization
 
@@ -494,7 +494,7 @@ Name | Type | Description  | Notes
 
 ## ListWebChannel
 
-> FlexV1WebChannelReadResponse ListWebChannel(ctx, optional)
+> ListWebChannelResponse ListWebChannel(ctx, optional)
 
 
 
@@ -517,7 +517,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1WebChannelReadResponse**](flex_v1_web_channelReadResponse.md)
+[**ListWebChannelResponse**](ListWebChannelResponse.md)
 
 ### Authorization
 

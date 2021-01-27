@@ -1332,7 +1332,7 @@ Name | Type | Description  | Notes
 
 ## ListBinding
 
-> IpMessagingV2ServiceBindingReadResponse ListBinding(ctx, ServiceSid, optional)
+> ListBindingResponse ListBinding(ctx, ServiceSid, optional)
 
 
 
@@ -1359,7 +1359,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceBindingReadResponse**](ip_messaging_v2_service_bindingReadResponse.md)
+[**ListBindingResponse**](ListBindingResponse.md)
 
 ### Authorization
 
@@ -1377,7 +1377,7 @@ Name | Type | Description  | Notes
 
 ## ListChannel
 
-> IpMessagingV2ServiceChannelReadResponse ListChannel(ctx, ServiceSid, optional)
+> ListChannelResponse ListChannel(ctx, ServiceSid, optional)
 
 
 
@@ -1403,7 +1403,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelReadResponse**](ip_messaging_v2_service_channelReadResponse.md)
+[**ListChannelResponse**](ListChannelResponse.md)
 
 ### Authorization
 
@@ -1421,7 +1421,7 @@ Name | Type | Description  | Notes
 
 ## ListChannelWebhook
 
-> IpMessagingV2ServiceChannelChannelWebhookReadResponse ListChannelWebhook(ctx, ServiceSid, ChannelSid, optional)
+> ListChannelWebhookResponse ListChannelWebhook(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1448,7 +1448,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelChannelWebhookReadResponse**](ip_messaging_v2_service_channel_channel_webhookReadResponse.md)
+[**ListChannelWebhookResponse**](ListChannelWebhookResponse.md)
 
 ### Authorization
 
@@ -1466,7 +1466,7 @@ Name | Type | Description  | Notes
 
 ## ListCredential
 
-> IpMessagingV2CredentialReadResponse ListCredential(ctx, optional)
+> ListCredentialResponse ListCredential(ctx, optional)
 
 
 
@@ -1489,7 +1489,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2CredentialReadResponse**](ip_messaging_v2_credentialReadResponse.md)
+[**ListCredentialResponse**](ListCredentialResponse.md)
 
 ### Authorization
 
@@ -1507,7 +1507,7 @@ Name | Type | Description  | Notes
 
 ## ListInvite
 
-> IpMessagingV2ServiceChannelInviteReadResponse ListInvite(ctx, ServiceSid, ChannelSid, optional)
+> ListInviteResponse ListInvite(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1535,7 +1535,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelInviteReadResponse**](ip_messaging_v2_service_channel_inviteReadResponse.md)
+[**ListInviteResponse**](ListInviteResponse.md)
 
 ### Authorization
 
@@ -1553,7 +1553,7 @@ Name | Type | Description  | Notes
 
 ## ListMember
 
-> IpMessagingV2ServiceChannelMemberReadResponse ListMember(ctx, ServiceSid, ChannelSid, optional)
+> ListMemberResponse ListMember(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1581,7 +1581,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelMemberReadResponse**](ip_messaging_v2_service_channel_memberReadResponse.md)
+[**ListMemberResponse**](ListMemberResponse.md)
 
 ### Authorization
 
@@ -1599,7 +1599,7 @@ Name | Type | Description  | Notes
 
 ## ListMessage
 
-> IpMessagingV2ServiceChannelMessageReadResponse ListMessage(ctx, ServiceSid, ChannelSid, optional)
+> ListMessageResponse ListMessage(ctx, ServiceSid, ChannelSid, optional)
 
 
 
@@ -1627,7 +1627,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelMessageReadResponse**](ip_messaging_v2_service_channel_messageReadResponse.md)
+[**ListMessageResponse**](ListMessageResponse.md)
 
 ### Authorization
 
@@ -1645,7 +1645,7 @@ Name | Type | Description  | Notes
 
 ## ListRole
 
-> IpMessagingV2ServiceRoleReadResponse ListRole(ctx, ServiceSid, optional)
+> ListRoleResponse ListRole(ctx, ServiceSid, optional)
 
 
 
@@ -1670,7 +1670,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceRoleReadResponse**](ip_messaging_v2_service_roleReadResponse.md)
+[**ListRoleResponse**](ListRoleResponse.md)
 
 ### Authorization
 
@@ -1688,7 +1688,7 @@ Name | Type | Description  | Notes
 
 ## ListService
 
-> IpMessagingV2ServiceReadResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx, optional)
 
 
 
@@ -1711,7 +1711,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceReadResponse**](ip_messaging_v2_serviceReadResponse.md)
+[**ListServiceResponse**](ListServiceResponse.md)
 
 ### Authorization
 
@@ -1729,7 +1729,7 @@ Name | Type | Description  | Notes
 
 ## ListUser
 
-> IpMessagingV2ServiceUserReadResponse ListUser(ctx, ServiceSid, optional)
+> ListUserResponse ListUser(ctx, ServiceSid, optional)
 
 
 
@@ -1754,7 +1754,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceUserReadResponse**](ip_messaging_v2_service_userReadResponse.md)
+[**ListUserResponse**](ListUserResponse.md)
 
 ### Authorization
 
@@ -1772,7 +1772,7 @@ Name | Type | Description  | Notes
 
 ## ListUserBinding
 
-> IpMessagingV2ServiceUserUserBindingReadResponse ListUserBinding(ctx, ServiceSid, UserSid, optional)
+> ListUserBindingResponse ListUserBinding(ctx, ServiceSid, UserSid, optional)
 
 
 
@@ -1800,7 +1800,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceUserUserBindingReadResponse**](ip_messaging_v2_service_user_user_bindingReadResponse.md)
+[**ListUserBindingResponse**](ListUserBindingResponse.md)
 
 ### Authorization
 
@@ -1818,7 +1818,7 @@ Name | Type | Description  | Notes
 
 ## ListUserChannel
 
-> IpMessagingV2ServiceUserUserChannelReadResponse ListUserChannel(ctx, ServiceSid, UserSid, optional)
+> ListUserChannelResponse ListUserChannel(ctx, ServiceSid, UserSid, optional)
 
 
 
@@ -1845,7 +1845,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceUserUserChannelReadResponse**](ip_messaging_v2_service_user_user_channelReadResponse.md)
+[**ListUserChannelResponse**](ListUserChannelResponse.md)
 
 ### Authorization
 

@@ -664,7 +664,7 @@ Name | Type | Description  | Notes
 
 ## ListBundle
 
-> NumbersV2RegulatoryComplianceBundleReadResponse ListBundle(ctx, optional)
+> ListBundleResponse ListBundle(ctx, optional)
 
 
 
@@ -694,7 +694,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleReadResponse**](numbers_v2_regulatory_compliance_bundleReadResponse.md)
+[**ListBundleResponse**](ListBundleResponse.md)
 
 ### Authorization
 
@@ -712,7 +712,7 @@ Name | Type | Description  | Notes
 
 ## ListEndUser
 
-> NumbersV2RegulatoryComplianceEndUserReadResponse ListEndUser(ctx, optional)
+> ListEndUserResponse ListEndUser(ctx, optional)
 
 
 
@@ -737,7 +737,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUserReadResponse**](numbers_v2_regulatory_compliance_end_userReadResponse.md)
+[**ListEndUserResponse**](ListEndUserResponse.md)
 
 ### Authorization
 
@@ -755,7 +755,7 @@ Name | Type | Description  | Notes
 
 ## ListEndUserType
 
-> NumbersV2RegulatoryComplianceEndUserTypeReadResponse ListEndUserType(ctx, optional)
+> ListEndUserTypeResponse ListEndUserType(ctx, optional)
 
 
 
@@ -780,7 +780,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUserTypeReadResponse**](numbers_v2_regulatory_compliance_end_user_typeReadResponse.md)
+[**ListEndUserTypeResponse**](ListEndUserTypeResponse.md)
 
 ### Authorization
 
@@ -798,7 +798,7 @@ Name | Type | Description  | Notes
 
 ## ListEvaluation
 
-> NumbersV2RegulatoryComplianceBundleEvaluationReadResponse ListEvaluation(ctx, BundleSid, optional)
+> ListEvaluationResponse ListEvaluation(ctx, BundleSid, optional)
 
 
 
@@ -825,7 +825,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleEvaluationReadResponse**](numbers_v2_regulatory_compliance_bundle_evaluationReadResponse.md)
+[**ListEvaluationResponse**](ListEvaluationResponse.md)
 
 ### Authorization
 
@@ -843,7 +843,7 @@ Name | Type | Description  | Notes
 
 ## ListItemAssignment
 
-> NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse ListItemAssignment(ctx, BundleSid, optional)
+> ListItemAssignmentResponse ListItemAssignment(ctx, BundleSid, optional)
 
 
 
@@ -870,7 +870,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleItemAssignmentReadResponse**](numbers_v2_regulatory_compliance_bundle_item_assignmentReadResponse.md)
+[**ListItemAssignmentResponse**](ListItemAssignmentResponse.md)
 
 ### Authorization
 
@@ -888,7 +888,7 @@ Name | Type | Description  | Notes
 
 ## ListRegulation
 
-> NumbersV2RegulatoryComplianceRegulationReadResponse ListRegulation(ctx, optional)
+> ListRegulationResponse ListRegulation(ctx, optional)
 
 
 
@@ -916,7 +916,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceRegulationReadResponse**](numbers_v2_regulatory_compliance_regulationReadResponse.md)
+[**ListRegulationResponse**](ListRegulationResponse.md)
 
 ### Authorization
 
@@ -934,7 +934,7 @@ Name | Type | Description  | Notes
 
 ## ListSupportingDocument
 
-> NumbersV2RegulatoryComplianceSupportingDocumentReadResponse ListSupportingDocument(ctx, optional)
+> ListSupportingDocumentResponse ListSupportingDocument(ctx, optional)
 
 
 
@@ -959,7 +959,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocumentReadResponse**](numbers_v2_regulatory_compliance_supporting_documentReadResponse.md)
+[**ListSupportingDocumentResponse**](ListSupportingDocumentResponse.md)
 
 ### Authorization
 
@@ -977,7 +977,7 @@ Name | Type | Description  | Notes
 
 ## ListSupportingDocumentType
 
-> NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse ListSupportingDocumentType(ctx, optional)
+> ListSupportingDocumentTypeResponse ListSupportingDocumentType(ctx, optional)
 
 
 
@@ -1002,7 +1002,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocumentTypeReadResponse**](numbers_v2_regulatory_compliance_supporting_document_typeReadResponse.md)
+[**ListSupportingDocumentTypeResponse**](ListSupportingDocumentTypeResponse.md)
 
 ### Authorization
 
