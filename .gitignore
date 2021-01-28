@@ -4,6 +4,9 @@
 *.dll
 *.so
 *.dylib
+.idea
+
+**/.openapi-generator
 
 # Test binary, built with `go test -c`
 *.test
