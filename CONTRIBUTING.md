@@ -1,4 +1,4 @@
-# Contributing to `twilio-ruby`
+# Contributing to `twilio-go`
 
 We'd love for you to contribute to our source code and to make `twilio-ruby`
 even better than it is today! Here are the guidelines we'd like you to follow:
