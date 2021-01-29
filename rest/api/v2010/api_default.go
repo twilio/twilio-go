@@ -32,7 +32,7 @@ func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
 }
 // CreateAccountParams Optional parameters for the method 'CreateAccount'
 type CreateAccountParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -70,15 +70,15 @@ func (c *DefaultApiService) CreateAccount(params *CreateAccountParams) (*ApiV201
 }
 // CreateAddressParams Optional parameters for the method 'CreateAddress'
 type CreateAddressParams struct {
-    AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
-    City *string `json:"City,omitempty"`
-    CustomerName *string `json:"CustomerName,omitempty"`
-    EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IsoCountry *string `json:"IsoCountry,omitempty"`
-    PostalCode *string `json:"PostalCode,omitempty"`
-    Region *string `json:"Region,omitempty"`
-    Street *string `json:"Street,omitempty"`
+	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
+	City *string `json:"City,omitempty"`
+	CustomerName *string `json:"CustomerName,omitempty"`
+	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	PostalCode *string `json:"PostalCode,omitempty"`
+	Region *string `json:"Region,omitempty"`
+	Street *string `json:"Street,omitempty"`
 }
 
 /*
@@ -149,21 +149,21 @@ func (c *DefaultApiService) CreateAddress(AccountSid string, params *CreateAddre
 }
 // CreateApplicationParams Optional parameters for the method 'CreateApplication'
 type CreateApplicationParams struct {
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -259,39 +259,39 @@ func (c *DefaultApiService) CreateApplication(AccountSid string, params *CreateA
 }
 // CreateCallParams Optional parameters for the method 'CreateCall'
 type CreateCallParams struct {
-    ApplicationSid *string `json:"ApplicationSid,omitempty"`
-    AsyncAmd *string `json:"AsyncAmd,omitempty"`
-    AsyncAmdStatusCallback *string `json:"AsyncAmdStatusCallback,omitempty"`
-    AsyncAmdStatusCallbackMethod *string `json:"AsyncAmdStatusCallbackMethod,omitempty"`
-    Byoc *string `json:"Byoc,omitempty"`
-    CallReason *string `json:"CallReason,omitempty"`
-    CallerId *string `json:"CallerId,omitempty"`
-    FallbackMethod *string `json:"FallbackMethod,omitempty"`
-    FallbackUrl *string `json:"FallbackUrl,omitempty"`
-    From *string `json:"From,omitempty"`
-    MachineDetection *string `json:"MachineDetection,omitempty"`
-    MachineDetectionSilenceTimeout *int32 `json:"MachineDetectionSilenceTimeout,omitempty"`
-    MachineDetectionSpeechEndThreshold *int32 `json:"MachineDetectionSpeechEndThreshold,omitempty"`
-    MachineDetectionSpeechThreshold *int32 `json:"MachineDetectionSpeechThreshold,omitempty"`
-    MachineDetectionTimeout *int32 `json:"MachineDetectionTimeout,omitempty"`
-    Method *string `json:"Method,omitempty"`
-    Record *bool `json:"Record,omitempty"`
-    RecordingChannels *string `json:"RecordingChannels,omitempty"`
-    RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
-    RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
-    RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
-    RecordingTrack *string `json:"RecordingTrack,omitempty"`
-    SendDigits *string `json:"SendDigits,omitempty"`
-    SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-    SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Timeout *int32 `json:"Timeout,omitempty"`
-    To *string `json:"To,omitempty"`
-    Trim *string `json:"Trim,omitempty"`
-    Twiml *string `json:"Twiml,omitempty"`
-    Url *string `json:"Url,omitempty"`
+	ApplicationSid *string `json:"ApplicationSid,omitempty"`
+	AsyncAmd *string `json:"AsyncAmd,omitempty"`
+	AsyncAmdStatusCallback *string `json:"AsyncAmdStatusCallback,omitempty"`
+	AsyncAmdStatusCallbackMethod *string `json:"AsyncAmdStatusCallbackMethod,omitempty"`
+	Byoc *string `json:"Byoc,omitempty"`
+	CallReason *string `json:"CallReason,omitempty"`
+	CallerId *string `json:"CallerId,omitempty"`
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	From *string `json:"From,omitempty"`
+	MachineDetection *string `json:"MachineDetection,omitempty"`
+	MachineDetectionSilenceTimeout *int32 `json:"MachineDetectionSilenceTimeout,omitempty"`
+	MachineDetectionSpeechEndThreshold *int32 `json:"MachineDetectionSpeechEndThreshold,omitempty"`
+	MachineDetectionSpeechThreshold *int32 `json:"MachineDetectionSpeechThreshold,omitempty"`
+	MachineDetectionTimeout *int32 `json:"MachineDetectionTimeout,omitempty"`
+	Method *string `json:"Method,omitempty"`
+	Record *bool `json:"Record,omitempty"`
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	SendDigits *string `json:"SendDigits,omitempty"`
+	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
+	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Timeout *int32 `json:"Timeout,omitempty"`
+	To *string `json:"To,omitempty"`
+	Trim *string `json:"Trim,omitempty"`
+	Twiml *string `json:"Twiml,omitempty"`
+	Url *string `json:"Url,omitempty"`
 }
 
 /*
@@ -459,11 +459,11 @@ func (c *DefaultApiService) CreateCall(AccountSid string, params *CreateCallPara
 }
 // CreateCallFeedbackSummaryParams Optional parameters for the method 'CreateCallFeedbackSummary'
 type CreateCallFeedbackSummaryParams struct {
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
 /*
@@ -519,12 +519,12 @@ func (c *DefaultApiService) CreateCallFeedbackSummary(AccountSid string, params 
 }
 // CreateCallRecordingParams Optional parameters for the method 'CreateCallRecording'
 type CreateCallRecordingParams struct {
-    RecordingChannels *string `json:"RecordingChannels,omitempty"`
-    RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
-    RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
-    RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
-    RecordingTrack *string `json:"RecordingTrack,omitempty"`
-    Trim *string `json:"Trim,omitempty"`
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	Trim *string `json:"Trim,omitempty"`
 }
 
 /*
@@ -586,30 +586,30 @@ func (c *DefaultApiService) CreateCallRecording(AccountSid string, CallSid strin
 }
 // CreateIncomingPhoneNumberParams Optional parameters for the method 'CreateIncomingPhoneNumber'
 type CreateIncomingPhoneNumberParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    AreaCode *string `json:"AreaCode,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	AreaCode *string `json:"AreaCode,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -741,7 +741,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumber(AccountSid string, params 
 }
 // CreateIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'CreateIncomingPhoneNumberAssignedAddOn'
 type CreateIncomingPhoneNumberAssignedAddOnParams struct {
-    InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
+	InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
 }
 
 /*
@@ -783,29 +783,29 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(AccountSid st
 }
 // CreateIncomingPhoneNumberLocalParams Optional parameters for the method 'CreateIncomingPhoneNumberLocal'
 type CreateIncomingPhoneNumberLocalParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -932,29 +932,29 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(AccountSid string, pa
 }
 // CreateIncomingPhoneNumberMobileParams Optional parameters for the method 'CreateIncomingPhoneNumberMobile'
 type CreateIncomingPhoneNumberMobileParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -1081,29 +1081,29 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(AccountSid string, p
 }
 // CreateIncomingPhoneNumberTollFreeParams Optional parameters for the method 'CreateIncomingPhoneNumberTollFree'
 type CreateIncomingPhoneNumberTollFreeParams struct {
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -1230,22 +1230,22 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(AccountSid string,
 }
 // CreateMessageParams Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
-    AddressRetention *string `json:"AddressRetention,omitempty"`
-    ApplicationSid *string `json:"ApplicationSid,omitempty"`
-    Attempt *int32 `json:"Attempt,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    ContentRetention *string `json:"ContentRetention,omitempty"`
-    ForceDelivery *bool `json:"ForceDelivery,omitempty"`
-    From *string `json:"From,omitempty"`
-    MaxPrice *float32 `json:"MaxPrice,omitempty"`
-    MediaUrl *[]string `json:"MediaUrl,omitempty"`
-    MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
-    PersistentAction *[]string `json:"PersistentAction,omitempty"`
-    ProvideFeedback *bool `json:"ProvideFeedback,omitempty"`
-    SmartEncoded *bool `json:"SmartEncoded,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    To *string `json:"To,omitempty"`
-    ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
+	AddressRetention *string `json:"AddressRetention,omitempty"`
+	ApplicationSid *string `json:"ApplicationSid,omitempty"`
+	Attempt *int32 `json:"Attempt,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	ContentRetention *string `json:"ContentRetention,omitempty"`
+	ForceDelivery *bool `json:"ForceDelivery,omitempty"`
+	From *string `json:"From,omitempty"`
+	MaxPrice *float32 `json:"MaxPrice,omitempty"`
+	MediaUrl *[]string `json:"MediaUrl,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	PersistentAction *[]string `json:"PersistentAction,omitempty"`
+	ProvideFeedback *bool `json:"ProvideFeedback,omitempty"`
+	SmartEncoded *bool `json:"SmartEncoded,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	To *string `json:"To,omitempty"`
+	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
 }
 
 /*
@@ -1345,7 +1345,7 @@ func (c *DefaultApiService) CreateMessage(AccountSid string, params *CreateMessa
 }
 // CreateMessageFeedbackParams Optional parameters for the method 'CreateMessageFeedback'
 type CreateMessageFeedbackParams struct {
-    Outcome *string `json:"Outcome,omitempty"`
+	Outcome *string `json:"Outcome,omitempty"`
 }
 
 /*
@@ -1386,7 +1386,7 @@ func (c *DefaultApiService) CreateMessageFeedback(AccountSid string, MessageSid 
 }
 // CreateNewKeyParams Optional parameters for the method 'CreateNewKey'
 type CreateNewKeyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1425,7 +1425,7 @@ func (c *DefaultApiService) CreateNewKey(AccountSid string, params *CreateNewKey
 }
 // CreateNewSigningKeyParams Optional parameters for the method 'CreateNewSigningKey'
 type CreateNewSigningKeyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1465,44 +1465,44 @@ func (c *DefaultApiService) CreateNewSigningKey(AccountSid string, params *Creat
 }
 // CreateParticipantParams Optional parameters for the method 'CreateParticipant'
 type CreateParticipantParams struct {
-    Beep *string `json:"Beep,omitempty"`
-    Byoc *string `json:"Byoc,omitempty"`
-    CallReason *string `json:"CallReason,omitempty"`
-    CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
-    CallerId *string `json:"CallerId,omitempty"`
-    Coaching *bool `json:"Coaching,omitempty"`
-    ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
-    ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
-    ConferenceRecordingStatusCallbackEvent *[]string `json:"ConferenceRecordingStatusCallbackEvent,omitempty"`
-    ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
-    ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
-    ConferenceStatusCallbackEvent *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
-    ConferenceStatusCallbackMethod *string `json:"ConferenceStatusCallbackMethod,omitempty"`
-    ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
-    EarlyMedia *bool `json:"EarlyMedia,omitempty"`
-    EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
-    From *string `json:"From,omitempty"`
-    JitterBufferSize *string `json:"JitterBufferSize,omitempty"`
-    Label *string `json:"Label,omitempty"`
-    MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
-    Muted *bool `json:"Muted,omitempty"`
-    Record *bool `json:"Record,omitempty"`
-    RecordingChannels *string `json:"RecordingChannels,omitempty"`
-    RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
-    RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
-    RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
-    RecordingTrack *string `json:"RecordingTrack,omitempty"`
-    Region *string `json:"Region,omitempty"`
-    SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-    SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
-    StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Timeout *int32 `json:"Timeout,omitempty"`
-    To *string `json:"To,omitempty"`
-    WaitMethod *string `json:"WaitMethod,omitempty"`
-    WaitUrl *string `json:"WaitUrl,omitempty"`
+	Beep *string `json:"Beep,omitempty"`
+	Byoc *string `json:"Byoc,omitempty"`
+	CallReason *string `json:"CallReason,omitempty"`
+	CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
+	CallerId *string `json:"CallerId,omitempty"`
+	Coaching *bool `json:"Coaching,omitempty"`
+	ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
+	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
+	ConferenceRecordingStatusCallbackEvent *[]string `json:"ConferenceRecordingStatusCallbackEvent,omitempty"`
+	ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
+	ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
+	ConferenceStatusCallbackEvent *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
+	ConferenceStatusCallbackMethod *string `json:"ConferenceStatusCallbackMethod,omitempty"`
+	ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
+	EarlyMedia *bool `json:"EarlyMedia,omitempty"`
+	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
+	From *string `json:"From,omitempty"`
+	JitterBufferSize *string `json:"JitterBufferSize,omitempty"`
+	Label *string `json:"Label,omitempty"`
+	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	Muted *bool `json:"Muted,omitempty"`
+	Record *bool `json:"Record,omitempty"`
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	Region *string `json:"Region,omitempty"`
+	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
+	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
+	StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Timeout *int32 `json:"Timeout,omitempty"`
+	To *string `json:"To,omitempty"`
+	WaitMethod *string `json:"WaitMethod,omitempty"`
+	WaitUrl *string `json:"WaitUrl,omitempty"`
 }
 
 /*
@@ -1691,22 +1691,22 @@ func (c *DefaultApiService) CreateParticipant(AccountSid string, ConferenceSid s
 }
 // CreatePaymentsParams Optional parameters for the method 'CreatePayments'
 type CreatePaymentsParams struct {
-    BankAccountType *string `json:"BankAccountType,omitempty"`
-    ChargeAmount *float32 `json:"ChargeAmount,omitempty"`
-    Currency *string `json:"Currency,omitempty"`
-    Description *string `json:"Description,omitempty"`
-    IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
-    Input *string `json:"Input,omitempty"`
-    MinPostalCodeLength *int32 `json:"MinPostalCodeLength,omitempty"`
-    Parameter *map[string]interface{} `json:"Parameter,omitempty"`
-    PaymentConnector *string `json:"PaymentConnector,omitempty"`
-    PaymentMethod *string `json:"PaymentMethod,omitempty"`
-    PostalCode *bool `json:"PostalCode,omitempty"`
-    SecurityCode *bool `json:"SecurityCode,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    Timeout *int32 `json:"Timeout,omitempty"`
-    TokenType *string `json:"TokenType,omitempty"`
-    ValidCardTypes *string `json:"ValidCardTypes,omitempty"`
+	BankAccountType *string `json:"BankAccountType,omitempty"`
+	ChargeAmount *float32 `json:"ChargeAmount,omitempty"`
+	Currency *string `json:"Currency,omitempty"`
+	Description *string `json:"Description,omitempty"`
+	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
+	Input *string `json:"Input,omitempty"`
+	MinPostalCodeLength *int32 `json:"MinPostalCodeLength,omitempty"`
+	Parameter *map[string]interface{} `json:"Parameter,omitempty"`
+	PaymentConnector *string `json:"PaymentConnector,omitempty"`
+	PaymentMethod *string `json:"PaymentMethod,omitempty"`
+	PostalCode *bool `json:"PostalCode,omitempty"`
+	SecurityCode *bool `json:"SecurityCode,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	Timeout *int32 `json:"Timeout,omitempty"`
+	TokenType *string `json:"TokenType,omitempty"`
+	ValidCardTypes *string `json:"ValidCardTypes,omitempty"`
 }
 
 /*
@@ -1814,8 +1814,8 @@ func (c *DefaultApiService) CreatePayments(AccountSid string, CallSid string, pa
 }
 // CreateQueueParams Optional parameters for the method 'CreateQueue'
 type CreateQueueParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MaxSize *int32 `json:"MaxSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MaxSize *int32 `json:"MaxSize,omitempty"`
 }
 
 /*
@@ -1859,7 +1859,7 @@ func (c *DefaultApiService) CreateQueue(AccountSid string, params *CreateQueuePa
 }
 // CreateSipAuthCallsCredentialListMappingParams Optional parameters for the method 'CreateSipAuthCallsCredentialListMapping'
 type CreateSipAuthCallsCredentialListMappingParams struct {
-    CredentialListSid *string `json:"CredentialListSid,omitempty"`
+	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
 /*
@@ -1901,7 +1901,7 @@ func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(AccountSid s
 }
 // CreateSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'CreateSipAuthCallsIpAccessControlListMapping'
 type CreateSipAuthCallsIpAccessControlListMappingParams struct {
-    IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
+	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
 /*
@@ -1943,7 +1943,7 @@ func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(Account
 }
 // CreateSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'CreateSipAuthRegistrationsCredentialListMapping'
 type CreateSipAuthRegistrationsCredentialListMappingParams struct {
-    CredentialListSid *string `json:"CredentialListSid,omitempty"`
+	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
 /*
@@ -1985,8 +1985,8 @@ func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(Acco
 }
 // CreateSipCredentialParams Optional parameters for the method 'CreateSipCredential'
 type CreateSipCredentialParams struct {
-    Password *string `json:"Password,omitempty"`
-    Username *string `json:"Username,omitempty"`
+	Password *string `json:"Password,omitempty"`
+	Username *string `json:"Username,omitempty"`
 }
 
 /*
@@ -2032,7 +2032,7 @@ func (c *DefaultApiService) CreateSipCredential(AccountSid string, CredentialLis
 }
 // CreateSipCredentialListParams Optional parameters for the method 'CreateSipCredentialList'
 type CreateSipCredentialListParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -2072,7 +2072,7 @@ func (c *DefaultApiService) CreateSipCredentialList(AccountSid string, params *C
 }
 // CreateSipCredentialListMappingParams Optional parameters for the method 'CreateSipCredentialListMapping'
 type CreateSipCredentialListMappingParams struct {
-    CredentialListSid *string `json:"CredentialListSid,omitempty"`
+	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
 /*
@@ -2114,19 +2114,19 @@ func (c *DefaultApiService) CreateSipCredentialListMapping(AccountSid string, Do
 }
 // CreateSipDomainParams Optional parameters for the method 'CreateSipDomain'
 type CreateSipDomainParams struct {
-    ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
-    DomainName *string `json:"DomainName,omitempty"`
-    EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
-    EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Secure *bool `json:"Secure,omitempty"`
-    SipRegistration *bool `json:"SipRegistration,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
-    VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
+	DomainName *string `json:"DomainName,omitempty"`
+	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
+	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Secure *bool `json:"Secure,omitempty"`
+	SipRegistration *bool `json:"SipRegistration,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
+	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -2214,7 +2214,7 @@ func (c *DefaultApiService) CreateSipDomain(AccountSid string, params *CreateSip
 }
 // CreateSipIpAccessControlListParams Optional parameters for the method 'CreateSipIpAccessControlList'
 type CreateSipIpAccessControlListParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -2254,7 +2254,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlList(AccountSid string, para
 }
 // CreateSipIpAccessControlListMappingParams Optional parameters for the method 'CreateSipIpAccessControlListMapping'
 type CreateSipIpAccessControlListMappingParams struct {
-    IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
+	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
 /*
@@ -2296,9 +2296,9 @@ func (c *DefaultApiService) CreateSipIpAccessControlListMapping(AccountSid strin
 }
 // CreateSipIpAddressParams Optional parameters for the method 'CreateSipIpAddress'
 type CreateSipIpAddressParams struct {
-    CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IpAddress *string `json:"IpAddress,omitempty"`
+	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IpAddress *string `json:"IpAddress,omitempty"`
 }
 
 /*
@@ -2348,7 +2348,7 @@ func (c *DefaultApiService) CreateSipIpAddress(AccountSid string, IpAccessContro
 }
 // CreateTokenParams Optional parameters for the method 'CreateToken'
 type CreateTokenParams struct {
-    Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 /*
@@ -2388,13 +2388,13 @@ func (c *DefaultApiService) CreateToken(AccountSid string, params *CreateTokenPa
 }
 // CreateUsageTriggerParams Optional parameters for the method 'CreateUsageTrigger'
 type CreateUsageTriggerParams struct {
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Recurring *string `json:"Recurring,omitempty"`
-    TriggerBy *string `json:"TriggerBy,omitempty"`
-    TriggerValue *string `json:"TriggerValue,omitempty"`
-    UsageCategory *string `json:"UsageCategory,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Recurring *string `json:"Recurring,omitempty"`
+	TriggerBy *string `json:"TriggerBy,omitempty"`
+	TriggerValue *string `json:"TriggerValue,omitempty"`
+	UsageCategory *string `json:"UsageCategory,omitempty"`
 }
 
 /*
@@ -2458,12 +2458,12 @@ func (c *DefaultApiService) CreateUsageTrigger(AccountSid string, params *Create
 }
 // CreateValidationRequestParams Optional parameters for the method 'CreateValidationRequest'
 type CreateValidationRequestParams struct {
-    CallDelay *int32 `json:"CallDelay,omitempty"`
-    Extension *string `json:"Extension,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	CallDelay *int32 `json:"CallDelay,omitempty"`
+	Extension *string `json:"Extension,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
 /*
@@ -4862,9 +4862,9 @@ func (c *DefaultApiService) FetchUsageTrigger(AccountSid string, Sid string) (*A
 }
 // ListAccountParams Optional parameters for the method 'ListAccount'
 type ListAccountParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4910,10 +4910,10 @@ func (c *DefaultApiService) ListAccount(params *ListAccountParams) (*ListAccount
 }
 // ListAddressParams Optional parameters for the method 'ListAddress'
 type ListAddressParams struct {
-    CustomerName *string `json:"CustomerName,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IsoCountry *string `json:"IsoCountry,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	CustomerName *string `json:"CustomerName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4964,8 +4964,8 @@ func (c *DefaultApiService) ListAddress(AccountSid string, params *ListAddressPa
 }
 // ListApplicationParams Optional parameters for the method 'ListApplication'
 type ListApplicationParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5009,7 +5009,7 @@ func (c *DefaultApiService) ListApplication(AccountSid string, params *ListAppli
 }
 // ListAuthorizedConnectAppParams Optional parameters for the method 'ListAuthorizedConnectApp'
 type ListAuthorizedConnectAppParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5049,7 +5049,7 @@ func (c *DefaultApiService) ListAuthorizedConnectApp(AccountSid string, params *
 }
 // ListAvailablePhoneNumberCountryParams Optional parameters for the method 'ListAvailablePhoneNumberCountry'
 type ListAvailablePhoneNumberCountryParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5088,25 +5088,25 @@ func (c *DefaultApiService) ListAvailablePhoneNumberCountry(AccountSid string, p
 }
 // ListAvailablePhoneNumberLocalParams Optional parameters for the method 'ListAvailablePhoneNumberLocal'
 type ListAvailablePhoneNumberLocalParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5219,25 +5219,25 @@ func (c *DefaultApiService) ListAvailablePhoneNumberLocal(AccountSid string, Cou
 }
 // ListAvailablePhoneNumberMachineToMachineParams Optional parameters for the method 'ListAvailablePhoneNumberMachineToMachine'
 type ListAvailablePhoneNumberMachineToMachineParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5350,25 +5350,25 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(AccountSid 
 }
 // ListAvailablePhoneNumberMobileParams Optional parameters for the method 'ListAvailablePhoneNumberMobile'
 type ListAvailablePhoneNumberMobileParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5481,25 +5481,25 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMobile(AccountSid string, Co
 }
 // ListAvailablePhoneNumberNationalParams Optional parameters for the method 'ListAvailablePhoneNumberNational'
 type ListAvailablePhoneNumberNationalParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5612,25 +5612,25 @@ func (c *DefaultApiService) ListAvailablePhoneNumberNational(AccountSid string, 
 }
 // ListAvailablePhoneNumberSharedCostParams Optional parameters for the method 'ListAvailablePhoneNumberSharedCost'
 type ListAvailablePhoneNumberSharedCostParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5743,25 +5743,25 @@ func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(AccountSid string
 }
 // ListAvailablePhoneNumberTollFreeParams Optional parameters for the method 'ListAvailablePhoneNumberTollFree'
 type ListAvailablePhoneNumberTollFreeParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5874,25 +5874,25 @@ func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(AccountSid string, 
 }
 // ListAvailablePhoneNumberVoipParams Optional parameters for the method 'ListAvailablePhoneNumberVoip'
 type ListAvailablePhoneNumberVoipParams struct {
-    AreaCode *int32 `json:"AreaCode,omitempty"`
-    Contains *string `json:"Contains,omitempty"`
-    SmsEnabled *bool `json:"SmsEnabled,omitempty"`
-    MmsEnabled *bool `json:"MmsEnabled,omitempty"`
-    VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
-    ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
-    ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
-    ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
-    Beta *bool `json:"Beta,omitempty"`
-    NearNumber *string `json:"NearNumber,omitempty"`
-    NearLatLong *string `json:"NearLatLong,omitempty"`
-    Distance *int32 `json:"Distance,omitempty"`
-    InPostalCode *string `json:"InPostalCode,omitempty"`
-    InRegion *string `json:"InRegion,omitempty"`
-    InRateCenter *string `json:"InRateCenter,omitempty"`
-    InLata *string `json:"InLata,omitempty"`
-    InLocality *string `json:"InLocality,omitempty"`
-    FaxEnabled *bool `json:"FaxEnabled,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	Contains *string `json:"Contains,omitempty"`
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	NearNumber *string `json:"NearNumber,omitempty"`
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	Distance *int32 `json:"Distance,omitempty"`
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	InRegion *string `json:"InRegion,omitempty"`
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	InLata *string `json:"InLata,omitempty"`
+	InLocality *string `json:"InLocality,omitempty"`
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6005,17 +6005,17 @@ func (c *DefaultApiService) ListAvailablePhoneNumberVoip(AccountSid string, Coun
 }
 // ListCallParams Optional parameters for the method 'ListCall'
 type ListCallParams struct {
-    To *string `json:"To,omitempty"`
-    From *string `json:"From,omitempty"`
-    ParentCallSid *string `json:"ParentCallSid,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    StartTime *time.Time `json:"StartTime,omitempty"`
-    StartTimelesserThan *time.Time `json:"StartTime&lt;,omitempty"`
-    StartTimegreaterThan *time.Time `json:"StartTime&gt;,omitempty"`
-    EndTime *time.Time `json:"EndTime,omitempty"`
-    EndTimelesserThan *time.Time `json:"EndTime&lt;,omitempty"`
-    EndTimegreaterThan *time.Time `json:"EndTime&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	To *string `json:"To,omitempty"`
+	From *string `json:"From,omitempty"`
+	ParentCallSid *string `json:"ParentCallSid,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	StartTime *time.Time `json:"StartTime,omitempty"`
+	StartTimeBefore *time.Time `json:"StartTime&lt;,omitempty"`
+	StartTimeAfter *time.Time `json:"StartTime&gt;,omitempty"`
+	EndTime *time.Time `json:"EndTime,omitempty"`
+	EndTimeBefore *time.Time `json:"EndTime&lt;,omitempty"`
+	EndTimeAfter *time.Time `json:"EndTime&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6028,11 +6028,11 @@ Retrieves a collection of calls made to and from your account
  * @param "ParentCallSid" (string) - Only include calls spawned by calls with this SID.
  * @param "Status" (string) - The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
  * @param "StartTime" (time.Time) - Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
- * @param "StartTimelesserThan" (time.Time) - Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
- * @param "StartTimegreaterThan" (time.Time) - Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+ * @param "StartTimeBefore" (time.Time) - Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+ * @param "StartTimeAfter" (time.Time) - Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
  * @param "EndTime" (time.Time) - Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
- * @param "EndTimelesserThan" (time.Time) - Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
- * @param "EndTimegreaterThan" (time.Time) - Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+ * @param "EndTimeBefore" (time.Time) - Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+ * @param "EndTimeAfter" (time.Time) - Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListCallResponse
 */
@@ -6059,20 +6059,20 @@ func (c *DefaultApiService) ListCall(AccountSid string, params *ListCallParams) 
 	if params != nil && params.StartTime != nil {
 		data.Set("StartTime", fmt.Sprint(*params.StartTime)) 
 	}
-	if params != nil && params.StartTimelesserThan != nil {
-		data.Set("StartTimelesserThan", fmt.Sprint(*params.StartTimelesserThan)) 
+	if params != nil && params.StartTimeBefore != nil {
+		data.Set("StartTimeBefore", fmt.Sprint(*params.StartTimeBefore)) 
 	}
-	if params != nil && params.StartTimegreaterThan != nil {
-		data.Set("StartTimegreaterThan", fmt.Sprint(*params.StartTimegreaterThan)) 
+	if params != nil && params.StartTimeAfter != nil {
+		data.Set("StartTimeAfter", fmt.Sprint(*params.StartTimeAfter)) 
 	}
 	if params != nil && params.EndTime != nil {
 		data.Set("EndTime", fmt.Sprint(*params.EndTime)) 
 	}
-	if params != nil && params.EndTimelesserThan != nil {
-		data.Set("EndTimelesserThan", fmt.Sprint(*params.EndTimelesserThan)) 
+	if params != nil && params.EndTimeBefore != nil {
+		data.Set("EndTimeBefore", fmt.Sprint(*params.EndTimeBefore)) 
 	}
-	if params != nil && params.EndTimegreaterThan != nil {
-		data.Set("EndTimegreaterThan", fmt.Sprint(*params.EndTimegreaterThan)) 
+	if params != nil && params.EndTimeAfter != nil {
+		data.Set("EndTimeAfter", fmt.Sprint(*params.EndTimeAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
@@ -6095,7 +6095,7 @@ func (c *DefaultApiService) ListCall(AccountSid string, params *ListCallParams) 
 }
 // ListCallEventParams Optional parameters for the method 'ListCallEvent'
 type ListCallEventParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6137,11 +6137,11 @@ func (c *DefaultApiService) ListCallEvent(AccountSid string, CallSid string, par
 }
 // ListCallNotificationParams Optional parameters for the method 'ListCallNotification'
 type ListCallNotificationParams struct {
-    Log *int32 `json:"Log,omitempty"`
-    MessageDate *time.Time `json:"MessageDate,omitempty"`
-    MessageDatelesserThan *time.Time `json:"MessageDate&lt;,omitempty"`
-    MessageDategreaterThan *time.Time `json:"MessageDate&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Log *int32 `json:"Log,omitempty"`
+	MessageDate *time.Time `json:"MessageDate,omitempty"`
+	MessageDateBefore *time.Time `json:"MessageDate&lt;,omitempty"`
+	MessageDateAfter *time.Time `json:"MessageDate&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6151,8 +6151,8 @@ ListCallNotification Method for ListCallNotification
  * @param optional nil or *ListCallNotificationOpts - Optional Parameters:
  * @param "Log" (int32) - Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
  * @param "MessageDate" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
- * @param "MessageDatelesserThan" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
- * @param "MessageDategreaterThan" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+ * @param "MessageDateBefore" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+ * @param "MessageDateAfter" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListCallNotificationResponse
 */
@@ -6171,11 +6171,11 @@ func (c *DefaultApiService) ListCallNotification(AccountSid string, CallSid stri
 	if params != nil && params.MessageDate != nil {
 		data.Set("MessageDate", fmt.Sprint(*params.MessageDate)) 
 	}
-	if params != nil && params.MessageDatelesserThan != nil {
-		data.Set("MessageDatelesserThan", fmt.Sprint(*params.MessageDatelesserThan)) 
+	if params != nil && params.MessageDateBefore != nil {
+		data.Set("MessageDateBefore", fmt.Sprint(*params.MessageDateBefore)) 
 	}
-	if params != nil && params.MessageDategreaterThan != nil {
-		data.Set("MessageDategreaterThan", fmt.Sprint(*params.MessageDategreaterThan)) 
+	if params != nil && params.MessageDateAfter != nil {
+		data.Set("MessageDateAfter", fmt.Sprint(*params.MessageDateAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
@@ -6198,10 +6198,10 @@ func (c *DefaultApiService) ListCallNotification(AccountSid string, CallSid stri
 }
 // ListCallRecordingParams Optional parameters for the method 'ListCallRecording'
 type ListCallRecordingParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreatedlesserThan *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreatedgreaterThan *time.Time `json:"DateCreated&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6211,8 +6211,8 @@ Retrieve a list of recordings belonging to the call used to make the request
  * @param CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
  * @param optional nil or *ListCallRecordingOpts - Optional Parameters:
  * @param "DateCreated" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
- * @param "DateCreatedlesserThan" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
- * @param "DateCreatedgreaterThan" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+ * @param "DateCreatedBefore" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+ * @param "DateCreatedAfter" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListCallRecordingResponse
 */
@@ -6228,11 +6228,11 @@ func (c *DefaultApiService) ListCallRecording(AccountSid string, CallSid string,
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
-	if params != nil && params.DateCreatedlesserThan != nil {
-		data.Set("DateCreatedlesserThan", fmt.Sprint(*params.DateCreatedlesserThan)) 
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
-	if params != nil && params.DateCreatedgreaterThan != nil {
-		data.Set("DateCreatedgreaterThan", fmt.Sprint(*params.DateCreatedgreaterThan)) 
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
@@ -6255,15 +6255,15 @@ func (c *DefaultApiService) ListCallRecording(AccountSid string, CallSid string,
 }
 // ListConferenceParams Optional parameters for the method 'ListConference'
 type ListConferenceParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreatedlesserThan *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreatedgreaterThan *time.Time `json:"DateCreated&gt;,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    DateUpdatedlesserThan *time.Time `json:"DateUpdated&lt;,omitempty"`
-    DateUpdatedgreaterThan *time.Time `json:"DateUpdated&gt;,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdatedBefore *time.Time `json:"DateUpdated&lt;,omitempty"`
+	DateUpdatedAfter *time.Time `json:"DateUpdated&gt;,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6272,11 +6272,11 @@ Retrieve a list of conferences belonging to the account used to make the request
  * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read.
  * @param optional nil or *ListConferenceOpts - Optional Parameters:
  * @param "DateCreated" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @param "DateCreatedlesserThan" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
- * @param "DateCreatedgreaterThan" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+ * @param "DateCreatedBefore" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+ * @param "DateCreatedAfter" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
  * @param "DateUpdated" (time.Time) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @param "DateUpdatedlesserThan" (time.Time) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
- * @param "DateUpdatedgreaterThan" (time.Time) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+ * @param "DateUpdatedBefore" (time.Time) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+ * @param "DateUpdatedAfter" (time.Time) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
  * @param "FriendlyName" (string) - The string that identifies the Conference resources to read.
  * @param "Status" (string) - The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6293,20 +6293,20 @@ func (c *DefaultApiService) ListConference(AccountSid string, params *ListConfer
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
-	if params != nil && params.DateCreatedlesserThan != nil {
-		data.Set("DateCreatedlesserThan", fmt.Sprint(*params.DateCreatedlesserThan)) 
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
-	if params != nil && params.DateCreatedgreaterThan != nil {
-		data.Set("DateCreatedgreaterThan", fmt.Sprint(*params.DateCreatedgreaterThan)) 
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.DateUpdated != nil {
 		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
-	if params != nil && params.DateUpdatedlesserThan != nil {
-		data.Set("DateUpdatedlesserThan", fmt.Sprint(*params.DateUpdatedlesserThan)) 
+	if params != nil && params.DateUpdatedBefore != nil {
+		data.Set("DateUpdatedBefore", fmt.Sprint(*params.DateUpdatedBefore)) 
 	}
-	if params != nil && params.DateUpdatedgreaterThan != nil {
-		data.Set("DateUpdatedgreaterThan", fmt.Sprint(*params.DateUpdatedgreaterThan)) 
+	if params != nil && params.DateUpdatedAfter != nil {
+		data.Set("DateUpdatedAfter", fmt.Sprint(*params.DateUpdatedAfter)) 
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName) 
@@ -6335,10 +6335,10 @@ func (c *DefaultApiService) ListConference(AccountSid string, params *ListConfer
 }
 // ListConferenceRecordingParams Optional parameters for the method 'ListConferenceRecording'
 type ListConferenceRecordingParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreatedlesserThan *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreatedgreaterThan *time.Time `json:"DateCreated&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6348,8 +6348,8 @@ Retrieve a list of recordings belonging to the call used to make the request
  * @param ConferenceSid The Conference SID that identifies the conference associated with the recording to read.
  * @param optional nil or *ListConferenceRecordingOpts - Optional Parameters:
  * @param "DateCreated" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
- * @param "DateCreatedlesserThan" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
- * @param "DateCreatedgreaterThan" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+ * @param "DateCreatedBefore" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+ * @param "DateCreatedAfter" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListConferenceRecordingResponse
 */
@@ -6365,11 +6365,11 @@ func (c *DefaultApiService) ListConferenceRecording(AccountSid string, Conferenc
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
-	if params != nil && params.DateCreatedlesserThan != nil {
-		data.Set("DateCreatedlesserThan", fmt.Sprint(*params.DateCreatedlesserThan)) 
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
-	if params != nil && params.DateCreatedgreaterThan != nil {
-		data.Set("DateCreatedgreaterThan", fmt.Sprint(*params.DateCreatedgreaterThan)) 
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
@@ -6392,7 +6392,7 @@ func (c *DefaultApiService) ListConferenceRecording(AccountSid string, Conferenc
 }
 // ListConnectAppParams Optional parameters for the method 'ListConnectApp'
 type ListConnectAppParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6432,7 +6432,7 @@ func (c *DefaultApiService) ListConnectApp(AccountSid string, params *ListConnec
 }
 // ListDependentPhoneNumberParams Optional parameters for the method 'ListDependentPhoneNumber'
 type ListDependentPhoneNumberParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6473,11 +6473,11 @@ func (c *DefaultApiService) ListDependentPhoneNumber(AccountSid string, AddressS
 }
 // ListIncomingPhoneNumberParams Optional parameters for the method 'ListIncomingPhoneNumber'
 type ListIncomingPhoneNumberParams struct {
-    Beta *bool `json:"Beta,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    Origin *string `json:"Origin,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Origin *string `json:"Origin,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6533,7 +6533,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumber(AccountSid string, params *L
 }
 // ListIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOn'
 type ListIncomingPhoneNumberAssignedAddOnParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6575,7 +6575,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(AccountSid stri
 }
 // ListIncomingPhoneNumberAssignedAddOnExtensionParams Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOnExtension'
 type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6619,11 +6619,11 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(Accoun
 }
 // ListIncomingPhoneNumberLocalParams Optional parameters for the method 'ListIncomingPhoneNumberLocal'
 type ListIncomingPhoneNumberLocalParams struct {
-    Beta *bool `json:"Beta,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    Origin *string `json:"Origin,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Origin *string `json:"Origin,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6678,11 +6678,11 @@ func (c *DefaultApiService) ListIncomingPhoneNumberLocal(AccountSid string, para
 }
 // ListIncomingPhoneNumberMobileParams Optional parameters for the method 'ListIncomingPhoneNumberMobile'
 type ListIncomingPhoneNumberMobileParams struct {
-    Beta *bool `json:"Beta,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    Origin *string `json:"Origin,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Origin *string `json:"Origin,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6737,11 +6737,11 @@ func (c *DefaultApiService) ListIncomingPhoneNumberMobile(AccountSid string, par
 }
 // ListIncomingPhoneNumberTollFreeParams Optional parameters for the method 'ListIncomingPhoneNumberTollFree'
 type ListIncomingPhoneNumberTollFreeParams struct {
-    Beta *bool `json:"Beta,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    Origin *string `json:"Origin,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Beta *bool `json:"Beta,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Origin *string `json:"Origin,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6796,7 +6796,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(AccountSid string, p
 }
 // ListKeyParams Optional parameters for the method 'ListKey'
 type ListKeyParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6835,10 +6835,10 @@ func (c *DefaultApiService) ListKey(AccountSid string, params *ListKeyParams) (*
 }
 // ListMediaParams Optional parameters for the method 'ListMedia'
 type ListMediaParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreatedlesserThan *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreatedgreaterThan *time.Time `json:"DateCreated&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6848,8 +6848,8 @@ Retrieve a list of Media resources belonging to the account used to make the req
  * @param MessageSid The SID of the Message resource that this Media resource belongs to.
  * @param optional nil or *ListMediaOpts - Optional Parameters:
  * @param "DateCreated" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
- * @param "DateCreatedlesserThan" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
- * @param "DateCreatedgreaterThan" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
+ * @param "DateCreatedBefore" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
+ * @param "DateCreatedAfter" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListMediaResponse
 */
@@ -6865,11 +6865,11 @@ func (c *DefaultApiService) ListMedia(AccountSid string, MessageSid string, para
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
-	if params != nil && params.DateCreatedlesserThan != nil {
-		data.Set("DateCreatedlesserThan", fmt.Sprint(*params.DateCreatedlesserThan)) 
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
-	if params != nil && params.DateCreatedgreaterThan != nil {
-		data.Set("DateCreatedgreaterThan", fmt.Sprint(*params.DateCreatedgreaterThan)) 
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
@@ -6892,7 +6892,7 @@ func (c *DefaultApiService) ListMedia(AccountSid string, MessageSid string, para
 }
 // ListMemberParams Optional parameters for the method 'ListMember'
 type ListMemberParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6934,12 +6934,12 @@ func (c *DefaultApiService) ListMember(AccountSid string, QueueSid string, param
 }
 // ListMessageParams Optional parameters for the method 'ListMessage'
 type ListMessageParams struct {
-    To *string `json:"To,omitempty"`
-    From *string `json:"From,omitempty"`
-    DateSent *time.Time `json:"DateSent,omitempty"`
-    DateSentlesserThan *time.Time `json:"DateSent&lt;,omitempty"`
-    DateSentgreaterThan *time.Time `json:"DateSent&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	To *string `json:"To,omitempty"`
+	From *string `json:"From,omitempty"`
+	DateSent *time.Time `json:"DateSent,omitempty"`
+	DateSentBefore *time.Time `json:"DateSent&lt;,omitempty"`
+	DateSentAfter *time.Time `json:"DateSent&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6950,8 +6950,8 @@ Retrieve a list of messages belonging to the account used to make the request
  * @param "To" (string) - Read messages sent to only this phone number.
  * @param "From" (string) - Read messages sent from only this phone number or alphanumeric sender ID.
  * @param "DateSent" (time.Time) - The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
- * @param "DateSentlesserThan" (time.Time) - The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
- * @param "DateSentgreaterThan" (time.Time) - The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
+ * @param "DateSentBefore" (time.Time) - The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
+ * @param "DateSentAfter" (time.Time) - The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListMessageResponse
 */
@@ -6972,11 +6972,11 @@ func (c *DefaultApiService) ListMessage(AccountSid string, params *ListMessagePa
 	if params != nil && params.DateSent != nil {
 		data.Set("DateSent", fmt.Sprint(*params.DateSent)) 
 	}
-	if params != nil && params.DateSentlesserThan != nil {
-		data.Set("DateSentlesserThan", fmt.Sprint(*params.DateSentlesserThan)) 
+	if params != nil && params.DateSentBefore != nil {
+		data.Set("DateSentBefore", fmt.Sprint(*params.DateSentBefore)) 
 	}
-	if params != nil && params.DateSentgreaterThan != nil {
-		data.Set("DateSentgreaterThan", fmt.Sprint(*params.DateSentgreaterThan)) 
+	if params != nil && params.DateSentAfter != nil {
+		data.Set("DateSentAfter", fmt.Sprint(*params.DateSentAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
@@ -6999,11 +6999,11 @@ func (c *DefaultApiService) ListMessage(AccountSid string, params *ListMessagePa
 }
 // ListNotificationParams Optional parameters for the method 'ListNotification'
 type ListNotificationParams struct {
-    Log *int32 `json:"Log,omitempty"`
-    MessageDate *time.Time `json:"MessageDate,omitempty"`
-    MessageDatelesserThan *time.Time `json:"MessageDate&lt;,omitempty"`
-    MessageDategreaterThan *time.Time `json:"MessageDate&gt;,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Log *int32 `json:"Log,omitempty"`
+	MessageDate *time.Time `json:"MessageDate,omitempty"`
+	MessageDateBefore *time.Time `json:"MessageDate&lt;,omitempty"`
+	MessageDateAfter *time.Time `json:"MessageDate&gt;,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7013,8 +7013,8 @@ Retrieve a list of notifications belonging to the account used to make the reque
  * @param optional nil or *ListNotificationOpts - Optional Parameters:
  * @param "Log" (int32) - Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
  * @param "MessageDate" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
- * @param "MessageDatelesserThan" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
- * @param "MessageDategreaterThan" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+ * @param "MessageDateBefore" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+ * @param "MessageDateAfter" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListNotificationResponse
 */
@@ -7032,11 +7032,11 @@ func (c *DefaultApiService) ListNotification(AccountSid string, params *ListNoti
 	if params != nil && params.MessageDate != nil {
 		data.Set("MessageDate", fmt.Sprint(*params.MessageDate)) 
 	}
-	if params != nil && params.MessageDatelesserThan != nil {
-		data.Set("MessageDatelesserThan", fmt.Sprint(*params.MessageDatelesserThan)) 
+	if params != nil && params.MessageDateBefore != nil {
+		data.Set("MessageDateBefore", fmt.Sprint(*params.MessageDateBefore)) 
 	}
-	if params != nil && params.MessageDategreaterThan != nil {
-		data.Set("MessageDategreaterThan", fmt.Sprint(*params.MessageDategreaterThan)) 
+	if params != nil && params.MessageDateAfter != nil {
+		data.Set("MessageDateAfter", fmt.Sprint(*params.MessageDateAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
@@ -7059,9 +7059,9 @@ func (c *DefaultApiService) ListNotification(AccountSid string, params *ListNoti
 }
 // ListOutgoingCallerIdParams Optional parameters for the method 'ListOutgoingCallerId'
 type ListOutgoingCallerIdParams struct {
-    PhoneNumber *string `json:"PhoneNumber,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7109,10 +7109,10 @@ func (c *DefaultApiService) ListOutgoingCallerId(AccountSid string, params *List
 }
 // ListParticipantParams Optional parameters for the method 'ListParticipant'
 type ListParticipantParams struct {
-    Muted *bool `json:"Muted,omitempty"`
-    Hold *bool `json:"Hold,omitempty"`
-    Coaching *bool `json:"Coaching,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Muted *bool `json:"Muted,omitempty"`
+	Hold *bool `json:"Hold,omitempty"`
+	Coaching *bool `json:"Coaching,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7166,7 +7166,7 @@ func (c *DefaultApiService) ListParticipant(AccountSid string, ConferenceSid str
 }
 // ListQueueParams Optional parameters for the method 'ListQueue'
 type ListQueueParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7206,12 +7206,12 @@ func (c *DefaultApiService) ListQueue(AccountSid string, params *ListQueueParams
 }
 // ListRecordingParams Optional parameters for the method 'ListRecording'
 type ListRecordingParams struct {
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateCreatedlesserThan *time.Time `json:"DateCreated&lt;,omitempty"`
-    DateCreatedgreaterThan *time.Time `json:"DateCreated&gt;,omitempty"`
-    CallSid *string `json:"CallSid,omitempty"`
-    ConferenceSid *string `json:"ConferenceSid,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
+	CallSid *string `json:"CallSid,omitempty"`
+	ConferenceSid *string `json:"ConferenceSid,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7220,8 +7220,8 @@ Retrieve a list of recordings belonging to the account used to make the request
  * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
  * @param optional nil or *ListRecordingOpts - Optional Parameters:
  * @param "DateCreated" (time.Time) - Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @param "DateCreatedlesserThan" (time.Time) - Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
- * @param "DateCreatedgreaterThan" (time.Time) - Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+ * @param "DateCreatedBefore" (time.Time) - Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+ * @param "DateCreatedAfter" (time.Time) - Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
  * @param "CallSid" (string) - The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
  * @param "ConferenceSid" (string) - The Conference SID that identifies the conference associated with the recording to read.
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7238,11 +7238,11 @@ func (c *DefaultApiService) ListRecording(AccountSid string, params *ListRecordi
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
-	if params != nil && params.DateCreatedlesserThan != nil {
-		data.Set("DateCreatedlesserThan", fmt.Sprint(*params.DateCreatedlesserThan)) 
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
-	if params != nil && params.DateCreatedgreaterThan != nil {
-		data.Set("DateCreatedgreaterThan", fmt.Sprint(*params.DateCreatedgreaterThan)) 
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.CallSid != nil {
 		data.Set("CallSid", *params.CallSid) 
@@ -7271,7 +7271,7 @@ func (c *DefaultApiService) ListRecording(AccountSid string, params *ListRecordi
 }
 // ListRecordingAddOnResultParams Optional parameters for the method 'ListRecordingAddOnResult'
 type ListRecordingAddOnResultParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7313,7 +7313,7 @@ func (c *DefaultApiService) ListRecordingAddOnResult(AccountSid string, Referenc
 }
 // ListRecordingAddOnResultPayloadParams Optional parameters for the method 'ListRecordingAddOnResultPayload'
 type ListRecordingAddOnResultPayloadParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7357,7 +7357,7 @@ func (c *DefaultApiService) ListRecordingAddOnResultPayload(AccountSid string, R
 }
 // ListRecordingTranscriptionParams Optional parameters for the method 'ListRecordingTranscription'
 type ListRecordingTranscriptionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7398,9 +7398,9 @@ func (c *DefaultApiService) ListRecordingTranscription(AccountSid string, Record
 }
 // ListShortCodeParams Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    ShortCode *string `json:"ShortCode,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	ShortCode *string `json:"ShortCode,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7448,7 +7448,7 @@ func (c *DefaultApiService) ListShortCode(AccountSid string, params *ListShortCo
 }
 // ListSigningKeyParams Optional parameters for the method 'ListSigningKey'
 type ListSigningKeyParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7487,7 +7487,7 @@ func (c *DefaultApiService) ListSigningKey(AccountSid string, params *ListSignin
 }
 // ListSipAuthCallsCredentialListMappingParams Optional parameters for the method 'ListSipAuthCallsCredentialListMapping'
 type ListSipAuthCallsCredentialListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7529,7 +7529,7 @@ func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(AccountSid str
 }
 // ListSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'ListSipAuthCallsIpAccessControlListMapping'
 type ListSipAuthCallsIpAccessControlListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7571,7 +7571,7 @@ func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(AccountSi
 }
 // ListSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'ListSipAuthRegistrationsCredentialListMapping'
 type ListSipAuthRegistrationsCredentialListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7613,7 +7613,7 @@ func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(Accoun
 }
 // ListSipCredentialParams Optional parameters for the method 'ListSipCredential'
 type ListSipCredentialParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7655,7 +7655,7 @@ func (c *DefaultApiService) ListSipCredential(AccountSid string, CredentialListS
 }
 // ListSipCredentialListParams Optional parameters for the method 'ListSipCredentialList'
 type ListSipCredentialListParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7695,7 +7695,7 @@ func (c *DefaultApiService) ListSipCredentialList(AccountSid string, params *Lis
 }
 // ListSipCredentialListMappingParams Optional parameters for the method 'ListSipCredentialListMapping'
 type ListSipCredentialListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7737,7 +7737,7 @@ func (c *DefaultApiService) ListSipCredentialListMapping(AccountSid string, Doma
 }
 // ListSipDomainParams Optional parameters for the method 'ListSipDomain'
 type ListSipDomainParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7777,7 +7777,7 @@ func (c *DefaultApiService) ListSipDomain(AccountSid string, params *ListSipDoma
 }
 // ListSipIpAccessControlListParams Optional parameters for the method 'ListSipIpAccessControlList'
 type ListSipIpAccessControlListParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7817,7 +7817,7 @@ func (c *DefaultApiService) ListSipIpAccessControlList(AccountSid string, params
 }
 // ListSipIpAccessControlListMappingParams Optional parameters for the method 'ListSipIpAccessControlListMapping'
 type ListSipIpAccessControlListMappingParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7859,7 +7859,7 @@ func (c *DefaultApiService) ListSipIpAccessControlListMapping(AccountSid string,
 }
 // ListSipIpAddressParams Optional parameters for the method 'ListSipIpAddress'
 type ListSipIpAddressParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7901,7 +7901,7 @@ func (c *DefaultApiService) ListSipIpAddress(AccountSid string, IpAccessControlL
 }
 // ListTranscriptionParams Optional parameters for the method 'ListTranscription'
 type ListTranscriptionParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7941,11 +7941,11 @@ func (c *DefaultApiService) ListTranscription(AccountSid string, params *ListTra
 }
 // ListUsageRecordParams Optional parameters for the method 'ListUsageRecord'
 type ListUsageRecordParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8001,11 +8001,11 @@ func (c *DefaultApiService) ListUsageRecord(AccountSid string, params *ListUsage
 }
 // ListUsageRecordAllTimeParams Optional parameters for the method 'ListUsageRecordAllTime'
 type ListUsageRecordAllTimeParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8060,11 +8060,11 @@ func (c *DefaultApiService) ListUsageRecordAllTime(AccountSid string, params *Li
 }
 // ListUsageRecordDailyParams Optional parameters for the method 'ListUsageRecordDaily'
 type ListUsageRecordDailyParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8119,11 +8119,11 @@ func (c *DefaultApiService) ListUsageRecordDaily(AccountSid string, params *List
 }
 // ListUsageRecordLastMonthParams Optional parameters for the method 'ListUsageRecordLastMonth'
 type ListUsageRecordLastMonthParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8178,11 +8178,11 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(AccountSid string, params *
 }
 // ListUsageRecordMonthlyParams Optional parameters for the method 'ListUsageRecordMonthly'
 type ListUsageRecordMonthlyParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8237,11 +8237,11 @@ func (c *DefaultApiService) ListUsageRecordMonthly(AccountSid string, params *Li
 }
 // ListUsageRecordThisMonthParams Optional parameters for the method 'ListUsageRecordThisMonth'
 type ListUsageRecordThisMonthParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8296,11 +8296,11 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(AccountSid string, params *
 }
 // ListUsageRecordTodayParams Optional parameters for the method 'ListUsageRecordToday'
 type ListUsageRecordTodayParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8355,11 +8355,11 @@ func (c *DefaultApiService) ListUsageRecordToday(AccountSid string, params *List
 }
 // ListUsageRecordYearlyParams Optional parameters for the method 'ListUsageRecordYearly'
 type ListUsageRecordYearlyParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8414,11 +8414,11 @@ func (c *DefaultApiService) ListUsageRecordYearly(AccountSid string, params *Lis
 }
 // ListUsageRecordYesterdayParams Optional parameters for the method 'ListUsageRecordYesterday'
 type ListUsageRecordYesterdayParams struct {
-    Category *string `json:"Category,omitempty"`
-    StartDate *time.Time `json:"StartDate,omitempty"`
-    EndDate *time.Time `json:"EndDate,omitempty"`
-    IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Category *string `json:"Category,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8473,10 +8473,10 @@ func (c *DefaultApiService) ListUsageRecordYesterday(AccountSid string, params *
 }
 // ListUsageTriggerParams Optional parameters for the method 'ListUsageTrigger'
 type ListUsageTriggerParams struct {
-    Recurring *string `json:"Recurring,omitempty"`
-    TriggerBy *string `json:"TriggerBy,omitempty"`
-    UsageCategory *string `json:"UsageCategory,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Recurring *string `json:"Recurring,omitempty"`
+	TriggerBy *string `json:"TriggerBy,omitempty"`
+	UsageCategory *string `json:"UsageCategory,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8528,8 +8528,8 @@ func (c *DefaultApiService) ListUsageTrigger(AccountSid string, params *ListUsag
 }
 // UpdateAccountParams Optional parameters for the method 'UpdateAccount'
 type UpdateAccountParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -8573,14 +8573,14 @@ func (c *DefaultApiService) UpdateAccount(Sid string, params *UpdateAccountParam
 }
 // UpdateAddressParams Optional parameters for the method 'UpdateAddress'
 type UpdateAddressParams struct {
-    AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
-    City *string `json:"City,omitempty"`
-    CustomerName *string `json:"CustomerName,omitempty"`
-    EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PostalCode *string `json:"PostalCode,omitempty"`
-    Region *string `json:"Region,omitempty"`
-    Street *string `json:"Street,omitempty"`
+	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
+	City *string `json:"City,omitempty"`
+	CustomerName *string `json:"CustomerName,omitempty"`
+	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PostalCode *string `json:"PostalCode,omitempty"`
+	Region *string `json:"Region,omitempty"`
+	Street *string `json:"Street,omitempty"`
 }
 
 /*
@@ -8649,21 +8649,21 @@ func (c *DefaultApiService) UpdateAddress(AccountSid string, Sid string, params 
 }
 // UpdateApplicationParams Optional parameters for the method 'UpdateApplication'
 type UpdateApplicationParams struct {
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -8761,14 +8761,14 @@ func (c *DefaultApiService) UpdateApplication(AccountSid string, Sid string, par
 }
 // UpdateCallParams Optional parameters for the method 'UpdateCall'
 type UpdateCallParams struct {
-    FallbackMethod *string `json:"FallbackMethod,omitempty"`
-    FallbackUrl *string `json:"FallbackUrl,omitempty"`
-    Method *string `json:"Method,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    Twiml *string `json:"Twiml,omitempty"`
-    Url *string `json:"Url,omitempty"`
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	Method *string `json:"Method,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	Twiml *string `json:"Twiml,omitempty"`
+	Url *string `json:"Url,omitempty"`
 }
 
 /*
@@ -8838,8 +8838,8 @@ func (c *DefaultApiService) UpdateCall(AccountSid string, Sid string, params *Up
 }
 // UpdateCallFeedbackParams Optional parameters for the method 'UpdateCallFeedback'
 type UpdateCallFeedbackParams struct {
-    Issue *[]string `json:"Issue,omitempty"`
-    QualityScore *int32 `json:"QualityScore,omitempty"`
+	Issue *[]string `json:"Issue,omitempty"`
+	QualityScore *int32 `json:"QualityScore,omitempty"`
 }
 
 /*
@@ -8885,8 +8885,8 @@ func (c *DefaultApiService) UpdateCallFeedback(AccountSid string, CallSid string
 }
 // UpdateCallRecordingParams Optional parameters for the method 'UpdateCallRecording'
 type UpdateCallRecordingParams struct {
-    PauseBehavior *string `json:"PauseBehavior,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	PauseBehavior *string `json:"PauseBehavior,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -8934,9 +8934,9 @@ func (c *DefaultApiService) UpdateCallRecording(AccountSid string, CallSid strin
 }
 // UpdateConferenceParams Optional parameters for the method 'UpdateConference'
 type UpdateConferenceParams struct {
-    AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
-    AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
+	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -8985,8 +8985,8 @@ func (c *DefaultApiService) UpdateConference(AccountSid string, Sid string, para
 }
 // UpdateConferenceRecordingParams Optional parameters for the method 'UpdateConferenceRecording'
 type UpdateConferenceRecordingParams struct {
-    PauseBehavior *string `json:"PauseBehavior,omitempty"`
-    Status *string `json:"Status,omitempty"`
+	PauseBehavior *string `json:"PauseBehavior,omitempty"`
+	Status *string `json:"Status,omitempty"`
 }
 
 /*
@@ -9034,14 +9034,14 @@ func (c *DefaultApiService) UpdateConferenceRecording(AccountSid string, Confere
 }
 // UpdateConnectAppParams Optional parameters for the method 'UpdateConnectApp'
 type UpdateConnectAppParams struct {
-    AuthorizeRedirectUrl *string `json:"AuthorizeRedirectUrl,omitempty"`
-    CompanyName *string `json:"CompanyName,omitempty"`
-    DeauthorizeCallbackMethod *string `json:"DeauthorizeCallbackMethod,omitempty"`
-    DeauthorizeCallbackUrl *string `json:"DeauthorizeCallbackUrl,omitempty"`
-    Description *string `json:"Description,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    HomepageUrl *string `json:"HomepageUrl,omitempty"`
-    Permissions *[]string `json:"Permissions,omitempty"`
+	AuthorizeRedirectUrl *string `json:"AuthorizeRedirectUrl,omitempty"`
+	CompanyName *string `json:"CompanyName,omitempty"`
+	DeauthorizeCallbackMethod *string `json:"DeauthorizeCallbackMethod,omitempty"`
+	DeauthorizeCallbackUrl *string `json:"DeauthorizeCallbackUrl,omitempty"`
+	Description *string `json:"Description,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	HomepageUrl *string `json:"HomepageUrl,omitempty"`
+	Permissions *[]string `json:"Permissions,omitempty"`
 }
 
 /*
@@ -9111,29 +9111,29 @@ func (c *DefaultApiService) UpdateConnectApp(AccountSid string, Sid string, para
 }
 // UpdateIncomingPhoneNumberParams Optional parameters for the method 'UpdateIncomingPhoneNumber'
 type UpdateIncomingPhoneNumberParams struct {
-    AccountSid *string `json:"AccountSid,omitempty"`
-    AddressSid *string `json:"AddressSid,omitempty"`
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    BundleSid *string `json:"BundleSid,omitempty"`
-    EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-    EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IdentitySid *string `json:"IdentitySid,omitempty"`
-    SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
-    StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-    TrunkSid *string `json:"TrunkSid,omitempty"`
-    VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
-    VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	AddressSid *string `json:"AddressSid,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	BundleSid *string `json:"BundleSid,omitempty"`
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -9263,7 +9263,7 @@ func (c *DefaultApiService) UpdateIncomingPhoneNumber(AccountSid string, Sid str
 }
 // UpdateKeyParams Optional parameters for the method 'UpdateKey'
 type UpdateKeyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9304,8 +9304,8 @@ func (c *DefaultApiService) UpdateKey(AccountSid string, Sid string, params *Upd
 }
 // UpdateMemberParams Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
-    Method *string `json:"Method,omitempty"`
-    Url *string `json:"Url,omitempty"`
+	Method *string `json:"Method,omitempty"`
+	Url *string `json:"Url,omitempty"`
 }
 
 /*
@@ -9353,7 +9353,7 @@ func (c *DefaultApiService) UpdateMember(AccountSid string, QueueSid string, Cal
 }
 // UpdateMessageParams Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
-    Body *string `json:"Body,omitempty"`
+	Body *string `json:"Body,omitempty"`
 }
 
 /*
@@ -9395,7 +9395,7 @@ func (c *DefaultApiService) UpdateMessage(AccountSid string, Sid string, params 
 }
 // UpdateOutgoingCallerIdParams Optional parameters for the method 'UpdateOutgoingCallerId'
 type UpdateOutgoingCallerIdParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9437,18 +9437,18 @@ func (c *DefaultApiService) UpdateOutgoingCallerId(AccountSid string, Sid string
 }
 // UpdateParticipantParams Optional parameters for the method 'UpdateParticipant'
 type UpdateParticipantParams struct {
-    AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
-    AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
-    BeepOnExit *bool `json:"BeepOnExit,omitempty"`
-    CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
-    Coaching *bool `json:"Coaching,omitempty"`
-    EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
-    Hold *bool `json:"Hold,omitempty"`
-    HoldMethod *string `json:"HoldMethod,omitempty"`
-    HoldUrl *string `json:"HoldUrl,omitempty"`
-    Muted *bool `json:"Muted,omitempty"`
-    WaitMethod *string `json:"WaitMethod,omitempty"`
-    WaitUrl *string `json:"WaitUrl,omitempty"`
+	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
+	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
+	BeepOnExit *bool `json:"BeepOnExit,omitempty"`
+	CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
+	Coaching *bool `json:"Coaching,omitempty"`
+	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
+	Hold *bool `json:"Hold,omitempty"`
+	HoldMethod *string `json:"HoldMethod,omitempty"`
+	HoldUrl *string `json:"HoldUrl,omitempty"`
+	Muted *bool `json:"Muted,omitempty"`
+	WaitMethod *string `json:"WaitMethod,omitempty"`
+	WaitUrl *string `json:"WaitUrl,omitempty"`
 }
 
 /*
@@ -9536,10 +9536,10 @@ func (c *DefaultApiService) UpdateParticipant(AccountSid string, ConferenceSid s
 }
 // UpdatePaymentsParams Optional parameters for the method 'UpdatePayments'
 type UpdatePaymentsParams struct {
-    Capture *string `json:"Capture,omitempty"`
-    IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
-    Status *string `json:"Status,omitempty"`
-    StatusCallback *string `json:"StatusCallback,omitempty"`
+	Capture *string `json:"Capture,omitempty"`
+	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
+	Status *string `json:"Status,omitempty"`
+	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
 /*
@@ -9595,8 +9595,8 @@ func (c *DefaultApiService) UpdatePayments(AccountSid string, CallSid string, Si
 }
 // UpdateQueueParams Optional parameters for the method 'UpdateQueue'
 type UpdateQueueParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    MaxSize *int32 `json:"MaxSize,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	MaxSize *int32 `json:"MaxSize,omitempty"`
 }
 
 /*
@@ -9642,12 +9642,12 @@ func (c *DefaultApiService) UpdateQueue(AccountSid string, Sid string, params *U
 }
 // UpdateShortCodeParams Optional parameters for the method 'UpdateShortCode'
 type UpdateShortCodeParams struct {
-    ApiVersion *string `json:"ApiVersion,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-    SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-    SmsMethod *string `json:"SmsMethod,omitempty"`
-    SmsUrl *string `json:"SmsUrl,omitempty"`
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsUrl *string `json:"SmsUrl,omitempty"`
 }
 
 /*
@@ -9709,7 +9709,7 @@ func (c *DefaultApiService) UpdateShortCode(AccountSid string, Sid string, param
 }
 // UpdateSigningKeyParams Optional parameters for the method 'UpdateSigningKey'
 type UpdateSigningKeyParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9750,7 +9750,7 @@ func (c *DefaultApiService) UpdateSigningKey(AccountSid string, Sid string, para
 }
 // UpdateSipCredentialParams Optional parameters for the method 'UpdateSipCredential'
 type UpdateSipCredentialParams struct {
-    Password *string `json:"Password,omitempty"`
+	Password *string `json:"Password,omitempty"`
 }
 
 /*
@@ -9794,7 +9794,7 @@ func (c *DefaultApiService) UpdateSipCredential(AccountSid string, CredentialLis
 }
 // UpdateSipCredentialListParams Optional parameters for the method 'UpdateSipCredentialList'
 type UpdateSipCredentialListParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9836,19 +9836,19 @@ func (c *DefaultApiService) UpdateSipCredentialList(AccountSid string, Sid strin
 }
 // UpdateSipDomainParams Optional parameters for the method 'UpdateSipDomain'
 type UpdateSipDomainParams struct {
-    ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
-    DomainName *string `json:"DomainName,omitempty"`
-    EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
-    EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Secure *bool `json:"Secure,omitempty"`
-    SipRegistration *bool `json:"SipRegistration,omitempty"`
-    VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-    VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-    VoiceMethod *string `json:"VoiceMethod,omitempty"`
-    VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
-    VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
-    VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
+	DomainName *string `json:"DomainName,omitempty"`
+	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
+	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Secure *bool `json:"Secure,omitempty"`
+	SipRegistration *bool `json:"SipRegistration,omitempty"`
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
+	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
@@ -9938,7 +9938,7 @@ func (c *DefaultApiService) UpdateSipDomain(AccountSid string, Sid string, param
 }
 // UpdateSipIpAccessControlListParams Optional parameters for the method 'UpdateSipIpAccessControlList'
 type UpdateSipIpAccessControlListParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -9980,9 +9980,9 @@ func (c *DefaultApiService) UpdateSipIpAccessControlList(AccountSid string, Sid 
 }
 // UpdateSipIpAddressParams Optional parameters for the method 'UpdateSipIpAddress'
 type UpdateSipIpAddressParams struct {
-    CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    IpAddress *string `json:"IpAddress,omitempty"`
+	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	IpAddress *string `json:"IpAddress,omitempty"`
 }
 
 /*
@@ -10034,9 +10034,9 @@ func (c *DefaultApiService) UpdateSipIpAddress(AccountSid string, IpAccessContro
 }
 // UpdateUsageTriggerParams Optional parameters for the method 'UpdateUsageTrigger'
 type UpdateUsageTriggerParams struct {
-    CallbackMethod *string `json:"CallbackMethod,omitempty"`
-    CallbackUrl *string `json:"CallbackUrl,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
