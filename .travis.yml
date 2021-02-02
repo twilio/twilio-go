@@ -1,0 +1,13 @@
+language: go
+env:
+- version=1.13
+- version=1.14
+- version=1.15
+- version=latest
+install:
+- make install
+script:
+- make test
+notifications:
+  slack:
+    secure: cItjY/1VHEVdIquy0rFWER9s/IqwIRy4zlQF1CVKaigWMsafbmxWanRY18ArMNCvEVHtjYU09+ubgegx2aqnRZxTIKqppsOboJxTBhlJFZA5oPRaHZYDPw+tWqaVFtOVoQ1B8NbUjognv1LCIL2wVKZSlDx4z7AVmjHPNFiHVbI1Zj/TOYuz8csJG6FjtUqxdZXM1pyqLcbiWbjYlT7+dUahOrhaUWY0NmpFr62gsytEQi37IWzcKSBGxkd0LkJAXsh5AzbBy75ySSGr3OIXdiYsXniboxegzMW+lkoY7SUmfoAfp4buDjno+E3JKJWUQun7whRhUmemSf2Bb9xlzuwTnwdQxKA/tXO9cNQDV/VWSybe58ymyecTCnNCUPVc4iIDHCgZhBA/gyX9dHZlIi3J6Uj8c3+dld2mRpukagpzWDY9EzmqgJ8N6eL9sgP9f3qHt/vdzqgk0KsXEI35+2W6iFsn2dhCUNFAuglgwzMzaFE7umF23PG48PIotDcYKwOyb+TM7enqBTSIRjiHbyptMZHpVwYpyLJLGYUvlhjacHiOxaNziumWw+YB0T+TzFfv5jy5NHNL5UKXbDXMXUgHdIRwD9stiEVt3g2zgv8PFKnAPTnd7WG5F7YkKGsq7Yto2JBg2LCqPZ6MYrVeKiDwLxNhmuNotcHwAKCjx48=
