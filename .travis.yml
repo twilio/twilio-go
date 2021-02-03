@@ -3,8 +3,9 @@ env:
 - version=1.14
 - version=1.15
 - version=latest
+go_import_path: github.com/twilio/twilio-go/tree/main
 install:
-  - make install
+- make install
 script:
 - make test
 notifications:
