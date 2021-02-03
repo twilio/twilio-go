@@ -8,15 +8,15 @@ The documentation for the Twilio API can be found [here][apidocs].
 
 This library supports the following Go implementations:
 
-* 1.13.8 
+* 1.14 & 1.15
 
 ## Installation
 
-To use twilio-go in your project initialize go modules then run: 
+To use twilio-go in your project initialize go modules then run:
 
 ```bash
 go get github.com/twilio/twilio-go@latest
-``` 
+```
 
 ## Getting Started
 
@@ -167,7 +167,7 @@ go test [-v]
 ```
 
 ### Service Coverage
-*twilio-go* provides clients for: 
+*twilio-go* provides clients for:
  - [Available Phone Number Local](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource)
  - [Chat Role](https://www.twilio.com/docs/chat/rest/role-resource)
  - [Chat Service](https://www.twilio.com/docs/chat/rest/service-resource)
@@ -183,16 +183,16 @@ go test [-v]
  - [TaskRouter TaskQueue](https://www.twilio.com/docs/taskrouter/api/task-queue)
  - [TaskRouter Workflow](https://www.twilio.com/docs/taskrouter/api/workflow)
  - [TaskRouter Workspace](https://www.twilio.com/docs/taskrouter/api/workspace)
- 
+
  ### Code Organization
  In general each service's client is implemented in a namesake file (e.g. [Chat Service](https://www.twilio.com/docs/chat/rest/service-resource) is in **chat_service.go**)
  Large services are split between files and will share the same prefix (e.g. **taskrouter_activity.go** and **taskrouter_taskqueue.go**).
  Files for testing are appended with `_test` (e.g. **sync_service_test.go**).
- **twilio.go** ties the library together by defining the `Twilio` struct and the `Client` constructor `NewClient`.  
+ **twilio.go** ties the library together by defining the `Twilio` struct and the `Client` constructor `NewClient`.
 The `Client` structure promotes memory reuse between service clients, and provides the `baseURL` to service clients to allow redirecting requests to non-production domains.
 
 Under the hood the Twilio Client relies on the private functionality within **internal/twilio.go**.
-The main functionality is captured by `SendRequest` and `doWithErr`. 
+The main functionality is captured by `SendRequest` and `doWithErr`.
 `SendRequest` and `doWithErr` facilitate network requests and allow the library to provide an `http.Response` and `error` object.
 `SendRequest` performs the required encoding and request configuration to comply with Twilio's HTTP standards.
 Go's built in struct marshalling is not compatible with Twilio's requirements for form encoding so encoding is performed by the `form` package forked from https://github.com/ajg/form.
@@ -221,9 +221,9 @@ While the overall code structure and client interface is modeled after existing 
 - [DigitalOcean](https://github.com/digitalocean/godo)
 - [Terraform](https://github.com/hashicorp/go-tfe)
 
-These existing SDKs influenced things like our module pattern (using one module instead of breaking everything into separate resource modules) and unit testing strategy. 
+These existing SDKs influenced things like our module pattern (using one module instead of breaking everything into separate resource modules) and unit testing strategy.
 
-### Behavioral Notes and Future Improvements 
+### Behavioral Notes and Future Improvements
 Things that we wanted to address had we been given more time:
 - [ ] **Parameter Validation** - *twilio-go* provides no built-in parameter validation.
 - [ ] **Enums**- Properties that are of an enumberable type are defaulted to a string
