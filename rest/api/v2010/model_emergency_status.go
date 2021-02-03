@@ -14,6 +14,6 @@ type EmergencyStatus string
 
 // List of emergency_status
 const (
-	ACTIVE EmergencyStatus = "Active"
-	INACTIVE EmergencyStatus = "Inactive"
+	EMERGENCYSTATUS_ACTIVE EmergencyStatus = "Active"
+	EMERGENCYSTATUS_INACTIVE EmergencyStatus = "Inactive"
 )

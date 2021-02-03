@@ -14,8 +14,8 @@ type ChallengeStatuses string
 
 // List of challenge_statuses
 const (
-	PENDING ChallengeStatuses = "pending"
-	EXPIRED ChallengeStatuses = "expired"
-	APPROVED ChallengeStatuses = "approved"
-	DENIED ChallengeStatuses = "denied"
+	CHALLENGESTATUSES_PENDING ChallengeStatuses = "pending"
+	CHALLENGESTATUSES_EXPIRED ChallengeStatuses = "expired"
+	CHALLENGESTATUSES_APPROVED ChallengeStatuses = "approved"
+	CHALLENGESTATUSES_DENIED ChallengeStatuses = "denied"
 )

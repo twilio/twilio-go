@@ -14,6 +14,6 @@ type VerificationType string
 
 // List of verification_type
 const (
-	CALL VerificationType = "phone-call"
-	BILL VerificationType = "phone-bill"
+	VERIFICATIONTYPE_CALL VerificationType = "phone-call"
+	VERIFICATIONTYPE_BILL VerificationType = "phone-bill"
 )

@@ -14,7 +14,7 @@ type IntegrationType string
 
 // List of integration_type
 const (
-	STUDIO IntegrationType = "studio"
-	EXTERNAL IntegrationType = "external"
-	TASK IntegrationType = "task"
+	INTEGRATIONTYPE_STUDIO IntegrationType = "studio"
+	INTEGRATIONTYPE_EXTERNAL IntegrationType = "external"
+	INTEGRATIONTYPE_TASK IntegrationType = "task"
 )

@@ -14,7 +14,7 @@ type TransferSetting string
 
 // List of transfer_setting
 const (
-	DISABLE_ALL TransferSetting = "disable-all"
-	ENABLE_ALL TransferSetting = "enable-all"
-	SIP_ONLY TransferSetting = "sip-only"
+	TRANSFERSETTING_DISABLE_ALL TransferSetting = "disable-all"
+	TRANSFERSETTING_ENABLE_ALL TransferSetting = "enable-all"
+	TRANSFERSETTING_SIP_ONLY TransferSetting = "sip-only"
 )

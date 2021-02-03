@@ -14,11 +14,11 @@ type Source string
 
 // List of source
 const (
-	DIAL_VERB Source = "DialVerb"
-	CONFERENCE Source = "Conference"
-	OUTBOUND_API Source = "OutboundAPI"
-	TRUNKING Source = "Trunking"
-	RECORD_VERB Source = "RecordVerb"
-	START_CALL_RECORDING_API Source = "StartCallRecordingAPI"
-	START_CONFERENCE_RECORDING_API Source = "StartConferenceRecordingAPI"
+	SOURCE_DIAL_VERB Source = "DialVerb"
+	SOURCE_CONFERENCE Source = "Conference"
+	SOURCE_OUTBOUND_API Source = "OutboundAPI"
+	SOURCE_TRUNKING Source = "Trunking"
+	SOURCE_RECORD_VERB Source = "RecordVerb"
+	SOURCE_START_CALL_RECORDING_API Source = "StartCallRecordingAPI"
+	SOURCE_START_CONFERENCE_RECORDING_API Source = "StartConferenceRecordingAPI"
 )

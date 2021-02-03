@@ -14,6 +14,6 @@ type SinkType string
 
 // List of sink_type
 const (
-	KINESIS SinkType = "kinesis"
-	WEBHOOK SinkType = "webhook"
+	SINKTYPE_KINESIS SinkType = "kinesis"
+	SINKTYPE_WEBHOOK SinkType = "webhook"
 )

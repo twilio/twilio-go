@@ -14,6 +14,6 @@ type Status string
 
 // List of status
 const (
-	ENABLED Status = "enabled"
-	DISABLED Status = "disabled"
+	STATUS_ENABLED Status = "enabled"
+	STATUS_DISABLED Status = "disabled"
 )

@@ -14,8 +14,8 @@ type AddressRequirement string
 
 // List of address_requirement
 const (
-	NONE AddressRequirement = "none"
-	ANY AddressRequirement = "any"
-	LOCAL AddressRequirement = "local"
-	FOREIGN AddressRequirement = "foreign"
+	ADDRESSREQUIREMENT_NONE AddressRequirement = "none"
+	ADDRESSREQUIREMENT_ANY AddressRequirement = "any"
+	ADDRESSREQUIREMENT_LOCAL AddressRequirement = "local"
+	ADDRESSREQUIREMENT_FOREIGN AddressRequirement = "foreign"
 )

@@ -14,6 +14,6 @@ type NotificationLevel string
 
 // List of notification_level
 const (
-	DEFAULT NotificationLevel = "default"
-	MUTED NotificationLevel = "muted"
+	NOTIFICATIONLEVEL_DEFAULT NotificationLevel = "default"
+	NOTIFICATIONLEVEL_MUTED NotificationLevel = "muted"
 )

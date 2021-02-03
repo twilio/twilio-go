@@ -14,9 +14,9 @@ type Level string
 
 // List of level
 const (
-	UNKNOWN Level = "UNKNOWN"
-	DEBUG Level = "DEBUG"
-	INFO Level = "INFO"
-	WARNING Level = "WARNING"
-	ERROR Level = "ERROR"
+	LEVEL_UNKNOWN Level = "UNKNOWN"
+	LEVEL_DEBUG Level = "DEBUG"
+	LEVEL_INFO Level = "INFO"
+	LEVEL_WARNING Level = "WARNING"
+	LEVEL_ERROR Level = "ERROR"
 )

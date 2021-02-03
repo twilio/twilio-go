@@ -14,7 +14,7 @@ type Kind string
 
 // List of kind
 const (
-	AUDIO Kind = "audio"
-	VIDEO Kind = "video"
-	DATA Kind = "data"
+	KIND_AUDIO Kind = "audio"
+	KIND_VIDEO Kind = "video"
+	KIND_DATA Kind = "data"
 )

@@ -14,6 +14,6 @@ type QueueOrder string
 
 // List of queue_order
 const (
-	FIFO QueueOrder = "FIFO"
-	LIFO QueueOrder = "LIFO"
+	QUEUEORDER_FIFO QueueOrder = "FIFO"
+	QUEUEORDER_LIFO QueueOrder = "LIFO"
 )

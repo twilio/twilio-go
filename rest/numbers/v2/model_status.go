@@ -14,10 +14,10 @@ type Status string
 
 // List of status
 const (
-	DRAFT Status = "draft"
-	PENDING_REVIEW Status = "pending-review"
-	REJECTED Status = "rejected"
-	APPROVED Status = "approved"
-	EXPIRED Status = "expired"
-	PROVISIONALLY_APPROVED Status = "provisionally-approved"
+	STATUS_DRAFT Status = "draft"
+	STATUS_PENDING_REVIEW Status = "pending-review"
+	STATUS_REJECTED Status = "rejected"
+	STATUS_APPROVED Status = "approved"
+	STATUS_EXPIRED Status = "expired"
+	STATUS_PROVISIONALLY_APPROVED Status = "provisionally-approved"
 )

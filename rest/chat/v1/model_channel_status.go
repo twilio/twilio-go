@@ -14,7 +14,7 @@ type ChannelStatus string
 
 // List of channel_status
 const (
-	JOINED ChannelStatus = "joined"
-	INVITED ChannelStatus = "invited"
-	NOT_PARTICIPATING ChannelStatus = "not_participating"
+	CHANNELSTATUS_JOINED ChannelStatus = "joined"
+	CHANNELSTATUS_INVITED ChannelStatus = "invited"
+	CHANNELSTATUS_NOT_PARTICIPATING ChannelStatus = "not_participating"
 )

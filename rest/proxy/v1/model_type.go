@@ -14,7 +14,7 @@ type ModelType string
 
 // List of Type_
 const (
-	MESSAGE ModelType = "message"
-	VOICE ModelType = "voice"
-	UNKNOWN ModelType = "unknown"
+	MODELTYPE_MESSAGE ModelType = "message"
+	MODELTYPE_VOICE ModelType = "voice"
+	MODELTYPE_UNKNOWN ModelType = "unknown"
 )

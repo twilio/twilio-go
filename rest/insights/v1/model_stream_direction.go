@@ -14,8 +14,8 @@ type StreamDirection string
 
 // List of stream_direction
 const (
-	UNKNOWN StreamDirection = "unknown"
-	INBOUND StreamDirection = "inbound"
-	OUTBOUND StreamDirection = "outbound"
-	BOTH StreamDirection = "both"
+	STREAMDIRECTION_UNKNOWN StreamDirection = "unknown"
+	STREAMDIRECTION_INBOUND StreamDirection = "inbound"
+	STREAMDIRECTION_OUTBOUND StreamDirection = "outbound"
+	STREAMDIRECTION_BOTH StreamDirection = "both"
 )

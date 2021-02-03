@@ -14,16 +14,16 @@ type HttpMethod string
 
 // List of http_method
 const (
-	HEAD HttpMethod = "head"
-	GET HttpMethod = "get"
-	POST HttpMethod = "post"
-	PATCH HttpMethod = "patch"
-	PUT HttpMethod = "put"
-	DELETE HttpMethod = "delete"
-	HEAD HttpMethod = "HEAD"
-	GET HttpMethod = "GET"
-	POST HttpMethod = "POST"
-	PATCH HttpMethod = "PATCH"
-	PUT HttpMethod = "PUT"
-	DELETE HttpMethod = "DELETE"
+	HTTPMETHOD_HEAD HttpMethod = "head"
+	HTTPMETHOD_GET HttpMethod = "get"
+	HTTPMETHOD_POST HttpMethod = "post"
+	HTTPMETHOD_PATCH HttpMethod = "patch"
+	HTTPMETHOD_PUT HttpMethod = "put"
+	HTTPMETHOD_DELETE HttpMethod = "delete"
+	HTTPMETHOD_HEAD HttpMethod = "HEAD"
+	HTTPMETHOD_GET HttpMethod = "GET"
+	HTTPMETHOD_POST HttpMethod = "POST"
+	HTTPMETHOD_PATCH HttpMethod = "PATCH"
+	HTTPMETHOD_PUT HttpMethod = "PUT"
+	HTTPMETHOD_DELETE HttpMethod = "DELETE"
 )

@@ -14,6 +14,6 @@ type Direction string
 
 // List of direction
 const (
-	FROM_SIM Direction = "from_sim"
-	TO_SIM Direction = "to_sim"
+	DIRECTION_FROM_SIM Direction = "from_sim"
+	DIRECTION_TO_SIM Direction = "to_sim"
 )

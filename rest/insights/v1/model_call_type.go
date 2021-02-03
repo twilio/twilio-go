@@ -14,8 +14,8 @@ type CallType string
 
 // List of call_type
 const (
-	CARRIER CallType = "carrier"
-	SIP CallType = "sip"
-	TRUNKING CallType = "trunking"
-	CLIENT CallType = "client"
+	CALLTYPE_CARRIER CallType = "carrier"
+	CALLTYPE_SIP CallType = "sip"
+	CALLTYPE_TRUNKING CallType = "trunking"
+	CALLTYPE_CLIENT CallType = "client"
 )

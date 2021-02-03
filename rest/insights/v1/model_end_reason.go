@@ -14,6 +14,6 @@ type EndReason string
 
 // List of end_reason
 const (
-	ROOM_ENDED_VIA_API EndReason = "room_ended_via_api"
-	TIMEOUT EndReason = "timeout"
+	ENDREASON_ROOM_ENDED_VIA_API EndReason = "room_ended_via_api"
+	ENDREASON_TIMEOUT EndReason = "timeout"
 )

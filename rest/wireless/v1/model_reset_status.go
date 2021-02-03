@@ -14,5 +14,5 @@ type ResetStatus string
 
 // List of reset_status
 const (
-	RESETTING ResetStatus = "resetting"
+	RESETSTATUS_RESETTING ResetStatus = "resetting"
 )

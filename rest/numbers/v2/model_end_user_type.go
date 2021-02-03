@@ -14,6 +14,6 @@ type EndUserType string
 
 // List of end_user_type
 const (
-	INDIVIDUAL EndUserType = "individual"
-	BUSINESS EndUserType = "business"
+	ENDUSERTYPE_INDIVIDUAL EndUserType = "individual"
+	ENDUSERTYPE_BUSINESS EndUserType = "business"
 )

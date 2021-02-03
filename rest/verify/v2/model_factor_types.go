@@ -14,5 +14,5 @@ type FactorTypes string
 
 // List of factor_types
 const (
-	PUSH FactorTypes = "push"
+	FACTORTYPES_PUSH FactorTypes = "push"
 )

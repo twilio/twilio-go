@@ -14,8 +14,8 @@ type Status string
 
 // List of status
 const (
-	PROCESSING Status = "processing"
-	COMPLETED Status = "completed"
-	DELETED Status = "deleted"
-	FAILED Status = "failed"
+	STATUS_PROCESSING Status = "processing"
+	STATUS_COMPLETED Status = "completed"
+	STATUS_DELETED Status = "deleted"
+	STATUS_FAILED Status = "failed"
 )

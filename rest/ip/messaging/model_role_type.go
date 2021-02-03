@@ -14,6 +14,6 @@ type RoleType string
 
 // List of role_type
 const (
-	CHANNEL RoleType = "channel"
-	DEPLOYMENT RoleType = "deployment"
+	ROLETYPE_CHANNEL RoleType = "channel"
+	ROLETYPE_DEPLOYMENT RoleType = "deployment"
 )

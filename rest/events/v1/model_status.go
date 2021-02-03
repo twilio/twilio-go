@@ -14,8 +14,8 @@ type Status string
 
 // List of status
 const (
-	INITIALIZED Status = "initialized"
-	VALIDATING Status = "validating"
-	ACTIVE Status = "active"
-	FAILED Status = "failed"
+	STATUS_INITIALIZED Status = "initialized"
+	STATUS_VALIDATING Status = "validating"
+	STATUS_ACTIVE Status = "active"
+	STATUS_FAILED Status = "failed"
 )

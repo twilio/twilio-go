@@ -14,12 +14,12 @@ type Status string
 
 // List of status
 const (
-	PENDING Status = "pending"
-	ACCEPTED Status = "accepted"
-	REJECTED Status = "rejected"
-	TIMEOUT Status = "timeout"
-	CANCELED Status = "canceled"
-	RESCINDED Status = "rescinded"
-	WRAPPING Status = "wrapping"
-	COMPLETED Status = "completed"
+	STATUS_PENDING Status = "pending"
+	STATUS_ACCEPTED Status = "accepted"
+	STATUS_REJECTED Status = "rejected"
+	STATUS_TIMEOUT Status = "timeout"
+	STATUS_CANCELED Status = "canceled"
+	STATUS_RESCINDED Status = "rescinded"
+	STATUS_WRAPPING Status = "wrapping"
+	STATUS_COMPLETED Status = "completed"
 )

@@ -14,7 +14,7 @@ type BindingType string
 
 // List of binding_type
 const (
-	APN BindingType = "apn"
-	GCM BindingType = "gcm"
-	FCM BindingType = "fcm"
+	BINDINGTYPE_APN BindingType = "apn"
+	BINDINGTYPE_GCM BindingType = "gcm"
+	BINDINGTYPE_FCM BindingType = "fcm"
 )

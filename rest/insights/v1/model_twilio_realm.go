@@ -14,14 +14,14 @@ type TwilioRealm string
 
 // List of twilio_realm
 const (
-	US1 TwilioRealm = "us1"
-	US2 TwilioRealm = "us2"
-	AU1 TwilioRealm = "au1"
-	BR1 TwilioRealm = "br1"
-	IE1 TwilioRealm = "ie1"
-	JP1 TwilioRealm = "jp1"
-	SG1 TwilioRealm = "sg1"
-	IN1 TwilioRealm = "in1"
-	DE1 TwilioRealm = "de1"
-	GLL TwilioRealm = "gll"
+	TWILIOREALM_US1 TwilioRealm = "us1"
+	TWILIOREALM_US2 TwilioRealm = "us2"
+	TWILIOREALM_AU1 TwilioRealm = "au1"
+	TWILIOREALM_BR1 TwilioRealm = "br1"
+	TWILIOREALM_IE1 TwilioRealm = "ie1"
+	TWILIOREALM_JP1 TwilioRealm = "jp1"
+	TWILIOREALM_SG1 TwilioRealm = "sg1"
+	TWILIOREALM_IN1 TwilioRealm = "in1"
+	TWILIOREALM_DE1 TwilioRealm = "de1"
+	TWILIOREALM_GLL TwilioRealm = "gll"
 )

@@ -14,7 +14,7 @@ type Status string
 
 // List of status
 const (
-	OK Status = "ok"
-	INPROGRESS Status = "inprogress"
-	NOTSTARTED Status = "notstarted"
+	STATUS_OK Status = "ok"
+	STATUS_INPROGRESS Status = "inprogress"
+	STATUS_NOTSTARTED Status = "notstarted"
 )

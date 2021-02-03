@@ -14,6 +14,6 @@ type ChannelType string
 
 // List of channel_type
 const (
-	PUBLIC ChannelType = "public"
-	PRIVATE ChannelType = "private"
+	CHANNELTYPE_PUBLIC ChannelType = "public"
+	CHANNELTYPE_PRIVATE ChannelType = "private"
 )

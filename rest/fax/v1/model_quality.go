@@ -14,7 +14,7 @@ type Quality string
 
 // List of quality
 const (
-	STANDARD Quality = "standard"
-	FINE Quality = "fine"
-	SUPERFINE Quality = "superfine"
+	QUALITY_STANDARD Quality = "standard"
+	QUALITY_FINE Quality = "fine"
+	QUALITY_SUPERFINE Quality = "superfine"
 )

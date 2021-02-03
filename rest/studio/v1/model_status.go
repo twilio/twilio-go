@@ -14,6 +14,6 @@ type Status string
 
 // List of status
 const (
-	DRAFT Status = "draft"
-	PUBLISHED Status = "published"
+	STATUS_DRAFT Status = "draft"
+	STATUS_PUBLISHED Status = "published"
 )

@@ -14,6 +14,6 @@ type RoleType string
 
 // List of role_type
 const (
-	CONVERSATION RoleType = "conversation"
-	SERVICE RoleType = "service"
+	ROLETYPE_CONVERSATION RoleType = "conversation"
+	ROLETYPE_SERVICE RoleType = "service"
 )

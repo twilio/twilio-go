@@ -14,6 +14,6 @@ type Target string
 
 // List of target
 const (
-	WEBHOOK Target = "webhook"
-	FLEX Target = "flex"
+	TARGET_WEBHOOK Target = "webhook"
+	TARGET_FLEX Target = "flex"
 )

@@ -14,5 +14,5 @@ type FormTypes string
 
 // List of form_types
 const (
-	FORM_PUSH FormTypes = "form-push"
+	FORMTYPES_FORM_PUSH FormTypes = "form-push"
 )

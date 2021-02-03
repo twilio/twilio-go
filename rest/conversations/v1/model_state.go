@@ -14,7 +14,7 @@ type State string
 
 // List of state
 const (
-	INACTIVE State = "inactive"
-	ACTIVE State = "active"
-	CLOSED State = "closed"
+	STATE_INACTIVE State = "inactive"
+	STATE_ACTIVE State = "active"
+	STATE_CLOSED State = "closed"
 )

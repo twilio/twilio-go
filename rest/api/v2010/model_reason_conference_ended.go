@@ -14,9 +14,9 @@ type ReasonConferenceEnded string
 
 // List of reason_conference_ended
 const (
-	CONFERENCE_ENDED_VIA_API ReasonConferenceEnded = "conference-ended-via-api"
-	PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT ReasonConferenceEnded = "participant-with-end-conference-on-exit-left"
-	PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED ReasonConferenceEnded = "participant-with-end-conference-on-exit-kicked"
-	LAST_PARTICIPANT_KICKED ReasonConferenceEnded = "last-participant-kicked"
-	LAST_PARTICIPANT_LEFT ReasonConferenceEnded = "last-participant-left"
+	REASONCONFERENCEENDED_CONFERENCE_ENDED_VIA_API ReasonConferenceEnded = "conference-ended-via-api"
+	REASONCONFERENCEENDED_PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT ReasonConferenceEnded = "participant-with-end-conference-on-exit-left"
+	REASONCONFERENCEENDED_PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED ReasonConferenceEnded = "participant-with-end-conference-on-exit-kicked"
+	REASONCONFERENCEENDED_LAST_PARTICIPANT_KICKED ReasonConferenceEnded = "last-participant-kicked"
+	REASONCONFERENCEENDED_LAST_PARTICIPANT_LEFT ReasonConferenceEnded = "last-participant-left"
 )

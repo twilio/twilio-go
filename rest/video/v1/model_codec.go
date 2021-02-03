@@ -14,8 +14,8 @@ type Codec string
 
 // List of codec
 const (
-	VP8 Codec = "VP8"
-	H264 Codec = "H264"
-	OPUS Codec = "OPUS"
-	PCMU Codec = "PCMU"
+	CODEC_VP8 Codec = "VP8"
+	CODEC_H264 Codec = "H264"
+	CODEC_OPUS Codec = "OPUS"
+	CODEC_PCMU Codec = "PCMU"
 )

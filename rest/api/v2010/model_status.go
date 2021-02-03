@@ -14,7 +14,7 @@ type Status string
 
 // List of status
 const (
-	IN_PROGRESS Status = "in-progress"
-	COMPLETED Status = "completed"
-	FAILED Status = "failed"
+	STATUS_IN_PROGRESS Status = "in-progress"
+	STATUS_COMPLETED Status = "completed"
+	STATUS_FAILED Status = "failed"
 )

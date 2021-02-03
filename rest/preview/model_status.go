@@ -14,9 +14,9 @@ type Status string
 
 // List of status
 const (
-	ENQUEUED Status = "enqueued"
-	BUILDING Status = "building"
-	COMPLETED Status = "completed"
-	FAILED Status = "failed"
-	CANCELED Status = "canceled"
+	STATUS_ENQUEUED Status = "enqueued"
+	STATUS_BUILDING Status = "building"
+	STATUS_COMPLETED Status = "completed"
+	STATUS_FAILED Status = "failed"
+	STATUS_CANCELED Status = "canceled"
 )

@@ -14,14 +14,14 @@ type Status string
 
 // List of status
 const (
-	QUEUED Status = "queued"
-	PROCESSING Status = "processing"
-	SENDING Status = "sending"
-	DELIVERED Status = "delivered"
-	RECEIVING Status = "receiving"
-	RECEIVED Status = "received"
-	NO_ANSWER Status = "no-answer"
-	BUSY Status = "busy"
-	FAILED Status = "failed"
-	CANCELED Status = "canceled"
+	STATUS_QUEUED Status = "queued"
+	STATUS_PROCESSING Status = "processing"
+	STATUS_SENDING Status = "sending"
+	STATUS_DELIVERED Status = "delivered"
+	STATUS_RECEIVING Status = "receiving"
+	STATUS_RECEIVED Status = "received"
+	STATUS_NO_ANSWER Status = "no-answer"
+	STATUS_BUSY Status = "busy"
+	STATUS_FAILED Status = "failed"
+	STATUS_CANCELED Status = "canceled"
 )

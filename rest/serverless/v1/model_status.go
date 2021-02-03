@@ -14,7 +14,7 @@ type Status string
 
 // List of status
 const (
-	BUILDING Status = "building"
-	COMPLETED Status = "completed"
-	FAILED Status = "failed"
+	STATUS_BUILDING Status = "building"
+	STATUS_COMPLETED Status = "completed"
+	STATUS_FAILED Status = "failed"
 )

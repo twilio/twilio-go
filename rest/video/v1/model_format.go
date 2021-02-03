@@ -14,6 +14,6 @@ type Format string
 
 // List of format
 const (
-	MKA Format = "mka"
-	MKV Format = "mkv"
+	FORMAT_MKA Format = "mka"
+	FORMAT_MKV Format = "mkv"
 )

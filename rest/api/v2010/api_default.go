@@ -15,8 +15,6 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
-	"strings"
-	"time"
 )
 
 type DefaultApiService struct {
@@ -50,7 +48,7 @@ func (c *DefaultApiService) CreateAccount(params *CreateAccountParams) (*ApiV201
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -105,31 +103,31 @@ func (c *DefaultApiService) CreateAddress(AccountSid string, params *CreateAddre
 	headers := 0
 
 	if params != nil && params.AutoCorrectAddress != nil {
-		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
+		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress)) 
 	}
 	if params != nil && params.City != nil {
-		data.Set("City", *params.City)
+		data.Set("City", *params.City) 
 	}
 	if params != nil && params.CustomerName != nil {
-		data.Set("CustomerName", *params.CustomerName)
+		data.Set("CustomerName", *params.CustomerName) 
 	}
 	if params != nil && params.EmergencyEnabled != nil {
-		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
+		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		data.Set("IsoCountry", *params.IsoCountry) 
 	}
 	if params != nil && params.PostalCode != nil {
-		data.Set("PostalCode", *params.PostalCode)
+		data.Set("PostalCode", *params.PostalCode) 
 	}
 	if params != nil && params.Region != nil {
-		data.Set("Region", *params.Region)
+		data.Set("Region", *params.Region) 
 	}
 	if params != nil && params.Street != nil {
-		data.Set("Street", *params.Street)
+		data.Set("Street", *params.Street) 
 	}
 
 
@@ -197,49 +195,49 @@ func (c *DefaultApiService) CreateApplication(AccountSid string, params *CreateA
 	headers := 0
 
 	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
+		data.Set("ApiVersion", *params.ApiVersion) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MessageStatusCallback != nil {
-		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+		data.Set("MessageStatusCallback", *params.MessageStatusCallback) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsStatusCallback != nil {
-		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+		data.Set("SmsStatusCallback", *params.SmsStatusCallback) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.VoiceCallerIdLookup != nil {
-		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup)) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -343,103 +341,103 @@ func (c *DefaultApiService) CreateCall(AccountSid string, params *CreateCallPara
 	headers := 0
 
 	if params != nil && params.ApplicationSid != nil {
-		data.Set("ApplicationSid", *params.ApplicationSid)
+		data.Set("ApplicationSid", *params.ApplicationSid) 
 	}
 	if params != nil && params.AsyncAmd != nil {
-		data.Set("AsyncAmd", *params.AsyncAmd)
+		data.Set("AsyncAmd", *params.AsyncAmd) 
 	}
 	if params != nil && params.AsyncAmdStatusCallback != nil {
-		data.Set("AsyncAmdStatusCallback", *params.AsyncAmdStatusCallback)
+		data.Set("AsyncAmdStatusCallback", *params.AsyncAmdStatusCallback) 
 	}
 	if params != nil && params.AsyncAmdStatusCallbackMethod != nil {
-		data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod)
+		data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod) 
 	}
 	if params != nil && params.Byoc != nil {
-		data.Set("Byoc", *params.Byoc)
+		data.Set("Byoc", *params.Byoc) 
 	}
 	if params != nil && params.CallReason != nil {
-		data.Set("CallReason", *params.CallReason)
+		data.Set("CallReason", *params.CallReason) 
 	}
 	if params != nil && params.CallerId != nil {
-		data.Set("CallerId", *params.CallerId)
+		data.Set("CallerId", *params.CallerId) 
 	}
 	if params != nil && params.FallbackMethod != nil {
-		data.Set("FallbackMethod", *params.FallbackMethod)
+		data.Set("FallbackMethod", *params.FallbackMethod) 
 	}
 	if params != nil && params.FallbackUrl != nil {
-		data.Set("FallbackUrl", *params.FallbackUrl)
+		data.Set("FallbackUrl", *params.FallbackUrl) 
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.MachineDetection != nil {
-		data.Set("MachineDetection", *params.MachineDetection)
+		data.Set("MachineDetection", *params.MachineDetection) 
 	}
 	if params != nil && params.MachineDetectionSilenceTimeout != nil {
-		data.Set("MachineDetectionSilenceTimeout", fmt.Sprint(*params.MachineDetectionSilenceTimeout))
+		data.Set("MachineDetectionSilenceTimeout", fmt.Sprint(*params.MachineDetectionSilenceTimeout)) 
 	}
 	if params != nil && params.MachineDetectionSpeechEndThreshold != nil {
-		data.Set("MachineDetectionSpeechEndThreshold", fmt.Sprint(*params.MachineDetectionSpeechEndThreshold))
+		data.Set("MachineDetectionSpeechEndThreshold", fmt.Sprint(*params.MachineDetectionSpeechEndThreshold)) 
 	}
 	if params != nil && params.MachineDetectionSpeechThreshold != nil {
-		data.Set("MachineDetectionSpeechThreshold", fmt.Sprint(*params.MachineDetectionSpeechThreshold))
+		data.Set("MachineDetectionSpeechThreshold", fmt.Sprint(*params.MachineDetectionSpeechThreshold)) 
 	}
 	if params != nil && params.MachineDetectionTimeout != nil {
-		data.Set("MachineDetectionTimeout", fmt.Sprint(*params.MachineDetectionTimeout))
+		data.Set("MachineDetectionTimeout", fmt.Sprint(*params.MachineDetectionTimeout)) 
 	}
 	if params != nil && params.Method != nil {
-		data.Set("Method", *params.Method)
+		data.Set("Method", *params.Method) 
 	}
 	if params != nil && params.Record != nil {
-		data.Set("Record", fmt.Sprint(*params.Record))
+		data.Set("Record", fmt.Sprint(*params.Record)) 
 	}
 	if params != nil && params.RecordingChannels != nil {
-		data.Set("RecordingChannels", *params.RecordingChannels)
+		data.Set("RecordingChannels", *params.RecordingChannels) 
 	}
 	if params != nil && params.RecordingStatusCallback != nil {
-		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback) 
 	}
 	if params != nil && params.RecordingStatusCallbackEvent != nil {
 		data.Set("RecordingStatusCallbackEvent",  strings.Join(*params.RecordingStatusCallbackEvent, ","))
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
-		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod) 
 	}
 	if params != nil && params.RecordingTrack != nil {
-		data.Set("RecordingTrack", *params.RecordingTrack)
+		data.Set("RecordingTrack", *params.RecordingTrack) 
 	}
 	if params != nil && params.SendDigits != nil {
-		data.Set("SendDigits", *params.SendDigits)
+		data.Set("SendDigits", *params.SendDigits) 
 	}
 	if params != nil && params.SipAuthPassword != nil {
-		data.Set("SipAuthPassword", *params.SipAuthPassword)
+		data.Set("SipAuthPassword", *params.SipAuthPassword) 
 	}
 	if params != nil && params.SipAuthUsername != nil {
-		data.Set("SipAuthUsername", *params.SipAuthUsername)
+		data.Set("SipAuthUsername", *params.SipAuthUsername) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
 		data.Set("StatusCallbackEvent",  strings.Join(*params.StatusCallbackEvent, ","))
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.Timeout != nil {
-		data.Set("Timeout", fmt.Sprint(*params.Timeout))
+		data.Set("Timeout", fmt.Sprint(*params.Timeout)) 
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		data.Set("To", *params.To) 
 	}
 	if params != nil && params.Trim != nil {
-		data.Set("Trim", *params.Trim)
+		data.Set("Trim", *params.Trim) 
 	}
 	if params != nil && params.Twiml != nil {
-		data.Set("Twiml", *params.Twiml)
+		data.Set("Twiml", *params.Twiml) 
 	}
 	if params != nil && params.Url != nil {
-		data.Set("Url", *params.Url)
+		data.Set("Url", *params.Url) 
 	}
 
 
@@ -487,19 +485,19 @@ func (c *DefaultApiService) CreateCallFeedbackSummary(AccountSid string, params 
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 
 
@@ -551,22 +549,22 @@ func (c *DefaultApiService) CreateCallRecording(AccountSid string, CallSid strin
 	headers := 0
 
 	if params != nil && params.RecordingChannels != nil {
-		data.Set("RecordingChannels", *params.RecordingChannels)
+		data.Set("RecordingChannels", *params.RecordingChannels) 
 	}
 	if params != nil && params.RecordingStatusCallback != nil {
-		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback) 
 	}
 	if params != nil && params.RecordingStatusCallbackEvent != nil {
 		data.Set("RecordingStatusCallbackEvent",  strings.Join(*params.RecordingStatusCallbackEvent, ","))
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
-		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod) 
 	}
 	if params != nil && params.RecordingTrack != nil {
-		data.Set("RecordingTrack", *params.RecordingTrack)
+		data.Set("RecordingTrack", *params.RecordingTrack) 
 	}
 	if params != nil && params.Trim != nil {
-		data.Set("Trim", *params.Trim)
+		data.Set("Trim", *params.Trim) 
 	}
 
 
@@ -652,76 +650,76 @@ func (c *DefaultApiService) CreateIncomingPhoneNumber(AccountSid string, params 
 	headers := 0
 
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
+		data.Set("AddressSid", *params.AddressSid) 
 	}
 	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
+		data.Set("ApiVersion", *params.ApiVersion) 
 	}
 	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", *params.AreaCode)
+		data.Set("AreaCode", *params.AreaCode) 
 	}
 	if params != nil && params.BundleSid != nil {
-		data.Set("BundleSid", *params.BundleSid)
+		data.Set("BundleSid", *params.BundleSid) 
 	}
 	if params != nil && params.EmergencyAddressSid != nil {
-		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid) 
 	}
 	if params != nil && params.EmergencyStatus != nil {
-		data.Set("EmergencyStatus", *params.EmergencyStatus)
+		data.Set("EmergencyStatus", *params.EmergencyStatus) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IdentitySid != nil {
-		data.Set("IdentitySid", *params.IdentitySid)
+		data.Set("IdentitySid", *params.IdentitySid) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.SmsApplicationSid != nil {
-		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.TrunkSid != nil {
-		data.Set("TrunkSid", *params.TrunkSid)
+		data.Set("TrunkSid", *params.TrunkSid) 
 	}
 	if params != nil && params.VoiceApplicationSid != nil {
-		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid) 
 	}
 	if params != nil && params.VoiceCallerIdLookup != nil {
-		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup)) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceReceiveMode != nil {
-		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -763,7 +761,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(AccountSid st
 	headers := 0
 
 	if params != nil && params.InstalledAddOnSid != nil {
-		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
+		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid) 
 	}
 
 
@@ -846,73 +844,73 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(AccountSid string, pa
 	headers := 0
 
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
+		data.Set("AddressSid", *params.AddressSid) 
 	}
 	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
+		data.Set("ApiVersion", *params.ApiVersion) 
 	}
 	if params != nil && params.BundleSid != nil {
-		data.Set("BundleSid", *params.BundleSid)
+		data.Set("BundleSid", *params.BundleSid) 
 	}
 	if params != nil && params.EmergencyAddressSid != nil {
-		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid) 
 	}
 	if params != nil && params.EmergencyStatus != nil {
-		data.Set("EmergencyStatus", *params.EmergencyStatus)
+		data.Set("EmergencyStatus", *params.EmergencyStatus) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IdentitySid != nil {
-		data.Set("IdentitySid", *params.IdentitySid)
+		data.Set("IdentitySid", *params.IdentitySid) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.SmsApplicationSid != nil {
-		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.TrunkSid != nil {
-		data.Set("TrunkSid", *params.TrunkSid)
+		data.Set("TrunkSid", *params.TrunkSid) 
 	}
 	if params != nil && params.VoiceApplicationSid != nil {
-		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid) 
 	}
 	if params != nil && params.VoiceCallerIdLookup != nil {
-		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup)) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceReceiveMode != nil {
-		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -995,73 +993,73 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(AccountSid string, p
 	headers := 0
 
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
+		data.Set("AddressSid", *params.AddressSid) 
 	}
 	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
+		data.Set("ApiVersion", *params.ApiVersion) 
 	}
 	if params != nil && params.BundleSid != nil {
-		data.Set("BundleSid", *params.BundleSid)
+		data.Set("BundleSid", *params.BundleSid) 
 	}
 	if params != nil && params.EmergencyAddressSid != nil {
-		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid) 
 	}
 	if params != nil && params.EmergencyStatus != nil {
-		data.Set("EmergencyStatus", *params.EmergencyStatus)
+		data.Set("EmergencyStatus", *params.EmergencyStatus) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IdentitySid != nil {
-		data.Set("IdentitySid", *params.IdentitySid)
+		data.Set("IdentitySid", *params.IdentitySid) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.SmsApplicationSid != nil {
-		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.TrunkSid != nil {
-		data.Set("TrunkSid", *params.TrunkSid)
+		data.Set("TrunkSid", *params.TrunkSid) 
 	}
 	if params != nil && params.VoiceApplicationSid != nil {
-		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid) 
 	}
 	if params != nil && params.VoiceCallerIdLookup != nil {
-		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup)) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceReceiveMode != nil {
-		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -1144,73 +1142,73 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(AccountSid string,
 	headers := 0
 
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
+		data.Set("AddressSid", *params.AddressSid) 
 	}
 	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
+		data.Set("ApiVersion", *params.ApiVersion) 
 	}
 	if params != nil && params.BundleSid != nil {
-		data.Set("BundleSid", *params.BundleSid)
+		data.Set("BundleSid", *params.BundleSid) 
 	}
 	if params != nil && params.EmergencyAddressSid != nil {
-		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid) 
 	}
 	if params != nil && params.EmergencyStatus != nil {
-		data.Set("EmergencyStatus", *params.EmergencyStatus)
+		data.Set("EmergencyStatus", *params.EmergencyStatus) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IdentitySid != nil {
-		data.Set("IdentitySid", *params.IdentitySid)
+		data.Set("IdentitySid", *params.IdentitySid) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.SmsApplicationSid != nil {
-		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.TrunkSid != nil {
-		data.Set("TrunkSid", *params.TrunkSid)
+		data.Set("TrunkSid", *params.TrunkSid) 
 	}
 	if params != nil && params.VoiceApplicationSid != nil {
-		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid) 
 	}
 	if params != nil && params.VoiceCallerIdLookup != nil {
-		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup)) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceReceiveMode != nil {
-		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -1280,52 +1278,52 @@ func (c *DefaultApiService) CreateMessage(AccountSid string, params *CreateMessa
 	headers := 0
 
 	if params != nil && params.AddressRetention != nil {
-		data.Set("AddressRetention", *params.AddressRetention)
+		data.Set("AddressRetention", *params.AddressRetention) 
 	}
 	if params != nil && params.ApplicationSid != nil {
-		data.Set("ApplicationSid", *params.ApplicationSid)
+		data.Set("ApplicationSid", *params.ApplicationSid) 
 	}
 	if params != nil && params.Attempt != nil {
-		data.Set("Attempt", fmt.Sprint(*params.Attempt))
+		data.Set("Attempt", fmt.Sprint(*params.Attempt)) 
 	}
 	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body)
+		data.Set("Body", *params.Body) 
 	}
 	if params != nil && params.ContentRetention != nil {
-		data.Set("ContentRetention", *params.ContentRetention)
+		data.Set("ContentRetention", *params.ContentRetention) 
 	}
 	if params != nil && params.ForceDelivery != nil {
-		data.Set("ForceDelivery", fmt.Sprint(*params.ForceDelivery))
+		data.Set("ForceDelivery", fmt.Sprint(*params.ForceDelivery)) 
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.MaxPrice != nil {
-		data.Set("MaxPrice", fmt.Sprint(*params.MaxPrice))
+		data.Set("MaxPrice", fmt.Sprint(*params.MaxPrice)) 
 	}
 	if params != nil && params.MediaUrl != nil {
 		data.Set("MediaUrl",  strings.Join(*params.MediaUrl, ","))
 	}
 	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid) 
 	}
 	if params != nil && params.PersistentAction != nil {
 		data.Set("PersistentAction",  strings.Join(*params.PersistentAction, ","))
 	}
 	if params != nil && params.ProvideFeedback != nil {
-		data.Set("ProvideFeedback", fmt.Sprint(*params.ProvideFeedback))
+		data.Set("ProvideFeedback", fmt.Sprint(*params.ProvideFeedback)) 
 	}
 	if params != nil && params.SmartEncoded != nil {
-		data.Set("SmartEncoded", fmt.Sprint(*params.SmartEncoded))
+		data.Set("SmartEncoded", fmt.Sprint(*params.SmartEncoded)) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		data.Set("To", *params.To) 
 	}
 	if params != nil && params.ValidityPeriod != nil {
-		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
+		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod)) 
 	}
 
 
@@ -1366,7 +1364,7 @@ func (c *DefaultApiService) CreateMessageFeedback(AccountSid string, MessageSid 
 	headers := 0
 
 	if params != nil && params.Outcome != nil {
-		data.Set("Outcome", *params.Outcome)
+		data.Set("Outcome", *params.Outcome) 
 	}
 
 
@@ -1405,7 +1403,7 @@ func (c *DefaultApiService) CreateNewKey(AccountSid string, params *CreateNewKey
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -1445,7 +1443,7 @@ func (c *DefaultApiService) CreateNewSigningKey(AccountSid string, params *Creat
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -1560,118 +1558,118 @@ func (c *DefaultApiService) CreateParticipant(AccountSid string, ConferenceSid s
 	headers := 0
 
 	if params != nil && params.Beep != nil {
-		data.Set("Beep", *params.Beep)
+		data.Set("Beep", *params.Beep) 
 	}
 	if params != nil && params.Byoc != nil {
-		data.Set("Byoc", *params.Byoc)
+		data.Set("Byoc", *params.Byoc) 
 	}
 	if params != nil && params.CallReason != nil {
-		data.Set("CallReason", *params.CallReason)
+		data.Set("CallReason", *params.CallReason) 
 	}
 	if params != nil && params.CallSidToCoach != nil {
-		data.Set("CallSidToCoach", *params.CallSidToCoach)
+		data.Set("CallSidToCoach", *params.CallSidToCoach) 
 	}
 	if params != nil && params.CallerId != nil {
-		data.Set("CallerId", *params.CallerId)
+		data.Set("CallerId", *params.CallerId) 
 	}
 	if params != nil && params.Coaching != nil {
-		data.Set("Coaching", fmt.Sprint(*params.Coaching))
+		data.Set("Coaching", fmt.Sprint(*params.Coaching)) 
 	}
 	if params != nil && params.ConferenceRecord != nil {
-		data.Set("ConferenceRecord", *params.ConferenceRecord)
+		data.Set("ConferenceRecord", *params.ConferenceRecord) 
 	}
 	if params != nil && params.ConferenceRecordingStatusCallback != nil {
-		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
+		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback) 
 	}
 	if params != nil && params.ConferenceRecordingStatusCallbackEvent != nil {
 		data.Set("ConferenceRecordingStatusCallbackEvent",  strings.Join(*params.ConferenceRecordingStatusCallbackEvent, ","))
 	}
 	if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
-		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
+		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod) 
 	}
 	if params != nil && params.ConferenceStatusCallback != nil {
-		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
+		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback) 
 	}
 	if params != nil && params.ConferenceStatusCallbackEvent != nil {
 		data.Set("ConferenceStatusCallbackEvent",  strings.Join(*params.ConferenceStatusCallbackEvent, ","))
 	}
 	if params != nil && params.ConferenceStatusCallbackMethod != nil {
-		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
+		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod) 
 	}
 	if params != nil && params.ConferenceTrim != nil {
-		data.Set("ConferenceTrim", *params.ConferenceTrim)
+		data.Set("ConferenceTrim", *params.ConferenceTrim) 
 	}
 	if params != nil && params.EarlyMedia != nil {
-		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia))
+		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia)) 
 	}
 	if params != nil && params.EndConferenceOnExit != nil {
-		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit))
+		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit)) 
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.JitterBufferSize != nil {
-		data.Set("JitterBufferSize", *params.JitterBufferSize)
+		data.Set("JitterBufferSize", *params.JitterBufferSize) 
 	}
 	if params != nil && params.Label != nil {
-		data.Set("Label", *params.Label)
+		data.Set("Label", *params.Label) 
 	}
 	if params != nil && params.MaxParticipants != nil {
-		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants))
+		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants)) 
 	}
 	if params != nil && params.Muted != nil {
-		data.Set("Muted", fmt.Sprint(*params.Muted))
+		data.Set("Muted", fmt.Sprint(*params.Muted)) 
 	}
 	if params != nil && params.Record != nil {
-		data.Set("Record", fmt.Sprint(*params.Record))
+		data.Set("Record", fmt.Sprint(*params.Record)) 
 	}
 	if params != nil && params.RecordingChannels != nil {
-		data.Set("RecordingChannels", *params.RecordingChannels)
+		data.Set("RecordingChannels", *params.RecordingChannels) 
 	}
 	if params != nil && params.RecordingStatusCallback != nil {
-		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback) 
 	}
 	if params != nil && params.RecordingStatusCallbackEvent != nil {
 		data.Set("RecordingStatusCallbackEvent",  strings.Join(*params.RecordingStatusCallbackEvent, ","))
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
-		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod) 
 	}
 	if params != nil && params.RecordingTrack != nil {
-		data.Set("RecordingTrack", *params.RecordingTrack)
+		data.Set("RecordingTrack", *params.RecordingTrack) 
 	}
 	if params != nil && params.Region != nil {
-		data.Set("Region", *params.Region)
+		data.Set("Region", *params.Region) 
 	}
 	if params != nil && params.SipAuthPassword != nil {
-		data.Set("SipAuthPassword", *params.SipAuthPassword)
+		data.Set("SipAuthPassword", *params.SipAuthPassword) 
 	}
 	if params != nil && params.SipAuthUsername != nil {
-		data.Set("SipAuthUsername", *params.SipAuthUsername)
+		data.Set("SipAuthUsername", *params.SipAuthUsername) 
 	}
 	if params != nil && params.StartConferenceOnEnter != nil {
-		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter))
+		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter)) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
 		data.Set("StatusCallbackEvent",  strings.Join(*params.StatusCallbackEvent, ","))
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.Timeout != nil {
-		data.Set("Timeout", fmt.Sprint(*params.Timeout))
+		data.Set("Timeout", fmt.Sprint(*params.Timeout)) 
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		data.Set("To", *params.To) 
 	}
 	if params != nil && params.WaitMethod != nil {
-		data.Set("WaitMethod", *params.WaitMethod)
+		data.Set("WaitMethod", *params.WaitMethod) 
 	}
 	if params != nil && params.WaitUrl != nil {
-		data.Set("WaitUrl", *params.WaitUrl)
+		data.Set("WaitUrl", *params.WaitUrl) 
 	}
 
 
@@ -1743,25 +1741,25 @@ func (c *DefaultApiService) CreatePayments(AccountSid string, CallSid string, pa
 	headers := 0
 
 	if params != nil && params.BankAccountType != nil {
-		data.Set("BankAccountType", *params.BankAccountType)
+		data.Set("BankAccountType", *params.BankAccountType) 
 	}
 	if params != nil && params.ChargeAmount != nil {
-		data.Set("ChargeAmount", fmt.Sprint(*params.ChargeAmount))
+		data.Set("ChargeAmount", fmt.Sprint(*params.ChargeAmount)) 
 	}
 	if params != nil && params.Currency != nil {
-		data.Set("Currency", *params.Currency)
+		data.Set("Currency", *params.Currency) 
 	}
 	if params != nil && params.Description != nil {
-		data.Set("Description", *params.Description)
+		data.Set("Description", *params.Description) 
 	}
 	if params != nil && params.IdempotencyKey != nil {
-		data.Set("IdempotencyKey", *params.IdempotencyKey)
+		data.Set("IdempotencyKey", *params.IdempotencyKey) 
 	}
 	if params != nil && params.Input != nil {
-		data.Set("Input", *params.Input)
+		data.Set("Input", *params.Input) 
 	}
 	if params != nil && params.MinPostalCodeLength != nil {
-		data.Set("MinPostalCodeLength", fmt.Sprint(*params.MinPostalCodeLength))
+		data.Set("MinPostalCodeLength", fmt.Sprint(*params.MinPostalCodeLength)) 
 	}
 	if params != nil && params.Parameter != nil {
 		v, err := json.Marshal(params.Parameter)
@@ -1773,28 +1771,28 @@ func (c *DefaultApiService) CreatePayments(AccountSid string, CallSid string, pa
 		data.Set("Parameter", fmt.Sprint(v))
 	}
 	if params != nil && params.PaymentConnector != nil {
-		data.Set("PaymentConnector", *params.PaymentConnector)
+		data.Set("PaymentConnector", *params.PaymentConnector) 
 	}
 	if params != nil && params.PaymentMethod != nil {
-		data.Set("PaymentMethod", *params.PaymentMethod)
+		data.Set("PaymentMethod", *params.PaymentMethod) 
 	}
 	if params != nil && params.PostalCode != nil {
-		data.Set("PostalCode", fmt.Sprint(*params.PostalCode))
+		data.Set("PostalCode", fmt.Sprint(*params.PostalCode)) 
 	}
 	if params != nil && params.SecurityCode != nil {
-		data.Set("SecurityCode", fmt.Sprint(*params.SecurityCode))
+		data.Set("SecurityCode", fmt.Sprint(*params.SecurityCode)) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.Timeout != nil {
-		data.Set("Timeout", fmt.Sprint(*params.Timeout))
+		data.Set("Timeout", fmt.Sprint(*params.Timeout)) 
 	}
 	if params != nil && params.TokenType != nil {
-		data.Set("TokenType", *params.TokenType)
+		data.Set("TokenType", *params.TokenType) 
 	}
 	if params != nil && params.ValidCardTypes != nil {
-		data.Set("ValidCardTypes", *params.ValidCardTypes)
+		data.Set("ValidCardTypes", *params.ValidCardTypes) 
 	}
 
 
@@ -1836,10 +1834,10 @@ func (c *DefaultApiService) CreateQueue(AccountSid string, params *CreateQueuePa
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MaxSize != nil {
-		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
+		data.Set("MaxSize", fmt.Sprint(*params.MaxSize)) 
 	}
 
 
@@ -1881,7 +1879,7 @@ func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(AccountSid s
 	headers := 0
 
 	if params != nil && params.CredentialListSid != nil {
-		data.Set("CredentialListSid", *params.CredentialListSid)
+		data.Set("CredentialListSid", *params.CredentialListSid) 
 	}
 
 
@@ -1923,7 +1921,7 @@ func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(Account
 	headers := 0
 
 	if params != nil && params.IpAccessControlListSid != nil {
-		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
+		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid) 
 	}
 
 
@@ -1965,7 +1963,7 @@ func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(Acco
 	headers := 0
 
 	if params != nil && params.CredentialListSid != nil {
-		data.Set("CredentialListSid", *params.CredentialListSid)
+		data.Set("CredentialListSid", *params.CredentialListSid) 
 	}
 
 
@@ -2009,10 +2007,10 @@ func (c *DefaultApiService) CreateSipCredential(AccountSid string, CredentialLis
 	headers := 0
 
 	if params != nil && params.Password != nil {
-		data.Set("Password", *params.Password)
+		data.Set("Password", *params.Password) 
 	}
 	if params != nil && params.Username != nil {
-		data.Set("Username", *params.Username)
+		data.Set("Username", *params.Username) 
 	}
 
 
@@ -2052,7 +2050,7 @@ func (c *DefaultApiService) CreateSipCredentialList(AccountSid string, params *C
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -2094,7 +2092,7 @@ func (c *DefaultApiService) CreateSipCredentialListMapping(AccountSid string, Do
 	headers := 0
 
 	if params != nil && params.CredentialListSid != nil {
-		data.Set("CredentialListSid", *params.CredentialListSid)
+		data.Set("CredentialListSid", *params.CredentialListSid) 
 	}
 
 
@@ -2158,43 +2156,43 @@ func (c *DefaultApiService) CreateSipDomain(AccountSid string, params *CreateSip
 	headers := 0
 
 	if params != nil && params.ByocTrunkSid != nil {
-		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+		data.Set("ByocTrunkSid", *params.ByocTrunkSid) 
 	}
 	if params != nil && params.DomainName != nil {
-		data.Set("DomainName", *params.DomainName)
+		data.Set("DomainName", *params.DomainName) 
 	}
 	if params != nil && params.EmergencyCallerSid != nil {
-		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
+		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid) 
 	}
 	if params != nil && params.EmergencyCallingEnabled != nil {
-		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
+		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Secure != nil {
-		data.Set("Secure", fmt.Sprint(*params.Secure))
+		data.Set("Secure", fmt.Sprint(*params.Secure)) 
 	}
 	if params != nil && params.SipRegistration != nil {
-		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
+		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration)) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceStatusCallbackMethod != nil {
-		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod) 
 	}
 	if params != nil && params.VoiceStatusCallbackUrl != nil {
-		data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
+		data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -2234,7 +2232,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlList(AccountSid string, para
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -2276,7 +2274,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlListMapping(AccountSid strin
 	headers := 0
 
 	if params != nil && params.IpAccessControlListSid != nil {
-		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
+		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid) 
 	}
 
 
@@ -2322,13 +2320,13 @@ func (c *DefaultApiService) CreateSipIpAddress(AccountSid string, IpAccessContro
 	headers := 0
 
 	if params != nil && params.CidrPrefixLength != nil {
-		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IpAddress != nil {
-		data.Set("IpAddress", *params.IpAddress)
+		data.Set("IpAddress", *params.IpAddress) 
 	}
 
 
@@ -2368,7 +2366,7 @@ func (c *DefaultApiService) CreateToken(AccountSid string, params *CreateTokenPa
 	headers := 0
 
 	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+		data.Set("Ttl", fmt.Sprint(*params.Ttl)) 
 	}
 
 
@@ -2420,25 +2418,25 @@ func (c *DefaultApiService) CreateUsageTrigger(AccountSid string, params *Create
 	headers := 0
 
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
+		data.Set("CallbackMethod", *params.CallbackMethod) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Recurring != nil {
-		data.Set("Recurring", *params.Recurring)
+		data.Set("Recurring", *params.Recurring) 
 	}
 	if params != nil && params.TriggerBy != nil {
-		data.Set("TriggerBy", *params.TriggerBy)
+		data.Set("TriggerBy", *params.TriggerBy) 
 	}
 	if params != nil && params.TriggerValue != nil {
-		data.Set("TriggerValue", *params.TriggerValue)
+		data.Set("TriggerValue", *params.TriggerValue) 
 	}
 	if params != nil && params.UsageCategory != nil {
-		data.Set("UsageCategory", *params.UsageCategory)
+		data.Set("UsageCategory", *params.UsageCategory) 
 	}
 
 
@@ -2487,22 +2485,22 @@ func (c *DefaultApiService) CreateValidationRequest(AccountSid string, params *C
 	headers := 0
 
 	if params != nil && params.CallDelay != nil {
-		data.Set("CallDelay", fmt.Sprint(*params.CallDelay))
+		data.Set("CallDelay", fmt.Sprint(*params.CallDelay)) 
 	}
 	if params != nil && params.Extension != nil {
-		data.Set("Extension", *params.Extension)
+		data.Set("Extension", *params.Extension) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 
 
@@ -4884,13 +4882,13 @@ func (c *DefaultApiService) ListAccount(params *ListAccountParams) (*ListAccount
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4935,16 +4933,16 @@ func (c *DefaultApiService) ListAddress(AccountSid string, params *ListAddressPa
 	headers := 0
 
 	if params != nil && params.CustomerName != nil {
-		data.Set("CustomerName", *params.CustomerName)
+		data.Set("CustomerName", *params.CustomerName) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
+		data.Set("IsoCountry", *params.IsoCountry) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -4986,10 +4984,10 @@ func (c *DefaultApiService) ListApplication(AccountSid string, params *ListAppli
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5029,7 +5027,7 @@ func (c *DefaultApiService) ListAuthorizedConnectApp(AccountSid string, params *
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5068,7 +5066,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberCountry(AccountSid string, p
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5145,61 +5143,61 @@ func (c *DefaultApiService) ListAvailablePhoneNumberLocal(AccountSid string, Cou
 	headers := 0
 
 	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+		data.Set("AreaCode", fmt.Sprint(*params.AreaCode)) 
 	}
 	if params != nil && params.Contains != nil {
-		data.Set("Contains", *params.Contains)
+		data.Set("Contains", *params.Contains) 
 	}
 	if params != nil && params.SmsEnabled != nil {
-		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled)) 
 	}
 	if params != nil && params.MmsEnabled != nil {
-		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled)) 
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
 	}
 	if params != nil && params.ExcludeAllAddressRequired != nil {
-		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired)) 
 	}
 	if params != nil && params.ExcludeLocalAddressRequired != nil {
-		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired)) 
 	}
 	if params != nil && params.ExcludeForeignAddressRequired != nil {
-		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired)) 
 	}
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.NearNumber != nil {
-		data.Set("NearNumber", *params.NearNumber)
+		data.Set("NearNumber", *params.NearNumber) 
 	}
 	if params != nil && params.NearLatLong != nil {
-		data.Set("NearLatLong", *params.NearLatLong)
+		data.Set("NearLatLong", *params.NearLatLong) 
 	}
 	if params != nil && params.Distance != nil {
-		data.Set("Distance", fmt.Sprint(*params.Distance))
+		data.Set("Distance", fmt.Sprint(*params.Distance)) 
 	}
 	if params != nil && params.InPostalCode != nil {
-		data.Set("InPostalCode", *params.InPostalCode)
+		data.Set("InPostalCode", *params.InPostalCode) 
 	}
 	if params != nil && params.InRegion != nil {
-		data.Set("InRegion", *params.InRegion)
+		data.Set("InRegion", *params.InRegion) 
 	}
 	if params != nil && params.InRateCenter != nil {
-		data.Set("InRateCenter", *params.InRateCenter)
+		data.Set("InRateCenter", *params.InRateCenter) 
 	}
 	if params != nil && params.InLata != nil {
-		data.Set("InLata", *params.InLata)
+		data.Set("InLata", *params.InLata) 
 	}
 	if params != nil && params.InLocality != nil {
-		data.Set("InLocality", *params.InLocality)
+		data.Set("InLocality", *params.InLocality) 
 	}
 	if params != nil && params.FaxEnabled != nil {
-		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5276,61 +5274,61 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(AccountSid 
 	headers := 0
 
 	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+		data.Set("AreaCode", fmt.Sprint(*params.AreaCode)) 
 	}
 	if params != nil && params.Contains != nil {
-		data.Set("Contains", *params.Contains)
+		data.Set("Contains", *params.Contains) 
 	}
 	if params != nil && params.SmsEnabled != nil {
-		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled)) 
 	}
 	if params != nil && params.MmsEnabled != nil {
-		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled)) 
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
 	}
 	if params != nil && params.ExcludeAllAddressRequired != nil {
-		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired)) 
 	}
 	if params != nil && params.ExcludeLocalAddressRequired != nil {
-		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired)) 
 	}
 	if params != nil && params.ExcludeForeignAddressRequired != nil {
-		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired)) 
 	}
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.NearNumber != nil {
-		data.Set("NearNumber", *params.NearNumber)
+		data.Set("NearNumber", *params.NearNumber) 
 	}
 	if params != nil && params.NearLatLong != nil {
-		data.Set("NearLatLong", *params.NearLatLong)
+		data.Set("NearLatLong", *params.NearLatLong) 
 	}
 	if params != nil && params.Distance != nil {
-		data.Set("Distance", fmt.Sprint(*params.Distance))
+		data.Set("Distance", fmt.Sprint(*params.Distance)) 
 	}
 	if params != nil && params.InPostalCode != nil {
-		data.Set("InPostalCode", *params.InPostalCode)
+		data.Set("InPostalCode", *params.InPostalCode) 
 	}
 	if params != nil && params.InRegion != nil {
-		data.Set("InRegion", *params.InRegion)
+		data.Set("InRegion", *params.InRegion) 
 	}
 	if params != nil && params.InRateCenter != nil {
-		data.Set("InRateCenter", *params.InRateCenter)
+		data.Set("InRateCenter", *params.InRateCenter) 
 	}
 	if params != nil && params.InLata != nil {
-		data.Set("InLata", *params.InLata)
+		data.Set("InLata", *params.InLata) 
 	}
 	if params != nil && params.InLocality != nil {
-		data.Set("InLocality", *params.InLocality)
+		data.Set("InLocality", *params.InLocality) 
 	}
 	if params != nil && params.FaxEnabled != nil {
-		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5407,61 +5405,61 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMobile(AccountSid string, Co
 	headers := 0
 
 	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+		data.Set("AreaCode", fmt.Sprint(*params.AreaCode)) 
 	}
 	if params != nil && params.Contains != nil {
-		data.Set("Contains", *params.Contains)
+		data.Set("Contains", *params.Contains) 
 	}
 	if params != nil && params.SmsEnabled != nil {
-		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled)) 
 	}
 	if params != nil && params.MmsEnabled != nil {
-		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled)) 
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
 	}
 	if params != nil && params.ExcludeAllAddressRequired != nil {
-		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired)) 
 	}
 	if params != nil && params.ExcludeLocalAddressRequired != nil {
-		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired)) 
 	}
 	if params != nil && params.ExcludeForeignAddressRequired != nil {
-		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired)) 
 	}
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.NearNumber != nil {
-		data.Set("NearNumber", *params.NearNumber)
+		data.Set("NearNumber", *params.NearNumber) 
 	}
 	if params != nil && params.NearLatLong != nil {
-		data.Set("NearLatLong", *params.NearLatLong)
+		data.Set("NearLatLong", *params.NearLatLong) 
 	}
 	if params != nil && params.Distance != nil {
-		data.Set("Distance", fmt.Sprint(*params.Distance))
+		data.Set("Distance", fmt.Sprint(*params.Distance)) 
 	}
 	if params != nil && params.InPostalCode != nil {
-		data.Set("InPostalCode", *params.InPostalCode)
+		data.Set("InPostalCode", *params.InPostalCode) 
 	}
 	if params != nil && params.InRegion != nil {
-		data.Set("InRegion", *params.InRegion)
+		data.Set("InRegion", *params.InRegion) 
 	}
 	if params != nil && params.InRateCenter != nil {
-		data.Set("InRateCenter", *params.InRateCenter)
+		data.Set("InRateCenter", *params.InRateCenter) 
 	}
 	if params != nil && params.InLata != nil {
-		data.Set("InLata", *params.InLata)
+		data.Set("InLata", *params.InLata) 
 	}
 	if params != nil && params.InLocality != nil {
-		data.Set("InLocality", *params.InLocality)
+		data.Set("InLocality", *params.InLocality) 
 	}
 	if params != nil && params.FaxEnabled != nil {
-		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5538,61 +5536,61 @@ func (c *DefaultApiService) ListAvailablePhoneNumberNational(AccountSid string, 
 	headers := 0
 
 	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+		data.Set("AreaCode", fmt.Sprint(*params.AreaCode)) 
 	}
 	if params != nil && params.Contains != nil {
-		data.Set("Contains", *params.Contains)
+		data.Set("Contains", *params.Contains) 
 	}
 	if params != nil && params.SmsEnabled != nil {
-		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled)) 
 	}
 	if params != nil && params.MmsEnabled != nil {
-		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled)) 
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
 	}
 	if params != nil && params.ExcludeAllAddressRequired != nil {
-		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired)) 
 	}
 	if params != nil && params.ExcludeLocalAddressRequired != nil {
-		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired)) 
 	}
 	if params != nil && params.ExcludeForeignAddressRequired != nil {
-		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired)) 
 	}
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.NearNumber != nil {
-		data.Set("NearNumber", *params.NearNumber)
+		data.Set("NearNumber", *params.NearNumber) 
 	}
 	if params != nil && params.NearLatLong != nil {
-		data.Set("NearLatLong", *params.NearLatLong)
+		data.Set("NearLatLong", *params.NearLatLong) 
 	}
 	if params != nil && params.Distance != nil {
-		data.Set("Distance", fmt.Sprint(*params.Distance))
+		data.Set("Distance", fmt.Sprint(*params.Distance)) 
 	}
 	if params != nil && params.InPostalCode != nil {
-		data.Set("InPostalCode", *params.InPostalCode)
+		data.Set("InPostalCode", *params.InPostalCode) 
 	}
 	if params != nil && params.InRegion != nil {
-		data.Set("InRegion", *params.InRegion)
+		data.Set("InRegion", *params.InRegion) 
 	}
 	if params != nil && params.InRateCenter != nil {
-		data.Set("InRateCenter", *params.InRateCenter)
+		data.Set("InRateCenter", *params.InRateCenter) 
 	}
 	if params != nil && params.InLata != nil {
-		data.Set("InLata", *params.InLata)
+		data.Set("InLata", *params.InLata) 
 	}
 	if params != nil && params.InLocality != nil {
-		data.Set("InLocality", *params.InLocality)
+		data.Set("InLocality", *params.InLocality) 
 	}
 	if params != nil && params.FaxEnabled != nil {
-		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5669,61 +5667,61 @@ func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(AccountSid string
 	headers := 0
 
 	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+		data.Set("AreaCode", fmt.Sprint(*params.AreaCode)) 
 	}
 	if params != nil && params.Contains != nil {
-		data.Set("Contains", *params.Contains)
+		data.Set("Contains", *params.Contains) 
 	}
 	if params != nil && params.SmsEnabled != nil {
-		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled)) 
 	}
 	if params != nil && params.MmsEnabled != nil {
-		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled)) 
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
 	}
 	if params != nil && params.ExcludeAllAddressRequired != nil {
-		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired)) 
 	}
 	if params != nil && params.ExcludeLocalAddressRequired != nil {
-		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired)) 
 	}
 	if params != nil && params.ExcludeForeignAddressRequired != nil {
-		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired)) 
 	}
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.NearNumber != nil {
-		data.Set("NearNumber", *params.NearNumber)
+		data.Set("NearNumber", *params.NearNumber) 
 	}
 	if params != nil && params.NearLatLong != nil {
-		data.Set("NearLatLong", *params.NearLatLong)
+		data.Set("NearLatLong", *params.NearLatLong) 
 	}
 	if params != nil && params.Distance != nil {
-		data.Set("Distance", fmt.Sprint(*params.Distance))
+		data.Set("Distance", fmt.Sprint(*params.Distance)) 
 	}
 	if params != nil && params.InPostalCode != nil {
-		data.Set("InPostalCode", *params.InPostalCode)
+		data.Set("InPostalCode", *params.InPostalCode) 
 	}
 	if params != nil && params.InRegion != nil {
-		data.Set("InRegion", *params.InRegion)
+		data.Set("InRegion", *params.InRegion) 
 	}
 	if params != nil && params.InRateCenter != nil {
-		data.Set("InRateCenter", *params.InRateCenter)
+		data.Set("InRateCenter", *params.InRateCenter) 
 	}
 	if params != nil && params.InLata != nil {
-		data.Set("InLata", *params.InLata)
+		data.Set("InLata", *params.InLata) 
 	}
 	if params != nil && params.InLocality != nil {
-		data.Set("InLocality", *params.InLocality)
+		data.Set("InLocality", *params.InLocality) 
 	}
 	if params != nil && params.FaxEnabled != nil {
-		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5800,61 +5798,61 @@ func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(AccountSid string, 
 	headers := 0
 
 	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+		data.Set("AreaCode", fmt.Sprint(*params.AreaCode)) 
 	}
 	if params != nil && params.Contains != nil {
-		data.Set("Contains", *params.Contains)
+		data.Set("Contains", *params.Contains) 
 	}
 	if params != nil && params.SmsEnabled != nil {
-		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled)) 
 	}
 	if params != nil && params.MmsEnabled != nil {
-		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled)) 
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
 	}
 	if params != nil && params.ExcludeAllAddressRequired != nil {
-		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired)) 
 	}
 	if params != nil && params.ExcludeLocalAddressRequired != nil {
-		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired)) 
 	}
 	if params != nil && params.ExcludeForeignAddressRequired != nil {
-		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired)) 
 	}
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.NearNumber != nil {
-		data.Set("NearNumber", *params.NearNumber)
+		data.Set("NearNumber", *params.NearNumber) 
 	}
 	if params != nil && params.NearLatLong != nil {
-		data.Set("NearLatLong", *params.NearLatLong)
+		data.Set("NearLatLong", *params.NearLatLong) 
 	}
 	if params != nil && params.Distance != nil {
-		data.Set("Distance", fmt.Sprint(*params.Distance))
+		data.Set("Distance", fmt.Sprint(*params.Distance)) 
 	}
 	if params != nil && params.InPostalCode != nil {
-		data.Set("InPostalCode", *params.InPostalCode)
+		data.Set("InPostalCode", *params.InPostalCode) 
 	}
 	if params != nil && params.InRegion != nil {
-		data.Set("InRegion", *params.InRegion)
+		data.Set("InRegion", *params.InRegion) 
 	}
 	if params != nil && params.InRateCenter != nil {
-		data.Set("InRateCenter", *params.InRateCenter)
+		data.Set("InRateCenter", *params.InRateCenter) 
 	}
 	if params != nil && params.InLata != nil {
-		data.Set("InLata", *params.InLata)
+		data.Set("InLata", *params.InLata) 
 	}
 	if params != nil && params.InLocality != nil {
-		data.Set("InLocality", *params.InLocality)
+		data.Set("InLocality", *params.InLocality) 
 	}
 	if params != nil && params.FaxEnabled != nil {
-		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -5931,61 +5929,61 @@ func (c *DefaultApiService) ListAvailablePhoneNumberVoip(AccountSid string, Coun
 	headers := 0
 
 	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+		data.Set("AreaCode", fmt.Sprint(*params.AreaCode)) 
 	}
 	if params != nil && params.Contains != nil {
-		data.Set("Contains", *params.Contains)
+		data.Set("Contains", *params.Contains) 
 	}
 	if params != nil && params.SmsEnabled != nil {
-		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled)) 
 	}
 	if params != nil && params.MmsEnabled != nil {
-		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled)) 
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
 	}
 	if params != nil && params.ExcludeAllAddressRequired != nil {
-		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired)) 
 	}
 	if params != nil && params.ExcludeLocalAddressRequired != nil {
-		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired)) 
 	}
 	if params != nil && params.ExcludeForeignAddressRequired != nil {
-		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired)) 
 	}
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.NearNumber != nil {
-		data.Set("NearNumber", *params.NearNumber)
+		data.Set("NearNumber", *params.NearNumber) 
 	}
 	if params != nil && params.NearLatLong != nil {
-		data.Set("NearLatLong", *params.NearLatLong)
+		data.Set("NearLatLong", *params.NearLatLong) 
 	}
 	if params != nil && params.Distance != nil {
-		data.Set("Distance", fmt.Sprint(*params.Distance))
+		data.Set("Distance", fmt.Sprint(*params.Distance)) 
 	}
 	if params != nil && params.InPostalCode != nil {
-		data.Set("InPostalCode", *params.InPostalCode)
+		data.Set("InPostalCode", *params.InPostalCode) 
 	}
 	if params != nil && params.InRegion != nil {
-		data.Set("InRegion", *params.InRegion)
+		data.Set("InRegion", *params.InRegion) 
 	}
 	if params != nil && params.InRateCenter != nil {
-		data.Set("InRateCenter", *params.InRateCenter)
+		data.Set("InRateCenter", *params.InRateCenter) 
 	}
 	if params != nil && params.InLata != nil {
-		data.Set("InLata", *params.InLata)
+		data.Set("InLata", *params.InLata) 
 	}
 	if params != nil && params.InLocality != nil {
-		data.Set("InLocality", *params.InLocality)
+		data.Set("InLocality", *params.InLocality) 
 	}
 	if params != nil && params.FaxEnabled != nil {
-		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6045,37 +6043,37 @@ func (c *DefaultApiService) ListCall(AccountSid string, params *ListCallParams) 
 	headers := 0
 
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		data.Set("To", *params.To) 
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.ParentCallSid != nil {
-		data.Set("ParentCallSid", *params.ParentCallSid)
+		data.Set("ParentCallSid", *params.ParentCallSid) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.StartTime != nil {
-		data.Set("StartTime", fmt.Sprint(*params.StartTime))
+		data.Set("StartTime", fmt.Sprint(*params.StartTime)) 
 	}
 	if params != nil && params.StartTimeBefore != nil {
-		data.Set("StartTimeBefore", fmt.Sprint(*params.StartTimeBefore))
+		data.Set("StartTimeBefore", fmt.Sprint(*params.StartTimeBefore)) 
 	}
 	if params != nil && params.StartTimeAfter != nil {
-		data.Set("StartTimeAfter", fmt.Sprint(*params.StartTimeAfter))
+		data.Set("StartTimeAfter", fmt.Sprint(*params.StartTimeAfter)) 
 	}
 	if params != nil && params.EndTime != nil {
-		data.Set("EndTime", fmt.Sprint(*params.EndTime))
+		data.Set("EndTime", fmt.Sprint(*params.EndTime)) 
 	}
 	if params != nil && params.EndTimeBefore != nil {
-		data.Set("EndTimeBefore", fmt.Sprint(*params.EndTimeBefore))
+		data.Set("EndTimeBefore", fmt.Sprint(*params.EndTimeBefore)) 
 	}
 	if params != nil && params.EndTimeAfter != nil {
-		data.Set("EndTimeAfter", fmt.Sprint(*params.EndTimeAfter))
+		data.Set("EndTimeAfter", fmt.Sprint(*params.EndTimeAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6117,7 +6115,7 @@ func (c *DefaultApiService) ListCallEvent(AccountSid string, CallSid string, par
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6166,19 +6164,19 @@ func (c *DefaultApiService) ListCallNotification(AccountSid string, CallSid stri
 	headers := 0
 
 	if params != nil && params.Log != nil {
-		data.Set("Log", fmt.Sprint(*params.Log))
+		data.Set("Log", fmt.Sprint(*params.Log)) 
 	}
 	if params != nil && params.MessageDate != nil {
-		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
+		data.Set("MessageDate", fmt.Sprint(*params.MessageDate)) 
 	}
 	if params != nil && params.MessageDateBefore != nil {
-		data.Set("MessageDateBefore", fmt.Sprint(*params.MessageDateBefore))
+		data.Set("MessageDateBefore", fmt.Sprint(*params.MessageDateBefore)) 
 	}
 	if params != nil && params.MessageDateAfter != nil {
-		data.Set("MessageDateAfter", fmt.Sprint(*params.MessageDateAfter))
+		data.Set("MessageDateAfter", fmt.Sprint(*params.MessageDateAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6226,16 +6224,16 @@ func (c *DefaultApiService) ListCallRecording(AccountSid string, CallSid string,
 	headers := 0
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6291,31 +6289,31 @@ func (c *DefaultApiService) ListConference(AccountSid string, params *ListConfer
 	headers := 0
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated)) 
 	}
 	if params != nil && params.DateUpdatedBefore != nil {
-		data.Set("DateUpdatedBefore", fmt.Sprint(*params.DateUpdatedBefore))
+		data.Set("DateUpdatedBefore", fmt.Sprint(*params.DateUpdatedBefore)) 
 	}
 	if params != nil && params.DateUpdatedAfter != nil {
-		data.Set("DateUpdatedAfter", fmt.Sprint(*params.DateUpdatedAfter))
+		data.Set("DateUpdatedAfter", fmt.Sprint(*params.DateUpdatedAfter)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6363,16 +6361,16 @@ func (c *DefaultApiService) ListConferenceRecording(AccountSid string, Conferenc
 	headers := 0
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6412,7 +6410,7 @@ func (c *DefaultApiService) ListConnectApp(AccountSid string, params *ListConnec
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6453,7 +6451,7 @@ func (c *DefaultApiService) ListDependentPhoneNumber(AccountSid string, AddressS
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6501,19 +6499,19 @@ func (c *DefaultApiService) ListIncomingPhoneNumber(AccountSid string, params *L
 	headers := 0
 
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.Origin != nil {
-		data.Set("Origin", *params.Origin)
+		data.Set("Origin", *params.Origin) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6555,7 +6553,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(AccountSid stri
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6599,7 +6597,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(Accoun
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6646,19 +6644,19 @@ func (c *DefaultApiService) ListIncomingPhoneNumberLocal(AccountSid string, para
 	headers := 0
 
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.Origin != nil {
-		data.Set("Origin", *params.Origin)
+		data.Set("Origin", *params.Origin) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6705,19 +6703,19 @@ func (c *DefaultApiService) ListIncomingPhoneNumberMobile(AccountSid string, par
 	headers := 0
 
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.Origin != nil {
-		data.Set("Origin", *params.Origin)
+		data.Set("Origin", *params.Origin) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6764,19 +6762,19 @@ func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(AccountSid string, p
 	headers := 0
 
 	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
+		data.Set("Beta", fmt.Sprint(*params.Beta)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.Origin != nil {
-		data.Set("Origin", *params.Origin)
+		data.Set("Origin", *params.Origin) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6815,7 +6813,7 @@ func (c *DefaultApiService) ListKey(AccountSid string, params *ListKeyParams) (*
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6863,16 +6861,16 @@ func (c *DefaultApiService) ListMedia(AccountSid string, MessageSid string, para
 	headers := 0
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6914,7 +6912,7 @@ func (c *DefaultApiService) ListMember(AccountSid string, QueueSid string, param
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -6964,22 +6962,22 @@ func (c *DefaultApiService) ListMessage(AccountSid string, params *ListMessagePa
 	headers := 0
 
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
+		data.Set("To", *params.To) 
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
+		data.Set("From", *params.From) 
 	}
 	if params != nil && params.DateSent != nil {
-		data.Set("DateSent", fmt.Sprint(*params.DateSent))
+		data.Set("DateSent", fmt.Sprint(*params.DateSent)) 
 	}
 	if params != nil && params.DateSentBefore != nil {
-		data.Set("DateSentBefore", fmt.Sprint(*params.DateSentBefore))
+		data.Set("DateSentBefore", fmt.Sprint(*params.DateSentBefore)) 
 	}
 	if params != nil && params.DateSentAfter != nil {
-		data.Set("DateSentAfter", fmt.Sprint(*params.DateSentAfter))
+		data.Set("DateSentAfter", fmt.Sprint(*params.DateSentAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7027,19 +7025,19 @@ func (c *DefaultApiService) ListNotification(AccountSid string, params *ListNoti
 	headers := 0
 
 	if params != nil && params.Log != nil {
-		data.Set("Log", fmt.Sprint(*params.Log))
+		data.Set("Log", fmt.Sprint(*params.Log)) 
 	}
 	if params != nil && params.MessageDate != nil {
-		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
+		data.Set("MessageDate", fmt.Sprint(*params.MessageDate)) 
 	}
 	if params != nil && params.MessageDateBefore != nil {
-		data.Set("MessageDateBefore", fmt.Sprint(*params.MessageDateBefore))
+		data.Set("MessageDateBefore", fmt.Sprint(*params.MessageDateBefore)) 
 	}
 	if params != nil && params.MessageDateAfter != nil {
-		data.Set("MessageDateAfter", fmt.Sprint(*params.MessageDateAfter))
+		data.Set("MessageDateAfter", fmt.Sprint(*params.MessageDateAfter)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7083,13 +7081,13 @@ func (c *DefaultApiService) ListOutgoingCallerId(AccountSid string, params *List
 	headers := 0
 
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
+		data.Set("PhoneNumber", *params.PhoneNumber) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7137,16 +7135,16 @@ func (c *DefaultApiService) ListParticipant(AccountSid string, ConferenceSid str
 	headers := 0
 
 	if params != nil && params.Muted != nil {
-		data.Set("Muted", fmt.Sprint(*params.Muted))
+		data.Set("Muted", fmt.Sprint(*params.Muted)) 
 	}
 	if params != nil && params.Hold != nil {
-		data.Set("Hold", fmt.Sprint(*params.Hold))
+		data.Set("Hold", fmt.Sprint(*params.Hold)) 
 	}
 	if params != nil && params.Coaching != nil {
-		data.Set("Coaching", fmt.Sprint(*params.Coaching))
+		data.Set("Coaching", fmt.Sprint(*params.Coaching)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7186,7 +7184,7 @@ func (c *DefaultApiService) ListQueue(AccountSid string, params *ListQueueParams
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7236,22 +7234,22 @@ func (c *DefaultApiService) ListRecording(AccountSid string, params *ListRecordi
 	headers := 0
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated)) 
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore)) 
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter)) 
 	}
 	if params != nil && params.CallSid != nil {
-		data.Set("CallSid", *params.CallSid)
+		data.Set("CallSid", *params.CallSid) 
 	}
 	if params != nil && params.ConferenceSid != nil {
-		data.Set("ConferenceSid", *params.ConferenceSid)
+		data.Set("ConferenceSid", *params.ConferenceSid) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7293,7 +7291,7 @@ func (c *DefaultApiService) ListRecordingAddOnResult(AccountSid string, Referenc
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7337,7 +7335,7 @@ func (c *DefaultApiService) ListRecordingAddOnResultPayload(AccountSid string, R
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7378,7 +7376,7 @@ func (c *DefaultApiService) ListRecordingTranscription(AccountSid string, Record
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7422,13 +7420,13 @@ func (c *DefaultApiService) ListShortCode(AccountSid string, params *ListShortCo
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.ShortCode != nil {
-		data.Set("ShortCode", *params.ShortCode)
+		data.Set("ShortCode", *params.ShortCode) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7467,7 +7465,7 @@ func (c *DefaultApiService) ListSigningKey(AccountSid string, params *ListSignin
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7509,7 +7507,7 @@ func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(AccountSid str
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7551,7 +7549,7 @@ func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(AccountSi
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7593,7 +7591,7 @@ func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(Accoun
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7635,7 +7633,7 @@ func (c *DefaultApiService) ListSipCredential(AccountSid string, CredentialListS
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7675,7 +7673,7 @@ func (c *DefaultApiService) ListSipCredentialList(AccountSid string, params *Lis
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7717,7 +7715,7 @@ func (c *DefaultApiService) ListSipCredentialListMapping(AccountSid string, Doma
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7757,7 +7755,7 @@ func (c *DefaultApiService) ListSipDomain(AccountSid string, params *ListSipDoma
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7797,7 +7795,7 @@ func (c *DefaultApiService) ListSipIpAccessControlList(AccountSid string, params
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7839,7 +7837,7 @@ func (c *DefaultApiService) ListSipIpAccessControlListMapping(AccountSid string,
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7881,7 +7879,7 @@ func (c *DefaultApiService) ListSipIpAddress(AccountSid string, IpAccessControlL
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7921,7 +7919,7 @@ func (c *DefaultApiService) ListTranscription(AccountSid string, params *ListTra
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -7969,19 +7967,19 @@ func (c *DefaultApiService) ListUsageRecord(AccountSid string, params *ListUsage
 	headers := 0
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", *params.Category) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8028,19 +8026,19 @@ func (c *DefaultApiService) ListUsageRecordAllTime(AccountSid string, params *Li
 	headers := 0
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", *params.Category) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8087,19 +8085,19 @@ func (c *DefaultApiService) ListUsageRecordDaily(AccountSid string, params *List
 	headers := 0
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", *params.Category) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8146,19 +8144,19 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(AccountSid string, params *
 	headers := 0
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", *params.Category) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8205,19 +8203,19 @@ func (c *DefaultApiService) ListUsageRecordMonthly(AccountSid string, params *Li
 	headers := 0
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", *params.Category) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8264,19 +8262,19 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(AccountSid string, params *
 	headers := 0
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", *params.Category) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8323,19 +8321,19 @@ func (c *DefaultApiService) ListUsageRecordToday(AccountSid string, params *List
 	headers := 0
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", *params.Category) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8382,19 +8380,19 @@ func (c *DefaultApiService) ListUsageRecordYearly(AccountSid string, params *Lis
 	headers := 0
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", *params.Category) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8441,19 +8439,19 @@ func (c *DefaultApiService) ListUsageRecordYesterday(AccountSid string, params *
 	headers := 0
 
 	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
+		data.Set("Category", *params.Category) 
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts)) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8499,16 +8497,16 @@ func (c *DefaultApiService) ListUsageTrigger(AccountSid string, params *ListUsag
 	headers := 0
 
 	if params != nil && params.Recurring != nil {
-		data.Set("Recurring", *params.Recurring)
+		data.Set("Recurring", *params.Recurring) 
 	}
 	if params != nil && params.TriggerBy != nil {
-		data.Set("TriggerBy", *params.TriggerBy)
+		data.Set("TriggerBy", *params.TriggerBy) 
 	}
 	if params != nil && params.UsageCategory != nil {
-		data.Set("UsageCategory", *params.UsageCategory)
+		data.Set("UsageCategory", *params.UsageCategory) 
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -8550,10 +8548,10 @@ func (c *DefaultApiService) UpdateAccount(Sid string, params *UpdateAccountParam
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 
@@ -8608,28 +8606,28 @@ func (c *DefaultApiService) UpdateAddress(AccountSid string, Sid string, params 
 	headers := 0
 
 	if params != nil && params.AutoCorrectAddress != nil {
-		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
+		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress)) 
 	}
 	if params != nil && params.City != nil {
-		data.Set("City", *params.City)
+		data.Set("City", *params.City) 
 	}
 	if params != nil && params.CustomerName != nil {
-		data.Set("CustomerName", *params.CustomerName)
+		data.Set("CustomerName", *params.CustomerName) 
 	}
 	if params != nil && params.EmergencyEnabled != nil {
-		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
+		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PostalCode != nil {
-		data.Set("PostalCode", *params.PostalCode)
+		data.Set("PostalCode", *params.PostalCode) 
 	}
 	if params != nil && params.Region != nil {
-		data.Set("Region", *params.Region)
+		data.Set("Region", *params.Region) 
 	}
 	if params != nil && params.Street != nil {
-		data.Set("Street", *params.Street)
+		data.Set("Street", *params.Street) 
 	}
 
 
@@ -8699,49 +8697,49 @@ func (c *DefaultApiService) UpdateApplication(AccountSid string, Sid string, par
 	headers := 0
 
 	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
+		data.Set("ApiVersion", *params.ApiVersion) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MessageStatusCallback != nil {
-		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+		data.Set("MessageStatusCallback", *params.MessageStatusCallback) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsStatusCallback != nil {
-		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+		data.Set("SmsStatusCallback", *params.SmsStatusCallback) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.VoiceCallerIdLookup != nil {
-		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup)) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -8797,28 +8795,28 @@ func (c *DefaultApiService) UpdateCall(AccountSid string, Sid string, params *Up
 	headers := 0
 
 	if params != nil && params.FallbackMethod != nil {
-		data.Set("FallbackMethod", *params.FallbackMethod)
+		data.Set("FallbackMethod", *params.FallbackMethod) 
 	}
 	if params != nil && params.FallbackUrl != nil {
-		data.Set("FallbackUrl", *params.FallbackUrl)
+		data.Set("FallbackUrl", *params.FallbackUrl) 
 	}
 	if params != nil && params.Method != nil {
-		data.Set("Method", *params.Method)
+		data.Set("Method", *params.Method) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.Twiml != nil {
-		data.Set("Twiml", *params.Twiml)
+		data.Set("Twiml", *params.Twiml) 
 	}
 	if params != nil && params.Url != nil {
-		data.Set("Url", *params.Url)
+		data.Set("Url", *params.Url) 
 	}
 
 
@@ -8865,7 +8863,7 @@ func (c *DefaultApiService) UpdateCallFeedback(AccountSid string, CallSid string
 		data.Set("Issue",  strings.Join(*params.Issue, ","))
 	}
 	if params != nil && params.QualityScore != nil {
-		data.Set("QualityScore", fmt.Sprint(*params.QualityScore))
+		data.Set("QualityScore", fmt.Sprint(*params.QualityScore)) 
 	}
 
 
@@ -8911,10 +8909,10 @@ func (c *DefaultApiService) UpdateCallRecording(AccountSid string, CallSid strin
 	headers := 0
 
 	if params != nil && params.PauseBehavior != nil {
-		data.Set("PauseBehavior", *params.PauseBehavior)
+		data.Set("PauseBehavior", *params.PauseBehavior) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 
@@ -8959,13 +8957,13 @@ func (c *DefaultApiService) UpdateConference(AccountSid string, Sid string, para
 	headers := 0
 
 	if params != nil && params.AnnounceMethod != nil {
-		data.Set("AnnounceMethod", *params.AnnounceMethod)
+		data.Set("AnnounceMethod", *params.AnnounceMethod) 
 	}
 	if params != nil && params.AnnounceUrl != nil {
-		data.Set("AnnounceUrl", *params.AnnounceUrl)
+		data.Set("AnnounceUrl", *params.AnnounceUrl) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 
@@ -9011,10 +9009,10 @@ func (c *DefaultApiService) UpdateConferenceRecording(AccountSid string, Confere
 	headers := 0
 
 	if params != nil && params.PauseBehavior != nil {
-		data.Set("PauseBehavior", *params.PauseBehavior)
+		data.Set("PauseBehavior", *params.PauseBehavior) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 
 
@@ -9070,25 +9068,25 @@ func (c *DefaultApiService) UpdateConnectApp(AccountSid string, Sid string, para
 	headers := 0
 
 	if params != nil && params.AuthorizeRedirectUrl != nil {
-		data.Set("AuthorizeRedirectUrl", *params.AuthorizeRedirectUrl)
+		data.Set("AuthorizeRedirectUrl", *params.AuthorizeRedirectUrl) 
 	}
 	if params != nil && params.CompanyName != nil {
-		data.Set("CompanyName", *params.CompanyName)
+		data.Set("CompanyName", *params.CompanyName) 
 	}
 	if params != nil && params.DeauthorizeCallbackMethod != nil {
-		data.Set("DeauthorizeCallbackMethod", *params.DeauthorizeCallbackMethod)
+		data.Set("DeauthorizeCallbackMethod", *params.DeauthorizeCallbackMethod) 
 	}
 	if params != nil && params.DeauthorizeCallbackUrl != nil {
-		data.Set("DeauthorizeCallbackUrl", *params.DeauthorizeCallbackUrl)
+		data.Set("DeauthorizeCallbackUrl", *params.DeauthorizeCallbackUrl) 
 	}
 	if params != nil && params.Description != nil {
-		data.Set("Description", *params.Description)
+		data.Set("Description", *params.Description) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.HomepageUrl != nil {
-		data.Set("HomepageUrl", *params.HomepageUrl)
+		data.Set("HomepageUrl", *params.HomepageUrl) 
 	}
 	if params != nil && params.Permissions != nil {
 		data.Set("Permissions",  strings.Join(*params.Permissions, ","))
@@ -9177,73 +9175,73 @@ func (c *DefaultApiService) UpdateIncomingPhoneNumber(AccountSid string, Sid str
 	headers := 0
 
 	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid)
+		data.Set("AccountSid", *params.AccountSid) 
 	}
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid)
+		data.Set("AddressSid", *params.AddressSid) 
 	}
 	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
+		data.Set("ApiVersion", *params.ApiVersion) 
 	}
 	if params != nil && params.BundleSid != nil {
-		data.Set("BundleSid", *params.BundleSid)
+		data.Set("BundleSid", *params.BundleSid) 
 	}
 	if params != nil && params.EmergencyAddressSid != nil {
-		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid) 
 	}
 	if params != nil && params.EmergencyStatus != nil {
-		data.Set("EmergencyStatus", *params.EmergencyStatus)
+		data.Set("EmergencyStatus", *params.EmergencyStatus) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IdentitySid != nil {
-		data.Set("IdentitySid", *params.IdentitySid)
+		data.Set("IdentitySid", *params.IdentitySid) 
 	}
 	if params != nil && params.SmsApplicationSid != nil {
-		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
 	}
 	if params != nil && params.TrunkSid != nil {
-		data.Set("TrunkSid", *params.TrunkSid)
+		data.Set("TrunkSid", *params.TrunkSid) 
 	}
 	if params != nil && params.VoiceApplicationSid != nil {
-		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid) 
 	}
 	if params != nil && params.VoiceCallerIdLookup != nil {
-		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup)) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceReceiveMode != nil {
-		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -9284,7 +9282,7 @@ func (c *DefaultApiService) UpdateKey(AccountSid string, Sid string, params *Upd
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -9330,10 +9328,10 @@ func (c *DefaultApiService) UpdateMember(AccountSid string, QueueSid string, Cal
 	headers := 0
 
 	if params != nil && params.Method != nil {
-		data.Set("Method", *params.Method)
+		data.Set("Method", *params.Method) 
 	}
 	if params != nil && params.Url != nil {
-		data.Set("Url", *params.Url)
+		data.Set("Url", *params.Url) 
 	}
 
 
@@ -9375,7 +9373,7 @@ func (c *DefaultApiService) UpdateMessage(AccountSid string, Sid string, params 
 	headers := 0
 
 	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body)
+		data.Set("Body", *params.Body) 
 	}
 
 
@@ -9417,7 +9415,7 @@ func (c *DefaultApiService) UpdateOutgoingCallerId(AccountSid string, Sid string
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -9483,40 +9481,40 @@ func (c *DefaultApiService) UpdateParticipant(AccountSid string, ConferenceSid s
 	headers := 0
 
 	if params != nil && params.AnnounceMethod != nil {
-		data.Set("AnnounceMethod", *params.AnnounceMethod)
+		data.Set("AnnounceMethod", *params.AnnounceMethod) 
 	}
 	if params != nil && params.AnnounceUrl != nil {
-		data.Set("AnnounceUrl", *params.AnnounceUrl)
+		data.Set("AnnounceUrl", *params.AnnounceUrl) 
 	}
 	if params != nil && params.BeepOnExit != nil {
-		data.Set("BeepOnExit", fmt.Sprint(*params.BeepOnExit))
+		data.Set("BeepOnExit", fmt.Sprint(*params.BeepOnExit)) 
 	}
 	if params != nil && params.CallSidToCoach != nil {
-		data.Set("CallSidToCoach", *params.CallSidToCoach)
+		data.Set("CallSidToCoach", *params.CallSidToCoach) 
 	}
 	if params != nil && params.Coaching != nil {
-		data.Set("Coaching", fmt.Sprint(*params.Coaching))
+		data.Set("Coaching", fmt.Sprint(*params.Coaching)) 
 	}
 	if params != nil && params.EndConferenceOnExit != nil {
-		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit))
+		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit)) 
 	}
 	if params != nil && params.Hold != nil {
-		data.Set("Hold", fmt.Sprint(*params.Hold))
+		data.Set("Hold", fmt.Sprint(*params.Hold)) 
 	}
 	if params != nil && params.HoldMethod != nil {
-		data.Set("HoldMethod", *params.HoldMethod)
+		data.Set("HoldMethod", *params.HoldMethod) 
 	}
 	if params != nil && params.HoldUrl != nil {
-		data.Set("HoldUrl", *params.HoldUrl)
+		data.Set("HoldUrl", *params.HoldUrl) 
 	}
 	if params != nil && params.Muted != nil {
-		data.Set("Muted", fmt.Sprint(*params.Muted))
+		data.Set("Muted", fmt.Sprint(*params.Muted)) 
 	}
 	if params != nil && params.WaitMethod != nil {
-		data.Set("WaitMethod", *params.WaitMethod)
+		data.Set("WaitMethod", *params.WaitMethod) 
 	}
 	if params != nil && params.WaitUrl != nil {
-		data.Set("WaitUrl", *params.WaitUrl)
+		data.Set("WaitUrl", *params.WaitUrl) 
 	}
 
 
@@ -9566,16 +9564,16 @@ func (c *DefaultApiService) UpdatePayments(AccountSid string, CallSid string, Si
 	headers := 0
 
 	if params != nil && params.Capture != nil {
-		data.Set("Capture", *params.Capture)
+		data.Set("Capture", *params.Capture) 
 	}
 	if params != nil && params.IdempotencyKey != nil {
-		data.Set("IdempotencyKey", *params.IdempotencyKey)
+		data.Set("IdempotencyKey", *params.IdempotencyKey) 
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", *params.Status) 
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
+		data.Set("StatusCallback", *params.StatusCallback) 
 	}
 
 
@@ -9619,10 +9617,10 @@ func (c *DefaultApiService) UpdateQueue(AccountSid string, Sid string, params *U
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.MaxSize != nil {
-		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
+		data.Set("MaxSize", fmt.Sprint(*params.MaxSize)) 
 	}
 
 
@@ -9674,22 +9672,22 @@ func (c *DefaultApiService) UpdateShortCode(AccountSid string, Sid string, param
 	headers := 0
 
 	if params != nil && params.ApiVersion != nil {
-		data.Set("ApiVersion", *params.ApiVersion)
+		data.Set("ApiVersion", *params.ApiVersion) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod)
+		data.Set("SmsMethod", *params.SmsMethod) 
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl)
+		data.Set("SmsUrl", *params.SmsUrl) 
 	}
 
 
@@ -9717,7 +9715,7 @@ UpdateSigningKey Method for UpdateSigningKey
  * @param AccountSid
  * @param Sid
  * @param optional nil or *UpdateSigningKeyOpts - Optional Parameters:
- * @param "FriendlyName" (string) -
+ * @param "FriendlyName" (string) - 
 @return ApiV2010AccountSigningKey
 */
 func (c *DefaultApiService) UpdateSigningKey(AccountSid string, Sid string, params *UpdateSigningKeyParams) (*ApiV2010AccountSigningKey, error) {
@@ -9730,7 +9728,7 @@ func (c *DefaultApiService) UpdateSigningKey(AccountSid string, Sid string, para
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -9774,7 +9772,7 @@ func (c *DefaultApiService) UpdateSipCredential(AccountSid string, CredentialLis
 	headers := 0
 
 	if params != nil && params.Password != nil {
-		data.Set("Password", *params.Password)
+		data.Set("Password", *params.Password) 
 	}
 
 
@@ -9816,7 +9814,7 @@ func (c *DefaultApiService) UpdateSipCredentialList(AccountSid string, Sid strin
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -9882,43 +9880,43 @@ func (c *DefaultApiService) UpdateSipDomain(AccountSid string, Sid string, param
 	headers := 0
 
 	if params != nil && params.ByocTrunkSid != nil {
-		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+		data.Set("ByocTrunkSid", *params.ByocTrunkSid) 
 	}
 	if params != nil && params.DomainName != nil {
-		data.Set("DomainName", *params.DomainName)
+		data.Set("DomainName", *params.DomainName) 
 	}
 	if params != nil && params.EmergencyCallerSid != nil {
-		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
+		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid) 
 	}
 	if params != nil && params.EmergencyCallingEnabled != nil {
-		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
+		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.Secure != nil {
-		data.Set("Secure", fmt.Sprint(*params.Secure))
+		data.Set("Secure", fmt.Sprint(*params.Secure)) 
 	}
 	if params != nil && params.SipRegistration != nil {
-		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
+		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration)) 
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod)
+		data.Set("VoiceMethod", *params.VoiceMethod) 
 	}
 	if params != nil && params.VoiceStatusCallbackMethod != nil {
-		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod) 
 	}
 	if params != nil && params.VoiceStatusCallbackUrl != nil {
-		data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
+		data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl) 
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl)
+		data.Set("VoiceUrl", *params.VoiceUrl) 
 	}
 
 
@@ -9960,7 +9958,7 @@ func (c *DefaultApiService) UpdateSipIpAccessControlList(AccountSid string, Sid 
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -10008,13 +10006,13 @@ func (c *DefaultApiService) UpdateSipIpAddress(AccountSid string, IpAccessContro
 	headers := 0
 
 	if params != nil && params.CidrPrefixLength != nil {
-		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength)) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.IpAddress != nil {
-		data.Set("IpAddress", *params.IpAddress)
+		data.Set("IpAddress", *params.IpAddress) 
 	}
 
 
@@ -10060,13 +10058,13 @@ func (c *DefaultApiService) UpdateUsageTrigger(AccountSid string, Sid string, pa
 	headers := 0
 
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod)
+		data.Set("CallbackMethod", *params.CallbackMethod) 
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl)
+		data.Set("CallbackUrl", *params.CallbackUrl) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 

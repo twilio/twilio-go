@@ -14,6 +14,6 @@ type Transport string
 
 // List of transport
 const (
-	SMS Transport = "sms"
-	IP Transport = "ip"
+	TRANSPORT_SMS Transport = "sms"
+	TRANSPORT_IP Transport = "ip"
 )

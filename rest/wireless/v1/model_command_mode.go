@@ -14,6 +14,6 @@ type CommandMode string
 
 // List of command_mode
 const (
-	TEXT CommandMode = "text"
-	BINARY CommandMode = "binary"
+	COMMANDMODE_TEXT CommandMode = "text"
+	COMMANDMODE_BINARY CommandMode = "binary"
 )

@@ -14,8 +14,8 @@ type RoomType string
 
 // List of room_type
 const (
-	GO RoomType = "go"
-	PEER_TO_PEER RoomType = "peer-to-peer"
-	GROUP RoomType = "group"
-	GROUP_SMALL RoomType = "group-small"
+	ROOMTYPE_GO RoomType = "go"
+	ROOMTYPE_PEER_TO_PEER RoomType = "peer-to-peer"
+	ROOMTYPE_GROUP RoomType = "group"
+	ROOMTYPE_GROUP_SMALL RoomType = "group-small"
 )

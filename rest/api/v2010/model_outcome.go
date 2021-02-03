@@ -14,6 +14,6 @@ type Outcome string
 
 // List of outcome
 const (
-	CONFIRMED Outcome = "confirmed"
-	UNCONFIRMED Outcome = "unconfirmed"
+	OUTCOME_CONFIRMED Outcome = "confirmed"
+	OUTCOME_UNCONFIRMED Outcome = "unconfirmed"
 )

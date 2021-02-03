@@ -14,9 +14,9 @@ type Status string
 
 // List of status
 const (
-	OPEN Status = "open"
-	IN_PROGRESS Status = "in-progress"
-	CLOSED Status = "closed"
-	FAILED Status = "failed"
-	UNKNOWN Status = "unknown"
+	STATUS_OPEN Status = "open"
+	STATUS_IN_PROGRESS Status = "in-progress"
+	STATUS_CLOSED Status = "closed"
+	STATUS_FAILED Status = "failed"
+	STATUS_UNKNOWN Status = "unknown"
 )

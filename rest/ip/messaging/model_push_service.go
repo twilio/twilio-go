@@ -14,7 +14,7 @@ type PushService string
 
 // List of push_service
 const (
-	GCM PushService = "gcm"
-	APN PushService = "apn"
-	FCM PushService = "fcm"
+	PUSHSERVICE_GCM PushService = "gcm"
+	PUSHSERVICE_APN PushService = "apn"
+	PUSHSERVICE_FCM PushService = "fcm"
 )

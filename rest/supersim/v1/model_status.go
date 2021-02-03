@@ -14,9 +14,9 @@ type Status string
 
 // List of status
 const (
-	NEW Status = "new"
-	READY Status = "ready"
-	ACTIVE Status = "active"
-	INACTIVE Status = "inactive"
-	SCHEDULED Status = "scheduled"
+	STATUS_NEW Status = "new"
+	STATUS_READY Status = "ready"
+	STATUS_ACTIVE Status = "active"
+	STATUS_INACTIVE Status = "inactive"
+	STATUS_SCHEDULED Status = "scheduled"
 )

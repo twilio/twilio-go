@@ -14,7 +14,7 @@ type PushType string
 
 // List of push_type
 const (
-	APN PushType = "apn"
-	GCM PushType = "gcm"
-	FCM PushType = "fcm"
+	PUSHTYPE_APN PushType = "apn"
+	PUSHTYPE_GCM PushType = "gcm"
+	PUSHTYPE_FCM PushType = "fcm"
 )

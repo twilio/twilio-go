@@ -14,7 +14,7 @@ type Channel string
 
 // List of channel
 const (
-	SMS Channel = "sms"
-	CALL Channel = "call"
-	EMAIL Channel = "email"
+	CHANNEL_SMS Channel = "sms"
+	CHANNEL_CALL Channel = "call"
+	CHANNEL_EMAIL Channel = "email"
 )

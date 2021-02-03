@@ -14,8 +14,8 @@ type GeoMatchLevel string
 
 // List of geo_match_level
 const (
-	AREA_CODE GeoMatchLevel = "area-code"
-	OVERLAY GeoMatchLevel = "overlay"
-	RADIUS GeoMatchLevel = "radius"
-	COUNTRY GeoMatchLevel = "country"
+	GEOMATCHLEVEL_AREA_CODE GeoMatchLevel = "area-code"
+	GEOMATCHLEVEL_OVERLAY GeoMatchLevel = "overlay"
+	GEOMATCHLEVEL_RADIUS GeoMatchLevel = "radius"
+	GEOMATCHLEVEL_COUNTRY GeoMatchLevel = "country"
 )

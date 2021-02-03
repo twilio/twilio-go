@@ -14,6 +14,6 @@ type RecordingTrim string
 
 // List of recording_trim
 const (
-	TRIM_SILENCE RecordingTrim = "trim-silence"
-	DO_NOT_TRIM RecordingTrim = "do-not-trim"
+	RECORDINGTRIM_TRIM_SILENCE RecordingTrim = "trim-silence"
+	RECORDINGTRIM_DO_NOT_TRIM RecordingTrim = "do-not-trim"
 )

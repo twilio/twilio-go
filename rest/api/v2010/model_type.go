@@ -14,6 +14,6 @@ type ModelType string
 
 // List of Type_
 const (
-	TRIAL ModelType = "Trial"
-	FULL ModelType = "Full"
+	MODELTYPE_TRIAL ModelType = "Trial"
+	MODELTYPE_FULL ModelType = "Full"
 )

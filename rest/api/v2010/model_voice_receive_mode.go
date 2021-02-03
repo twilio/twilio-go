@@ -14,6 +14,6 @@ type VoiceReceiveMode string
 
 // List of voice_receive_mode
 const (
-	VOICE VoiceReceiveMode = "voice"
-	FAX VoiceReceiveMode = "fax"
+	VOICERECEIVEMODE_VOICE VoiceReceiveMode = "voice"
+	VOICERECEIVEMODE_FAX VoiceReceiveMode = "fax"
 )

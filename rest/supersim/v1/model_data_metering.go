@@ -14,5 +14,5 @@ type DataMetering string
 
 // List of data_metering
 const (
-	PAYG DataMetering = "payg"
+	DATAMETERING_PAYG DataMetering = "payg"
 )

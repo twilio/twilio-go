@@ -14,6 +14,6 @@ type TaskOrder string
 
 // List of task_order
 const (
-	FIFO TaskOrder = "FIFO"
-	LIFO TaskOrder = "LIFO"
+	TASKORDER_FIFO TaskOrder = "FIFO"
+	TASKORDER_LIFO TaskOrder = "LIFO"
 )

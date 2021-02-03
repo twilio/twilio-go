@@ -14,7 +14,7 @@ type TriggerField string
 
 // List of trigger_field
 const (
-	COUNT TriggerField = "count"
-	USAGE TriggerField = "usage"
-	PRICE TriggerField = "price"
+	TRIGGERFIELD_COUNT TriggerField = "count"
+	TRIGGERFIELD_USAGE TriggerField = "usage"
+	TRIGGERFIELD_PRICE TriggerField = "price"
 )

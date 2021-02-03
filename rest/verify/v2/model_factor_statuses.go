@@ -14,6 +14,6 @@ type FactorStatuses string
 
 // List of factor_statuses
 const (
-	UNVERIFIED FactorStatuses = "unverified"
-	VERIFIED FactorStatuses = "verified"
+	FACTORSTATUSES_UNVERIFIED FactorStatuses = "unverified"
+	FACTORSTATUSES_VERIFIED FactorStatuses = "verified"
 )

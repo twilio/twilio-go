@@ -14,7 +14,7 @@ type CreatedMethod string
 
 // List of created_method
 const (
-	SDK CreatedMethod = "sdk"
-	AD_HOC CreatedMethod = "ad_hoc"
-	API CreatedMethod = "api"
+	CREATEDMETHOD_SDK CreatedMethod = "sdk"
+	CREATEDMETHOD_AD_HOC CreatedMethod = "ad_hoc"
+	CREATEDMETHOD_API CreatedMethod = "api"
 )

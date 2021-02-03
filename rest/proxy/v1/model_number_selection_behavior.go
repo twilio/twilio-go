@@ -14,6 +14,6 @@ type NumberSelectionBehavior string
 
 // List of number_selection_behavior
 const (
-	AVOID_STICKY NumberSelectionBehavior = "avoid-sticky"
-	PREFER_STICKY NumberSelectionBehavior = "prefer-sticky"
+	NUMBERSELECTIONBEHAVIOR_AVOID_STICKY NumberSelectionBehavior = "avoid-sticky"
+	NUMBERSELECTIONBEHAVIOR_PREFER_STICKY NumberSelectionBehavior = "prefer-sticky"
 )

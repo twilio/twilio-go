@@ -14,6 +14,6 @@ type ModelType string
 
 // List of Type_
 const (
-	INDIVIDUAL ModelType = "individual"
-	BUSINESS ModelType = "business"
+	MODELTYPE_INDIVIDUAL ModelType = "individual"
+	MODELTYPE_BUSINESS ModelType = "business"
 )

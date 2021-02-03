@@ -14,6 +14,6 @@ type ProcessingState string
 
 // List of processing_state
 const (
-	COMPLETE ProcessingState = "complete"
-	IN_PROGRESS ProcessingState = "in_progress"
+	PROCESSINGSTATE_COMPLETE ProcessingState = "complete"
+	PROCESSINGSTATE_IN_PROGRESS ProcessingState = "in_progress"
 )

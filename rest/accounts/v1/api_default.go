@@ -15,7 +15,6 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
-	"strings"
 )
 
 type DefaultApiService struct {
@@ -53,13 +52,13 @@ func (c *DefaultApiService) CreateCredentialAws(params *CreateCredentialAwsParam
 	headers := 0
 
 	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid)
+		data.Set("AccountSid", *params.AccountSid) 
 	}
 	if params != nil && params.Credentials != nil {
-		data.Set("Credentials", *params.Credentials)
+		data.Set("Credentials", *params.Credentials) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -101,13 +100,13 @@ func (c *DefaultApiService) CreateCredentialPublicKey(params *CreateCredentialPu
 	headers := 0
 
 	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid)
+		data.Set("AccountSid", *params.AccountSid) 
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 	if params != nil && params.PublicKey != nil {
-		data.Set("PublicKey", *params.PublicKey)
+		data.Set("PublicKey", *params.PublicKey) 
 	}
 
 
@@ -309,7 +308,7 @@ func (c *DefaultApiService) ListCredentialAws(params *ListCredentialAwsParams) (
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -347,7 +346,7 @@ func (c *DefaultApiService) ListCredentialPublicKey(params *ListCredentialPublic
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
 	}
 
 
@@ -416,7 +415,7 @@ func (c *DefaultApiService) UpdateCredentialAws(Sid string, params *UpdateCreden
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 
@@ -456,7 +455,7 @@ func (c *DefaultApiService) UpdateCredentialPublicKey(Sid string, params *Update
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
+		data.Set("FriendlyName", *params.FriendlyName) 
 	}
 
 

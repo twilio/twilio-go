@@ -14,7 +14,7 @@ type ChallengeReasons string
 
 // List of challenge_reasons
 const (
-	NONE ChallengeReasons = "none"
-	NOT_NEEDED ChallengeReasons = "not_needed"
-	NOT_REQUESTED ChallengeReasons = "not_requested"
+	CHALLENGEREASONS_NONE ChallengeReasons = "none"
+	CHALLENGEREASONS_NOT_NEEDED ChallengeReasons = "not_needed"
+	CHALLENGEREASONS_NOT_REQUESTED ChallengeReasons = "not_requested"
 )

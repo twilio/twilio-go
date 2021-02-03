@@ -14,6 +14,6 @@ type Priority string
 
 // List of priority
 const (
-	HIGH Priority = "high"
-	LOW Priority = "low"
+	PRIORITY_HIGH Priority = "high"
+	PRIORITY_LOW Priority = "low"
 )

@@ -14,7 +14,7 @@ type ModelType string
 
 // List of Type_
 const (
-	AUDIO ModelType = "audio"
-	VIDEO ModelType = "video"
-	DATA ModelType = "data"
+	MODELTYPE_AUDIO ModelType = "audio"
+	MODELTYPE_VIDEO ModelType = "video"
+	MODELTYPE_DATA ModelType = "data"
 )

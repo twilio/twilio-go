@@ -14,6 +14,6 @@ type Direction string
 
 // List of direction
 const (
-	INBOUND Direction = "inbound"
-	OUTBOUND Direction = "outbound"
+	DIRECTION_INBOUND Direction = "inbound"
+	DIRECTION_OUTBOUND Direction = "outbound"
 )

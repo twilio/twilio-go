@@ -14,8 +14,8 @@ type Recurring string
 
 // List of recurring
 const (
-	DAILY Recurring = "daily"
-	MONTHLY Recurring = "monthly"
-	YEARLY Recurring = "yearly"
-	ALLTIME Recurring = "alltime"
+	RECURRING_DAILY Recurring = "daily"
+	RECURRING_MONTHLY Recurring = "monthly"
+	RECURRING_YEARLY Recurring = "yearly"
+	RECURRING_ALLTIME Recurring = "alltime"
 )

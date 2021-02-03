@@ -14,6 +14,6 @@ type Method string
 
 // List of method
 const (
-	GET Method = "GET"
-	POST Method = "POST"
+	METHOD_GET Method = "GET"
+	METHOD_POST Method = "POST"
 )

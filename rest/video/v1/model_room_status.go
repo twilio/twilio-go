@@ -14,7 +14,7 @@ type RoomStatus string
 
 // List of room_status
 const (
-	IN_PROGRESS RoomStatus = "in-progress"
-	COMPLETED RoomStatus = "completed"
-	FAILED RoomStatus = "failed"
+	ROOMSTATUS_IN_PROGRESS RoomStatus = "in-progress"
+	ROOMSTATUS_COMPLETED RoomStatus = "completed"
+	ROOMSTATUS_FAILED RoomStatus = "failed"
 )

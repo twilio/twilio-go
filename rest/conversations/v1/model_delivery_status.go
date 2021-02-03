@@ -14,9 +14,9 @@ type DeliveryStatus string
 
 // List of delivery_status
 const (
-	READ DeliveryStatus = "read"
-	FAILED DeliveryStatus = "failed"
-	DELIVERED DeliveryStatus = "delivered"
-	UNDELIVERED DeliveryStatus = "undelivered"
-	SENT DeliveryStatus = "sent"
+	DELIVERYSTATUS_READ DeliveryStatus = "read"
+	DELIVERYSTATUS_FAILED DeliveryStatus = "failed"
+	DELIVERYSTATUS_DELIVERED DeliveryStatus = "delivered"
+	DELIVERYSTATUS_UNDELIVERED DeliveryStatus = "undelivered"
+	DELIVERYSTATUS_SENT DeliveryStatus = "sent"
 )

@@ -14,7 +14,7 @@ type Visibility string
 
 // List of visibility
 const (
-	PUBLIC Visibility = "public"
-	PRIVATE Visibility = "private"
-	PROTECTED Visibility = "protected"
+	VISIBILITY_PUBLIC Visibility = "public"
+	VISIBILITY_PRIVATE Visibility = "private"
+	VISIBILITY_PROTECTED Visibility = "protected"
 )

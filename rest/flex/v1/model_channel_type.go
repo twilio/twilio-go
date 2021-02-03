@@ -14,10 +14,10 @@ type ChannelType string
 
 // List of channel_type
 const (
-	WEB ChannelType = "web"
-	SMS ChannelType = "sms"
-	FACEBOOK ChannelType = "facebook"
-	WHATSAPP ChannelType = "whatsapp"
-	LINE ChannelType = "line"
-	CUSTOM ChannelType = "custom"
+	CHANNELTYPE_WEB ChannelType = "web"
+	CHANNELTYPE_SMS ChannelType = "sms"
+	CHANNELTYPE_FACEBOOK ChannelType = "facebook"
+	CHANNELTYPE_WHATSAPP ChannelType = "whatsapp"
+	CHANNELTYPE_LINE ChannelType = "line"
+	CHANNELTYPE_CUSTOM ChannelType = "custom"
 )
