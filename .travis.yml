@@ -5,6 +5,8 @@ env:
 - version=latest
 script:
 - make test
+install:
+  - make install
 notifications:
   slack:
     if: branch = main
