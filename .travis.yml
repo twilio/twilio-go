@@ -3,8 +3,6 @@ env:
 - version=1.14
 - version=1.15
 - version=latest
-install:
-- make install
 script:
 - make test
 notifications:
