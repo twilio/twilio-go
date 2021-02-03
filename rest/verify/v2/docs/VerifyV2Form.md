@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FormMeta** | [**map[string]interface{}**](.md) |  | [optional] 
-**FormType** | **string** |  | [optional] 
+**FormType** | [**FormTypes**](form_types.md) |  | [optional] 
 **Forms** | [**map[string]interface{}**](.md) |  | [optional] 
 **Url** | **string** |  | [optional] 
 

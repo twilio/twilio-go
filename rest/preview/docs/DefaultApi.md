@@ -2549,7 +2549,7 @@ Optional parameters are passed through a pointer to a FetchBrandsInformationOpts
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **IfNoneMatch** | **optional.String**| The If-None-Match HTTP request header | 
+ **IfNoneMatch** | **optional.String**| Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match. | 
 
 ### Return type
 
@@ -2659,7 +2659,7 @@ Optional parameters are passed through a pointer to a FetchCpsOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **XXcnamSensitivePhoneNumber** | **optional.String**| The X-Xcnam-Sensitive-Phone-Number HTTP request header | 
+ **XXcnamSensitivePhoneNumber** | **optional.String**| Phone number used to retrieve its corresponding CPS. | 
 
 ### Return type
 
@@ -2702,8 +2702,8 @@ Optional parameters are passed through a pointer to a FetchCurrentCallOpts struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **XXcnamSensitivePhoneNumberFrom** | **optional.String**| The X-Xcnam-Sensitive-Phone-Number-From HTTP request header | 
- **XXcnamSensitivePhoneNumberTo** | **optional.String**| The X-Xcnam-Sensitive-Phone-Number-To HTTP request header | 
+ **XXcnamSensitivePhoneNumberFrom** | **optional.String**| The originating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). This phone number should be a Twilio number, otherwise it will return an error with HTTP Status Code 400. | 
+ **XXcnamSensitivePhoneNumberTo** | **optional.String**| The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). | 
 
 ### Return type
 

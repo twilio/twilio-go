@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | **string** |  | [optional] 
-**Capabilities** | [**map[string]interface{}**](.md) |  | [optional] 
+**Capabilities** | [**PhoneNumberCapabilities**](phone_number_capabilities.md) |  | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
 **FriendlyName** | **string** |  | [optional] 

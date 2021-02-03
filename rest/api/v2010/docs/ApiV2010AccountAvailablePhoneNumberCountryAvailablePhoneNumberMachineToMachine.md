@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AddressRequirements** | **string** |  | [optional] 
 **Beta** | **bool** |  | [optional] 
-**Capabilities** | [**map[string]interface{}**](.md) |  | [optional] 
+**Capabilities** | [**PhoneNumberCapabilities**](phone_number_capabilities.md) |  | [optional] 
 **FriendlyName** | **string** |  | [optional] 
 **IsoCountry** | **string** |  | [optional] 
 **Lata** | **string** |  | [optional] 

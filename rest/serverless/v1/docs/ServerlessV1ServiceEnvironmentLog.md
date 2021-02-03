@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **DeploymentSid** | **string** |  | [optional] 
 **EnvironmentSid** | **string** |  | [optional] 
 **FunctionSid** | **string** |  | [optional] 
-**Level** | **string** |  | [optional] 
+**Level** | [**Level**](level.md) |  | [optional] 
 **Message** | **string** |  | [optional] 
 **RequestSid** | **string** |  | [optional] 
 **ServiceSid** | **string** |  | [optional] 

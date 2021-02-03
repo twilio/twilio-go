@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **FriendlyName** | **string** |  | [optional] 
 **MimeType** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **Type** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 

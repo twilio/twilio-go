@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
 **Delivery** | [**map[string]interface{}**](.md) |  | [optional] 
-**Index** | **int32** |  | [optional] 
+**Index** | Pointer to **int32** |  | [optional] 
 **Links** | [**map[string]interface{}**](.md) |  | [optional] 
 **Media** | **[]map[string]interface{}** |  | [optional] 
 **ParticipantSid** | **string** |  | [optional] 

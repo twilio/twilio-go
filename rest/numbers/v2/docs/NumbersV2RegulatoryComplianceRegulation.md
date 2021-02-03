@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EndUserType** | **string** |  | [optional] 
+**EndUserType** | [**EndUserType**](end_user_type.md) |  | [optional] 
 **FriendlyName** | **string** |  | [optional] 
 **IsoCountry** | **string** |  | [optional] 
 **NumberType** | **string** |  | [optional] 

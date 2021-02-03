@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
 **From** | **string** |  | [optional] 
-**Index** | **int32** |  | [optional] 
+**Index** | Pointer to **int32** |  | [optional] 
 **LastUpdatedBy** | **string** |  | [optional] 
 **Media** | [**map[string]interface{}**](.md) |  | [optional] 
 **ServiceSid** | **string** |  | [optional] 

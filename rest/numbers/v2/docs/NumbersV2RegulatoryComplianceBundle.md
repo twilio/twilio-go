@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Links** | [**map[string]interface{}**](.md) |  | [optional] 
 **RegulationSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **StatusCallback** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 **ValidUntil** | [**time.Time**](time.Time.md) |  | [optional] 

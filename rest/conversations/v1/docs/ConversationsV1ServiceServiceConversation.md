@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Links** | [**map[string]interface{}**](.md) |  | [optional] 
 **MessagingServiceSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**State** | **string** |  | [optional] 
+**State** | [**State**](state.md) |  | [optional] 
 **Timers** | [**map[string]interface{}**](.md) |  | [optional] 
 **UniqueName** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 

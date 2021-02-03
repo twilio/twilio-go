@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **DateUpdated** | **string** |  | [optional] 
 **ReferenceSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **SubresourceUris** | [**map[string]interface{}**](.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

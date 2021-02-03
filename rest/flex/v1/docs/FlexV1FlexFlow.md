@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | **string** |  | [optional] 
-**ChannelType** | **string** |  | [optional] 
+**ChannelType** | [**ChannelType**](channel_type.md) |  | [optional] 
 **ChatServiceSid** | **string** |  | [optional] 
 **ContactIdentity** | **string** |  | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Enabled** | **bool** |  | [optional] 
 **FriendlyName** | **string** |  | [optional] 
 **Integration** | [**map[string]interface{}**](.md) |  | [optional] 
-**IntegrationType** | **string** |  | [optional] 
+**IntegrationType** | [**IntegrationType**](integration_type.md) |  | [optional] 
 **JanitorEnabled** | **bool** |  | [optional] 
 **LongLived** | **bool** |  | [optional] 
 **Sid** | **string** |  | [optional] 

@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Country** | **string** |  | [optional] 
-**InboundSmsPrices** | [**[]PricingV1MessagingMessagingCountryInstanceInboundSmsPrices**](pricing_v1_messaging_messaging_country_instance_inbound_sms_prices.md) |  | [optional] 
+**InboundSmsPrices** | **[]map[string]interface{}** |  | [optional] 
 **IsoCountry** | **string** |  | [optional] 
-**OutboundSmsPrices** | [**[]PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices**](pricing_v1_messaging_messaging_country_instance_outbound_sms_prices.md) |  | [optional] 
+**OutboundSmsPrices** | **[]map[string]interface{}** |  | [optional] 
 **PriceUnit** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 

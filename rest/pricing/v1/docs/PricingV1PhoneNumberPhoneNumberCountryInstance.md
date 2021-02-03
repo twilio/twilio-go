@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Country** | **string** |  | [optional] 
 **IsoCountry** | **string** |  | [optional] 
-**PhoneNumberPrices** | [**[]PricingV1MessagingMessagingCountryInstanceInboundSmsPrices**](pricing_v1_messaging_messaging_country_instance_inbound_sms_prices.md) |  | [optional] 
+**PhoneNumberPrices** | **[]map[string]interface{}** |  | [optional] 
 **PriceUnit** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 

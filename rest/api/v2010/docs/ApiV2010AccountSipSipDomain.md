@@ -19,10 +19,10 @@ Name | Type | Description | Notes
 **SipRegistration** | **bool** |  | [optional] 
 **SubresourceUris** | [**map[string]interface{}**](.md) |  | [optional] 
 **Uri** | **string** |  | [optional] 
-**VoiceFallbackMethod** | **string** |  | [optional] 
+**VoiceFallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **VoiceFallbackUrl** | **string** |  | [optional] 
-**VoiceMethod** | **string** |  | [optional] 
-**VoiceStatusCallbackMethod** | **string** |  | [optional] 
+**VoiceMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
+**VoiceStatusCallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **VoiceStatusCallbackUrl** | **string** |  | [optional] 
 **VoiceUrl** | **string** |  | [optional] 
 

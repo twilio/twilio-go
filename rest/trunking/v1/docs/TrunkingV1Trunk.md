@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **CnamLookupEnabled** | **bool** |  | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DisasterRecoveryMethod** | **string** |  | [optional] 
+**DisasterRecoveryMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **DisasterRecoveryUrl** | **string** |  | [optional] 
 **DomainName** | **string** |  | [optional] 
 **FriendlyName** | **string** |  | [optional] 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Recording** | [**map[string]interface{}**](.md) |  | [optional] 
 **Secure** | **bool** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**TransferMode** | **string** |  | [optional] 
+**TransferMode** | [**TransferSetting**](transfer_setting.md) |  | [optional] 
 **Url** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -12,13 +12,13 @@ Name | Type | Description | Notes
 **EntitySid** | **string** |  | [optional] 
 **ExpirationDate** | [**time.Time**](time.Time.md) |  | [optional] 
 **FactorSid** | **string** |  | [optional] 
-**FactorType** | **string** |  | [optional] 
+**FactorType** | [**FactorTypes**](factor_types.md) |  | [optional] 
 **HiddenDetails** | [**map[string]interface{}**](.md) |  | [optional] 
 **Identity** | **string** |  | [optional] 
-**RespondedReason** | **string** |  | [optional] 
+**RespondedReason** | [**ChallengeReasons**](challenge_reasons.md) |  | [optional] 
 **ServiceSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**ChallengeStatuses**](challenge_statuses.md) |  | [optional] 
 **Url** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

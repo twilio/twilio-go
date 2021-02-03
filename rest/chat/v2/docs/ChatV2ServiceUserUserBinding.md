@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | **string** |  | [optional] 
-**BindingType** | **string** |  | [optional] 
+**BindingType** | [**BindingType**](binding_type.md) |  | [optional] 
 **CredentialSid** | **string** |  | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 

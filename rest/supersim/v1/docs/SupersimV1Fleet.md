@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | **string** |  | [optional] 
 **CommandsEnabled** | **bool** |  | [optional] 
-**CommandsMethod** | **string** |  | [optional] 
+**CommandsMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **CommandsUrl** | **string** |  | [optional] 
 **DataEnabled** | **bool** |  | [optional] 
 **DataLimit** | **int32** |  | [optional] 
-**DataMetering** | **string** |  | [optional] 
+**DataMetering** | [**DataMetering**](data_metering.md) |  | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
 **NetworkAccessProfileSid** | **string** |  | [optional] 

@@ -8,10 +8,10 @@ Name | Type | Description | Notes
 **Command** | **string** |  | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**Direction** | **string** |  | [optional] 
+**Direction** | [**Direction**](direction.md) |  | [optional] 
 **Sid** | **string** |  | [optional] 
 **SimSid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **Url** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

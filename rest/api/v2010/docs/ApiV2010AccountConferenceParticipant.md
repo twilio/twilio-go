@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Label** | **string** |  | [optional] 
 **Muted** | **bool** |  | [optional] 
 **StartConferenceOnEnter** | **bool** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **Uri** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
