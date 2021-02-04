@@ -20,10 +20,4 @@ const (
 	HTTPMETHOD_PATCH HttpMethod = "patch"
 	HTTPMETHOD_PUT HttpMethod = "put"
 	HTTPMETHOD_DELETE HttpMethod = "delete"
-	HTTPMETHOD_HEAD HttpMethod = "HEAD"
-	HTTPMETHOD_GET HttpMethod = "GET"
-	HTTPMETHOD_POST HttpMethod = "POST"
-	HTTPMETHOD_PATCH HttpMethod = "PATCH"
-	HTTPMETHOD_PUT HttpMethod = "PUT"
-	HTTPMETHOD_DELETE HttpMethod = "DELETE"
 )
