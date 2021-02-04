@@ -15,7 +15,8 @@ import (
 	faxV1 "github.com/twilio/twilio-go/rest/fax/v1"
 	flexV1 "github.com/twilio/twilio-go/rest/flex/v1"
 	insightsV1 "github.com/twilio/twilio-go/rest/insights/v1"
-	ipMessaging "github.com/twilio/twilio-go/rest/ip/messaging"
+	ipMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
+	ipMessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
 	lookupsV1 "github.com/twilio/twilio-go/rest/lookups/v1"
 	messagingV1 "github.com/twilio/twilio-go/rest/messaging/v1"
 	monitorV1 "github.com/twilio/twilio-go/rest/monitor/v1"
@@ -54,7 +55,8 @@ type Twilio struct {
 	FaxV1 *faxV1.DefaultApiService
 	FlexV1 *flexV1.DefaultApiService
 	InsightsV1 *insightsV1.DefaultApiService
-	IpMessaging *ipMessaging.DefaultApiService
+	IpMessagingV1 *ipMessagingV1.DefaultApiService
+	IpMessagingV2 *ipMessagingV2.DefaultApiService
 	LookupsV1 *lookupsV1.DefaultApiService
 	MessagingV1 *messagingV1.DefaultApiService
 	MonitorV1 *monitorV1.DefaultApiService
@@ -117,7 +119,8 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	c.FaxV1 = faxV1.NewDefaultApiService(c.Client)
 	c.FlexV1 = flexV1.NewDefaultApiService(c.Client)
 	c.InsightsV1 = insightsV1.NewDefaultApiService(c.Client)
-	c.IpMessaging = ipMessaging.NewDefaultApiService(c.Client)
+	c.IpMessagingV1 = ipMessagingV1.NewDefaultApiService(c.Client)
+	c.IpMessagingV2 = ipMessagingV2.NewDefaultApiService(c.Client)
 	c.LookupsV1 = lookupsV1.NewDefaultApiService(c.Client)
 	c.MessagingV1 = messagingV1.NewDefaultApiService(c.Client)
 	c.MonitorV1 = monitorV1.NewDefaultApiService(c.Client)

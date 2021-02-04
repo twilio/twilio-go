@@ -32,14 +32,14 @@ func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
 }
 // CreateChannelParams Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    CreatedBy *string `json:"CreatedBy,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Type *string `json:"Type,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Type *string `json:"Type,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -106,13 +106,13 @@ func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChann
 }
 // CreateChannelWebhookParams Optional parameters for the method 'CreateChannelWebhook'
 type CreateChannelWebhookParams struct {
-    ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
-    ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
-    ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
-    ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
-    ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
-    ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -177,13 +177,13 @@ func (c *DefaultApiService) CreateChannelWebhook(ServiceSid string, ChannelSid s
 }
 // CreateCredentialParams Optional parameters for the method 'CreateCredential'
 type CreateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -244,8 +244,8 @@ func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*I
 }
 // CreateInviteParams Optional parameters for the method 'CreateInvite'
 type CreateInviteParams struct {
-    Identity *string `json:"Identity,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -290,14 +290,14 @@ func (c *DefaultApiService) CreateInvite(ServiceSid string, ChannelSid string, p
 }
 // CreateMemberParams Optional parameters for the method 'CreateMember'
 type CreateMemberParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
-    LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -366,14 +366,14 @@ func (c *DefaultApiService) CreateMember(ServiceSid string, ChannelSid string, p
 }
 // CreateMessageParams Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    From *string `json:"From,omitempty"`
-    LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
-    MediaSid *string `json:"MediaSid,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	From *string `json:"From,omitempty"`
+	LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
+	MediaSid *string `json:"MediaSid,omitempty"`
 }
 
 /*
@@ -442,9 +442,9 @@ func (c *DefaultApiService) CreateMessage(ServiceSid string, ChannelSid string, 
 }
 // CreateRoleParams Optional parameters for the method 'CreateRole'
 type CreateRoleParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Permission *[]string `json:"Permission,omitempty"`
-    Type *string `json:"Type,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
+	Type *string `json:"Type,omitempty"`
 }
 
 /*
@@ -491,7 +491,7 @@ func (c *DefaultApiService) CreateRole(ServiceSid string, params *CreateRolePara
 }
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-    FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -528,11 +528,11 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*IpMessa
 }
 // CreateUserParams Optional parameters for the method 'CreateUser'
 type CreateUserParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    Identity *string `json:"Identity,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Identity *string `json:"Identity,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -613,7 +613,7 @@ func (c *DefaultApiService) DeleteBinding(ServiceSid string, Sid string) (error)
 }
 // DeleteChannelParams Optional parameters for the method 'DeleteChannel'
 type DeleteChannelParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -728,7 +728,7 @@ func (c *DefaultApiService) DeleteInvite(ServiceSid string, ChannelSid string, S
 }
 // DeleteMemberParams Optional parameters for the method 'DeleteMember'
 type DeleteMemberParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -765,7 +765,7 @@ func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, S
 }
 // DeleteMessageParams Optional parameters for the method 'DeleteMessage'
 type DeleteMessageParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
 /*
@@ -1326,9 +1326,9 @@ func (c *DefaultApiService) FetchUserChannel(ServiceSid string, UserSid string, 
 }
 // ListBindingParams Optional parameters for the method 'ListBinding'
 type ListBindingParams struct {
-    BindingType *[]string `json:"BindingType,omitempty"`
-    Identity *[]string `json:"Identity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	BindingType *[]string `json:"BindingType,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1375,8 +1375,8 @@ func (c *DefaultApiService) ListBinding(ServiceSid string, params *ListBindingPa
 }
 // ListChannelParams Optional parameters for the method 'ListChannel'
 type ListChannelParams struct {
-    Type *[]string `json:"Type,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Type *[]string `json:"Type,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1419,7 +1419,7 @@ func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelPa
 }
 // ListChannelWebhookParams Optional parameters for the method 'ListChannelWebhook'
 type ListChannelWebhookParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1460,7 +1460,7 @@ func (c *DefaultApiService) ListChannelWebhook(ServiceSid string, ChannelSid str
 }
 // ListCredentialParams Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1497,8 +1497,8 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 }
 // ListInviteParams Optional parameters for the method 'ListInvite'
 type ListInviteParams struct {
-    Identity *[]string `json:"Identity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1543,8 +1543,8 @@ func (c *DefaultApiService) ListInvite(ServiceSid string, ChannelSid string, par
 }
 // ListMemberParams Optional parameters for the method 'ListMember'
 type ListMemberParams struct {
-    Identity *[]string `json:"Identity,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Identity *[]string `json:"Identity,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1589,8 +1589,8 @@ func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, par
 }
 // ListMessageParams Optional parameters for the method 'ListMessage'
 type ListMessageParams struct {
-    Order *string `json:"Order,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	Order *string `json:"Order,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1635,7 +1635,7 @@ func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, pa
 }
 // ListRoleParams Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1674,7 +1674,7 @@ func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) 
 }
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1711,7 +1711,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 }
 // ListUserParams Optional parameters for the method 'ListUser'
 type ListUserParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1750,8 +1750,8 @@ func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) 
 }
 // ListUserBindingParams Optional parameters for the method 'ListUserBinding'
 type ListUserBindingParams struct {
-    BindingType *[]string `json:"BindingType,omitempty"`
-    PageSize *int32 `json:"PageSize,omitempty"`
+	BindingType *[]string `json:"BindingType,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1796,7 +1796,7 @@ func (c *DefaultApiService) ListUserBinding(ServiceSid string, UserSid string, p
 }
 // ListUserChannelParams Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
-    PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1837,13 +1837,13 @@ func (c *DefaultApiService) ListUserChannel(ServiceSid string, UserSid string, p
 }
 // UpdateChannelParams Optional parameters for the method 'UpdateChannel'
 type UpdateChannelParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    CreatedBy *string `json:"CreatedBy,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    UniqueName *string `json:"UniqueName,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1908,12 +1908,12 @@ func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params 
 }
 // UpdateChannelWebhookParams Optional parameters for the method 'UpdateChannelWebhook'
 type UpdateChannelWebhookParams struct {
-    ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
-    ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
-    ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
-    ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
-    ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
-    ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 }
 
 /*
@@ -1976,12 +1976,12 @@ func (c *DefaultApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid s
 }
 // UpdateCredentialParams Optional parameters for the method 'UpdateCredential'
 type UpdateCredentialParams struct {
-    ApiKey *string `json:"ApiKey,omitempty"`
-    Certificate *string `json:"Certificate,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    PrivateKey *string `json:"PrivateKey,omitempty"`
-    Sandbox *bool `json:"Sandbox,omitempty"`
-    Secret *string `json:"Secret,omitempty"`
+	ApiKey *string `json:"ApiKey,omitempty"`
+	Certificate *string `json:"Certificate,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	Secret *string `json:"Secret,omitempty"`
 }
 
 /*
@@ -2040,13 +2040,13 @@ func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentia
 }
 // UpdateMemberParams Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
-    LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -2113,13 +2113,13 @@ func (c *DefaultApiService) UpdateMember(ServiceSid string, ChannelSid string, S
 }
 // UpdateMessageParams Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    Body *string `json:"Body,omitempty"`
-    DateCreated *time.Time `json:"DateCreated,omitempty"`
-    DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-    From *string `json:"From,omitempty"`
-    LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	Body *string `json:"Body,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	From *string `json:"From,omitempty"`
+	LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
 }
 
 /*
@@ -2186,7 +2186,7 @@ func (c *DefaultApiService) UpdateMessage(ServiceSid string, ChannelSid string, 
 }
 // UpdateRoleParams Optional parameters for the method 'UpdateRole'
 type UpdateRoleParams struct {
-    Permission *[]string `json:"Permission,omitempty"`
+	Permission *[]string `json:"Permission,omitempty"`
 }
 
 /*
@@ -2227,37 +2227,37 @@ func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *Up
 }
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-    ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
-    DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
-    DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
-    DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
-    LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
-    MediaCompatibilityMessage *string `json:"Media.CompatibilityMessage,omitempty"`
-    NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
-    NotificationsAddedToChannelSound *string `json:"Notifications.AddedToChannel.Sound,omitempty"`
-    NotificationsAddedToChannelTemplate *string `json:"Notifications.AddedToChannel.Template,omitempty"`
-    NotificationsInvitedToChannelEnabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
-    NotificationsInvitedToChannelSound *string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
-    NotificationsInvitedToChannelTemplate *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
-    NotificationsLogEnabled *bool `json:"Notifications.LogEnabled,omitempty"`
-    NotificationsNewMessageBadgeCountEnabled *bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
-    NotificationsNewMessageEnabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
-    NotificationsNewMessageSound *string `json:"Notifications.NewMessage.Sound,omitempty"`
-    NotificationsNewMessageTemplate *string `json:"Notifications.NewMessage.Template,omitempty"`
-    NotificationsRemovedFromChannelEnabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
-    NotificationsRemovedFromChannelSound *string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
-    NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
-    PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
-    PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
-    PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
-    PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
-    ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
-    ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
-    TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
-    WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
-    WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
+	DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
+	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
+	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	MediaCompatibilityMessage *string `json:"Media.CompatibilityMessage,omitempty"`
+	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	NotificationsAddedToChannelSound *string `json:"Notifications.AddedToChannel.Sound,omitempty"`
+	NotificationsAddedToChannelTemplate *string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	NotificationsInvitedToChannelEnabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	NotificationsInvitedToChannelSound *string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
+	NotificationsInvitedToChannelTemplate *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	NotificationsLogEnabled *bool `json:"Notifications.LogEnabled,omitempty"`
+	NotificationsNewMessageBadgeCountEnabled *bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
+	NotificationsNewMessageEnabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	NotificationsNewMessageSound *string `json:"Notifications.NewMessage.Sound,omitempty"`
+	NotificationsNewMessageTemplate *string `json:"Notifications.NewMessage.Template,omitempty"`
+	NotificationsRemovedFromChannelEnabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	NotificationsRemovedFromChannelSound *string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
+	NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
+	PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
+	PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
+	ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
+	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
+	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 }
 
 /*
@@ -2416,10 +2416,10 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 }
 // UpdateUserParams Optional parameters for the method 'UpdateUser'
 type UpdateUserParams struct {
-    XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-    Attributes *string `json:"Attributes,omitempty"`
-    FriendlyName *string `json:"FriendlyName,omitempty"`
-    RoleSid *string `json:"RoleSid,omitempty"`
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	Attributes *string `json:"Attributes,omitempty"`
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 /*
@@ -2472,9 +2472,9 @@ func (c *DefaultApiService) UpdateUser(ServiceSid string, Sid string, params *Up
 }
 // UpdateUserChannelParams Optional parameters for the method 'UpdateUserChannel'
 type UpdateUserChannelParams struct {
-    LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
-    LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-    NotificationLevel *string `json:"NotificationLevel,omitempty"`
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
+	NotificationLevel *string `json:"NotificationLevel,omitempty"`
 }
 
 /*
