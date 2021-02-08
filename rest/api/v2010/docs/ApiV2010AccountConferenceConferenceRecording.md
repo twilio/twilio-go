@@ -13,13 +13,13 @@ Name | Type | Description | Notes
 **DateUpdated** | **string** |  | [optional] 
 **Duration** | **string** |  | [optional] 
 **EncryptionDetails** | [**map[string]interface{}**](.md) |  | [optional] 
-**ErrorCode** | Pointer to **int32** |  | [optional] 
+**ErrorCode** | **int32** |  | [optional] 
 **Price** | **float32** |  | [optional] 
 **PriceUnit** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Source** | **string** |  | [optional] 
+**Source** | [**Source**](source.md) |  | [optional] 
 **StartTime** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **Uri** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **FriendlyName** | **string** |  | [optional] 
 **Sandbox** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Type** | **string** |  | [optional] 
+**Type** | [**PushService**](push_service.md) |  | [optional] 
 **Url** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

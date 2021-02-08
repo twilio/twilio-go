@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **ReservationActivitySid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
 **TargetWorkers** | **string** |  | [optional] 
-**TaskOrder** | **string** |  | [optional] 
+**TaskOrder** | [**TaskOrder**](task_order.md) |  | [optional] 
 **Url** | **string** |  | [optional] 
 **WorkspaceSid** | **string** |  | [optional] 
 

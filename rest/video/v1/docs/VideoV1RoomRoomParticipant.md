@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **RoomSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
 **StartTime** | [**time.Time**](time.Time.md) |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **Url** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

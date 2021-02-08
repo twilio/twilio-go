@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Fcm** | [**map[string]interface{}**](.md) |  | [optional] 
 **Gcm** | [**map[string]interface{}**](.md) |  | [optional] 
 **Identities** | **[]string** |  | [optional] 
-**Priority** | **string** |  | [optional] 
+**Priority** | [**Priority**](priority.md) |  | [optional] 
 **Segments** | **[]string** |  | [optional] 
 **ServiceSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 

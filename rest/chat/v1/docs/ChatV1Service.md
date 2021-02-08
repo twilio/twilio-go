@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | **string** |  | [optional] 
-**ConsumptionReportInterval** | **int32** |  | [optional] 
+**ConsumptionReportInterval** | Pointer to **int32** |  | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DefaultChannelCreatorRoleSid** | **string** |  | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **ReachabilityEnabled** | **bool** |  | [optional] 
 **ReadStatusEnabled** | **bool** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**TypingIndicatorTimeout** | **int32** |  | [optional] 
+**TypingIndicatorTimeout** | Pointer to **int32** |  | [optional] 
 **Url** | **string** |  | [optional] 
 **WebhookFilters** | **[]string** |  | [optional] 
 **WebhookMethod** | **string** |  | [optional] 

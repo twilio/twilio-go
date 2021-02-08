@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **RuntimeDomain** | **string** |  | [optional] 
 **ServerlessServiceSids** | **[]string** |  | [optional] 
 **ServiceVersion** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **TaskrouterOfflineActivitySid** | **string** |  | [optional] 
 **TaskrouterSkills** | **[]map[string]interface{}** |  | [optional] 
 **TaskrouterTargetTaskqueueSid** | **string** |  | [optional] 

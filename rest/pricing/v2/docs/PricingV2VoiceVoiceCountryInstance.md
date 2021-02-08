@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Country** | **string** |  | [optional] 
-**InboundCallPrices** | [**[]PricingV2VoiceVoiceCountryInstanceInboundCallPrices**](pricing_v2_voice_voice_country_instance_inbound_call_prices.md) |  | [optional] 
+**InboundCallPrices** | **[]map[string]interface{}** |  | [optional] 
 **IsoCountry** | **string** |  | [optional] 
-**OutboundPrefixPrices** | [**[]PricingV2VoiceVoiceCountryInstanceOutboundPrefixPrices**](pricing_v2_voice_voice_country_instance_outbound_prefix_prices.md) |  | [optional] 
+**OutboundPrefixPrices** | **[]map[string]interface{}** |  | [optional] 
 **PriceUnit** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 

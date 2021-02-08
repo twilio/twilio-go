@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | **string** |  | [optional] 
-**AddressRequirements** | **string** |  | [optional] 
+**AddressRequirements** | [**AddressRequirement**](address_requirement.md) |  | [optional] 
 **ApiVersion** | **string** |  | [optional] 
 **Beta** | **bool** |  | [optional] 
 **Capabilities** | [**map[string]interface{}**](.md) |  | [optional] 
@@ -16,19 +16,19 @@ Name | Type | Description | Notes
 **PhoneNumber** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
 **SmsApplicationSid** | **string** |  | [optional] 
-**SmsFallbackMethod** | **string** |  | [optional] 
+**SmsFallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **SmsFallbackUrl** | **string** |  | [optional] 
-**SmsMethod** | **string** |  | [optional] 
+**SmsMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **SmsUrl** | **string** |  | [optional] 
 **StatusCallback** | **string** |  | [optional] 
-**StatusCallbackMethod** | **string** |  | [optional] 
+**StatusCallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **TrunkSid** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 **VoiceApplicationSid** | **string** |  | [optional] 
 **VoiceCallerIdLookup** | **bool** |  | [optional] 
-**VoiceFallbackMethod** | **string** |  | [optional] 
+**VoiceFallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **VoiceFallbackUrl** | **string** |  | [optional] 
-**VoiceMethod** | **string** |  | [optional] 
+**VoiceMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **VoiceUrl** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

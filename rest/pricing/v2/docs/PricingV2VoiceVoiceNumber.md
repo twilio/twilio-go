@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Country** | **string** |  | [optional] 
 **DestinationNumber** | **string** |  | [optional] 
-**InboundCallPrice** | [**PricingV2VoiceVoiceCountryInstanceInboundCallPrices**](pricing_v2_voice_voice_country_instance_inbound_call_prices.md) |  | [optional] 
+**InboundCallPrice** | [**InboundCallPrice**](inbound_call_price.md) |  | [optional] 
 **IsoCountry** | **string** |  | [optional] 
 **OriginationNumber** | **string** |  | [optional] 
-**OutboundCallPrices** | [**[]PricingV2VoiceVoiceNumberOutboundCallPrices**](pricing_v2_voice_voice_number_outbound_call_prices.md) |  | [optional] 
+**OutboundCallPrices** | **[]map[string]interface{}** |  | [optional] 
 **PriceUnit** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 

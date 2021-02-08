@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | **string** |  | [optional] 
 **AuthorizeRedirectUrl** | **string** |  | [optional] 
 **CompanyName** | **string** |  | [optional] 
-**DeauthorizeCallbackMethod** | **string** |  | [optional] 
+**DeauthorizeCallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **DeauthorizeCallbackUrl** | **string** |  | [optional] 
 **Description** | **string** |  | [optional] 
 **FriendlyName** | **string** |  | [optional] 

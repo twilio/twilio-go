@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **LogLevel** | **string** |  | [optional] 
 **MoreInfo** | **string** |  | [optional] 
 **RequestHeaders** | **string** |  | [optional] 
-**RequestMethod** | **string** |  | [optional] 
+**RequestMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **RequestUrl** | **string** |  | [optional] 
 **RequestVariables** | **string** |  | [optional] 
 **ResourceSid** | **string** |  | [optional] 

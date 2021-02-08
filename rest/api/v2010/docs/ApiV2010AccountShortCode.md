@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **FriendlyName** | **string** |  | [optional] 
 **ShortCode** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**SmsFallbackMethod** | **string** |  | [optional] 
+**SmsFallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **SmsFallbackUrl** | **string** |  | [optional] 
-**SmsMethod** | **string** |  | [optional] 
+**SmsMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **SmsUrl** | **string** |  | [optional] 
 **Uri** | **string** |  | [optional] 
 

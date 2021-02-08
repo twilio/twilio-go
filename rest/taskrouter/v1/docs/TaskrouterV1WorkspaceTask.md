@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | **string** |  | [optional] 
 **Addons** | **string** |  | [optional] 
 **Age** | **int32** |  | [optional] 
-**AssignmentStatus** | **string** |  | [optional] 
+**AssignmentStatus** | [**Status**](status.md) |  | [optional] 
 **Attributes** | **string** |  | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 

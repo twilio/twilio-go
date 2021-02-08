@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **FriendlyName** | **string** |  | [optional] 
 **ServiceSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **Url** | **string** |  | [optional] 
-**WebhookMethod** | **string** |  | [optional] 
+**WebhookMethod** | [**Methods**](methods.md) |  | [optional] 
 **WebhookUrl** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

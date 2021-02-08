@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **MessageDate** | **string** |  | [optional] 
 **MessageText** | **string** |  | [optional] 
 **MoreInfo** | **string** |  | [optional] 
-**RequestMethod** | **string** |  | [optional] 
+**RequestMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **RequestUrl** | **string** |  | [optional] 
 **RequestVariables** | **string** |  | [optional] 
 **ResponseBody** | **string** |  | [optional] 

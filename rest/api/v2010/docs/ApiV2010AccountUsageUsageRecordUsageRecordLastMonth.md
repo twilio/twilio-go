@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | **string** |  | [optional] 
 **ApiVersion** | **string** |  | [optional] 
 **AsOf** | **string** |  | [optional] 
-**Category** | **string** |  | [optional] 
+**Category** | [**Category**](category.md) |  | [optional] 
 **Count** | **string** |  | [optional] 
 **CountUnit** | **string** |  | [optional] 
 **Description** | **string** |  | [optional] 

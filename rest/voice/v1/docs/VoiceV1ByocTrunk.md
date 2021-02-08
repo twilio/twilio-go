@@ -12,12 +12,12 @@ Name | Type | Description | Notes
 **FriendlyName** | **string** |  | [optional] 
 **FromDomainSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**StatusCallbackMethod** | **string** |  | [optional] 
+**StatusCallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **StatusCallbackUrl** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
-**VoiceFallbackMethod** | **string** |  | [optional] 
+**VoiceFallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **VoiceFallbackUrl** | **string** |  | [optional] 
-**VoiceMethod** | **string** |  | [optional] 
+**VoiceMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **VoiceUrl** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

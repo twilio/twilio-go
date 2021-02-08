@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **ErrorCode** | **string** |  | [optional] 
 **LogLevel** | **string** |  | [optional] 
 **MoreInfo** | **string** |  | [optional] 
-**RequestMethod** | **string** |  | [optional] 
+**RequestMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
 **RequestUrl** | **string** |  | [optional] 
 **ResourceSid** | **string** |  | [optional] 
 **ServiceSid** | **string** |  | [optional] 

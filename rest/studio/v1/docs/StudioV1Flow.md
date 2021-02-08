@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **FriendlyName** | **string** |  | [optional] 
 **Links** | [**map[string]interface{}**](.md) |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **Url** | **string** |  | [optional] 
 **Version** | **int32** |  | [optional] 
 

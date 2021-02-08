@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **FleetSid** | **string** |  | [optional] 
 **Iccid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **UniqueName** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 

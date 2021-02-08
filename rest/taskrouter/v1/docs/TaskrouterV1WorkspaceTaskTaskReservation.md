@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
 **Links** | [**map[string]interface{}**](.md) |  | [optional] 
-**ReservationStatus** | **string** |  | [optional] 
+**ReservationStatus** | [**Status**](status.md) |  | [optional] 
 **Sid** | **string** |  | [optional] 
 **TaskSid** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 

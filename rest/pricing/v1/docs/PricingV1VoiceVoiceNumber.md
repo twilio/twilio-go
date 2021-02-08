@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Country** | **string** |  | [optional] 
-**InboundCallPrice** | [**PricingV1MessagingMessagingCountryInstanceInboundSmsPrices**](pricing_v1_messaging_messaging_country_instance_inbound_sms_prices.md) |  | [optional] 
+**InboundCallPrice** | [**InboundCallPrice**](inbound_call_price.md) |  | [optional] 
 **IsoCountry** | **string** |  | [optional] 
 **Number** | **string** |  | [optional] 
-**OutboundCallPrice** | [**PricingV1VoiceVoiceNumberOutboundCallPrice**](pricing_v1_voice_voice_number_outbound_call_price.md) |  | [optional] 
+**OutboundCallPrice** | [**OutboundCallPrice**](outbound_call_price.md) |  | [optional] 
 **PriceUnit** | **string** |  | [optional] 
 **Url** | **string** |  | [optional] 
 

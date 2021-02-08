@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **FriendlyName** | **string** |  | [optional] 
 **Links** | [**map[string]interface{}**](.md) |  | [optional] 
 **MultiTaskEnabled** | **bool** |  | [optional] 
-**PrioritizeQueueOrder** | **string** |  | [optional] 
+**PrioritizeQueueOrder** | [**QueueOrder**](queue_order.md) |  | [optional] 
 **Sid** | **string** |  | [optional] 
 **TimeoutActivityName** | **string** |  | [optional] 
 **TimeoutActivitySid** | **string** |  | [optional] 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | **string** |  | [optional] 
 **Amount** | **string** |  | [optional] 
-**Channel** | **string** |  | [optional] 
+**Channel** | [**Channel**](channel.md) |  | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
 **Lookup** | [**map[string]interface{}**](.md) |  | [optional] 

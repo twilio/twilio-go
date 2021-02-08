@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **PriceUnit** | **string** |  | [optional] 
 **RecordingSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
+**Status** | [**Status**](status.md) |  | [optional] 
 **TranscriptionText** | **string** |  | [optional] 
 **Type** | **string** |  | [optional] 
 **Uri** | **string** |  | [optional] 

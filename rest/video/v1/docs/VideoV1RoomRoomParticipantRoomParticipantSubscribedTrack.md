@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
 **Enabled** | **bool** |  | [optional] 
-**Kind** | **string** |  | [optional] 
+**Kind** | [**Kind**](kind.md) |  | [optional] 
 **Name** | **string** |  | [optional] 
 **ParticipantSid** | **string** |  | [optional] 
 **PublisherSid** | **string** |  | [optional] 
