@@ -1,5 +1,5 @@
 // Package twilio provides bindings for Twilio's REST APIs.
-package twilio
+package twilio_go
 
 import (
 	"github.com/twilio/twilio-go/client"
