@@ -64,8 +64,8 @@ func main() {
 package main
 import (
 	"fmt"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
-	"github.com/twilio/twilio-go/twilio"
+	twilio "github.com/twilio/twilio-go/twilio"
+	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
 )
 func main() {
@@ -100,7 +100,7 @@ package main
 
 import (
 	"fmt"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"github.com/twilio/twilio-go/twilio"
 	"os"
 )
