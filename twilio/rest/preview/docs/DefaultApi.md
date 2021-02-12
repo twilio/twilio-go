@@ -1515,7 +1515,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDocument
 
-> DeleteDocument(ctx, ServiceSid, Sid, optional)
+> DeleteDocument(ctx, ServiceSid, Sid)
 
 
 
@@ -1527,18 +1527,6 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***DeleteDocumentOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteDocumentOpts struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
 
 ### Return type
 

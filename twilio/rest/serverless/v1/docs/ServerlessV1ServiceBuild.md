@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Dependencies** | **[]map[string]interface{}** |  | [optional] 
 **FunctionVersions** | **[]map[string]interface{}** |  | [optional] 
 **Links** | [**map[string]interface{}**](.md) |  | [optional] 
+**Runtime** | [**Runtime**](runtime.md) |  | [optional] 
 **ServiceSid** | **string** |  | [optional] 
 **Sid** | **string** |  | [optional] 
 **Status** | [**Status**](status.md) |  | [optional] 
