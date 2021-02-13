@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateInstalledAddOnExtensionRequest struct for UpdateInstalledAddOnExtensionRequest
 type UpdateInstalledAddOnExtensionRequest struct {
 	// Whether the Extension should be invoked.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // Kind the model 'Kind'
 type Kind string
 
@@ -16,5 +17,5 @@ type Kind string
 const (
 	KIND_AUDIO Kind = "audio"
 	KIND_VIDEO Kind = "video"
-	KIND_DATA Kind = "data"
+	KIND_DATA  Kind = "data"
 )

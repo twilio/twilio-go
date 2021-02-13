@@ -9,15 +9,17 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // AccountsV1CredentialCredentialAws struct for AccountsV1CredentialCredentialAws
 type AccountsV1CredentialCredentialAws struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string    `json:"AccountSid,omitempty"`
+	DateCreated  time.Time `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string    `json:"FriendlyName,omitempty"`
+	Sid          string    `json:"Sid,omitempty"`
+	Url          string    `json:"Url,omitempty"`
 }

@@ -9,17 +9,19 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // NumbersV2RegulatoryComplianceEndUser struct for NumbersV2RegulatoryComplianceEndUser
 type NumbersV2RegulatoryComplianceEndUser struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Attributes map[string]interface{} `json:"Attributes,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Type ModelType `json:"Type,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string                 `json:"AccountSid,omitempty"`
+	Attributes   map[string]interface{} `json:"Attributes,omitempty"`
+	DateCreated  time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time              `json:"DateUpdated,omitempty"`
+	FriendlyName string                 `json:"FriendlyName,omitempty"`
+	Sid          string                 `json:"Sid,omitempty"`
+	Type         ModelType              `json:"Type,omitempty"`
+	Url          string                 `json:"Url,omitempty"`
 }

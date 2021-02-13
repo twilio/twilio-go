@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateModelBuildRequest struct for UpdateModelBuildRequest
 type UpdateModelBuildRequest struct {
 	// An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.

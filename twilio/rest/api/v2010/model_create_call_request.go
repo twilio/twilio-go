@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCallRequest struct for CreateCallRequest
 type CreateCallRequest struct {
 	// The SID of the Application resource that will handle the call, if the call will be handled by an application.

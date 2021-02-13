@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateFieldRequest struct for CreateFieldRequest
 type CreateFieldRequest struct {
 	// The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type.

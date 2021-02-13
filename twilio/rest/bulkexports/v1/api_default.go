@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -23,19 +24,20 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://bulkexports.twilio.com"),
 	}
 }
+
 // CreateExportCustomJobParams Optional parameters for the method 'CreateExportCustomJob'
 type CreateExportCustomJobParams struct {
-	Email *string `json:"Email,omitempty"`
-	EndDay *string `json:"EndDay,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	StartDay *string `json:"StartDay,omitempty"`
+	Email         *string `json:"Email,omitempty"`
+	EndDay        *string `json:"EndDay,omitempty"`
+	FriendlyName  *string `json:"FriendlyName,omitempty"`
+	StartDay      *string `json:"StartDay,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -54,29 +56,27 @@ func (c *DefaultApiService) CreateExportCustomJob(ResourceType string, params *C
 	path := "/v1/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.EndDay != nil {
-		data.Set("EndDay", *params.EndDay) 
+		data.Set("EndDay", *params.EndDay)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.StartDay != nil {
-		data.Set("StartDay", *params.StartDay) 
+		data.Set("StartDay", *params.StartDay)
 	}
 	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod) 
+		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl) 
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -97,15 +97,12 @@ func (c *DefaultApiService) CreateExportCustomJob(ResourceType string, params *C
 DeleteJob Method for DeleteJob
  * @param JobSid The unique string that that we created to identify the Bulk Export job
 */
-func (c *DefaultApiService) DeleteJob(JobSid string) (error) {
+func (c *DefaultApiService) DeleteJob(JobSid string) error {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -123,16 +120,13 @@ Fetch a specific Day.
  * @param ResourceType The type of communication – Messages, Calls, Conferences, and Participants
  * @param Day The ISO 8601 format date of the resources in the file, for a UTC day
 */
-func (c *DefaultApiService) FetchDay(ResourceType string, Day string) (error) {
+func (c *DefaultApiService) FetchDay(ResourceType string, Day string) error {
 	path := "/v1/Exports/{ResourceType}/Days/{Day}"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 	path = strings.Replace(path, "{"+"Day"+"}", Day, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -154,11 +148,8 @@ func (c *DefaultApiService) FetchExport(ResourceType string) (*BulkexportsV1Expo
 	path := "/v1/Exports/{ResourceType}"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -185,11 +176,8 @@ func (c *DefaultApiService) FetchExportConfiguration(ResourceType string) (*Bulk
 	path := "/v1/Exports/{ResourceType}/Configuration"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -215,11 +203,8 @@ func (c *DefaultApiService) FetchJob(JobSid string) (*BulkexportsV1ExportJob, er
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -235,6 +220,7 @@ func (c *DefaultApiService) FetchJob(JobSid string) (*BulkexportsV1ExportJob, er
 
 	return ps, err
 }
+
 // ListDayParams Optional parameters for the method 'ListDay'
 type ListDayParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -252,14 +238,12 @@ func (c *DefaultApiService) ListDay(ResourceType string, params *ListDayParams) 
 	path := "/v1/Exports/{ResourceType}/Days"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -275,6 +259,7 @@ func (c *DefaultApiService) ListDay(ResourceType string, params *ListDayParams) 
 
 	return ps, err
 }
+
 // ListExportCustomJobParams Optional parameters for the method 'ListExportCustomJob'
 type ListExportCustomJobParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -291,14 +276,12 @@ func (c *DefaultApiService) ListExportCustomJob(ResourceType string, params *Lis
 	path := "/v1/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -314,11 +297,12 @@ func (c *DefaultApiService) ListExportCustomJob(ResourceType string, params *Lis
 
 	return ps, err
 }
+
 // UpdateExportConfigurationParams Optional parameters for the method 'UpdateExportConfiguration'
 type UpdateExportConfigurationParams struct {
-	Enabled *bool `json:"Enabled,omitempty"`
+	Enabled       *bool   `json:"Enabled,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -335,20 +319,18 @@ func (c *DefaultApiService) UpdateExportConfiguration(ResourceType string, param
 	path := "/v1/Exports/{ResourceType}/Configuration"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod) 
+		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl) 
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

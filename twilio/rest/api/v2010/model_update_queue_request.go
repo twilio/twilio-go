@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateQueueRequest struct for UpdateQueueRequest
 type UpdateQueueRequest struct {
 	// A descriptive string that you created to describe this resource. It can be up to 64 characters long.

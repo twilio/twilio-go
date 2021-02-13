@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // SinkType the model 'SinkType'
 type SinkType string
 

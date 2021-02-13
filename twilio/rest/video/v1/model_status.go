@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // Status the model 'Status'
 type Status string
 
 // List of status
 const (
 	STATUS_PROCESSING Status = "processing"
-	STATUS_COMPLETED Status = "completed"
-	STATUS_DELETED Status = "deleted"
-	STATUS_FAILED Status = "failed"
+	STATUS_COMPLETED  Status = "completed"
+	STATUS_DELETED    Status = "deleted"
+	STATUS_FAILED     Status = "failed"
 )

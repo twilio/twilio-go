@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateIncomingPhoneNumberAssignedAddOnRequest struct for CreateIncomingPhoneNumberAssignedAddOnRequest
 type CreateIncomingPhoneNumberAssignedAddOnRequest struct {
 	// The SID that identifies the Add-on installation.

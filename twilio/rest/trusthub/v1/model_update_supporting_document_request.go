@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSupportingDocumentRequest struct for UpdateSupportingDocumentRequest
 type UpdateSupportingDocumentRequest struct {
 	// The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.

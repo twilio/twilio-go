@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // EndUserType the model 'EndUserType'
 type EndUserType string
 
 // List of end_user_type
 const (
 	ENDUSERTYPE_INDIVIDUAL EndUserType = "individual"
-	ENDUSERTYPE_BUSINESS EndUserType = "business"
+	ENDUSERTYPE_BUSINESS   EndUserType = "business"
 )

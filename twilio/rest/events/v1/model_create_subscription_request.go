@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSubscriptionRequest struct for CreateSubscriptionRequest
 type CreateSubscriptionRequest struct {
 	// A human readable description for the Subscription **This value should not contain PII.**

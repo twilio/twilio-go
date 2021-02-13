@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateServiceRequest struct for UpdateServiceRequest
 type UpdateServiceRequest struct {
 	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.

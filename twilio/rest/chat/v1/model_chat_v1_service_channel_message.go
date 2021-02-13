@@ -9,22 +9,24 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ChatV1ServiceChannelMessage struct for ChatV1ServiceChannelMessage
 type ChatV1ServiceChannelMessage struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Attributes string `json:"Attributes,omitempty"`
-	Body string `json:"Body,omitempty"`
-	ChannelSid string `json:"ChannelSid,omitempty"`
+	AccountSid  string    `json:"AccountSid,omitempty"`
+	Attributes  string    `json:"Attributes,omitempty"`
+	Body        string    `json:"Body,omitempty"`
+	ChannelSid  string    `json:"ChannelSid,omitempty"`
 	DateCreated time.Time `json:"DateCreated,omitempty"`
 	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	From string `json:"From,omitempty"`
-	Index *int32 `json:"Index,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	To string `json:"To,omitempty"`
-	Url string `json:"Url,omitempty"`
-	WasEdited bool `json:"WasEdited,omitempty"`
+	From        string    `json:"From,omitempty"`
+	Index       *int32    `json:"Index,omitempty"`
+	ServiceSid  string    `json:"ServiceSid,omitempty"`
+	Sid         string    `json:"Sid,omitempty"`
+	To          string    `json:"To,omitempty"`
+	Url         string    `json:"Url,omitempty"`
+	WasEdited   bool      `json:"WasEdited,omitempty"`
 }

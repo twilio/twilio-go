@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListIpAccessControlListResponse struct for ListIpAccessControlListResponse
 type ListIpAccessControlListResponse struct {
 	IpAccessControlLists []TrunkingV1TrunkIpAccessControlList `json:"IpAccessControlLists,omitempty"`
-	Meta ListTrunkResponseMeta `json:"Meta,omitempty"`
+	Meta                 ListTrunkResponseMeta                `json:"Meta,omitempty"`
 }

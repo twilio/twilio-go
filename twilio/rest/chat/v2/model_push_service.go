@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // PushService the model 'PushService'
 type PushService string
 

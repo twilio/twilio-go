@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // EndReason the model 'EndReason'
 type EndReason string
 
 // List of end_reason
 const (
 	ENDREASON_ROOM_ENDED_VIA_API EndReason = "room_ended_via_api"
-	ENDREASON_TIMEOUT EndReason = "timeout"
+	ENDREASON_TIMEOUT            EndReason = "timeout"
 )

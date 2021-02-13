@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // UpdateChannelWebhookRequest struct for UpdateChannelWebhookRequest
 type UpdateChannelWebhookRequest struct {
-	ConfigurationFilters []string `json:"ConfigurationFilters,omitempty"`
-	ConfigurationFlowSid string `json:"ConfigurationFlowSid,omitempty"`
-	ConfigurationMethod string `json:"ConfigurationMethod,omitempty"`
-	ConfigurationRetryCount int32 `json:"ConfigurationRetryCount,omitempty"`
-	ConfigurationTriggers []string `json:"ConfigurationTriggers,omitempty"`
-	ConfigurationUrl string `json:"ConfigurationUrl,omitempty"`
+	ConfigurationFilters    []string `json:"ConfigurationFilters,omitempty"`
+	ConfigurationFlowSid    string   `json:"ConfigurationFlowSid,omitempty"`
+	ConfigurationMethod     string   `json:"ConfigurationMethod,omitempty"`
+	ConfigurationRetryCount int32    `json:"ConfigurationRetryCount,omitempty"`
+	ConfigurationTriggers   []string `json:"ConfigurationTriggers,omitempty"`
+	ConfigurationUrl        string   `json:"ConfigurationUrl,omitempty"`
 }

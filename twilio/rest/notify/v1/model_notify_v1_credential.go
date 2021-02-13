@@ -9,17 +9,19 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // NotifyV1Credential struct for NotifyV1Credential
 type NotifyV1Credential struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Sandbox string `json:"Sandbox,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Type PushService `json:"Type,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string      `json:"AccountSid,omitempty"`
+	DateCreated  time.Time   `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time   `json:"DateUpdated,omitempty"`
+	FriendlyName string      `json:"FriendlyName,omitempty"`
+	Sandbox      string      `json:"Sandbox,omitempty"`
+	Sid          string      `json:"Sid,omitempty"`
+	Type         PushService `json:"Type,omitempty"`
+	Url          string      `json:"Url,omitempty"`
 }

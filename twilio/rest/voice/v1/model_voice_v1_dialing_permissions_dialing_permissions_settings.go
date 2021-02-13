@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // VoiceV1DialingPermissionsDialingPermissionsSettings struct for VoiceV1DialingPermissionsDialingPermissionsSettings
 type VoiceV1DialingPermissionsDialingPermissionsSettings struct {
-	DialingPermissionsInheritance bool `json:"DialingPermissionsInheritance,omitempty"`
-	Url string `json:"Url,omitempty"`
+	DialingPermissionsInheritance bool   `json:"DialingPermissionsInheritance,omitempty"`
+	Url                           string `json:"Url,omitempty"`
 }

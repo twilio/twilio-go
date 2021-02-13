@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // EmergencyStatus the model 'EmergencyStatus'
 type EmergencyStatus string
 
 // List of emergency_status
 const (
-	EMERGENCYSTATUS_ACTIVE EmergencyStatus = "Active"
+	EMERGENCYSTATUS_ACTIVE   EmergencyStatus = "Active"
 	EMERGENCYSTATUS_INACTIVE EmergencyStatus = "Inactive"
 )

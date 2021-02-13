@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateMessageInteractionRequest struct for CreateMessageInteractionRequest
 type CreateMessageInteractionRequest struct {
 	// The message to send to the participant

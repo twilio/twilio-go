@@ -9,26 +9,27 @@
  */
 
 package openapi
+
 // ApiV2010AccountMessage struct for ApiV2010AccountMessage
 type ApiV2010AccountMessage struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ApiVersion string `json:"ApiVersion,omitempty"`
-	Body string `json:"Body,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateSent string `json:"DateSent,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	Direction Direction `json:"Direction,omitempty"`
-	ErrorCode int32 `json:"ErrorCode,omitempty"`
-	ErrorMessage string `json:"ErrorMessage,omitempty"`
-	From string `json:"From,omitempty"`
-	MessagingServiceSid string `json:"MessagingServiceSid,omitempty"`
-	NumMedia string `json:"NumMedia,omitempty"`
-	NumSegments string `json:"NumSegments,omitempty"`
-	Price string `json:"Price,omitempty"`
-	PriceUnit string `json:"PriceUnit,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
-	To string `json:"To,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	AccountSid          string                 `json:"AccountSid,omitempty"`
+	ApiVersion          string                 `json:"ApiVersion,omitempty"`
+	Body                string                 `json:"Body,omitempty"`
+	DateCreated         string                 `json:"DateCreated,omitempty"`
+	DateSent            string                 `json:"DateSent,omitempty"`
+	DateUpdated         string                 `json:"DateUpdated,omitempty"`
+	Direction           Direction              `json:"Direction,omitempty"`
+	ErrorCode           int32                  `json:"ErrorCode,omitempty"`
+	ErrorMessage        string                 `json:"ErrorMessage,omitempty"`
+	From                string                 `json:"From,omitempty"`
+	MessagingServiceSid string                 `json:"MessagingServiceSid,omitempty"`
+	NumMedia            string                 `json:"NumMedia,omitempty"`
+	NumSegments         string                 `json:"NumSegments,omitempty"`
+	Price               string                 `json:"Price,omitempty"`
+	PriceUnit           string                 `json:"PriceUnit,omitempty"`
+	Sid                 string                 `json:"Sid,omitempty"`
+	Status              Status                 `json:"Status,omitempty"`
+	SubresourceUris     map[string]interface{} `json:"SubresourceUris,omitempty"`
+	To                  string                 `json:"To,omitempty"`
+	Uri                 string                 `json:"Uri,omitempty"`
 }

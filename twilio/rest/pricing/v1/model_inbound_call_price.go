@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // InboundCallPrice struct for InboundCallPrice
 type InboundCallPrice struct {
-	BasePrice float32 `json:"BasePrice,omitempty"`
+	BasePrice    float32 `json:"BasePrice,omitempty"`
 	CurrentPrice float32 `json:"CurrentPrice,omitempty"`
-	NumberType string `json:"NumberType,omitempty"`
+	NumberType   string  `json:"NumberType,omitempty"`
 }

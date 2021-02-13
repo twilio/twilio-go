@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // ApiV2010AccountAvailablePhoneNumberCountry struct for ApiV2010AccountAvailablePhoneNumberCountry
 type ApiV2010AccountAvailablePhoneNumberCountry struct {
-	Beta bool `json:"Beta,omitempty"`
-	Country string `json:"Country,omitempty"`
-	CountryCode string `json:"CountryCode,omitempty"`
+	Beta            bool                   `json:"Beta,omitempty"`
+	Country         string                 `json:"Country,omitempty"`
+	CountryCode     string                 `json:"CountryCode,omitempty"`
 	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	Uri             string                 `json:"Uri,omitempty"`
 }

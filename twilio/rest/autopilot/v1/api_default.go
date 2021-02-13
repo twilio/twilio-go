@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -23,20 +24,21 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://autopilot.twilio.com"),
 	}
 }
+
 // CreateAssistantParams Optional parameters for the method 'CreateAssistant'
 type CreateAssistantParams struct {
-	CallbackEvents *string `json:"CallbackEvents,omitempty"`
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	LogQueries *bool `json:"LogQueries,omitempty"`
-	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	CallbackEvents *string                 `json:"CallbackEvents,omitempty"`
+	CallbackUrl    *string                 `json:"CallbackUrl,omitempty"`
+	Defaults       *map[string]interface{} `json:"Defaults,omitempty"`
+	FriendlyName   *string                 `json:"FriendlyName,omitempty"`
+	LogQueries     *bool                   `json:"LogQueries,omitempty"`
+	StyleSheet     *map[string]interface{} `json:"StyleSheet,omitempty"`
+	UniqueName     *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -54,15 +56,14 @@ CreateAssistant Method for CreateAssistant
 func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackEvents != nil {
-		data.Set("CallbackEvents", *params.CallbackEvents) 
+		data.Set("CallbackEvents", *params.CallbackEvents)
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl) 
+		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.Defaults != nil {
 		v, err := json.Marshal(params.Defaults)
@@ -74,10 +75,10 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Aut
 		data.Set("Defaults", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.LogQueries != nil {
-		data.Set("LogQueries", fmt.Sprint(*params.LogQueries)) 
+		data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
 	}
 	if params != nil && params.StyleSheet != nil {
 		v, err := json.Marshal(params.StyleSheet)
@@ -89,9 +90,8 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Aut
 		data.Set("StyleSheet", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -107,9 +107,10 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Aut
 
 	return ps, err
 }
+
 // CreateFieldParams Optional parameters for the method 'CreateField'
 type CreateFieldParams struct {
-	FieldType *string `json:"FieldType,omitempty"`
+	FieldType  *string `json:"FieldType,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -127,17 +128,15 @@ func (c *DefaultApiService) CreateField(AssistantSid string, TaskSid string, par
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FieldType != nil {
-		data.Set("FieldType", *params.FieldType) 
+		data.Set("FieldType", *params.FieldType)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -153,10 +152,11 @@ func (c *DefaultApiService) CreateField(AssistantSid string, TaskSid string, par
 
 	return ps, err
 }
+
 // CreateFieldTypeParams Optional parameters for the method 'CreateFieldType'
 type CreateFieldTypeParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName   *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -171,17 +171,15 @@ func (c *DefaultApiService) CreateFieldType(AssistantSid string, params *CreateF
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -197,11 +195,12 @@ func (c *DefaultApiService) CreateFieldType(AssistantSid string, params *CreateF
 
 	return ps, err
 }
+
 // CreateFieldValueParams Optional parameters for the method 'CreateFieldValue'
 type CreateFieldValueParams struct {
-	Language *string `json:"Language,omitempty"`
+	Language  *string `json:"Language,omitempty"`
 	SynonymOf *string `json:"SynonymOf,omitempty"`
-	Value *string `json:"Value,omitempty"`
+	Value     *string `json:"Value,omitempty"`
 }
 
 /*
@@ -219,20 +218,18 @@ func (c *DefaultApiService) CreateFieldValue(AssistantSid string, FieldTypeSid s
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.SynonymOf != nil {
-		data.Set("SynonymOf", *params.SynonymOf) 
+		data.Set("SynonymOf", *params.SynonymOf)
 	}
 	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value) 
+		data.Set("Value", *params.Value)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -248,10 +245,11 @@ func (c *DefaultApiService) CreateFieldValue(AssistantSid string, FieldTypeSid s
 
 	return ps, err
 }
+
 // CreateModelBuildParams Optional parameters for the method 'CreateModelBuild'
 type CreateModelBuildParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName     *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -266,17 +264,15 @@ func (c *DefaultApiService) CreateModelBuild(AssistantSid string, params *Create
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -292,12 +288,13 @@ func (c *DefaultApiService) CreateModelBuild(AssistantSid string, params *Create
 
 	return ps, err
 }
+
 // CreateQueryParams Optional parameters for the method 'CreateQuery'
 type CreateQueryParams struct {
-	Language *string `json:"Language,omitempty"`
+	Language   *string `json:"Language,omitempty"`
 	ModelBuild *string `json:"ModelBuild,omitempty"`
-	Query *string `json:"Query,omitempty"`
-	Tasks *string `json:"Tasks,omitempty"`
+	Query      *string `json:"Query,omitempty"`
+	Tasks      *string `json:"Tasks,omitempty"`
 }
 
 /*
@@ -314,23 +311,21 @@ func (c *DefaultApiService) CreateQuery(AssistantSid string, params *CreateQuery
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.ModelBuild != nil {
-		data.Set("ModelBuild", *params.ModelBuild) 
+		data.Set("ModelBuild", *params.ModelBuild)
 	}
 	if params != nil && params.Query != nil {
-		data.Set("Query", *params.Query) 
+		data.Set("Query", *params.Query)
 	}
 	if params != nil && params.Tasks != nil {
-		data.Set("Tasks", *params.Tasks) 
+		data.Set("Tasks", *params.Tasks)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -346,11 +341,12 @@ func (c *DefaultApiService) CreateQuery(AssistantSid string, params *CreateQuery
 
 	return ps, err
 }
+
 // CreateSampleParams Optional parameters for the method 'CreateSample'
 type CreateSampleParams struct {
-	Language *string `json:"Language,omitempty"`
+	Language      *string `json:"Language,omitempty"`
 	SourceChannel *string `json:"SourceChannel,omitempty"`
-	TaggedText *string `json:"TaggedText,omitempty"`
+	TaggedText    *string `json:"TaggedText,omitempty"`
 }
 
 /*
@@ -368,20 +364,18 @@ func (c *DefaultApiService) CreateSample(AssistantSid string, TaskSid string, pa
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.SourceChannel != nil {
-		data.Set("SourceChannel", *params.SourceChannel) 
+		data.Set("SourceChannel", *params.SourceChannel)
 	}
 	if params != nil && params.TaggedText != nil {
-		data.Set("TaggedText", *params.TaggedText) 
+		data.Set("TaggedText", *params.TaggedText)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -397,12 +391,13 @@ func (c *DefaultApiService) CreateSample(AssistantSid string, TaskSid string, pa
 
 	return ps, err
 }
+
 // CreateTaskParams Optional parameters for the method 'CreateTask'
 type CreateTaskParams struct {
-	Actions *map[string]interface{} `json:"Actions,omitempty"`
-	ActionsUrl *string `json:"ActionsUrl,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	Actions      *map[string]interface{} `json:"Actions,omitempty"`
+	ActionsUrl   *string                 `json:"ActionsUrl,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+	UniqueName   *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -419,7 +414,6 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -433,15 +427,14 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 		data.Set("Actions", fmt.Sprint(v))
 	}
 	if params != nil && params.ActionsUrl != nil {
-		data.Set("ActionsUrl", *params.ActionsUrl) 
+		data.Set("ActionsUrl", *params.ActionsUrl)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -457,12 +450,13 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 
 	return ps, err
 }
+
 // CreateWebhookParams Optional parameters for the method 'CreateWebhook'
 type CreateWebhookParams struct {
-	Events *string `json:"Events,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	Events        *string `json:"Events,omitempty"`
+	UniqueName    *string `json:"UniqueName,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -479,23 +473,21 @@ func (c *DefaultApiService) CreateWebhook(AssistantSid string, params *CreateWeb
 	path := "/v1/Assistants/{AssistantSid}/Webhooks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Events != nil {
-		data.Set("Events", *params.Events) 
+		data.Set("Events", *params.Events)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod) 
+		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl) 
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -516,15 +508,12 @@ func (c *DefaultApiService) CreateWebhook(AssistantSid string, params *CreateWeb
 DeleteAssistant Method for DeleteAssistant
  * @param Sid The Twilio-provided string that uniquely identifies the Assistant resource to delete.
 */
-func (c *DefaultApiService) DeleteAssistant(Sid string) (error) {
+func (c *DefaultApiService) DeleteAssistant(Sid string) error {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -542,17 +531,14 @@ DeleteField Method for DeleteField
  * @param TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the Field resource to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the Field resource to delete.
 */
-func (c *DefaultApiService) DeleteField(AssistantSid string, TaskSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteField(AssistantSid string, TaskSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -569,16 +555,13 @@ DeleteFieldType Method for DeleteFieldType
  * @param AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the FieldType resource to delete.
 */
-func (c *DefaultApiService) DeleteFieldType(AssistantSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteFieldType(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -596,17 +579,14 @@ DeleteFieldValue Method for DeleteFieldValue
  * @param FieldTypeSid The SID of the Field Type associated with the Field Value to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the FieldValue resource to delete.
 */
-func (c *DefaultApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -623,16 +603,13 @@ DeleteModelBuild Method for DeleteModelBuild
  * @param AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the ModelBuild resource to delete.
 */
-func (c *DefaultApiService) DeleteModelBuild(AssistantSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -649,16 +626,13 @@ DeleteQuery Method for DeleteQuery
  * @param AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the Query resource to delete.
 */
-func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -676,17 +650,14 @@ DeleteSample Method for DeleteSample
  * @param TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resource to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the Sample resource to delete.
 */
-func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -703,16 +674,13 @@ DeleteTask Method for DeleteTask
  * @param AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the Task resource to delete.
 */
-func (c *DefaultApiService) DeleteTask(AssistantSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteTask(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -729,16 +697,13 @@ DeleteWebhook Method for DeleteWebhook
  * @param AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the Webhook resource to delete.
 */
-func (c *DefaultApiService) DeleteWebhook(AssistantSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteWebhook(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -759,11 +724,8 @@ func (c *DefaultApiService) FetchAssistant(Sid string) (*AutopilotV1Assistant, e
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -789,11 +751,8 @@ func (c *DefaultApiService) FetchDefaults(AssistantSid string) (*AutopilotV1Assi
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -821,11 +780,8 @@ func (c *DefaultApiService) FetchDialogue(AssistantSid string, Sid string) (*Aut
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -855,11 +811,8 @@ func (c *DefaultApiService) FetchField(AssistantSid string, TaskSid string, Sid 
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -887,11 +840,8 @@ func (c *DefaultApiService) FetchFieldType(AssistantSid string, Sid string) (*Au
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -921,11 +871,8 @@ func (c *DefaultApiService) FetchFieldValue(AssistantSid string, FieldTypeSid st
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -953,11 +900,8 @@ func (c *DefaultApiService) FetchModelBuild(AssistantSid string, Sid string) (*A
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -985,11 +929,8 @@ func (c *DefaultApiService) FetchQuery(AssistantSid string, Sid string) (*Autopi
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1019,11 +960,8 @@ func (c *DefaultApiService) FetchSample(AssistantSid string, TaskSid string, Sid
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1050,11 +988,8 @@ func (c *DefaultApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1As
 	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1082,11 +1017,8 @@ func (c *DefaultApiService) FetchTask(AssistantSid string, Sid string) (*Autopil
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1115,11 +1047,8 @@ func (c *DefaultApiService) FetchTaskActions(AssistantSid string, TaskSid string
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1147,11 +1076,8 @@ func (c *DefaultApiService) FetchTaskStatistics(AssistantSid string, TaskSid str
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1179,11 +1105,8 @@ func (c *DefaultApiService) FetchWebhook(AssistantSid string, Sid string) (*Auto
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1199,6 +1122,7 @@ func (c *DefaultApiService) FetchWebhook(AssistantSid string, Sid string) (*Auto
 
 	return ps, err
 }
+
 // ListAssistantParams Optional parameters for the method 'ListAssistant'
 type ListAssistantParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1213,14 +1137,12 @@ ListAssistant Method for ListAssistant
 func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAssistantResponse, error) {
 	path := "/v1/Assistants"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1236,6 +1158,7 @@ func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAss
 
 	return ps, err
 }
+
 // ListFieldParams Optional parameters for the method 'ListField'
 type ListFieldParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1254,14 +1177,12 @@ func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, param
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1277,6 +1198,7 @@ func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, param
 
 	return ps, err
 }
+
 // ListFieldTypeParams Optional parameters for the method 'ListFieldType'
 type ListFieldTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1293,14 +1215,12 @@ func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListField
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1316,10 +1236,11 @@ func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListField
 
 	return ps, err
 }
+
 // ListFieldValueParams Optional parameters for the method 'ListFieldValue'
 type ListFieldValueParams struct {
 	Language *string `json:"Language,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1336,17 +1257,15 @@ func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid str
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1362,6 +1281,7 @@ func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid str
 
 	return ps, err
 }
+
 // ListModelBuildParams Optional parameters for the method 'ListModelBuild'
 type ListModelBuildParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1378,14 +1298,12 @@ func (c *DefaultApiService) ListModelBuild(AssistantSid string, params *ListMode
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1401,13 +1319,14 @@ func (c *DefaultApiService) ListModelBuild(AssistantSid string, params *ListMode
 
 	return ps, err
 }
+
 // ListQueryParams Optional parameters for the method 'ListQuery'
 type ListQueryParams struct {
-	Language *string `json:"Language,omitempty"`
-	ModelBuild *string `json:"ModelBuild,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	Language    *string `json:"Language,omitempty"`
+	ModelBuild  *string `json:"ModelBuild,omitempty"`
+	Status      *string `json:"Status,omitempty"`
 	DialogueSid *string `json:"DialogueSid,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize    *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1425,26 +1344,24 @@ func (c *DefaultApiService) ListQuery(AssistantSid string, params *ListQueryPara
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.ModelBuild != nil {
-		data.Set("ModelBuild", *params.ModelBuild) 
+		data.Set("ModelBuild", *params.ModelBuild)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.DialogueSid != nil {
-		data.Set("DialogueSid", *params.DialogueSid) 
+		data.Set("DialogueSid", *params.DialogueSid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1460,10 +1377,11 @@ func (c *DefaultApiService) ListQuery(AssistantSid string, params *ListQueryPara
 
 	return ps, err
 }
+
 // ListSampleParams Optional parameters for the method 'ListSample'
 type ListSampleParams struct {
 	Language *string `json:"Language,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1480,17 +1398,15 @@ func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, para
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1506,6 +1422,7 @@ func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, para
 
 	return ps, err
 }
+
 // ListTaskParams Optional parameters for the method 'ListTask'
 type ListTaskParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1522,14 +1439,12 @@ func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1545,6 +1460,7 @@ func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams
 
 	return ps, err
 }
+
 // ListWebhookParams Optional parameters for the method 'ListWebhook'
 type ListWebhookParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1561,14 +1477,12 @@ func (c *DefaultApiService) ListWebhook(AssistantSid string, params *ListWebhook
 	path := "/v1/Assistants/{AssistantSid}/Webhooks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1584,16 +1498,17 @@ func (c *DefaultApiService) ListWebhook(AssistantSid string, params *ListWebhook
 
 	return ps, err
 }
+
 // UpdateAssistantParams Optional parameters for the method 'UpdateAssistant'
 type UpdateAssistantParams struct {
-	CallbackEvents *string `json:"CallbackEvents,omitempty"`
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
-	DevelopmentStage *string `json:"DevelopmentStage,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	LogQueries *bool `json:"LogQueries,omitempty"`
-	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	CallbackEvents   *string                 `json:"CallbackEvents,omitempty"`
+	CallbackUrl      *string                 `json:"CallbackUrl,omitempty"`
+	Defaults         *map[string]interface{} `json:"Defaults,omitempty"`
+	DevelopmentStage *string                 `json:"DevelopmentStage,omitempty"`
+	FriendlyName     *string                 `json:"FriendlyName,omitempty"`
+	LogQueries       *bool                   `json:"LogQueries,omitempty"`
+	StyleSheet       *map[string]interface{} `json:"StyleSheet,omitempty"`
+	UniqueName       *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1614,15 +1529,14 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackEvents != nil {
-		data.Set("CallbackEvents", *params.CallbackEvents) 
+		data.Set("CallbackEvents", *params.CallbackEvents)
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl) 
+		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.Defaults != nil {
 		v, err := json.Marshal(params.Defaults)
@@ -1634,13 +1548,13 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 		data.Set("Defaults", fmt.Sprint(v))
 	}
 	if params != nil && params.DevelopmentStage != nil {
-		data.Set("DevelopmentStage", *params.DevelopmentStage) 
+		data.Set("DevelopmentStage", *params.DevelopmentStage)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.LogQueries != nil {
-		data.Set("LogQueries", fmt.Sprint(*params.LogQueries)) 
+		data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
 	}
 	if params != nil && params.StyleSheet != nil {
 		v, err := json.Marshal(params.StyleSheet)
@@ -1652,9 +1566,8 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 		data.Set("StyleSheet", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1670,6 +1583,7 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 
 	return ps, err
 }
+
 // UpdateDefaultsParams Optional parameters for the method 'UpdateDefaults'
 type UpdateDefaultsParams struct {
 	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
@@ -1686,7 +1600,6 @@ func (c *DefaultApiService) UpdateDefaults(AssistantSid string, params *UpdateDe
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -1699,7 +1612,6 @@ func (c *DefaultApiService) UpdateDefaults(AssistantSid string, params *UpdateDe
 
 		data.Set("Defaults", fmt.Sprint(v))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1715,10 +1627,11 @@ func (c *DefaultApiService) UpdateDefaults(AssistantSid string, params *UpdateDe
 
 	return ps, err
 }
+
 // UpdateFieldTypeParams Optional parameters for the method 'UpdateFieldType'
 type UpdateFieldTypeParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName   *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1735,17 +1648,15 @@ func (c *DefaultApiService) UpdateFieldType(AssistantSid string, Sid string, par
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1761,6 +1672,7 @@ func (c *DefaultApiService) UpdateFieldType(AssistantSid string, Sid string, par
 
 	return ps, err
 }
+
 // UpdateModelBuildParams Optional parameters for the method 'UpdateModelBuild'
 type UpdateModelBuildParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
@@ -1779,14 +1691,12 @@ func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, pa
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1802,10 +1712,11 @@ func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, pa
 
 	return ps, err
 }
+
 // UpdateQueryParams Optional parameters for the method 'UpdateQuery'
 type UpdateQueryParams struct {
 	SampleSid *string `json:"SampleSid,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	Status    *string `json:"Status,omitempty"`
 }
 
 /*
@@ -1822,17 +1733,15 @@ func (c *DefaultApiService) UpdateQuery(AssistantSid string, Sid string, params 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.SampleSid != nil {
-		data.Set("SampleSid", *params.SampleSid) 
+		data.Set("SampleSid", *params.SampleSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1848,6 +1757,7 @@ func (c *DefaultApiService) UpdateQuery(AssistantSid string, Sid string, params 
 
 	return ps, err
 }
+
 // UpdateRestoreAssistantParams Optional parameters for the method 'UpdateRestoreAssistant'
 type UpdateRestoreAssistantParams struct {
 	Assistant *string `json:"Assistant,omitempty"`
@@ -1862,14 +1772,12 @@ UpdateRestoreAssistant Method for UpdateRestoreAssistant
 func (c *DefaultApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistantParams) (*AutopilotV1RestoreAssistant, error) {
 	path := "/v1/Assistants/Restore"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Assistant != nil {
-		data.Set("Assistant", *params.Assistant) 
+		data.Set("Assistant", *params.Assistant)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1885,11 +1793,12 @@ func (c *DefaultApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistan
 
 	return ps, err
 }
+
 // UpdateSampleParams Optional parameters for the method 'UpdateSample'
 type UpdateSampleParams struct {
-	Language *string `json:"Language,omitempty"`
+	Language      *string `json:"Language,omitempty"`
 	SourceChannel *string `json:"SourceChannel,omitempty"`
-	TaggedText *string `json:"TaggedText,omitempty"`
+	TaggedText    *string `json:"TaggedText,omitempty"`
 }
 
 /*
@@ -1909,20 +1818,18 @@ func (c *DefaultApiService) UpdateSample(AssistantSid string, TaskSid string, Si
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.SourceChannel != nil {
-		data.Set("SourceChannel", *params.SourceChannel) 
+		data.Set("SourceChannel", *params.SourceChannel)
 	}
 	if params != nil && params.TaggedText != nil {
-		data.Set("TaggedText", *params.TaggedText) 
+		data.Set("TaggedText", *params.TaggedText)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1938,6 +1845,7 @@ func (c *DefaultApiService) UpdateSample(AssistantSid string, TaskSid string, Si
 
 	return ps, err
 }
+
 // UpdateStyleSheetParams Optional parameters for the method 'UpdateStyleSheet'
 type UpdateStyleSheetParams struct {
 	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
@@ -1955,7 +1863,6 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -1968,7 +1875,6 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 
 		data.Set("StyleSheet", fmt.Sprint(v))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1984,12 +1890,13 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 
 	return ps, err
 }
+
 // UpdateTaskParams Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
-	Actions *map[string]interface{} `json:"Actions,omitempty"`
-	ActionsUrl *string `json:"ActionsUrl,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	Actions      *map[string]interface{} `json:"Actions,omitempty"`
+	ActionsUrl   *string                 `json:"ActionsUrl,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+	UniqueName   *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -2008,7 +1915,6 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -2022,15 +1928,14 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 		data.Set("Actions", fmt.Sprint(v))
 	}
 	if params != nil && params.ActionsUrl != nil {
-		data.Set("ActionsUrl", *params.ActionsUrl) 
+		data.Set("ActionsUrl", *params.ActionsUrl)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2046,6 +1951,7 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 
 	return ps, err
 }
+
 // UpdateTaskActionsParams Optional parameters for the method 'UpdateTaskActions'
 type UpdateTaskActionsParams struct {
 	Actions *map[string]interface{} `json:"Actions,omitempty"`
@@ -2065,7 +1971,6 @@ func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid strin
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -2078,7 +1983,6 @@ func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid strin
 
 		data.Set("Actions", fmt.Sprint(v))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2094,12 +1998,13 @@ func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid strin
 
 	return ps, err
 }
+
 // UpdateWebhookParams Optional parameters for the method 'UpdateWebhook'
 type UpdateWebhookParams struct {
-	Events *string `json:"Events,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	Events        *string `json:"Events,omitempty"`
+	UniqueName    *string `json:"UniqueName,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -2118,23 +2023,21 @@ func (c *DefaultApiService) UpdateWebhook(AssistantSid string, Sid string, param
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Events != nil {
-		data.Set("Events", *params.Events) 
+		data.Set("Events", *params.Events)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod) 
+		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl) 
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

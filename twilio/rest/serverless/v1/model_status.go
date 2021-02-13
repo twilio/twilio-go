@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // Status the model 'Status'
 type Status string
 
 // List of status
 const (
-	STATUS_BUILDING Status = "building"
+	STATUS_BUILDING  Status = "building"
 	STATUS_COMPLETED Status = "completed"
-	STATUS_FAILED Status = "failed"
+	STATUS_FAILED    Status = "failed"
 )

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListInteractionResponse struct for ListInteractionResponse
 type ListInteractionResponse struct {
 	Interactions []ProxyV1ServiceSessionInteraction `json:"Interactions,omitempty"`
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Meta         ListServiceResponseMeta            `json:"Meta,omitempty"`
 }

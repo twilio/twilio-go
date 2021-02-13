@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Direction the model 'Direction'
 type Direction string
 
 // List of direction
 const (
 	DIRECTION_FROM_SIM Direction = "from_sim"
-	DIRECTION_TO_SIM Direction = "to_sim"
+	DIRECTION_TO_SIM   Direction = "to_sim"
 )

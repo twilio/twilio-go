@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCredentialRequest struct for CreateCredentialRequest
 type CreateCredentialRequest struct {
 	// [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.

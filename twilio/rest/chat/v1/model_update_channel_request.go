@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateChannelRequest struct for UpdateChannelRequest
 type UpdateChannelRequest struct {
 	// A valid JSON string that contains application-specific data.

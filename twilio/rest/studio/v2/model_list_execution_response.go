@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListExecutionResponse struct for ListExecutionResponse
 type ListExecutionResponse struct {
 	Executions []StudioV2FlowExecution `json:"Executions,omitempty"`
-	Meta ListFlowResponseMeta `json:"Meta,omitempty"`
+	Meta       ListFlowResponseMeta    `json:"Meta,omitempty"`
 }

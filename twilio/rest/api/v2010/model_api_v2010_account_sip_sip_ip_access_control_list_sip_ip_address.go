@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // ApiV2010AccountSipSipIpAccessControlListSipIpAddress struct for ApiV2010AccountSipSipIpAccessControlListSipIpAddress
 type ApiV2010AccountSipSipIpAccessControlListSipIpAddress struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CidrPrefixLength int32 `json:"CidrPrefixLength,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
+	AccountSid             string `json:"AccountSid,omitempty"`
+	CidrPrefixLength       int32  `json:"CidrPrefixLength,omitempty"`
+	DateCreated            string `json:"DateCreated,omitempty"`
+	DateUpdated            string `json:"DateUpdated,omitempty"`
+	FriendlyName           string `json:"FriendlyName,omitempty"`
 	IpAccessControlListSid string `json:"IpAccessControlListSid,omitempty"`
-	IpAddress string `json:"IpAddress,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	IpAddress              string `json:"IpAddress,omitempty"`
+	Sid                    string `json:"Sid,omitempty"`
+	Uri                    string `json:"Uri,omitempty"`
 }

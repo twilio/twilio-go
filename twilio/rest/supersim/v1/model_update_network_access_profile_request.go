@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateNetworkAccessProfileRequest struct for UpdateNetworkAccessProfileRequest
 type UpdateNetworkAccessProfileRequest struct {
 	// The new unique name of the Network Access Profile.

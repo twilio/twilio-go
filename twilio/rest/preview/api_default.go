@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -23,21 +24,22 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://preview.twilio.com"),
 	}
 }
+
 // CreateAssistantParams Optional parameters for the method 'CreateAssistant'
 type CreateAssistantParams struct {
-	CallbackEvents *string `json:"CallbackEvents,omitempty"`
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	FallbackActions *map[string]interface{} `json:"FallbackActions,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	CallbackEvents    *string                 `json:"CallbackEvents,omitempty"`
+	CallbackUrl       *string                 `json:"CallbackUrl,omitempty"`
+	FallbackActions   *map[string]interface{} `json:"FallbackActions,omitempty"`
+	FriendlyName      *string                 `json:"FriendlyName,omitempty"`
 	InitiationActions *map[string]interface{} `json:"InitiationActions,omitempty"`
-	LogQueries *bool `json:"LogQueries,omitempty"`
-	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	LogQueries        *bool                   `json:"LogQueries,omitempty"`
+	StyleSheet        *map[string]interface{} `json:"StyleSheet,omitempty"`
+	UniqueName        *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -56,15 +58,14 @@ CreateAssistant Method for CreateAssistant
 func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*PreviewUnderstandAssistant, error) {
 	path := "/understand/Assistants"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackEvents != nil {
-		data.Set("CallbackEvents", *params.CallbackEvents) 
+		data.Set("CallbackEvents", *params.CallbackEvents)
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl) 
+		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.FallbackActions != nil {
 		v, err := json.Marshal(params.FallbackActions)
@@ -76,7 +77,7 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Pre
 		data.Set("FallbackActions", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.InitiationActions != nil {
 		v, err := json.Marshal(params.InitiationActions)
@@ -88,7 +89,7 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Pre
 		data.Set("InitiationActions", fmt.Sprint(v))
 	}
 	if params != nil && params.LogQueries != nil {
-		data.Set("LogQueries", fmt.Sprint(*params.LogQueries)) 
+		data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
 	}
 	if params != nil && params.StyleSheet != nil {
 		v, err := json.Marshal(params.StyleSheet)
@@ -100,9 +101,8 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Pre
 		data.Set("StyleSheet", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -118,13 +118,14 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Pre
 
 	return ps, err
 }
+
 // CreateAuthorizationDocumentParams Optional parameters for the method 'CreateAuthorizationDocument'
 type CreateAuthorizationDocumentParams struct {
-	AddressSid *string `json:"AddressSid,omitempty"`
-	CcEmails *[]string `json:"CcEmails,omitempty"`
-	ContactPhoneNumber *string `json:"ContactPhoneNumber,omitempty"`
-	ContactTitle *string `json:"ContactTitle,omitempty"`
-	Email *string `json:"Email,omitempty"`
+	AddressSid            *string   `json:"AddressSid,omitempty"`
+	CcEmails              *[]string `json:"CcEmails,omitempty"`
+	ContactPhoneNumber    *string   `json:"ContactPhoneNumber,omitempty"`
+	ContactTitle          *string   `json:"ContactTitle,omitempty"`
+	Email                 *string   `json:"Email,omitempty"`
 	HostedNumberOrderSids *[]string `json:"HostedNumberOrderSids,omitempty"`
 }
 
@@ -143,29 +144,27 @@ Create an AuthorizationDocument for authorizing the hosting of phone number capa
 func (c *DefaultApiService) CreateAuthorizationDocument(params *CreateAuthorizationDocumentParams) (*PreviewHostedNumbersAuthorizationDocument, error) {
 	path := "/HostedNumbers/AuthorizationDocuments"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid) 
+		data.Set("AddressSid", *params.AddressSid)
 	}
 	if params != nil && params.CcEmails != nil {
-		data.Set("CcEmails",  strings.Join(*params.CcEmails, ","))
+		data.Set("CcEmails", strings.Join(*params.CcEmails, ","))
 	}
 	if params != nil && params.ContactPhoneNumber != nil {
-		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber) 
+		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
 	}
 	if params != nil && params.ContactTitle != nil {
-		data.Set("ContactTitle", *params.ContactTitle) 
+		data.Set("ContactTitle", *params.ContactTitle)
 	}
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.HostedNumberOrderSids != nil {
-		data.Set("HostedNumberOrderSids",  strings.Join(*params.HostedNumberOrderSids, ","))
+		data.Set("HostedNumberOrderSids", strings.Join(*params.HostedNumberOrderSids, ","))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -181,11 +180,12 @@ func (c *DefaultApiService) CreateAuthorizationDocument(params *CreateAuthorizat
 
 	return ps, err
 }
+
 // CreateCertificateParams Optional parameters for the method 'CreateCertificate'
 type CreateCertificateParams struct {
 	CertificateData *string `json:"CertificateData,omitempty"`
-	DeviceSid *string `json:"DeviceSid,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	DeviceSid       *string `json:"DeviceSid,omitempty"`
+	FriendlyName    *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -202,20 +202,18 @@ func (c *DefaultApiService) CreateCertificate(FleetSid string, params *CreateCer
 	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CertificateData != nil {
-		data.Set("CertificateData", *params.CertificateData) 
+		data.Set("CertificateData", *params.CertificateData)
 	}
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid) 
+		data.Set("DeviceSid", *params.DeviceSid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -231,6 +229,7 @@ func (c *DefaultApiService) CreateCertificate(FleetSid string, params *CreateCer
 
 	return ps, err
 }
+
 // CreateChannelParams Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
 	PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
@@ -248,14 +247,12 @@ func (c *DefaultApiService) CreateChannel(BrandedChannelSid string, params *Crea
 	path := "/TrustedComms/BrandedChannels/{BrandedChannelSid}/Channels"
 	path = strings.Replace(path, "{"+"BrandedChannelSid"+"}", BrandedChannelSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PhoneNumberSid != nil {
-		data.Set("PhoneNumberSid", *params.PhoneNumberSid) 
+		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -271,58 +268,57 @@ func (c *DefaultApiService) CreateChannel(BrandedChannelSid string, params *Crea
 
 	return ps, err
 }
+
 // CreateCommandParams Optional parameters for the method 'CreateCommand'
 type CreateCommandParams struct {
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	Command *string `json:"Command,omitempty"`
-	CommandMode *string `json:"CommandMode,omitempty"`
-	Device *string `json:"Device,omitempty"`
-	IncludeSid *string `json:"IncludeSid,omitempty"`
-	Sim *string `json:"Sim,omitempty"`
+	CallbackUrl    *string `json:"CallbackUrl,omitempty"`
+	Command        *string `json:"Command,omitempty"`
+	CommandMode    *string `json:"CommandMode,omitempty"`
+	Device         *string `json:"Device,omitempty"`
+	IncludeSid     *string `json:"IncludeSid,omitempty"`
+	Sim            *string `json:"Sim,omitempty"`
 }
 
 /*
 CreateCommand Method for CreateCommand
  * @param optional nil or *CreateCommandOpts - Optional Parameters:
- * @param "CallbackMethod" (string) - 
- * @param "CallbackUrl" (string) - 
- * @param "Command" (string) - 
- * @param "CommandMode" (string) - 
- * @param "Device" (string) - 
- * @param "IncludeSid" (string) - 
- * @param "Sim" (string) - 
+ * @param "CallbackMethod" (string) -
+ * @param "CallbackUrl" (string) -
+ * @param "Command" (string) -
+ * @param "CommandMode" (string) -
+ * @param "Device" (string) -
+ * @param "IncludeSid" (string) -
+ * @param "Sim" (string) -
 @return PreviewWirelessCommand
 */
 func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*PreviewWirelessCommand, error) {
 	path := "/wireless/Commands"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod) 
+		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl) 
+		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.Command != nil {
-		data.Set("Command", *params.Command) 
+		data.Set("Command", *params.Command)
 	}
 	if params != nil && params.CommandMode != nil {
-		data.Set("CommandMode", *params.CommandMode) 
+		data.Set("CommandMode", *params.CommandMode)
 	}
 	if params != nil && params.Device != nil {
-		data.Set("Device", *params.Device) 
+		data.Set("Device", *params.Device)
 	}
 	if params != nil && params.IncludeSid != nil {
-		data.Set("IncludeSid", *params.IncludeSid) 
+		data.Set("IncludeSid", *params.IncludeSid)
 	}
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim) 
+		data.Set("Sim", *params.Sim)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -338,9 +334,10 @@ func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*Preview
 
 	return ps, err
 }
+
 // CreateDeploymentParams Optional parameters for the method 'CreateDeployment'
 type CreateDeploymentParams struct {
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName   *string `json:"FriendlyName,omitempty"`
 	SyncServiceSid *string `json:"SyncServiceSid,omitempty"`
 }
 
@@ -357,17 +354,15 @@ func (c *DefaultApiService) CreateDeployment(FleetSid string, params *CreateDepl
 	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.SyncServiceSid != nil {
-		data.Set("SyncServiceSid", *params.SyncServiceSid) 
+		data.Set("SyncServiceSid", *params.SyncServiceSid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -383,13 +378,14 @@ func (c *DefaultApiService) CreateDeployment(FleetSid string, params *CreateDepl
 
 	return ps, err
 }
+
 // CreateDeviceParams Optional parameters for the method 'CreateDevice'
 type CreateDeviceParams struct {
 	DeploymentSid *string `json:"DeploymentSid,omitempty"`
-	Enabled *bool `json:"Enabled,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Identity *string `json:"Identity,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	Enabled       *bool   `json:"Enabled,omitempty"`
+	FriendlyName  *string `json:"FriendlyName,omitempty"`
+	Identity      *string `json:"Identity,omitempty"`
+	UniqueName    *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -398,7 +394,7 @@ Create a new Device in the Fleet, optionally giving it a unique name, friendly n
  * @param FleetSid
  * @param optional nil or *CreateDeviceOpts - Optional Parameters:
  * @param "DeploymentSid" (string) - Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
- * @param "Enabled" (bool) - 
+ * @param "Enabled" (bool) -
  * @param "FriendlyName" (string) - Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
  * @param "Identity" (string) - Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
  * @param "UniqueName" (string) - Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
@@ -408,26 +404,24 @@ func (c *DefaultApiService) CreateDevice(FleetSid string, params *CreateDevicePa
 	path := "/DeployedDevices/Fleets/{FleetSid}/Devices"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeploymentSid != nil {
-		data.Set("DeploymentSid", *params.DeploymentSid) 
+		data.Set("DeploymentSid", *params.DeploymentSid)
 	}
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity) 
+		data.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -443,24 +437,24 @@ func (c *DefaultApiService) CreateDevice(FleetSid string, params *CreateDevicePa
 
 	return ps, err
 }
+
 // CreateDocumentParams Optional parameters for the method 'CreateDocument'
 type CreateDocumentParams struct {
-	Data *map[string]interface{} `json:"Data,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	Data       *map[string]interface{} `json:"Data,omitempty"`
+	UniqueName *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
 CreateDocument Method for CreateDocument
  * @param ServiceSid
  * @param optional nil or *CreateDocumentOpts - Optional Parameters:
- * @param "Data" (map[string]interface{}) - 
- * @param "UniqueName" (string) - 
+ * @param "Data" (map[string]interface{}) -
+ * @param "UniqueName" (string) -
 @return PreviewSyncServiceDocument
 */
 func (c *DefaultApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*PreviewSyncServiceDocument, error) {
 	path := "/Sync/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-
 
 	data := url.Values{}
 	headers := 0
@@ -475,9 +469,8 @@ func (c *DefaultApiService) CreateDocument(ServiceSid string, params *CreateDocu
 		data.Set("Data", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -493,14 +486,15 @@ func (c *DefaultApiService) CreateDocument(ServiceSid string, params *CreateDocu
 
 	return ps, err
 }
+
 // CreateExportCustomJobParams Optional parameters for the method 'CreateExportCustomJob'
 type CreateExportCustomJobParams struct {
-	Email *string `json:"Email,omitempty"`
-	EndDay *string `json:"EndDay,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	StartDay *string `json:"StartDay,omitempty"`
+	Email         *string `json:"Email,omitempty"`
+	EndDay        *string `json:"EndDay,omitempty"`
+	FriendlyName  *string `json:"FriendlyName,omitempty"`
+	StartDay      *string `json:"StartDay,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -519,29 +513,27 @@ func (c *DefaultApiService) CreateExportCustomJob(ResourceType string, params *C
 	path := "/BulkExports/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.EndDay != nil {
-		data.Set("EndDay", *params.EndDay) 
+		data.Set("EndDay", *params.EndDay)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.StartDay != nil {
-		data.Set("StartDay", *params.StartDay) 
+		data.Set("StartDay", *params.StartDay)
 	}
 	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod) 
+		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl) 
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -557,9 +549,10 @@ func (c *DefaultApiService) CreateExportCustomJob(ResourceType string, params *C
 
 	return ps, err
 }
+
 // CreateFieldParams Optional parameters for the method 'CreateField'
 type CreateFieldParams struct {
-	FieldType *string `json:"FieldType,omitempty"`
+	FieldType  *string `json:"FieldType,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -577,17 +570,15 @@ func (c *DefaultApiService) CreateField(AssistantSid string, TaskSid string, par
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FieldType != nil {
-		data.Set("FieldType", *params.FieldType) 
+		data.Set("FieldType", *params.FieldType)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -603,10 +594,11 @@ func (c *DefaultApiService) CreateField(AssistantSid string, TaskSid string, par
 
 	return ps, err
 }
+
 // CreateFieldTypeParams Optional parameters for the method 'CreateFieldType'
 type CreateFieldTypeParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName   *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -621,17 +613,15 @@ func (c *DefaultApiService) CreateFieldType(AssistantSid string, params *CreateF
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -647,11 +637,12 @@ func (c *DefaultApiService) CreateFieldType(AssistantSid string, params *CreateF
 
 	return ps, err
 }
+
 // CreateFieldValueParams Optional parameters for the method 'CreateFieldValue'
 type CreateFieldValueParams struct {
-	Language *string `json:"Language,omitempty"`
+	Language  *string `json:"Language,omitempty"`
 	SynonymOf *string `json:"SynonymOf,omitempty"`
-	Value *string `json:"Value,omitempty"`
+	Value     *string `json:"Value,omitempty"`
 }
 
 /*
@@ -669,20 +660,18 @@ func (c *DefaultApiService) CreateFieldValue(AssistantSid string, FieldTypeSid s
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.SynonymOf != nil {
-		data.Set("SynonymOf", *params.SynonymOf) 
+		data.Set("SynonymOf", *params.SynonymOf)
 	}
 	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value) 
+		data.Set("Value", *params.Value)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -698,6 +687,7 @@ func (c *DefaultApiService) CreateFieldValue(AssistantSid string, FieldTypeSid s
 
 	return ps, err
 }
+
 // CreateFleetParams Optional parameters for the method 'CreateFleet'
 type CreateFleetParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -713,14 +703,12 @@ Create a new Fleet for scoping of deployed devices within your account.
 func (c *DefaultApiService) CreateFleet(params *CreateFleetParams) (*PreviewDeployedDevicesFleet, error) {
 	path := "/DeployedDevices/Fleets"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -736,25 +724,26 @@ func (c *DefaultApiService) CreateFleet(params *CreateFleetParams) (*PreviewDepl
 
 	return ps, err
 }
+
 // CreateHostedNumberOrderParams Optional parameters for the method 'CreateHostedNumberOrder'
 type CreateHostedNumberOrderParams struct {
-	AccountSid *string `json:"AccountSid,omitempty"`
-	AddressSid *string `json:"AddressSid,omitempty"`
-	CcEmails *[]string `json:"CcEmails,omitempty"`
-	Email *string `json:"Email,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PhoneNumber *string `json:"PhoneNumber,omitempty"`
-	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
-	SmsCapability *bool `json:"SmsCapability,omitempty"`
-	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod *string `json:"SmsMethod,omitempty"`
-	SmsUrl *string `json:"SmsUrl,omitempty"`
-	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
-	VerificationDocumentSid *string `json:"VerificationDocumentSid,omitempty"`
-	VerificationType *string `json:"VerificationType,omitempty"`
+	AccountSid              *string   `json:"AccountSid,omitempty"`
+	AddressSid              *string   `json:"AddressSid,omitempty"`
+	CcEmails                *[]string `json:"CcEmails,omitempty"`
+	Email                   *string   `json:"Email,omitempty"`
+	FriendlyName            *string   `json:"FriendlyName,omitempty"`
+	PhoneNumber             *string   `json:"PhoneNumber,omitempty"`
+	SmsApplicationSid       *string   `json:"SmsApplicationSid,omitempty"`
+	SmsCapability           *bool     `json:"SmsCapability,omitempty"`
+	SmsFallbackMethod       *string   `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl          *string   `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod               *string   `json:"SmsMethod,omitempty"`
+	SmsUrl                  *string   `json:"SmsUrl,omitempty"`
+	StatusCallbackMethod    *string   `json:"StatusCallbackMethod,omitempty"`
+	StatusCallbackUrl       *string   `json:"StatusCallbackUrl,omitempty"`
+	UniqueName              *string   `json:"UniqueName,omitempty"`
+	VerificationDocumentSid *string   `json:"VerificationDocumentSid,omitempty"`
+	VerificationType        *string   `json:"VerificationType,omitempty"`
 }
 
 /*
@@ -783,62 +772,60 @@ Host a phone number&#39;s capability on Twilio&#39;s platform.
 func (c *DefaultApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderParams) (*PreviewHostedNumbersHostedNumberOrder, error) {
 	path := "/HostedNumbers/HostedNumberOrders"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid) 
+		data.Set("AccountSid", *params.AccountSid)
 	}
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid) 
+		data.Set("AddressSid", *params.AddressSid)
 	}
 	if params != nil && params.CcEmails != nil {
-		data.Set("CcEmails",  strings.Join(*params.CcEmails, ","))
+		data.Set("CcEmails", strings.Join(*params.CcEmails, ","))
 	}
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber) 
+		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.SmsApplicationSid != nil {
-		data.Set("SmsApplicationSid", *params.SmsApplicationSid) 
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
 	}
 	if params != nil && params.SmsCapability != nil {
-		data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability)) 
+		data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod) 
+		data.Set("SmsMethod", *params.SmsMethod)
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl) 
+		data.Set("SmsUrl", *params.SmsUrl)
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 	if params != nil && params.StatusCallbackUrl != nil {
-		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl) 
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.VerificationDocumentSid != nil {
-		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid) 
+		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid)
 	}
 	if params != nil && params.VerificationType != nil {
-		data.Set("VerificationType", *params.VerificationType) 
+		data.Set("VerificationType", *params.VerificationType)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -854,12 +841,13 @@ func (c *DefaultApiService) CreateHostedNumberOrder(params *CreateHostedNumberOr
 
 	return ps, err
 }
+
 // CreateInstalledAddOnParams Optional parameters for the method 'CreateInstalledAddOn'
 type CreateInstalledAddOnParams struct {
-	AcceptTermsOfService *bool `json:"AcceptTermsOfService,omitempty"`
-	AvailableAddOnSid *string `json:"AvailableAddOnSid,omitempty"`
-	Configuration *map[string]interface{} `json:"Configuration,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	AcceptTermsOfService *bool                   `json:"AcceptTermsOfService,omitempty"`
+	AvailableAddOnSid    *string                 `json:"AvailableAddOnSid,omitempty"`
+	Configuration        *map[string]interface{} `json:"Configuration,omitempty"`
+	UniqueName           *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -875,15 +863,14 @@ Install an Add-on for the Account specified.
 func (c *DefaultApiService) CreateInstalledAddOn(params *CreateInstalledAddOnParams) (*PreviewMarketplaceInstalledAddOn, error) {
 	path := "/marketplace/InstalledAddOns"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AcceptTermsOfService != nil {
-		data.Set("AcceptTermsOfService", fmt.Sprint(*params.AcceptTermsOfService)) 
+		data.Set("AcceptTermsOfService", fmt.Sprint(*params.AcceptTermsOfService))
 	}
 	if params != nil && params.AvailableAddOnSid != nil {
-		data.Set("AvailableAddOnSid", *params.AvailableAddOnSid) 
+		data.Set("AvailableAddOnSid", *params.AvailableAddOnSid)
 	}
 	if params != nil && params.Configuration != nil {
 		v, err := json.Marshal(params.Configuration)
@@ -895,9 +882,8 @@ func (c *DefaultApiService) CreateInstalledAddOn(params *CreateInstalledAddOnPar
 		data.Set("Configuration", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -913,9 +899,10 @@ func (c *DefaultApiService) CreateInstalledAddOn(params *CreateInstalledAddOnPar
 
 	return ps, err
 }
+
 // CreateKeyParams Optional parameters for the method 'CreateKey'
 type CreateKeyParams struct {
-	DeviceSid *string `json:"DeviceSid,omitempty"`
+	DeviceSid    *string `json:"DeviceSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -932,17 +919,15 @@ func (c *DefaultApiService) CreateKey(FleetSid string, params *CreateKeyParams) 
 	path := "/DeployedDevices/Fleets/{FleetSid}/Keys"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid) 
+		data.Set("DeviceSid", *params.DeviceSid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -958,17 +943,18 @@ func (c *DefaultApiService) CreateKey(FleetSid string, params *CreateKeyParams) 
 
 	return ps, err
 }
+
 // CreateModelBuildParams Optional parameters for the method 'CreateModelBuild'
 type CreateModelBuildParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName     *string `json:"UniqueName,omitempty"`
 }
 
 /*
 CreateModelBuild Method for CreateModelBuild
  * @param AssistantSid
  * @param optional nil or *CreateModelBuildOpts - Optional Parameters:
- * @param "StatusCallback" (string) - 
+ * @param "StatusCallback" (string) -
  * @param "UniqueName" (string) - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
 @return PreviewUnderstandAssistantModelBuild
 */
@@ -976,17 +962,15 @@ func (c *DefaultApiService) CreateModelBuild(AssistantSid string, params *Create
 	path := "/understand/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1002,13 +986,14 @@ func (c *DefaultApiService) CreateModelBuild(AssistantSid string, params *Create
 
 	return ps, err
 }
+
 // CreateQueryParams Optional parameters for the method 'CreateQuery'
 type CreateQueryParams struct {
-	Field *string `json:"Field,omitempty"`
-	Language *string `json:"Language,omitempty"`
+	Field      *string `json:"Field,omitempty"`
+	Language   *string `json:"Language,omitempty"`
 	ModelBuild *string `json:"ModelBuild,omitempty"`
-	Query *string `json:"Query,omitempty"`
-	Tasks *string `json:"Tasks,omitempty"`
+	Query      *string `json:"Query,omitempty"`
+	Tasks      *string `json:"Tasks,omitempty"`
 }
 
 /*
@@ -1026,26 +1011,24 @@ func (c *DefaultApiService) CreateQuery(AssistantSid string, params *CreateQuery
 	path := "/understand/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Field != nil {
-		data.Set("Field", *params.Field) 
+		data.Set("Field", *params.Field)
 	}
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.ModelBuild != nil {
-		data.Set("ModelBuild", *params.ModelBuild) 
+		data.Set("ModelBuild", *params.ModelBuild)
 	}
 	if params != nil && params.Query != nil {
-		data.Set("Query", *params.Query) 
+		data.Set("Query", *params.Query)
 	}
 	if params != nil && params.Tasks != nil {
-		data.Set("Tasks", *params.Tasks) 
+		data.Set("Tasks", *params.Tasks)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1061,73 +1044,72 @@ func (c *DefaultApiService) CreateQuery(AssistantSid string, params *CreateQuery
 
 	return ps, err
 }
+
 // CreateRatePlanParams Optional parameters for the method 'CreateRatePlan'
 type CreateRatePlanParams struct {
-	CommandsEnabled *bool `json:"CommandsEnabled,omitempty"`
-	DataEnabled *bool `json:"DataEnabled,omitempty"`
-	DataLimit *int32 `json:"DataLimit,omitempty"`
-	DataMetering *string `json:"DataMetering,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	InternationalRoaming *[]string `json:"InternationalRoaming,omitempty"`
-	MessagingEnabled *bool `json:"MessagingEnabled,omitempty"`
-	NationalRoamingEnabled *bool `json:"NationalRoamingEnabled,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
-	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	CommandsEnabled        *bool     `json:"CommandsEnabled,omitempty"`
+	DataEnabled            *bool     `json:"DataEnabled,omitempty"`
+	DataLimit              *int32    `json:"DataLimit,omitempty"`
+	DataMetering           *string   `json:"DataMetering,omitempty"`
+	FriendlyName           *string   `json:"FriendlyName,omitempty"`
+	InternationalRoaming   *[]string `json:"InternationalRoaming,omitempty"`
+	MessagingEnabled       *bool     `json:"MessagingEnabled,omitempty"`
+	NationalRoamingEnabled *bool     `json:"NationalRoamingEnabled,omitempty"`
+	UniqueName             *string   `json:"UniqueName,omitempty"`
+	VoiceEnabled           *bool     `json:"VoiceEnabled,omitempty"`
 }
 
 /*
 CreateRatePlan Method for CreateRatePlan
  * @param optional nil or *CreateRatePlanOpts - Optional Parameters:
- * @param "CommandsEnabled" (bool) - 
- * @param "DataEnabled" (bool) - 
- * @param "DataLimit" (int32) - 
- * @param "DataMetering" (string) - 
- * @param "FriendlyName" (string) - 
- * @param "InternationalRoaming" ([]string) - 
- * @param "MessagingEnabled" (bool) - 
- * @param "NationalRoamingEnabled" (bool) - 
- * @param "UniqueName" (string) - 
- * @param "VoiceEnabled" (bool) - 
+ * @param "CommandsEnabled" (bool) -
+ * @param "DataEnabled" (bool) -
+ * @param "DataLimit" (int32) -
+ * @param "DataMetering" (string) -
+ * @param "FriendlyName" (string) -
+ * @param "InternationalRoaming" ([]string) -
+ * @param "MessagingEnabled" (bool) -
+ * @param "NationalRoamingEnabled" (bool) -
+ * @param "UniqueName" (string) -
+ * @param "VoiceEnabled" (bool) -
 @return PreviewWirelessRatePlan
 */
 func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*PreviewWirelessRatePlan, error) {
 	path := "/wireless/RatePlans"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CommandsEnabled != nil {
-		data.Set("CommandsEnabled", fmt.Sprint(*params.CommandsEnabled)) 
+		data.Set("CommandsEnabled", fmt.Sprint(*params.CommandsEnabled))
 	}
 	if params != nil && params.DataEnabled != nil {
-		data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled)) 
+		data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled))
 	}
 	if params != nil && params.DataLimit != nil {
-		data.Set("DataLimit", fmt.Sprint(*params.DataLimit)) 
+		data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
 	}
 	if params != nil && params.DataMetering != nil {
-		data.Set("DataMetering", *params.DataMetering) 
+		data.Set("DataMetering", *params.DataMetering)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.InternationalRoaming != nil {
-		data.Set("InternationalRoaming",  strings.Join(*params.InternationalRoaming, ","))
+		data.Set("InternationalRoaming", strings.Join(*params.InternationalRoaming, ","))
 	}
 	if params != nil && params.MessagingEnabled != nil {
-		data.Set("MessagingEnabled", fmt.Sprint(*params.MessagingEnabled)) 
+		data.Set("MessagingEnabled", fmt.Sprint(*params.MessagingEnabled))
 	}
 	if params != nil && params.NationalRoamingEnabled != nil {
-		data.Set("NationalRoamingEnabled", fmt.Sprint(*params.NationalRoamingEnabled)) 
+		data.Set("NationalRoamingEnabled", fmt.Sprint(*params.NationalRoamingEnabled))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled)) 
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1143,11 +1125,12 @@ func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*Previ
 
 	return ps, err
 }
+
 // CreateSampleParams Optional parameters for the method 'CreateSample'
 type CreateSampleParams struct {
-	Language *string `json:"Language,omitempty"`
+	Language      *string `json:"Language,omitempty"`
 	SourceChannel *string `json:"SourceChannel,omitempty"`
-	TaggedText *string `json:"TaggedText,omitempty"`
+	TaggedText    *string `json:"TaggedText,omitempty"`
 }
 
 /*
@@ -1165,20 +1148,18 @@ func (c *DefaultApiService) CreateSample(AssistantSid string, TaskSid string, pa
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.SourceChannel != nil {
-		data.Set("SourceChannel", *params.SourceChannel) 
+		data.Set("SourceChannel", *params.SourceChannel)
 	}
 	if params != nil && params.TaggedText != nil {
-		data.Set("TaggedText", *params.TaggedText) 
+		data.Set("TaggedText", *params.TaggedText)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1194,43 +1175,42 @@ func (c *DefaultApiService) CreateSample(AssistantSid string, TaskSid string, pa
 
 	return ps, err
 }
+
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-	AclEnabled *bool `json:"AclEnabled,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	AclEnabled                  *bool   `json:"AclEnabled,omitempty"`
+	FriendlyName                *string `json:"FriendlyName,omitempty"`
+	ReachabilityWebhooksEnabled *bool   `json:"ReachabilityWebhooksEnabled,omitempty"`
+	WebhookUrl                  *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
 CreateService Method for CreateService
  * @param optional nil or *CreateServiceOpts - Optional Parameters:
- * @param "AclEnabled" (bool) - 
- * @param "FriendlyName" (string) - 
- * @param "ReachabilityWebhooksEnabled" (bool) - 
- * @param "WebhookUrl" (string) - 
+ * @param "AclEnabled" (bool) -
+ * @param "FriendlyName" (string) -
+ * @param "ReachabilityWebhooksEnabled" (bool) -
+ * @param "WebhookUrl" (string) -
 @return PreviewSyncService
 */
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*PreviewSyncService, error) {
 	path := "/Sync/Services"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AclEnabled != nil {
-		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled)) 
+		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.ReachabilityWebhooksEnabled != nil {
-		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled)) 
+		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl) 
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1246,6 +1226,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*Preview
 
 	return ps, err
 }
+
 // CreateSyncListParams Optional parameters for the method 'CreateSyncList'
 type CreateSyncListParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
@@ -1255,21 +1236,19 @@ type CreateSyncListParams struct {
 CreateSyncList Method for CreateSyncList
  * @param ServiceSid
  * @param optional nil or *CreateSyncListOpts - Optional Parameters:
- * @param "UniqueName" (string) - 
+ * @param "UniqueName" (string) -
 @return PreviewSyncServiceSyncList
 */
 func (c *DefaultApiService) CreateSyncList(ServiceSid string, params *CreateSyncListParams) (*PreviewSyncServiceSyncList, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1285,6 +1264,7 @@ func (c *DefaultApiService) CreateSyncList(ServiceSid string, params *CreateSync
 
 	return ps, err
 }
+
 // CreateSyncListItemParams Optional parameters for the method 'CreateSyncListItem'
 type CreateSyncListItemParams struct {
 	Data *map[string]interface{} `json:"Data,omitempty"`
@@ -1295,14 +1275,13 @@ CreateSyncListItem Method for CreateSyncListItem
  * @param ServiceSid
  * @param ListSid
  * @param optional nil or *CreateSyncListItemOpts - Optional Parameters:
- * @param "Data" (map[string]interface{}) - 
+ * @param "Data" (map[string]interface{}) -
 @return PreviewSyncServiceSyncListSyncListItem
 */
 func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItem, error) {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
-
 
 	data := url.Values{}
 	headers := 0
@@ -1316,7 +1295,6 @@ func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string
 
 		data.Set("Data", fmt.Sprint(v))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1332,6 +1310,7 @@ func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string
 
 	return ps, err
 }
+
 // CreateSyncMapParams Optional parameters for the method 'CreateSyncMap'
 type CreateSyncMapParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
@@ -1341,21 +1320,19 @@ type CreateSyncMapParams struct {
 CreateSyncMap Method for CreateSyncMap
  * @param ServiceSid
  * @param optional nil or *CreateSyncMapOpts - Optional Parameters:
- * @param "UniqueName" (string) - 
+ * @param "UniqueName" (string) -
 @return PreviewSyncServiceSyncMap
 */
 func (c *DefaultApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParams) (*PreviewSyncServiceSyncMap, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1371,10 +1348,11 @@ func (c *DefaultApiService) CreateSyncMap(ServiceSid string, params *CreateSyncM
 
 	return ps, err
 }
+
 // CreateSyncMapItemParams Optional parameters for the method 'CreateSyncMapItem'
 type CreateSyncMapItemParams struct {
 	Data *map[string]interface{} `json:"Data,omitempty"`
-	Key *string `json:"Key,omitempty"`
+	Key  *string                 `json:"Key,omitempty"`
 }
 
 /*
@@ -1382,15 +1360,14 @@ CreateSyncMapItem Method for CreateSyncMapItem
  * @param ServiceSid
  * @param MapSid
  * @param optional nil or *CreateSyncMapItemOpts - Optional Parameters:
- * @param "Data" (map[string]interface{}) - 
- * @param "Key" (string) - 
+ * @param "Data" (map[string]interface{}) -
+ * @param "Key" (string) -
 @return PreviewSyncServiceSyncMapSyncMapItem
 */
 func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params *CreateSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
-
 
 	data := url.Values{}
 	headers := 0
@@ -1405,9 +1382,8 @@ func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, 
 		data.Set("Data", fmt.Sprint(v))
 	}
 	if params != nil && params.Key != nil {
-		data.Set("Key", *params.Key) 
+		data.Set("Key", *params.Key)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1423,12 +1399,13 @@ func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, 
 
 	return ps, err
 }
+
 // CreateTaskParams Optional parameters for the method 'CreateTask'
 type CreateTaskParams struct {
-	Actions *map[string]interface{} `json:"Actions,omitempty"`
-	ActionsUrl *string `json:"ActionsUrl,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	Actions      *map[string]interface{} `json:"Actions,omitempty"`
+	ActionsUrl   *string                 `json:"ActionsUrl,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+	UniqueName   *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1445,7 +1422,6 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 	path := "/understand/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -1459,15 +1435,14 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 		data.Set("Actions", fmt.Sprint(v))
 	}
 	if params != nil && params.ActionsUrl != nil {
-		data.Set("ActionsUrl", *params.ActionsUrl) 
+		data.Set("ActionsUrl", *params.ActionsUrl)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1488,15 +1463,12 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 DeleteAssistant Method for DeleteAssistant
  * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteAssistant(Sid string) (error) {
+func (c *DefaultApiService) DeleteAssistant(Sid string) error {
 	path := "/understand/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1514,16 +1486,13 @@ Unregister a specific Certificate credential from the Fleet, effectively disallo
  * @param FleetSid
  * @param Sid Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
 */
-func (c *DefaultApiService) DeleteCertificate(FleetSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteCertificate(FleetSid string, Sid string) error {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1541,16 +1510,13 @@ Delete a specific Deployment from the Fleet, leaving associated devices effectiv
  * @param FleetSid
  * @param Sid Provides a 34 character string that uniquely identifies the requested Deployment resource.
 */
-func (c *DefaultApiService) DeleteDeployment(FleetSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteDeployment(FleetSid string, Sid string) error {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1568,16 +1534,13 @@ Delete a specific Device from the Fleet, also removing it from associated Deploy
  * @param FleetSid
  * @param Sid Provides a 34 character string that uniquely identifies the requested Device resource.
 */
-func (c *DefaultApiService) DeleteDevice(FleetSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteDevice(FleetSid string, Sid string) error {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1594,16 +1557,13 @@ DeleteDocument Method for DeleteDocument
  * @param ServiceSid
  * @param Sid
 */
-func (c *DefaultApiService) DeleteDocument(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1622,17 +1582,14 @@ Delete a specific Sync Document Permission.
  * @param DocumentSid Identifier of the Sync Document. Either a SID or a unique name.
  * @param Identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 */
-func (c *DefaultApiService) DeleteDocumentPermission(ServiceSid string, DocumentSid string, Identity string) (error) {
+func (c *DefaultApiService) DeleteDocumentPermission(ServiceSid string, DocumentSid string, Identity string) error {
 	path := "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1650,17 +1607,14 @@ DeleteField Method for DeleteField
  * @param TaskSid The unique ID of the Task associated with this Field.
  * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteField(AssistantSid string, TaskSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteField(AssistantSid string, TaskSid string, Sid string) error {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1677,16 +1631,13 @@ DeleteFieldType Method for DeleteFieldType
  * @param AssistantSid
  * @param Sid
 */
-func (c *DefaultApiService) DeleteFieldType(AssistantSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteFieldType(AssistantSid string, Sid string) error {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1704,17 +1655,14 @@ DeleteFieldValue Method for DeleteFieldValue
  * @param FieldTypeSid
  * @param Sid
 */
-func (c *DefaultApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, Sid string) error {
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1731,15 +1679,12 @@ DeleteFleet Method for DeleteFleet
 Delete a specific Fleet from your account, also destroys all nested resources: Devices, Deployments, Certificates, Keys.
  * @param Sid Provides a 34 character string that uniquely identifies the requested Fleet resource.
 */
-func (c *DefaultApiService) DeleteFleet(Sid string) (error) {
+func (c *DefaultApiService) DeleteFleet(Sid string) error {
 	path := "/DeployedDevices/Fleets/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1756,15 +1701,12 @@ DeleteHostedNumberOrder Method for DeleteHostedNumberOrder
 Cancel the HostedNumberOrder (only available when the status is in &#x60;received&#x60;).
  * @param Sid A 34 character string that uniquely identifies this HostedNumberOrder.
 */
-func (c *DefaultApiService) DeleteHostedNumberOrder(Sid string) (error) {
+func (c *DefaultApiService) DeleteHostedNumberOrder(Sid string) error {
 	path := "/HostedNumbers/HostedNumberOrders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1781,15 +1723,12 @@ DeleteInstalledAddOn Method for DeleteInstalledAddOn
 Remove an Add-on installation from your account
  * @param Sid The SID of the InstalledAddOn resource to delete.
 */
-func (c *DefaultApiService) DeleteInstalledAddOn(Sid string) (error) {
+func (c *DefaultApiService) DeleteInstalledAddOn(Sid string) error {
 	path := "/marketplace/InstalledAddOns/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1805,15 +1744,12 @@ func (c *DefaultApiService) DeleteInstalledAddOn(Sid string) (error) {
 DeleteJob Method for DeleteJob
  * @param JobSid The unique string that that we created to identify the Bulk Export job
 */
-func (c *DefaultApiService) DeleteJob(JobSid string) (error) {
+func (c *DefaultApiService) DeleteJob(JobSid string) error {
 	path := "/BulkExports/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1831,16 +1767,13 @@ Delete a specific Key credential from the Fleet, effectively disallowing any inb
  * @param FleetSid
  * @param Sid Provides a 34 character string that uniquely identifies the requested Key credential resource.
 */
-func (c *DefaultApiService) DeleteKey(FleetSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteKey(FleetSid string, Sid string) error {
 	path := "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1857,16 +1790,13 @@ DeleteModelBuild Method for DeleteModelBuild
  * @param AssistantSid
  * @param Sid
 */
-func (c *DefaultApiService) DeleteModelBuild(AssistantSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
 	path := "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1883,16 +1813,13 @@ DeleteQuery Method for DeleteQuery
  * @param AssistantSid The unique ID of the Assistant.
  * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	path := "/understand/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1908,15 +1835,12 @@ func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) (error)
 DeleteRatePlan Method for DeleteRatePlan
  * @param Sid
 */
-func (c *DefaultApiService) DeleteRatePlan(Sid string) (error) {
+func (c *DefaultApiService) DeleteRatePlan(Sid string) error {
 	path := "/wireless/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1934,17 +1858,14 @@ DeleteSample Method for DeleteSample
  * @param TaskSid The unique ID of the Task associated with this Sample.
  * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Sid string) error {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1960,15 +1881,12 @@ func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Si
 DeleteService Method for DeleteService
  * @param Sid
 */
-func (c *DefaultApiService) DeleteService(Sid string) (error) {
+func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/Sync/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1985,16 +1903,13 @@ DeleteSyncList Method for DeleteSyncList
  * @param ServiceSid
  * @param Sid
 */
-func (c *DefaultApiService) DeleteSyncList(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 	path := "/Sync/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2005,6 +1920,7 @@ func (c *DefaultApiService) DeleteSyncList(ServiceSid string, Sid string) (error
 
 	return nil
 }
+
 // DeleteSyncListItemParams Optional parameters for the method 'DeleteSyncListItem'
 type DeleteSyncListItemParams struct {
 	IfMatch *string `json:"If-Match,omitempty"`
@@ -2018,16 +1934,14 @@ DeleteSyncListItem Method for DeleteSyncListItem
  * @param optional nil or *DeleteSyncListItemOpts - Optional Parameters:
  * @param "IfMatch" (string) - The If-Match HTTP request header
 */
-func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int32, params *DeleteSyncListItemParams) (error) {
+func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int32, params *DeleteSyncListItemParams) error {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
-
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 
 	if params != nil && params.IfMatch != nil {
 		headers["IfMatch"] = *params.IfMatch
@@ -2050,17 +1964,14 @@ Delete a specific Sync List Permission.
  * @param ListSid Identifier of the Sync List. Either a SID or a unique name.
  * @param Identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 */
-func (c *DefaultApiService) DeleteSyncListPermission(ServiceSid string, ListSid string, Identity string) (error) {
+func (c *DefaultApiService) DeleteSyncListPermission(ServiceSid string, ListSid string, Identity string) error {
 	path := "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2077,16 +1988,13 @@ DeleteSyncMap Method for DeleteSyncMap
  * @param ServiceSid
  * @param Sid
 */
-func (c *DefaultApiService) DeleteSyncMap(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	path := "/Sync/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2097,6 +2005,7 @@ func (c *DefaultApiService) DeleteSyncMap(ServiceSid string, Sid string) (error)
 
 	return nil
 }
+
 // DeleteSyncMapItemParams Optional parameters for the method 'DeleteSyncMapItem'
 type DeleteSyncMapItemParams struct {
 	IfMatch *string `json:"If-Match,omitempty"`
@@ -2110,16 +2019,14 @@ DeleteSyncMapItem Method for DeleteSyncMapItem
  * @param optional nil or *DeleteSyncMapItemOpts - Optional Parameters:
  * @param "IfMatch" (string) - The If-Match HTTP request header
 */
-func (c *DefaultApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key string, params *DeleteSyncMapItemParams) (error) {
+func (c *DefaultApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key string, params *DeleteSyncMapItemParams) error {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 
 	if params != nil && params.IfMatch != nil {
 		headers["IfMatch"] = *params.IfMatch
@@ -2142,17 +2049,14 @@ Delete a specific Sync Map Permission.
  * @param MapSid Identifier of the Sync Map. Either a SID or a unique name.
  * @param Identity Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer.
 */
-func (c *DefaultApiService) DeleteSyncMapPermission(ServiceSid string, MapSid string, Identity string) (error) {
+func (c *DefaultApiService) DeleteSyncMapPermission(ServiceSid string, MapSid string, Identity string) error {
 	path := "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2169,16 +2073,13 @@ DeleteTask Method for DeleteTask
  * @param AssistantSid The unique ID of the Assistant.
  * @param Sid A 34 character string that uniquely identifies this resource.
 */
-func (c *DefaultApiService) DeleteTask(AssistantSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteTask(AssistantSid string, Sid string) error {
 	path := "/understand/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2199,11 +2100,8 @@ func (c *DefaultApiService) FetchAssistant(Sid string) (*PreviewUnderstandAssist
 	path := "/understand/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2229,11 +2127,8 @@ func (c *DefaultApiService) FetchAssistantFallbackActions(AssistantSid string) (
 	path := "/understand/Assistants/{AssistantSid}/FallbackActions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2259,11 +2154,8 @@ func (c *DefaultApiService) FetchAssistantInitiationActions(AssistantSid string)
 	path := "/understand/Assistants/{AssistantSid}/InitiationActions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2290,11 +2182,8 @@ func (c *DefaultApiService) FetchAuthorizationDocument(Sid string) (*PreviewHost
 	path := "/HostedNumbers/AuthorizationDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2321,11 +2210,8 @@ func (c *DefaultApiService) FetchAvailableAddOn(Sid string) (*PreviewMarketplace
 	path := "/marketplace/AvailableAddOns/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2354,11 +2240,8 @@ func (c *DefaultApiService) FetchAvailableAddOnExtension(AvailableAddOnSid strin
 	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", AvailableAddOnSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2385,11 +2268,8 @@ func (c *DefaultApiService) FetchBrandedChannel(Sid string) (*PreviewTrustedComm
 	path := "/TrustedComms/BrandedChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2405,6 +2285,7 @@ func (c *DefaultApiService) FetchBrandedChannel(Sid string) (*PreviewTrustedComm
 
 	return ps, err
 }
+
 // FetchBrandsInformationParams Optional parameters for the method 'FetchBrandsInformation'
 type FetchBrandsInformationParams struct {
 	IfNoneMatch *string `json:"If-None-Match,omitempty"`
@@ -2420,10 +2301,8 @@ Retrieve the newest available BrandInformation
 func (c *DefaultApiService) FetchBrandsInformation(params *FetchBrandsInformationParams) (*PreviewTrustedCommsBrandsInformation, error) {
 	path := "/TrustedComms/BrandsInformation"
 
-
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 
 	if params != nil && params.IfNoneMatch != nil {
 		headers["IfNoneMatch"] = *params.IfNoneMatch
@@ -2456,11 +2335,8 @@ func (c *DefaultApiService) FetchCertificate(FleetSid string, Sid string) (*Prev
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2486,11 +2362,8 @@ func (c *DefaultApiService) FetchCommand(Sid string) (*PreviewWirelessCommand, e
 	path := "/wireless/Commands/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2506,6 +2379,7 @@ func (c *DefaultApiService) FetchCommand(Sid string) (*PreviewWirelessCommand, e
 
 	return ps, err
 }
+
 // FetchCpsParams Optional parameters for the method 'FetchCps'
 type FetchCpsParams struct {
 	XXcnamSensitivePhoneNumber *string `json:"X-Xcnam-Sensitive-Phone-Number,omitempty"`
@@ -2521,10 +2395,8 @@ Fetch a specific Call Placement Service (CPS) given a phone number via &#x60;X-X
 func (c *DefaultApiService) FetchCps(params *FetchCpsParams) (*PreviewTrustedCommsCps, error) {
 	path := "/TrustedComms/CPS"
 
-
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 
 	if params != nil && params.XXcnamSensitivePhoneNumber != nil {
 		headers["XXcnamSensitivePhoneNumber"] = *params.XXcnamSensitivePhoneNumber
@@ -2544,10 +2416,11 @@ func (c *DefaultApiService) FetchCps(params *FetchCpsParams) (*PreviewTrustedCom
 
 	return ps, err
 }
+
 // FetchCurrentCallParams Optional parameters for the method 'FetchCurrentCall'
 type FetchCurrentCallParams struct {
 	XXcnamSensitivePhoneNumberFrom *string `json:"X-Xcnam-Sensitive-Phone-Number-From,omitempty"`
-	XXcnamSensitivePhoneNumberTo *string `json:"X-Xcnam-Sensitive-Phone-Number-To,omitempty"`
+	XXcnamSensitivePhoneNumberTo   *string `json:"X-Xcnam-Sensitive-Phone-Number-To,omitempty"`
 }
 
 /*
@@ -2561,10 +2434,8 @@ Retrieve a current call given the originating and terminating number via &#x60;X
 func (c *DefaultApiService) FetchCurrentCall(params *FetchCurrentCallParams) (*PreviewTrustedCommsCurrentCall, error) {
 	path := "/TrustedComms/CurrentCall"
 
-
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 
 	if params != nil && params.XXcnamSensitivePhoneNumberFrom != nil {
 		headers["XXcnamSensitivePhoneNumberFrom"] = *params.XXcnamSensitivePhoneNumberFrom
@@ -2594,16 +2465,13 @@ Fetch a specific Day.
  * @param ResourceType The type of communication – Messages, Calls, Conferences, and Participants
  * @param Day The ISO 8601 format date of the resources in the file, for a UTC day
 */
-func (c *DefaultApiService) FetchDay(ResourceType string, Day string) (error) {
+func (c *DefaultApiService) FetchDay(ResourceType string, Day string) error {
 	path := "/BulkExports/Exports/{ResourceType}/Days/{Day}"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 	path = strings.Replace(path, "{"+"Day"+"}", Day, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2627,11 +2495,8 @@ func (c *DefaultApiService) FetchDeployment(FleetSid string, Sid string) (*Previ
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2660,11 +2525,8 @@ func (c *DefaultApiService) FetchDevice(FleetSid string, Sid string) (*PreviewDe
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2692,11 +2554,8 @@ func (c *DefaultApiService) FetchDialogue(AssistantSid string, Sid string) (*Pre
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2724,11 +2583,8 @@ func (c *DefaultApiService) FetchDocument(ServiceSid string, Sid string) (*Previ
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2759,11 +2615,8 @@ func (c *DefaultApiService) FetchDocumentPermission(ServiceSid string, DocumentS
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2790,11 +2643,8 @@ func (c *DefaultApiService) FetchExport(ResourceType string) (*PreviewBulkExport
 	path := "/BulkExports/Exports/{ResourceType}"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2821,11 +2671,8 @@ func (c *DefaultApiService) FetchExportConfiguration(ResourceType string) (*Prev
 	path := "/BulkExports/Exports/{ResourceType}/Configuration"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2855,11 +2702,8 @@ func (c *DefaultApiService) FetchField(AssistantSid string, TaskSid string, Sid 
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2887,11 +2731,8 @@ func (c *DefaultApiService) FetchFieldType(AssistantSid string, Sid string) (*Pr
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2921,11 +2762,8 @@ func (c *DefaultApiService) FetchFieldValue(AssistantSid string, FieldTypeSid st
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2952,11 +2790,8 @@ func (c *DefaultApiService) FetchFleet(Sid string) (*PreviewDeployedDevicesFleet
 	path := "/DeployedDevices/Fleets/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2983,11 +2818,8 @@ func (c *DefaultApiService) FetchHostedNumberOrder(Sid string) (*PreviewHostedNu
 	path := "/HostedNumbers/HostedNumberOrders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3014,11 +2846,8 @@ func (c *DefaultApiService) FetchInstalledAddOn(Sid string) (*PreviewMarketplace
 	path := "/marketplace/InstalledAddOns/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3047,11 +2876,8 @@ func (c *DefaultApiService) FetchInstalledAddOnExtension(InstalledAddOnSid strin
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3077,11 +2903,8 @@ func (c *DefaultApiService) FetchJob(JobSid string) (*PreviewBulkExportsExportJo
 	path := "/BulkExports/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3110,11 +2933,8 @@ func (c *DefaultApiService) FetchKey(FleetSid string, Sid string) (*PreviewDeplo
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3142,11 +2962,8 @@ func (c *DefaultApiService) FetchModelBuild(AssistantSid string, Sid string) (*P
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3174,11 +2991,8 @@ func (c *DefaultApiService) FetchQuery(AssistantSid string, Sid string) (*Previe
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3204,11 +3018,8 @@ func (c *DefaultApiService) FetchRatePlan(Sid string) (*PreviewWirelessRatePlan,
 	path := "/wireless/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3238,11 +3049,8 @@ func (c *DefaultApiService) FetchSample(AssistantSid string, TaskSid string, Sid
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3268,11 +3076,8 @@ func (c *DefaultApiService) FetchService(Sid string) (*PreviewSyncService, error
 	path := "/Sync/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3298,11 +3103,8 @@ func (c *DefaultApiService) FetchSim(Sid string) (*PreviewWirelessSim, error) {
 	path := "/wireless/Sims/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3329,11 +3131,8 @@ func (c *DefaultApiService) FetchStyleSheet(AssistantSid string) (*PreviewUnders
 	path := "/understand/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3361,11 +3160,8 @@ func (c *DefaultApiService) FetchSyncList(ServiceSid string, Sid string) (*Previ
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3395,11 +3191,8 @@ func (c *DefaultApiService) FetchSyncListItem(ServiceSid string, ListSid string,
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3430,11 +3223,8 @@ func (c *DefaultApiService) FetchSyncListPermission(ServiceSid string, ListSid s
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3462,11 +3252,8 @@ func (c *DefaultApiService) FetchSyncMap(ServiceSid string, Sid string) (*Previe
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3496,11 +3283,8 @@ func (c *DefaultApiService) FetchSyncMapItem(ServiceSid string, MapSid string, K
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3531,11 +3315,8 @@ func (c *DefaultApiService) FetchSyncMapPermission(ServiceSid string, MapSid str
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3563,11 +3344,8 @@ func (c *DefaultApiService) FetchTask(AssistantSid string, Sid string) (*Preview
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3596,11 +3374,8 @@ func (c *DefaultApiService) FetchTaskActions(AssistantSid string, TaskSid string
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3628,11 +3403,8 @@ func (c *DefaultApiService) FetchTaskStatistics(AssistantSid string, TaskSid str
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3648,9 +3420,10 @@ func (c *DefaultApiService) FetchTaskStatistics(AssistantSid string, TaskSid str
 
 	return ps, err
 }
+
 // FetchUsageParams Optional parameters for the method 'FetchUsage'
 type FetchUsageParams struct {
-	End *string `json:"End,omitempty"`
+	End   *string `json:"End,omitempty"`
 	Start *string `json:"Start,omitempty"`
 }
 
@@ -3658,25 +3431,23 @@ type FetchUsageParams struct {
 FetchUsage Method for FetchUsage
  * @param SimSid
  * @param optional nil or *FetchUsageOpts - Optional Parameters:
- * @param "End" (string) - 
- * @param "Start" (string) - 
+ * @param "End" (string) -
+ * @param "Start" (string) -
 @return PreviewWirelessSimUsage
 */
 func (c *DefaultApiService) FetchUsage(SimSid string, params *FetchUsageParams) (*PreviewWirelessSimUsage, error) {
 	path := "/wireless/Sims/{SimSid}/Usage"
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.End != nil {
-		data.Set("End", *params.End) 
+		data.Set("End", *params.End)
 	}
 	if params != nil && params.Start != nil {
-		data.Set("Start", *params.Start) 
+		data.Set("Start", *params.Start)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3692,6 +3463,7 @@ func (c *DefaultApiService) FetchUsage(SimSid string, params *FetchUsageParams) 
 
 	return ps, err
 }
+
 // ListAssistantParams Optional parameters for the method 'ListAssistant'
 type ListAssistantParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -3706,14 +3478,12 @@ ListAssistant Method for ListAssistant
 func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAssistantResponse, error) {
 	path := "/understand/Assistants"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3729,11 +3499,12 @@ func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAss
 
 	return ps, err
 }
+
 // ListAuthorizationDocumentParams Optional parameters for the method 'ListAuthorizationDocument'
 type ListAuthorizationDocumentParams struct {
-	Email *string `json:"Email,omitempty"`
-	Status *string `json:"Status,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	Email    *string `json:"Email,omitempty"`
+	Status   *string `json:"Status,omitempty"`
+	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3748,20 +3519,18 @@ Retrieve a list of AuthorizationDocuments belonging to the account initiating th
 func (c *DefaultApiService) ListAuthorizationDocument(params *ListAuthorizationDocumentParams) (*ListAuthorizationDocumentResponse, error) {
 	path := "/HostedNumbers/AuthorizationDocuments"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3777,6 +3546,7 @@ func (c *DefaultApiService) ListAuthorizationDocument(params *ListAuthorizationD
 
 	return ps, err
 }
+
 // ListAvailableAddOnParams Optional parameters for the method 'ListAvailableAddOn'
 type ListAvailableAddOnParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -3792,14 +3562,12 @@ Retrieve a list of Add-ons currently available to be installed.
 func (c *DefaultApiService) ListAvailableAddOn(params *ListAvailableAddOnParams) (*ListAvailableAddOnResponse, error) {
 	path := "/marketplace/AvailableAddOns"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3815,6 +3583,7 @@ func (c *DefaultApiService) ListAvailableAddOn(params *ListAvailableAddOnParams)
 
 	return ps, err
 }
+
 // ListAvailableAddOnExtensionParams Optional parameters for the method 'ListAvailableAddOnExtension'
 type ListAvailableAddOnExtensionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -3832,14 +3601,12 @@ func (c *DefaultApiService) ListAvailableAddOnExtension(AvailableAddOnSid string
 	path := "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions"
 	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", AvailableAddOnSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3855,10 +3622,11 @@ func (c *DefaultApiService) ListAvailableAddOnExtension(AvailableAddOnSid string
 
 	return ps, err
 }
+
 // ListCertificateParams Optional parameters for the method 'ListCertificate'
 type ListCertificateParams struct {
 	DeviceSid *string `json:"DeviceSid,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize  *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -3874,17 +3642,15 @@ func (c *DefaultApiService) ListCertificate(FleetSid string, params *ListCertifi
 	path := "/DeployedDevices/Fleets/{FleetSid}/Certificates"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid) 
+		data.Set("DeviceSid", *params.DeviceSid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3900,48 +3666,47 @@ func (c *DefaultApiService) ListCertificate(FleetSid string, params *ListCertifi
 
 	return ps, err
 }
+
 // ListCommandParams Optional parameters for the method 'ListCommand'
 type ListCommandParams struct {
-	Device *string `json:"Device,omitempty"`
-	Sim *string `json:"Sim,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	Device    *string `json:"Device,omitempty"`
+	Sim       *string `json:"Sim,omitempty"`
+	Status    *string `json:"Status,omitempty"`
 	Direction *string `json:"Direction,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize  *int32  `json:"PageSize,omitempty"`
 }
 
 /*
 ListCommand Method for ListCommand
  * @param optional nil or *ListCommandOpts - Optional Parameters:
- * @param "Device" (string) - 
- * @param "Sim" (string) - 
- * @param "Status" (string) - 
- * @param "Direction" (string) - 
+ * @param "Device" (string) -
+ * @param "Sim" (string) -
+ * @param "Status" (string) -
+ * @param "Direction" (string) -
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListCommandResponse
 */
 func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*ListCommandResponse, error) {
 	path := "/wireless/Commands"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Device != nil {
-		data.Set("Device", *params.Device) 
+		data.Set("Device", *params.Device)
 	}
 	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim) 
+		data.Set("Sim", *params.Sim)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction) 
+		data.Set("Direction", *params.Direction)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3957,6 +3722,7 @@ func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*ListCommand
 
 	return ps, err
 }
+
 // ListDayParams Optional parameters for the method 'ListDay'
 type ListDayParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -3974,14 +3740,12 @@ func (c *DefaultApiService) ListDay(ResourceType string, params *ListDayParams) 
 	path := "/BulkExports/Exports/{ResourceType}/Days"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3997,14 +3761,15 @@ func (c *DefaultApiService) ListDay(ResourceType string, params *ListDayParams) 
 
 	return ps, err
 }
+
 // ListDependentHostedNumberOrderParams Optional parameters for the method 'ListDependentHostedNumberOrder'
 type ListDependentHostedNumberOrderParams struct {
-	Status *string `json:"Status,omitempty"`
-	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Status                 *string `json:"Status,omitempty"`
+	PhoneNumber            *string `json:"PhoneNumber,omitempty"`
 	IncomingPhoneNumberSid *string `json:"IncomingPhoneNumberSid,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName           *string `json:"FriendlyName,omitempty"`
+	UniqueName             *string `json:"UniqueName,omitempty"`
+	PageSize               *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4024,29 +3789,27 @@ func (c *DefaultApiService) ListDependentHostedNumberOrder(SigningDocumentSid st
 	path := "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders"
 	path = strings.Replace(path, "{"+"SigningDocumentSid"+"}", SigningDocumentSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber) 
+		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.IncomingPhoneNumberSid != nil {
-		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid) 
+		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4062,6 +3825,7 @@ func (c *DefaultApiService) ListDependentHostedNumberOrder(SigningDocumentSid st
 
 	return ps, err
 }
+
 // ListDeploymentParams Optional parameters for the method 'ListDeployment'
 type ListDeploymentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4079,14 +3843,12 @@ func (c *DefaultApiService) ListDeployment(FleetSid string, params *ListDeployme
 	path := "/DeployedDevices/Fleets/{FleetSid}/Deployments"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4102,10 +3864,11 @@ func (c *DefaultApiService) ListDeployment(FleetSid string, params *ListDeployme
 
 	return ps, err
 }
+
 // ListDeviceParams Optional parameters for the method 'ListDevice'
 type ListDeviceParams struct {
 	DeploymentSid *string `json:"DeploymentSid,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize      *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4121,17 +3884,15 @@ func (c *DefaultApiService) ListDevice(FleetSid string, params *ListDeviceParams
 	path := "/DeployedDevices/Fleets/{FleetSid}/Devices"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeploymentSid != nil {
-		data.Set("DeploymentSid", *params.DeploymentSid) 
+		data.Set("DeploymentSid", *params.DeploymentSid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4147,6 +3908,7 @@ func (c *DefaultApiService) ListDevice(FleetSid string, params *ListDeviceParams
 
 	return ps, err
 }
+
 // ListDocumentParams Optional parameters for the method 'ListDocument'
 type ListDocumentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4163,14 +3925,12 @@ func (c *DefaultApiService) ListDocument(ServiceSid string, params *ListDocument
 	path := "/Sync/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4186,6 +3946,7 @@ func (c *DefaultApiService) ListDocument(ServiceSid string, params *ListDocument
 
 	return ps, err
 }
+
 // ListDocumentPermissionParams Optional parameters for the method 'ListDocumentPermission'
 type ListDocumentPermissionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4205,14 +3966,12 @@ func (c *DefaultApiService) ListDocumentPermission(ServiceSid string, DocumentSi
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4228,6 +3987,7 @@ func (c *DefaultApiService) ListDocumentPermission(ServiceSid string, DocumentSi
 
 	return ps, err
 }
+
 // ListExportCustomJobParams Optional parameters for the method 'ListExportCustomJob'
 type ListExportCustomJobParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4244,14 +4004,12 @@ func (c *DefaultApiService) ListExportCustomJob(ResourceType string, params *Lis
 	path := "/BulkExports/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4267,6 +4025,7 @@ func (c *DefaultApiService) ListExportCustomJob(ResourceType string, params *Lis
 
 	return ps, err
 }
+
 // ListFieldParams Optional parameters for the method 'ListField'
 type ListFieldParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4285,14 +4044,12 @@ func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, param
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4308,6 +4065,7 @@ func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, param
 
 	return ps, err
 }
+
 // ListFieldTypeParams Optional parameters for the method 'ListFieldType'
 type ListFieldTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4324,14 +4082,12 @@ func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListField
 	path := "/understand/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4347,10 +4103,11 @@ func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListField
 
 	return ps, err
 }
+
 // ListFieldValueParams Optional parameters for the method 'ListFieldValue'
 type ListFieldValueParams struct {
 	Language *string `json:"Language,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4367,17 +4124,15 @@ func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid str
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4393,6 +4148,7 @@ func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid str
 
 	return ps, err
 }
+
 // ListFleetParams Optional parameters for the method 'ListFleet'
 type ListFleetParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4408,14 +4164,12 @@ Retrieve a list of all Fleets belonging to your account.
 func (c *DefaultApiService) ListFleet(params *ListFleetParams) (*ListFleetResponse, error) {
 	path := "/DeployedDevices/Fleets"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4431,14 +4185,15 @@ func (c *DefaultApiService) ListFleet(params *ListFleetParams) (*ListFleetRespon
 
 	return ps, err
 }
+
 // ListHostedNumberOrderParams Optional parameters for the method 'ListHostedNumberOrder'
 type ListHostedNumberOrderParams struct {
-	Status *string `json:"Status,omitempty"`
-	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	Status                 *string `json:"Status,omitempty"`
+	PhoneNumber            *string `json:"PhoneNumber,omitempty"`
 	IncomingPhoneNumberSid *string `json:"IncomingPhoneNumberSid,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	FriendlyName           *string `json:"FriendlyName,omitempty"`
+	UniqueName             *string `json:"UniqueName,omitempty"`
+	PageSize               *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4456,29 +4211,27 @@ Retrieve a list of HostedNumberOrders belonging to the account initiating the re
 func (c *DefaultApiService) ListHostedNumberOrder(params *ListHostedNumberOrderParams) (*ListHostedNumberOrderResponse, error) {
 	path := "/HostedNumbers/HostedNumberOrders"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber) 
+		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.IncomingPhoneNumberSid != nil {
-		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid) 
+		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4494,6 +4247,7 @@ func (c *DefaultApiService) ListHostedNumberOrder(params *ListHostedNumberOrderP
 
 	return ps, err
 }
+
 // ListInstalledAddOnParams Optional parameters for the method 'ListInstalledAddOn'
 type ListInstalledAddOnParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4509,14 +4263,12 @@ Retrieve a list of Add-ons currently installed on this Account.
 func (c *DefaultApiService) ListInstalledAddOn(params *ListInstalledAddOnParams) (*ListInstalledAddOnResponse, error) {
 	path := "/marketplace/InstalledAddOns"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4532,6 +4284,7 @@ func (c *DefaultApiService) ListInstalledAddOn(params *ListInstalledAddOnParams)
 
 	return ps, err
 }
+
 // ListInstalledAddOnExtensionParams Optional parameters for the method 'ListInstalledAddOnExtension'
 type ListInstalledAddOnExtensionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4549,14 +4302,12 @@ func (c *DefaultApiService) ListInstalledAddOnExtension(InstalledAddOnSid string
 	path := "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions"
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4572,10 +4323,11 @@ func (c *DefaultApiService) ListInstalledAddOnExtension(InstalledAddOnSid string
 
 	return ps, err
 }
+
 // ListKeyParams Optional parameters for the method 'ListKey'
 type ListKeyParams struct {
 	DeviceSid *string `json:"DeviceSid,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize  *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4591,17 +4343,15 @@ func (c *DefaultApiService) ListKey(FleetSid string, params *ListKeyParams) (*Li
 	path := "/DeployedDevices/Fleets/{FleetSid}/Keys"
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid) 
+		data.Set("DeviceSid", *params.DeviceSid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4617,6 +4367,7 @@ func (c *DefaultApiService) ListKey(FleetSid string, params *ListKeyParams) (*Li
 
 	return ps, err
 }
+
 // ListModelBuildParams Optional parameters for the method 'ListModelBuild'
 type ListModelBuildParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4633,14 +4384,12 @@ func (c *DefaultApiService) ListModelBuild(AssistantSid string, params *ListMode
 	path := "/understand/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4656,12 +4405,13 @@ func (c *DefaultApiService) ListModelBuild(AssistantSid string, params *ListMode
 
 	return ps, err
 }
+
 // ListQueryParams Optional parameters for the method 'ListQuery'
 type ListQueryParams struct {
-	Language *string `json:"Language,omitempty"`
+	Language   *string `json:"Language,omitempty"`
 	ModelBuild *string `json:"ModelBuild,omitempty"`
-	Status *string `json:"Status,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	Status     *string `json:"Status,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4678,23 +4428,21 @@ func (c *DefaultApiService) ListQuery(AssistantSid string, params *ListQueryPara
 	path := "/understand/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.ModelBuild != nil {
-		data.Set("ModelBuild", *params.ModelBuild) 
+		data.Set("ModelBuild", *params.ModelBuild)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4710,6 +4458,7 @@ func (c *DefaultApiService) ListQuery(AssistantSid string, params *ListQueryPara
 
 	return ps, err
 }
+
 // ListRatePlanParams Optional parameters for the method 'ListRatePlan'
 type ListRatePlanParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4724,14 +4473,12 @@ ListRatePlan Method for ListRatePlan
 func (c *DefaultApiService) ListRatePlan(params *ListRatePlanParams) (*ListRatePlanResponse, error) {
 	path := "/wireless/RatePlans"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4747,10 +4494,11 @@ func (c *DefaultApiService) ListRatePlan(params *ListRatePlanParams) (*ListRateP
 
 	return ps, err
 }
+
 // ListSampleParams Optional parameters for the method 'ListSample'
 type ListSampleParams struct {
 	Language *string `json:"Language,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4767,17 +4515,15 @@ func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, para
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4793,6 +4539,7 @@ func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, para
 
 	return ps, err
 }
+
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4807,14 +4554,12 @@ ListService Method for ListService
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/Sync/Services"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4830,53 +4575,52 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 
 	return ps, err
 }
+
 // ListSimParams Optional parameters for the method 'ListSim'
 type ListSimParams struct {
-	Status *string `json:"Status,omitempty"`
-	Iccid *string `json:"Iccid,omitempty"`
-	RatePlan *string `json:"RatePlan,omitempty"`
-	EId *string `json:"EId,omitempty"`
+	Status              *string `json:"Status,omitempty"`
+	Iccid               *string `json:"Iccid,omitempty"`
+	RatePlan            *string `json:"RatePlan,omitempty"`
+	EId                 *string `json:"EId,omitempty"`
 	SimRegistrationCode *string `json:"SimRegistrationCode,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize            *int32  `json:"PageSize,omitempty"`
 }
 
 /*
 ListSim Method for ListSim
  * @param optional nil or *ListSimOpts - Optional Parameters:
- * @param "Status" (string) - 
- * @param "Iccid" (string) - 
- * @param "RatePlan" (string) - 
- * @param "EId" (string) - 
- * @param "SimRegistrationCode" (string) - 
+ * @param "Status" (string) -
+ * @param "Iccid" (string) -
+ * @param "RatePlan" (string) -
+ * @param "EId" (string) -
+ * @param "SimRegistrationCode" (string) -
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListSimResponse
 */
 func (c *DefaultApiService) ListSim(params *ListSimParams) (*ListSimResponse, error) {
 	path := "/wireless/Sims"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.Iccid != nil {
-		data.Set("Iccid", *params.Iccid) 
+		data.Set("Iccid", *params.Iccid)
 	}
 	if params != nil && params.RatePlan != nil {
-		data.Set("RatePlan", *params.RatePlan) 
+		data.Set("RatePlan", *params.RatePlan)
 	}
 	if params != nil && params.EId != nil {
-		data.Set("EId", *params.EId) 
+		data.Set("EId", *params.EId)
 	}
 	if params != nil && params.SimRegistrationCode != nil {
-		data.Set("SimRegistrationCode", *params.SimRegistrationCode) 
+		data.Set("SimRegistrationCode", *params.SimRegistrationCode)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4892,6 +4636,7 @@ func (c *DefaultApiService) ListSim(params *ListSimParams) (*ListSimResponse, er
 
 	return ps, err
 }
+
 // ListSyncListParams Optional parameters for the method 'ListSyncList'
 type ListSyncListParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -4908,14 +4653,12 @@ func (c *DefaultApiService) ListSyncList(ServiceSid string, params *ListSyncList
 	path := "/Sync/Services/{ServiceSid}/Lists"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4931,12 +4674,13 @@ func (c *DefaultApiService) ListSyncList(ServiceSid string, params *ListSyncList
 
 	return ps, err
 }
+
 // ListSyncListItemParams Optional parameters for the method 'ListSyncListItem'
 type ListSyncListItemParams struct {
-	Order *string `json:"Order,omitempty"`
-	From *string `json:"From,omitempty"`
-	Bounds *string `json:"Bounds,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	Order    *string `json:"Order,omitempty"`
+	From     *string `json:"From,omitempty"`
+	Bounds   *string `json:"Bounds,omitempty"`
+	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -4944,9 +4688,9 @@ ListSyncListItem Method for ListSyncListItem
  * @param ServiceSid
  * @param ListSid
  * @param optional nil or *ListSyncListItemOpts - Optional Parameters:
- * @param "Order" (string) - 
- * @param "From" (string) - 
- * @param "Bounds" (string) - 
+ * @param "Order" (string) -
+ * @param "From" (string) -
+ * @param "Bounds" (string) -
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListSyncListItemResponse
 */
@@ -4955,23 +4699,21 @@ func (c *DefaultApiService) ListSyncListItem(ServiceSid string, ListSid string, 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order) 
+		data.Set("Order", *params.Order)
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From) 
+		data.Set("From", *params.From)
 	}
 	if params != nil && params.Bounds != nil {
-		data.Set("Bounds", *params.Bounds) 
+		data.Set("Bounds", *params.Bounds)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4987,6 +4729,7 @@ func (c *DefaultApiService) ListSyncListItem(ServiceSid string, ListSid string, 
 
 	return ps, err
 }
+
 // ListSyncListPermissionParams Optional parameters for the method 'ListSyncListPermission'
 type ListSyncListPermissionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -5006,14 +4749,12 @@ func (c *DefaultApiService) ListSyncListPermission(ServiceSid string, ListSid st
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5029,6 +4770,7 @@ func (c *DefaultApiService) ListSyncListPermission(ServiceSid string, ListSid st
 
 	return ps, err
 }
+
 // ListSyncMapParams Optional parameters for the method 'ListSyncMap'
 type ListSyncMapParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -5045,14 +4787,12 @@ func (c *DefaultApiService) ListSyncMap(ServiceSid string, params *ListSyncMapPa
 	path := "/Sync/Services/{ServiceSid}/Maps"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5068,12 +4808,13 @@ func (c *DefaultApiService) ListSyncMap(ServiceSid string, params *ListSyncMapPa
 
 	return ps, err
 }
+
 // ListSyncMapItemParams Optional parameters for the method 'ListSyncMapItem'
 type ListSyncMapItemParams struct {
-	Order *string `json:"Order,omitempty"`
-	From *string `json:"From,omitempty"`
-	Bounds *string `json:"Bounds,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	Order    *string `json:"Order,omitempty"`
+	From     *string `json:"From,omitempty"`
+	Bounds   *string `json:"Bounds,omitempty"`
+	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5081,9 +4822,9 @@ ListSyncMapItem Method for ListSyncMapItem
  * @param ServiceSid
  * @param MapSid
  * @param optional nil or *ListSyncMapItemOpts - Optional Parameters:
- * @param "Order" (string) - 
- * @param "From" (string) - 
- * @param "Bounds" (string) - 
+ * @param "Order" (string) -
+ * @param "From" (string) -
+ * @param "Bounds" (string) -
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListSyncMapItemResponse
 */
@@ -5092,23 +4833,21 @@ func (c *DefaultApiService) ListSyncMapItem(ServiceSid string, MapSid string, pa
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order) 
+		data.Set("Order", *params.Order)
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From) 
+		data.Set("From", *params.From)
 	}
 	if params != nil && params.Bounds != nil {
-		data.Set("Bounds", *params.Bounds) 
+		data.Set("Bounds", *params.Bounds)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5124,6 +4863,7 @@ func (c *DefaultApiService) ListSyncMapItem(ServiceSid string, MapSid string, pa
 
 	return ps, err
 }
+
 // ListSyncMapPermissionParams Optional parameters for the method 'ListSyncMapPermission'
 type ListSyncMapPermissionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -5143,14 +4883,12 @@ func (c *DefaultApiService) ListSyncMapPermission(ServiceSid string, MapSid stri
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5166,6 +4904,7 @@ func (c *DefaultApiService) ListSyncMapPermission(ServiceSid string, MapSid stri
 
 	return ps, err
 }
+
 // ListTaskParams Optional parameters for the method 'ListTask'
 type ListTaskParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -5182,14 +4921,12 @@ func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams
 	path := "/understand/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5205,16 +4942,17 @@ func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams
 
 	return ps, err
 }
+
 // UpdateAssistantParams Optional parameters for the method 'UpdateAssistant'
 type UpdateAssistantParams struct {
-	CallbackEvents *string `json:"CallbackEvents,omitempty"`
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	FallbackActions *map[string]interface{} `json:"FallbackActions,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	CallbackEvents    *string                 `json:"CallbackEvents,omitempty"`
+	CallbackUrl       *string                 `json:"CallbackUrl,omitempty"`
+	FallbackActions   *map[string]interface{} `json:"FallbackActions,omitempty"`
+	FriendlyName      *string                 `json:"FriendlyName,omitempty"`
 	InitiationActions *map[string]interface{} `json:"InitiationActions,omitempty"`
-	LogQueries *bool `json:"LogQueries,omitempty"`
-	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	LogQueries        *bool                   `json:"LogQueries,omitempty"`
+	StyleSheet        *map[string]interface{} `json:"StyleSheet,omitempty"`
+	UniqueName        *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -5235,15 +4973,14 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 	path := "/understand/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackEvents != nil {
-		data.Set("CallbackEvents", *params.CallbackEvents) 
+		data.Set("CallbackEvents", *params.CallbackEvents)
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl) 
+		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.FallbackActions != nil {
 		v, err := json.Marshal(params.FallbackActions)
@@ -5255,7 +4992,7 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 		data.Set("FallbackActions", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.InitiationActions != nil {
 		v, err := json.Marshal(params.InitiationActions)
@@ -5267,7 +5004,7 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 		data.Set("InitiationActions", fmt.Sprint(v))
 	}
 	if params != nil && params.LogQueries != nil {
-		data.Set("LogQueries", fmt.Sprint(*params.LogQueries)) 
+		data.Set("LogQueries", fmt.Sprint(*params.LogQueries))
 	}
 	if params != nil && params.StyleSheet != nil {
 		v, err := json.Marshal(params.StyleSheet)
@@ -5279,9 +5016,8 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 		data.Set("StyleSheet", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5297,6 +5033,7 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 
 	return ps, err
 }
+
 // UpdateAssistantFallbackActionsParams Optional parameters for the method 'UpdateAssistantFallbackActions'
 type UpdateAssistantFallbackActionsParams struct {
 	FallbackActions *map[string]interface{} `json:"FallbackActions,omitempty"`
@@ -5306,13 +5043,12 @@ type UpdateAssistantFallbackActionsParams struct {
 UpdateAssistantFallbackActions Method for UpdateAssistantFallbackActions
  * @param AssistantSid
  * @param optional nil or *UpdateAssistantFallbackActionsOpts - Optional Parameters:
- * @param "FallbackActions" (map[string]interface{}) - 
+ * @param "FallbackActions" (map[string]interface{}) -
 @return PreviewUnderstandAssistantAssistantFallbackActions
 */
 func (c *DefaultApiService) UpdateAssistantFallbackActions(AssistantSid string, params *UpdateAssistantFallbackActionsParams) (*PreviewUnderstandAssistantAssistantFallbackActions, error) {
 	path := "/understand/Assistants/{AssistantSid}/FallbackActions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
-
 
 	data := url.Values{}
 	headers := 0
@@ -5326,7 +5062,6 @@ func (c *DefaultApiService) UpdateAssistantFallbackActions(AssistantSid string, 
 
 		data.Set("FallbackActions", fmt.Sprint(v))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5342,6 +5077,7 @@ func (c *DefaultApiService) UpdateAssistantFallbackActions(AssistantSid string, 
 
 	return ps, err
 }
+
 // UpdateAssistantInitiationActionsParams Optional parameters for the method 'UpdateAssistantInitiationActions'
 type UpdateAssistantInitiationActionsParams struct {
 	InitiationActions *map[string]interface{} `json:"InitiationActions,omitempty"`
@@ -5351,13 +5087,12 @@ type UpdateAssistantInitiationActionsParams struct {
 UpdateAssistantInitiationActions Method for UpdateAssistantInitiationActions
  * @param AssistantSid
  * @param optional nil or *UpdateAssistantInitiationActionsOpts - Optional Parameters:
- * @param "InitiationActions" (map[string]interface{}) - 
+ * @param "InitiationActions" (map[string]interface{}) -
 @return PreviewUnderstandAssistantAssistantInitiationActions
 */
 func (c *DefaultApiService) UpdateAssistantInitiationActions(AssistantSid string, params *UpdateAssistantInitiationActionsParams) (*PreviewUnderstandAssistantAssistantInitiationActions, error) {
 	path := "/understand/Assistants/{AssistantSid}/InitiationActions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
-
 
 	data := url.Values{}
 	headers := 0
@@ -5371,7 +5106,6 @@ func (c *DefaultApiService) UpdateAssistantInitiationActions(AssistantSid string
 
 		data.Set("InitiationActions", fmt.Sprint(v))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5387,15 +5121,16 @@ func (c *DefaultApiService) UpdateAssistantInitiationActions(AssistantSid string
 
 	return ps, err
 }
+
 // UpdateAuthorizationDocumentParams Optional parameters for the method 'UpdateAuthorizationDocument'
 type UpdateAuthorizationDocumentParams struct {
-	AddressSid *string `json:"AddressSid,omitempty"`
-	CcEmails *[]string `json:"CcEmails,omitempty"`
-	ContactPhoneNumber *string `json:"ContactPhoneNumber,omitempty"`
-	ContactTitle *string `json:"ContactTitle,omitempty"`
-	Email *string `json:"Email,omitempty"`
+	AddressSid            *string   `json:"AddressSid,omitempty"`
+	CcEmails              *[]string `json:"CcEmails,omitempty"`
+	ContactPhoneNumber    *string   `json:"ContactPhoneNumber,omitempty"`
+	ContactTitle          *string   `json:"ContactTitle,omitempty"`
+	Email                 *string   `json:"Email,omitempty"`
 	HostedNumberOrderSids *[]string `json:"HostedNumberOrderSids,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	Status                *string   `json:"Status,omitempty"`
 }
 
 /*
@@ -5416,32 +5151,30 @@ func (c *DefaultApiService) UpdateAuthorizationDocument(Sid string, params *Upda
 	path := "/HostedNumbers/AuthorizationDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AddressSid != nil {
-		data.Set("AddressSid", *params.AddressSid) 
+		data.Set("AddressSid", *params.AddressSid)
 	}
 	if params != nil && params.CcEmails != nil {
-		data.Set("CcEmails",  strings.Join(*params.CcEmails, ","))
+		data.Set("CcEmails", strings.Join(*params.CcEmails, ","))
 	}
 	if params != nil && params.ContactPhoneNumber != nil {
-		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber) 
+		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
 	}
 	if params != nil && params.ContactTitle != nil {
-		data.Set("ContactTitle", *params.ContactTitle) 
+		data.Set("ContactTitle", *params.ContactTitle)
 	}
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.HostedNumberOrderSids != nil {
-		data.Set("HostedNumberOrderSids",  strings.Join(*params.HostedNumberOrderSids, ","))
+		data.Set("HostedNumberOrderSids", strings.Join(*params.HostedNumberOrderSids, ","))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5457,9 +5190,10 @@ func (c *DefaultApiService) UpdateAuthorizationDocument(Sid string, params *Upda
 
 	return ps, err
 }
+
 // UpdateCertificateParams Optional parameters for the method 'UpdateCertificate'
 type UpdateCertificateParams struct {
-	DeviceSid *string `json:"DeviceSid,omitempty"`
+	DeviceSid    *string `json:"DeviceSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -5478,17 +5212,15 @@ func (c *DefaultApiService) UpdateCertificate(FleetSid string, Sid string, param
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid) 
+		data.Set("DeviceSid", *params.DeviceSid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5504,9 +5236,10 @@ func (c *DefaultApiService) UpdateCertificate(FleetSid string, Sid string, param
 
 	return ps, err
 }
+
 // UpdateDeploymentParams Optional parameters for the method 'UpdateDeployment'
 type UpdateDeploymentParams struct {
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName   *string `json:"FriendlyName,omitempty"`
 	SyncServiceSid *string `json:"SyncServiceSid,omitempty"`
 }
 
@@ -5525,17 +5258,15 @@ func (c *DefaultApiService) UpdateDeployment(FleetSid string, Sid string, params
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.SyncServiceSid != nil {
-		data.Set("SyncServiceSid", *params.SyncServiceSid) 
+		data.Set("SyncServiceSid", *params.SyncServiceSid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5551,12 +5282,13 @@ func (c *DefaultApiService) UpdateDeployment(FleetSid string, Sid string, params
 
 	return ps, err
 }
+
 // UpdateDeviceParams Optional parameters for the method 'UpdateDevice'
 type UpdateDeviceParams struct {
 	DeploymentSid *string `json:"DeploymentSid,omitempty"`
-	Enabled *bool `json:"Enabled,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Identity *string `json:"Identity,omitempty"`
+	Enabled       *bool   `json:"Enabled,omitempty"`
+	FriendlyName  *string `json:"FriendlyName,omitempty"`
+	Identity      *string `json:"Identity,omitempty"`
 }
 
 /*
@@ -5566,7 +5298,7 @@ Update the given properties of a specific Device in the Fleet, giving it a frien
  * @param Sid Provides a 34 character string that uniquely identifies the requested Device resource.
  * @param optional nil or *UpdateDeviceOpts - Optional Parameters:
  * @param "DeploymentSid" (string) - Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
- * @param "Enabled" (bool) - 
+ * @param "Enabled" (bool) -
  * @param "FriendlyName" (string) - Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
  * @param "Identity" (string) - Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
 @return PreviewDeployedDevicesFleetDevice
@@ -5576,23 +5308,21 @@ func (c *DefaultApiService) UpdateDevice(FleetSid string, Sid string, params *Up
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeploymentSid != nil {
-		data.Set("DeploymentSid", *params.DeploymentSid) 
+		data.Set("DeploymentSid", *params.DeploymentSid)
 	}
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", *params.Identity) 
+		data.Set("Identity", *params.Identity)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5608,10 +5338,11 @@ func (c *DefaultApiService) UpdateDevice(FleetSid string, Sid string, params *Up
 
 	return ps, err
 }
+
 // UpdateDocumentParams Optional parameters for the method 'UpdateDocument'
 type UpdateDocumentParams struct {
-	IfMatch *string `json:"If-Match,omitempty"`
-	Data *map[string]interface{} `json:"Data,omitempty"`
+	IfMatch *string                 `json:"If-Match,omitempty"`
+	Data    *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
@@ -5620,14 +5351,13 @@ UpdateDocument Method for UpdateDocument
  * @param Sid
  * @param optional nil or *UpdateDocumentOpts - Optional Parameters:
  * @param "IfMatch" (string) - The If-Match HTTP request header
- * @param "Data" (map[string]interface{}) - 
+ * @param "Data" (map[string]interface{}) -
 @return PreviewSyncServiceDocument
 */
 func (c *DefaultApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*PreviewSyncServiceDocument, error) {
 	path := "/Sync/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
-
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -5660,11 +5390,12 @@ func (c *DefaultApiService) UpdateDocument(ServiceSid string, Sid string, params
 
 	return ps, err
 }
+
 // UpdateDocumentPermissionParams Optional parameters for the method 'UpdateDocumentPermission'
 type UpdateDocumentPermissionParams struct {
 	Manage *bool `json:"Manage,omitempty"`
-	Read *bool `json:"Read,omitempty"`
-	Write *bool `json:"Write,omitempty"`
+	Read   *bool `json:"Read,omitempty"`
+	Write  *bool `json:"Write,omitempty"`
 }
 
 /*
@@ -5685,20 +5416,18 @@ func (c *DefaultApiService) UpdateDocumentPermission(ServiceSid string, Document
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Manage != nil {
-		data.Set("Manage", fmt.Sprint(*params.Manage)) 
+		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
 	if params != nil && params.Read != nil {
-		data.Set("Read", fmt.Sprint(*params.Read)) 
+		data.Set("Read", fmt.Sprint(*params.Read))
 	}
 	if params != nil && params.Write != nil {
-		data.Set("Write", fmt.Sprint(*params.Write)) 
+		data.Set("Write", fmt.Sprint(*params.Write))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5714,11 +5443,12 @@ func (c *DefaultApiService) UpdateDocumentPermission(ServiceSid string, Document
 
 	return ps, err
 }
+
 // UpdateExportConfigurationParams Optional parameters for the method 'UpdateExportConfiguration'
 type UpdateExportConfigurationParams struct {
-	Enabled *bool `json:"Enabled,omitempty"`
+	Enabled       *bool   `json:"Enabled,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
@@ -5735,20 +5465,18 @@ func (c *DefaultApiService) UpdateExportConfiguration(ResourceType string, param
 	path := "/BulkExports/Exports/{ResourceType}/Configuration"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 	if params != nil && params.WebhookMethod != nil {
-		data.Set("WebhookMethod", *params.WebhookMethod) 
+		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl) 
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5764,10 +5492,11 @@ func (c *DefaultApiService) UpdateExportConfiguration(ResourceType string, param
 
 	return ps, err
 }
+
 // UpdateFieldTypeParams Optional parameters for the method 'UpdateFieldType'
 type UpdateFieldTypeParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName   *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -5784,17 +5513,15 @@ func (c *DefaultApiService) UpdateFieldType(AssistantSid string, Sid string, par
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5810,10 +5537,11 @@ func (c *DefaultApiService) UpdateFieldType(AssistantSid string, Sid string, par
 
 	return ps, err
 }
+
 // UpdateFleetParams Optional parameters for the method 'UpdateFleet'
 type UpdateFleetParams struct {
 	DefaultDeploymentSid *string `json:"DefaultDeploymentSid,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName         *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -5829,17 +5557,15 @@ func (c *DefaultApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (
 	path := "/DeployedDevices/Fleets/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DefaultDeploymentSid != nil {
-		data.Set("DefaultDeploymentSid", *params.DefaultDeploymentSid) 
+		data.Set("DefaultDeploymentSid", *params.DefaultDeploymentSid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5855,18 +5581,19 @@ func (c *DefaultApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (
 
 	return ps, err
 }
+
 // UpdateHostedNumberOrderParams Optional parameters for the method 'UpdateHostedNumberOrder'
 type UpdateHostedNumberOrderParams struct {
-	CallDelay *int32 `json:"CallDelay,omitempty"`
-	CcEmails *[]string `json:"CcEmails,omitempty"`
-	Email *string `json:"Email,omitempty"`
-	Extension *string `json:"Extension,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Status *string `json:"Status,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
-	VerificationCode *string `json:"VerificationCode,omitempty"`
-	VerificationDocumentSid *string `json:"VerificationDocumentSid,omitempty"`
-	VerificationType *string `json:"VerificationType,omitempty"`
+	CallDelay               *int32    `json:"CallDelay,omitempty"`
+	CcEmails                *[]string `json:"CcEmails,omitempty"`
+	Email                   *string   `json:"Email,omitempty"`
+	Extension               *string   `json:"Extension,omitempty"`
+	FriendlyName            *string   `json:"FriendlyName,omitempty"`
+	Status                  *string   `json:"Status,omitempty"`
+	UniqueName              *string   `json:"UniqueName,omitempty"`
+	VerificationCode        *string   `json:"VerificationCode,omitempty"`
+	VerificationDocumentSid *string   `json:"VerificationDocumentSid,omitempty"`
+	VerificationType        *string   `json:"VerificationType,omitempty"`
 }
 
 /*
@@ -5890,41 +5617,39 @@ func (c *DefaultApiService) UpdateHostedNumberOrder(Sid string, params *UpdateHo
 	path := "/HostedNumbers/HostedNumberOrders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallDelay != nil {
-		data.Set("CallDelay", fmt.Sprint(*params.CallDelay)) 
+		data.Set("CallDelay", fmt.Sprint(*params.CallDelay))
 	}
 	if params != nil && params.CcEmails != nil {
-		data.Set("CcEmails",  strings.Join(*params.CcEmails, ","))
+		data.Set("CcEmails", strings.Join(*params.CcEmails, ","))
 	}
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.Extension != nil {
-		data.Set("Extension", *params.Extension) 
+		data.Set("Extension", *params.Extension)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.VerificationCode != nil {
-		data.Set("VerificationCode", *params.VerificationCode) 
+		data.Set("VerificationCode", *params.VerificationCode)
 	}
 	if params != nil && params.VerificationDocumentSid != nil {
-		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid) 
+		data.Set("VerificationDocumentSid", *params.VerificationDocumentSid)
 	}
 	if params != nil && params.VerificationType != nil {
-		data.Set("VerificationType", *params.VerificationType) 
+		data.Set("VerificationType", *params.VerificationType)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5940,10 +5665,11 @@ func (c *DefaultApiService) UpdateHostedNumberOrder(Sid string, params *UpdateHo
 
 	return ps, err
 }
+
 // UpdateInstalledAddOnParams Optional parameters for the method 'UpdateInstalledAddOn'
 type UpdateInstalledAddOnParams struct {
 	Configuration *map[string]interface{} `json:"Configuration,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName    *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -5959,7 +5685,6 @@ func (c *DefaultApiService) UpdateInstalledAddOn(Sid string, params *UpdateInsta
 	path := "/marketplace/InstalledAddOns/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -5973,9 +5698,8 @@ func (c *DefaultApiService) UpdateInstalledAddOn(Sid string, params *UpdateInsta
 		data.Set("Configuration", fmt.Sprint(v))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -5991,6 +5715,7 @@ func (c *DefaultApiService) UpdateInstalledAddOn(Sid string, params *UpdateInsta
 
 	return ps, err
 }
+
 // UpdateInstalledAddOnExtensionParams Optional parameters for the method 'UpdateInstalledAddOnExtension'
 type UpdateInstalledAddOnExtensionParams struct {
 	Enabled *bool `json:"Enabled,omitempty"`
@@ -6010,14 +5735,12 @@ func (c *DefaultApiService) UpdateInstalledAddOnExtension(InstalledAddOnSid stri
 	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", fmt.Sprint(*params.Enabled)) 
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6033,9 +5756,10 @@ func (c *DefaultApiService) UpdateInstalledAddOnExtension(InstalledAddOnSid stri
 
 	return ps, err
 }
+
 // UpdateKeyParams Optional parameters for the method 'UpdateKey'
 type UpdateKeyParams struct {
-	DeviceSid *string `json:"DeviceSid,omitempty"`
+	DeviceSid    *string `json:"DeviceSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -6054,17 +5778,15 @@ func (c *DefaultApiService) UpdateKey(FleetSid string, Sid string, params *Updat
 	path = strings.Replace(path, "{"+"FleetSid"+"}", FleetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DeviceSid != nil {
-		data.Set("DeviceSid", *params.DeviceSid) 
+		data.Set("DeviceSid", *params.DeviceSid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6080,6 +5802,7 @@ func (c *DefaultApiService) UpdateKey(FleetSid string, Sid string, params *Updat
 
 	return ps, err
 }
+
 // UpdateModelBuildParams Optional parameters for the method 'UpdateModelBuild'
 type UpdateModelBuildParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
@@ -6098,14 +5821,12 @@ func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, pa
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6121,10 +5842,11 @@ func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, pa
 
 	return ps, err
 }
+
 // UpdateQueryParams Optional parameters for the method 'UpdateQuery'
 type UpdateQueryParams struct {
 	SampleSid *string `json:"SampleSid,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	Status    *string `json:"Status,omitempty"`
 }
 
 /*
@@ -6141,17 +5863,15 @@ func (c *DefaultApiService) UpdateQuery(AssistantSid string, Sid string, params 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.SampleSid != nil {
-		data.Set("SampleSid", *params.SampleSid) 
+		data.Set("SampleSid", *params.SampleSid)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6167,35 +5887,34 @@ func (c *DefaultApiService) UpdateQuery(AssistantSid string, Sid string, params 
 
 	return ps, err
 }
+
 // UpdateRatePlanParams Optional parameters for the method 'UpdateRatePlan'
 type UpdateRatePlanParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName   *string `json:"UniqueName,omitempty"`
 }
 
 /*
 UpdateRatePlan Method for UpdateRatePlan
  * @param Sid
  * @param optional nil or *UpdateRatePlanOpts - Optional Parameters:
- * @param "FriendlyName" (string) - 
- * @param "UniqueName" (string) - 
+ * @param "FriendlyName" (string) -
+ * @param "UniqueName" (string) -
 @return PreviewWirelessRatePlan
 */
 func (c *DefaultApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*PreviewWirelessRatePlan, error) {
 	path := "/wireless/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6211,11 +5930,12 @@ func (c *DefaultApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanPar
 
 	return ps, err
 }
+
 // UpdateSampleParams Optional parameters for the method 'UpdateSample'
 type UpdateSampleParams struct {
-	Language *string `json:"Language,omitempty"`
+	Language      *string `json:"Language,omitempty"`
 	SourceChannel *string `json:"SourceChannel,omitempty"`
-	TaggedText *string `json:"TaggedText,omitempty"`
+	TaggedText    *string `json:"TaggedText,omitempty"`
 }
 
 /*
@@ -6235,20 +5955,18 @@ func (c *DefaultApiService) UpdateSample(AssistantSid string, TaskSid string, Si
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Language != nil {
-		data.Set("Language", *params.Language) 
+		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.SourceChannel != nil {
-		data.Set("SourceChannel", *params.SourceChannel) 
+		data.Set("SourceChannel", *params.SourceChannel)
 	}
 	if params != nil && params.TaggedText != nil {
-		data.Set("TaggedText", *params.TaggedText) 
+		data.Set("TaggedText", *params.TaggedText)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6264,45 +5982,44 @@ func (c *DefaultApiService) UpdateSample(AssistantSid string, TaskSid string, Si
 
 	return ps, err
 }
+
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	AclEnabled *bool `json:"AclEnabled,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	AclEnabled                  *bool   `json:"AclEnabled,omitempty"`
+	FriendlyName                *string `json:"FriendlyName,omitempty"`
+	ReachabilityWebhooksEnabled *bool   `json:"ReachabilityWebhooksEnabled,omitempty"`
+	WebhookUrl                  *string `json:"WebhookUrl,omitempty"`
 }
 
 /*
 UpdateService Method for UpdateService
  * @param Sid
  * @param optional nil or *UpdateServiceOpts - Optional Parameters:
- * @param "AclEnabled" (bool) - 
- * @param "FriendlyName" (string) - 
- * @param "ReachabilityWebhooksEnabled" (bool) - 
- * @param "WebhookUrl" (string) - 
+ * @param "AclEnabled" (bool) -
+ * @param "FriendlyName" (string) -
+ * @param "ReachabilityWebhooksEnabled" (bool) -
+ * @param "WebhookUrl" (string) -
 @return PreviewSyncService
 */
 func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*PreviewSyncService, error) {
 	path := "/Sync/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AclEnabled != nil {
-		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled)) 
+		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.ReachabilityWebhooksEnabled != nil {
-		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled)) 
+		data.Set("ReachabilityWebhooksEnabled", fmt.Sprint(*params.ReachabilityWebhooksEnabled))
 	}
 	if params != nil && params.WebhookUrl != nil {
-		data.Set("WebhookUrl", *params.WebhookUrl) 
+		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6318,105 +6035,104 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 
 	return ps, err
 }
+
 // UpdateSimParams Optional parameters for the method 'UpdateSim'
 type UpdateSimParams struct {
-	CallbackMethod *string `json:"CallbackMethod,omitempty"`
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	CallbackMethod         *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl            *string `json:"CallbackUrl,omitempty"`
 	CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
-	CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	RatePlan *string `json:"RatePlan,omitempty"`
-	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod *string `json:"SmsMethod,omitempty"`
-	SmsUrl *string `json:"SmsUrl,omitempty"`
-	Status *string `json:"Status,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
-	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod *string `json:"VoiceMethod,omitempty"`
-	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	CommandsCallbackUrl    *string `json:"CommandsCallbackUrl,omitempty"`
+	FriendlyName           *string `json:"FriendlyName,omitempty"`
+	RatePlan               *string `json:"RatePlan,omitempty"`
+	SmsFallbackMethod      *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl         *string `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod              *string `json:"SmsMethod,omitempty"`
+	SmsUrl                 *string `json:"SmsUrl,omitempty"`
+	Status                 *string `json:"Status,omitempty"`
+	UniqueName             *string `json:"UniqueName,omitempty"`
+	VoiceFallbackMethod    *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl       *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod            *string `json:"VoiceMethod,omitempty"`
+	VoiceUrl               *string `json:"VoiceUrl,omitempty"`
 }
 
 /*
 UpdateSim Method for UpdateSim
  * @param Sid
  * @param optional nil or *UpdateSimOpts - Optional Parameters:
- * @param "CallbackMethod" (string) - 
- * @param "CallbackUrl" (string) - 
- * @param "CommandsCallbackMethod" (string) - 
- * @param "CommandsCallbackUrl" (string) - 
- * @param "FriendlyName" (string) - 
- * @param "RatePlan" (string) - 
- * @param "SmsFallbackMethod" (string) - 
- * @param "SmsFallbackUrl" (string) - 
- * @param "SmsMethod" (string) - 
- * @param "SmsUrl" (string) - 
- * @param "Status" (string) - 
- * @param "UniqueName" (string) - 
- * @param "VoiceFallbackMethod" (string) - 
- * @param "VoiceFallbackUrl" (string) - 
- * @param "VoiceMethod" (string) - 
- * @param "VoiceUrl" (string) - 
+ * @param "CallbackMethod" (string) -
+ * @param "CallbackUrl" (string) -
+ * @param "CommandsCallbackMethod" (string) -
+ * @param "CommandsCallbackUrl" (string) -
+ * @param "FriendlyName" (string) -
+ * @param "RatePlan" (string) -
+ * @param "SmsFallbackMethod" (string) -
+ * @param "SmsFallbackUrl" (string) -
+ * @param "SmsMethod" (string) -
+ * @param "SmsUrl" (string) -
+ * @param "Status" (string) -
+ * @param "UniqueName" (string) -
+ * @param "VoiceFallbackMethod" (string) -
+ * @param "VoiceFallbackUrl" (string) -
+ * @param "VoiceMethod" (string) -
+ * @param "VoiceUrl" (string) -
 @return PreviewWirelessSim
 */
 func (c *DefaultApiService) UpdateSim(Sid string, params *UpdateSimParams) (*PreviewWirelessSim, error) {
 	path := "/wireless/Sims/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackMethod != nil {
-		data.Set("CallbackMethod", *params.CallbackMethod) 
+		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl) 
+		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.CommandsCallbackMethod != nil {
-		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod) 
+		data.Set("CommandsCallbackMethod", *params.CommandsCallbackMethod)
 	}
 	if params != nil && params.CommandsCallbackUrl != nil {
-		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl) 
+		data.Set("CommandsCallbackUrl", *params.CommandsCallbackUrl)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.RatePlan != nil {
-		data.Set("RatePlan", *params.RatePlan) 
+		data.Set("RatePlan", *params.RatePlan)
 	}
 	if params != nil && params.SmsFallbackMethod != nil {
-		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod) 
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
 	}
 	if params != nil && params.SmsFallbackUrl != nil {
-		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl) 
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
 	}
 	if params != nil && params.SmsMethod != nil {
-		data.Set("SmsMethod", *params.SmsMethod) 
+		data.Set("SmsMethod", *params.SmsMethod)
 	}
 	if params != nil && params.SmsUrl != nil {
-		data.Set("SmsUrl", *params.SmsUrl) 
+		data.Set("SmsUrl", *params.SmsUrl)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.VoiceFallbackMethod != nil {
-		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod) 
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
 	}
 	if params != nil && params.VoiceFallbackUrl != nil {
-		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl) 
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
 	}
 	if params != nil && params.VoiceMethod != nil {
-		data.Set("VoiceMethod", *params.VoiceMethod) 
+		data.Set("VoiceMethod", *params.VoiceMethod)
 	}
 	if params != nil && params.VoiceUrl != nil {
-		data.Set("VoiceUrl", *params.VoiceUrl) 
+		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6432,6 +6148,7 @@ func (c *DefaultApiService) UpdateSim(Sid string, params *UpdateSimParams) (*Pre
 
 	return ps, err
 }
+
 // UpdateStyleSheetParams Optional parameters for the method 'UpdateStyleSheet'
 type UpdateStyleSheetParams struct {
 	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
@@ -6449,7 +6166,6 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 	path := "/understand/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -6462,7 +6178,6 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 
 		data.Set("StyleSheet", fmt.Sprint(v))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6478,10 +6193,11 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 
 	return ps, err
 }
+
 // UpdateSyncListItemParams Optional parameters for the method 'UpdateSyncListItem'
 type UpdateSyncListItemParams struct {
-	IfMatch *string `json:"If-Match,omitempty"`
-	Data *map[string]interface{} `json:"Data,omitempty"`
+	IfMatch *string                 `json:"If-Match,omitempty"`
+	Data    *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
@@ -6491,7 +6207,7 @@ UpdateSyncListItem Method for UpdateSyncListItem
  * @param Index
  * @param optional nil or *UpdateSyncListItemOpts - Optional Parameters:
  * @param "IfMatch" (string) - The If-Match HTTP request header
- * @param "Data" (map[string]interface{}) - 
+ * @param "Data" (map[string]interface{}) -
 @return PreviewSyncServiceSyncListSyncListItem
 */
 func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int32, params *UpdateSyncListItemParams) (*PreviewSyncServiceSyncListSyncListItem, error) {
@@ -6499,7 +6215,6 @@ func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
-
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -6532,11 +6247,12 @@ func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string
 
 	return ps, err
 }
+
 // UpdateSyncListPermissionParams Optional parameters for the method 'UpdateSyncListPermission'
 type UpdateSyncListPermissionParams struct {
 	Manage *bool `json:"Manage,omitempty"`
-	Read *bool `json:"Read,omitempty"`
-	Write *bool `json:"Write,omitempty"`
+	Read   *bool `json:"Read,omitempty"`
+	Write  *bool `json:"Write,omitempty"`
 }
 
 /*
@@ -6557,20 +6273,18 @@ func (c *DefaultApiService) UpdateSyncListPermission(ServiceSid string, ListSid 
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Manage != nil {
-		data.Set("Manage", fmt.Sprint(*params.Manage)) 
+		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
 	if params != nil && params.Read != nil {
-		data.Set("Read", fmt.Sprint(*params.Read)) 
+		data.Set("Read", fmt.Sprint(*params.Read))
 	}
 	if params != nil && params.Write != nil {
-		data.Set("Write", fmt.Sprint(*params.Write)) 
+		data.Set("Write", fmt.Sprint(*params.Write))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6586,10 +6300,11 @@ func (c *DefaultApiService) UpdateSyncListPermission(ServiceSid string, ListSid 
 
 	return ps, err
 }
+
 // UpdateSyncMapItemParams Optional parameters for the method 'UpdateSyncMapItem'
 type UpdateSyncMapItemParams struct {
-	IfMatch *string `json:"If-Match,omitempty"`
-	Data *map[string]interface{} `json:"Data,omitempty"`
+	IfMatch *string                 `json:"If-Match,omitempty"`
+	Data    *map[string]interface{} `json:"Data,omitempty"`
 }
 
 /*
@@ -6599,7 +6314,7 @@ UpdateSyncMapItem Method for UpdateSyncMapItem
  * @param Key
  * @param optional nil or *UpdateSyncMapItemOpts - Optional Parameters:
  * @param "IfMatch" (string) - The If-Match HTTP request header
- * @param "Data" (map[string]interface{}) - 
+ * @param "Data" (map[string]interface{}) -
 @return PreviewSyncServiceSyncMapSyncMapItem
 */
 func (c *DefaultApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key string, params *UpdateSyncMapItemParams) (*PreviewSyncServiceSyncMapSyncMapItem, error) {
@@ -6607,7 +6322,6 @@ func (c *DefaultApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
-
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -6640,11 +6354,12 @@ func (c *DefaultApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, 
 
 	return ps, err
 }
+
 // UpdateSyncMapPermissionParams Optional parameters for the method 'UpdateSyncMapPermission'
 type UpdateSyncMapPermissionParams struct {
 	Manage *bool `json:"Manage,omitempty"`
-	Read *bool `json:"Read,omitempty"`
-	Write *bool `json:"Write,omitempty"`
+	Read   *bool `json:"Read,omitempty"`
+	Write  *bool `json:"Write,omitempty"`
 }
 
 /*
@@ -6665,20 +6380,18 @@ func (c *DefaultApiService) UpdateSyncMapPermission(ServiceSid string, MapSid st
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Manage != nil {
-		data.Set("Manage", fmt.Sprint(*params.Manage)) 
+		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
 	if params != nil && params.Read != nil {
-		data.Set("Read", fmt.Sprint(*params.Read)) 
+		data.Set("Read", fmt.Sprint(*params.Read))
 	}
 	if params != nil && params.Write != nil {
-		data.Set("Write", fmt.Sprint(*params.Write)) 
+		data.Set("Write", fmt.Sprint(*params.Write))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6694,12 +6407,13 @@ func (c *DefaultApiService) UpdateSyncMapPermission(ServiceSid string, MapSid st
 
 	return ps, err
 }
+
 // UpdateTaskParams Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
-	Actions *map[string]interface{} `json:"Actions,omitempty"`
-	ActionsUrl *string `json:"ActionsUrl,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	Actions      *map[string]interface{} `json:"Actions,omitempty"`
+	ActionsUrl   *string                 `json:"ActionsUrl,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+	UniqueName   *string                 `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -6718,7 +6432,6 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -6732,15 +6445,14 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 		data.Set("Actions", fmt.Sprint(v))
 	}
 	if params != nil && params.ActionsUrl != nil {
-		data.Set("ActionsUrl", *params.ActionsUrl) 
+		data.Set("ActionsUrl", *params.ActionsUrl)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -6756,6 +6468,7 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 
 	return ps, err
 }
+
 // UpdateTaskActionsParams Optional parameters for the method 'UpdateTaskActions'
 type UpdateTaskActionsParams struct {
 	Actions *map[string]interface{} `json:"Actions,omitempty"`
@@ -6775,7 +6488,6 @@ func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid strin
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -6788,7 +6500,6 @@ func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid strin
 
 		data.Set("Actions", fmt.Sprint(v))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

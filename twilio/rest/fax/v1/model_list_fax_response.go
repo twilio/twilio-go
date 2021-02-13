@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListFaxResponse struct for ListFaxResponse
 type ListFaxResponse struct {
-	Faxes []FaxV1Fax `json:"Faxes,omitempty"`
-	Meta ListFaxResponseMeta `json:"Meta,omitempty"`
+	Faxes []FaxV1Fax          `json:"Faxes,omitempty"`
+	Meta  ListFaxResponseMeta `json:"Meta,omitempty"`
 }

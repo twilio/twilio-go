@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSampleRequest struct for UpdateSampleRequest
 type UpdateSampleRequest struct {
 	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.

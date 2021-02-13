@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork struct for SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
 type SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork struct {
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Identifiers []map[string]interface{} `json:"Identifiers,omitempty"`
-	IsoCountry string `json:"IsoCountry,omitempty"`
-	NetworkAccessProfileSid string `json:"NetworkAccessProfileSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	FriendlyName            string                   `json:"FriendlyName,omitempty"`
+	Identifiers             []map[string]interface{} `json:"Identifiers,omitempty"`
+	IsoCountry              string                   `json:"IsoCountry,omitempty"`
+	NetworkAccessProfileSid string                   `json:"NetworkAccessProfileSid,omitempty"`
+	Sid                     string                   `json:"Sid,omitempty"`
+	Url                     string                   `json:"Url,omitempty"`
 }

@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Priority the model 'Priority'
 type Priority string
 
 // List of priority
 const (
 	PRIORITY_HIGH Priority = "high"
-	PRIORITY_LOW Priority = "low"
+	PRIORITY_LOW  Priority = "low"
 )

@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Target the model 'Target'
 type Target string
 
 // List of target
 const (
 	TARGET_WEBHOOK Target = "webhook"
-	TARGET_FLEX Target = "flex"
+	TARGET_FLEX    Target = "flex"
 )

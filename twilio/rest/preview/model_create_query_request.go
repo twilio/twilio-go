@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateQueryRequest struct for CreateQueryRequest
 type CreateQueryRequest struct {
 	// Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*

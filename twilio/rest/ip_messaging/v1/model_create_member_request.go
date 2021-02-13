@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // CreateMemberRequest struct for CreateMemberRequest
 type CreateMemberRequest struct {
 	Identity string `json:"Identity"`
-	RoleSid string `json:"RoleSid,omitempty"`
+	RoleSid  string `json:"RoleSid,omitempty"`
 }

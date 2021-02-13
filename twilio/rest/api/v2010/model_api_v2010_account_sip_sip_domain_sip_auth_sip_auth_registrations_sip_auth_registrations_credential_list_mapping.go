@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping struct for ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping
 type ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
+	AccountSid   string `json:"AccountSid,omitempty"`
+	DateCreated  string `json:"DateCreated,omitempty"`
+	DateUpdated  string `json:"DateUpdated,omitempty"`
 	FriendlyName string `json:"FriendlyName,omitempty"`
-	Sid string `json:"Sid,omitempty"`
+	Sid          string `json:"Sid,omitempty"`
 }

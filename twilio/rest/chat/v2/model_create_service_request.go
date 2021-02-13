@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateServiceRequest struct for CreateServiceRequest
 type CreateServiceRequest struct {
 	// A descriptive string that you create to describe the new resource.

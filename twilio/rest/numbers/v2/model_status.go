@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // Status the model 'Status'
 type Status string
 
 // List of status
 const (
-	STATUS_DRAFT Status = "draft"
-	STATUS_PENDING_REVIEW Status = "pending-review"
-	STATUS_REJECTED Status = "rejected"
-	STATUS_APPROVED Status = "approved"
-	STATUS_EXPIRED Status = "expired"
+	STATUS_DRAFT                  Status = "draft"
+	STATUS_PENDING_REVIEW         Status = "pending-review"
+	STATUS_REJECTED               Status = "rejected"
+	STATUS_APPROVED               Status = "approved"
+	STATUS_EXPIRED                Status = "expired"
 	STATUS_PROVISIONALLY_APPROVED Status = "provisionally-approved"
 )

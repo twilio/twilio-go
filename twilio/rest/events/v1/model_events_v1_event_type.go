@@ -9,16 +9,18 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // EventsV1EventType struct for EventsV1EventType
 type EventsV1EventType struct {
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Description string `json:"Description,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	SchemaId string `json:"SchemaId,omitempty"`
-	Type string `json:"Type,omitempty"`
-	Url string `json:"Url,omitempty"`
+	DateCreated time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated time.Time              `json:"DateUpdated,omitempty"`
+	Description string                 `json:"Description,omitempty"`
+	Links       map[string]interface{} `json:"Links,omitempty"`
+	SchemaId    string                 `json:"SchemaId,omitempty"`
+	Type        string                 `json:"Type,omitempty"`
+	Url         string                 `json:"Url,omitempty"`
 }

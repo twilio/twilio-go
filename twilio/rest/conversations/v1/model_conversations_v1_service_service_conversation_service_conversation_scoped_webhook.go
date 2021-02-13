@@ -9,18 +9,20 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook struct for ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 type ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ChatServiceSid string `json:"ChatServiceSid,omitempty"`
-	Configuration map[string]interface{} `json:"Configuration,omitempty"`
-	ConversationSid string `json:"ConversationSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Target string `json:"Target,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid      string                 `json:"AccountSid,omitempty"`
+	ChatServiceSid  string                 `json:"ChatServiceSid,omitempty"`
+	Configuration   map[string]interface{} `json:"Configuration,omitempty"`
+	ConversationSid string                 `json:"ConversationSid,omitempty"`
+	DateCreated     time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated     time.Time              `json:"DateUpdated,omitempty"`
+	Sid             string                 `json:"Sid,omitempty"`
+	Target          string                 `json:"Target,omitempty"`
+	Url             string                 `json:"Url,omitempty"`
 }

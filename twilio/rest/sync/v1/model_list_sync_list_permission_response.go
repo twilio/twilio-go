@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListSyncListPermissionResponse struct for ListSyncListPermissionResponse
 type ListSyncListPermissionResponse struct {
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Meta        ListServiceResponseMeta                   `json:"Meta,omitempty"`
 	Permissions []SyncV1ServiceSyncListSyncListPermission `json:"Permissions,omitempty"`
 }

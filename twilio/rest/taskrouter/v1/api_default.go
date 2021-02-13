@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -23,14 +25,15 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://taskrouter.twilio.com"),
 	}
 }
+
 // CreateActivityParams Optional parameters for the method 'CreateActivity'
 type CreateActivityParams struct {
-	Available *bool `json:"Available,omitempty"`
+	Available    *bool   `json:"Available,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -46,17 +49,15 @@ func (c *DefaultApiService) CreateActivity(WorkspaceSid string, params *CreateAc
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Available != nil {
-		data.Set("Available", fmt.Sprint(*params.Available)) 
+		data.Set("Available", fmt.Sprint(*params.Available))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -72,12 +73,13 @@ func (c *DefaultApiService) CreateActivity(WorkspaceSid string, params *CreateAc
 
 	return ps, err
 }
+
 // CreateTaskParams Optional parameters for the method 'CreateTask'
 type CreateTaskParams struct {
-	Attributes *string `json:"Attributes,omitempty"`
-	Priority *int32 `json:"Priority,omitempty"`
+	Attributes  *string `json:"Attributes,omitempty"`
+	Priority    *int32  `json:"Priority,omitempty"`
 	TaskChannel *string `json:"TaskChannel,omitempty"`
-	Timeout *int32 `json:"Timeout,omitempty"`
+	Timeout     *int32  `json:"Timeout,omitempty"`
 	WorkflowSid *string `json:"WorkflowSid,omitempty"`
 }
 
@@ -96,26 +98,24 @@ func (c *DefaultApiService) CreateTask(WorkspaceSid string, params *CreateTaskPa
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes) 
+		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", fmt.Sprint(*params.Priority)) 
+		data.Set("Priority", fmt.Sprint(*params.Priority))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.Timeout != nil {
-		data.Set("Timeout", fmt.Sprint(*params.Timeout)) 
+		data.Set("Timeout", fmt.Sprint(*params.Timeout))
 	}
 	if params != nil && params.WorkflowSid != nil {
-		data.Set("WorkflowSid", *params.WorkflowSid) 
+		data.Set("WorkflowSid", *params.WorkflowSid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -131,11 +131,12 @@ func (c *DefaultApiService) CreateTask(WorkspaceSid string, params *CreateTaskPa
 
 	return ps, err
 }
+
 // CreateTaskChannelParams Optional parameters for the method 'CreateTaskChannel'
 type CreateTaskChannelParams struct {
-	ChannelOptimizedRouting *bool `json:"ChannelOptimizedRouting,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	ChannelOptimizedRouting *bool   `json:"ChannelOptimizedRouting,omitempty"`
+	FriendlyName            *string `json:"FriendlyName,omitempty"`
+	UniqueName              *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -151,20 +152,18 @@ func (c *DefaultApiService) CreateTaskChannel(WorkspaceSid string, params *Creat
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelOptimizedRouting != nil {
-		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting)) 
+		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -180,14 +179,15 @@ func (c *DefaultApiService) CreateTaskChannel(WorkspaceSid string, params *Creat
 
 	return ps, err
 }
+
 // CreateTaskQueueParams Optional parameters for the method 'CreateTaskQueue'
 type CreateTaskQueueParams struct {
-	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	MaxReservedWorkers *int32 `json:"MaxReservedWorkers,omitempty"`
+	AssignmentActivitySid  *string `json:"AssignmentActivitySid,omitempty"`
+	FriendlyName           *string `json:"FriendlyName,omitempty"`
+	MaxReservedWorkers     *int32  `json:"MaxReservedWorkers,omitempty"`
 	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
-	TargetWorkers *string `json:"TargetWorkers,omitempty"`
-	TaskOrder *string `json:"TaskOrder,omitempty"`
+	TargetWorkers          *string `json:"TargetWorkers,omitempty"`
+	TaskOrder              *string `json:"TaskOrder,omitempty"`
 }
 
 /*
@@ -206,29 +206,27 @@ func (c *DefaultApiService) CreateTaskQueue(WorkspaceSid string, params *CreateT
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentActivitySid != nil {
-		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid) 
+		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.MaxReservedWorkers != nil {
-		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers)) 
+		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
 	}
 	if params != nil && params.ReservationActivitySid != nil {
-		data.Set("ReservationActivitySid", *params.ReservationActivitySid) 
+		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
 	}
 	if params != nil && params.TargetWorkers != nil {
-		data.Set("TargetWorkers", *params.TargetWorkers) 
+		data.Set("TargetWorkers", *params.TargetWorkers)
 	}
 	if params != nil && params.TaskOrder != nil {
-		data.Set("TaskOrder", *params.TaskOrder) 
+		data.Set("TaskOrder", *params.TaskOrder)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -244,10 +242,11 @@ func (c *DefaultApiService) CreateTaskQueue(WorkspaceSid string, params *CreateT
 
 	return ps, err
 }
+
 // CreateWorkerParams Optional parameters for the method 'CreateWorker'
 type CreateWorkerParams struct {
-	ActivitySid *string `json:"ActivitySid,omitempty"`
-	Attributes *string `json:"Attributes,omitempty"`
+	ActivitySid  *string `json:"ActivitySid,omitempty"`
+	Attributes   *string `json:"Attributes,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -264,20 +263,18 @@ func (c *DefaultApiService) CreateWorker(WorkspaceSid string, params *CreateWork
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ActivitySid != nil {
-		data.Set("ActivitySid", *params.ActivitySid) 
+		data.Set("ActivitySid", *params.ActivitySid)
 	}
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes) 
+		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -293,13 +290,14 @@ func (c *DefaultApiService) CreateWorker(WorkspaceSid string, params *CreateWork
 
 	return ps, err
 }
+
 // CreateWorkflowParams Optional parameters for the method 'CreateWorkflow'
 type CreateWorkflowParams struct {
-	AssignmentCallbackUrl *string `json:"AssignmentCallbackUrl,omitempty"`
-	Configuration *string `json:"Configuration,omitempty"`
+	AssignmentCallbackUrl         *string `json:"AssignmentCallbackUrl,omitempty"`
+	Configuration                 *string `json:"Configuration,omitempty"`
 	FallbackAssignmentCallbackUrl *string `json:"FallbackAssignmentCallbackUrl,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	TaskReservationTimeout *int32 `json:"TaskReservationTimeout,omitempty"`
+	FriendlyName                  *string `json:"FriendlyName,omitempty"`
+	TaskReservationTimeout        *int32  `json:"TaskReservationTimeout,omitempty"`
 }
 
 /*
@@ -317,26 +315,24 @@ func (c *DefaultApiService) CreateWorkflow(WorkspaceSid string, params *CreateWo
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentCallbackUrl != nil {
-		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl) 
+		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
 	}
 	if params != nil && params.Configuration != nil {
-		data.Set("Configuration", *params.Configuration) 
+		data.Set("Configuration", *params.Configuration)
 	}
 	if params != nil && params.FallbackAssignmentCallbackUrl != nil {
-		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl) 
+		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.TaskReservationTimeout != nil {
-		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout)) 
+		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -352,14 +348,15 @@ func (c *DefaultApiService) CreateWorkflow(WorkspaceSid string, params *CreateWo
 
 	return ps, err
 }
+
 // CreateWorkspaceParams Optional parameters for the method 'CreateWorkspace'
 type CreateWorkspaceParams struct {
-	EventCallbackUrl *string `json:"EventCallbackUrl,omitempty"`
-	EventsFilter *string `json:"EventsFilter,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	MultiTaskEnabled *bool `json:"MultiTaskEnabled,omitempty"`
+	EventCallbackUrl     *string `json:"EventCallbackUrl,omitempty"`
+	EventsFilter         *string `json:"EventsFilter,omitempty"`
+	FriendlyName         *string `json:"FriendlyName,omitempty"`
+	MultiTaskEnabled     *bool   `json:"MultiTaskEnabled,omitempty"`
 	PrioritizeQueueOrder *string `json:"PrioritizeQueueOrder,omitempty"`
-	Template *string `json:"Template,omitempty"`
+	Template             *string `json:"Template,omitempty"`
 }
 
 /*
@@ -376,29 +373,27 @@ CreateWorkspace Method for CreateWorkspace
 func (c *DefaultApiService) CreateWorkspace(params *CreateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EventCallbackUrl != nil {
-		data.Set("EventCallbackUrl", *params.EventCallbackUrl) 
+		data.Set("EventCallbackUrl", *params.EventCallbackUrl)
 	}
 	if params != nil && params.EventsFilter != nil {
-		data.Set("EventsFilter", *params.EventsFilter) 
+		data.Set("EventsFilter", *params.EventsFilter)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.MultiTaskEnabled != nil {
-		data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled)) 
+		data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled))
 	}
 	if params != nil && params.PrioritizeQueueOrder != nil {
-		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder) 
+		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
 	}
 	if params != nil && params.Template != nil {
-		data.Set("Template", *params.Template) 
+		data.Set("Template", *params.Template)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -420,16 +415,13 @@ DeleteActivity Method for DeleteActivity
  * @param WorkspaceSid The SID of the Workspace with the Activity resources to delete.
  * @param Sid The SID of the Activity resource to delete.
 */
-func (c *DefaultApiService) DeleteActivity(WorkspaceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -446,16 +438,13 @@ DeleteTask Method for DeleteTask
  * @param WorkspaceSid The SID of the Workspace with the Task to delete.
  * @param Sid The SID of the Task resource to delete.
 */
-func (c *DefaultApiService) DeleteTask(WorkspaceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteTask(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -472,16 +461,13 @@ DeleteTaskChannel Method for DeleteTaskChannel
  * @param WorkspaceSid The SID of the Workspace with the Task Channel to delete.
  * @param Sid The SID of the Task Channel resource to delete.
 */
-func (c *DefaultApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -498,16 +484,13 @@ DeleteTaskQueue Method for DeleteTaskQueue
  * @param WorkspaceSid The SID of the Workspace with the TaskQueue to delete.
  * @param Sid The SID of the TaskQueue resource to delete.
 */
-func (c *DefaultApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -524,16 +507,13 @@ DeleteWorker Method for DeleteWorker
  * @param WorkspaceSid The SID of the Workspace with the Worker to delete.
  * @param Sid The SID of the Worker resource to delete.
 */
-func (c *DefaultApiService) DeleteWorker(WorkspaceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteWorker(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -550,16 +530,13 @@ DeleteWorkflow Method for DeleteWorkflow
  * @param WorkspaceSid The SID of the Workspace with the Workflow to delete.
  * @param Sid The SID of the Workflow resource to delete.
 */
-func (c *DefaultApiService) DeleteWorkflow(WorkspaceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -575,15 +552,12 @@ func (c *DefaultApiService) DeleteWorkflow(WorkspaceSid string, Sid string) (err
 DeleteWorkspace Method for DeleteWorkspace
  * @param Sid The SID of the Workspace resource to delete.
 */
-func (c *DefaultApiService) DeleteWorkspace(Sid string) (error) {
+func (c *DefaultApiService) DeleteWorkspace(Sid string) error {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -606,11 +580,8 @@ func (c *DefaultApiService) FetchActivity(WorkspaceSid string, Sid string) (*Tas
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -638,11 +609,8 @@ func (c *DefaultApiService) FetchEvent(WorkspaceSid string, Sid string) (*Taskro
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -670,11 +638,8 @@ func (c *DefaultApiService) FetchTask(WorkspaceSid string, Sid string) (*Taskrou
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -702,11 +667,8 @@ func (c *DefaultApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -734,11 +696,8 @@ func (c *DefaultApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Ta
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -754,13 +713,14 @@ func (c *DefaultApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Ta
 
 	return ps, err
 }
+
 // FetchTaskQueueCumulativeStatisticsParams Optional parameters for the method 'FetchTaskQueueCumulativeStatistics'
 type FetchTaskQueueCumulativeStatisticsParams struct {
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
+	EndDate         *time.Time `json:"EndDate,omitempty"`
+	Minutes         *int32     `json:"Minutes,omitempty"`
+	StartDate       *time.Time `json:"StartDate,omitempty"`
+	TaskChannel     *string    `json:"TaskChannel,omitempty"`
+	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 }
 
 /*
@@ -780,26 +740,24 @@ func (c *DefaultApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid stri
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -815,6 +773,7 @@ func (c *DefaultApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid stri
 
 	return ps, err
 }
+
 // FetchTaskQueueRealTimeStatisticsParams Optional parameters for the method 'FetchTaskQueueRealTimeStatistics'
 type FetchTaskQueueRealTimeStatisticsParams struct {
 	TaskChannel *string `json:"TaskChannel,omitempty"`
@@ -833,14 +792,12 @@ func (c *DefaultApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -856,13 +813,14 @@ func (c *DefaultApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string
 
 	return ps, err
 }
+
 // FetchTaskQueueStatisticsParams Optional parameters for the method 'FetchTaskQueueStatistics'
 type FetchTaskQueueStatisticsParams struct {
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
+	EndDate         *time.Time `json:"EndDate,omitempty"`
+	Minutes         *int32     `json:"Minutes,omitempty"`
+	StartDate       *time.Time `json:"StartDate,omitempty"`
+	TaskChannel     *string    `json:"TaskChannel,omitempty"`
+	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 }
 
 /*
@@ -882,26 +840,24 @@ func (c *DefaultApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQu
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -931,11 +887,8 @@ func (c *DefaultApiService) FetchTaskReservation(WorkspaceSid string, TaskSid st
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -963,11 +916,8 @@ func (c *DefaultApiService) FetchWorker(WorkspaceSid string, Sid string) (*Taskr
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -997,11 +947,8 @@ func (c *DefaultApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid st
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1017,12 +964,13 @@ func (c *DefaultApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid st
 
 	return ps, err
 }
+
 // FetchWorkerInstanceStatisticsParams Optional parameters for the method 'FetchWorkerInstanceStatistics'
 type FetchWorkerInstanceStatisticsParams struct {
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
+	Minutes     *int32     `json:"Minutes,omitempty"`
+	StartDate   *time.Time `json:"StartDate,omitempty"`
+	EndDate     *time.Time `json:"EndDate,omitempty"`
+	TaskChannel *string    `json:"TaskChannel,omitempty"`
 }
 
 /*
@@ -1041,23 +989,21 @@ func (c *DefaultApiService) FetchWorkerInstanceStatistics(WorkspaceSid string, W
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1087,11 +1033,8 @@ func (c *DefaultApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSi
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1107,15 +1050,16 @@ func (c *DefaultApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSi
 
 	return ps, err
 }
+
 // FetchWorkerStatisticsParams Optional parameters for the method 'FetchWorkerStatistics'
 type FetchWorkerStatisticsParams struct {
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
-	TaskQueueName *string `json:"TaskQueueName,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
+	Minutes       *int32     `json:"Minutes,omitempty"`
+	StartDate     *time.Time `json:"StartDate,omitempty"`
+	EndDate       *time.Time `json:"EndDate,omitempty"`
+	TaskQueueSid  *string    `json:"TaskQueueSid,omitempty"`
+	TaskQueueName *string    `json:"TaskQueueName,omitempty"`
+	FriendlyName  *string    `json:"FriendlyName,omitempty"`
+	TaskChannel   *string    `json:"TaskChannel,omitempty"`
 }
 
 /*
@@ -1135,32 +1079,30 @@ func (c *DefaultApiService) FetchWorkerStatistics(WorkspaceSid string, params *F
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid) 
+		data.Set("TaskQueueSid", *params.TaskQueueSid)
 	}
 	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName) 
+		data.Set("TaskQueueName", *params.TaskQueueName)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1176,12 +1118,13 @@ func (c *DefaultApiService) FetchWorkerStatistics(WorkspaceSid string, params *F
 
 	return ps, err
 }
+
 // FetchWorkersCumulativeStatisticsParams Optional parameters for the method 'FetchWorkersCumulativeStatistics'
 type FetchWorkersCumulativeStatisticsParams struct {
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
+	EndDate     *time.Time `json:"EndDate,omitempty"`
+	Minutes     *int32     `json:"Minutes,omitempty"`
+	StartDate   *time.Time `json:"StartDate,omitempty"`
+	TaskChannel *string    `json:"TaskChannel,omitempty"`
 }
 
 /*
@@ -1198,23 +1141,21 @@ func (c *DefaultApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1230,6 +1171,7 @@ func (c *DefaultApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string
 
 	return ps, err
 }
+
 // FetchWorkersRealTimeStatisticsParams Optional parameters for the method 'FetchWorkersRealTimeStatistics'
 type FetchWorkersRealTimeStatisticsParams struct {
 	TaskChannel *string `json:"TaskChannel,omitempty"`
@@ -1246,14 +1188,12 @@ func (c *DefaultApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, 
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1281,11 +1221,8 @@ func (c *DefaultApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*Tas
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1301,13 +1238,14 @@ func (c *DefaultApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*Tas
 
 	return ps, err
 }
+
 // FetchWorkflowCumulativeStatisticsParams Optional parameters for the method 'FetchWorkflowCumulativeStatistics'
 type FetchWorkflowCumulativeStatisticsParams struct {
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
+	EndDate         *time.Time `json:"EndDate,omitempty"`
+	Minutes         *int32     `json:"Minutes,omitempty"`
+	StartDate       *time.Time `json:"StartDate,omitempty"`
+	TaskChannel     *string    `json:"TaskChannel,omitempty"`
+	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 }
 
 /*
@@ -1327,26 +1265,24 @@ func (c *DefaultApiService) FetchWorkflowCumulativeStatistics(WorkspaceSid strin
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1362,6 +1298,7 @@ func (c *DefaultApiService) FetchWorkflowCumulativeStatistics(WorkspaceSid strin
 
 	return ps, err
 }
+
 // FetchWorkflowRealTimeStatisticsParams Optional parameters for the method 'FetchWorkflowRealTimeStatistics'
 type FetchWorkflowRealTimeStatisticsParams struct {
 	TaskChannel *string `json:"TaskChannel,omitempty"`
@@ -1380,14 +1317,12 @@ func (c *DefaultApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string,
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1403,13 +1338,14 @@ func (c *DefaultApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string,
 
 	return ps, err
 }
+
 // FetchWorkflowStatisticsParams Optional parameters for the method 'FetchWorkflowStatistics'
 type FetchWorkflowStatisticsParams struct {
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
+	Minutes         *int32     `json:"Minutes,omitempty"`
+	StartDate       *time.Time `json:"StartDate,omitempty"`
+	EndDate         *time.Time `json:"EndDate,omitempty"`
+	TaskChannel     *string    `json:"TaskChannel,omitempty"`
+	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 }
 
 /*
@@ -1429,26 +1365,24 @@ func (c *DefaultApiService) FetchWorkflowStatistics(WorkspaceSid string, Workflo
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1474,11 +1408,8 @@ func (c *DefaultApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, 
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1494,13 +1425,14 @@ func (c *DefaultApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, 
 
 	return ps, err
 }
+
 // FetchWorkspaceCumulativeStatisticsParams Optional parameters for the method 'FetchWorkspaceCumulativeStatistics'
 type FetchWorkspaceCumulativeStatisticsParams struct {
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
+	EndDate         *time.Time `json:"EndDate,omitempty"`
+	Minutes         *int32     `json:"Minutes,omitempty"`
+	StartDate       *time.Time `json:"StartDate,omitempty"`
+	TaskChannel     *string    `json:"TaskChannel,omitempty"`
+	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 }
 
 /*
@@ -1518,26 +1450,24 @@ func (c *DefaultApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid stri
 	path := "/v1/Workspaces/{WorkspaceSid}/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1553,6 +1483,7 @@ func (c *DefaultApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid stri
 
 	return ps, err
 }
+
 // FetchWorkspaceRealTimeStatisticsParams Optional parameters for the method 'FetchWorkspaceRealTimeStatistics'
 type FetchWorkspaceRealTimeStatisticsParams struct {
 	TaskChannel *string `json:"TaskChannel,omitempty"`
@@ -1569,14 +1500,12 @@ func (c *DefaultApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string
 	path := "/v1/Workspaces/{WorkspaceSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1592,13 +1521,14 @@ func (c *DefaultApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string
 
 	return ps, err
 }
+
 // FetchWorkspaceStatisticsParams Optional parameters for the method 'FetchWorkspaceStatistics'
 type FetchWorkspaceStatisticsParams struct {
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
+	Minutes         *int32     `json:"Minutes,omitempty"`
+	StartDate       *time.Time `json:"StartDate,omitempty"`
+	EndDate         *time.Time `json:"EndDate,omitempty"`
+	TaskChannel     *string    `json:"TaskChannel,omitempty"`
+	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 }
 
 /*
@@ -1616,26 +1546,24 @@ func (c *DefaultApiService) FetchWorkspaceStatistics(WorkspaceSid string, params
 	path := "/v1/Workspaces/{WorkspaceSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1651,11 +1579,12 @@ func (c *DefaultApiService) FetchWorkspaceStatistics(WorkspaceSid string, params
 
 	return ps, err
 }
+
 // ListActivityParams Optional parameters for the method 'ListActivity'
 type ListActivityParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Available *string `json:"Available,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	Available    *string `json:"Available,omitempty"`
+	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1671,20 +1600,18 @@ func (c *DefaultApiService) ListActivity(WorkspaceSid string, params *ListActivi
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Available != nil {
-		data.Set("Available", *params.Available) 
+		data.Set("Available", *params.Available)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1700,20 +1627,21 @@ func (c *DefaultApiService) ListActivity(WorkspaceSid string, params *ListActivi
 
 	return ps, err
 }
+
 // ListEventParams Optional parameters for the method 'ListEvent'
 type ListEventParams struct {
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	EventType *string `json:"EventType,omitempty"`
-	Minutes *int32 `json:"Minutes,omitempty"`
-	ReservationSid *string `json:"ReservationSid,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
-	TaskSid *string `json:"TaskSid,omitempty"`
-	WorkerSid *string `json:"WorkerSid,omitempty"`
-	WorkflowSid *string `json:"WorkflowSid,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	Sid *string `json:"Sid,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	EndDate        *time.Time `json:"EndDate,omitempty"`
+	EventType      *string    `json:"EventType,omitempty"`
+	Minutes        *int32     `json:"Minutes,omitempty"`
+	ReservationSid *string    `json:"ReservationSid,omitempty"`
+	StartDate      *time.Time `json:"StartDate,omitempty"`
+	TaskQueueSid   *string    `json:"TaskQueueSid,omitempty"`
+	TaskSid        *string    `json:"TaskSid,omitempty"`
+	WorkerSid      *string    `json:"WorkerSid,omitempty"`
+	WorkflowSid    *string    `json:"WorkflowSid,omitempty"`
+	TaskChannel    *string    `json:"TaskChannel,omitempty"`
+	Sid            *string    `json:"Sid,omitempty"`
+	PageSize       *int32     `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1738,47 +1666,45 @@ func (c *DefaultApiService) ListEvent(WorkspaceSid string, params *ListEventPara
 	path := "/v1/Workspaces/{WorkspaceSid}/Events"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.EventType != nil {
-		data.Set("EventType", *params.EventType) 
+		data.Set("EventType", *params.EventType)
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.ReservationSid != nil {
-		data.Set("ReservationSid", *params.ReservationSid) 
+		data.Set("ReservationSid", *params.ReservationSid)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid) 
+		data.Set("TaskQueueSid", *params.TaskQueueSid)
 	}
 	if params != nil && params.TaskSid != nil {
-		data.Set("TaskSid", *params.TaskSid) 
+		data.Set("TaskSid", *params.TaskSid)
 	}
 	if params != nil && params.WorkerSid != nil {
-		data.Set("WorkerSid", *params.WorkerSid) 
+		data.Set("WorkerSid", *params.WorkerSid)
 	}
 	if params != nil && params.WorkflowSid != nil {
-		data.Set("WorkflowSid", *params.WorkflowSid) 
+		data.Set("WorkflowSid", *params.WorkflowSid)
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.Sid != nil {
-		data.Set("Sid", *params.Sid) 
+		data.Set("Sid", *params.Sid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1794,18 +1720,19 @@ func (c *DefaultApiService) ListEvent(WorkspaceSid string, params *ListEventPara
 
 	return ps, err
 }
+
 // ListTaskParams Optional parameters for the method 'ListTask'
 type ListTaskParams struct {
-	Priority *int32 `json:"Priority,omitempty"`
-	AssignmentStatus *[]string `json:"AssignmentStatus,omitempty"`
-	WorkflowSid *string `json:"WorkflowSid,omitempty"`
-	WorkflowName *string `json:"WorkflowName,omitempty"`
-	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
-	TaskQueueName *string `json:"TaskQueueName,omitempty"`
-	EvaluateTaskAttributes *string `json:"EvaluateTaskAttributes,omitempty"`
-	Ordering *string `json:"Ordering,omitempty"`
-	HasAddons *bool `json:"HasAddons,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	Priority               *int32    `json:"Priority,omitempty"`
+	AssignmentStatus       *[]string `json:"AssignmentStatus,omitempty"`
+	WorkflowSid            *string   `json:"WorkflowSid,omitempty"`
+	WorkflowName           *string   `json:"WorkflowName,omitempty"`
+	TaskQueueSid           *string   `json:"TaskQueueSid,omitempty"`
+	TaskQueueName          *string   `json:"TaskQueueName,omitempty"`
+	EvaluateTaskAttributes *string   `json:"EvaluateTaskAttributes,omitempty"`
+	Ordering               *string   `json:"Ordering,omitempty"`
+	HasAddons              *bool     `json:"HasAddons,omitempty"`
+	PageSize               *int32    `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1828,41 +1755,39 @@ func (c *DefaultApiService) ListTask(WorkspaceSid string, params *ListTaskParams
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", fmt.Sprint(*params.Priority)) 
+		data.Set("Priority", fmt.Sprint(*params.Priority))
 	}
 	if params != nil && params.AssignmentStatus != nil {
-		data.Set("AssignmentStatus",  strings.Join(*params.AssignmentStatus, ","))
+		data.Set("AssignmentStatus", strings.Join(*params.AssignmentStatus, ","))
 	}
 	if params != nil && params.WorkflowSid != nil {
-		data.Set("WorkflowSid", *params.WorkflowSid) 
+		data.Set("WorkflowSid", *params.WorkflowSid)
 	}
 	if params != nil && params.WorkflowName != nil {
-		data.Set("WorkflowName", *params.WorkflowName) 
+		data.Set("WorkflowName", *params.WorkflowName)
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid) 
+		data.Set("TaskQueueSid", *params.TaskQueueSid)
 	}
 	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName) 
+		data.Set("TaskQueueName", *params.TaskQueueName)
 	}
 	if params != nil && params.EvaluateTaskAttributes != nil {
-		data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes) 
+		data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes)
 	}
 	if params != nil && params.Ordering != nil {
-		data.Set("Ordering", *params.Ordering) 
+		data.Set("Ordering", *params.Ordering)
 	}
 	if params != nil && params.HasAddons != nil {
-		data.Set("HasAddons", fmt.Sprint(*params.HasAddons)) 
+		data.Set("HasAddons", fmt.Sprint(*params.HasAddons))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1878,6 +1803,7 @@ func (c *DefaultApiService) ListTask(WorkspaceSid string, params *ListTaskParams
 
 	return ps, err
 }
+
 // ListTaskChannelParams Optional parameters for the method 'ListTaskChannel'
 type ListTaskChannelParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1894,14 +1820,12 @@ func (c *DefaultApiService) ListTaskChannel(WorkspaceSid string, params *ListTas
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1917,12 +1841,13 @@ func (c *DefaultApiService) ListTaskChannel(WorkspaceSid string, params *ListTas
 
 	return ps, err
 }
+
 // ListTaskQueueParams Optional parameters for the method 'ListTaskQueue'
 type ListTaskQueueParams struct {
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName             *string `json:"FriendlyName,omitempty"`
 	EvaluateWorkerAttributes *string `json:"EvaluateWorkerAttributes,omitempty"`
-	WorkerSid *string `json:"WorkerSid,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	WorkerSid                *string `json:"WorkerSid,omitempty"`
+	PageSize                 *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1939,23 +1864,21 @@ func (c *DefaultApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQ
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.EvaluateWorkerAttributes != nil {
-		data.Set("EvaluateWorkerAttributes", *params.EvaluateWorkerAttributes) 
+		data.Set("EvaluateWorkerAttributes", *params.EvaluateWorkerAttributes)
 	}
 	if params != nil && params.WorkerSid != nil {
-		data.Set("WorkerSid", *params.WorkerSid) 
+		data.Set("WorkerSid", *params.WorkerSid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1971,15 +1894,16 @@ func (c *DefaultApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQ
 
 	return ps, err
 }
+
 // ListTaskQueuesStatisticsParams Optional parameters for the method 'ListTaskQueuesStatistics'
 type ListTaskQueuesStatisticsParams struct {
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Minutes *int32 `json:"Minutes,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	EndDate         *time.Time `json:"EndDate,omitempty"`
+	FriendlyName    *string    `json:"FriendlyName,omitempty"`
+	Minutes         *int32     `json:"Minutes,omitempty"`
+	StartDate       *time.Time `json:"StartDate,omitempty"`
+	TaskChannel     *string    `json:"TaskChannel,omitempty"`
+	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+	PageSize        *int32     `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1999,32 +1923,30 @@ func (c *DefaultApiService) ListTaskQueuesStatistics(WorkspaceSid string, params
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes)) 
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
 	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime) 
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2040,10 +1962,11 @@ func (c *DefaultApiService) ListTaskQueuesStatistics(WorkspaceSid string, params
 
 	return ps, err
 }
+
 // ListTaskReservationParams Optional parameters for the method 'ListTaskReservation'
 type ListTaskReservationParams struct {
 	ReservationStatus *string `json:"ReservationStatus,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2060,17 +1983,15 @@ func (c *DefaultApiService) ListTaskReservation(WorkspaceSid string, TaskSid str
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus) 
+		data.Set("ReservationStatus", *params.ReservationStatus)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2086,16 +2007,17 @@ func (c *DefaultApiService) ListTaskReservation(WorkspaceSid string, TaskSid str
 
 	return ps, err
 }
+
 // ListWorkerParams Optional parameters for the method 'ListWorker'
 type ListWorkerParams struct {
-	ActivityName *string `json:"ActivityName,omitempty"`
-	ActivitySid *string `json:"ActivitySid,omitempty"`
-	Available *string `json:"Available,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	ActivityName            *string `json:"ActivityName,omitempty"`
+	ActivitySid             *string `json:"ActivitySid,omitempty"`
+	Available               *string `json:"Available,omitempty"`
+	FriendlyName            *string `json:"FriendlyName,omitempty"`
 	TargetWorkersExpression *string `json:"TargetWorkersExpression,omitempty"`
-	TaskQueueName *string `json:"TaskQueueName,omitempty"`
-	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	TaskQueueName           *string `json:"TaskQueueName,omitempty"`
+	TaskQueueSid            *string `json:"TaskQueueSid,omitempty"`
+	PageSize                *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2116,35 +2038,33 @@ func (c *DefaultApiService) ListWorker(WorkspaceSid string, params *ListWorkerPa
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ActivityName != nil {
-		data.Set("ActivityName", *params.ActivityName) 
+		data.Set("ActivityName", *params.ActivityName)
 	}
 	if params != nil && params.ActivitySid != nil {
-		data.Set("ActivitySid", *params.ActivitySid) 
+		data.Set("ActivitySid", *params.ActivitySid)
 	}
 	if params != nil && params.Available != nil {
-		data.Set("Available", *params.Available) 
+		data.Set("Available", *params.Available)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.TargetWorkersExpression != nil {
-		data.Set("TargetWorkersExpression", *params.TargetWorkersExpression) 
+		data.Set("TargetWorkersExpression", *params.TargetWorkersExpression)
 	}
 	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName) 
+		data.Set("TaskQueueName", *params.TaskQueueName)
 	}
 	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid) 
+		data.Set("TaskQueueSid", *params.TaskQueueSid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2160,6 +2080,7 @@ func (c *DefaultApiService) ListWorker(WorkspaceSid string, params *ListWorkerPa
 
 	return ps, err
 }
+
 // ListWorkerChannelParams Optional parameters for the method 'ListWorkerChannel'
 type ListWorkerChannelParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -2178,14 +2099,12 @@ func (c *DefaultApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid str
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2201,10 +2120,11 @@ func (c *DefaultApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid str
 
 	return ps, err
 }
+
 // ListWorkerReservationParams Optional parameters for the method 'ListWorkerReservation'
 type ListWorkerReservationParams struct {
 	ReservationStatus *string `json:"ReservationStatus,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2221,17 +2141,15 @@ func (c *DefaultApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus) 
+		data.Set("ReservationStatus", *params.ReservationStatus)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2247,10 +2165,11 @@ func (c *DefaultApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid
 
 	return ps, err
 }
+
 // ListWorkflowParams Optional parameters for the method 'ListWorkflow'
 type ListWorkflowParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2265,17 +2184,15 @@ func (c *DefaultApiService) ListWorkflow(WorkspaceSid string, params *ListWorkfl
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2291,10 +2208,11 @@ func (c *DefaultApiService) ListWorkflow(WorkspaceSid string, params *ListWorkfl
 
 	return ps, err
 }
+
 // ListWorkspaceParams Optional parameters for the method 'ListWorkspace'
 type ListWorkspaceParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -2307,17 +2225,15 @@ ListWorkspace Method for ListWorkspace
 func (c *DefaultApiService) ListWorkspace(params *ListWorkspaceParams) (*ListWorkspaceResponse, error) {
 	path := "/v1/Workspaces"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2333,6 +2249,7 @@ func (c *DefaultApiService) ListWorkspace(params *ListWorkspaceParams) (*ListWor
 
 	return ps, err
 }
+
 // UpdateActivityParams Optional parameters for the method 'UpdateActivity'
 type UpdateActivityParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -2351,14 +2268,12 @@ func (c *DefaultApiService) UpdateActivity(WorkspaceSid string, Sid string, para
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2374,13 +2289,14 @@ func (c *DefaultApiService) UpdateActivity(WorkspaceSid string, Sid string, para
 
 	return ps, err
 }
+
 // UpdateTaskParams Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
 	AssignmentStatus *string `json:"AssignmentStatus,omitempty"`
-	Attributes *string `json:"Attributes,omitempty"`
-	Priority *int32 `json:"Priority,omitempty"`
-	Reason *string `json:"Reason,omitempty"`
-	TaskChannel *string `json:"TaskChannel,omitempty"`
+	Attributes       *string `json:"Attributes,omitempty"`
+	Priority         *int32  `json:"Priority,omitempty"`
+	Reason           *string `json:"Reason,omitempty"`
+	TaskChannel      *string `json:"TaskChannel,omitempty"`
 }
 
 /*
@@ -2400,26 +2316,24 @@ func (c *DefaultApiService) UpdateTask(WorkspaceSid string, Sid string, params *
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentStatus != nil {
-		data.Set("AssignmentStatus", *params.AssignmentStatus) 
+		data.Set("AssignmentStatus", *params.AssignmentStatus)
 	}
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes) 
+		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.Priority != nil {
-		data.Set("Priority", fmt.Sprint(*params.Priority)) 
+		data.Set("Priority", fmt.Sprint(*params.Priority))
 	}
 	if params != nil && params.Reason != nil {
-		data.Set("Reason", *params.Reason) 
+		data.Set("Reason", *params.Reason)
 	}
 	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel) 
+		data.Set("TaskChannel", *params.TaskChannel)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2435,10 +2349,11 @@ func (c *DefaultApiService) UpdateTask(WorkspaceSid string, Sid string, params *
 
 	return ps, err
 }
+
 // UpdateTaskChannelParams Optional parameters for the method 'UpdateTaskChannel'
 type UpdateTaskChannelParams struct {
-	ChannelOptimizedRouting *bool `json:"ChannelOptimizedRouting,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	ChannelOptimizedRouting *bool   `json:"ChannelOptimizedRouting,omitempty"`
+	FriendlyName            *string `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -2455,17 +2370,15 @@ func (c *DefaultApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, p
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelOptimizedRouting != nil {
-		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting)) 
+		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2481,14 +2394,15 @@ func (c *DefaultApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, p
 
 	return ps, err
 }
+
 // UpdateTaskQueueParams Optional parameters for the method 'UpdateTaskQueue'
 type UpdateTaskQueueParams struct {
-	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	MaxReservedWorkers *int32 `json:"MaxReservedWorkers,omitempty"`
+	AssignmentActivitySid  *string `json:"AssignmentActivitySid,omitempty"`
+	FriendlyName           *string `json:"FriendlyName,omitempty"`
+	MaxReservedWorkers     *int32  `json:"MaxReservedWorkers,omitempty"`
 	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
-	TargetWorkers *string `json:"TargetWorkers,omitempty"`
-	TaskOrder *string `json:"TaskOrder,omitempty"`
+	TargetWorkers          *string `json:"TargetWorkers,omitempty"`
+	TaskOrder              *string `json:"TaskOrder,omitempty"`
 }
 
 /*
@@ -2509,29 +2423,27 @@ func (c *DefaultApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, par
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentActivitySid != nil {
-		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid) 
+		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.MaxReservedWorkers != nil {
-		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers)) 
+		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
 	}
 	if params != nil && params.ReservationActivitySid != nil {
-		data.Set("ReservationActivitySid", *params.ReservationActivitySid) 
+		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
 	}
 	if params != nil && params.TargetWorkers != nil {
-		data.Set("TargetWorkers", *params.TargetWorkers) 
+		data.Set("TargetWorkers", *params.TargetWorkers)
 	}
 	if params != nil && params.TaskOrder != nil {
-		data.Set("TaskOrder", *params.TaskOrder) 
+		data.Set("TaskOrder", *params.TaskOrder)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2547,61 +2459,62 @@ func (c *DefaultApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, par
 
 	return ps, err
 }
+
 // UpdateTaskReservationParams Optional parameters for the method 'UpdateTaskReservation'
 type UpdateTaskReservationParams struct {
-	Beep *string `json:"Beep,omitempty"`
-	BeepOnCustomerEntrance *bool `json:"BeepOnCustomerEntrance,omitempty"`
-	CallAccept *bool `json:"CallAccept,omitempty"`
-	CallFrom *string `json:"CallFrom,omitempty"`
-	CallRecord *string `json:"CallRecord,omitempty"`
-	CallStatusCallbackUrl *string `json:"CallStatusCallbackUrl,omitempty"`
-	CallTimeout *int32 `json:"CallTimeout,omitempty"`
-	CallTo *string `json:"CallTo,omitempty"`
-	CallUrl *string `json:"CallUrl,omitempty"`
-	ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
-	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
-	ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
-	ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
-	ConferenceStatusCallbackEvent *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
-	ConferenceStatusCallbackMethod *string `json:"ConferenceStatusCallbackMethod,omitempty"`
-	ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
-	DequeueFrom *string `json:"DequeueFrom,omitempty"`
-	DequeuePostWorkActivitySid *string `json:"DequeuePostWorkActivitySid,omitempty"`
-	DequeueRecord *string `json:"DequeueRecord,omitempty"`
-	DequeueStatusCallbackEvent *[]string `json:"DequeueStatusCallbackEvent,omitempty"`
-	DequeueStatusCallbackUrl *string `json:"DequeueStatusCallbackUrl,omitempty"`
-	DequeueTimeout *int32 `json:"DequeueTimeout,omitempty"`
-	DequeueTo *string `json:"DequeueTo,omitempty"`
-	EarlyMedia *bool `json:"EarlyMedia,omitempty"`
-	EndConferenceOnCustomerExit *bool `json:"EndConferenceOnCustomerExit,omitempty"`
-	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
-	From *string `json:"From,omitempty"`
-	Instruction *string `json:"Instruction,omitempty"`
-	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
-	Muted *bool `json:"Muted,omitempty"`
-	PostWorkActivitySid *string `json:"PostWorkActivitySid,omitempty"`
-	Record *bool `json:"Record,omitempty"`
-	RecordingChannels *string `json:"RecordingChannels,omitempty"`
-	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
-	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
-	RedirectAccept *bool `json:"RedirectAccept,omitempty"`
-	RedirectCallSid *string `json:"RedirectCallSid,omitempty"`
-	RedirectUrl *string `json:"RedirectUrl,omitempty"`
-	Region *string `json:"Region,omitempty"`
-	ReservationStatus *string `json:"ReservationStatus,omitempty"`
-	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
-	StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
-	StatusCallback *string `json:"StatusCallback,omitempty"`
-	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
-	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	Supervisor *string `json:"Supervisor,omitempty"`
-	SupervisorMode *string `json:"SupervisorMode,omitempty"`
-	Timeout *int32 `json:"Timeout,omitempty"`
-	To *string `json:"To,omitempty"`
-	WaitMethod *string `json:"WaitMethod,omitempty"`
-	WaitUrl *string `json:"WaitUrl,omitempty"`
-	WorkerActivitySid *string `json:"WorkerActivitySid,omitempty"`
+	Beep                                    *string   `json:"Beep,omitempty"`
+	BeepOnCustomerEntrance                  *bool     `json:"BeepOnCustomerEntrance,omitempty"`
+	CallAccept                              *bool     `json:"CallAccept,omitempty"`
+	CallFrom                                *string   `json:"CallFrom,omitempty"`
+	CallRecord                              *string   `json:"CallRecord,omitempty"`
+	CallStatusCallbackUrl                   *string   `json:"CallStatusCallbackUrl,omitempty"`
+	CallTimeout                             *int32    `json:"CallTimeout,omitempty"`
+	CallTo                                  *string   `json:"CallTo,omitempty"`
+	CallUrl                                 *string   `json:"CallUrl,omitempty"`
+	ConferenceRecord                        *string   `json:"ConferenceRecord,omitempty"`
+	ConferenceRecordingStatusCallback       *string   `json:"ConferenceRecordingStatusCallback,omitempty"`
+	ConferenceRecordingStatusCallbackMethod *string   `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
+	ConferenceStatusCallback                *string   `json:"ConferenceStatusCallback,omitempty"`
+	ConferenceStatusCallbackEvent           *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
+	ConferenceStatusCallbackMethod          *string   `json:"ConferenceStatusCallbackMethod,omitempty"`
+	ConferenceTrim                          *string   `json:"ConferenceTrim,omitempty"`
+	DequeueFrom                             *string   `json:"DequeueFrom,omitempty"`
+	DequeuePostWorkActivitySid              *string   `json:"DequeuePostWorkActivitySid,omitempty"`
+	DequeueRecord                           *string   `json:"DequeueRecord,omitempty"`
+	DequeueStatusCallbackEvent              *[]string `json:"DequeueStatusCallbackEvent,omitempty"`
+	DequeueStatusCallbackUrl                *string   `json:"DequeueStatusCallbackUrl,omitempty"`
+	DequeueTimeout                          *int32    `json:"DequeueTimeout,omitempty"`
+	DequeueTo                               *string   `json:"DequeueTo,omitempty"`
+	EarlyMedia                              *bool     `json:"EarlyMedia,omitempty"`
+	EndConferenceOnCustomerExit             *bool     `json:"EndConferenceOnCustomerExit,omitempty"`
+	EndConferenceOnExit                     *bool     `json:"EndConferenceOnExit,omitempty"`
+	From                                    *string   `json:"From,omitempty"`
+	Instruction                             *string   `json:"Instruction,omitempty"`
+	MaxParticipants                         *int32    `json:"MaxParticipants,omitempty"`
+	Muted                                   *bool     `json:"Muted,omitempty"`
+	PostWorkActivitySid                     *string   `json:"PostWorkActivitySid,omitempty"`
+	Record                                  *bool     `json:"Record,omitempty"`
+	RecordingChannels                       *string   `json:"RecordingChannels,omitempty"`
+	RecordingStatusCallback                 *string   `json:"RecordingStatusCallback,omitempty"`
+	RecordingStatusCallbackMethod           *string   `json:"RecordingStatusCallbackMethod,omitempty"`
+	RedirectAccept                          *bool     `json:"RedirectAccept,omitempty"`
+	RedirectCallSid                         *string   `json:"RedirectCallSid,omitempty"`
+	RedirectUrl                             *string   `json:"RedirectUrl,omitempty"`
+	Region                                  *string   `json:"Region,omitempty"`
+	ReservationStatus                       *string   `json:"ReservationStatus,omitempty"`
+	SipAuthPassword                         *string   `json:"SipAuthPassword,omitempty"`
+	SipAuthUsername                         *string   `json:"SipAuthUsername,omitempty"`
+	StartConferenceOnEnter                  *bool     `json:"StartConferenceOnEnter,omitempty"`
+	StatusCallback                          *string   `json:"StatusCallback,omitempty"`
+	StatusCallbackEvent                     *[]string `json:"StatusCallbackEvent,omitempty"`
+	StatusCallbackMethod                    *string   `json:"StatusCallbackMethod,omitempty"`
+	Supervisor                              *string   `json:"Supervisor,omitempty"`
+	SupervisorMode                          *string   `json:"SupervisorMode,omitempty"`
+	Timeout                                 *int32    `json:"Timeout,omitempty"`
+	To                                      *string   `json:"To,omitempty"`
+	WaitMethod                              *string   `json:"WaitMethod,omitempty"`
+	WaitUrl                                 *string   `json:"WaitUrl,omitempty"`
+	WorkerActivitySid                       *string   `json:"WorkerActivitySid,omitempty"`
 }
 
 /*
@@ -2671,170 +2584,168 @@ func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid s
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Beep != nil {
-		data.Set("Beep", *params.Beep) 
+		data.Set("Beep", *params.Beep)
 	}
 	if params != nil && params.BeepOnCustomerEntrance != nil {
-		data.Set("BeepOnCustomerEntrance", fmt.Sprint(*params.BeepOnCustomerEntrance)) 
+		data.Set("BeepOnCustomerEntrance", fmt.Sprint(*params.BeepOnCustomerEntrance))
 	}
 	if params != nil && params.CallAccept != nil {
-		data.Set("CallAccept", fmt.Sprint(*params.CallAccept)) 
+		data.Set("CallAccept", fmt.Sprint(*params.CallAccept))
 	}
 	if params != nil && params.CallFrom != nil {
-		data.Set("CallFrom", *params.CallFrom) 
+		data.Set("CallFrom", *params.CallFrom)
 	}
 	if params != nil && params.CallRecord != nil {
-		data.Set("CallRecord", *params.CallRecord) 
+		data.Set("CallRecord", *params.CallRecord)
 	}
 	if params != nil && params.CallStatusCallbackUrl != nil {
-		data.Set("CallStatusCallbackUrl", *params.CallStatusCallbackUrl) 
+		data.Set("CallStatusCallbackUrl", *params.CallStatusCallbackUrl)
 	}
 	if params != nil && params.CallTimeout != nil {
-		data.Set("CallTimeout", fmt.Sprint(*params.CallTimeout)) 
+		data.Set("CallTimeout", fmt.Sprint(*params.CallTimeout))
 	}
 	if params != nil && params.CallTo != nil {
-		data.Set("CallTo", *params.CallTo) 
+		data.Set("CallTo", *params.CallTo)
 	}
 	if params != nil && params.CallUrl != nil {
-		data.Set("CallUrl", *params.CallUrl) 
+		data.Set("CallUrl", *params.CallUrl)
 	}
 	if params != nil && params.ConferenceRecord != nil {
-		data.Set("ConferenceRecord", *params.ConferenceRecord) 
+		data.Set("ConferenceRecord", *params.ConferenceRecord)
 	}
 	if params != nil && params.ConferenceRecordingStatusCallback != nil {
-		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback) 
+		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
 	}
 	if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
-		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod) 
+		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
 	}
 	if params != nil && params.ConferenceStatusCallback != nil {
-		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback) 
+		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
 	}
 	if params != nil && params.ConferenceStatusCallbackEvent != nil {
-		data.Set("ConferenceStatusCallbackEvent",  strings.Join(*params.ConferenceStatusCallbackEvent, ","))
+		data.Set("ConferenceStatusCallbackEvent", strings.Join(*params.ConferenceStatusCallbackEvent, ","))
 	}
 	if params != nil && params.ConferenceStatusCallbackMethod != nil {
-		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod) 
+		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
 	}
 	if params != nil && params.ConferenceTrim != nil {
-		data.Set("ConferenceTrim", *params.ConferenceTrim) 
+		data.Set("ConferenceTrim", *params.ConferenceTrim)
 	}
 	if params != nil && params.DequeueFrom != nil {
-		data.Set("DequeueFrom", *params.DequeueFrom) 
+		data.Set("DequeueFrom", *params.DequeueFrom)
 	}
 	if params != nil && params.DequeuePostWorkActivitySid != nil {
-		data.Set("DequeuePostWorkActivitySid", *params.DequeuePostWorkActivitySid) 
+		data.Set("DequeuePostWorkActivitySid", *params.DequeuePostWorkActivitySid)
 	}
 	if params != nil && params.DequeueRecord != nil {
-		data.Set("DequeueRecord", *params.DequeueRecord) 
+		data.Set("DequeueRecord", *params.DequeueRecord)
 	}
 	if params != nil && params.DequeueStatusCallbackEvent != nil {
-		data.Set("DequeueStatusCallbackEvent",  strings.Join(*params.DequeueStatusCallbackEvent, ","))
+		data.Set("DequeueStatusCallbackEvent", strings.Join(*params.DequeueStatusCallbackEvent, ","))
 	}
 	if params != nil && params.DequeueStatusCallbackUrl != nil {
-		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl) 
+		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl)
 	}
 	if params != nil && params.DequeueTimeout != nil {
-		data.Set("DequeueTimeout", fmt.Sprint(*params.DequeueTimeout)) 
+		data.Set("DequeueTimeout", fmt.Sprint(*params.DequeueTimeout))
 	}
 	if params != nil && params.DequeueTo != nil {
-		data.Set("DequeueTo", *params.DequeueTo) 
+		data.Set("DequeueTo", *params.DequeueTo)
 	}
 	if params != nil && params.EarlyMedia != nil {
-		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia)) 
+		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia))
 	}
 	if params != nil && params.EndConferenceOnCustomerExit != nil {
-		data.Set("EndConferenceOnCustomerExit", fmt.Sprint(*params.EndConferenceOnCustomerExit)) 
+		data.Set("EndConferenceOnCustomerExit", fmt.Sprint(*params.EndConferenceOnCustomerExit))
 	}
 	if params != nil && params.EndConferenceOnExit != nil {
-		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit)) 
+		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit))
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From) 
+		data.Set("From", *params.From)
 	}
 	if params != nil && params.Instruction != nil {
-		data.Set("Instruction", *params.Instruction) 
+		data.Set("Instruction", *params.Instruction)
 	}
 	if params != nil && params.MaxParticipants != nil {
-		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants)) 
+		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants))
 	}
 	if params != nil && params.Muted != nil {
-		data.Set("Muted", fmt.Sprint(*params.Muted)) 
+		data.Set("Muted", fmt.Sprint(*params.Muted))
 	}
 	if params != nil && params.PostWorkActivitySid != nil {
-		data.Set("PostWorkActivitySid", *params.PostWorkActivitySid) 
+		data.Set("PostWorkActivitySid", *params.PostWorkActivitySid)
 	}
 	if params != nil && params.Record != nil {
-		data.Set("Record", fmt.Sprint(*params.Record)) 
+		data.Set("Record", fmt.Sprint(*params.Record))
 	}
 	if params != nil && params.RecordingChannels != nil {
-		data.Set("RecordingChannels", *params.RecordingChannels) 
+		data.Set("RecordingChannels", *params.RecordingChannels)
 	}
 	if params != nil && params.RecordingStatusCallback != nil {
-		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback) 
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
-		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod) 
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
 	}
 	if params != nil && params.RedirectAccept != nil {
-		data.Set("RedirectAccept", fmt.Sprint(*params.RedirectAccept)) 
+		data.Set("RedirectAccept", fmt.Sprint(*params.RedirectAccept))
 	}
 	if params != nil && params.RedirectCallSid != nil {
-		data.Set("RedirectCallSid", *params.RedirectCallSid) 
+		data.Set("RedirectCallSid", *params.RedirectCallSid)
 	}
 	if params != nil && params.RedirectUrl != nil {
-		data.Set("RedirectUrl", *params.RedirectUrl) 
+		data.Set("RedirectUrl", *params.RedirectUrl)
 	}
 	if params != nil && params.Region != nil {
-		data.Set("Region", *params.Region) 
+		data.Set("Region", *params.Region)
 	}
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus) 
+		data.Set("ReservationStatus", *params.ReservationStatus)
 	}
 	if params != nil && params.SipAuthPassword != nil {
-		data.Set("SipAuthPassword", *params.SipAuthPassword) 
+		data.Set("SipAuthPassword", *params.SipAuthPassword)
 	}
 	if params != nil && params.SipAuthUsername != nil {
-		data.Set("SipAuthUsername", *params.SipAuthUsername) 
+		data.Set("SipAuthUsername", *params.SipAuthUsername)
 	}
 	if params != nil && params.StartConferenceOnEnter != nil {
-		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter)) 
+		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter))
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
-		data.Set("StatusCallbackEvent",  strings.Join(*params.StatusCallbackEvent, ","))
+		data.Set("StatusCallbackEvent", strings.Join(*params.StatusCallbackEvent, ","))
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 	if params != nil && params.Supervisor != nil {
-		data.Set("Supervisor", *params.Supervisor) 
+		data.Set("Supervisor", *params.Supervisor)
 	}
 	if params != nil && params.SupervisorMode != nil {
-		data.Set("SupervisorMode", *params.SupervisorMode) 
+		data.Set("SupervisorMode", *params.SupervisorMode)
 	}
 	if params != nil && params.Timeout != nil {
-		data.Set("Timeout", fmt.Sprint(*params.Timeout)) 
+		data.Set("Timeout", fmt.Sprint(*params.Timeout))
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To) 
+		data.Set("To", *params.To)
 	}
 	if params != nil && params.WaitMethod != nil {
-		data.Set("WaitMethod", *params.WaitMethod) 
+		data.Set("WaitMethod", *params.WaitMethod)
 	}
 	if params != nil && params.WaitUrl != nil {
-		data.Set("WaitUrl", *params.WaitUrl) 
+		data.Set("WaitUrl", *params.WaitUrl)
 	}
 	if params != nil && params.WorkerActivitySid != nil {
-		data.Set("WorkerActivitySid", *params.WorkerActivitySid) 
+		data.Set("WorkerActivitySid", *params.WorkerActivitySid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2850,12 +2761,13 @@ func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid s
 
 	return ps, err
 }
+
 // UpdateWorkerParams Optional parameters for the method 'UpdateWorker'
 type UpdateWorkerParams struct {
-	ActivitySid *string `json:"ActivitySid,omitempty"`
-	Attributes *string `json:"Attributes,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	RejectPendingReservations *bool `json:"RejectPendingReservations,omitempty"`
+	ActivitySid               *string `json:"ActivitySid,omitempty"`
+	Attributes                *string `json:"Attributes,omitempty"`
+	FriendlyName              *string `json:"FriendlyName,omitempty"`
+	RejectPendingReservations *bool   `json:"RejectPendingReservations,omitempty"`
 }
 
 /*
@@ -2874,23 +2786,21 @@ func (c *DefaultApiService) UpdateWorker(WorkspaceSid string, Sid string, params
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ActivitySid != nil {
-		data.Set("ActivitySid", *params.ActivitySid) 
+		data.Set("ActivitySid", *params.ActivitySid)
 	}
 	if params != nil && params.Attributes != nil {
-		data.Set("Attributes", *params.Attributes) 
+		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.RejectPendingReservations != nil {
-		data.Set("RejectPendingReservations", fmt.Sprint(*params.RejectPendingReservations)) 
+		data.Set("RejectPendingReservations", fmt.Sprint(*params.RejectPendingReservations))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2906,10 +2816,11 @@ func (c *DefaultApiService) UpdateWorker(WorkspaceSid string, Sid string, params
 
 	return ps, err
 }
+
 // UpdateWorkerChannelParams Optional parameters for the method 'UpdateWorkerChannel'
 type UpdateWorkerChannelParams struct {
-	Available *bool `json:"Available,omitempty"`
-	Capacity *int32 `json:"Capacity,omitempty"`
+	Available *bool  `json:"Available,omitempty"`
+	Capacity  *int32 `json:"Capacity,omitempty"`
 }
 
 /*
@@ -2928,17 +2839,15 @@ func (c *DefaultApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid s
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Available != nil {
-		data.Set("Available", fmt.Sprint(*params.Available)) 
+		data.Set("Available", fmt.Sprint(*params.Available))
 	}
 	if params != nil && params.Capacity != nil {
-		data.Set("Capacity", fmt.Sprint(*params.Capacity)) 
+		data.Set("Capacity", fmt.Sprint(*params.Capacity))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2954,59 +2863,60 @@ func (c *DefaultApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid s
 
 	return ps, err
 }
+
 // UpdateWorkerReservationParams Optional parameters for the method 'UpdateWorkerReservation'
 type UpdateWorkerReservationParams struct {
-	Beep *string `json:"Beep,omitempty"`
-	BeepOnCustomerEntrance *bool `json:"BeepOnCustomerEntrance,omitempty"`
-	CallAccept *bool `json:"CallAccept,omitempty"`
-	CallFrom *string `json:"CallFrom,omitempty"`
-	CallRecord *string `json:"CallRecord,omitempty"`
-	CallStatusCallbackUrl *string `json:"CallStatusCallbackUrl,omitempty"`
-	CallTimeout *int32 `json:"CallTimeout,omitempty"`
-	CallTo *string `json:"CallTo,omitempty"`
-	CallUrl *string `json:"CallUrl,omitempty"`
-	ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
-	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
-	ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
-	ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
-	ConferenceStatusCallbackEvent *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
-	ConferenceStatusCallbackMethod *string `json:"ConferenceStatusCallbackMethod,omitempty"`
-	ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
-	DequeueFrom *string `json:"DequeueFrom,omitempty"`
-	DequeuePostWorkActivitySid *string `json:"DequeuePostWorkActivitySid,omitempty"`
-	DequeueRecord *string `json:"DequeueRecord,omitempty"`
-	DequeueStatusCallbackEvent *[]string `json:"DequeueStatusCallbackEvent,omitempty"`
-	DequeueStatusCallbackUrl *string `json:"DequeueStatusCallbackUrl,omitempty"`
-	DequeueTimeout *int32 `json:"DequeueTimeout,omitempty"`
-	DequeueTo *string `json:"DequeueTo,omitempty"`
-	EarlyMedia *bool `json:"EarlyMedia,omitempty"`
-	EndConferenceOnCustomerExit *bool `json:"EndConferenceOnCustomerExit,omitempty"`
-	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
-	From *string `json:"From,omitempty"`
-	Instruction *string `json:"Instruction,omitempty"`
-	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
-	Muted *bool `json:"Muted,omitempty"`
-	PostWorkActivitySid *string `json:"PostWorkActivitySid,omitempty"`
-	Record *bool `json:"Record,omitempty"`
-	RecordingChannels *string `json:"RecordingChannels,omitempty"`
-	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
-	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
-	RedirectAccept *bool `json:"RedirectAccept,omitempty"`
-	RedirectCallSid *string `json:"RedirectCallSid,omitempty"`
-	RedirectUrl *string `json:"RedirectUrl,omitempty"`
-	Region *string `json:"Region,omitempty"`
-	ReservationStatus *string `json:"ReservationStatus,omitempty"`
-	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
-	StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
-	StatusCallback *string `json:"StatusCallback,omitempty"`
-	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
-	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	Timeout *int32 `json:"Timeout,omitempty"`
-	To *string `json:"To,omitempty"`
-	WaitMethod *string `json:"WaitMethod,omitempty"`
-	WaitUrl *string `json:"WaitUrl,omitempty"`
-	WorkerActivitySid *string `json:"WorkerActivitySid,omitempty"`
+	Beep                                    *string   `json:"Beep,omitempty"`
+	BeepOnCustomerEntrance                  *bool     `json:"BeepOnCustomerEntrance,omitempty"`
+	CallAccept                              *bool     `json:"CallAccept,omitempty"`
+	CallFrom                                *string   `json:"CallFrom,omitempty"`
+	CallRecord                              *string   `json:"CallRecord,omitempty"`
+	CallStatusCallbackUrl                   *string   `json:"CallStatusCallbackUrl,omitempty"`
+	CallTimeout                             *int32    `json:"CallTimeout,omitempty"`
+	CallTo                                  *string   `json:"CallTo,omitempty"`
+	CallUrl                                 *string   `json:"CallUrl,omitempty"`
+	ConferenceRecord                        *string   `json:"ConferenceRecord,omitempty"`
+	ConferenceRecordingStatusCallback       *string   `json:"ConferenceRecordingStatusCallback,omitempty"`
+	ConferenceRecordingStatusCallbackMethod *string   `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
+	ConferenceStatusCallback                *string   `json:"ConferenceStatusCallback,omitempty"`
+	ConferenceStatusCallbackEvent           *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
+	ConferenceStatusCallbackMethod          *string   `json:"ConferenceStatusCallbackMethod,omitempty"`
+	ConferenceTrim                          *string   `json:"ConferenceTrim,omitempty"`
+	DequeueFrom                             *string   `json:"DequeueFrom,omitempty"`
+	DequeuePostWorkActivitySid              *string   `json:"DequeuePostWorkActivitySid,omitempty"`
+	DequeueRecord                           *string   `json:"DequeueRecord,omitempty"`
+	DequeueStatusCallbackEvent              *[]string `json:"DequeueStatusCallbackEvent,omitempty"`
+	DequeueStatusCallbackUrl                *string   `json:"DequeueStatusCallbackUrl,omitempty"`
+	DequeueTimeout                          *int32    `json:"DequeueTimeout,omitempty"`
+	DequeueTo                               *string   `json:"DequeueTo,omitempty"`
+	EarlyMedia                              *bool     `json:"EarlyMedia,omitempty"`
+	EndConferenceOnCustomerExit             *bool     `json:"EndConferenceOnCustomerExit,omitempty"`
+	EndConferenceOnExit                     *bool     `json:"EndConferenceOnExit,omitempty"`
+	From                                    *string   `json:"From,omitempty"`
+	Instruction                             *string   `json:"Instruction,omitempty"`
+	MaxParticipants                         *int32    `json:"MaxParticipants,omitempty"`
+	Muted                                   *bool     `json:"Muted,omitempty"`
+	PostWorkActivitySid                     *string   `json:"PostWorkActivitySid,omitempty"`
+	Record                                  *bool     `json:"Record,omitempty"`
+	RecordingChannels                       *string   `json:"RecordingChannels,omitempty"`
+	RecordingStatusCallback                 *string   `json:"RecordingStatusCallback,omitempty"`
+	RecordingStatusCallbackMethod           *string   `json:"RecordingStatusCallbackMethod,omitempty"`
+	RedirectAccept                          *bool     `json:"RedirectAccept,omitempty"`
+	RedirectCallSid                         *string   `json:"RedirectCallSid,omitempty"`
+	RedirectUrl                             *string   `json:"RedirectUrl,omitempty"`
+	Region                                  *string   `json:"Region,omitempty"`
+	ReservationStatus                       *string   `json:"ReservationStatus,omitempty"`
+	SipAuthPassword                         *string   `json:"SipAuthPassword,omitempty"`
+	SipAuthUsername                         *string   `json:"SipAuthUsername,omitempty"`
+	StartConferenceOnEnter                  *bool     `json:"StartConferenceOnEnter,omitempty"`
+	StatusCallback                          *string   `json:"StatusCallback,omitempty"`
+	StatusCallbackEvent                     *[]string `json:"StatusCallbackEvent,omitempty"`
+	StatusCallbackMethod                    *string   `json:"StatusCallbackMethod,omitempty"`
+	Timeout                                 *int32    `json:"Timeout,omitempty"`
+	To                                      *string   `json:"To,omitempty"`
+	WaitMethod                              *string   `json:"WaitMethod,omitempty"`
+	WaitUrl                                 *string   `json:"WaitUrl,omitempty"`
+	WorkerActivitySid                       *string   `json:"WorkerActivitySid,omitempty"`
 }
 
 /*
@@ -3074,164 +2984,162 @@ func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerS
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Beep != nil {
-		data.Set("Beep", *params.Beep) 
+		data.Set("Beep", *params.Beep)
 	}
 	if params != nil && params.BeepOnCustomerEntrance != nil {
-		data.Set("BeepOnCustomerEntrance", fmt.Sprint(*params.BeepOnCustomerEntrance)) 
+		data.Set("BeepOnCustomerEntrance", fmt.Sprint(*params.BeepOnCustomerEntrance))
 	}
 	if params != nil && params.CallAccept != nil {
-		data.Set("CallAccept", fmt.Sprint(*params.CallAccept)) 
+		data.Set("CallAccept", fmt.Sprint(*params.CallAccept))
 	}
 	if params != nil && params.CallFrom != nil {
-		data.Set("CallFrom", *params.CallFrom) 
+		data.Set("CallFrom", *params.CallFrom)
 	}
 	if params != nil && params.CallRecord != nil {
-		data.Set("CallRecord", *params.CallRecord) 
+		data.Set("CallRecord", *params.CallRecord)
 	}
 	if params != nil && params.CallStatusCallbackUrl != nil {
-		data.Set("CallStatusCallbackUrl", *params.CallStatusCallbackUrl) 
+		data.Set("CallStatusCallbackUrl", *params.CallStatusCallbackUrl)
 	}
 	if params != nil && params.CallTimeout != nil {
-		data.Set("CallTimeout", fmt.Sprint(*params.CallTimeout)) 
+		data.Set("CallTimeout", fmt.Sprint(*params.CallTimeout))
 	}
 	if params != nil && params.CallTo != nil {
-		data.Set("CallTo", *params.CallTo) 
+		data.Set("CallTo", *params.CallTo)
 	}
 	if params != nil && params.CallUrl != nil {
-		data.Set("CallUrl", *params.CallUrl) 
+		data.Set("CallUrl", *params.CallUrl)
 	}
 	if params != nil && params.ConferenceRecord != nil {
-		data.Set("ConferenceRecord", *params.ConferenceRecord) 
+		data.Set("ConferenceRecord", *params.ConferenceRecord)
 	}
 	if params != nil && params.ConferenceRecordingStatusCallback != nil {
-		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback) 
+		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
 	}
 	if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
-		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod) 
+		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
 	}
 	if params != nil && params.ConferenceStatusCallback != nil {
-		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback) 
+		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
 	}
 	if params != nil && params.ConferenceStatusCallbackEvent != nil {
-		data.Set("ConferenceStatusCallbackEvent",  strings.Join(*params.ConferenceStatusCallbackEvent, ","))
+		data.Set("ConferenceStatusCallbackEvent", strings.Join(*params.ConferenceStatusCallbackEvent, ","))
 	}
 	if params != nil && params.ConferenceStatusCallbackMethod != nil {
-		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod) 
+		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
 	}
 	if params != nil && params.ConferenceTrim != nil {
-		data.Set("ConferenceTrim", *params.ConferenceTrim) 
+		data.Set("ConferenceTrim", *params.ConferenceTrim)
 	}
 	if params != nil && params.DequeueFrom != nil {
-		data.Set("DequeueFrom", *params.DequeueFrom) 
+		data.Set("DequeueFrom", *params.DequeueFrom)
 	}
 	if params != nil && params.DequeuePostWorkActivitySid != nil {
-		data.Set("DequeuePostWorkActivitySid", *params.DequeuePostWorkActivitySid) 
+		data.Set("DequeuePostWorkActivitySid", *params.DequeuePostWorkActivitySid)
 	}
 	if params != nil && params.DequeueRecord != nil {
-		data.Set("DequeueRecord", *params.DequeueRecord) 
+		data.Set("DequeueRecord", *params.DequeueRecord)
 	}
 	if params != nil && params.DequeueStatusCallbackEvent != nil {
-		data.Set("DequeueStatusCallbackEvent",  strings.Join(*params.DequeueStatusCallbackEvent, ","))
+		data.Set("DequeueStatusCallbackEvent", strings.Join(*params.DequeueStatusCallbackEvent, ","))
 	}
 	if params != nil && params.DequeueStatusCallbackUrl != nil {
-		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl) 
+		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl)
 	}
 	if params != nil && params.DequeueTimeout != nil {
-		data.Set("DequeueTimeout", fmt.Sprint(*params.DequeueTimeout)) 
+		data.Set("DequeueTimeout", fmt.Sprint(*params.DequeueTimeout))
 	}
 	if params != nil && params.DequeueTo != nil {
-		data.Set("DequeueTo", *params.DequeueTo) 
+		data.Set("DequeueTo", *params.DequeueTo)
 	}
 	if params != nil && params.EarlyMedia != nil {
-		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia)) 
+		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia))
 	}
 	if params != nil && params.EndConferenceOnCustomerExit != nil {
-		data.Set("EndConferenceOnCustomerExit", fmt.Sprint(*params.EndConferenceOnCustomerExit)) 
+		data.Set("EndConferenceOnCustomerExit", fmt.Sprint(*params.EndConferenceOnCustomerExit))
 	}
 	if params != nil && params.EndConferenceOnExit != nil {
-		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit)) 
+		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit))
 	}
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From) 
+		data.Set("From", *params.From)
 	}
 	if params != nil && params.Instruction != nil {
-		data.Set("Instruction", *params.Instruction) 
+		data.Set("Instruction", *params.Instruction)
 	}
 	if params != nil && params.MaxParticipants != nil {
-		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants)) 
+		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants))
 	}
 	if params != nil && params.Muted != nil {
-		data.Set("Muted", fmt.Sprint(*params.Muted)) 
+		data.Set("Muted", fmt.Sprint(*params.Muted))
 	}
 	if params != nil && params.PostWorkActivitySid != nil {
-		data.Set("PostWorkActivitySid", *params.PostWorkActivitySid) 
+		data.Set("PostWorkActivitySid", *params.PostWorkActivitySid)
 	}
 	if params != nil && params.Record != nil {
-		data.Set("Record", fmt.Sprint(*params.Record)) 
+		data.Set("Record", fmt.Sprint(*params.Record))
 	}
 	if params != nil && params.RecordingChannels != nil {
-		data.Set("RecordingChannels", *params.RecordingChannels) 
+		data.Set("RecordingChannels", *params.RecordingChannels)
 	}
 	if params != nil && params.RecordingStatusCallback != nil {
-		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback) 
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
-		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod) 
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
 	}
 	if params != nil && params.RedirectAccept != nil {
-		data.Set("RedirectAccept", fmt.Sprint(*params.RedirectAccept)) 
+		data.Set("RedirectAccept", fmt.Sprint(*params.RedirectAccept))
 	}
 	if params != nil && params.RedirectCallSid != nil {
-		data.Set("RedirectCallSid", *params.RedirectCallSid) 
+		data.Set("RedirectCallSid", *params.RedirectCallSid)
 	}
 	if params != nil && params.RedirectUrl != nil {
-		data.Set("RedirectUrl", *params.RedirectUrl) 
+		data.Set("RedirectUrl", *params.RedirectUrl)
 	}
 	if params != nil && params.Region != nil {
-		data.Set("Region", *params.Region) 
+		data.Set("Region", *params.Region)
 	}
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus) 
+		data.Set("ReservationStatus", *params.ReservationStatus)
 	}
 	if params != nil && params.SipAuthPassword != nil {
-		data.Set("SipAuthPassword", *params.SipAuthPassword) 
+		data.Set("SipAuthPassword", *params.SipAuthPassword)
 	}
 	if params != nil && params.SipAuthUsername != nil {
-		data.Set("SipAuthUsername", *params.SipAuthUsername) 
+		data.Set("SipAuthUsername", *params.SipAuthUsername)
 	}
 	if params != nil && params.StartConferenceOnEnter != nil {
-		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter)) 
+		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter))
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
-		data.Set("StatusCallbackEvent",  strings.Join(*params.StatusCallbackEvent, ","))
+		data.Set("StatusCallbackEvent", strings.Join(*params.StatusCallbackEvent, ","))
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
-		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod) 
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 	if params != nil && params.Timeout != nil {
-		data.Set("Timeout", fmt.Sprint(*params.Timeout)) 
+		data.Set("Timeout", fmt.Sprint(*params.Timeout))
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To) 
+		data.Set("To", *params.To)
 	}
 	if params != nil && params.WaitMethod != nil {
-		data.Set("WaitMethod", *params.WaitMethod) 
+		data.Set("WaitMethod", *params.WaitMethod)
 	}
 	if params != nil && params.WaitUrl != nil {
-		data.Set("WaitUrl", *params.WaitUrl) 
+		data.Set("WaitUrl", *params.WaitUrl)
 	}
 	if params != nil && params.WorkerActivitySid != nil {
-		data.Set("WorkerActivitySid", *params.WorkerActivitySid) 
+		data.Set("WorkerActivitySid", *params.WorkerActivitySid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3247,14 +3155,15 @@ func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerS
 
 	return ps, err
 }
+
 // UpdateWorkflowParams Optional parameters for the method 'UpdateWorkflow'
 type UpdateWorkflowParams struct {
-	AssignmentCallbackUrl *string `json:"AssignmentCallbackUrl,omitempty"`
-	Configuration *string `json:"Configuration,omitempty"`
+	AssignmentCallbackUrl         *string `json:"AssignmentCallbackUrl,omitempty"`
+	Configuration                 *string `json:"Configuration,omitempty"`
 	FallbackAssignmentCallbackUrl *string `json:"FallbackAssignmentCallbackUrl,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	ReEvaluateTasks *string `json:"ReEvaluateTasks,omitempty"`
-	TaskReservationTimeout *int32 `json:"TaskReservationTimeout,omitempty"`
+	FriendlyName                  *string `json:"FriendlyName,omitempty"`
+	ReEvaluateTasks               *string `json:"ReEvaluateTasks,omitempty"`
+	TaskReservationTimeout        *int32  `json:"TaskReservationTimeout,omitempty"`
 }
 
 /*
@@ -3275,29 +3184,27 @@ func (c *DefaultApiService) UpdateWorkflow(WorkspaceSid string, Sid string, para
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssignmentCallbackUrl != nil {
-		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl) 
+		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
 	}
 	if params != nil && params.Configuration != nil {
-		data.Set("Configuration", *params.Configuration) 
+		data.Set("Configuration", *params.Configuration)
 	}
 	if params != nil && params.FallbackAssignmentCallbackUrl != nil {
-		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl) 
+		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.ReEvaluateTasks != nil {
-		data.Set("ReEvaluateTasks", *params.ReEvaluateTasks) 
+		data.Set("ReEvaluateTasks", *params.ReEvaluateTasks)
 	}
 	if params != nil && params.TaskReservationTimeout != nil {
-		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout)) 
+		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3313,15 +3220,16 @@ func (c *DefaultApiService) UpdateWorkflow(WorkspaceSid string, Sid string, para
 
 	return ps, err
 }
+
 // UpdateWorkspaceParams Optional parameters for the method 'UpdateWorkspace'
 type UpdateWorkspaceParams struct {
-	DefaultActivitySid *string `json:"DefaultActivitySid,omitempty"`
-	EventCallbackUrl *string `json:"EventCallbackUrl,omitempty"`
-	EventsFilter *string `json:"EventsFilter,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	MultiTaskEnabled *bool `json:"MultiTaskEnabled,omitempty"`
+	DefaultActivitySid   *string `json:"DefaultActivitySid,omitempty"`
+	EventCallbackUrl     *string `json:"EventCallbackUrl,omitempty"`
+	EventsFilter         *string `json:"EventsFilter,omitempty"`
+	FriendlyName         *string `json:"FriendlyName,omitempty"`
+	MultiTaskEnabled     *bool   `json:"MultiTaskEnabled,omitempty"`
 	PrioritizeQueueOrder *string `json:"PrioritizeQueueOrder,omitempty"`
-	TimeoutActivitySid *string `json:"TimeoutActivitySid,omitempty"`
+	TimeoutActivitySid   *string `json:"TimeoutActivitySid,omitempty"`
 }
 
 /*
@@ -3341,32 +3249,30 @@ func (c *DefaultApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceP
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DefaultActivitySid != nil {
-		data.Set("DefaultActivitySid", *params.DefaultActivitySid) 
+		data.Set("DefaultActivitySid", *params.DefaultActivitySid)
 	}
 	if params != nil && params.EventCallbackUrl != nil {
-		data.Set("EventCallbackUrl", *params.EventCallbackUrl) 
+		data.Set("EventCallbackUrl", *params.EventCallbackUrl)
 	}
 	if params != nil && params.EventsFilter != nil {
-		data.Set("EventsFilter", *params.EventsFilter) 
+		data.Set("EventsFilter", *params.EventsFilter)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.MultiTaskEnabled != nil {
-		data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled)) 
+		data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled))
 	}
 	if params != nil && params.PrioritizeQueueOrder != nil {
-		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder) 
+		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
 	}
 	if params != nil && params.TimeoutActivitySid != nil {
-		data.Set("TimeoutActivitySid", *params.TimeoutActivitySid) 
+		data.Set("TimeoutActivitySid", *params.TimeoutActivitySid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

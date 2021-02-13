@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateChallengeRequest struct for UpdateChallengeRequest
 type UpdateChallengeRequest struct {
 	// The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code.

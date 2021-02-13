@@ -9,33 +9,34 @@
  */
 
 package openapi
+
 // ApiV2010AccountCall struct for ApiV2010AccountCall
 type ApiV2010AccountCall struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Annotation string `json:"Annotation,omitempty"`
-	AnsweredBy string `json:"AnsweredBy,omitempty"`
-	ApiVersion string `json:"ApiVersion,omitempty"`
-	CallerName string `json:"CallerName,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	Direction string `json:"Direction,omitempty"`
-	Duration string `json:"Duration,omitempty"`
-	EndTime string `json:"EndTime,omitempty"`
-	ForwardedFrom string `json:"ForwardedFrom,omitempty"`
-	From string `json:"From,omitempty"`
-	FromFormatted string `json:"FromFormatted,omitempty"`
-	GroupSid string `json:"GroupSid,omitempty"`
-	ParentCallSid string `json:"ParentCallSid,omitempty"`
-	PhoneNumberSid string `json:"PhoneNumberSid,omitempty"`
-	Price string `json:"Price,omitempty"`
-	PriceUnit string `json:"PriceUnit,omitempty"`
-	QueueTime string `json:"QueueTime,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	StartTime string `json:"StartTime,omitempty"`
-	Status Status `json:"Status,omitempty"`
+	AccountSid      string                 `json:"AccountSid,omitempty"`
+	Annotation      string                 `json:"Annotation,omitempty"`
+	AnsweredBy      string                 `json:"AnsweredBy,omitempty"`
+	ApiVersion      string                 `json:"ApiVersion,omitempty"`
+	CallerName      string                 `json:"CallerName,omitempty"`
+	DateCreated     string                 `json:"DateCreated,omitempty"`
+	DateUpdated     string                 `json:"DateUpdated,omitempty"`
+	Direction       string                 `json:"Direction,omitempty"`
+	Duration        string                 `json:"Duration,omitempty"`
+	EndTime         string                 `json:"EndTime,omitempty"`
+	ForwardedFrom   string                 `json:"ForwardedFrom,omitempty"`
+	From            string                 `json:"From,omitempty"`
+	FromFormatted   string                 `json:"FromFormatted,omitempty"`
+	GroupSid        string                 `json:"GroupSid,omitempty"`
+	ParentCallSid   string                 `json:"ParentCallSid,omitempty"`
+	PhoneNumberSid  string                 `json:"PhoneNumberSid,omitempty"`
+	Price           string                 `json:"Price,omitempty"`
+	PriceUnit       string                 `json:"PriceUnit,omitempty"`
+	QueueTime       string                 `json:"QueueTime,omitempty"`
+	Sid             string                 `json:"Sid,omitempty"`
+	StartTime       string                 `json:"StartTime,omitempty"`
+	Status          Status                 `json:"Status,omitempty"`
 	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
-	To string `json:"To,omitempty"`
-	ToFormatted string `json:"ToFormatted,omitempty"`
-	TrunkSid string `json:"TrunkSid,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	To              string                 `json:"To,omitempty"`
+	ToFormatted     string                 `json:"ToFormatted,omitempty"`
+	TrunkSid        string                 `json:"TrunkSid,omitempty"`
+	Uri             string                 `json:"Uri,omitempty"`
 }

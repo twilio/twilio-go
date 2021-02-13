@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateWebChannelRequest struct for UpdateWebChannelRequest
 type UpdateWebChannelRequest struct {
 	// The chat status. Can only be `inactive`.

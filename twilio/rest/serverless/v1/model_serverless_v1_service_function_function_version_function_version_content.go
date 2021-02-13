@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent struct for ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent
 type ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Content string `json:"Content,omitempty"`
+	AccountSid  string `json:"AccountSid,omitempty"`
+	Content     string `json:"Content,omitempty"`
 	FunctionSid string `json:"FunctionSid,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	ServiceSid  string `json:"ServiceSid,omitempty"`
+	Sid         string `json:"Sid,omitempty"`
+	Url         string `json:"Url,omitempty"`
 }

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListServiceResponse struct for ListServiceResponse
 type ListServiceResponse struct {
-	Meta ListConversationResponseMeta `json:"Meta,omitempty"`
-	Services []ConversationsV1Service `json:"Services,omitempty"`
+	Meta     ListConversationResponseMeta `json:"Meta,omitempty"`
+	Services []ConversationsV1Service     `json:"Services,omitempty"`
 }

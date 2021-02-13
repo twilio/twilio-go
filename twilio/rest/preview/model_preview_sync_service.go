@@ -9,19 +9,21 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // PreviewSyncService struct for PreviewSyncService
 type PreviewSyncService struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AclEnabled bool `json:"AclEnabled,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	ReachabilityWebhooksEnabled bool `json:"ReachabilityWebhooksEnabled,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
-	WebhookUrl string `json:"WebhookUrl,omitempty"`
+	AccountSid                  string                 `json:"AccountSid,omitempty"`
+	AclEnabled                  bool                   `json:"AclEnabled,omitempty"`
+	DateCreated                 time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated                 time.Time              `json:"DateUpdated,omitempty"`
+	FriendlyName                string                 `json:"FriendlyName,omitempty"`
+	Links                       map[string]interface{} `json:"Links,omitempty"`
+	ReachabilityWebhooksEnabled bool                   `json:"ReachabilityWebhooksEnabled,omitempty"`
+	Sid                         string                 `json:"Sid,omitempty"`
+	Url                         string                 `json:"Url,omitempty"`
+	WebhookUrl                  string                 `json:"WebhookUrl,omitempty"`
 }

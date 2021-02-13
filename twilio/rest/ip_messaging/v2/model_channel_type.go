@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // ChannelType the model 'ChannelType'
 type ChannelType string
 
 // List of channel_type
 const (
-	CHANNELTYPE_PUBLIC ChannelType = "public"
+	CHANNELTYPE_PUBLIC  ChannelType = "public"
 	CHANNELTYPE_PRIVATE ChannelType = "private"
 )

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCertificateRequest struct for CreateCertificateRequest
 type CreateCertificateRequest struct {
 	// Provides a URL encoded representation of the public certificate in PEM format.

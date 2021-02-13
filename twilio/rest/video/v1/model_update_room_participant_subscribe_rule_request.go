@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateRoomParticipantSubscribeRuleRequest struct for UpdateRoomParticipantSubscribeRuleRequest
 type UpdateRoomParticipantSubscribeRuleRequest struct {
 	// A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.

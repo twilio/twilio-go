@@ -9,14 +9,15 @@
  */
 
 package openapi
+
 // VideoV1RecordingSettings struct for VideoV1RecordingSettings
 type VideoV1RecordingSettings struct {
-	AccountSid string `json:"AccountSid,omitempty"`
+	AccountSid        string `json:"AccountSid,omitempty"`
 	AwsCredentialsSid string `json:"AwsCredentialsSid,omitempty"`
-	AwsS3Url string `json:"AwsS3Url,omitempty"`
-	AwsStorageEnabled bool `json:"AwsStorageEnabled,omitempty"`
-	EncryptionEnabled bool `json:"EncryptionEnabled,omitempty"`
-	EncryptionKeySid string `json:"EncryptionKeySid,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AwsS3Url          string `json:"AwsS3Url,omitempty"`
+	AwsStorageEnabled bool   `json:"AwsStorageEnabled,omitempty"`
+	EncryptionEnabled bool   `json:"EncryptionEnabled,omitempty"`
+	EncryptionKeySid  string `json:"EncryptionKeySid,omitempty"`
+	FriendlyName      string `json:"FriendlyName,omitempty"`
+	Url               string `json:"Url,omitempty"`
 }

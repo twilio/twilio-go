@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // TwilioRealm the model 'TwilioRealm'
 type TwilioRealm string
 

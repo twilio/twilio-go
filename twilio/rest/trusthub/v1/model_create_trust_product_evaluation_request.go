@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateTrustProductEvaluationRequest struct for CreateTrustProductEvaluationRequest
 type CreateTrustProductEvaluationRequest struct {
 	// The unique string of a policy that is associated to the customer_profile resource.

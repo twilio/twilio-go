@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdatePaymentsRequest struct for UpdatePaymentsRequest
 type UpdatePaymentsRequest struct {
 	// The piece of payment information that you wish the caller to enter. Must be one of `payment-card-number`, `expiration-date`, `security-code`, `postal-code`, `bank-routing-number`, or `bank-account-number`.

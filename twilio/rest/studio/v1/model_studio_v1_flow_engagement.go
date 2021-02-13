@@ -9,20 +9,22 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // StudioV1FlowEngagement struct for StudioV1FlowEngagement
 type StudioV1FlowEngagement struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ContactChannelAddress string `json:"ContactChannelAddress,omitempty"`
-	ContactSid string `json:"ContactSid,omitempty"`
-	Context map[string]interface{} `json:"Context,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FlowSid string `json:"FlowSid,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid            string                 `json:"AccountSid,omitempty"`
+	ContactChannelAddress string                 `json:"ContactChannelAddress,omitempty"`
+	ContactSid            string                 `json:"ContactSid,omitempty"`
+	Context               map[string]interface{} `json:"Context,omitempty"`
+	DateCreated           time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated           time.Time              `json:"DateUpdated,omitempty"`
+	FlowSid               string                 `json:"FlowSid,omitempty"`
+	Links                 map[string]interface{} `json:"Links,omitempty"`
+	Sid                   string                 `json:"Sid,omitempty"`
+	Status                Status                 `json:"Status,omitempty"`
+	Url                   string                 `json:"Url,omitempty"`
 }

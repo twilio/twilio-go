@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCustomerProfileEntityAssignmentRequest struct for CreateCustomerProfileEntityAssignmentRequest
 type CreateCustomerProfileEntityAssignmentRequest struct {
 	// The SID of an object bag that holds information of the different items.

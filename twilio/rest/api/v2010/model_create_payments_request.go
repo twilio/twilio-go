@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreatePaymentsRequest struct for CreatePaymentsRequest
 type CreatePaymentsRequest struct {
 	// Type of bank account if payment source is ACH. One of `consumer-checking`, `consumer-savings`, or `commercial-checking`. The default value is `consumer-checking`.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateWorkerChannelRequest struct for UpdateWorkerChannelRequest
 type UpdateWorkerChannelRequest struct {
 	// Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.

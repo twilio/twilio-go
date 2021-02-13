@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListCredentialPublicKeyResponse struct for ListCredentialPublicKeyResponse
 type ListCredentialPublicKeyResponse struct {
 	Credentials []AccountsV1CredentialCredentialPublicKey `json:"Credentials,omitempty"`
-	Meta ListCredentialAwsResponseMeta `json:"Meta,omitempty"`
+	Meta        ListCredentialAwsResponseMeta             `json:"Meta,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateServiceRequest struct for CreateServiceRequest
 type CreateServiceRequest struct {
 	// Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.

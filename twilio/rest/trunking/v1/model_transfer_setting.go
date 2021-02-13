@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // TransferSetting the model 'TransferSetting'
 type TransferSetting string
 
 // List of transfer_setting
 const (
 	TRANSFERSETTING_DISABLE_ALL TransferSetting = "disable-all"
-	TRANSFERSETTING_ENABLE_ALL TransferSetting = "enable-all"
-	TRANSFERSETTING_SIP_ONLY TransferSetting = "sip-only"
+	TRANSFERSETTING_ENABLE_ALL  TransferSetting = "enable-all"
+	TRANSFERSETTING_SIP_ONLY    TransferSetting = "sip-only"
 )

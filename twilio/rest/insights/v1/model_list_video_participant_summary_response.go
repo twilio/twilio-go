@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListVideoParticipantSummaryResponse struct for ListVideoParticipantSummaryResponse
 type ListVideoParticipantSummaryResponse struct {
-	Meta ListVideoRoomSummaryResponseMeta `json:"Meta,omitempty"`
+	Meta         ListVideoRoomSummaryResponseMeta                    `json:"Meta,omitempty"`
 	Participants []InsightsV1VideoRoomSummaryVideoParticipantSummary `json:"Participants,omitempty"`
 }

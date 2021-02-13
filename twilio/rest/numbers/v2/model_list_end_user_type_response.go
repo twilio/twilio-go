@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListEndUserTypeResponse struct for ListEndUserTypeResponse
 type ListEndUserTypeResponse struct {
 	EndUserTypes []NumbersV2RegulatoryComplianceEndUserType `json:"EndUserTypes,omitempty"`
-	Meta ListBundleResponseMeta `json:"Meta,omitempty"`
+	Meta         ListBundleResponseMeta                     `json:"Meta,omitempty"`
 }

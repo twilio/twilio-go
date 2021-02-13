@@ -9,14 +9,16 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VideoV1RoomRoomParticipantRoomParticipantSubscribeRule struct for VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 type VideoV1RoomRoomParticipantRoomParticipantSubscribeRule struct {
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	ParticipantSid string `json:"ParticipantSid,omitempty"`
-	RoomSid string `json:"RoomSid,omitempty"`
-	Rules []map[string]interface{} `json:"Rules,omitempty"`
+	DateCreated    time.Time                `json:"DateCreated,omitempty"`
+	DateUpdated    time.Time                `json:"DateUpdated,omitempty"`
+	ParticipantSid string                   `json:"ParticipantSid,omitempty"`
+	RoomSid        string                   `json:"RoomSid,omitempty"`
+	Rules          []map[string]interface{} `json:"Rules,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateAlphaSenderRequest struct for CreateAlphaSenderRequest
 type CreateAlphaSenderRequest struct {
 	// The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, and hyphen `-`. This value cannot contain only numbers.

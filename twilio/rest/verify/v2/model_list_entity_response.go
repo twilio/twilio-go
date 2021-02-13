@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListEntityResponse struct for ListEntityResponse
 type ListEntityResponse struct {
 	Entities []VerifyV2ServiceEntity `json:"Entities,omitempty"`
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Meta     ListServiceResponseMeta `json:"Meta,omitempty"`
 }

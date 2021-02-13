@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // QueueOrder the model 'QueueOrder'
 type QueueOrder string
 

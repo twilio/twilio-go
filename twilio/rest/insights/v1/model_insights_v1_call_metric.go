@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // InsightsV1CallMetric struct for InsightsV1CallMetric
 type InsightsV1CallMetric struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CallSid string `json:"CallSid,omitempty"`
+	AccountSid  string                 `json:"AccountSid,omitempty"`
+	CallSid     string                 `json:"CallSid,omitempty"`
 	CarrierEdge map[string]interface{} `json:"CarrierEdge,omitempty"`
-	ClientEdge map[string]interface{} `json:"ClientEdge,omitempty"`
-	Direction StreamDirection `json:"Direction,omitempty"`
-	Edge TwilioEdge `json:"Edge,omitempty"`
-	SdkEdge map[string]interface{} `json:"SdkEdge,omitempty"`
-	SipEdge map[string]interface{} `json:"SipEdge,omitempty"`
-	Timestamp string `json:"Timestamp,omitempty"`
+	ClientEdge  map[string]interface{} `json:"ClientEdge,omitempty"`
+	Direction   StreamDirection        `json:"Direction,omitempty"`
+	Edge        TwilioEdge             `json:"Edge,omitempty"`
+	SdkEdge     map[string]interface{} `json:"SdkEdge,omitempty"`
+	SipEdge     map[string]interface{} `json:"SipEdge,omitempty"`
+	Timestamp   string                 `json:"Timestamp,omitempty"`
 }

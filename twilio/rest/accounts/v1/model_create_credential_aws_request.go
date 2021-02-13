@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCredentialAwsRequest struct for CreateCredentialAwsRequest
 type CreateCredentialAwsRequest struct {
 	// The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.

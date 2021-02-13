@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // RoleType the model 'RoleType'
 type RoleType string
 
 // List of role_type
 const (
-	ROLETYPE_CHANNEL RoleType = "channel"
+	ROLETYPE_CHANNEL    RoleType = "channel"
 	ROLETYPE_DEPLOYMENT RoleType = "deployment"
 )

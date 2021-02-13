@@ -9,17 +9,19 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ConversationsV1Credential struct for ConversationsV1Credential
 type ConversationsV1Credential struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Sandbox string `json:"Sandbox,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Type PushType `json:"Type,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string    `json:"AccountSid,omitempty"`
+	DateCreated  time.Time `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string    `json:"FriendlyName,omitempty"`
+	Sandbox      string    `json:"Sandbox,omitempty"`
+	Sid          string    `json:"Sid,omitempty"`
+	Type         PushType  `json:"Type,omitempty"`
+	Url          string    `json:"Url,omitempty"`
 }

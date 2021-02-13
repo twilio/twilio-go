@@ -9,18 +9,19 @@
  */
 
 package openapi
+
 // ApiV2010AccountConference struct for ApiV2010AccountConference
 type ApiV2010AccountConference struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ApiVersion string `json:"ApiVersion,omitempty"`
-	CallSidEndingConference string `json:"CallSidEndingConference,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	ReasonConferenceEnded ReasonConferenceEnded `json:"ReasonConferenceEnded,omitempty"`
-	Region string `json:"Region,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	AccountSid              string                 `json:"AccountSid,omitempty"`
+	ApiVersion              string                 `json:"ApiVersion,omitempty"`
+	CallSidEndingConference string                 `json:"CallSidEndingConference,omitempty"`
+	DateCreated             string                 `json:"DateCreated,omitempty"`
+	DateUpdated             string                 `json:"DateUpdated,omitempty"`
+	FriendlyName            string                 `json:"FriendlyName,omitempty"`
+	ReasonConferenceEnded   ReasonConferenceEnded  `json:"ReasonConferenceEnded,omitempty"`
+	Region                  string                 `json:"Region,omitempty"`
+	Sid                     string                 `json:"Sid,omitempty"`
+	Status                  Status                 `json:"Status,omitempty"`
+	SubresourceUris         map[string]interface{} `json:"SubresourceUris,omitempty"`
+	Uri                     string                 `json:"Uri,omitempty"`
 }

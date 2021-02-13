@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateServiceRequest struct for UpdateServiceRequest
 type UpdateServiceRequest struct {
 	// DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.

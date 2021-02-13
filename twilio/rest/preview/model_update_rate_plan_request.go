@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // UpdateRatePlanRequest struct for UpdateRatePlanRequest
 type UpdateRatePlanRequest struct {
 	FriendlyName string `json:"FriendlyName,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
+	UniqueName   string `json:"UniqueName,omitempty"`
 }

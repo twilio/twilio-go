@@ -9,33 +9,35 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // WirelessV1Sim struct for WirelessV1Sim
 type WirelessV1Sim struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CommandsCallbackMethod HttpMethod `json:"CommandsCallbackMethod,omitempty"`
-	CommandsCallbackUrl string `json:"CommandsCallbackUrl,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	EId string `json:"EId,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Iccid string `json:"Iccid,omitempty"`
-	IpAddress string `json:"IpAddress,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	RatePlanSid string `json:"RatePlanSid,omitempty"`
-	ResetStatus ResetStatus `json:"ResetStatus,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	SmsFallbackMethod HttpMethod `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod HttpMethod `json:"SmsMethod,omitempty"`
-	SmsUrl string `json:"SmsUrl,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
-	Url string `json:"Url,omitempty"`
-	VoiceFallbackMethod HttpMethod `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod HttpMethod `json:"VoiceMethod,omitempty"`
-	VoiceUrl string `json:"VoiceUrl,omitempty"`
+	AccountSid             string                 `json:"AccountSid,omitempty"`
+	CommandsCallbackMethod HttpMethod             `json:"CommandsCallbackMethod,omitempty"`
+	CommandsCallbackUrl    string                 `json:"CommandsCallbackUrl,omitempty"`
+	DateCreated            time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated            time.Time              `json:"DateUpdated,omitempty"`
+	EId                    string                 `json:"EId,omitempty"`
+	FriendlyName           string                 `json:"FriendlyName,omitempty"`
+	Iccid                  string                 `json:"Iccid,omitempty"`
+	IpAddress              string                 `json:"IpAddress,omitempty"`
+	Links                  map[string]interface{} `json:"Links,omitempty"`
+	RatePlanSid            string                 `json:"RatePlanSid,omitempty"`
+	ResetStatus            ResetStatus            `json:"ResetStatus,omitempty"`
+	Sid                    string                 `json:"Sid,omitempty"`
+	SmsFallbackMethod      HttpMethod             `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackUrl         string                 `json:"SmsFallbackUrl,omitempty"`
+	SmsMethod              HttpMethod             `json:"SmsMethod,omitempty"`
+	SmsUrl                 string                 `json:"SmsUrl,omitempty"`
+	Status                 Status                 `json:"Status,omitempty"`
+	UniqueName             string                 `json:"UniqueName,omitempty"`
+	Url                    string                 `json:"Url,omitempty"`
+	VoiceFallbackMethod    HttpMethod             `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl       string                 `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod            HttpMethod             `json:"VoiceMethod,omitempty"`
+	VoiceUrl               string                 `json:"VoiceUrl,omitempty"`
 }

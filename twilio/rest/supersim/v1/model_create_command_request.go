@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCommandRequest struct for CreateCommandRequest
 type CreateCommandRequest struct {
 	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.

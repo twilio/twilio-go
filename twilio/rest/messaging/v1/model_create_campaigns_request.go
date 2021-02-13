@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCampaignsRequest struct for CreateCampaignsRequest
 type CreateCampaignsRequest struct {
 	// A2P BrandRegistration Sid

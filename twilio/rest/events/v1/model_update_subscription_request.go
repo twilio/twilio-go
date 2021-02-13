@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSubscriptionRequest struct for UpdateSubscriptionRequest
 type UpdateSubscriptionRequest struct {
 	// A human readable description for the Subscription.

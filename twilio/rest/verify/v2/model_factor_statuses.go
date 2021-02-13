@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // FactorStatuses the model 'FactorStatuses'
 type FactorStatuses string
 
 // List of factor_statuses
 const (
 	FACTORSTATUSES_UNVERIFIED FactorStatuses = "unverified"
-	FACTORSTATUSES_VERIFIED FactorStatuses = "verified"
+	FACTORSTATUSES_VERIFIED   FactorStatuses = "verified"
 )

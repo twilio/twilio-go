@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -23,16 +24,17 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://trusthub.twilio.com"),
 	}
 }
+
 // CreateCustomerProfileParams Optional parameters for the method 'CreateCustomerProfile'
 type CreateCustomerProfileParams struct {
-	Email *string `json:"Email,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PolicySid *string `json:"PolicySid,omitempty"`
+	Email          *string `json:"Email,omitempty"`
+	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	PolicySid      *string `json:"PolicySid,omitempty"`
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
@@ -49,23 +51,21 @@ Create a new Customer-Profile.
 func (c *DefaultApiService) CreateCustomerProfile(params *CreateCustomerProfileParams) (*TrusthubV1CustomerProfile, error) {
 	path := "/v1/CustomerProfiles"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PolicySid != nil {
-		data.Set("PolicySid", *params.PolicySid) 
+		data.Set("PolicySid", *params.PolicySid)
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -81,9 +81,10 @@ func (c *DefaultApiService) CreateCustomerProfile(params *CreateCustomerProfileP
 
 	return ps, err
 }
+
 // CreateCustomerProfileChannelEndpointAssignmentParams Optional parameters for the method 'CreateCustomerProfileChannelEndpointAssignment'
 type CreateCustomerProfileChannelEndpointAssignmentParams struct {
-	ChannelEndpointSid *string `json:"ChannelEndpointSid,omitempty"`
+	ChannelEndpointSid  *string `json:"ChannelEndpointSid,omitempty"`
 	ChannelEndpointType *string `json:"ChannelEndpointType,omitempty"`
 }
 
@@ -100,17 +101,15 @@ func (c *DefaultApiService) CreateCustomerProfileChannelEndpointAssignment(Custo
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelEndpointSid != nil {
-		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid) 
+		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
 	if params != nil && params.ChannelEndpointType != nil {
-		data.Set("ChannelEndpointType", *params.ChannelEndpointType) 
+		data.Set("ChannelEndpointType", *params.ChannelEndpointType)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -126,6 +125,7 @@ func (c *DefaultApiService) CreateCustomerProfileChannelEndpointAssignment(Custo
 
 	return ps, err
 }
+
 // CreateCustomerProfileEntityAssignmentParams Optional parameters for the method 'CreateCustomerProfileEntityAssignment'
 type CreateCustomerProfileEntityAssignmentParams struct {
 	ObjectSid *string `json:"ObjectSid,omitempty"`
@@ -143,14 +143,12 @@ func (c *DefaultApiService) CreateCustomerProfileEntityAssignment(CustomerProfil
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ObjectSid != nil {
-		data.Set("ObjectSid", *params.ObjectSid) 
+		data.Set("ObjectSid", *params.ObjectSid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -166,6 +164,7 @@ func (c *DefaultApiService) CreateCustomerProfileEntityAssignment(CustomerProfil
 
 	return ps, err
 }
+
 // CreateCustomerProfileEvaluationParams Optional parameters for the method 'CreateCustomerProfileEvaluation'
 type CreateCustomerProfileEvaluationParams struct {
 	PolicySid *string `json:"PolicySid,omitempty"`
@@ -183,14 +182,12 @@ func (c *DefaultApiService) CreateCustomerProfileEvaluation(CustomerProfileSid s
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PolicySid != nil {
-		data.Set("PolicySid", *params.PolicySid) 
+		data.Set("PolicySid", *params.PolicySid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -206,11 +203,12 @@ func (c *DefaultApiService) CreateCustomerProfileEvaluation(CustomerProfileSid s
 
 	return ps, err
 }
+
 // CreateEndUserParams Optional parameters for the method 'CreateEndUser'
 type CreateEndUserParams struct {
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Type *string `json:"Type,omitempty"`
+	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+	Type         *string                 `json:"Type,omitempty"`
 }
 
 /*
@@ -225,7 +223,6 @@ Create a new End User.
 func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*TrusthubV1EndUser, error) {
 	path := "/v1/EndUsers"
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -239,12 +236,11 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Trusthu
 		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type) 
+		data.Set("Type", *params.Type)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -260,11 +256,12 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Trusthu
 
 	return ps, err
 }
+
 // CreateSupportingDocumentParams Optional parameters for the method 'CreateSupportingDocument'
 type CreateSupportingDocumentParams struct {
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Type *string `json:"Type,omitempty"`
+	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+	Type         *string                 `json:"Type,omitempty"`
 }
 
 /*
@@ -279,7 +276,6 @@ Create a new Supporting Document.
 func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDocumentParams) (*TrusthubV1SupportingDocument, error) {
 	path := "/v1/SupportingDocuments"
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -293,12 +289,11 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type) 
+		data.Set("Type", *params.Type)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -314,11 +309,12 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 
 	return ps, err
 }
+
 // CreateTrustProductParams Optional parameters for the method 'CreateTrustProduct'
 type CreateTrustProductParams struct {
-	Email *string `json:"Email,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PolicySid *string `json:"PolicySid,omitempty"`
+	Email          *string `json:"Email,omitempty"`
+	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	PolicySid      *string `json:"PolicySid,omitempty"`
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
@@ -335,23 +331,21 @@ Create a new Customer-Profile.
 func (c *DefaultApiService) CreateTrustProduct(params *CreateTrustProductParams) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PolicySid != nil {
-		data.Set("PolicySid", *params.PolicySid) 
+		data.Set("PolicySid", *params.PolicySid)
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -367,9 +361,10 @@ func (c *DefaultApiService) CreateTrustProduct(params *CreateTrustProductParams)
 
 	return ps, err
 }
+
 // CreateTrustProductChannelEndpointAssignmentParams Optional parameters for the method 'CreateTrustProductChannelEndpointAssignment'
 type CreateTrustProductChannelEndpointAssignmentParams struct {
-	ChannelEndpointSid *string `json:"ChannelEndpointSid,omitempty"`
+	ChannelEndpointSid  *string `json:"ChannelEndpointSid,omitempty"`
 	ChannelEndpointType *string `json:"ChannelEndpointType,omitempty"`
 }
 
@@ -386,17 +381,15 @@ func (c *DefaultApiService) CreateTrustProductChannelEndpointAssignment(TrustPro
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelEndpointSid != nil {
-		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid) 
+		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
 	if params != nil && params.ChannelEndpointType != nil {
-		data.Set("ChannelEndpointType", *params.ChannelEndpointType) 
+		data.Set("ChannelEndpointType", *params.ChannelEndpointType)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -412,6 +405,7 @@ func (c *DefaultApiService) CreateTrustProductChannelEndpointAssignment(TrustPro
 
 	return ps, err
 }
+
 // CreateTrustProductEntityAssignmentParams Optional parameters for the method 'CreateTrustProductEntityAssignment'
 type CreateTrustProductEntityAssignmentParams struct {
 	ObjectSid *string `json:"ObjectSid,omitempty"`
@@ -429,14 +423,12 @@ func (c *DefaultApiService) CreateTrustProductEntityAssignment(TrustProductSid s
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ObjectSid != nil {
-		data.Set("ObjectSid", *params.ObjectSid) 
+		data.Set("ObjectSid", *params.ObjectSid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -452,6 +444,7 @@ func (c *DefaultApiService) CreateTrustProductEntityAssignment(TrustProductSid s
 
 	return ps, err
 }
+
 // CreateTrustProductEvaluationParams Optional parameters for the method 'CreateTrustProductEvaluation'
 type CreateTrustProductEvaluationParams struct {
 	PolicySid *string `json:"PolicySid,omitempty"`
@@ -469,14 +462,12 @@ func (c *DefaultApiService) CreateTrustProductEvaluation(TrustProductSid string,
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PolicySid != nil {
-		data.Set("PolicySid", *params.PolicySid) 
+		data.Set("PolicySid", *params.PolicySid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -498,15 +489,12 @@ DeleteCustomerProfile Method for DeleteCustomerProfile
 Delete a specific Customer-Profile.
  * @param Sid The unique string that we created to identify the Customer-Profile resource.
 */
-func (c *DefaultApiService) DeleteCustomerProfile(Sid string) (error) {
+func (c *DefaultApiService) DeleteCustomerProfile(Sid string) error {
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -524,16 +512,13 @@ Remove an Assignment Item Instance.
  * @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
  * @param Sid The unique string that we created to identify the resource.
 */
-func (c *DefaultApiService) DeleteCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, Sid string) error {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -551,16 +536,13 @@ Remove an Assignment Item Instance.
  * @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
  * @param Sid The unique string that we created to identify the Identity resource.
 */
-func (c *DefaultApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) error {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -577,15 +559,12 @@ DeleteEndUser Method for DeleteEndUser
 Delete a specific End User.
  * @param Sid The unique string created by Twilio to identify the End User resource.
 */
-func (c *DefaultApiService) DeleteEndUser(Sid string) (error) {
+func (c *DefaultApiService) DeleteEndUser(Sid string) error {
 	path := "/v1/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -602,15 +581,12 @@ DeleteSupportingDocument Method for DeleteSupportingDocument
 Delete a specific Supporting Document.
  * @param Sid The unique string created by Twilio to identify the Supporting Document resource.
 */
-func (c *DefaultApiService) DeleteSupportingDocument(Sid string) (error) {
+func (c *DefaultApiService) DeleteSupportingDocument(Sid string) error {
 	path := "/v1/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -627,15 +603,12 @@ DeleteTrustProduct Method for DeleteTrustProduct
 Delete a specific Customer-Profile.
  * @param Sid The unique string that we created to identify the Customer-Profile resource.
 */
-func (c *DefaultApiService) DeleteTrustProduct(Sid string) (error) {
+func (c *DefaultApiService) DeleteTrustProduct(Sid string) error {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -653,16 +626,13 @@ Remove an Assignment Item Instance.
  * @param TrustProductSid The unique string that we created to identify the CustomerProfile resource.
  * @param Sid The unique string that we created to identify the resource.
 */
-func (c *DefaultApiService) DeleteTrustProductChannelEndpointAssignment(TrustProductSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteTrustProductChannelEndpointAssignment(TrustProductSid string, Sid string) error {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -680,16 +650,13 @@ Remove an Assignment Item Instance.
  * @param TrustProductSid The unique string that we created to identify the TrustProduct resource.
  * @param Sid The unique string that we created to identify the Identity resource.
 */
-func (c *DefaultApiService) DeleteTrustProductEntityAssignment(TrustProductSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteTrustProductEntityAssignment(TrustProductSid string, Sid string) error {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -711,11 +678,8 @@ func (c *DefaultApiService) FetchCustomerProfile(Sid string) (*TrusthubV1Custome
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -744,11 +708,8 @@ func (c *DefaultApiService) FetchCustomerProfileChannelEndpointAssignment(Custom
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -777,11 +738,8 @@ func (c *DefaultApiService) FetchCustomerProfileEntityAssignment(CustomerProfile
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -810,11 +768,8 @@ func (c *DefaultApiService) FetchCustomerProfileEvaluation(CustomerProfileSid st
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -841,11 +796,8 @@ func (c *DefaultApiService) FetchEndUser(Sid string) (*TrusthubV1EndUser, error)
 	path := "/v1/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -872,11 +824,8 @@ func (c *DefaultApiService) FetchEndUserType(Sid string) (*TrusthubV1EndUserType
 	path := "/v1/EndUserTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -903,11 +852,8 @@ func (c *DefaultApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, erro
 	path := "/v1/Policies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -934,11 +880,8 @@ func (c *DefaultApiService) FetchSupportingDocument(Sid string) (*TrusthubV1Supp
 	path := "/v1/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -965,11 +908,8 @@ func (c *DefaultApiService) FetchSupportingDocumentType(Sid string) (*TrusthubV1
 	path := "/v1/SupportingDocumentTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -996,11 +936,8 @@ func (c *DefaultApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProdu
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1029,11 +966,8 @@ func (c *DefaultApiService) FetchTrustProductChannelEndpointAssignment(TrustProd
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1062,11 +996,8 @@ func (c *DefaultApiService) FetchTrustProductEntityAssignment(TrustProductSid st
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1095,11 +1026,8 @@ func (c *DefaultApiService) FetchTrustProductEvaluation(TrustProductSid string, 
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1115,12 +1043,13 @@ func (c *DefaultApiService) FetchTrustProductEvaluation(TrustProductSid string, 
 
 	return ps, err
 }
+
 // ListCustomerProfileParams Optional parameters for the method 'ListCustomerProfile'
 type ListCustomerProfileParams struct {
-	Status *string `json:"Status,omitempty"`
+	Status       *string `json:"Status,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PolicySid *string `json:"PolicySid,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PolicySid    *string `json:"PolicySid,omitempty"`
+	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1136,23 +1065,21 @@ Retrieve a list of all Customer-Profiles for an account.
 func (c *DefaultApiService) ListCustomerProfile(params *ListCustomerProfileParams) (*ListCustomerProfileResponse, error) {
 	path := "/v1/CustomerProfiles"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PolicySid != nil {
-		data.Set("PolicySid", *params.PolicySid) 
+		data.Set("PolicySid", *params.PolicySid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1168,11 +1095,12 @@ func (c *DefaultApiService) ListCustomerProfile(params *ListCustomerProfileParam
 
 	return ps, err
 }
+
 // ListCustomerProfileChannelEndpointAssignmentParams Optional parameters for the method 'ListCustomerProfileChannelEndpointAssignment'
 type ListCustomerProfileChannelEndpointAssignmentParams struct {
-	ChannelEndpointSid *string `json:"ChannelEndpointSid,omitempty"`
+	ChannelEndpointSid  *string `json:"ChannelEndpointSid,omitempty"`
 	ChannelEndpointSids *string `json:"ChannelEndpointSids,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize            *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1189,20 +1117,18 @@ func (c *DefaultApiService) ListCustomerProfileChannelEndpointAssignment(Custome
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelEndpointSid != nil {
-		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid) 
+		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
 	if params != nil && params.ChannelEndpointSids != nil {
-		data.Set("ChannelEndpointSids", *params.ChannelEndpointSids) 
+		data.Set("ChannelEndpointSids", *params.ChannelEndpointSids)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1218,6 +1144,7 @@ func (c *DefaultApiService) ListCustomerProfileChannelEndpointAssignment(Custome
 
 	return ps, err
 }
+
 // ListCustomerProfileEntityAssignmentParams Optional parameters for the method 'ListCustomerProfileEntityAssignment'
 type ListCustomerProfileEntityAssignmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1235,14 +1162,12 @@ func (c *DefaultApiService) ListCustomerProfileEntityAssignment(CustomerProfileS
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1258,6 +1183,7 @@ func (c *DefaultApiService) ListCustomerProfileEntityAssignment(CustomerProfileS
 
 	return ps, err
 }
+
 // ListCustomerProfileEvaluationParams Optional parameters for the method 'ListCustomerProfileEvaluation'
 type ListCustomerProfileEvaluationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1275,14 +1201,12 @@ func (c *DefaultApiService) ListCustomerProfileEvaluation(CustomerProfileSid str
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1298,6 +1222,7 @@ func (c *DefaultApiService) ListCustomerProfileEvaluation(CustomerProfileSid str
 
 	return ps, err
 }
+
 // ListEndUserParams Optional parameters for the method 'ListEndUser'
 type ListEndUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1313,14 +1238,12 @@ Retrieve a list of all End User for an account.
 func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUserResponse, error) {
 	path := "/v1/EndUsers"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1336,6 +1259,7 @@ func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUser
 
 	return ps, err
 }
+
 // ListEndUserTypeParams Optional parameters for the method 'ListEndUserType'
 type ListEndUserTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1351,14 +1275,12 @@ Retrieve a list of all End-User Types.
 func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*ListEndUserTypeResponse, error) {
 	path := "/v1/EndUserTypes"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1374,6 +1296,7 @@ func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*Lis
 
 	return ps, err
 }
+
 // ListPoliciesParams Optional parameters for the method 'ListPolicies'
 type ListPoliciesParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1389,14 +1312,12 @@ Retrieve a list of all Policys.
 func (c *DefaultApiService) ListPolicies(params *ListPoliciesParams) (*ListPoliciesResponse, error) {
 	path := "/v1/Policies"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1412,6 +1333,7 @@ func (c *DefaultApiService) ListPolicies(params *ListPoliciesParams) (*ListPolic
 
 	return ps, err
 }
+
 // ListSupportingDocumentParams Optional parameters for the method 'ListSupportingDocument'
 type ListSupportingDocumentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1427,14 +1349,12 @@ Retrieve a list of all Supporting Document for an account.
 func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumentParams) (*ListSupportingDocumentResponse, error) {
 	path := "/v1/SupportingDocuments"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1450,6 +1370,7 @@ func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumen
 
 	return ps, err
 }
+
 // ListSupportingDocumentTypeParams Optional parameters for the method 'ListSupportingDocumentType'
 type ListSupportingDocumentTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1465,14 +1386,12 @@ Retrieve a list of all Supporting Document Types.
 func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) (*ListSupportingDocumentTypeResponse, error) {
 	path := "/v1/SupportingDocumentTypes"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1488,12 +1407,13 @@ func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDoc
 
 	return ps, err
 }
+
 // ListTrustProductParams Optional parameters for the method 'ListTrustProduct'
 type ListTrustProductParams struct {
-	Status *string `json:"Status,omitempty"`
+	Status       *string `json:"Status,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PolicySid *string `json:"PolicySid,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PolicySid    *string `json:"PolicySid,omitempty"`
+	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1509,23 +1429,21 @@ Retrieve a list of all Customer-Profiles for an account.
 func (c *DefaultApiService) ListTrustProduct(params *ListTrustProductParams) (*ListTrustProductResponse, error) {
 	path := "/v1/TrustProducts"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PolicySid != nil {
-		data.Set("PolicySid", *params.PolicySid) 
+		data.Set("PolicySid", *params.PolicySid)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1541,11 +1459,12 @@ func (c *DefaultApiService) ListTrustProduct(params *ListTrustProductParams) (*L
 
 	return ps, err
 }
+
 // ListTrustProductChannelEndpointAssignmentParams Optional parameters for the method 'ListTrustProductChannelEndpointAssignment'
 type ListTrustProductChannelEndpointAssignmentParams struct {
-	ChannelEndpointSid *string `json:"ChannelEndpointSid,omitempty"`
+	ChannelEndpointSid  *string `json:"ChannelEndpointSid,omitempty"`
 	ChannelEndpointSids *string `json:"ChannelEndpointSids,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize            *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1562,20 +1481,18 @@ func (c *DefaultApiService) ListTrustProductChannelEndpointAssignment(TrustProdu
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ChannelEndpointSid != nil {
-		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid) 
+		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
 	if params != nil && params.ChannelEndpointSids != nil {
-		data.Set("ChannelEndpointSids", *params.ChannelEndpointSids) 
+		data.Set("ChannelEndpointSids", *params.ChannelEndpointSids)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1591,6 +1508,7 @@ func (c *DefaultApiService) ListTrustProductChannelEndpointAssignment(TrustProdu
 
 	return ps, err
 }
+
 // ListTrustProductEntityAssignmentParams Optional parameters for the method 'ListTrustProductEntityAssignment'
 type ListTrustProductEntityAssignmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1608,14 +1526,12 @@ func (c *DefaultApiService) ListTrustProductEntityAssignment(TrustProductSid str
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1631,6 +1547,7 @@ func (c *DefaultApiService) ListTrustProductEntityAssignment(TrustProductSid str
 
 	return ps, err
 }
+
 // ListTrustProductEvaluationParams Optional parameters for the method 'ListTrustProductEvaluation'
 type ListTrustProductEvaluationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1648,14 +1565,12 @@ func (c *DefaultApiService) ListTrustProductEvaluation(TrustProductSid string, p
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1671,11 +1586,12 @@ func (c *DefaultApiService) ListTrustProductEvaluation(TrustProductSid string, p
 
 	return ps, err
 }
+
 // UpdateCustomerProfileParams Optional parameters for the method 'UpdateCustomerProfile'
 type UpdateCustomerProfileParams struct {
-	Email *string `json:"Email,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	Email          *string `json:"Email,omitempty"`
+	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	Status         *string `json:"Status,omitempty"`
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
@@ -1694,23 +1610,21 @@ func (c *DefaultApiService) UpdateCustomerProfile(Sid string, params *UpdateCust
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1726,10 +1640,11 @@ func (c *DefaultApiService) UpdateCustomerProfile(Sid string, params *UpdateCust
 
 	return ps, err
 }
+
 // UpdateEndUserParams Optional parameters for the method 'UpdateEndUser'
 type UpdateEndUserParams struct {
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1745,7 +1660,6 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 	path := "/v1/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -1759,9 +1673,8 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1777,10 +1690,11 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 
 	return ps, err
 }
+
 // UpdateSupportingDocumentParams Optional parameters for the method 'UpdateSupportingDocument'
 type UpdateSupportingDocumentParams struct {
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1796,7 +1710,6 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 	path := "/v1/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -1810,9 +1723,8 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1828,11 +1740,12 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 
 	return ps, err
 }
+
 // UpdateTrustProductParams Optional parameters for the method 'UpdateTrustProduct'
 type UpdateTrustProductParams struct {
-	Email *string `json:"Email,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	Email          *string `json:"Email,omitempty"`
+	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	Status         *string `json:"Status,omitempty"`
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
@@ -1851,23 +1764,21 @@ func (c *DefaultApiService) UpdateTrustProduct(Sid string, params *UpdateTrustPr
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

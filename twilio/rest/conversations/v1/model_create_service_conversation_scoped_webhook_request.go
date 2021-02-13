@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateServiceConversationScopedWebhookRequest struct for CreateServiceConversationScopedWebhookRequest
 type CreateServiceConversationScopedWebhookRequest struct {
 	// The list of events, firing webhook event for this Conversation.

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // UpdateMemberRequest struct for UpdateMemberRequest
 type UpdateMemberRequest struct {
 	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
-	RoleSid string `json:"RoleSid,omitempty"`
+	RoleSid                  string `json:"RoleSid,omitempty"`
 }

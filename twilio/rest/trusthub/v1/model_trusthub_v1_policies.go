@@ -9,10 +9,11 @@
  */
 
 package openapi
+
 // TrusthubV1Policies struct for TrusthubV1Policies
 type TrusthubV1Policies struct {
-	FriendlyName string `json:"FriendlyName,omitempty"`
+	FriendlyName string                 `json:"FriendlyName,omitempty"`
 	Requirements map[string]interface{} `json:"Requirements,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Sid          string                 `json:"Sid,omitempty"`
+	Url          string                 `json:"Url,omitempty"`
 }

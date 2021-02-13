@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // RoomStatus the model 'RoomStatus'
 type RoomStatus string
 
 // List of room_status
 const (
 	ROOMSTATUS_IN_PROGRESS RoomStatus = "in-progress"
-	ROOMSTATUS_COMPLETED RoomStatus = "completed"
-	ROOMSTATUS_FAILED RoomStatus = "failed"
+	ROOMSTATUS_COMPLETED   RoomStatus = "completed"
+	ROOMSTATUS_FAILED      RoomStatus = "failed"
 )

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateFieldTypeRequest struct for UpdateFieldTypeRequest
 type UpdateFieldTypeRequest struct {
 	// A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.

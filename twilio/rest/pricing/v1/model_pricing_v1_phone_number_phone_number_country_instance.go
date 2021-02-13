@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // PricingV1PhoneNumberPhoneNumberCountryInstance struct for PricingV1PhoneNumberPhoneNumberCountryInstance
 type PricingV1PhoneNumberPhoneNumberCountryInstance struct {
-	Country string `json:"Country,omitempty"`
-	IsoCountry string `json:"IsoCountry,omitempty"`
+	Country           string                   `json:"Country,omitempty"`
+	IsoCountry        string                   `json:"IsoCountry,omitempty"`
 	PhoneNumberPrices []map[string]interface{} `json:"PhoneNumberPrices,omitempty"`
-	PriceUnit string `json:"PriceUnit,omitempty"`
-	Url string `json:"Url,omitempty"`
+	PriceUnit         string                   `json:"PriceUnit,omitempty"`
+	Url               string                   `json:"Url,omitempty"`
 }

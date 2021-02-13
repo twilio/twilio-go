@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // ApiV2010AccountSipSipCredentialList struct for ApiV2010AccountSipSipCredentialList
 type ApiV2010AccountSipSipCredentialList struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Sid string `json:"Sid,omitempty"`
+	AccountSid      string                 `json:"AccountSid,omitempty"`
+	DateCreated     string                 `json:"DateCreated,omitempty"`
+	DateUpdated     string                 `json:"DateUpdated,omitempty"`
+	FriendlyName    string                 `json:"FriendlyName,omitempty"`
+	Sid             string                 `json:"Sid,omitempty"`
 	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	Uri             string                 `json:"Uri,omitempty"`
 }

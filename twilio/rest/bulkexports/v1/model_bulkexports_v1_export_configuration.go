@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // BulkexportsV1ExportConfiguration struct for BulkexportsV1ExportConfiguration
 type BulkexportsV1ExportConfiguration struct {
-	Enabled bool `json:"Enabled,omitempty"`
-	ResourceType string `json:"ResourceType,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Enabled       bool   `json:"Enabled,omitempty"`
+	ResourceType  string `json:"ResourceType,omitempty"`
+	Url           string `json:"Url,omitempty"`
 	WebhookMethod string `json:"WebhookMethod,omitempty"`
-	WebhookUrl string `json:"WebhookUrl,omitempty"`
+	WebhookUrl    string `json:"WebhookUrl,omitempty"`
 }

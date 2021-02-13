@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateServiceRequest struct for UpdateServiceRequest
 type UpdateServiceRequest struct {
 	// The URL we should call when the interaction status changes.

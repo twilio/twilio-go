@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateTaskRequest struct for UpdateTaskRequest
 type UpdateTaskRequest struct {
 	// A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.

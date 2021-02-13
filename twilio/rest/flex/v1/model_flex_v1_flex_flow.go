@@ -9,23 +9,25 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // FlexV1FlexFlow struct for FlexV1FlexFlow
 type FlexV1FlexFlow struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ChannelType ChannelType `json:"ChannelType,omitempty"`
-	ChatServiceSid string `json:"ChatServiceSid,omitempty"`
-	ContactIdentity string `json:"ContactIdentity,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Enabled bool `json:"Enabled,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Integration map[string]interface{} `json:"Integration,omitempty"`
-	IntegrationType IntegrationType `json:"IntegrationType,omitempty"`
-	JanitorEnabled bool `json:"JanitorEnabled,omitempty"`
-	LongLived bool `json:"LongLived,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid      string                 `json:"AccountSid,omitempty"`
+	ChannelType     ChannelType            `json:"ChannelType,omitempty"`
+	ChatServiceSid  string                 `json:"ChatServiceSid,omitempty"`
+	ContactIdentity string                 `json:"ContactIdentity,omitempty"`
+	DateCreated     time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated     time.Time              `json:"DateUpdated,omitempty"`
+	Enabled         bool                   `json:"Enabled,omitempty"`
+	FriendlyName    string                 `json:"FriendlyName,omitempty"`
+	Integration     map[string]interface{} `json:"Integration,omitempty"`
+	IntegrationType IntegrationType        `json:"IntegrationType,omitempty"`
+	JanitorEnabled  bool                   `json:"JanitorEnabled,omitempty"`
+	LongLived       bool                   `json:"LongLived,omitempty"`
+	Sid             string                 `json:"Sid,omitempty"`
+	Url             string                 `json:"Url,omitempty"`
 }

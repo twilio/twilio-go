@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // LookupsV1PhoneNumber struct for LookupsV1PhoneNumber
 type LookupsV1PhoneNumber struct {
-	AddOns map[string]interface{} `json:"AddOns,omitempty"`
-	CallerName map[string]interface{} `json:"CallerName,omitempty"`
-	Carrier map[string]interface{} `json:"Carrier,omitempty"`
-	CountryCode string `json:"CountryCode,omitempty"`
-	NationalFormat string `json:"NationalFormat,omitempty"`
-	PhoneNumber string `json:"PhoneNumber,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AddOns         map[string]interface{} `json:"AddOns,omitempty"`
+	CallerName     map[string]interface{} `json:"CallerName,omitempty"`
+	Carrier        map[string]interface{} `json:"Carrier,omitempty"`
+	CountryCode    string                 `json:"CountryCode,omitempty"`
+	NationalFormat string                 `json:"NationalFormat,omitempty"`
+	PhoneNumber    string                 `json:"PhoneNumber,omitempty"`
+	Url            string                 `json:"Url,omitempty"`
 }

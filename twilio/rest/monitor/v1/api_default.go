@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -23,8 +25,8 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://monitor.twilio.com"),
 	}
 }
@@ -38,11 +40,8 @@ func (c *DefaultApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, err
 	path := "/v1/Alerts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -68,11 +67,8 @@ func (c *DefaultApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 	path := "/v1/Events/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -88,12 +84,13 @@ func (c *DefaultApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 
 	return ps, err
 }
+
 // ListAlertParams Optional parameters for the method 'ListAlert'
 type ListAlertParams struct {
-	LogLevel *string `json:"LogLevel,omitempty"`
+	LogLevel  *string    `json:"LogLevel,omitempty"`
 	StartDate *time.Time `json:"StartDate,omitempty"`
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	EndDate   *time.Time `json:"EndDate,omitempty"`
+	PageSize  *int32     `json:"PageSize,omitempty"`
 }
 
 /*
@@ -108,23 +105,21 @@ ListAlert Method for ListAlert
 func (c *DefaultApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, error) {
 	path := "/v1/Alerts"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.LogLevel != nil {
-		data.Set("LogLevel", *params.LogLevel) 
+		data.Set("LogLevel", *params.LogLevel)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -140,15 +135,16 @@ func (c *DefaultApiService) ListAlert(params *ListAlertParams) (*ListAlertRespon
 
 	return ps, err
 }
+
 // ListEventParams Optional parameters for the method 'ListEvent'
 type ListEventParams struct {
-	ActorSid *string `json:"ActorSid,omitempty"`
-	EventType *string `json:"EventType,omitempty"`
-	ResourceSid *string `json:"ResourceSid,omitempty"`
-	SourceIpAddress *string `json:"SourceIpAddress,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	ActorSid        *string    `json:"ActorSid,omitempty"`
+	EventType       *string    `json:"EventType,omitempty"`
+	ResourceSid     *string    `json:"ResourceSid,omitempty"`
+	SourceIpAddress *string    `json:"SourceIpAddress,omitempty"`
+	StartDate       *time.Time `json:"StartDate,omitempty"`
+	EndDate         *time.Time `json:"EndDate,omitempty"`
+	PageSize        *int32     `json:"PageSize,omitempty"`
 }
 
 /*
@@ -167,32 +163,30 @@ Returns a list of events in the account, sorted by event-date.
 func (c *DefaultApiService) ListEvent(params *ListEventParams) (*ListEventResponse, error) {
 	path := "/v1/Events"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ActorSid != nil {
-		data.Set("ActorSid", *params.ActorSid) 
+		data.Set("ActorSid", *params.ActorSid)
 	}
 	if params != nil && params.EventType != nil {
-		data.Set("EventType", *params.EventType) 
+		data.Set("EventType", *params.EventType)
 	}
 	if params != nil && params.ResourceSid != nil {
-		data.Set("ResourceSid", *params.ResourceSid) 
+		data.Set("ResourceSid", *params.ResourceSid)
 	}
 	if params != nil && params.SourceIpAddress != nil {
-		data.Set("SourceIpAddress", *params.SourceIpAddress) 
+		data.Set("SourceIpAddress", *params.SourceIpAddress)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {

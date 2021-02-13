@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateWorkerReservationRequest struct for UpdateWorkerReservationRequest
 type UpdateWorkerReservationRequest struct {
 	// Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.

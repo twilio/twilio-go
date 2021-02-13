@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // ModelType the model 'ModelType'
 type ModelType string
 
@@ -16,5 +17,5 @@ type ModelType string
 const (
 	MODELTYPE_AUDIO ModelType = "audio"
 	MODELTYPE_VIDEO ModelType = "video"
-	MODELTYPE_DATA ModelType = "data"
+	MODELTYPE_DATA  ModelType = "data"
 )

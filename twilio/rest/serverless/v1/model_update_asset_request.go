@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateAssetRequest struct for UpdateAssetRequest
 type UpdateAssetRequest struct {
 	// A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.

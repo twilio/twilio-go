@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateVerificationRequest struct for UpdateVerificationRequest
 type UpdateVerificationRequest struct {
 	// The new status of the resource. Can be: `canceled` or `approved`.

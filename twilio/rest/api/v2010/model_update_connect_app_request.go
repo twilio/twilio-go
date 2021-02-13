@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateConnectAppRequest struct for UpdateConnectAppRequest
 type UpdateConnectAppRequest struct {
 	// The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.

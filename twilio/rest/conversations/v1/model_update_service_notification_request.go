@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateServiceNotificationRequest struct for UpdateServiceNotificationRequest
 type UpdateServiceNotificationRequest struct {
 	// Whether to send a notification when a participant is added to a conversation. The default is `false`.

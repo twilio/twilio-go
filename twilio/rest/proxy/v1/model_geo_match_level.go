@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // GeoMatchLevel the model 'GeoMatchLevel'
 type GeoMatchLevel string
 
 // List of geo_match_level
 const (
 	GEOMATCHLEVEL_AREA_CODE GeoMatchLevel = "area-code"
-	GEOMATCHLEVEL_OVERLAY GeoMatchLevel = "overlay"
-	GEOMATCHLEVEL_RADIUS GeoMatchLevel = "radius"
-	GEOMATCHLEVEL_COUNTRY GeoMatchLevel = "country"
+	GEOMATCHLEVEL_OVERLAY   GeoMatchLevel = "overlay"
+	GEOMATCHLEVEL_RADIUS    GeoMatchLevel = "radius"
+	GEOMATCHLEVEL_COUNTRY   GeoMatchLevel = "country"
 )

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListKeyResponse struct for ListKeyResponse
 type ListKeyResponse struct {
 	Keys []PreviewDeployedDevicesFleetKey `json:"Keys,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta ListDayResponseMeta              `json:"Meta,omitempty"`
 }

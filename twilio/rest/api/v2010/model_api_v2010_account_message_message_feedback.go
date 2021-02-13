@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // ApiV2010AccountMessageMessageFeedback struct for ApiV2010AccountMessageMessageFeedback
 type ApiV2010AccountMessageMessageFeedback struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	MessageSid string `json:"MessageSid,omitempty"`
-	Outcome Outcome `json:"Outcome,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	AccountSid  string  `json:"AccountSid,omitempty"`
+	DateCreated string  `json:"DateCreated,omitempty"`
+	DateUpdated string  `json:"DateUpdated,omitempty"`
+	MessageSid  string  `json:"MessageSid,omitempty"`
+	Outcome     Outcome `json:"Outcome,omitempty"`
+	Uri         string  `json:"Uri,omitempty"`
 }

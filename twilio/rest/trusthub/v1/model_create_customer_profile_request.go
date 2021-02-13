@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCustomerProfileRequest struct for CreateCustomerProfileRequest
 type CreateCustomerProfileRequest struct {
 	// The email address that will receive updates when the Customer-Profile resource changes status.

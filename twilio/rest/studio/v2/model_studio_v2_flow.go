@@ -9,24 +9,26 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // StudioV2Flow struct for StudioV2Flow
 type StudioV2Flow struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CommitMessage string `json:"CommitMessage,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Definition map[string]interface{} `json:"Definition,omitempty"`
-	Errors []map[string]interface{} `json:"Errors,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	Revision int32 `json:"Revision,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	Url string `json:"Url,omitempty"`
-	Valid bool `json:"Valid,omitempty"`
-	Warnings []map[string]interface{} `json:"Warnings,omitempty"`
-	WebhookUrl string `json:"WebhookUrl,omitempty"`
+	AccountSid    string                   `json:"AccountSid,omitempty"`
+	CommitMessage string                   `json:"CommitMessage,omitempty"`
+	DateCreated   time.Time                `json:"DateCreated,omitempty"`
+	DateUpdated   time.Time                `json:"DateUpdated,omitempty"`
+	Definition    map[string]interface{}   `json:"Definition,omitempty"`
+	Errors        []map[string]interface{} `json:"Errors,omitempty"`
+	FriendlyName  string                   `json:"FriendlyName,omitempty"`
+	Links         map[string]interface{}   `json:"Links,omitempty"`
+	Revision      int32                    `json:"Revision,omitempty"`
+	Sid           string                   `json:"Sid,omitempty"`
+	Status        Status                   `json:"Status,omitempty"`
+	Url           string                   `json:"Url,omitempty"`
+	Valid         bool                     `json:"Valid,omitempty"`
+	Warnings      []map[string]interface{} `json:"Warnings,omitempty"`
+	WebhookUrl    string                   `json:"WebhookUrl,omitempty"`
 }

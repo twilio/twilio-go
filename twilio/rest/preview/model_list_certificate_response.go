@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListCertificateResponse struct for ListCertificateResponse
 type ListCertificateResponse struct {
 	Certificates []PreviewDeployedDevicesFleetCertificate `json:"Certificates,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta         ListDayResponseMeta                      `json:"Meta,omitempty"`
 }

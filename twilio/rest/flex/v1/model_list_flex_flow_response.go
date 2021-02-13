@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListFlexFlowResponse struct for ListFlexFlowResponse
 type ListFlexFlowResponse struct {
-	FlexFlows []FlexV1FlexFlow `json:"FlexFlows,omitempty"`
-	Meta ListChannelResponseMeta `json:"Meta,omitempty"`
+	FlexFlows []FlexV1FlexFlow        `json:"FlexFlows,omitempty"`
+	Meta      ListChannelResponseMeta `json:"Meta,omitempty"`
 }

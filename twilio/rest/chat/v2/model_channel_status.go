@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // ChannelStatus the model 'ChannelStatus'
 type ChannelStatus string
 
 // List of channel_status
 const (
-	CHANNELSTATUS_JOINED ChannelStatus = "joined"
-	CHANNELSTATUS_INVITED ChannelStatus = "invited"
+	CHANNELSTATUS_JOINED            ChannelStatus = "joined"
+	CHANNELSTATUS_INVITED           ChannelStatus = "invited"
 	CHANNELSTATUS_NOT_PARTICIPATING ChannelStatus = "not_participating"
 )

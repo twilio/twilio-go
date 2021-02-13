@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateAssistantInitiationActionsRequest struct for UpdateAssistantInitiationActionsRequest
 type UpdateAssistantInitiationActionsRequest struct {
 	InitiationActions map[string]interface{} `json:"InitiationActions,omitempty"`

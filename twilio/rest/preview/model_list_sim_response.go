@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListSimResponse struct for ListSimResponse
 type ListSimResponse struct {
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta ListDayResponseMeta  `json:"Meta,omitempty"`
 	Sims []PreviewWirelessSim `json:"Sims,omitempty"`
 }

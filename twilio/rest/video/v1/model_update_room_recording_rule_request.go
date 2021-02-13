@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateRoomRecordingRuleRequest struct for UpdateRoomRecordingRuleRequest
 type UpdateRoomRecordingRuleRequest struct {
 	// A JSON-encoded array of recording rules.

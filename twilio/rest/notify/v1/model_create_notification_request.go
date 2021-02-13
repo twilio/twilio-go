@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateNotificationRequest struct for CreateNotificationRequest
 type CreateNotificationRequest struct {
 	// The actions to display for the notification. For APNS, translates to the `aps.category` value. For GCM, translates to the `data.twi_action` value. For SMS, this parameter is not supported and is omitted from deliveries to those channels.

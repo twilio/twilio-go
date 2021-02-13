@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateEnvironmentRequest struct for CreateEnvironmentRequest
 type CreateEnvironmentRequest struct {
 	// A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.

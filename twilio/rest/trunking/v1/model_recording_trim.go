@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // RecordingTrim the model 'RecordingTrim'
 type RecordingTrim string
 
 // List of recording_trim
 const (
 	RECORDINGTRIM_TRIM_SILENCE RecordingTrim = "trim-silence"
-	RECORDINGTRIM_DO_NOT_TRIM RecordingTrim = "do-not-trim"
+	RECORDINGTRIM_DO_NOT_TRIM  RecordingTrim = "do-not-trim"
 )

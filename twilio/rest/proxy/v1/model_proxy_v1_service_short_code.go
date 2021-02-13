@@ -9,19 +9,21 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ProxyV1ServiceShortCode struct for ProxyV1ServiceShortCode
 type ProxyV1ServiceShortCode struct {
-	AccountSid string `json:"AccountSid,omitempty"`
+	AccountSid   string                  `json:"AccountSid,omitempty"`
 	Capabilities PhoneNumberCapabilities `json:"Capabilities,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	IsReserved bool `json:"IsReserved,omitempty"`
-	IsoCountry string `json:"IsoCountry,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	ShortCode string `json:"ShortCode,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	DateCreated  time.Time               `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time               `json:"DateUpdated,omitempty"`
+	IsReserved   bool                    `json:"IsReserved,omitempty"`
+	IsoCountry   string                  `json:"IsoCountry,omitempty"`
+	ServiceSid   string                  `json:"ServiceSid,omitempty"`
+	ShortCode    string                  `json:"ShortCode,omitempty"`
+	Sid          string                  `json:"Sid,omitempty"`
+	Url          string                  `json:"Url,omitempty"`
 }

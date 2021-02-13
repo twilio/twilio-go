@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateMemberRequest struct for UpdateMemberRequest
 type UpdateMemberRequest struct {
 	// The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).

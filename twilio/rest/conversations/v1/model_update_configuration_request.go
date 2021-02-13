@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateConfigurationRequest struct for UpdateConfigurationRequest
 type UpdateConfigurationRequest struct {
 	// The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.

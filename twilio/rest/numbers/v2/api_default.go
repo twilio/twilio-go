@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -23,19 +24,20 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://numbers.twilio.com"),
 	}
 }
+
 // CreateBundleParams Optional parameters for the method 'CreateBundle'
 type CreateBundleParams struct {
-	Email *string `json:"Email,omitempty"`
-	EndUserType *string `json:"EndUserType,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	IsoCountry *string `json:"IsoCountry,omitempty"`
-	NumberType *string `json:"NumberType,omitempty"`
-	RegulationSid *string `json:"RegulationSid,omitempty"`
+	Email          *string `json:"Email,omitempty"`
+	EndUserType    *string `json:"EndUserType,omitempty"`
+	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	IsoCountry     *string `json:"IsoCountry,omitempty"`
+	NumberType     *string `json:"NumberType,omitempty"`
+	RegulationSid  *string `json:"RegulationSid,omitempty"`
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
@@ -55,32 +57,30 @@ Create a new Bundle.
 func (c *DefaultApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2RegulatoryComplianceBundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.EndUserType != nil {
-		data.Set("EndUserType", *params.EndUserType) 
+		data.Set("EndUserType", *params.EndUserType)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry) 
+		data.Set("IsoCountry", *params.IsoCountry)
 	}
 	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType) 
+		data.Set("NumberType", *params.NumberType)
 	}
 	if params != nil && params.RegulationSid != nil {
-		data.Set("RegulationSid", *params.RegulationSid) 
+		data.Set("RegulationSid", *params.RegulationSid)
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -96,11 +96,12 @@ func (c *DefaultApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2
 
 	return ps, err
 }
+
 // CreateEndUserParams Optional parameters for the method 'CreateEndUser'
 type CreateEndUserParams struct {
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Type *string `json:"Type,omitempty"`
+	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+	Type         *string                 `json:"Type,omitempty"`
 }
 
 /*
@@ -115,7 +116,6 @@ Create a new End User.
 func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2RegulatoryComplianceEndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -129,12 +129,11 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Numbers
 		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type) 
+		data.Set("Type", *params.Type)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -160,11 +159,8 @@ func (c *DefaultApiService) CreateEvaluation(BundleSid string) (*NumbersV2Regula
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -180,6 +176,7 @@ func (c *DefaultApiService) CreateEvaluation(BundleSid string) (*NumbersV2Regula
 
 	return ps, err
 }
+
 // CreateItemAssignmentParams Optional parameters for the method 'CreateItemAssignment'
 type CreateItemAssignmentParams struct {
 	ObjectSid *string `json:"ObjectSid,omitempty"`
@@ -197,14 +194,12 @@ func (c *DefaultApiService) CreateItemAssignment(BundleSid string, params *Creat
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ObjectSid != nil {
-		data.Set("ObjectSid", *params.ObjectSid) 
+		data.Set("ObjectSid", *params.ObjectSid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -220,11 +215,12 @@ func (c *DefaultApiService) CreateItemAssignment(BundleSid string, params *Creat
 
 	return ps, err
 }
+
 // CreateSupportingDocumentParams Optional parameters for the method 'CreateSupportingDocument'
 type CreateSupportingDocumentParams struct {
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Type *string `json:"Type,omitempty"`
+	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+	Type         *string                 `json:"Type,omitempty"`
 }
 
 /*
@@ -239,7 +235,6 @@ Create a new Supporting Document.
 func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -253,12 +248,11 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type) 
+		data.Set("Type", *params.Type)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -280,15 +274,12 @@ DeleteBundle Method for DeleteBundle
 Delete a specific Bundle.
  * @param Sid The unique string that we created to identify the Bundle resource.
 */
-func (c *DefaultApiService) DeleteBundle(Sid string) (error) {
+func (c *DefaultApiService) DeleteBundle(Sid string) error {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -305,15 +296,12 @@ DeleteEndUser Method for DeleteEndUser
 Delete a specific End User.
  * @param Sid The unique string created by Twilio to identify the End User resource.
 */
-func (c *DefaultApiService) DeleteEndUser(Sid string) (error) {
+func (c *DefaultApiService) DeleteEndUser(Sid string) error {
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -331,16 +319,13 @@ Remove an Assignment Item Instance.
  * @param BundleSid The unique string that we created to identify the Bundle resource.
  * @param Sid The unique string that we created to identify the Identity resource.
 */
-func (c *DefaultApiService) DeleteItemAssignment(BundleSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteItemAssignment(BundleSid string, Sid string) error {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -357,15 +342,12 @@ DeleteSupportingDocument Method for DeleteSupportingDocument
 Delete a specific Supporting Document.
  * @param Sid The unique string created by Twilio to identify the Supporting Document resource.
 */
-func (c *DefaultApiService) DeleteSupportingDocument(Sid string) (error) {
+func (c *DefaultApiService) DeleteSupportingDocument(Sid string) error {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -387,11 +369,8 @@ func (c *DefaultApiService) FetchBundle(Sid string) (*NumbersV2RegulatoryComplia
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -418,11 +397,8 @@ func (c *DefaultApiService) FetchEndUser(Sid string) (*NumbersV2RegulatoryCompli
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -449,11 +425,8 @@ func (c *DefaultApiService) FetchEndUserType(Sid string) (*NumbersV2RegulatoryCo
 	path := "/v2/RegulatoryCompliance/EndUserTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -482,11 +455,8 @@ func (c *DefaultApiService) FetchEvaluation(BundleSid string, Sid string) (*Numb
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -515,11 +485,8 @@ func (c *DefaultApiService) FetchItemAssignment(BundleSid string, Sid string) (*
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -546,11 +513,8 @@ func (c *DefaultApiService) FetchRegulation(Sid string) (*NumbersV2RegulatoryCom
 	path := "/v2/RegulatoryCompliance/Regulations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -577,11 +541,8 @@ func (c *DefaultApiService) FetchSupportingDocument(Sid string) (*NumbersV2Regul
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -608,11 +569,8 @@ func (c *DefaultApiService) FetchSupportingDocumentType(Sid string) (*NumbersV2R
 	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -628,14 +586,15 @@ func (c *DefaultApiService) FetchSupportingDocumentType(Sid string) (*NumbersV2R
 
 	return ps, err
 }
+
 // ListBundleParams Optional parameters for the method 'ListBundle'
 type ListBundleParams struct {
-	Status *string `json:"Status,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Status        *string `json:"Status,omitempty"`
+	FriendlyName  *string `json:"FriendlyName,omitempty"`
 	RegulationSid *string `json:"RegulationSid,omitempty"`
-	IsoCountry *string `json:"IsoCountry,omitempty"`
-	NumberType *string `json:"NumberType,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	IsoCountry    *string `json:"IsoCountry,omitempty"`
+	NumberType    *string `json:"NumberType,omitempty"`
+	PageSize      *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -653,29 +612,27 @@ Retrieve a list of all Bundles for an account.
 func (c *DefaultApiService) ListBundle(params *ListBundleParams) (*ListBundleResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.RegulationSid != nil {
-		data.Set("RegulationSid", *params.RegulationSid) 
+		data.Set("RegulationSid", *params.RegulationSid)
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry) 
+		data.Set("IsoCountry", *params.IsoCountry)
 	}
 	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType) 
+		data.Set("NumberType", *params.NumberType)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -691,6 +648,7 @@ func (c *DefaultApiService) ListBundle(params *ListBundleParams) (*ListBundleRes
 
 	return ps, err
 }
+
 // ListEndUserParams Optional parameters for the method 'ListEndUser'
 type ListEndUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -706,14 +664,12 @@ Retrieve a list of all End User for an account.
 func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUserResponse, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -729,6 +685,7 @@ func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUser
 
 	return ps, err
 }
+
 // ListEndUserTypeParams Optional parameters for the method 'ListEndUserType'
 type ListEndUserTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -744,14 +701,12 @@ Retrieve a list of all End-User Types.
 func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*ListEndUserTypeResponse, error) {
 	path := "/v2/RegulatoryCompliance/EndUserTypes"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -767,6 +722,7 @@ func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*Lis
 
 	return ps, err
 }
+
 // ListEvaluationParams Optional parameters for the method 'ListEvaluation'
 type ListEvaluationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -784,14 +740,12 @@ func (c *DefaultApiService) ListEvaluation(BundleSid string, params *ListEvaluat
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -807,6 +761,7 @@ func (c *DefaultApiService) ListEvaluation(BundleSid string, params *ListEvaluat
 
 	return ps, err
 }
+
 // ListItemAssignmentParams Optional parameters for the method 'ListItemAssignment'
 type ListItemAssignmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -824,14 +779,12 @@ func (c *DefaultApiService) ListItemAssignment(BundleSid string, params *ListIte
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -847,12 +800,13 @@ func (c *DefaultApiService) ListItemAssignment(BundleSid string, params *ListIte
 
 	return ps, err
 }
+
 // ListRegulationParams Optional parameters for the method 'ListRegulation'
 type ListRegulationParams struct {
 	EndUserType *string `json:"EndUserType,omitempty"`
-	IsoCountry *string `json:"IsoCountry,omitempty"`
-	NumberType *string `json:"NumberType,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	IsoCountry  *string `json:"IsoCountry,omitempty"`
+	NumberType  *string `json:"NumberType,omitempty"`
+	PageSize    *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -868,23 +822,21 @@ Retrieve a list of all Regulations.
 func (c *DefaultApiService) ListRegulation(params *ListRegulationParams) (*ListRegulationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Regulations"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.EndUserType != nil {
-		data.Set("EndUserType", *params.EndUserType) 
+		data.Set("EndUserType", *params.EndUserType)
 	}
 	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry) 
+		data.Set("IsoCountry", *params.IsoCountry)
 	}
 	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType) 
+		data.Set("NumberType", *params.NumberType)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -900,6 +852,7 @@ func (c *DefaultApiService) ListRegulation(params *ListRegulationParams) (*ListR
 
 	return ps, err
 }
+
 // ListSupportingDocumentParams Optional parameters for the method 'ListSupportingDocument'
 type ListSupportingDocumentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -915,14 +868,12 @@ Retrieve a list of all Supporting Document for an account.
 func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumentParams) (*ListSupportingDocumentResponse, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -938,6 +889,7 @@ func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumen
 
 	return ps, err
 }
+
 // ListSupportingDocumentTypeParams Optional parameters for the method 'ListSupportingDocumentType'
 type ListSupportingDocumentTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -953,14 +905,12 @@ Retrieve a list of all Supporting Document Types.
 func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) (*ListSupportingDocumentTypeResponse, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -976,11 +926,12 @@ func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDoc
 
 	return ps, err
 }
+
 // UpdateBundleParams Optional parameters for the method 'UpdateBundle'
 type UpdateBundleParams struct {
-	Email *string `json:"Email,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	Email          *string `json:"Email,omitempty"`
+	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	Status         *string `json:"Status,omitempty"`
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
@@ -999,23 +950,21 @@ func (c *DefaultApiService) UpdateBundle(Sid string, params *UpdateBundleParams)
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Email != nil {
-		data.Set("Email", *params.Email) 
+		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback) 
+		data.Set("StatusCallback", *params.StatusCallback)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1031,10 +980,11 @@ func (c *DefaultApiService) UpdateBundle(Sid string, params *UpdateBundleParams)
 
 	return ps, err
 }
+
 // UpdateEndUserParams Optional parameters for the method 'UpdateEndUser'
 type UpdateEndUserParams struct {
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1050,7 +1000,6 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -1064,9 +1013,8 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1082,10 +1030,11 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 
 	return ps, err
 }
+
 // UpdateSupportingDocumentParams Optional parameters for the method 'UpdateSupportingDocument'
 type UpdateSupportingDocumentParams struct {
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
+	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 }
 
 /*
@@ -1101,7 +1050,6 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
@@ -1115,9 +1063,8 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 		data.Set("Attributes", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

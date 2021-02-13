@@ -9,9 +9,11 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // UpdateMemberRequest struct for UpdateMemberRequest
 type UpdateMemberRequest struct {
 	// A valid JSON string that contains application-specific data.

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListCommandResponse struct for ListCommandResponse
 type ListCommandResponse struct {
 	Commands []PreviewWirelessCommand `json:"Commands,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta     ListDayResponseMeta      `json:"Meta,omitempty"`
 }

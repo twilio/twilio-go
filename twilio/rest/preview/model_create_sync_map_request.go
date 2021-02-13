@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSyncMapRequest struct for CreateSyncMapRequest
 type CreateSyncMapRequest struct {
 	UniqueName string `json:"UniqueName,omitempty"`

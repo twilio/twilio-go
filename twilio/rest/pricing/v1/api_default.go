@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -23,8 +24,8 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://pricing.twilio.com"),
 	}
 }
@@ -38,11 +39,8 @@ func (c *DefaultApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1
 	path := "/v1/Messaging/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -68,11 +66,8 @@ func (c *DefaultApiService) FetchPhoneNumberCountry(IsoCountry string) (*Pricing
 	path := "/v1/PhoneNumbers/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -98,11 +93,8 @@ func (c *DefaultApiService) FetchVoiceCountry(IsoCountry string) (*PricingV1Voic
 	path := "/v1/Voice/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -128,11 +120,8 @@ func (c *DefaultApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceVoic
 	path := "/v1/Voice/Numbers/{Number}"
 	path = strings.Replace(path, "{"+"Number"+"}", Number, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -148,6 +137,7 @@ func (c *DefaultApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceVoic
 
 	return ps, err
 }
+
 // ListMessagingCountryParams Optional parameters for the method 'ListMessagingCountry'
 type ListMessagingCountryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -162,14 +152,12 @@ ListMessagingCountry Method for ListMessagingCountry
 func (c *DefaultApiService) ListMessagingCountry(params *ListMessagingCountryParams) (*ListMessagingCountryResponse, error) {
 	path := "/v1/Messaging/Countries"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -185,6 +173,7 @@ func (c *DefaultApiService) ListMessagingCountry(params *ListMessagingCountryPar
 
 	return ps, err
 }
+
 // ListPhoneNumberCountryParams Optional parameters for the method 'ListPhoneNumberCountry'
 type ListPhoneNumberCountryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -199,14 +188,12 @@ ListPhoneNumberCountry Method for ListPhoneNumberCountry
 func (c *DefaultApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams) (*ListPhoneNumberCountryResponse, error) {
 	path := "/v1/PhoneNumbers/Countries"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -222,6 +209,7 @@ func (c *DefaultApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountr
 
 	return ps, err
 }
+
 // ListVoiceCountryParams Optional parameters for the method 'ListVoiceCountry'
 type ListVoiceCountryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -236,14 +224,12 @@ ListVoiceCountry Method for ListVoiceCountry
 func (c *DefaultApiService) ListVoiceCountry(params *ListVoiceCountryParams) (*ListVoiceCountryResponse, error) {
 	path := "/v1/Voice/Countries"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {

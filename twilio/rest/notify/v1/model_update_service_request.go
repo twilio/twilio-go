@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateServiceRequest struct for UpdateServiceRequest
 type UpdateServiceRequest struct {
 	// Deprecated.

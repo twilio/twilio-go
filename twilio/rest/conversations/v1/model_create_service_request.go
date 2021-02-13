@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateServiceRequest struct for CreateServiceRequest
 type CreateServiceRequest struct {
 	// The human-readable name of this service, limited to 256 characters. Optional.

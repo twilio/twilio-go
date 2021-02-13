@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateConfigurationWebhookRequest struct for UpdateConfigurationWebhookRequest
 type UpdateConfigurationWebhookRequest struct {
 	// The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`

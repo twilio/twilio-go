@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // AutopilotV1AssistantTaskTaskActions struct for AutopilotV1AssistantTaskTaskActions
 type AutopilotV1AssistantTaskTaskActions struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AssistantSid string `json:"AssistantSid,omitempty"`
-	Data map[string]interface{} `json:"Data,omitempty"`
-	TaskSid string `json:"TaskSid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string                 `json:"AccountSid,omitempty"`
+	AssistantSid string                 `json:"AssistantSid,omitempty"`
+	Data         map[string]interface{} `json:"Data,omitempty"`
+	TaskSid      string                 `json:"TaskSid,omitempty"`
+	Url          string                 `json:"Url,omitempty"`
 }

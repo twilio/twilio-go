@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -23,14 +25,15 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://proxy.twilio.com"),
 	}
 }
+
 // CreateMessageInteractionParams Optional parameters for the method 'CreateMessageInteraction'
 type CreateMessageInteractionParams struct {
-	Body *string `json:"Body,omitempty"`
+	Body     *string   `json:"Body,omitempty"`
 	MediaUrl *[]string `json:"MediaUrl,omitempty"`
 }
 
@@ -51,17 +54,15 @@ func (c *DefaultApiService) CreateMessageInteraction(ServiceSid string, SessionS
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Body != nil {
-		data.Set("Body", *params.Body) 
+		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.MediaUrl != nil {
-		data.Set("MediaUrl",  strings.Join(*params.MediaUrl, ","))
+		data.Set("MediaUrl", strings.Join(*params.MediaUrl, ","))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -77,13 +78,14 @@ func (c *DefaultApiService) CreateMessageInteraction(ServiceSid string, SessionS
 
 	return ps, err
 }
+
 // CreateParticipantParams Optional parameters for the method 'CreateParticipant'
 type CreateParticipantParams struct {
-	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Identifier *string `json:"Identifier,omitempty"`
-	ProxyIdentifier *string `json:"ProxyIdentifier,omitempty"`
-	ProxyIdentifierSid *string `json:"ProxyIdentifierSid,omitempty"`
+	FailOnParticipantConflict *bool   `json:"FailOnParticipantConflict,omitempty"`
+	FriendlyName              *string `json:"FriendlyName,omitempty"`
+	Identifier                *string `json:"Identifier,omitempty"`
+	ProxyIdentifier           *string `json:"ProxyIdentifier,omitempty"`
+	ProxyIdentifierSid        *string `json:"ProxyIdentifierSid,omitempty"`
 }
 
 /*
@@ -104,26 +106,24 @@ func (c *DefaultApiService) CreateParticipant(ServiceSid string, SessionSid stri
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FailOnParticipantConflict != nil {
-		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict)) 
+		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Identifier != nil {
-		data.Set("Identifier", *params.Identifier) 
+		data.Set("Identifier", *params.Identifier)
 	}
 	if params != nil && params.ProxyIdentifier != nil {
-		data.Set("ProxyIdentifier", *params.ProxyIdentifier) 
+		data.Set("ProxyIdentifier", *params.ProxyIdentifier)
 	}
 	if params != nil && params.ProxyIdentifierSid != nil {
-		data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid) 
+		data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -139,11 +139,12 @@ func (c *DefaultApiService) CreateParticipant(ServiceSid string, SessionSid stri
 
 	return ps, err
 }
+
 // CreatePhoneNumberParams Optional parameters for the method 'CreatePhoneNumber'
 type CreatePhoneNumberParams struct {
-	IsReserved *bool `json:"IsReserved,omitempty"`
+	IsReserved  *bool   `json:"IsReserved,omitempty"`
 	PhoneNumber *string `json:"PhoneNumber,omitempty"`
-	Sid *string `json:"Sid,omitempty"`
+	Sid         *string `json:"Sid,omitempty"`
 }
 
 /*
@@ -160,20 +161,18 @@ func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreateP
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.IsReserved != nil {
-		data.Set("IsReserved", fmt.Sprint(*params.IsReserved)) 
+		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
 	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber) 
+		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 	if params != nil && params.Sid != nil {
-		data.Set("Sid", *params.Sid) 
+		data.Set("Sid", *params.Sid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -189,16 +188,17 @@ func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreateP
 
 	return ps, err
 }
+
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
-	DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
-	GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
-	InterceptCallbackUrl *string `json:"InterceptCallbackUrl,omitempty"`
+	CallbackUrl             *string `json:"CallbackUrl,omitempty"`
+	ChatInstanceSid         *string `json:"ChatInstanceSid,omitempty"`
+	DefaultTtl              *int32  `json:"DefaultTtl,omitempty"`
+	GeoMatchLevel           *string `json:"GeoMatchLevel,omitempty"`
+	InterceptCallbackUrl    *string `json:"InterceptCallbackUrl,omitempty"`
 	NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
 	OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName              *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -218,35 +218,33 @@ Create a new Service for Twilio Proxy
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ProxyV1Service, error) {
 	path := "/v1/Services"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl) 
+		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.ChatInstanceSid != nil {
-		data.Set("ChatInstanceSid", *params.ChatInstanceSid) 
+		data.Set("ChatInstanceSid", *params.ChatInstanceSid)
 	}
 	if params != nil && params.DefaultTtl != nil {
-		data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl)) 
+		data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl))
 	}
 	if params != nil && params.GeoMatchLevel != nil {
-		data.Set("GeoMatchLevel", *params.GeoMatchLevel) 
+		data.Set("GeoMatchLevel", *params.GeoMatchLevel)
 	}
 	if params != nil && params.InterceptCallbackUrl != nil {
-		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl) 
+		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
 	}
 	if params != nil && params.NumberSelectionBehavior != nil {
-		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior) 
+		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
 	}
 	if params != nil && params.OutOfSessionCallbackUrl != nil {
-		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl) 
+		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -262,15 +260,16 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ProxyV1
 
 	return ps, err
 }
+
 // CreateSessionParams Optional parameters for the method 'CreateSession'
 type CreateSessionParams struct {
-	DateExpiry *time.Time `json:"DateExpiry,omitempty"`
-	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
-	Mode *string `json:"Mode,omitempty"`
-	Participants *[]map[string]interface{} `json:"Participants,omitempty"`
-	Status *string `json:"Status,omitempty"`
-	Ttl *int32 `json:"Ttl,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	DateExpiry                *time.Time                `json:"DateExpiry,omitempty"`
+	FailOnParticipantConflict *bool                     `json:"FailOnParticipantConflict,omitempty"`
+	Mode                      *string                   `json:"Mode,omitempty"`
+	Participants              *[]map[string]interface{} `json:"Participants,omitempty"`
+	Status                    *string                   `json:"Status,omitempty"`
+	Ttl                       *int32                    `json:"Ttl,omitempty"`
+	UniqueName                *string                   `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -291,18 +290,17 @@ func (c *DefaultApiService) CreateSession(ServiceSid string, params *CreateSessi
 	path := "/v1/Services/{ServiceSid}/Sessions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DateExpiry != nil {
-		data.Set("DateExpiry", fmt.Sprint(*params.DateExpiry)) 
+		data.Set("DateExpiry", fmt.Sprint(*params.DateExpiry))
 	}
 	if params != nil && params.FailOnParticipantConflict != nil {
-		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict)) 
+		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
 	}
 	if params != nil && params.Mode != nil {
-		data.Set("Mode", *params.Mode) 
+		data.Set("Mode", *params.Mode)
 	}
 	if params != nil && params.Participants != nil {
 		v, err := json.Marshal(params.Participants)
@@ -314,15 +312,14 @@ func (c *DefaultApiService) CreateSession(ServiceSid string, params *CreateSessi
 		data.Set("Participants", fmt.Sprint(v))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", fmt.Sprint(*params.Ttl)) 
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -338,6 +335,7 @@ func (c *DefaultApiService) CreateSession(ServiceSid string, params *CreateSessi
 
 	return ps, err
 }
+
 // CreateShortCodeParams Optional parameters for the method 'CreateShortCode'
 type CreateShortCodeParams struct {
 	Sid *string `json:"Sid,omitempty"`
@@ -355,14 +353,12 @@ func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateSho
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Sid != nil {
-		data.Set("Sid", *params.Sid) 
+		data.Set("Sid", *params.Sid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -386,17 +382,14 @@ Delete a specific Interaction.
  * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the Interaction resource to delete.
 */
-func (c *DefaultApiService) DeleteInteraction(ServiceSid string, SessionSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteInteraction(ServiceSid string, SessionSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -415,17 +408,14 @@ Delete a specific Participant. This is a soft-delete. The participant remains as
  * @param SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the Participant resource to delete.
 */
-func (c *DefaultApiService) DeleteParticipant(ServiceSid string, SessionSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteParticipant(ServiceSid string, SessionSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -443,16 +433,13 @@ Delete a specific Phone Number from a Service.
  * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to delete.
 */
-func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -469,15 +456,12 @@ DeleteService Method for DeleteService
 Delete a specific Service.
  * @param Sid The Twilio-provided string that uniquely identifies the Service resource to delete.
 */
-func (c *DefaultApiService) DeleteService(Sid string) (error) {
+func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -495,16 +479,13 @@ Delete a specific Session.
  * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
  * @param Sid The Twilio-provided string that uniquely identifies the Session resource to delete.
 */
-func (c *DefaultApiService) DeleteSession(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteSession(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -522,16 +503,13 @@ Delete a specific Short Code from a Service.
  * @param ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource to delete the ShortCode resource from.
  * @param Sid The Twilio-provided string that uniquely identifies the ShortCode resource to delete.
 */
-func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -557,11 +535,8 @@ func (c *DefaultApiService) FetchInteraction(ServiceSid string, SessionSid strin
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -593,11 +568,8 @@ func (c *DefaultApiService) FetchMessageInteraction(ServiceSid string, SessionSi
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -628,11 +600,8 @@ func (c *DefaultApiService) FetchParticipant(ServiceSid string, SessionSid strin
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -661,11 +630,8 @@ func (c *DefaultApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*Pr
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -692,11 +658,8 @@ func (c *DefaultApiService) FetchService(Sid string) (*ProxyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -725,11 +688,8 @@ func (c *DefaultApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -758,11 +718,8 @@ func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*Prox
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -778,6 +735,7 @@ func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*Prox
 
 	return ps, err
 }
+
 // ListInteractionParams Optional parameters for the method 'ListInteraction'
 type ListInteractionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -797,14 +755,12 @@ func (c *DefaultApiService) ListInteraction(ServiceSid string, SessionSid string
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -820,6 +776,7 @@ func (c *DefaultApiService) ListInteraction(ServiceSid string, SessionSid string
 
 	return ps, err
 }
+
 // ListMessageInteractionParams Optional parameters for the method 'ListMessageInteraction'
 type ListMessageInteractionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -840,14 +797,12 @@ func (c *DefaultApiService) ListMessageInteraction(ServiceSid string, SessionSid
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -863,6 +818,7 @@ func (c *DefaultApiService) ListMessageInteraction(ServiceSid string, SessionSid
 
 	return ps, err
 }
+
 // ListParticipantParams Optional parameters for the method 'ListParticipant'
 type ListParticipantParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -882,14 +838,12 @@ func (c *DefaultApiService) ListParticipant(ServiceSid string, SessionSid string
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -905,6 +859,7 @@ func (c *DefaultApiService) ListParticipant(ServiceSid string, SessionSid string
 
 	return ps, err
 }
+
 // ListPhoneNumberParams Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -922,14 +877,12 @@ func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhone
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -945,6 +898,7 @@ func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhone
 
 	return ps, err
 }
+
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -960,14 +914,12 @@ Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will 
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -983,6 +935,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 
 	return ps, err
 }
+
 // ListSessionParams Optional parameters for the method 'ListSession'
 type ListSessionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1000,14 +953,12 @@ func (c *DefaultApiService) ListSession(ServiceSid string, params *ListSessionPa
 	path := "/v1/Services/{ServiceSid}/Sessions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1023,6 +974,7 @@ func (c *DefaultApiService) ListSession(ServiceSid string, params *ListSessionPa
 
 	return ps, err
 }
+
 // ListShortCodeParams Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1040,14 +992,12 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1063,6 +1013,7 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 
 	return ps, err
 }
+
 // UpdatePhoneNumberParams Optional parameters for the method 'UpdatePhoneNumber'
 type UpdatePhoneNumberParams struct {
 	IsReserved *bool `json:"IsReserved,omitempty"`
@@ -1082,14 +1033,12 @@ func (c *DefaultApiService) UpdatePhoneNumber(ServiceSid string, Sid string, par
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.IsReserved != nil {
-		data.Set("IsReserved", fmt.Sprint(*params.IsReserved)) 
+		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1105,16 +1054,17 @@ func (c *DefaultApiService) UpdatePhoneNumber(ServiceSid string, Sid string, par
 
 	return ps, err
 }
+
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	CallbackUrl *string `json:"CallbackUrl,omitempty"`
-	ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
-	DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
-	GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
-	InterceptCallbackUrl *string `json:"InterceptCallbackUrl,omitempty"`
+	CallbackUrl             *string `json:"CallbackUrl,omitempty"`
+	ChatInstanceSid         *string `json:"ChatInstanceSid,omitempty"`
+	DefaultTtl              *int32  `json:"DefaultTtl,omitempty"`
+	GeoMatchLevel           *string `json:"GeoMatchLevel,omitempty"`
+	InterceptCallbackUrl    *string `json:"InterceptCallbackUrl,omitempty"`
 	NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
 	OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName              *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -1136,35 +1086,33 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CallbackUrl != nil {
-		data.Set("CallbackUrl", *params.CallbackUrl) 
+		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.ChatInstanceSid != nil {
-		data.Set("ChatInstanceSid", *params.ChatInstanceSid) 
+		data.Set("ChatInstanceSid", *params.ChatInstanceSid)
 	}
 	if params != nil && params.DefaultTtl != nil {
-		data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl)) 
+		data.Set("DefaultTtl", fmt.Sprint(*params.DefaultTtl))
 	}
 	if params != nil && params.GeoMatchLevel != nil {
-		data.Set("GeoMatchLevel", *params.GeoMatchLevel) 
+		data.Set("GeoMatchLevel", *params.GeoMatchLevel)
 	}
 	if params != nil && params.InterceptCallbackUrl != nil {
-		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl) 
+		data.Set("InterceptCallbackUrl", *params.InterceptCallbackUrl)
 	}
 	if params != nil && params.NumberSelectionBehavior != nil {
-		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior) 
+		data.Set("NumberSelectionBehavior", *params.NumberSelectionBehavior)
 	}
 	if params != nil && params.OutOfSessionCallbackUrl != nil {
-		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl) 
+		data.Set("OutOfSessionCallbackUrl", *params.OutOfSessionCallbackUrl)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1180,12 +1128,13 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 
 	return ps, err
 }
+
 // UpdateSessionParams Optional parameters for the method 'UpdateSession'
 type UpdateSessionParams struct {
-	DateExpiry *time.Time `json:"DateExpiry,omitempty"`
-	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
-	Status *string `json:"Status,omitempty"`
-	Ttl *int32 `json:"Ttl,omitempty"`
+	DateExpiry                *time.Time `json:"DateExpiry,omitempty"`
+	FailOnParticipantConflict *bool      `json:"FailOnParticipantConflict,omitempty"`
+	Status                    *string    `json:"Status,omitempty"`
+	Ttl                       *int32     `json:"Ttl,omitempty"`
 }
 
 /*
@@ -1205,23 +1154,21 @@ func (c *DefaultApiService) UpdateSession(ServiceSid string, Sid string, params 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DateExpiry != nil {
-		data.Set("DateExpiry", fmt.Sprint(*params.DateExpiry)) 
+		data.Set("DateExpiry", fmt.Sprint(*params.DateExpiry))
 	}
 	if params != nil && params.FailOnParticipantConflict != nil {
-		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict)) 
+		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", fmt.Sprint(*params.Ttl)) 
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1237,6 +1184,7 @@ func (c *DefaultApiService) UpdateSession(ServiceSid string, Sid string, params 
 
 	return ps, err
 }
+
 // UpdateShortCodeParams Optional parameters for the method 'UpdateShortCode'
 type UpdateShortCodeParams struct {
 	IsReserved *bool `json:"IsReserved,omitempty"`
@@ -1256,14 +1204,12 @@ func (c *DefaultApiService) UpdateShortCode(ServiceSid string, Sid string, param
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.IsReserved != nil {
-		data.Set("IsReserved", fmt.Sprint(*params.IsReserved)) 
+		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

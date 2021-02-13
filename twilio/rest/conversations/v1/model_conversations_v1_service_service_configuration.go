@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // ConversationsV1ServiceServiceConfiguration struct for ConversationsV1ServiceServiceConfiguration
 type ConversationsV1ServiceServiceConfiguration struct {
-	ChatServiceSid string `json:"ChatServiceSid,omitempty"`
-	DefaultChatServiceRoleSid string `json:"DefaultChatServiceRoleSid,omitempty"`
-	DefaultConversationCreatorRoleSid string `json:"DefaultConversationCreatorRoleSid,omitempty"`
-	DefaultConversationRoleSid string `json:"DefaultConversationRoleSid,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	ReachabilityEnabled bool `json:"ReachabilityEnabled,omitempty"`
-	Url string `json:"Url,omitempty"`
+	ChatServiceSid                    string                 `json:"ChatServiceSid,omitempty"`
+	DefaultChatServiceRoleSid         string                 `json:"DefaultChatServiceRoleSid,omitempty"`
+	DefaultConversationCreatorRoleSid string                 `json:"DefaultConversationCreatorRoleSid,omitempty"`
+	DefaultConversationRoleSid        string                 `json:"DefaultConversationRoleSid,omitempty"`
+	Links                             map[string]interface{} `json:"Links,omitempty"`
+	ReachabilityEnabled               bool                   `json:"ReachabilityEnabled,omitempty"`
+	Url                               string                 `json:"Url,omitempty"`
 }

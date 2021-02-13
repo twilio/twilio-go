@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSyncListPermissionRequest struct for UpdateSyncListPermissionRequest
 type UpdateSyncListPermissionRequest struct {
 	// Boolean flag specifying whether the identity can delete the Sync List.

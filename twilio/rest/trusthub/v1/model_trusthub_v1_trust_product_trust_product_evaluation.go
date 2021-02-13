@@ -9,17 +9,19 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // TrusthubV1TrustProductTrustProductEvaluation struct for TrusthubV1TrustProductTrustProductEvaluation
 type TrusthubV1TrustProductTrustProductEvaluation struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	PolicySid string `json:"PolicySid,omitempty"`
-	Results []map[string]interface{} `json:"Results,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	TrustProductSid string `json:"TrustProductSid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid      string                   `json:"AccountSid,omitempty"`
+	DateCreated     time.Time                `json:"DateCreated,omitempty"`
+	PolicySid       string                   `json:"PolicySid,omitempty"`
+	Results         []map[string]interface{} `json:"Results,omitempty"`
+	Sid             string                   `json:"Sid,omitempty"`
+	Status          Status                   `json:"Status,omitempty"`
+	TrustProductSid string                   `json:"TrustProductSid,omitempty"`
+	Url             string                   `json:"Url,omitempty"`
 }

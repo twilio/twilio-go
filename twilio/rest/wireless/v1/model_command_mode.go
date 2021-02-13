@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // CommandMode the model 'CommandMode'
 type CommandMode string
 
 // List of command_mode
 const (
-	COMMANDMODE_TEXT CommandMode = "text"
+	COMMANDMODE_TEXT   CommandMode = "text"
 	COMMANDMODE_BINARY CommandMode = "binary"
 )

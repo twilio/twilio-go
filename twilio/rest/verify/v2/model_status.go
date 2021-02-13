@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Status the model 'Status'
 type Status string
 
 // List of status
 const (
-	STATUS_ENABLED Status = "enabled"
+	STATUS_ENABLED  Status = "enabled"
 	STATUS_DISABLED Status = "disabled"
 )

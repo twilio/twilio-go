@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateItemAssignmentRequest struct for CreateItemAssignmentRequest
 type CreateItemAssignmentRequest struct {
 	// The SID of an object bag that holds information of the different items.

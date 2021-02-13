@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateRatePlanRequest struct for CreateRatePlanRequest
 type CreateRatePlanRequest struct {
 	// Whether SIMs can use GPRS/3G/4G/LTE data connectivity.

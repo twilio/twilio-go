@@ -9,20 +9,22 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // TaskrouterV1WorkspaceTaskTaskReservation struct for TaskrouterV1WorkspaceTaskTaskReservation
 type TaskrouterV1WorkspaceTaskTaskReservation struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	ReservationStatus Status `json:"ReservationStatus,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	TaskSid string `json:"TaskSid,omitempty"`
-	Url string `json:"Url,omitempty"`
-	WorkerName string `json:"WorkerName,omitempty"`
-	WorkerSid string `json:"WorkerSid,omitempty"`
-	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
+	AccountSid        string                 `json:"AccountSid,omitempty"`
+	DateCreated       time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated       time.Time              `json:"DateUpdated,omitempty"`
+	Links             map[string]interface{} `json:"Links,omitempty"`
+	ReservationStatus Status                 `json:"ReservationStatus,omitempty"`
+	Sid               string                 `json:"Sid,omitempty"`
+	TaskSid           string                 `json:"TaskSid,omitempty"`
+	Url               string                 `json:"Url,omitempty"`
+	WorkerName        string                 `json:"WorkerName,omitempty"`
+	WorkerSid         string                 `json:"WorkerSid,omitempty"`
+	WorkspaceSid      string                 `json:"WorkspaceSid,omitempty"`
 }

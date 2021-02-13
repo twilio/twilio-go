@@ -9,24 +9,26 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VideoV1Recording struct for VideoV1Recording
 type VideoV1Recording struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Codec Codec `json:"Codec,omitempty"`
-	ContainerFormat Format `json:"ContainerFormat,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	Duration *int32 `json:"Duration,omitempty"`
-	GroupingSids map[string]interface{} `json:"GroupingSids,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	Offset int32 `json:"Offset,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Size int32 `json:"Size,omitempty"`
-	SourceSid string `json:"SourceSid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	TrackName string `json:"TrackName,omitempty"`
-	Type ModelType `json:"Type,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid      string                 `json:"AccountSid,omitempty"`
+	Codec           Codec                  `json:"Codec,omitempty"`
+	ContainerFormat Format                 `json:"ContainerFormat,omitempty"`
+	DateCreated     time.Time              `json:"DateCreated,omitempty"`
+	Duration        *int32                 `json:"Duration,omitempty"`
+	GroupingSids    map[string]interface{} `json:"GroupingSids,omitempty"`
+	Links           map[string]interface{} `json:"Links,omitempty"`
+	Offset          int32                  `json:"Offset,omitempty"`
+	Sid             string                 `json:"Sid,omitempty"`
+	Size            int32                  `json:"Size,omitempty"`
+	SourceSid       string                 `json:"SourceSid,omitempty"`
+	Status          Status                 `json:"Status,omitempty"`
+	TrackName       string                 `json:"TrackName,omitempty"`
+	Type            ModelType              `json:"Type,omitempty"`
+	Url             string                 `json:"Url,omitempty"`
 }

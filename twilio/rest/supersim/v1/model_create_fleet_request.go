@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateFleetRequest struct for CreateFleetRequest
 type CreateFleetRequest struct {
 	// Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.

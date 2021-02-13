@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // CreateSyncMapItemRequest struct for CreateSyncMapItemRequest
 type CreateSyncMapItemRequest struct {
 	Data map[string]interface{} `json:"Data"`
-	Key string `json:"Key"`
+	Key  string                 `json:"Key"`
 }

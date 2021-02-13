@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateFleetRequest struct for UpdateFleetRequest
 type UpdateFleetRequest struct {
 	// Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateBrandRegistrationsRequest struct for CreateBrandRegistrationsRequest
 type CreateBrandRegistrationsRequest struct {
 	// A2P Messaging Profile Bundle Sid.

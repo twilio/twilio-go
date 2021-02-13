@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // ChallengeReasons the model 'ChallengeReasons'
 type ChallengeReasons string
 
 // List of challenge_reasons
 const (
-	CHALLENGEREASONS_NONE ChallengeReasons = "none"
-	CHALLENGEREASONS_NOT_NEEDED ChallengeReasons = "not_needed"
+	CHALLENGEREASONS_NONE          ChallengeReasons = "none"
+	CHALLENGEREASONS_NOT_NEEDED    ChallengeReasons = "not_needed"
 	CHALLENGEREASONS_NOT_REQUESTED ChallengeReasons = "not_requested"
 )

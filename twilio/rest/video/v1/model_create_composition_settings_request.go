@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCompositionSettingsRequest struct for CreateCompositionSettingsRequest
 type CreateCompositionSettingsRequest struct {
 	// The SID of the stored Credential resource.

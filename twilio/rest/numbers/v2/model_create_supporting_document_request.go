@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSupportingDocumentRequest struct for CreateSupportingDocumentRequest
 type CreateSupportingDocumentRequest struct {
 	// The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.

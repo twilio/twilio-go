@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // Runtime the model 'Runtime'
 type Runtime string
 
 // List of runtime
 const (
-	RUNTIME_NODE8 Runtime = "node8"
+	RUNTIME_NODE8  Runtime = "node8"
 	RUNTIME_NODE10 Runtime = "node10"
 	RUNTIME_NODE12 Runtime = "node12"
 )

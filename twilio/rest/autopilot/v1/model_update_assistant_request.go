@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateAssistantRequest struct for UpdateAssistantRequest
 type UpdateAssistantRequest struct {
 	// Reserved.

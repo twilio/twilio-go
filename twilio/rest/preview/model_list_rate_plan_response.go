@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListRatePlanResponse struct for ListRatePlanResponse
 type ListRatePlanResponse struct {
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta      ListDayResponseMeta       `json:"Meta,omitempty"`
 	RatePlans []PreviewWirelessRatePlan `json:"RatePlans,omitempty"`
 }

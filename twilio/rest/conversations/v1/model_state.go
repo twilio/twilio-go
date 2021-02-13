@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // State the model 'State'
 type State string
 
 // List of state
 const (
 	STATE_INACTIVE State = "inactive"
-	STATE_ACTIVE State = "active"
-	STATE_CLOSED State = "closed"
+	STATE_ACTIVE   State = "active"
+	STATE_CLOSED   State = "closed"
 )

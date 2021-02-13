@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateStyleSheetRequest struct for UpdateStyleSheetRequest
 type UpdateStyleSheetRequest struct {
 	// The JSON Style sheet string

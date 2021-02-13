@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // SyncV1ServiceSyncStreamStreamMessage struct for SyncV1ServiceSyncStreamStreamMessage
 type SyncV1ServiceSyncStreamStreamMessage struct {
 	Data map[string]interface{} `json:"Data,omitempty"`
-	Sid string `json:"Sid,omitempty"`
+	Sid  string                 `json:"Sid,omitempty"`
 }

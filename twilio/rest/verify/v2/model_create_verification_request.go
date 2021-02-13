@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateVerificationRequest struct for CreateVerificationRequest
 type CreateVerificationRequest struct {
 	// The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.

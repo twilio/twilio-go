@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateEngagementRequest struct for CreateEngagementRequest
 type CreateEngagementRequest struct {
 	// The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`

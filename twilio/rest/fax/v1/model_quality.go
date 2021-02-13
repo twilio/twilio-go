@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // Quality the model 'Quality'
 type Quality string
 
 // List of quality
 const (
-	QUALITY_STANDARD Quality = "standard"
-	QUALITY_FINE Quality = "fine"
+	QUALITY_STANDARD  Quality = "standard"
+	QUALITY_FINE      Quality = "fine"
 	QUALITY_SUPERFINE Quality = "superfine"
 )

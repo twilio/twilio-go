@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateIpAccessControlListRequest struct for CreateIpAccessControlListRequest
 type CreateIpAccessControlListRequest struct {
 	// The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.

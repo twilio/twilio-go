@@ -9,20 +9,22 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // SyncV1ServiceSyncListSyncListItem struct for SyncV1ServiceSyncListSyncListItem
 type SyncV1ServiceSyncListSyncListItem struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CreatedBy string `json:"CreatedBy,omitempty"`
-	Data map[string]interface{} `json:"Data,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateExpires time.Time `json:"DateExpires,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Index int32 `json:"Index,omitempty"`
-	ListSid string `json:"ListSid,omitempty"`
-	Revision string `json:"Revision,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid  string                 `json:"AccountSid,omitempty"`
+	CreatedBy   string                 `json:"CreatedBy,omitempty"`
+	Data        map[string]interface{} `json:"Data,omitempty"`
+	DateCreated time.Time              `json:"DateCreated,omitempty"`
+	DateExpires time.Time              `json:"DateExpires,omitempty"`
+	DateUpdated time.Time              `json:"DateUpdated,omitempty"`
+	Index       int32                  `json:"Index,omitempty"`
+	ListSid     string                 `json:"ListSid,omitempty"`
+	Revision    string                 `json:"Revision,omitempty"`
+	ServiceSid  string                 `json:"ServiceSid,omitempty"`
+	Url         string                 `json:"Url,omitempty"`
 }

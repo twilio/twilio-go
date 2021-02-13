@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListUserBindingResponse struct for ListUserBindingResponse
 type ListUserBindingResponse struct {
 	Bindings []ChatV2ServiceUserUserBinding `json:"Bindings,omitempty"`
-	Meta ListCredentialResponseMeta `json:"Meta,omitempty"`
+	Meta     ListCredentialResponseMeta     `json:"Meta,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateTaskChannelRequest struct for UpdateTaskChannelRequest
 type UpdateTaskChannelRequest struct {
 	// Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.

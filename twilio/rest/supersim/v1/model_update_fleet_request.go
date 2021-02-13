@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateFleetRequest struct for UpdateFleetRequest
 type UpdateFleetRequest struct {
 	// A string representing the HTTP method to use when making a request to `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.

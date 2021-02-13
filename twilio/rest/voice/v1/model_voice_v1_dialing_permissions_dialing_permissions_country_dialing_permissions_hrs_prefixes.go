@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes struct for VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes
 type VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes struct {
 	Prefix string `json:"Prefix,omitempty"`

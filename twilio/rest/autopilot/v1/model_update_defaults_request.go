@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateDefaultsRequest struct for UpdateDefaultsRequest
 type UpdateDefaultsRequest struct {
 	// A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.

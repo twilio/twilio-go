@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateDialingPermissionsSettingsRequest struct for UpdateDialingPermissionsSettingsRequest
 type UpdateDialingPermissionsSettingsRequest struct {
 	// `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.

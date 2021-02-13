@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateShortCodeRequest struct for CreateShortCodeRequest
 type CreateShortCodeRequest struct {
 	// The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.

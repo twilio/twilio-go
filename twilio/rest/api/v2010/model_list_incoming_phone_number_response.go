@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // ListIncomingPhoneNumberResponse struct for ListIncomingPhoneNumberResponse
 type ListIncomingPhoneNumberResponse struct {
-	End int32 `json:"End,omitempty"`
-	FirstPageUri string `json:"FirstPageUri,omitempty"`
+	End                  int32                                `json:"End,omitempty"`
+	FirstPageUri         string                               `json:"FirstPageUri,omitempty"`
 	IncomingPhoneNumbers []ApiV2010AccountIncomingPhoneNumber `json:"IncomingPhoneNumbers,omitempty"`
-	NextPageUri string `json:"NextPageUri,omitempty"`
-	Page int32 `json:"Page,omitempty"`
-	PageSize int32 `json:"PageSize,omitempty"`
-	PreviousPageUri string `json:"PreviousPageUri,omitempty"`
-	Start int32 `json:"Start,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	NextPageUri          string                               `json:"NextPageUri,omitempty"`
+	Page                 int32                                `json:"Page,omitempty"`
+	PageSize             int32                                `json:"PageSize,omitempty"`
+	PreviousPageUri      string                               `json:"PreviousPageUri,omitempty"`
+	Start                int32                                `json:"Start,omitempty"`
+	Uri                  string                               `json:"Uri,omitempty"`
 }

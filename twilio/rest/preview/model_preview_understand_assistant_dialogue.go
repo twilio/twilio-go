@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // PreviewUnderstandAssistantDialogue struct for PreviewUnderstandAssistantDialogue
 type PreviewUnderstandAssistantDialogue struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AssistantSid string `json:"AssistantSid,omitempty"`
-	Data map[string]interface{} `json:"Data,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string                 `json:"AccountSid,omitempty"`
+	AssistantSid string                 `json:"AssistantSid,omitempty"`
+	Data         map[string]interface{} `json:"Data,omitempty"`
+	Sid          string                 `json:"Sid,omitempty"`
+	Url          string                 `json:"Url,omitempty"`
 }

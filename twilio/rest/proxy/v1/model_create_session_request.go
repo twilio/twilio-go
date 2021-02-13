@@ -9,9 +9,11 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // CreateSessionRequest struct for CreateSessionRequest
 type CreateSessionRequest struct {
 	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.

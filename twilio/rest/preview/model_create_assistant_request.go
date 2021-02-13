@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateAssistantRequest struct for CreateAssistantRequest
 type CreateAssistantRequest struct {
 	// Space-separated list of callback events that will trigger callbacks.

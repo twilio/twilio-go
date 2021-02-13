@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // ApiV2010AccountQueue struct for ApiV2010AccountQueue
 type ApiV2010AccountQueue struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AverageWaitTime int32 `json:"AverageWaitTime,omitempty"`
-	CurrentSize int32 `json:"CurrentSize,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	MaxSize int32 `json:"MaxSize,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	AccountSid      string `json:"AccountSid,omitempty"`
+	AverageWaitTime int32  `json:"AverageWaitTime,omitempty"`
+	CurrentSize     int32  `json:"CurrentSize,omitempty"`
+	DateCreated     string `json:"DateCreated,omitempty"`
+	DateUpdated     string `json:"DateUpdated,omitempty"`
+	FriendlyName    string `json:"FriendlyName,omitempty"`
+	MaxSize         int32  `json:"MaxSize,omitempty"`
+	Sid             string `json:"Sid,omitempty"`
+	Uri             string `json:"Uri,omitempty"`
 }

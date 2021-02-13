@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateValidationRequestRequest struct for CreateValidationRequestRequest
 type CreateValidationRequestRequest struct {
 	// The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.

@@ -9,16 +9,17 @@
  */
 
 package openapi
+
 // ApiV2010Account struct for ApiV2010Account
 type ApiV2010Account struct {
-	AuthToken string `json:"AuthToken,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	OwnerAccountSid string `json:"OwnerAccountSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
+	AuthToken       string                 `json:"AuthToken,omitempty"`
+	DateCreated     string                 `json:"DateCreated,omitempty"`
+	DateUpdated     string                 `json:"DateUpdated,omitempty"`
+	FriendlyName    string                 `json:"FriendlyName,omitempty"`
+	OwnerAccountSid string                 `json:"OwnerAccountSid,omitempty"`
+	Sid             string                 `json:"Sid,omitempty"`
+	Status          Status                 `json:"Status,omitempty"`
 	SubresourceUris map[string]interface{} `json:"SubresourceUris,omitempty"`
-	Type ModelType `json:"Type,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	Type            ModelType              `json:"Type,omitempty"`
+	Uri             string                 `json:"Uri,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCredentialRequest struct for CreateCredentialRequest
 type CreateCredentialRequest struct {
 	// [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.

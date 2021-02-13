@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListInviteResponse struct for ListInviteResponse
 type ListInviteResponse struct {
 	Invites []IpMessagingV2ServiceChannelInvite `json:"Invites,omitempty"`
-	Meta ListCredentialResponseMeta `json:"Meta,omitempty"`
+	Meta    ListCredentialResponseMeta          `json:"Meta,omitempty"`
 }

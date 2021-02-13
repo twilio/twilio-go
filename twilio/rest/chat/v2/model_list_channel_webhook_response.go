@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListChannelWebhookResponse struct for ListChannelWebhookResponse
 type ListChannelWebhookResponse struct {
-	Meta ListCredentialResponseMeta `json:"Meta,omitempty"`
+	Meta     ListCredentialResponseMeta           `json:"Meta,omitempty"`
 	Webhooks []ChatV2ServiceChannelChannelWebhook `json:"Webhooks,omitempty"`
 }

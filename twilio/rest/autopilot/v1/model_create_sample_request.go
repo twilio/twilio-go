@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSampleRequest struct for CreateSampleRequest
 type CreateSampleRequest struct {
 	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListModelBuildResponse struct for ListModelBuildResponse
 type ListModelBuildResponse struct {
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta        ListDayResponseMeta                    `json:"Meta,omitempty"`
 	ModelBuilds []PreviewUnderstandAssistantModelBuild `json:"ModelBuilds,omitempty"`
 }

@@ -9,19 +9,21 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // MessagingV1BrandRegistrations struct for MessagingV1BrandRegistrations
 type MessagingV1BrandRegistrations struct {
-	A2pProfileBundleSid string `json:"A2pProfileBundleSid,omitempty"`
-	AccountSid string `json:"AccountSid,omitempty"`
-	CustomerProfileBundleSid string `json:"CustomerProfileBundleSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FailureReason string `json:"FailureReason,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	TcrId string `json:"TcrId,omitempty"`
-	Url string `json:"Url,omitempty"`
+	A2pProfileBundleSid      string    `json:"A2pProfileBundleSid,omitempty"`
+	AccountSid               string    `json:"AccountSid,omitempty"`
+	CustomerProfileBundleSid string    `json:"CustomerProfileBundleSid,omitempty"`
+	DateCreated              time.Time `json:"DateCreated,omitempty"`
+	DateUpdated              time.Time `json:"DateUpdated,omitempty"`
+	FailureReason            string    `json:"FailureReason,omitempty"`
+	Sid                      string    `json:"Sid,omitempty"`
+	Status                   Status    `json:"Status,omitempty"`
+	TcrId                    string    `json:"TcrId,omitempty"`
+	Url                      string    `json:"Url,omitempty"`
 }

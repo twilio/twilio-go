@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListFieldValueResponse struct for ListFieldValueResponse
 type ListFieldValueResponse struct {
 	FieldValues []AutopilotV1AssistantFieldTypeFieldValue `json:"FieldValues,omitempty"`
-	Meta ListAssistantResponseMeta `json:"Meta,omitempty"`
+	Meta        ListAssistantResponseMeta                 `json:"Meta,omitempty"`
 }

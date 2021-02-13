@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Method the model 'Method'
 type Method string
 
 // List of method
 const (
-	METHOD_GET Method = "GET"
+	METHOD_GET  Method = "GET"
 	METHOD_POST Method = "POST"
 )

@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // CreateDeviceRequest struct for CreateDeviceRequest
 type CreateDeviceRequest struct {
 	// Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
 	DeploymentSid string `json:"DeploymentSid,omitempty"`
-	Enabled bool `json:"Enabled,omitempty"`
+	Enabled       bool   `json:"Enabled,omitempty"`
 	// Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
 	FriendlyName string `json:"FriendlyName,omitempty"`
 	// Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.

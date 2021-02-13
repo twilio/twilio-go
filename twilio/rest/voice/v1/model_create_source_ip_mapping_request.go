@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSourceIpMappingRequest struct for CreateSourceIpMappingRequest
 type CreateSourceIpMappingRequest struct {
 	// The Twilio-provided string that uniquely identifies the IP Record resource to map from.

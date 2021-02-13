@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateServiceRequest struct for UpdateServiceRequest
 type UpdateServiceRequest struct {
 	// The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.

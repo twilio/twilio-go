@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSipCredentialRequest struct for UpdateSipCredentialRequest
 type UpdateSipCredentialRequest struct {
 	// The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)

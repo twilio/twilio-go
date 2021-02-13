@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateConnectionPolicyTargetRequest struct for UpdateConnectionPolicyTargetRequest
 type UpdateConnectionPolicyTargetRequest struct {
 	// Whether the Target is enabled.

@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -23,16 +25,17 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://studio.twilio.com"),
 	}
 }
+
 // CreateExecutionParams Optional parameters for the method 'CreateExecution'
 type CreateExecutionParams struct {
-	From *string `json:"From,omitempty"`
+	From       *string                 `json:"From,omitempty"`
 	Parameters *map[string]interface{} `json:"Parameters,omitempty"`
-	To *string `json:"To,omitempty"`
+	To         *string                 `json:"To,omitempty"`
 }
 
 /*
@@ -49,12 +52,11 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 	path := "/v2/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From) 
+		data.Set("From", *params.From)
 	}
 	if params != nil && params.Parameters != nil {
 		v, err := json.Marshal(params.Parameters)
@@ -66,9 +68,8 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 		data.Set("Parameters", fmt.Sprint(v))
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To) 
+		data.Set("To", *params.To)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -84,12 +85,13 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 
 	return ps, err
 }
+
 // CreateFlowParams Optional parameters for the method 'CreateFlow'
 type CreateFlowParams struct {
-	CommitMessage *string `json:"CommitMessage,omitempty"`
-	Definition *map[string]interface{} `json:"Definition,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	CommitMessage *string                 `json:"CommitMessage,omitempty"`
+	Definition    *map[string]interface{} `json:"Definition,omitempty"`
+	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
+	Status        *string                 `json:"Status,omitempty"`
 }
 
 /*
@@ -105,12 +107,11 @@ Create a Flow.
 func (c *DefaultApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, error) {
 	path := "/v2/Flows"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CommitMessage != nil {
-		data.Set("CommitMessage", *params.CommitMessage) 
+		data.Set("CommitMessage", *params.CommitMessage)
 	}
 	if params != nil && params.Definition != nil {
 		v, err := json.Marshal(params.Definition)
@@ -122,12 +123,11 @@ func (c *DefaultApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow,
 		data.Set("Definition", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -150,16 +150,13 @@ Delete the Execution and all Steps relating to it.
  * @param FlowSid The SID of the Flow with the Execution resources to delete.
  * @param Sid The SID of the Execution resource to delete.
 */
-func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) error {
 	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -176,15 +173,12 @@ DeleteFlow Method for DeleteFlow
 Delete a specific Flow.
  * @param Sid The SID of the Flow resource to delete.
 */
-func (c *DefaultApiService) DeleteFlow(Sid string) (error) {
+func (c *DefaultApiService) DeleteFlow(Sid string) error {
 	path := "/v2/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -208,11 +202,8 @@ func (c *DefaultApiService) FetchExecution(FlowSid string, Sid string) (*StudioV
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -241,11 +232,8 @@ func (c *DefaultApiService) FetchExecutionContext(FlowSid string, ExecutionSid s
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -276,11 +264,8 @@ func (c *DefaultApiService) FetchExecutionStep(FlowSid string, ExecutionSid stri
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -311,11 +296,8 @@ func (c *DefaultApiService) FetchExecutionStepContext(FlowSid string, ExecutionS
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 	path = strings.Replace(path, "{"+"StepSid"+"}", StepSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -342,11 +324,8 @@ func (c *DefaultApiService) FetchFlow(Sid string) (*StudioV2Flow, error) {
 	path := "/v2/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -375,11 +354,8 @@ func (c *DefaultApiService) FetchFlowRevision(Sid string, Revision string) (*Stu
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 	path = strings.Replace(path, "{"+"Revision"+"}", Revision, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -406,11 +382,8 @@ func (c *DefaultApiService) FetchTestUser(Sid string) (*StudioV2FlowTestUser, er
 	path := "/v2/Flows/{Sid}/TestUsers"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -426,11 +399,12 @@ func (c *DefaultApiService) FetchTestUser(Sid string) (*StudioV2FlowTestUser, er
 
 	return ps, err
 }
+
 // ListExecutionParams Optional parameters for the method 'ListExecution'
 type ListExecutionParams struct {
 	DateCreatedFrom *time.Time `json:"DateCreatedFrom,omitempty"`
-	DateCreatedTo *time.Time `json:"DateCreatedTo,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreatedTo   *time.Time `json:"DateCreatedTo,omitempty"`
+	PageSize        *int32     `json:"PageSize,omitempty"`
 }
 
 /*
@@ -447,20 +421,18 @@ func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionP
 	path := "/v2/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DateCreatedFrom != nil {
-		data.Set("DateCreatedFrom", fmt.Sprint(*params.DateCreatedFrom)) 
+		data.Set("DateCreatedFrom", fmt.Sprint(*params.DateCreatedFrom))
 	}
 	if params != nil && params.DateCreatedTo != nil {
-		data.Set("DateCreatedTo", fmt.Sprint(*params.DateCreatedTo)) 
+		data.Set("DateCreatedTo", fmt.Sprint(*params.DateCreatedTo))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -476,6 +448,7 @@ func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionP
 
 	return ps, err
 }
+
 // ListExecutionStepParams Optional parameters for the method 'ListExecutionStep'
 type ListExecutionStepParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -495,14 +468,12 @@ func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid strin
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -518,6 +489,7 @@ func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid strin
 
 	return ps, err
 }
+
 // ListFlowParams Optional parameters for the method 'ListFlow'
 type ListFlowParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -533,14 +505,12 @@ Retrieve a list of all Flows.
 func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse, error) {
 	path := "/v2/Flows"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -556,6 +526,7 @@ func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse,
 
 	return ps, err
 }
+
 // ListFlowRevisionParams Optional parameters for the method 'ListFlowRevision'
 type ListFlowRevisionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -573,14 +544,12 @@ func (c *DefaultApiService) ListFlowRevision(Sid string, params *ListFlowRevisio
 	path := "/v2/Flows/{Sid}/Revisions"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -596,6 +565,7 @@ func (c *DefaultApiService) ListFlowRevision(Sid string, params *ListFlowRevisio
 
 	return ps, err
 }
+
 // UpdateExecutionParams Optional parameters for the method 'UpdateExecution'
 type UpdateExecutionParams struct {
 	Status *string `json:"Status,omitempty"`
@@ -615,14 +585,12 @@ func (c *DefaultApiService) UpdateExecution(FlowSid string, Sid string, params *
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -638,12 +606,13 @@ func (c *DefaultApiService) UpdateExecution(FlowSid string, Sid string, params *
 
 	return ps, err
 }
+
 // UpdateFlowParams Optional parameters for the method 'UpdateFlow'
 type UpdateFlowParams struct {
-	CommitMessage *string `json:"CommitMessage,omitempty"`
-	Definition *map[string]interface{} `json:"Definition,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	CommitMessage *string                 `json:"CommitMessage,omitempty"`
+	Definition    *map[string]interface{} `json:"Definition,omitempty"`
+	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
+	Status        *string                 `json:"Status,omitempty"`
 }
 
 /*
@@ -661,12 +630,11 @@ func (c *DefaultApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*S
 	path := "/v2/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CommitMessage != nil {
-		data.Set("CommitMessage", *params.CommitMessage) 
+		data.Set("CommitMessage", *params.CommitMessage)
 	}
 	if params != nil && params.Definition != nil {
 		v, err := json.Marshal(params.Definition)
@@ -678,12 +646,11 @@ func (c *DefaultApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*S
 		data.Set("Definition", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -699,12 +666,13 @@ func (c *DefaultApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*S
 
 	return ps, err
 }
+
 // UpdateFlowValidateParams Optional parameters for the method 'UpdateFlowValidate'
 type UpdateFlowValidateParams struct {
-	CommitMessage *string `json:"CommitMessage,omitempty"`
-	Definition *map[string]interface{} `json:"Definition,omitempty"`
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	CommitMessage *string                 `json:"CommitMessage,omitempty"`
+	Definition    *map[string]interface{} `json:"Definition,omitempty"`
+	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
+	Status        *string                 `json:"Status,omitempty"`
 }
 
 /*
@@ -720,12 +688,11 @@ Validate flow JSON definition
 func (c *DefaultApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*StudioV2FlowValidate, error) {
 	path := "/v2/Flows/Validate"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CommitMessage != nil {
-		data.Set("CommitMessage", *params.CommitMessage) 
+		data.Set("CommitMessage", *params.CommitMessage)
 	}
 	if params != nil && params.Definition != nil {
 		v, err := json.Marshal(params.Definition)
@@ -737,12 +704,11 @@ func (c *DefaultApiService) UpdateFlowValidate(params *UpdateFlowValidateParams)
 		data.Set("Definition", fmt.Sprint(v))
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -758,6 +724,7 @@ func (c *DefaultApiService) UpdateFlowValidate(params *UpdateFlowValidateParams)
 
 	return ps, err
 }
+
 // UpdateTestUserParams Optional parameters for the method 'UpdateTestUser'
 type UpdateTestUserParams struct {
 	TestUsers *[]string `json:"TestUsers,omitempty"`
@@ -775,14 +742,12 @@ func (c *DefaultApiService) UpdateTestUser(Sid string, params *UpdateTestUserPar
 	path := "/v2/Flows/{Sid}/TestUsers"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.TestUsers != nil {
-		data.Set("TestUsers",  strings.Join(*params.TestUsers, ","))
+		data.Set("TestUsers", strings.Join(*params.TestUsers, ","))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

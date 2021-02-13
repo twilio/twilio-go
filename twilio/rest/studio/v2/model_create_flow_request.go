@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateFlowRequest struct for CreateFlowRequest
 type CreateFlowRequest struct {
 	// Description of change made in the revision.

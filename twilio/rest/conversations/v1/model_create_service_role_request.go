@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateServiceRoleRequest struct for CreateServiceRoleRequest
 type CreateServiceRoleRequest struct {
 	// A descriptive string that you create to describe the new resource. It can be up to 64 characters long.

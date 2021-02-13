@@ -9,16 +9,18 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // TrunkingV1TrunkCredentialList struct for TrunkingV1TrunkCredentialList
 type TrunkingV1TrunkCredentialList struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	TrunkSid string `json:"TrunkSid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string    `json:"AccountSid,omitempty"`
+	DateCreated  time.Time `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string    `json:"FriendlyName,omitempty"`
+	Sid          string    `json:"Sid,omitempty"`
+	TrunkSid     string    `json:"TrunkSid,omitempty"`
+	Url          string    `json:"Url,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateUserRequest struct for UpdateUserRequest
 type UpdateUserRequest struct {
 	// A valid JSON string that contains application-specific data.

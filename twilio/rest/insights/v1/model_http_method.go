@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // HttpMethod the model 'HttpMethod'
 type HttpMethod string
 
 // List of http_method
 const (
-	HTTPMETHOD_HEAD HttpMethod = "head"
-	HTTPMETHOD_GET HttpMethod = "get"
-	HTTPMETHOD_POST HttpMethod = "post"
-	HTTPMETHOD_PATCH HttpMethod = "patch"
-	HTTPMETHOD_PUT HttpMethod = "put"
+	HTTPMETHOD_HEAD   HttpMethod = "head"
+	HTTPMETHOD_GET    HttpMethod = "get"
+	HTTPMETHOD_POST   HttpMethod = "post"
+	HTTPMETHOD_PATCH  HttpMethod = "patch"
+	HTTPMETHOD_PUT    HttpMethod = "put"
 	HTTPMETHOD_DELETE HttpMethod = "delete"
 )

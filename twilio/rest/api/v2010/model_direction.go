@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // Direction the model 'Direction'
 type Direction string
 
 // List of direction
 const (
-	DIRECTION_INBOUND Direction = "inbound"
-	DIRECTION_OUTBOUND_API Direction = "outbound-api"
-	DIRECTION_OUTBOUND_CALL Direction = "outbound-call"
+	DIRECTION_INBOUND        Direction = "inbound"
+	DIRECTION_OUTBOUND_API   Direction = "outbound-api"
+	DIRECTION_OUTBOUND_CALL  Direction = "outbound-call"
 	DIRECTION_OUTBOUND_REPLY Direction = "outbound-reply"
 )

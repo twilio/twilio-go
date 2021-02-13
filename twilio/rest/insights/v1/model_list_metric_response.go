@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListMetricResponse struct for ListMetricResponse
 type ListMetricResponse struct {
-	Meta ListVideoRoomSummaryResponseMeta `json:"Meta,omitempty"`
-	Metrics []InsightsV1CallMetric `json:"Metrics,omitempty"`
+	Meta    ListVideoRoomSummaryResponseMeta `json:"Meta,omitempty"`
+	Metrics []InsightsV1CallMetric           `json:"Metrics,omitempty"`
 }

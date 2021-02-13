@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateTestUserRequest struct for UpdateTestUserRequest
 type UpdateTestUserRequest struct {
 	// List of test user identities that can test draft versions of the flow.

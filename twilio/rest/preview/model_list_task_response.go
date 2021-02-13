@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListTaskResponse struct for ListTaskResponse
 type ListTaskResponse struct {
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta  ListDayResponseMeta              `json:"Meta,omitempty"`
 	Tasks []PreviewUnderstandAssistantTask `json:"Tasks,omitempty"`
 }

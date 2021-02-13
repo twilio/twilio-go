@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -23,15 +24,16 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://accounts.twilio.com"),
 	}
 }
+
 // CreateCredentialAwsParams Optional parameters for the method 'CreateCredentialAws'
 type CreateCredentialAwsParams struct {
-	AccountSid *string `json:"AccountSid,omitempty"`
-	Credentials *string `json:"Credentials,omitempty"`
+	AccountSid   *string `json:"AccountSid,omitempty"`
+	Credentials  *string `json:"Credentials,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -47,20 +49,18 @@ Create a new AWS Credential
 func (c *DefaultApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*AccountsV1CredentialCredentialAws, error) {
 	path := "/v1/Credentials/AWS"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid) 
+		data.Set("AccountSid", *params.AccountSid)
 	}
 	if params != nil && params.Credentials != nil {
-		data.Set("Credentials", *params.Credentials) 
+		data.Set("Credentials", *params.Credentials)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -76,11 +76,12 @@ func (c *DefaultApiService) CreateCredentialAws(params *CreateCredentialAwsParam
 
 	return ps, err
 }
+
 // CreateCredentialPublicKeyParams Optional parameters for the method 'CreateCredentialPublicKey'
 type CreateCredentialPublicKeyParams struct {
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PublicKey *string `json:"PublicKey,omitempty"`
+	PublicKey    *string `json:"PublicKey,omitempty"`
 }
 
 /*
@@ -95,20 +96,18 @@ Create a new Public Key Credential
 func (c *DefaultApiService) CreateCredentialPublicKey(params *CreateCredentialPublicKeyParams) (*AccountsV1CredentialCredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AccountSid != nil {
-		data.Set("AccountSid", *params.AccountSid) 
+		data.Set("AccountSid", *params.AccountSid)
 	}
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PublicKey != nil {
-		data.Set("PublicKey", *params.PublicKey) 
+		data.Set("PublicKey", *params.PublicKey)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -133,11 +132,8 @@ Create a new secondary Auth Token
 func (c *DefaultApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, error) {
 	path := "/v1/AuthTokens/Secondary"
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -159,15 +155,12 @@ DeleteCredentialAws Method for DeleteCredentialAws
 Delete a Credential from your account
  * @param Sid The Twilio-provided string that uniquely identifies the AWS resource to delete.
 */
-func (c *DefaultApiService) DeleteCredentialAws(Sid string) (error) {
+func (c *DefaultApiService) DeleteCredentialAws(Sid string) error {
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -184,15 +177,12 @@ DeleteCredentialPublicKey Method for DeleteCredentialPublicKey
 Delete a Credential from your account
  * @param Sid The Twilio-provided string that uniquely identifies the PublicKey resource to delete.
 */
-func (c *DefaultApiService) DeleteCredentialPublicKey(Sid string) (error) {
+func (c *DefaultApiService) DeleteCredentialPublicKey(Sid string) error {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -208,14 +198,11 @@ func (c *DefaultApiService) DeleteCredentialPublicKey(Sid string) (error) {
 DeleteSecondaryAuthToken Method for DeleteSecondaryAuthToken
 Delete the secondary Auth Token from your account
 */
-func (c *DefaultApiService) DeleteSecondaryAuthToken() (error) {
+func (c *DefaultApiService) DeleteSecondaryAuthToken() error {
 	path := "/v1/AuthTokens/Secondary"
-
 
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -237,11 +224,8 @@ func (c *DefaultApiService) FetchCredentialAws(Sid string) (*AccountsV1Credentia
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -268,11 +252,8 @@ func (c *DefaultApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1Cre
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -288,6 +269,7 @@ func (c *DefaultApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1Cre
 
 	return ps, err
 }
+
 // ListCredentialAwsParams Optional parameters for the method 'ListCredentialAws'
 type ListCredentialAwsParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -303,14 +285,12 @@ Retrieves a collection of AWS Credentials belonging to the account used to make 
 func (c *DefaultApiService) ListCredentialAws(params *ListCredentialAwsParams) (*ListCredentialAwsResponse, error) {
 	path := "/v1/Credentials/AWS"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -326,6 +306,7 @@ func (c *DefaultApiService) ListCredentialAws(params *ListCredentialAwsParams) (
 
 	return ps, err
 }
+
 // ListCredentialPublicKeyParams Optional parameters for the method 'ListCredentialPublicKey'
 type ListCredentialPublicKeyParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -341,14 +322,12 @@ Retrieves a collection of Public Key Credentials belonging to the account used t
 func (c *DefaultApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams) (*ListCredentialPublicKeyResponse, error) {
 	path := "/v1/Credentials/PublicKeys"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -373,11 +352,8 @@ Promote the secondary Auth Token to primary. After promoting the new token, all 
 func (c *DefaultApiService) UpdateAuthTokenPromotion() (*AccountsV1AuthTokenPromotion, error) {
 	path := "/v1/AuthTokens/Promote"
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -393,6 +369,7 @@ func (c *DefaultApiService) UpdateAuthTokenPromotion() (*AccountsV1AuthTokenProm
 
 	return ps, err
 }
+
 // UpdateCredentialAwsParams Optional parameters for the method 'UpdateCredentialAws'
 type UpdateCredentialAwsParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -410,14 +387,12 @@ func (c *DefaultApiService) UpdateCredentialAws(Sid string, params *UpdateCreden
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -433,6 +408,7 @@ func (c *DefaultApiService) UpdateCredentialAws(Sid string, params *UpdateCreden
 
 	return ps, err
 }
+
 // UpdateCredentialPublicKeyParams Optional parameters for the method 'UpdateCredentialPublicKey'
 type UpdateCredentialPublicKeyParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -450,14 +426,12 @@ func (c *DefaultApiService) UpdateCredentialPublicKey(Sid string, params *Update
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

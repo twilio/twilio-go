@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateAuthorizationDocumentRequest struct for CreateAuthorizationDocumentRequest
 type CreateAuthorizationDocumentRequest struct {
 	// A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.

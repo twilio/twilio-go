@@ -9,19 +9,21 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack struct for VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack
 type VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack struct {
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Enabled bool `json:"Enabled,omitempty"`
-	Kind Kind `json:"Kind,omitempty"`
-	Name string `json:"Name,omitempty"`
-	ParticipantSid string `json:"ParticipantSid,omitempty"`
-	PublisherSid string `json:"PublisherSid,omitempty"`
-	RoomSid string `json:"RoomSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	DateCreated    time.Time `json:"DateCreated,omitempty"`
+	DateUpdated    time.Time `json:"DateUpdated,omitempty"`
+	Enabled        bool      `json:"Enabled,omitempty"`
+	Kind           Kind      `json:"Kind,omitempty"`
+	Name           string    `json:"Name,omitempty"`
+	ParticipantSid string    `json:"ParticipantSid,omitempty"`
+	PublisherSid   string    `json:"PublisherSid,omitempty"`
+	RoomSid        string    `json:"RoomSid,omitempty"`
+	Sid            string    `json:"Sid,omitempty"`
+	Url            string    `json:"Url,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCustomerProfileChannelEndpointAssignmentRequest struct for CreateCustomerProfileChannelEndpointAssignmentRequest
 type CreateCustomerProfileChannelEndpointAssignmentRequest struct {
 	// The SID of an channel endpoint

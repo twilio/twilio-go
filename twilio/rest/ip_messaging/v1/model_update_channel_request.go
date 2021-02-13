@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // UpdateChannelRequest struct for UpdateChannelRequest
 type UpdateChannelRequest struct {
-	Attributes string `json:"Attributes,omitempty"`
+	Attributes   string `json:"Attributes,omitempty"`
 	FriendlyName string `json:"FriendlyName,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
+	UniqueName   string `json:"UniqueName,omitempty"`
 }

@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // CreateMessageRequest struct for CreateMessageRequest
 type CreateMessageRequest struct {
 	Attributes string `json:"Attributes,omitempty"`
-	Body string `json:"Body"`
-	From string `json:"From,omitempty"`
+	Body       string `json:"Body"`
+	From       string `json:"From,omitempty"`
 }

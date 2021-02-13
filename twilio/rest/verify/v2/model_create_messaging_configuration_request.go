@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateMessagingConfigurationRequest struct for CreateMessagingConfigurationRequest
 type CreateMessagingConfigurationRequest struct {
 	// The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.

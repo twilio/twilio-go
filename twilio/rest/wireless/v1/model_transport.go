@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Transport the model 'Transport'
 type Transport string
 
 // List of transport
 const (
 	TRANSPORT_SMS Transport = "sms"
-	TRANSPORT_IP Transport = "ip"
+	TRANSPORT_IP  Transport = "ip"
 )

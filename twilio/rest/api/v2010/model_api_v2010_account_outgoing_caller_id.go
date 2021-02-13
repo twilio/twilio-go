@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // ApiV2010AccountOutgoingCallerId struct for ApiV2010AccountOutgoingCallerId
 type ApiV2010AccountOutgoingCallerId struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
+	AccountSid   string `json:"AccountSid,omitempty"`
+	DateCreated  string `json:"DateCreated,omitempty"`
+	DateUpdated  string `json:"DateUpdated,omitempty"`
 	FriendlyName string `json:"FriendlyName,omitempty"`
-	PhoneNumber string `json:"PhoneNumber,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	PhoneNumber  string `json:"PhoneNumber,omitempty"`
+	Sid          string `json:"Sid,omitempty"`
+	Uri          string `json:"Uri,omitempty"`
 }

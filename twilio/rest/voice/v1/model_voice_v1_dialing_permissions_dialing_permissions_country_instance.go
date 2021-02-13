@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // VoiceV1DialingPermissionsDialingPermissionsCountryInstance struct for VoiceV1DialingPermissionsDialingPermissionsCountryInstance
 type VoiceV1DialingPermissionsDialingPermissionsCountryInstance struct {
-	Continent string `json:"Continent,omitempty"`
-	CountryCodes []string `json:"CountryCodes,omitempty"`
-	HighRiskSpecialNumbersEnabled bool `json:"HighRiskSpecialNumbersEnabled,omitempty"`
-	HighRiskTollfraudNumbersEnabled bool `json:"HighRiskTollfraudNumbersEnabled,omitempty"`
-	IsoCode string `json:"IsoCode,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	LowRiskNumbersEnabled bool `json:"LowRiskNumbersEnabled,omitempty"`
-	Name string `json:"Name,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Continent                       string                 `json:"Continent,omitempty"`
+	CountryCodes                    []string               `json:"CountryCodes,omitempty"`
+	HighRiskSpecialNumbersEnabled   bool                   `json:"HighRiskSpecialNumbersEnabled,omitempty"`
+	HighRiskTollfraudNumbersEnabled bool                   `json:"HighRiskTollfraudNumbersEnabled,omitempty"`
+	IsoCode                         string                 `json:"IsoCode,omitempty"`
+	Links                           map[string]interface{} `json:"Links,omitempty"`
+	LowRiskNumbersEnabled           bool                   `json:"LowRiskNumbersEnabled,omitempty"`
+	Name                            string                 `json:"Name,omitempty"`
+	Url                             string                 `json:"Url,omitempty"`
 }

@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // PricingV1PhoneNumberPhoneNumberCountry struct for PricingV1PhoneNumberPhoneNumberCountry
 type PricingV1PhoneNumberPhoneNumberCountry struct {
-	Country string `json:"Country,omitempty"`
+	Country    string `json:"Country,omitempty"`
 	IsoCountry string `json:"IsoCountry,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Url        string `json:"Url,omitempty"`
 }

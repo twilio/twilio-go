@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateWebhookRequest struct for UpdateWebhookRequest
 type UpdateWebhookRequest struct {
 	// The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`

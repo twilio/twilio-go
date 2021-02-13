@@ -9,13 +9,15 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // PreviewTrustedCommsBrandsInformation struct for PreviewTrustedCommsBrandsInformation
 type PreviewTrustedCommsBrandsInformation struct {
-	FileLink string `json:"FileLink,omitempty"`
-	FileLinkTtlInSeconds string `json:"FileLinkTtlInSeconds,omitempty"`
-	UpdateTime time.Time `json:"UpdateTime,omitempty"`
-	Url string `json:"Url,omitempty"`
+	FileLink             string    `json:"FileLink,omitempty"`
+	FileLinkTtlInSeconds string    `json:"FileLinkTtlInSeconds,omitempty"`
+	UpdateTime           time.Time `json:"UpdateTime,omitempty"`
+	Url                  string    `json:"Url,omitempty"`
 }

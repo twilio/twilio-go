@@ -9,27 +9,29 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VideoV1Composition struct for VideoV1Composition
 type VideoV1Composition struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AudioSources []string `json:"AudioSources,omitempty"`
-	AudioSourcesExcluded []string `json:"AudioSourcesExcluded,omitempty"`
-	Bitrate *int32 `json:"Bitrate,omitempty"`
-	DateCompleted time.Time `json:"DateCompleted,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateDeleted time.Time `json:"DateDeleted,omitempty"`
-	Duration *int32 `json:"Duration,omitempty"`
-	Format Format `json:"Format,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	Resolution string `json:"Resolution,omitempty"`
-	RoomSid string `json:"RoomSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Size int32 `json:"Size,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	Trim bool `json:"Trim,omitempty"`
-	Url string `json:"Url,omitempty"`
-	VideoLayout map[string]interface{} `json:"VideoLayout,omitempty"`
+	AccountSid           string                 `json:"AccountSid,omitempty"`
+	AudioSources         []string               `json:"AudioSources,omitempty"`
+	AudioSourcesExcluded []string               `json:"AudioSourcesExcluded,omitempty"`
+	Bitrate              *int32                 `json:"Bitrate,omitempty"`
+	DateCompleted        time.Time              `json:"DateCompleted,omitempty"`
+	DateCreated          time.Time              `json:"DateCreated,omitempty"`
+	DateDeleted          time.Time              `json:"DateDeleted,omitempty"`
+	Duration             *int32                 `json:"Duration,omitempty"`
+	Format               Format                 `json:"Format,omitempty"`
+	Links                map[string]interface{} `json:"Links,omitempty"`
+	Resolution           string                 `json:"Resolution,omitempty"`
+	RoomSid              string                 `json:"RoomSid,omitempty"`
+	Sid                  string                 `json:"Sid,omitempty"`
+	Size                 int32                  `json:"Size,omitempty"`
+	Status               Status                 `json:"Status,omitempty"`
+	Trim                 bool                   `json:"Trim,omitempty"`
+	Url                  string                 `json:"Url,omitempty"`
+	VideoLayout          map[string]interface{} `json:"VideoLayout,omitempty"`
 }

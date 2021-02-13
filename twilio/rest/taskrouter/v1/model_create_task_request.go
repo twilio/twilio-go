@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateTaskRequest struct for CreateTaskRequest
 type CreateTaskRequest struct {
 	// A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \"task_type\": \"call\", \"twilio_call_sid\": \"CAxxx\", \"customer_ticket_number\": \"12345\" }`.

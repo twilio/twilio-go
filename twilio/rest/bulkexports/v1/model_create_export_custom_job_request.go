@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateExportCustomJobRequest struct for CreateExportCustomJobRequest
 type CreateExportCustomJobRequest struct {
 	// The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateInstalledAddOnRequest struct for CreateInstalledAddOnRequest
 type CreateInstalledAddOnRequest struct {
 	// Whether the Terms of Service were accepted.

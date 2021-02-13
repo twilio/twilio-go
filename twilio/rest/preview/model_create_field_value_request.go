@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateFieldValueRequest struct for CreateFieldValueRequest
 type CreateFieldValueRequest struct {
 	// An ISO language-country string of the value.

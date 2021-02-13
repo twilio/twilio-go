@@ -9,25 +9,27 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VerifyV2Service struct for VerifyV2Service
 type VerifyV2Service struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CodeLength int32 `json:"CodeLength,omitempty"`
-	CustomCodeEnabled bool `json:"CustomCodeEnabled,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	DoNotShareWarningEnabled bool `json:"DoNotShareWarningEnabled,omitempty"`
-	DtmfInputRequired bool `json:"DtmfInputRequired,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	LookupEnabled bool `json:"LookupEnabled,omitempty"`
-	Psd2Enabled bool `json:"Psd2Enabled,omitempty"`
-	Push map[string]interface{} `json:"Push,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	SkipSmsToLandlines bool `json:"SkipSmsToLandlines,omitempty"`
-	TtsName string `json:"TtsName,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid               string                 `json:"AccountSid,omitempty"`
+	CodeLength               int32                  `json:"CodeLength,omitempty"`
+	CustomCodeEnabled        bool                   `json:"CustomCodeEnabled,omitempty"`
+	DateCreated              time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated              time.Time              `json:"DateUpdated,omitempty"`
+	DoNotShareWarningEnabled bool                   `json:"DoNotShareWarningEnabled,omitempty"`
+	DtmfInputRequired        bool                   `json:"DtmfInputRequired,omitempty"`
+	FriendlyName             string                 `json:"FriendlyName,omitempty"`
+	Links                    map[string]interface{} `json:"Links,omitempty"`
+	LookupEnabled            bool                   `json:"LookupEnabled,omitempty"`
+	Psd2Enabled              bool                   `json:"Psd2Enabled,omitempty"`
+	Push                     map[string]interface{} `json:"Push,omitempty"`
+	Sid                      string                 `json:"Sid,omitempty"`
+	SkipSmsToLandlines       bool                   `json:"SkipSmsToLandlines,omitempty"`
+	TtsName                  string                 `json:"TtsName,omitempty"`
+	Url                      string                 `json:"Url,omitempty"`
 }

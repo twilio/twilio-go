@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateEndUserRequest struct for UpdateEndUserRequest
 type UpdateEndUserRequest struct {
 	// The set of parameters that are the attributes of the End User resource which are derived End User Types.

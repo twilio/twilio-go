@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateExecutionRequest struct for UpdateExecutionRequest
 type UpdateExecutionRequest struct {
 	// The status of the Execution. Can only be `ended`.

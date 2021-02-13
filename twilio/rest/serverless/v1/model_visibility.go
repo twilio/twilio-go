@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // Visibility the model 'Visibility'
 type Visibility string
 
 // List of visibility
 const (
-	VISIBILITY_PUBLIC Visibility = "public"
-	VISIBILITY_PRIVATE Visibility = "private"
+	VISIBILITY_PUBLIC    Visibility = "public"
+	VISIBILITY_PRIVATE   Visibility = "private"
 	VISIBILITY_PROTECTED Visibility = "protected"
 )

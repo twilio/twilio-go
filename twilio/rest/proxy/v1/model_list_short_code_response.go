@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListShortCodeResponse struct for ListShortCodeResponse
 type ListShortCodeResponse struct {
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Meta       ListServiceResponseMeta   `json:"Meta,omitempty"`
 	ShortCodes []ProxyV1ServiceShortCode `json:"ShortCodes,omitempty"`
 }

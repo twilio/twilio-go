@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateConnectionPolicyTargetRequest struct for CreateConnectionPolicyTargetRequest
 type CreateConnectionPolicyTargetRequest struct {
 	// Whether the Target is enabled. The default is `true`.

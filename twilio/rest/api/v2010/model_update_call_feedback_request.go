@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateCallFeedbackRequest struct for UpdateCallFeedbackRequest
 type UpdateCallFeedbackRequest struct {
 	// One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.

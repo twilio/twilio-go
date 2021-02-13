@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateRoomRequest struct for UpdateRoomRequest
 type UpdateRoomRequest struct {
 	// The new status of the resource. Set to `completed` to end the room.

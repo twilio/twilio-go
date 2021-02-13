@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateDocumentRequest struct for UpdateDocumentRequest
 type UpdateDocumentRequest struct {
 	// A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.

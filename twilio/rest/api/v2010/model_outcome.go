@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Outcome the model 'Outcome'
 type Outcome string
 
 // List of outcome
 const (
-	OUTCOME_CONFIRMED Outcome = "confirmed"
+	OUTCOME_CONFIRMED   Outcome = "confirmed"
 	OUTCOME_UNCONFIRMED Outcome = "unconfirmed"
 )

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListFactorResponse struct for ListFactorResponse
 type ListFactorResponse struct {
 	Factors []VerifyV2ServiceEntityFactor `json:"Factors,omitempty"`
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Meta    ListServiceResponseMeta       `json:"Meta,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // DataMetering the model 'DataMetering'
 type DataMetering string
 

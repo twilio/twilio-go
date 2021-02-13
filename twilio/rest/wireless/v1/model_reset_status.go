@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // ResetStatus the model 'ResetStatus'
 type ResetStatus string
 

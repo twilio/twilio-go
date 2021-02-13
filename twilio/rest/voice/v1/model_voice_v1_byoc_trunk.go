@@ -9,24 +9,26 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VoiceV1ByocTrunk struct for VoiceV1ByocTrunk
 type VoiceV1ByocTrunk struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CnamLookupEnabled bool `json:"CnamLookupEnabled,omitempty"`
-	ConnectionPolicySid string `json:"ConnectionPolicySid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	FromDomainSid string `json:"FromDomainSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
+	AccountSid           string     `json:"AccountSid,omitempty"`
+	CnamLookupEnabled    bool       `json:"CnamLookupEnabled,omitempty"`
+	ConnectionPolicySid  string     `json:"ConnectionPolicySid,omitempty"`
+	DateCreated          time.Time  `json:"DateCreated,omitempty"`
+	DateUpdated          time.Time  `json:"DateUpdated,omitempty"`
+	FriendlyName         string     `json:"FriendlyName,omitempty"`
+	FromDomainSid        string     `json:"FromDomainSid,omitempty"`
+	Sid                  string     `json:"Sid,omitempty"`
 	StatusCallbackMethod HttpMethod `json:"StatusCallbackMethod,omitempty"`
-	StatusCallbackUrl string `json:"StatusCallbackUrl,omitempty"`
-	Url string `json:"Url,omitempty"`
-	VoiceFallbackMethod HttpMethod `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod HttpMethod `json:"VoiceMethod,omitempty"`
-	VoiceUrl string `json:"VoiceUrl,omitempty"`
+	StatusCallbackUrl    string     `json:"StatusCallbackUrl,omitempty"`
+	Url                  string     `json:"Url,omitempty"`
+	VoiceFallbackMethod  HttpMethod `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackUrl     string     `json:"VoiceFallbackUrl,omitempty"`
+	VoiceMethod          HttpMethod `json:"VoiceMethod,omitempty"`
+	VoiceUrl             string     `json:"VoiceUrl,omitempty"`
 }

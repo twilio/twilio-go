@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // PushType the model 'PushType'
 type PushType string
 

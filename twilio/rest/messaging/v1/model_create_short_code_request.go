@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateShortCodeRequest struct for CreateShortCodeRequest
 type CreateShortCodeRequest struct {
 	// The SID of the ShortCode resource being added to the Service.

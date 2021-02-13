@@ -9,16 +9,18 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ConversationsV1Service struct for ConversationsV1Service
 type ConversationsV1Service struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string                 `json:"AccountSid,omitempty"`
+	DateCreated  time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time              `json:"DateUpdated,omitempty"`
+	FriendlyName string                 `json:"FriendlyName,omitempty"`
+	Links        map[string]interface{} `json:"Links,omitempty"`
+	Sid          string                 `json:"Sid,omitempty"`
+	Url          string                 `json:"Url,omitempty"`
 }

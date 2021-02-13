@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCallRecordingRequest struct for CreateCallRecordingRequest
 type CreateCallRecordingRequest struct {
 	// The number of channels used in the recording. Can be: `mono` or `dual` and the default is `mono`. `mono` records all parties of the call into one channel. `dual` records each party of a 2-party call into separate channels.

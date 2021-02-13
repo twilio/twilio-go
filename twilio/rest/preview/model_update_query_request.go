@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateQueryRequest struct for UpdateQueryRequest
 type UpdateQueryRequest struct {
 	// An optional reference to the Sample created from this query.

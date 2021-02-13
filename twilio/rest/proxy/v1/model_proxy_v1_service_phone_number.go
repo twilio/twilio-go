@@ -9,21 +9,23 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ProxyV1ServicePhoneNumber struct for ProxyV1ServicePhoneNumber
 type ProxyV1ServicePhoneNumber struct {
-	AccountSid string `json:"AccountSid,omitempty"`
+	AccountSid   string                  `json:"AccountSid,omitempty"`
 	Capabilities PhoneNumberCapabilities `json:"Capabilities,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	InUse int32 `json:"InUse,omitempty"`
-	IsReserved bool `json:"IsReserved,omitempty"`
-	IsoCountry string `json:"IsoCountry,omitempty"`
-	PhoneNumber string `json:"PhoneNumber,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	DateCreated  time.Time               `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time               `json:"DateUpdated,omitempty"`
+	FriendlyName string                  `json:"FriendlyName,omitempty"`
+	InUse        int32                   `json:"InUse,omitempty"`
+	IsReserved   bool                    `json:"IsReserved,omitempty"`
+	IsoCountry   string                  `json:"IsoCountry,omitempty"`
+	PhoneNumber  string                  `json:"PhoneNumber,omitempty"`
+	ServiceSid   string                  `json:"ServiceSid,omitempty"`
+	Sid          string                  `json:"Sid,omitempty"`
+	Url          string                  `json:"Url,omitempty"`
 }

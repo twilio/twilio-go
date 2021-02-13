@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListFlowResponse struct for ListFlowResponse
 type ListFlowResponse struct {
-	Flows []StudioV1Flow `json:"Flows,omitempty"`
-	Meta ListFlowResponseMeta `json:"Meta,omitempty"`
+	Flows []StudioV1Flow       `json:"Flows,omitempty"`
+	Meta  ListFlowResponseMeta `json:"Meta,omitempty"`
 }

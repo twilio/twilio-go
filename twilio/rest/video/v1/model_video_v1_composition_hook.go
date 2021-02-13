@@ -9,24 +9,26 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VideoV1CompositionHook struct for VideoV1CompositionHook
 type VideoV1CompositionHook struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AudioSources []string `json:"AudioSources,omitempty"`
-	AudioSourcesExcluded []string `json:"AudioSourcesExcluded,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Enabled bool `json:"Enabled,omitempty"`
-	Format Format `json:"Format,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Resolution string `json:"Resolution,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	StatusCallback string `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod HttpMethod `json:"StatusCallbackMethod,omitempty"`
-	Trim bool `json:"Trim,omitempty"`
-	Url string `json:"Url,omitempty"`
-	VideoLayout map[string]interface{} `json:"VideoLayout,omitempty"`
+	AccountSid           string                 `json:"AccountSid,omitempty"`
+	AudioSources         []string               `json:"AudioSources,omitempty"`
+	AudioSourcesExcluded []string               `json:"AudioSourcesExcluded,omitempty"`
+	DateCreated          time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated          time.Time              `json:"DateUpdated,omitempty"`
+	Enabled              bool                   `json:"Enabled,omitempty"`
+	Format               Format                 `json:"Format,omitempty"`
+	FriendlyName         string                 `json:"FriendlyName,omitempty"`
+	Resolution           string                 `json:"Resolution,omitempty"`
+	Sid                  string                 `json:"Sid,omitempty"`
+	StatusCallback       string                 `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod HttpMethod             `json:"StatusCallbackMethod,omitempty"`
+	Trim                 bool                   `json:"Trim,omitempty"`
+	Url                  string                 `json:"Url,omitempty"`
+	VideoLayout          map[string]interface{} `json:"VideoLayout,omitempty"`
 }

@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // ApiV2010AccountMessageMedia struct for ApiV2010AccountMessageMedia
 type ApiV2010AccountMessageMedia struct {
-	AccountSid string `json:"AccountSid,omitempty"`
+	AccountSid  string `json:"AccountSid,omitempty"`
 	ContentType string `json:"ContentType,omitempty"`
 	DateCreated string `json:"DateCreated,omitempty"`
 	DateUpdated string `json:"DateUpdated,omitempty"`
-	ParentSid string `json:"ParentSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	ParentSid   string `json:"ParentSid,omitempty"`
+	Sid         string `json:"Sid,omitempty"`
+	Uri         string `json:"Uri,omitempty"`
 }

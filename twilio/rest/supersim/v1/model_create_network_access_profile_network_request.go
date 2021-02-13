@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateNetworkAccessProfileNetworkRequest struct for CreateNetworkAccessProfileNetworkRequest
 type CreateNetworkAccessProfileNetworkRequest struct {
 	// The SID of the Network resource to be added to the Network Access Profile resource.

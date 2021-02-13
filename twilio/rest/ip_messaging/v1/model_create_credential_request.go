@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // CreateCredentialRequest struct for CreateCredentialRequest
 type CreateCredentialRequest struct {
-	ApiKey string `json:"ApiKey,omitempty"`
-	Certificate string `json:"Certificate,omitempty"`
+	ApiKey       string `json:"ApiKey,omitempty"`
+	Certificate  string `json:"Certificate,omitempty"`
 	FriendlyName string `json:"FriendlyName,omitempty"`
-	PrivateKey string `json:"PrivateKey,omitempty"`
-	Sandbox bool `json:"Sandbox,omitempty"`
-	Secret string `json:"Secret,omitempty"`
-	Type string `json:"Type"`
+	PrivateKey   string `json:"PrivateKey,omitempty"`
+	Sandbox      bool   `json:"Sandbox,omitempty"`
+	Secret       string `json:"Secret,omitempty"`
+	Type         string `json:"Type"`
 }

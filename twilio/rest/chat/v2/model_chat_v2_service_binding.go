@@ -9,21 +9,23 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ChatV2ServiceBinding struct for ChatV2ServiceBinding
 type ChatV2ServiceBinding struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	BindingType BindingType `json:"BindingType,omitempty"`
-	CredentialSid string `json:"CredentialSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Endpoint string `json:"Endpoint,omitempty"`
-	Identity string `json:"Identity,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	MessageTypes []string `json:"MessageTypes,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid    string                 `json:"AccountSid,omitempty"`
+	BindingType   BindingType            `json:"BindingType,omitempty"`
+	CredentialSid string                 `json:"CredentialSid,omitempty"`
+	DateCreated   time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated   time.Time              `json:"DateUpdated,omitempty"`
+	Endpoint      string                 `json:"Endpoint,omitempty"`
+	Identity      string                 `json:"Identity,omitempty"`
+	Links         map[string]interface{} `json:"Links,omitempty"`
+	MessageTypes  []string               `json:"MessageTypes,omitempty"`
+	ServiceSid    string                 `json:"ServiceSid,omitempty"`
+	Sid           string                 `json:"Sid,omitempty"`
+	Url           string                 `json:"Url,omitempty"`
 }

@@ -9,17 +9,19 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // NumbersV2RegulatoryComplianceBundleEvaluation struct for NumbersV2RegulatoryComplianceBundleEvaluation
 type NumbersV2RegulatoryComplianceBundleEvaluation struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	BundleSid string `json:"BundleSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	RegulationSid string `json:"RegulationSid,omitempty"`
-	Results []map[string]interface{} `json:"Results,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid    string                   `json:"AccountSid,omitempty"`
+	BundleSid     string                   `json:"BundleSid,omitempty"`
+	DateCreated   time.Time                `json:"DateCreated,omitempty"`
+	RegulationSid string                   `json:"RegulationSid,omitempty"`
+	Results       []map[string]interface{} `json:"Results,omitempty"`
+	Sid           string                   `json:"Sid,omitempty"`
+	Status        Status                   `json:"Status,omitempty"`
+	Url           string                   `json:"Url,omitempty"`
 }

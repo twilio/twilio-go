@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateTaskRequest struct for UpdateTaskRequest
 type UpdateTaskRequest struct {
 	// The new status of the task. Can be: `canceled`, to cancel a Task that is currently `pending` or `reserved`; `wrapping`, to move the Task to wrapup state; or `completed`, to move a Task to the completed state.

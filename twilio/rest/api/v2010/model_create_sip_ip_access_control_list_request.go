@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSipIpAccessControlListRequest struct for CreateSipIpAccessControlListRequest
 type CreateSipIpAccessControlListRequest struct {
 	// A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.

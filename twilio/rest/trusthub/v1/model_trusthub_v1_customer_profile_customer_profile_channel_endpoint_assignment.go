@@ -9,16 +9,18 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment struct for TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment
 type TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ChannelEndpointSid string `json:"ChannelEndpointSid,omitempty"`
-	ChannelEndpointType string `json:"ChannelEndpointType,omitempty"`
-	CustomerProfileSid string `json:"CustomerProfileSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid          string    `json:"AccountSid,omitempty"`
+	ChannelEndpointSid  string    `json:"ChannelEndpointSid,omitempty"`
+	ChannelEndpointType string    `json:"ChannelEndpointType,omitempty"`
+	CustomerProfileSid  string    `json:"CustomerProfileSid,omitempty"`
+	DateCreated         time.Time `json:"DateCreated,omitempty"`
+	Sid                 string    `json:"Sid,omitempty"`
+	Url                 string    `json:"Url,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateRatePlanRequest struct for UpdateRatePlanRequest
 type UpdateRatePlanRequest struct {
 	// A descriptive string that you create to describe the resource. It does not have to be unique.

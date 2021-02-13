@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateTrustProductEntityAssignmentRequest struct for CreateTrustProductEntityAssignmentRequest
 type CreateTrustProductEntityAssignmentRequest struct {
 	// The SID of an object bag that holds information of the different items.

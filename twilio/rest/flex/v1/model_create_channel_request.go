@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateChannelRequest struct for CreateChannelRequest
 type CreateChannelRequest struct {
 	// The chat channel's friendly name.

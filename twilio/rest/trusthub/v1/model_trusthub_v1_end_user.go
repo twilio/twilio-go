@@ -9,17 +9,19 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // TrusthubV1EndUser struct for TrusthubV1EndUser
 type TrusthubV1EndUser struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Attributes map[string]interface{} `json:"Attributes,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Type string `json:"Type,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string                 `json:"AccountSid,omitempty"`
+	Attributes   map[string]interface{} `json:"Attributes,omitempty"`
+	DateCreated  time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time              `json:"DateUpdated,omitempty"`
+	FriendlyName string                 `json:"FriendlyName,omitempty"`
+	Sid          string                 `json:"Sid,omitempty"`
+	Type         string                 `json:"Type,omitempty"`
+	Url          string                 `json:"Url,omitempty"`
 }

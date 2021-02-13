@@ -9,14 +9,15 @@
  */
 
 package openapi
+
 // PreviewSyncServiceSyncListSyncListPermission struct for PreviewSyncServiceSyncListSyncListPermission
 type PreviewSyncServiceSyncListSyncListPermission struct {
 	AccountSid string `json:"AccountSid,omitempty"`
-	Identity string `json:"Identity,omitempty"`
-	ListSid string `json:"ListSid,omitempty"`
-	Manage bool `json:"Manage,omitempty"`
-	Read bool `json:"Read,omitempty"`
+	Identity   string `json:"Identity,omitempty"`
+	ListSid    string `json:"ListSid,omitempty"`
+	Manage     bool   `json:"Manage,omitempty"`
+	Read       bool   `json:"Read,omitempty"`
 	ServiceSid string `json:"ServiceSid,omitempty"`
-	Url string `json:"Url,omitempty"`
-	Write bool `json:"Write,omitempty"`
+	Url        string `json:"Url,omitempty"`
+	Write      bool   `json:"Write,omitempty"`
 }

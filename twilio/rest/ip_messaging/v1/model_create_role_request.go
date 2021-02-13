@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // CreateRoleRequest struct for CreateRoleRequest
 type CreateRoleRequest struct {
-	FriendlyName string `json:"FriendlyName"`
-	Permission []string `json:"Permission"`
-	Type string `json:"Type"`
+	FriendlyName string   `json:"FriendlyName"`
+	Permission   []string `json:"Permission"`
+	Type         string   `json:"Type"`
 }

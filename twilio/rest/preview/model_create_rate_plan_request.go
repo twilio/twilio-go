@@ -9,16 +9,17 @@
  */
 
 package openapi
+
 // CreateRatePlanRequest struct for CreateRatePlanRequest
 type CreateRatePlanRequest struct {
-	CommandsEnabled bool `json:"CommandsEnabled,omitempty"`
-	DataEnabled bool `json:"DataEnabled,omitempty"`
-	DataLimit int32 `json:"DataLimit,omitempty"`
-	DataMetering string `json:"DataMetering,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	InternationalRoaming []string `json:"InternationalRoaming,omitempty"`
-	MessagingEnabled bool `json:"MessagingEnabled,omitempty"`
-	NationalRoamingEnabled bool `json:"NationalRoamingEnabled,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
-	VoiceEnabled bool `json:"VoiceEnabled,omitempty"`
+	CommandsEnabled        bool     `json:"CommandsEnabled,omitempty"`
+	DataEnabled            bool     `json:"DataEnabled,omitempty"`
+	DataLimit              int32    `json:"DataLimit,omitempty"`
+	DataMetering           string   `json:"DataMetering,omitempty"`
+	FriendlyName           string   `json:"FriendlyName,omitempty"`
+	InternationalRoaming   []string `json:"InternationalRoaming,omitempty"`
+	MessagingEnabled       bool     `json:"MessagingEnabled,omitempty"`
+	NationalRoamingEnabled bool     `json:"NationalRoamingEnabled,omitempty"`
+	UniqueName             string   `json:"UniqueName,omitempty"`
+	VoiceEnabled           bool     `json:"VoiceEnabled,omitempty"`
 }

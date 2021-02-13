@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateVariableRequest struct for CreateVariableRequest
 type CreateVariableRequest struct {
 	// A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // TrunkingV1TrunkRecording struct for TrunkingV1TrunkRecording
 type TrunkingV1TrunkRecording struct {
 	Mode RecordingMode `json:"Mode,omitempty"`

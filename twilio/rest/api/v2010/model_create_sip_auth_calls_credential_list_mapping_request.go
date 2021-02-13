@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSipAuthCallsCredentialListMappingRequest struct for CreateSipAuthCallsCredentialListMappingRequest
 type CreateSipAuthCallsCredentialListMappingRequest struct {
 	// The SID of the CredentialList resource to map to the SIP domain.

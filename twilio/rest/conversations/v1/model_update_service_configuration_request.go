@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateServiceConfigurationRequest struct for UpdateServiceConfigurationRequest
 type UpdateServiceConfigurationRequest struct {
 	// The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.

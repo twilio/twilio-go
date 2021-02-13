@@ -9,9 +9,11 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // CreateCallFeedbackSummaryRequest struct for CreateCallFeedbackSummaryRequest
 type CreateCallFeedbackSummaryRequest struct {
 	// Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.

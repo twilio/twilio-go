@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSipCredentialListMappingRequest struct for CreateSipCredentialListMappingRequest
 type CreateSipCredentialListMappingRequest struct {
 	// A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.

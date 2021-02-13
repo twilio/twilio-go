@@ -9,18 +9,20 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ServerlessV1ServiceFunctionFunctionVersion struct for ServerlessV1ServiceFunctionFunctionVersion
 type ServerlessV1ServiceFunctionFunctionVersion struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	FunctionSid string `json:"FunctionSid,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	Path string `json:"Path,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
-	Visibility Visibility `json:"Visibility,omitempty"`
+	AccountSid  string                 `json:"AccountSid,omitempty"`
+	DateCreated time.Time              `json:"DateCreated,omitempty"`
+	FunctionSid string                 `json:"FunctionSid,omitempty"`
+	Links       map[string]interface{} `json:"Links,omitempty"`
+	Path        string                 `json:"Path,omitempty"`
+	ServiceSid  string                 `json:"ServiceSid,omitempty"`
+	Sid         string                 `json:"Sid,omitempty"`
+	Url         string                 `json:"Url,omitempty"`
+	Visibility  Visibility             `json:"Visibility,omitempty"`
 }

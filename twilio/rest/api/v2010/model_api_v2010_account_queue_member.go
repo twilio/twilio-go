@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // ApiV2010AccountQueueMember struct for ApiV2010AccountQueueMember
 type ApiV2010AccountQueueMember struct {
-	CallSid string `json:"CallSid,omitempty"`
+	CallSid      string `json:"CallSid,omitempty"`
 	DateEnqueued string `json:"DateEnqueued,omitempty"`
-	Position int32 `json:"Position,omitempty"`
-	QueueSid string `json:"QueueSid,omitempty"`
-	Uri string `json:"Uri,omitempty"`
-	WaitTime int32 `json:"WaitTime,omitempty"`
+	Position     int32  `json:"Position,omitempty"`
+	QueueSid     string `json:"QueueSid,omitempty"`
+	Uri          string `json:"Uri,omitempty"`
+	WaitTime     int32  `json:"WaitTime,omitempty"`
 }

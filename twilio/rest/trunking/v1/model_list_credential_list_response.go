@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListCredentialListResponse struct for ListCredentialListResponse
 type ListCredentialListResponse struct {
 	CredentialLists []TrunkingV1TrunkCredentialList `json:"CredentialLists,omitempty"`
-	Meta ListTrunkResponseMeta `json:"Meta,omitempty"`
+	Meta            ListTrunkResponseMeta           `json:"Meta,omitempty"`
 }

@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // Channel the model 'Channel'
 type Channel string
 
 // List of channel
 const (
-	CHANNEL_SMS Channel = "sms"
-	CHANNEL_CALL Channel = "call"
+	CHANNEL_SMS   Channel = "sms"
+	CHANNEL_CALL  Channel = "call"
 	CHANNEL_EMAIL Channel = "email"
 )

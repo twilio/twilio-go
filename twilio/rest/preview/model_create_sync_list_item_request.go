@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSyncListItemRequest struct for CreateSyncListItemRequest
 type CreateSyncListItemRequest struct {
 	Data map[string]interface{} `json:"Data"`

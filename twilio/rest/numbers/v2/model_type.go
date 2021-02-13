@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // ModelType the model 'ModelType'
 type ModelType string
 
 // List of Type_
 const (
 	MODELTYPE_INDIVIDUAL ModelType = "individual"
-	MODELTYPE_BUSINESS ModelType = "business"
+	MODELTYPE_BUSINESS   ModelType = "business"
 )

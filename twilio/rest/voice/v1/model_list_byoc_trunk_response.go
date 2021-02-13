@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListByocTrunkResponse struct for ListByocTrunkResponse
 type ListByocTrunkResponse struct {
-	ByocTrunks []VoiceV1ByocTrunk `json:"ByocTrunks,omitempty"`
-	Meta ListByocTrunkResponseMeta `json:"Meta,omitempty"`
+	ByocTrunks []VoiceV1ByocTrunk        `json:"ByocTrunks,omitempty"`
+	Meta       ListByocTrunkResponseMeta `json:"Meta,omitempty"`
 }

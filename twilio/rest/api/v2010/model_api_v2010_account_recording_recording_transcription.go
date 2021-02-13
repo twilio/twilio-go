@@ -9,19 +9,20 @@
  */
 
 package openapi
+
 // ApiV2010AccountRecordingRecordingTranscription struct for ApiV2010AccountRecordingRecordingTranscription
 type ApiV2010AccountRecordingRecordingTranscription struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ApiVersion string `json:"ApiVersion,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	Duration string `json:"Duration,omitempty"`
-	Price float32 `json:"Price,omitempty"`
-	PriceUnit string `json:"PriceUnit,omitempty"`
-	RecordingSid string `json:"RecordingSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	TranscriptionText string `json:"TranscriptionText,omitempty"`
-	Type string `json:"Type,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	AccountSid        string  `json:"AccountSid,omitempty"`
+	ApiVersion        string  `json:"ApiVersion,omitempty"`
+	DateCreated       string  `json:"DateCreated,omitempty"`
+	DateUpdated       string  `json:"DateUpdated,omitempty"`
+	Duration          string  `json:"Duration,omitempty"`
+	Price             float32 `json:"Price,omitempty"`
+	PriceUnit         string  `json:"PriceUnit,omitempty"`
+	RecordingSid      string  `json:"RecordingSid,omitempty"`
+	Sid               string  `json:"Sid,omitempty"`
+	Status            Status  `json:"Status,omitempty"`
+	TranscriptionText string  `json:"TranscriptionText,omitempty"`
+	Type              string  `json:"Type,omitempty"`
+	Uri               string  `json:"Uri,omitempty"`
 }

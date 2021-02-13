@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // PreviewWirelessSimUsage struct for PreviewWirelessSimUsage
 type PreviewWirelessSimUsage struct {
-	AccountSid string `json:"AccountSid,omitempty"`
+	AccountSid    string                 `json:"AccountSid,omitempty"`
 	CommandsCosts map[string]interface{} `json:"CommandsCosts,omitempty"`
 	CommandsUsage map[string]interface{} `json:"CommandsUsage,omitempty"`
-	DataCosts map[string]interface{} `json:"DataCosts,omitempty"`
-	DataUsage map[string]interface{} `json:"DataUsage,omitempty"`
-	Period map[string]interface{} `json:"Period,omitempty"`
-	SimSid string `json:"SimSid,omitempty"`
-	SimUniqueName string `json:"SimUniqueName,omitempty"`
-	Url string `json:"Url,omitempty"`
+	DataCosts     map[string]interface{} `json:"DataCosts,omitempty"`
+	DataUsage     map[string]interface{} `json:"DataUsage,omitempty"`
+	Period        map[string]interface{} `json:"Period,omitempty"`
+	SimSid        string                 `json:"SimSid,omitempty"`
+	SimUniqueName string                 `json:"SimUniqueName,omitempty"`
+	Url           string                 `json:"Url,omitempty"`
 }

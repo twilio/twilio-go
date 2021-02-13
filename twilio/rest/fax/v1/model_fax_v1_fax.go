@@ -9,27 +9,29 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // FaxV1Fax struct for FaxV1Fax
 type FaxV1Fax struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ApiVersion string `json:"ApiVersion,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Direction Direction `json:"Direction,omitempty"`
-	Duration *int32 `json:"Duration,omitempty"`
-	From string `json:"From,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	MediaSid string `json:"MediaSid,omitempty"`
-	MediaUrl string `json:"MediaUrl,omitempty"`
-	NumPages *int32 `json:"NumPages,omitempty"`
-	Price float32 `json:"Price,omitempty"`
-	PriceUnit string `json:"PriceUnit,omitempty"`
-	Quality Quality `json:"Quality,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	To string `json:"To,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid  string                 `json:"AccountSid,omitempty"`
+	ApiVersion  string                 `json:"ApiVersion,omitempty"`
+	DateCreated time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated time.Time              `json:"DateUpdated,omitempty"`
+	Direction   Direction              `json:"Direction,omitempty"`
+	Duration    *int32                 `json:"Duration,omitempty"`
+	From        string                 `json:"From,omitempty"`
+	Links       map[string]interface{} `json:"Links,omitempty"`
+	MediaSid    string                 `json:"MediaSid,omitempty"`
+	MediaUrl    string                 `json:"MediaUrl,omitempty"`
+	NumPages    *int32                 `json:"NumPages,omitempty"`
+	Price       float32                `json:"Price,omitempty"`
+	PriceUnit   string                 `json:"PriceUnit,omitempty"`
+	Quality     Quality                `json:"Quality,omitempty"`
+	Sid         string                 `json:"Sid,omitempty"`
+	Status      Status                 `json:"Status,omitempty"`
+	To          string                 `json:"To,omitempty"`
+	Url         string                 `json:"Url,omitempty"`
 }

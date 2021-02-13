@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSipIpAddressRequest struct for CreateSipIpAddressRequest
 type CreateSipIpAddressRequest struct {
 	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.

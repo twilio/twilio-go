@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateQueryRequest struct for CreateQueryRequest
 type CreateQueryRequest struct {
 	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.

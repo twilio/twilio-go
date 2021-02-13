@@ -9,22 +9,24 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // PreviewUnderstandAssistantQuery struct for PreviewUnderstandAssistantQuery
 type PreviewUnderstandAssistantQuery struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AssistantSid string `json:"AssistantSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Language string `json:"Language,omitempty"`
-	ModelBuildSid string `json:"ModelBuildSid,omitempty"`
-	Query string `json:"Query,omitempty"`
-	Results map[string]interface{} `json:"Results,omitempty"`
-	SampleSid string `json:"SampleSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	SourceChannel string `json:"SourceChannel,omitempty"`
-	Status string `json:"Status,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid    string                 `json:"AccountSid,omitempty"`
+	AssistantSid  string                 `json:"AssistantSid,omitempty"`
+	DateCreated   time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated   time.Time              `json:"DateUpdated,omitempty"`
+	Language      string                 `json:"Language,omitempty"`
+	ModelBuildSid string                 `json:"ModelBuildSid,omitempty"`
+	Query         string                 `json:"Query,omitempty"`
+	Results       map[string]interface{} `json:"Results,omitempty"`
+	SampleSid     string                 `json:"SampleSid,omitempty"`
+	Sid           string                 `json:"Sid,omitempty"`
+	SourceChannel string                 `json:"SourceChannel,omitempty"`
+	Status        string                 `json:"Status,omitempty"`
+	Url           string                 `json:"Url,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateTaskRequest struct for CreateTaskRequest
 type CreateTaskRequest struct {
 	// A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.

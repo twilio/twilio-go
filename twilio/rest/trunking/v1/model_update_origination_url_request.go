@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateOriginationUrlRequest struct for UpdateOriginationUrlRequest
 type UpdateOriginationUrlRequest struct {
 	// Whether the URL is enabled. The default is `true`.

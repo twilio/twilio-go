@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -23,8 +24,8 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://pricing.twilio.com"),
 	}
 }
@@ -39,11 +40,8 @@ func (c *DefaultApiService) FetchVoiceCountry(IsoCountry string) (*PricingV2Voic
 	path := "/v2/Voice/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -59,6 +57,7 @@ func (c *DefaultApiService) FetchVoiceCountry(IsoCountry string) (*PricingV2Voic
 
 	return ps, err
 }
+
 // FetchVoiceNumberParams Optional parameters for the method 'FetchVoiceNumber'
 type FetchVoiceNumberParams struct {
 	OriginationNumber *string `json:"OriginationNumber,omitempty"`
@@ -76,14 +75,12 @@ func (c *DefaultApiService) FetchVoiceNumber(DestinationNumber string, params *F
 	path := "/v2/Voice/Numbers/{DestinationNumber}"
 	path = strings.Replace(path, "{"+"DestinationNumber"+"}", DestinationNumber, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.OriginationNumber != nil {
-		data.Set("OriginationNumber", *params.OriginationNumber) 
+		data.Set("OriginationNumber", *params.OriginationNumber)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -99,6 +96,7 @@ func (c *DefaultApiService) FetchVoiceNumber(DestinationNumber string, params *F
 
 	return ps, err
 }
+
 // ListVoiceCountryParams Optional parameters for the method 'ListVoiceCountry'
 type ListVoiceCountryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -113,14 +111,12 @@ ListVoiceCountry Method for ListVoiceCountry
 func (c *DefaultApiService) ListVoiceCountry(params *ListVoiceCountryParams) (*ListVoiceCountryResponse, error) {
 	path := "/v2/Voice/Countries"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {

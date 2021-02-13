@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // IntegrationType the model 'IntegrationType'
 type IntegrationType string
 
 // List of integration_type
 const (
-	INTEGRATIONTYPE_STUDIO IntegrationType = "studio"
+	INTEGRATIONTYPE_STUDIO   IntegrationType = "studio"
 	INTEGRATIONTYPE_EXTERNAL IntegrationType = "external"
-	INTEGRATIONTYPE_TASK IntegrationType = "task"
+	INTEGRATIONTYPE_TASK     IntegrationType = "task"
 )

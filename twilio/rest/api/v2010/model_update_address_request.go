@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateAddressRequest struct for UpdateAddressRequest
 type UpdateAddressRequest struct {
 	// Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.

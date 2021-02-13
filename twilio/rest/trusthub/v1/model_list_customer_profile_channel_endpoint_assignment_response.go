@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListCustomerProfileChannelEndpointAssignmentResponse struct for ListCustomerProfileChannelEndpointAssignmentResponse
 type ListCustomerProfileChannelEndpointAssignmentResponse struct {
-	Meta ListCustomerProfileResponseMeta `json:"Meta,omitempty"`
+	Meta    ListCustomerProfileResponseMeta                                     `json:"Meta,omitempty"`
 	Results []TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment `json:"Results,omitempty"`
 }

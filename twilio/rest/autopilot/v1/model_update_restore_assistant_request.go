@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateRestoreAssistantRequest struct for UpdateRestoreAssistantRequest
 type UpdateRestoreAssistantRequest struct {
 	// The Twilio-provided string that uniquely identifies the Assistant resource to restore.

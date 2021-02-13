@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateFactorRequest struct for UpdateFactorRequest
 type UpdateFactorRequest struct {
 	// The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.

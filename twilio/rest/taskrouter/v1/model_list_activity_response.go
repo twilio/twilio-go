@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListActivityResponse struct for ListActivityResponse
 type ListActivityResponse struct {
 	Activities []TaskrouterV1WorkspaceActivity `json:"Activities,omitempty"`
-	Meta ListWorkspaceResponseMeta `json:"Meta,omitempty"`
+	Meta       ListWorkspaceResponseMeta       `json:"Meta,omitempty"`
 }

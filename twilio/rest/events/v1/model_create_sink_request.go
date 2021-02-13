@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSinkRequest struct for CreateSinkRequest
 type CreateSinkRequest struct {
 	// A human readable description for the Sink **This value should not contain PII.**

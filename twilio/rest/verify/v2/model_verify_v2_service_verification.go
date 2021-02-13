@@ -9,23 +9,25 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VerifyV2ServiceVerification struct for VerifyV2ServiceVerification
 type VerifyV2ServiceVerification struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Amount string `json:"Amount,omitempty"`
-	Channel Channel `json:"Channel,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Lookup map[string]interface{} `json:"Lookup,omitempty"`
-	Payee string `json:"Payee,omitempty"`
+	AccountSid       string                   `json:"AccountSid,omitempty"`
+	Amount           string                   `json:"Amount,omitempty"`
+	Channel          Channel                  `json:"Channel,omitempty"`
+	DateCreated      time.Time                `json:"DateCreated,omitempty"`
+	DateUpdated      time.Time                `json:"DateUpdated,omitempty"`
+	Lookup           map[string]interface{}   `json:"Lookup,omitempty"`
+	Payee            string                   `json:"Payee,omitempty"`
 	SendCodeAttempts []map[string]interface{} `json:"SendCodeAttempts,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status string `json:"Status,omitempty"`
-	To string `json:"To,omitempty"`
-	Url string `json:"Url,omitempty"`
-	Valid bool `json:"Valid,omitempty"`
+	ServiceSid       string                   `json:"ServiceSid,omitempty"`
+	Sid              string                   `json:"Sid,omitempty"`
+	Status           string                   `json:"Status,omitempty"`
+	To               string                   `json:"To,omitempty"`
+	Url              string                   `json:"Url,omitempty"`
+	Valid            bool                     `json:"Valid,omitempty"`
 }

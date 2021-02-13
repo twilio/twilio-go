@@ -15,6 +15,7 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
 )
 
 type DefaultApiService struct {
@@ -23,17 +24,18 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://lookups.twilio.com"),
 	}
 }
+
 // FetchPhoneNumberParams Optional parameters for the method 'FetchPhoneNumber'
 type FetchPhoneNumberParams struct {
-	CountryCode *string `json:"CountryCode,omitempty"`
-	Type *[]string `json:"Type,omitempty"`
-	AddOns *[]string `json:"AddOns,omitempty"`
-	AddOnsData *map[string]interface{} `json:"AddOnsData,omitempty"`
+	CountryCode *string                 `json:"CountryCode,omitempty"`
+	Type        *[]string               `json:"Type,omitempty"`
+	AddOns      *[]string               `json:"AddOns,omitempty"`
+	AddOnsData  *map[string]interface{} `json:"AddOnsData,omitempty"`
 }
 
 /*
@@ -50,18 +52,17 @@ func (c *DefaultApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPh
 	path := "/v1/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.CountryCode != nil {
-		data.Set("CountryCode", *params.CountryCode) 
+		data.Set("CountryCode", *params.CountryCode)
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type",  strings.Join(*params.Type, ","))
+		data.Set("Type", strings.Join(*params.Type, ","))
 	}
 	if params != nil && params.AddOns != nil {
-		data.Set("AddOns",  strings.Join(*params.AddOns, ","))
+		data.Set("AddOns", strings.Join(*params.AddOns, ","))
 	}
 	if params != nil && params.AddOnsData != nil {
 		v, err := json.Marshal(params.AddOnsData)
@@ -72,7 +73,6 @@ func (c *DefaultApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPh
 
 		data.Set("AddOnsData", fmt.Sprint(v))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {

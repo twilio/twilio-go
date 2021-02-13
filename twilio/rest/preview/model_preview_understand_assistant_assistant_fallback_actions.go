@@ -9,10 +9,11 @@
  */
 
 package openapi
+
 // PreviewUnderstandAssistantAssistantFallbackActions struct for PreviewUnderstandAssistantAssistantFallbackActions
 type PreviewUnderstandAssistantAssistantFallbackActions struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AssistantSid string `json:"AssistantSid,omitempty"`
-	Data map[string]interface{} `json:"Data,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string                 `json:"AccountSid,omitempty"`
+	AssistantSid string                 `json:"AssistantSid,omitempty"`
+	Data         map[string]interface{} `json:"Data,omitempty"`
+	Url          string                 `json:"Url,omitempty"`
 }

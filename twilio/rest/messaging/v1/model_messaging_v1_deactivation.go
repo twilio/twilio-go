@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // MessagingV1Deactivation struct for MessagingV1Deactivation
 type MessagingV1Deactivation struct {
 	RedirectTo string `json:"RedirectTo,omitempty"`

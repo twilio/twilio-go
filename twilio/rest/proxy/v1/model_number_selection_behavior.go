@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // NumberSelectionBehavior the model 'NumberSelectionBehavior'
 type NumberSelectionBehavior string
 
 // List of number_selection_behavior
 const (
-	NUMBERSELECTIONBEHAVIOR_AVOID_STICKY NumberSelectionBehavior = "avoid-sticky"
+	NUMBERSELECTIONBEHAVIOR_AVOID_STICKY  NumberSelectionBehavior = "avoid-sticky"
 	NUMBERSELECTIONBEHAVIOR_PREFER_STICKY NumberSelectionBehavior = "prefer-sticky"
 )

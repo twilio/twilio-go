@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateMessageRequest struct for CreateMessageRequest
 type CreateMessageRequest struct {
 	// Determines if the address can be stored or obfuscated based on privacy settings

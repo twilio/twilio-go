@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // ChannelType the model 'ChannelType'
 type ChannelType string
 
 // List of channel_type
 const (
-	CHANNELTYPE_WEB ChannelType = "web"
-	CHANNELTYPE_SMS ChannelType = "sms"
+	CHANNELTYPE_WEB      ChannelType = "web"
+	CHANNELTYPE_SMS      ChannelType = "sms"
 	CHANNELTYPE_FACEBOOK ChannelType = "facebook"
 	CHANNELTYPE_WHATSAPP ChannelType = "whatsapp"
-	CHANNELTYPE_LINE ChannelType = "line"
-	CHANNELTYPE_CUSTOM ChannelType = "custom"
+	CHANNELTYPE_LINE     ChannelType = "line"
+	CHANNELTYPE_CUSTOM   ChannelType = "custom"
 )

@@ -9,10 +9,11 @@
  */
 
 package openapi
+
 // WirelessV1AccountUsageRecord struct for WirelessV1AccountUsageRecord
 type WirelessV1AccountUsageRecord struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Commands map[string]interface{} `json:"Commands,omitempty"`
-	Data map[string]interface{} `json:"Data,omitempty"`
-	Period map[string]interface{} `json:"Period,omitempty"`
+	AccountSid string                 `json:"AccountSid,omitempty"`
+	Commands   map[string]interface{} `json:"Commands,omitempty"`
+	Data       map[string]interface{} `json:"Data,omitempty"`
+	Period     map[string]interface{} `json:"Period,omitempty"`
 }

@@ -9,30 +9,32 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // TaskrouterV1WorkspaceTask struct for TaskrouterV1WorkspaceTask
 type TaskrouterV1WorkspaceTask struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Addons string `json:"Addons,omitempty"`
-	Age int32 `json:"Age,omitempty"`
-	AssignmentStatus Status `json:"AssignmentStatus,omitempty"`
-	Attributes string `json:"Attributes,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	Priority int32 `json:"Priority,omitempty"`
-	Reason string `json:"Reason,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	TaskChannelSid string `json:"TaskChannelSid,omitempty"`
-	TaskChannelUniqueName string `json:"TaskChannelUniqueName,omitempty"`
-	TaskQueueEnteredDate time.Time `json:"TaskQueueEnteredDate,omitempty"`
-	TaskQueueFriendlyName string `json:"TaskQueueFriendlyName,omitempty"`
-	TaskQueueSid string `json:"TaskQueueSid,omitempty"`
-	Timeout int32 `json:"Timeout,omitempty"`
-	Url string `json:"Url,omitempty"`
-	WorkflowFriendlyName string `json:"WorkflowFriendlyName,omitempty"`
-	WorkflowSid string `json:"WorkflowSid,omitempty"`
-	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
+	AccountSid            string                 `json:"AccountSid,omitempty"`
+	Addons                string                 `json:"Addons,omitempty"`
+	Age                   int32                  `json:"Age,omitempty"`
+	AssignmentStatus      Status                 `json:"AssignmentStatus,omitempty"`
+	Attributes            string                 `json:"Attributes,omitempty"`
+	DateCreated           time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated           time.Time              `json:"DateUpdated,omitempty"`
+	Links                 map[string]interface{} `json:"Links,omitempty"`
+	Priority              int32                  `json:"Priority,omitempty"`
+	Reason                string                 `json:"Reason,omitempty"`
+	Sid                   string                 `json:"Sid,omitempty"`
+	TaskChannelSid        string                 `json:"TaskChannelSid,omitempty"`
+	TaskChannelUniqueName string                 `json:"TaskChannelUniqueName,omitempty"`
+	TaskQueueEnteredDate  time.Time              `json:"TaskQueueEnteredDate,omitempty"`
+	TaskQueueFriendlyName string                 `json:"TaskQueueFriendlyName,omitempty"`
+	TaskQueueSid          string                 `json:"TaskQueueSid,omitempty"`
+	Timeout               int32                  `json:"Timeout,omitempty"`
+	Url                   string                 `json:"Url,omitempty"`
+	WorkflowFriendlyName  string                 `json:"WorkflowFriendlyName,omitempty"`
+	WorkflowSid           string                 `json:"WorkflowSid,omitempty"`
+	WorkspaceSid          string                 `json:"WorkspaceSid,omitempty"`
 }

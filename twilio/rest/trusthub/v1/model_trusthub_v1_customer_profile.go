@@ -9,21 +9,23 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // TrusthubV1CustomerProfile struct for TrusthubV1CustomerProfile
 type TrusthubV1CustomerProfile struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Email string `json:"Email,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	PolicySid string `json:"PolicySid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	StatusCallback string `json:"StatusCallback,omitempty"`
-	Url string `json:"Url,omitempty"`
-	ValidUntil time.Time `json:"ValidUntil,omitempty"`
+	AccountSid     string                 `json:"AccountSid,omitempty"`
+	DateCreated    time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated    time.Time              `json:"DateUpdated,omitempty"`
+	Email          string                 `json:"Email,omitempty"`
+	FriendlyName   string                 `json:"FriendlyName,omitempty"`
+	Links          map[string]interface{} `json:"Links,omitempty"`
+	PolicySid      string                 `json:"PolicySid,omitempty"`
+	Sid            string                 `json:"Sid,omitempty"`
+	Status         Status                 `json:"Status,omitempty"`
+	StatusCallback string                 `json:"StatusCallback,omitempty"`
+	Url            string                 `json:"Url,omitempty"`
+	ValidUntil     time.Time              `json:"ValidUntil,omitempty"`
 }

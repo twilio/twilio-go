@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListUseCasesResponse struct for ListUseCasesResponse
 type ListUseCasesResponse struct {
-	Data []MessagingV1UseCases `json:"Data,omitempty"`
+	Data []MessagingV1UseCases   `json:"Data,omitempty"`
 	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
 }

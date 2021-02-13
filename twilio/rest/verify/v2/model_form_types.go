@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // FormTypes the model 'FormTypes'
 type FormTypes string
 

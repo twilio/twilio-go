@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateModelBuildRequest struct for UpdateModelBuildRequest
 type UpdateModelBuildRequest struct {
 	// A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1

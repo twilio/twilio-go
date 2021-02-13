@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateConferenceRequest struct for UpdateConferenceRequest
 type UpdateConferenceRequest struct {
 	// The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`

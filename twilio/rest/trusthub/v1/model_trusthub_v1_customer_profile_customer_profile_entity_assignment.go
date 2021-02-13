@@ -9,15 +9,17 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // TrusthubV1CustomerProfileCustomerProfileEntityAssignment struct for TrusthubV1CustomerProfileCustomerProfileEntityAssignment
 type TrusthubV1CustomerProfileCustomerProfileEntityAssignment struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CustomerProfileSid string `json:"CustomerProfileSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	ObjectSid string `json:"ObjectSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid         string    `json:"AccountSid,omitempty"`
+	CustomerProfileSid string    `json:"CustomerProfileSid,omitempty"`
+	DateCreated        time.Time `json:"DateCreated,omitempty"`
+	ObjectSid          string    `json:"ObjectSid,omitempty"`
+	Sid                string    `json:"Sid,omitempty"`
+	Url                string    `json:"Url,omitempty"`
 }

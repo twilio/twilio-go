@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // CreatedMethod the model 'CreatedMethod'
 type CreatedMethod string
 
 // List of created_method
 const (
-	CREATEDMETHOD_SDK CreatedMethod = "sdk"
+	CREATEDMETHOD_SDK    CreatedMethod = "sdk"
 	CREATEDMETHOD_AD_HOC CreatedMethod = "ad_hoc"
-	CREATEDMETHOD_API CreatedMethod = "api"
+	CREATEDMETHOD_API    CreatedMethod = "api"
 )

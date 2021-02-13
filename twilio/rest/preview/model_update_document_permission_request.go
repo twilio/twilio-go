@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateDocumentPermissionRequest struct for UpdateDocumentPermissionRequest
 type UpdateDocumentPermissionRequest struct {
 	// Boolean flag specifying whether the identity can delete the Sync Document.

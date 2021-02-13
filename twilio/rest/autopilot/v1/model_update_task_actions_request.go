@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateTaskActionsRequest struct for UpdateTaskActionsRequest
 type UpdateTaskActionsRequest struct {
 	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.

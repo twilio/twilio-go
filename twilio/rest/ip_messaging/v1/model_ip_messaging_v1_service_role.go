@@ -9,18 +9,20 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // IpMessagingV1ServiceRole struct for IpMessagingV1ServiceRole
 type IpMessagingV1ServiceRole struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Permissions []string `json:"Permissions,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Type RoleType `json:"Type,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string    `json:"AccountSid,omitempty"`
+	DateCreated  time.Time `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string    `json:"FriendlyName,omitempty"`
+	Permissions  []string  `json:"Permissions,omitempty"`
+	ServiceSid   string    `json:"ServiceSid,omitempty"`
+	Sid          string    `json:"Sid,omitempty"`
+	Type         RoleType  `json:"Type,omitempty"`
+	Url          string    `json:"Url,omitempty"`
 }

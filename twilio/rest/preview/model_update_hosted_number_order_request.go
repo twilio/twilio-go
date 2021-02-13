@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateHostedNumberOrderRequest struct for UpdateHostedNumberOrderRequest
 type UpdateHostedNumberOrderRequest struct {
 	// The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.

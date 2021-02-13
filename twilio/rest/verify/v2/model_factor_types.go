@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // FactorTypes the model 'FactorTypes'
 type FactorTypes string
 

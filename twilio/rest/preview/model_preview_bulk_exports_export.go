@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // PreviewBulkExportsExport struct for PreviewBulkExportsExport
 type PreviewBulkExportsExport struct {
-	Links map[string]interface{} `json:"Links,omitempty"`
-	ResourceType string `json:"ResourceType,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Links        map[string]interface{} `json:"Links,omitempty"`
+	ResourceType string                 `json:"ResourceType,omitempty"`
+	Url          string                 `json:"Url,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSipIpAccessControlListMappingRequest struct for CreateSipIpAccessControlListMappingRequest
 type CreateSipIpAccessControlListMappingRequest struct {
 	// The unique id of the IP access control list to map to the SIP domain.

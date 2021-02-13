@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // ListSipCredentialListMappingResponse struct for ListSipCredentialListMappingResponse
 type ListSipCredentialListMappingResponse struct {
 	CredentialListMappings []ApiV2010AccountSipSipDomainSipCredentialListMapping `json:"CredentialListMappings,omitempty"`
-	End int32 `json:"End,omitempty"`
-	FirstPageUri string `json:"FirstPageUri,omitempty"`
-	NextPageUri string `json:"NextPageUri,omitempty"`
-	Page int32 `json:"Page,omitempty"`
-	PageSize int32 `json:"PageSize,omitempty"`
-	PreviousPageUri string `json:"PreviousPageUri,omitempty"`
-	Start int32 `json:"Start,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	End                    int32                                                 `json:"End,omitempty"`
+	FirstPageUri           string                                                `json:"FirstPageUri,omitempty"`
+	NextPageUri            string                                                `json:"NextPageUri,omitempty"`
+	Page                   int32                                                 `json:"Page,omitempty"`
+	PageSize               int32                                                 `json:"PageSize,omitempty"`
+	PreviousPageUri        string                                                `json:"PreviousPageUri,omitempty"`
+	Start                  int32                                                 `json:"Start,omitempty"`
+	Uri                    string                                                `json:"Uri,omitempty"`
 }

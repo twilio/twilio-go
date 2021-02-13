@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // CreateInviteRequest struct for CreateInviteRequest
 type CreateInviteRequest struct {
 	Identity string `json:"Identity"`
-	RoleSid string `json:"RoleSid,omitempty"`
+	RoleSid  string `json:"RoleSid,omitempty"`
 }

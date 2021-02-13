@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateRateLimitRequest struct for UpdateRateLimitRequest
 type UpdateRateLimitRequest struct {
 	// Description of this Rate Limit

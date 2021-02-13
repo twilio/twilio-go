@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // CreateCommandRequest struct for CreateCommandRequest
 type CreateCommandRequest struct {
 	CallbackMethod string `json:"CallbackMethod,omitempty"`
-	CallbackUrl string `json:"CallbackUrl,omitempty"`
-	Command string `json:"Command"`
-	CommandMode string `json:"CommandMode,omitempty"`
-	Device string `json:"Device,omitempty"`
-	IncludeSid string `json:"IncludeSid,omitempty"`
-	Sim string `json:"Sim,omitempty"`
+	CallbackUrl    string `json:"CallbackUrl,omitempty"`
+	Command        string `json:"Command"`
+	CommandMode    string `json:"CommandMode,omitempty"`
+	Device         string `json:"Device,omitempty"`
+	IncludeSid     string `json:"IncludeSid,omitempty"`
+	Sim            string `json:"Sim,omitempty"`
 }

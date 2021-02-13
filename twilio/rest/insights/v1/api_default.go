@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -23,8 +25,8 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://insights.twilio.com"),
 	}
 }
@@ -38,11 +40,8 @@ func (c *DefaultApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
 	path := "/v1/Voice/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -58,6 +57,7 @@ func (c *DefaultApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
 
 	return ps, err
 }
+
 // FetchSummaryParams Optional parameters for the method 'FetchSummary'
 type FetchSummaryParams struct {
 	ProcessingState *string `json:"ProcessingState,omitempty"`
@@ -67,21 +67,19 @@ type FetchSummaryParams struct {
 FetchSummary Method for FetchSummary
  * @param CallSid
  * @param optional nil or *FetchSummaryOpts - Optional Parameters:
- * @param "ProcessingState" (string) - 
+ * @param "ProcessingState" (string) -
 @return InsightsV1CallSummary
 */
 func (c *DefaultApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*InsightsV1CallSummary, error) {
 	path := "/v1/Voice/{CallSid}/Summary"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.ProcessingState != nil {
-		data.Set("ProcessingState", *params.ProcessingState) 
+		data.Set("ProcessingState", *params.ProcessingState)
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -109,11 +107,8 @@ func (c *DefaultApiService) FetchVideoParticipantSummary(RoomSid string, Partici
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -139,11 +134,8 @@ func (c *DefaultApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1Vi
 	path := "/v1/Video/Rooms/{RoomSid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -159,17 +151,18 @@ func (c *DefaultApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1Vi
 
 	return ps, err
 }
+
 // ListEventParams Optional parameters for the method 'ListEvent'
 type ListEventParams struct {
-	Edge *string `json:"Edge,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	Edge     *string `json:"Edge,omitempty"`
+	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
 /*
 ListEvent Method for ListEvent
  * @param CallSid
  * @param optional nil or *ListEventOpts - Optional Parameters:
- * @param "Edge" (string) - 
+ * @param "Edge" (string) -
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListEventResponse
 */
@@ -177,17 +170,15 @@ func (c *DefaultApiService) ListEvent(CallSid string, params *ListEventParams) (
 	path := "/v1/Voice/{CallSid}/Events"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Edge != nil {
-		data.Set("Edge", *params.Edge) 
+		data.Set("Edge", *params.Edge)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -203,19 +194,20 @@ func (c *DefaultApiService) ListEvent(CallSid string, params *ListEventParams) (
 
 	return ps, err
 }
+
 // ListMetricParams Optional parameters for the method 'ListMetric'
 type ListMetricParams struct {
-	Edge *string `json:"Edge,omitempty"`
+	Edge      *string `json:"Edge,omitempty"`
 	Direction *string `json:"Direction,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize  *int32  `json:"PageSize,omitempty"`
 }
 
 /*
 ListMetric Method for ListMetric
  * @param CallSid
  * @param optional nil or *ListMetricOpts - Optional Parameters:
- * @param "Edge" (string) - 
- * @param "Direction" (string) - 
+ * @param "Edge" (string) -
+ * @param "Direction" (string) -
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListMetricResponse
 */
@@ -223,20 +215,18 @@ func (c *DefaultApiService) ListMetric(CallSid string, params *ListMetricParams)
 	path := "/v1/Voice/{CallSid}/Metrics"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Edge != nil {
-		data.Set("Edge", *params.Edge) 
+		data.Set("Edge", *params.Edge)
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction) 
+		data.Set("Direction", *params.Direction)
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -252,6 +242,7 @@ func (c *DefaultApiService) ListMetric(CallSid string, params *ListMetricParams)
 
 	return ps, err
 }
+
 // ListVideoParticipantSummaryParams Optional parameters for the method 'ListVideoParticipantSummary'
 type ListVideoParticipantSummaryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -268,14 +259,12 @@ func (c *DefaultApiService) ListVideoParticipantSummary(RoomSid string, params *
 	path := "/v1/Video/Rooms/{RoomSid}/Participants"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -291,53 +280,52 @@ func (c *DefaultApiService) ListVideoParticipantSummary(RoomSid string, params *
 
 	return ps, err
 }
+
 // ListVideoRoomSummaryParams Optional parameters for the method 'ListVideoRoomSummary'
 type ListVideoRoomSummaryParams struct {
-	RoomType *[]string `json:"RoomType,omitempty"`
-	Codec *[]string `json:"Codec,omitempty"`
-	RoomName *string `json:"RoomName,omitempty"`
-	CreatedAfter *time.Time `json:"CreatedAfter,omitempty"`
+	RoomType      *[]string  `json:"RoomType,omitempty"`
+	Codec         *[]string  `json:"Codec,omitempty"`
+	RoomName      *string    `json:"RoomName,omitempty"`
+	CreatedAfter  *time.Time `json:"CreatedAfter,omitempty"`
 	CreatedBefore *time.Time `json:"CreatedBefore,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize      *int32     `json:"PageSize,omitempty"`
 }
 
 /*
 ListVideoRoomSummary Method for ListVideoRoomSummary
  * @param optional nil or *ListVideoRoomSummaryOpts - Optional Parameters:
- * @param "RoomType" ([]string) - 
- * @param "Codec" ([]string) - 
- * @param "RoomName" (string) - 
- * @param "CreatedAfter" (time.Time) - 
- * @param "CreatedBefore" (time.Time) - 
+ * @param "RoomType" ([]string) -
+ * @param "Codec" ([]string) -
+ * @param "RoomName" (string) -
+ * @param "CreatedAfter" (time.Time) -
+ * @param "CreatedBefore" (time.Time) -
  * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 @return ListVideoRoomSummaryResponse
 */
 func (c *DefaultApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*ListVideoRoomSummaryResponse, error) {
 	path := "/v1/Video/Rooms"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.RoomType != nil {
-		data.Set("RoomType",  strings.Join(*params.RoomType, ","))
+		data.Set("RoomType", strings.Join(*params.RoomType, ","))
 	}
 	if params != nil && params.Codec != nil {
-		data.Set("Codec",  strings.Join(*params.Codec, ","))
+		data.Set("Codec", strings.Join(*params.Codec, ","))
 	}
 	if params != nil && params.RoomName != nil {
-		data.Set("RoomName", *params.RoomName) 
+		data.Set("RoomName", *params.RoomName)
 	}
 	if params != nil && params.CreatedAfter != nil {
-		data.Set("CreatedAfter", fmt.Sprint(*params.CreatedAfter)) 
+		data.Set("CreatedAfter", fmt.Sprint(*params.CreatedAfter))
 	}
 	if params != nil && params.CreatedBefore != nil {
-		data.Set("CreatedBefore", fmt.Sprint(*params.CreatedBefore)) 
+		data.Set("CreatedBefore", fmt.Sprint(*params.CreatedBefore))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListAssistantResponse struct for ListAssistantResponse
 type ListAssistantResponse struct {
 	Assistants []PreviewUnderstandAssistant `json:"Assistants,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta       ListDayResponseMeta          `json:"Meta,omitempty"`
 }

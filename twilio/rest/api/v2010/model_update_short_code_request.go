@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateShortCodeRequest struct for UpdateShortCodeRequest
 type UpdateShortCodeRequest struct {
 	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.

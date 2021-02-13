@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListFieldTypeResponse struct for ListFieldTypeResponse
 type ListFieldTypeResponse struct {
 	FieldTypes []PreviewUnderstandAssistantFieldType `json:"FieldTypes,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta       ListDayResponseMeta                   `json:"Meta,omitempty"`
 }

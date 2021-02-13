@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // Format the model 'Format'
 type Format string
 

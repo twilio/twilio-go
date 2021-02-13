@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateAccessTokenRequest struct for CreateAccessTokenRequest
 type CreateAccessTokenRequest struct {
 	// The Type of this Factor. Eg. `push`

@@ -9,14 +9,15 @@
  */
 
 package openapi
+
 // DeliveryStatus the model 'DeliveryStatus'
 type DeliveryStatus string
 
 // List of delivery_status
 const (
-	DELIVERYSTATUS_READ DeliveryStatus = "read"
-	DELIVERYSTATUS_FAILED DeliveryStatus = "failed"
-	DELIVERYSTATUS_DELIVERED DeliveryStatus = "delivered"
+	DELIVERYSTATUS_READ        DeliveryStatus = "read"
+	DELIVERYSTATUS_FAILED      DeliveryStatus = "failed"
+	DELIVERYSTATUS_DELIVERED   DeliveryStatus = "delivered"
 	DELIVERYSTATUS_UNDELIVERED DeliveryStatus = "undelivered"
-	DELIVERYSTATUS_SENT DeliveryStatus = "sent"
+	DELIVERYSTATUS_SENT        DeliveryStatus = "sent"
 )

@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // ListTrunkResponseMeta struct for ListTrunkResponseMeta
 type ListTrunkResponseMeta struct {
-	FirstPageUrl string `json:"FirstPageUrl,omitempty"`
-	Key string `json:"Key,omitempty"`
-	NextPageUrl string `json:"NextPageUrl,omitempty"`
-	Page int32 `json:"Page,omitempty"`
-	PageSize int32 `json:"PageSize,omitempty"`
+	FirstPageUrl    string `json:"FirstPageUrl,omitempty"`
+	Key             string `json:"Key,omitempty"`
+	NextPageUrl     string `json:"NextPageUrl,omitempty"`
+	Page            int32  `json:"Page,omitempty"`
+	PageSize        int32  `json:"PageSize,omitempty"`
 	PreviousPageUrl string `json:"PreviousPageUrl,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Url             string `json:"Url,omitempty"`
 }

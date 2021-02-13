@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // AddressRequirement the model 'AddressRequirement'
 type AddressRequirement string
 
 // List of address_requirement
 const (
-	ADDRESSREQUIREMENT_NONE AddressRequirement = "none"
-	ADDRESSREQUIREMENT_ANY AddressRequirement = "any"
-	ADDRESSREQUIREMENT_LOCAL AddressRequirement = "local"
+	ADDRESSREQUIREMENT_NONE    AddressRequirement = "none"
+	ADDRESSREQUIREMENT_ANY     AddressRequirement = "any"
+	ADDRESSREQUIREMENT_LOCAL   AddressRequirement = "local"
 	ADDRESSREQUIREMENT_FOREIGN AddressRequirement = "foreign"
 )

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateFunctionRequest struct for UpdateFunctionRequest
 type UpdateFunctionRequest struct {
 	// A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.

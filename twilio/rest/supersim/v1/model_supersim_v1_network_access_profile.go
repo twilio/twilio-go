@@ -9,16 +9,18 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // SupersimV1NetworkAccessProfile struct for SupersimV1NetworkAccessProfile
 type SupersimV1NetworkAccessProfile struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid  string                 `json:"AccountSid,omitempty"`
+	DateCreated time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated time.Time              `json:"DateUpdated,omitempty"`
+	Links       map[string]interface{} `json:"Links,omitempty"`
+	Sid         string                 `json:"Sid,omitempty"`
+	UniqueName  string                 `json:"UniqueName,omitempty"`
+	Url         string                 `json:"Url,omitempty"`
 }

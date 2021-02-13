@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateApplicationRequest struct for CreateApplicationRequest
 type CreateApplicationRequest struct {
 	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.

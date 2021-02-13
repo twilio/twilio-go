@@ -9,15 +9,17 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // UpdateMemberRequest struct for UpdateMemberRequest
 type UpdateMemberRequest struct {
-	Attributes string `json:"Attributes,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	Attributes               string    `json:"Attributes,omitempty"`
+	DateCreated              time.Time `json:"DateCreated,omitempty"`
+	DateUpdated              time.Time `json:"DateUpdated,omitempty"`
+	LastConsumedMessageIndex *int32    `json:"LastConsumedMessageIndex,omitempty"`
 	LastConsumptionTimestamp time.Time `json:"LastConsumptionTimestamp,omitempty"`
-	RoleSid string `json:"RoleSid,omitempty"`
+	RoleSid                  string    `json:"RoleSid,omitempty"`
 }

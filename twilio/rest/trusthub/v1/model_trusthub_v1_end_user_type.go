@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // TrusthubV1EndUserType struct for TrusthubV1EndUserType
 type TrusthubV1EndUserType struct {
-	Fields []map[string]interface{} `json:"Fields,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	MachineName string `json:"MachineName,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Fields       []map[string]interface{} `json:"Fields,omitempty"`
+	FriendlyName string                   `json:"FriendlyName,omitempty"`
+	MachineName  string                   `json:"MachineName,omitempty"`
+	Sid          string                   `json:"Sid,omitempty"`
+	Url          string                   `json:"Url,omitempty"`
 }

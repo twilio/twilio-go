@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListSyncMapItemResponse struct for ListSyncMapItemResponse
 type ListSyncMapItemResponse struct {
 	Items []SyncV1ServiceSyncMapSyncMapItem `json:"Items,omitempty"`
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Meta  ListServiceResponseMeta           `json:"Meta,omitempty"`
 }

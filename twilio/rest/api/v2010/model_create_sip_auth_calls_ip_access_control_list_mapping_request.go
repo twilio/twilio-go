@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSipAuthCallsIpAccessControlListMappingRequest struct for CreateSipAuthCallsIpAccessControlListMappingRequest
 type CreateSipAuthCallsIpAccessControlListMappingRequest struct {
 	// The SID of the IpAccessControlList resource to map to the SIP domain.

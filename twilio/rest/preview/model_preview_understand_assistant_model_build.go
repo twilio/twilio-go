@@ -9,19 +9,21 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // PreviewUnderstandAssistantModelBuild struct for PreviewUnderstandAssistantModelBuild
 type PreviewUnderstandAssistantModelBuild struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AssistantSid string `json:"AssistantSid,omitempty"`
-	BuildDuration int32 `json:"BuildDuration,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	ErrorCode int32 `json:"ErrorCode,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid    string    `json:"AccountSid,omitempty"`
+	AssistantSid  string    `json:"AssistantSid,omitempty"`
+	BuildDuration int32     `json:"BuildDuration,omitempty"`
+	DateCreated   time.Time `json:"DateCreated,omitempty"`
+	DateUpdated   time.Time `json:"DateUpdated,omitempty"`
+	ErrorCode     int32     `json:"ErrorCode,omitempty"`
+	Sid           string    `json:"Sid,omitempty"`
+	Status        Status    `json:"Status,omitempty"`
+	UniqueName    string    `json:"UniqueName,omitempty"`
+	Url           string    `json:"Url,omitempty"`
 }

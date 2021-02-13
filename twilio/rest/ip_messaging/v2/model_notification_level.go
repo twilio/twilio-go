@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // NotificationLevel the model 'NotificationLevel'
 type NotificationLevel string
 
 // List of notification_level
 const (
 	NOTIFICATIONLEVEL_DEFAULT NotificationLevel = "default"
-	NOTIFICATIONLEVEL_MUTED NotificationLevel = "muted"
+	NOTIFICATIONLEVEL_MUTED   NotificationLevel = "muted"
 )

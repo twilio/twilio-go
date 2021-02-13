@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // PricingV1PhoneNumber struct for PricingV1PhoneNumber
 type PricingV1PhoneNumber struct {
 	Links map[string]interface{} `json:"Links,omitempty"`
-	Name string `json:"Name,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Name  string                 `json:"Name,omitempty"`
+	Url   string                 `json:"Url,omitempty"`
 }

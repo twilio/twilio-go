@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateBundleRequest struct for CreateBundleRequest
 type CreateBundleRequest struct {
 	// The email address that will receive updates when the Bundle resource changes status.

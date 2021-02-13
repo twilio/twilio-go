@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateTrustProductChannelEndpointAssignmentRequest struct for CreateTrustProductChannelEndpointAssignmentRequest
 type CreateTrustProductChannelEndpointAssignmentRequest struct {
 	// The SID of an channel endpoint

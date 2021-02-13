@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // Recurring the model 'Recurring'
 type Recurring string
 
 // List of recurring
 const (
-	RECURRING_DAILY Recurring = "daily"
+	RECURRING_DAILY   Recurring = "daily"
 	RECURRING_MONTHLY Recurring = "monthly"
-	RECURRING_YEARLY Recurring = "yearly"
+	RECURRING_YEARLY  Recurring = "yearly"
 	RECURRING_ALLTIME Recurring = "alltime"
 )

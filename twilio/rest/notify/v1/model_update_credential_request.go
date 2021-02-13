@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateCredentialRequest struct for UpdateCredentialRequest
 type UpdateCredentialRequest struct {
 	// [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.

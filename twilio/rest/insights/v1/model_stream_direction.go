@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // StreamDirection the model 'StreamDirection'
 type StreamDirection string
 
 // List of stream_direction
 const (
-	STREAMDIRECTION_UNKNOWN StreamDirection = "unknown"
-	STREAMDIRECTION_INBOUND StreamDirection = "inbound"
+	STREAMDIRECTION_UNKNOWN  StreamDirection = "unknown"
+	STREAMDIRECTION_INBOUND  StreamDirection = "inbound"
 	STREAMDIRECTION_OUTBOUND StreamDirection = "outbound"
-	STREAMDIRECTION_BOTH StreamDirection = "both"
+	STREAMDIRECTION_BOTH     StreamDirection = "both"
 )

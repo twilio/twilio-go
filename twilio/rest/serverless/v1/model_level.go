@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // Level the model 'Level'
 type Level string
 
 // List of level
 const (
-	LEVEL_INFO Level = "info"
-	LEVEL_WARN Level = "warn"
+	LEVEL_INFO  Level = "info"
+	LEVEL_WARN  Level = "warn"
 	LEVEL_ERROR Level = "error"
 )

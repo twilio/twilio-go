@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSyncStreamRequest struct for CreateSyncStreamRequest
 type CreateSyncStreamRequest struct {
 	// How long, in seconds, before the Stream expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Stream does not expire. The Stream will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.

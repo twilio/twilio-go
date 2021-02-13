@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateRecordingSettingsRequest struct for CreateRecordingSettingsRequest
 type CreateRecordingSettingsRequest struct {
 	// The SID of the stored Credential resource.

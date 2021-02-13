@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // PreviewMarketplaceAvailableAddOn struct for PreviewMarketplaceAvailableAddOn
 type PreviewMarketplaceAvailableAddOn struct {
 	ConfigurationSchema map[string]interface{} `json:"ConfigurationSchema,omitempty"`
-	Description string `json:"Description,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	PricingType string `json:"PricingType,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Description         string                 `json:"Description,omitempty"`
+	FriendlyName        string                 `json:"FriendlyName,omitempty"`
+	Links               map[string]interface{} `json:"Links,omitempty"`
+	PricingType         string                 `json:"PricingType,omitempty"`
+	Sid                 string                 `json:"Sid,omitempty"`
+	Url                 string                 `json:"Url,omitempty"`
 }

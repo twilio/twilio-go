@@ -9,21 +9,23 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // AutopilotV1RestoreAssistant struct for AutopilotV1RestoreAssistant
 type AutopilotV1RestoreAssistant struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CallbackEvents string `json:"CallbackEvents,omitempty"`
-	CallbackUrl string `json:"CallbackUrl,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	DevelopmentStage string `json:"DevelopmentStage,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	LatestModelBuildSid string `json:"LatestModelBuildSid,omitempty"`
-	LogQueries bool `json:"LogQueries,omitempty"`
-	NeedsModelBuild bool `json:"NeedsModelBuild,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
+	AccountSid          string    `json:"AccountSid,omitempty"`
+	CallbackEvents      string    `json:"CallbackEvents,omitempty"`
+	CallbackUrl         string    `json:"CallbackUrl,omitempty"`
+	DateCreated         time.Time `json:"DateCreated,omitempty"`
+	DateUpdated         time.Time `json:"DateUpdated,omitempty"`
+	DevelopmentStage    string    `json:"DevelopmentStage,omitempty"`
+	FriendlyName        string    `json:"FriendlyName,omitempty"`
+	LatestModelBuildSid string    `json:"LatestModelBuildSid,omitempty"`
+	LogQueries          bool      `json:"LogQueries,omitempty"`
+	NeedsModelBuild     bool      `json:"NeedsModelBuild,omitempty"`
+	Sid                 string    `json:"Sid,omitempty"`
+	UniqueName          string    `json:"UniqueName,omitempty"`
 }

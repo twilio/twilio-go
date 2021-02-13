@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // RoomType the model 'RoomType'
 type RoomType string
 
 // List of room_type
 const (
-	ROOMTYPE_GO RoomType = "go"
+	ROOMTYPE_GO           RoomType = "go"
 	ROOMTYPE_PEER_TO_PEER RoomType = "peer-to-peer"
-	ROOMTYPE_GROUP RoomType = "group"
-	ROOMTYPE_GROUP_SMALL RoomType = "group-small"
+	ROOMTYPE_GROUP        RoomType = "group"
+	ROOMTYPE_GROUP_SMALL  RoomType = "group-small"
 )

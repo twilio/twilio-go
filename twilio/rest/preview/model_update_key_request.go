@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateKeyRequest struct for UpdateKeyRequest
 type UpdateKeyRequest struct {
 	// Provides the unique string identifier of an existing Device to become authenticated with this Key credential.

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListModelBuildResponse struct for ListModelBuildResponse
 type ListModelBuildResponse struct {
-	Meta ListAssistantResponseMeta `json:"Meta,omitempty"`
+	Meta        ListAssistantResponseMeta        `json:"Meta,omitempty"`
 	ModelBuilds []AutopilotV1AssistantModelBuild `json:"ModelBuilds,omitempty"`
 }

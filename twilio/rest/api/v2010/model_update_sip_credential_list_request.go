@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSipCredentialListRequest struct for UpdateSipCredentialListRequest
 type UpdateSipCredentialListRequest struct {
 	// A human readable descriptive text for a CredentialList, up to 64 characters long.

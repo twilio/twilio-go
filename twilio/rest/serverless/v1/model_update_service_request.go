@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateServiceRequest struct for UpdateServiceRequest
 type UpdateServiceRequest struct {
 	// A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListServiceResponse struct for ListServiceResponse
 type ListServiceResponse struct {
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta     ListDayResponseMeta  `json:"Meta,omitempty"`
 	Services []PreviewSyncService `json:"Services,omitempty"`
 }

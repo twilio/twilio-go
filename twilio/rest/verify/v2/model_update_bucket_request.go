@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateBucketRequest struct for UpdateBucketRequest
 type UpdateBucketRequest struct {
 	// Number of seconds that the rate limit will be enforced over.

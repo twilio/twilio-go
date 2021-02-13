@@ -9,16 +9,17 @@
  */
 
 package openapi
+
 // ApiV2010AccountAuthorizedConnectApp struct for ApiV2010AccountAuthorizedConnectApp
 type ApiV2010AccountAuthorizedConnectApp struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ConnectAppCompanyName string `json:"ConnectAppCompanyName,omitempty"`
-	ConnectAppDescription string `json:"ConnectAppDescription,omitempty"`
-	ConnectAppFriendlyName string `json:"ConnectAppFriendlyName,omitempty"`
-	ConnectAppHomepageUrl string `json:"ConnectAppHomepageUrl,omitempty"`
-	ConnectAppSid string `json:"ConnectAppSid,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	Permissions []string `json:"Permissions,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	AccountSid             string   `json:"AccountSid,omitempty"`
+	ConnectAppCompanyName  string   `json:"ConnectAppCompanyName,omitempty"`
+	ConnectAppDescription  string   `json:"ConnectAppDescription,omitempty"`
+	ConnectAppFriendlyName string   `json:"ConnectAppFriendlyName,omitempty"`
+	ConnectAppHomepageUrl  string   `json:"ConnectAppHomepageUrl,omitempty"`
+	ConnectAppSid          string   `json:"ConnectAppSid,omitempty"`
+	DateCreated            string   `json:"DateCreated,omitempty"`
+	DateUpdated            string   `json:"DateUpdated,omitempty"`
+	Permissions            []string `json:"Permissions,omitempty"`
+	Uri                    string   `json:"Uri,omitempty"`
 }

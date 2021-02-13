@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateExportCustomJobRequest struct for CreateExportCustomJobRequest
 type CreateExportCustomJobRequest struct {
 	// The optional email to send the completion notification to

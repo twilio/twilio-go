@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListQueryResponse struct for ListQueryResponse
 type ListQueryResponse struct {
-	Meta ListAssistantResponseMeta `json:"Meta,omitempty"`
+	Meta    ListAssistantResponseMeta   `json:"Meta,omitempty"`
 	Queries []AutopilotV1AssistantQuery `json:"Queries,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreatePhoneNumberRequest struct for CreatePhoneNumberRequest
 type CreatePhoneNumberRequest struct {
 	// The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.

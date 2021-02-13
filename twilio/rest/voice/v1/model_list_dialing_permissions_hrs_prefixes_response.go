@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListDialingPermissionsHrsPrefixesResponse struct for ListDialingPermissionsHrsPrefixesResponse
 type ListDialingPermissionsHrsPrefixesResponse struct {
 	Content []VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes `json:"Content,omitempty"`
-	Meta ListByocTrunkResponseMeta `json:"Meta,omitempty"`
+	Meta    ListByocTrunkResponseMeta                                                         `json:"Meta,omitempty"`
 }

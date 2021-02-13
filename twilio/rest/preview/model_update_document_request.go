@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateDocumentRequest struct for UpdateDocumentRequest
 type UpdateDocumentRequest struct {
 	Data map[string]interface{} `json:"Data"`

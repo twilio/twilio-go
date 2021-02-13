@@ -9,20 +9,22 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VoiceV1ConnectionPolicyConnectionPolicyTarget struct for VoiceV1ConnectionPolicyConnectionPolicyTarget
 type VoiceV1ConnectionPolicyConnectionPolicyTarget struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ConnectionPolicySid string `json:"ConnectionPolicySid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Enabled bool `json:"Enabled,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Priority int32 `json:"Priority,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Target string `json:"Target,omitempty"`
-	Url string `json:"Url,omitempty"`
-	Weight int32 `json:"Weight,omitempty"`
+	AccountSid          string    `json:"AccountSid,omitempty"`
+	ConnectionPolicySid string    `json:"ConnectionPolicySid,omitempty"`
+	DateCreated         time.Time `json:"DateCreated,omitempty"`
+	DateUpdated         time.Time `json:"DateUpdated,omitempty"`
+	Enabled             bool      `json:"Enabled,omitempty"`
+	FriendlyName        string    `json:"FriendlyName,omitempty"`
+	Priority            int32     `json:"Priority,omitempty"`
+	Sid                 string    `json:"Sid,omitempty"`
+	Target              string    `json:"Target,omitempty"`
+	Url                 string    `json:"Url,omitempty"`
+	Weight              int32     `json:"Weight,omitempty"`
 }

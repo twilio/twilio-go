@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListTaskQueuesStatisticsResponse struct for ListTaskQueuesStatisticsResponse
 type ListTaskQueuesStatisticsResponse struct {
-	Meta ListWorkspaceResponseMeta `json:"Meta,omitempty"`
+	Meta                 ListWorkspaceResponseMeta                            `json:"Meta,omitempty"`
 	TaskQueuesStatistics []TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics `json:"TaskQueuesStatistics,omitempty"`
 }

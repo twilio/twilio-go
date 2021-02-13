@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListFunctionVersionResponse struct for ListFunctionVersionResponse
 type ListFunctionVersionResponse struct {
 	FunctionVersions []ServerlessV1ServiceFunctionFunctionVersion `json:"FunctionVersions,omitempty"`
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Meta             ListServiceResponseMeta                      `json:"Meta,omitempty"`
 }

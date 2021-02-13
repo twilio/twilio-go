@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSinkValidateRequest struct for CreateSinkValidateRequest
 type CreateSinkValidateRequest struct {
 	// A 34 character string that uniquely identifies the test event for a Sink being validated.

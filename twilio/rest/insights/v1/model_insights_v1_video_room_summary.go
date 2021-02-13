@@ -9,35 +9,37 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // InsightsV1VideoRoomSummary struct for InsightsV1VideoRoomSummary
 type InsightsV1VideoRoomSummary struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Codecs []string `json:"Codecs,omitempty"`
-	ConcurrentParticipants *int32 `json:"ConcurrentParticipants,omitempty"`
-	CreateTime time.Time `json:"CreateTime,omitempty"`
-	CreatedMethod CreatedMethod `json:"CreatedMethod,omitempty"`
-	DurationSec int32 `json:"DurationSec,omitempty"`
-	EdgeLocation EdgeLocation `json:"EdgeLocation,omitempty"`
-	EndReason EndReason `json:"EndReason,omitempty"`
-	EndTime time.Time `json:"EndTime,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	MaxConcurrentParticipants *int32 `json:"MaxConcurrentParticipants,omitempty"`
-	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
-	MediaRegion TwilioRealm `json:"MediaRegion,omitempty"`
-	ProcessingState ProcessingState `json:"ProcessingState,omitempty"`
-	RecordingEnabled bool `json:"RecordingEnabled,omitempty"`
-	RoomName string `json:"RoomName,omitempty"`
-	RoomSid string `json:"RoomSid,omitempty"`
-	RoomStatus RoomStatus `json:"RoomStatus,omitempty"`
-	RoomType RoomType `json:"RoomType,omitempty"`
-	StatusCallback string `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod HttpMethod `json:"StatusCallbackMethod,omitempty"`
-	TotalParticipantDurationSec int32 `json:"TotalParticipantDurationSec,omitempty"`
-	TotalRecordingDurationSec int32 `json:"TotalRecordingDurationSec,omitempty"`
-	UniqueParticipantIdentities *int32 `json:"UniqueParticipantIdentities,omitempty"`
-	UniqueParticipants *int32 `json:"UniqueParticipants,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid                  string                 `json:"AccountSid,omitempty"`
+	Codecs                      []string               `json:"Codecs,omitempty"`
+	ConcurrentParticipants      *int32                 `json:"ConcurrentParticipants,omitempty"`
+	CreateTime                  time.Time              `json:"CreateTime,omitempty"`
+	CreatedMethod               CreatedMethod          `json:"CreatedMethod,omitempty"`
+	DurationSec                 int32                  `json:"DurationSec,omitempty"`
+	EdgeLocation                EdgeLocation           `json:"EdgeLocation,omitempty"`
+	EndReason                   EndReason              `json:"EndReason,omitempty"`
+	EndTime                     time.Time              `json:"EndTime,omitempty"`
+	Links                       map[string]interface{} `json:"Links,omitempty"`
+	MaxConcurrentParticipants   *int32                 `json:"MaxConcurrentParticipants,omitempty"`
+	MaxParticipants             *int32                 `json:"MaxParticipants,omitempty"`
+	MediaRegion                 TwilioRealm            `json:"MediaRegion,omitempty"`
+	ProcessingState             ProcessingState        `json:"ProcessingState,omitempty"`
+	RecordingEnabled            bool                   `json:"RecordingEnabled,omitempty"`
+	RoomName                    string                 `json:"RoomName,omitempty"`
+	RoomSid                     string                 `json:"RoomSid,omitempty"`
+	RoomStatus                  RoomStatus             `json:"RoomStatus,omitempty"`
+	RoomType                    RoomType               `json:"RoomType,omitempty"`
+	StatusCallback              string                 `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod        HttpMethod             `json:"StatusCallbackMethod,omitempty"`
+	TotalParticipantDurationSec int32                  `json:"TotalParticipantDurationSec,omitempty"`
+	TotalRecordingDurationSec   int32                  `json:"TotalRecordingDurationSec,omitempty"`
+	UniqueParticipantIdentities *int32                 `json:"UniqueParticipantIdentities,omitempty"`
+	UniqueParticipants          *int32                 `json:"UniqueParticipants,omitempty"`
+	Url                         string                 `json:"Url,omitempty"`
 }

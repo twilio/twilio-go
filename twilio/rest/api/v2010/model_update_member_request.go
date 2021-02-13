@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateMemberRequest struct for UpdateMemberRequest
 type UpdateMemberRequest struct {
 	// How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.

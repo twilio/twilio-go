@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateDeploymentRequest struct for CreateDeploymentRequest
 type CreateDeploymentRequest struct {
 	// The SID of the Build for the Deployment.

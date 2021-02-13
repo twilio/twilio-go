@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateShortCodeRequest struct for UpdateShortCodeRequest
 type UpdateShortCodeRequest struct {
 	// Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateTaskQueueRequest struct for CreateTaskQueueRequest
 type CreateTaskQueueRequest struct {
 	// The SID of the Activity to assign Workers when a task is assigned to them.

@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // Mode the model 'Mode'
 type Mode string
 
 // List of mode
 const (
-	MODE_MESSAGE_ONLY Mode = "message-only"
-	MODE_VOICE_ONLY Mode = "voice-only"
+	MODE_MESSAGE_ONLY      Mode = "message-only"
+	MODE_VOICE_ONLY        Mode = "voice-only"
 	MODE_VOICE_AND_MESSAGE Mode = "voice-and-message"
 )

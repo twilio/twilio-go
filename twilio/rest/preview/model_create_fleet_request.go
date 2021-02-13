@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateFleetRequest struct for CreateFleetRequest
 type CreateFleetRequest struct {
 	// Provides a human readable descriptive text for this Fleet, up to 256 characters long.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSampleRequest struct for UpdateSampleRequest
 type UpdateSampleRequest struct {
 	// An ISO language-country string of the sample.

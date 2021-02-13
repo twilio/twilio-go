@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // UpdateMessageRequest struct for UpdateMessageRequest
 type UpdateMessageRequest struct {
 	Attributes string `json:"Attributes,omitempty"`
-	Body string `json:"Body,omitempty"`
+	Body       string `json:"Body,omitempty"`
 }

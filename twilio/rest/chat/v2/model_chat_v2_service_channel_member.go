@@ -9,21 +9,23 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ChatV2ServiceChannelMember struct for ChatV2ServiceChannelMember
 type ChatV2ServiceChannelMember struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Attributes string `json:"Attributes,omitempty"`
-	ChannelSid string `json:"ChannelSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Identity string `json:"Identity,omitempty"`
-	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	AccountSid               string    `json:"AccountSid,omitempty"`
+	Attributes               string    `json:"Attributes,omitempty"`
+	ChannelSid               string    `json:"ChannelSid,omitempty"`
+	DateCreated              time.Time `json:"DateCreated,omitempty"`
+	DateUpdated              time.Time `json:"DateUpdated,omitempty"`
+	Identity                 string    `json:"Identity,omitempty"`
+	LastConsumedMessageIndex *int32    `json:"LastConsumedMessageIndex,omitempty"`
 	LastConsumptionTimestamp time.Time `json:"LastConsumptionTimestamp,omitempty"`
-	RoleSid string `json:"RoleSid,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	RoleSid                  string    `json:"RoleSid,omitempty"`
+	ServiceSid               string    `json:"ServiceSid,omitempty"`
+	Sid                      string    `json:"Sid,omitempty"`
+	Url                      string    `json:"Url,omitempty"`
 }

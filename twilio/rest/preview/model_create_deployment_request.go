@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateDeploymentRequest struct for CreateDeploymentRequest
 type CreateDeploymentRequest struct {
 	// Provides a human readable descriptive text for this Deployment, up to 256 characters long.

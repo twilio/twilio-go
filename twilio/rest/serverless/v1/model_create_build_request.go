@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateBuildRequest struct for CreateBuildRequest
 type CreateBuildRequest struct {
 	// The list of Asset Version resource SIDs to include in the Build.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateNetworkAccessProfileRequest struct for CreateNetworkAccessProfileRequest
 type CreateNetworkAccessProfileRequest struct {
 	// List of Network SIDs that this Network Access Profile will allow connections to.

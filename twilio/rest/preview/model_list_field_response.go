@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListFieldResponse struct for ListFieldResponse
 type ListFieldResponse struct {
 	Fields []PreviewUnderstandAssistantTaskField `json:"Fields,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta   ListDayResponseMeta                   `json:"Meta,omitempty"`
 }

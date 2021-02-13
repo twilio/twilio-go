@@ -9,9 +9,11 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // CreateChallengeRequest struct for CreateChallengeRequest
 type CreateChallengeRequest struct {
 	// A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field. Used when `factor_type` is `push`.

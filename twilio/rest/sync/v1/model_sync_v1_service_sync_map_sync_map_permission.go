@@ -9,14 +9,15 @@
  */
 
 package openapi
+
 // SyncV1ServiceSyncMapSyncMapPermission struct for SyncV1ServiceSyncMapSyncMapPermission
 type SyncV1ServiceSyncMapSyncMapPermission struct {
 	AccountSid string `json:"AccountSid,omitempty"`
-	Identity string `json:"Identity,omitempty"`
-	Manage bool `json:"Manage,omitempty"`
-	MapSid string `json:"MapSid,omitempty"`
-	Read bool `json:"Read,omitempty"`
+	Identity   string `json:"Identity,omitempty"`
+	Manage     bool   `json:"Manage,omitempty"`
+	MapSid     string `json:"MapSid,omitempty"`
+	Read       bool   `json:"Read,omitempty"`
 	ServiceSid string `json:"ServiceSid,omitempty"`
-	Url string `json:"Url,omitempty"`
-	Write bool `json:"Write,omitempty"`
+	Url        string `json:"Url,omitempty"`
+	Write      bool   `json:"Write,omitempty"`
 }

@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListSinkResponse struct for ListSinkResponse
 type ListSinkResponse struct {
-	Meta ListVersionResponseMeta `json:"Meta,omitempty"`
-	Sinks []EventsV1Sink `json:"Sinks,omitempty"`
+	Meta  ListVersionResponseMeta `json:"Meta,omitempty"`
+	Sinks []EventsV1Sink          `json:"Sinks,omitempty"`
 }

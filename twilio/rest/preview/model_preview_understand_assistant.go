@@ -9,21 +9,23 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // PreviewUnderstandAssistant struct for PreviewUnderstandAssistant
 type PreviewUnderstandAssistant struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	CallbackEvents string `json:"CallbackEvents,omitempty"`
-	CallbackUrl string `json:"CallbackUrl,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	LatestModelBuildSid string `json:"LatestModelBuildSid,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	LogQueries bool `json:"LogQueries,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid          string                 `json:"AccountSid,omitempty"`
+	CallbackEvents      string                 `json:"CallbackEvents,omitempty"`
+	CallbackUrl         string                 `json:"CallbackUrl,omitempty"`
+	DateCreated         time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated         time.Time              `json:"DateUpdated,omitempty"`
+	FriendlyName        string                 `json:"FriendlyName,omitempty"`
+	LatestModelBuildSid string                 `json:"LatestModelBuildSid,omitempty"`
+	Links               map[string]interface{} `json:"Links,omitempty"`
+	LogQueries          bool                   `json:"LogQueries,omitempty"`
+	Sid                 string                 `json:"Sid,omitempty"`
+	UniqueName          string                 `json:"UniqueName,omitempty"`
+	Url                 string                 `json:"Url,omitempty"`
 }

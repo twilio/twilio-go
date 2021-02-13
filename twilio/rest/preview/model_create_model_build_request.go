@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateModelBuildRequest struct for CreateModelBuildRequest
 type CreateModelBuildRequest struct {
 	StatusCallback string `json:"StatusCallback,omitempty"`

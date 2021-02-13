@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListAuthorizationDocumentResponse struct for ListAuthorizationDocumentResponse
 type ListAuthorizationDocumentResponse struct {
 	Items []PreviewHostedNumbersAuthorizationDocument `json:"Items,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta  ListDayResponseMeta                         `json:"Meta,omitempty"`
 }

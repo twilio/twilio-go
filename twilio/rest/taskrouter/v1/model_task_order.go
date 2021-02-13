@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // TaskOrder the model 'TaskOrder'
 type TaskOrder string
 

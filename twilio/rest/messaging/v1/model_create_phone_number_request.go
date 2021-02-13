@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreatePhoneNumberRequest struct for CreatePhoneNumberRequest
 type CreatePhoneNumberRequest struct {
 	// The SID of the Phone Number being added to the Service.

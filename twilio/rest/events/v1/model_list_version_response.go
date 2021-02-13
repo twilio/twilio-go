@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListVersionResponse struct for ListVersionResponse
 type ListVersionResponse struct {
-	Meta ListVersionResponseMeta `json:"Meta,omitempty"`
+	Meta           ListVersionResponseMeta `json:"Meta,omitempty"`
 	SchemaVersions []EventsV1SchemaVersion `json:"SchemaVersions,omitempty"`
 }

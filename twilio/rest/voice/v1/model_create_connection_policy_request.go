@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateConnectionPolicyRequest struct for CreateConnectionPolicyRequest
 type CreateConnectionPolicyRequest struct {
 	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.

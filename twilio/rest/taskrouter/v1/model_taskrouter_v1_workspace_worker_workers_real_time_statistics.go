@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics struct for TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics
 type TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics struct {
-	AccountSid string `json:"AccountSid,omitempty"`
+	AccountSid         string                   `json:"AccountSid,omitempty"`
 	ActivityStatistics []map[string]interface{} `json:"ActivityStatistics,omitempty"`
-	TotalWorkers int32 `json:"TotalWorkers,omitempty"`
-	Url string `json:"Url,omitempty"`
-	WorkspaceSid string `json:"WorkspaceSid,omitempty"`
+	TotalWorkers       int32                    `json:"TotalWorkers,omitempty"`
+	Url                string                   `json:"Url,omitempty"`
+	WorkspaceSid       string                   `json:"WorkspaceSid,omitempty"`
 }

@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -23,16 +25,17 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://studio.twilio.com"),
 	}
 }
+
 // CreateEngagementParams Optional parameters for the method 'CreateEngagement'
 type CreateEngagementParams struct {
-	From *string `json:"From,omitempty"`
+	From       *string                 `json:"From,omitempty"`
 	Parameters *map[string]interface{} `json:"Parameters,omitempty"`
-	To *string `json:"To,omitempty"`
+	To         *string                 `json:"To,omitempty"`
 }
 
 /*
@@ -49,12 +52,11 @@ func (c *DefaultApiService) CreateEngagement(FlowSid string, params *CreateEngag
 	path := "/v1/Flows/{FlowSid}/Engagements"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From) 
+		data.Set("From", *params.From)
 	}
 	if params != nil && params.Parameters != nil {
 		v, err := json.Marshal(params.Parameters)
@@ -66,9 +68,8 @@ func (c *DefaultApiService) CreateEngagement(FlowSid string, params *CreateEngag
 		data.Set("Parameters", fmt.Sprint(v))
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To) 
+		data.Set("To", *params.To)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -84,11 +85,12 @@ func (c *DefaultApiService) CreateEngagement(FlowSid string, params *CreateEngag
 
 	return ps, err
 }
+
 // CreateExecutionParams Optional parameters for the method 'CreateExecution'
 type CreateExecutionParams struct {
-	From *string `json:"From,omitempty"`
+	From       *string                 `json:"From,omitempty"`
 	Parameters *map[string]interface{} `json:"Parameters,omitempty"`
-	To *string `json:"To,omitempty"`
+	To         *string                 `json:"To,omitempty"`
 }
 
 /*
@@ -105,12 +107,11 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 	path := "/v1/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.From != nil {
-		data.Set("From", *params.From) 
+		data.Set("From", *params.From)
 	}
 	if params != nil && params.Parameters != nil {
 		v, err := json.Marshal(params.Parameters)
@@ -122,9 +123,8 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 		data.Set("Parameters", fmt.Sprint(v))
 	}
 	if params != nil && params.To != nil {
-		data.Set("To", *params.To) 
+		data.Set("To", *params.To)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -147,16 +147,13 @@ Delete this Engagement and all Steps relating to it.
  * @param FlowSid The SID of the Flow to delete Engagements from.
  * @param Sid The SID of the Engagement resource to delete.
 */
-func (c *DefaultApiService) DeleteEngagement(FlowSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteEngagement(FlowSid string, Sid string) error {
 	path := "/v1/Flows/{FlowSid}/Engagements/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -174,16 +171,13 @@ Delete the Execution and all Steps relating to it.
  * @param FlowSid The SID of the Flow with the Execution resources to delete.
  * @param Sid The SID of the Execution resource to delete.
 */
-func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) error {
 	path := "/v1/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -200,15 +194,12 @@ DeleteFlow Method for DeleteFlow
 Delete a specific Flow.
  * @param Sid The SID of the Flow resource to delete.
 */
-func (c *DefaultApiService) DeleteFlow(Sid string) (error) {
+func (c *DefaultApiService) DeleteFlow(Sid string) error {
 	path := "/v1/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -232,11 +223,8 @@ func (c *DefaultApiService) FetchEngagement(FlowSid string, Sid string) (*Studio
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -265,11 +253,8 @@ func (c *DefaultApiService) FetchEngagementContext(FlowSid string, EngagementSid
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -298,11 +283,8 @@ func (c *DefaultApiService) FetchExecution(FlowSid string, Sid string) (*StudioV
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -331,11 +313,8 @@ func (c *DefaultApiService) FetchExecutionContext(FlowSid string, ExecutionSid s
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -366,11 +345,8 @@ func (c *DefaultApiService) FetchExecutionStep(FlowSid string, ExecutionSid stri
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -401,11 +377,8 @@ func (c *DefaultApiService) FetchExecutionStepContext(FlowSid string, ExecutionS
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 	path = strings.Replace(path, "{"+"StepSid"+"}", StepSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -432,11 +405,8 @@ func (c *DefaultApiService) FetchFlow(Sid string) (*StudioV1Flow, error) {
 	path := "/v1/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -467,11 +437,8 @@ func (c *DefaultApiService) FetchStep(FlowSid string, EngagementSid string, Sid 
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -502,11 +469,8 @@ func (c *DefaultApiService) FetchStepContext(FlowSid string, EngagementSid strin
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
 	path = strings.Replace(path, "{"+"StepSid"+"}", StepSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -522,6 +486,7 @@ func (c *DefaultApiService) FetchStepContext(FlowSid string, EngagementSid strin
 
 	return ps, err
 }
+
 // ListEngagementParams Optional parameters for the method 'ListEngagement'
 type ListEngagementParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -539,14 +504,12 @@ func (c *DefaultApiService) ListEngagement(FlowSid string, params *ListEngagemen
 	path := "/v1/Flows/{FlowSid}/Engagements"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -562,11 +525,12 @@ func (c *DefaultApiService) ListEngagement(FlowSid string, params *ListEngagemen
 
 	return ps, err
 }
+
 // ListExecutionParams Optional parameters for the method 'ListExecution'
 type ListExecutionParams struct {
 	DateCreatedFrom *time.Time `json:"DateCreatedFrom,omitempty"`
-	DateCreatedTo *time.Time `json:"DateCreatedTo,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	DateCreatedTo   *time.Time `json:"DateCreatedTo,omitempty"`
+	PageSize        *int32     `json:"PageSize,omitempty"`
 }
 
 /*
@@ -583,20 +547,18 @@ func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionP
 	path := "/v1/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DateCreatedFrom != nil {
-		data.Set("DateCreatedFrom", fmt.Sprint(*params.DateCreatedFrom)) 
+		data.Set("DateCreatedFrom", fmt.Sprint(*params.DateCreatedFrom))
 	}
 	if params != nil && params.DateCreatedTo != nil {
-		data.Set("DateCreatedTo", fmt.Sprint(*params.DateCreatedTo)) 
+		data.Set("DateCreatedTo", fmt.Sprint(*params.DateCreatedTo))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -612,6 +574,7 @@ func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionP
 
 	return ps, err
 }
+
 // ListExecutionStepParams Optional parameters for the method 'ListExecutionStep'
 type ListExecutionStepParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -631,14 +594,12 @@ func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid strin
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -654,6 +615,7 @@ func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid strin
 
 	return ps, err
 }
+
 // ListFlowParams Optional parameters for the method 'ListFlow'
 type ListFlowParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -669,14 +631,12 @@ Retrieve a list of all Flows.
 func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse, error) {
 	path := "/v1/Flows"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -692,6 +652,7 @@ func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse,
 
 	return ps, err
 }
+
 // ListStepParams Optional parameters for the method 'ListStep'
 type ListStepParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -711,14 +672,12 @@ func (c *DefaultApiService) ListStep(FlowSid string, EngagementSid string, param
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -734,6 +693,7 @@ func (c *DefaultApiService) ListStep(FlowSid string, EngagementSid string, param
 
 	return ps, err
 }
+
 // UpdateExecutionParams Optional parameters for the method 'UpdateExecution'
 type UpdateExecutionParams struct {
 	Status *string `json:"Status,omitempty"`
@@ -753,14 +713,12 @@ func (c *DefaultApiService) UpdateExecution(FlowSid string, Sid string, params *
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status) 
+		data.Set("Status", *params.Status)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

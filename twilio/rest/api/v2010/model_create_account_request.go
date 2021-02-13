@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateAccountRequest struct for CreateAccountRequest
 type CreateAccountRequest struct {
 	// A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`

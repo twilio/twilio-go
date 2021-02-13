@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateInstalledAddOnRequest struct for UpdateInstalledAddOnRequest
 type UpdateInstalledAddOnRequest struct {
 	// Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured

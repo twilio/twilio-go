@@ -9,20 +9,22 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ConversationsV1ConversationConversationMessageConversationMessageReceipt struct for ConversationsV1ConversationConversationMessageConversationMessageReceipt
 type ConversationsV1ConversationConversationMessageConversationMessageReceipt struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ChannelMessageSid string `json:"ChannelMessageSid,omitempty"`
-	ConversationSid string `json:"ConversationSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	ErrorCode *int32 `json:"ErrorCode,omitempty"`
-	MessageSid string `json:"MessageSid,omitempty"`
-	ParticipantSid string `json:"ParticipantSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status DeliveryStatus `json:"Status,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid        string         `json:"AccountSid,omitempty"`
+	ChannelMessageSid string         `json:"ChannelMessageSid,omitempty"`
+	ConversationSid   string         `json:"ConversationSid,omitempty"`
+	DateCreated       time.Time      `json:"DateCreated,omitempty"`
+	DateUpdated       time.Time      `json:"DateUpdated,omitempty"`
+	ErrorCode         *int32         `json:"ErrorCode,omitempty"`
+	MessageSid        string         `json:"MessageSid,omitempty"`
+	ParticipantSid    string         `json:"ParticipantSid,omitempty"`
+	Sid               string         `json:"Sid,omitempty"`
+	Status            DeliveryStatus `json:"Status,omitempty"`
+	Url               string         `json:"Url,omitempty"`
 }

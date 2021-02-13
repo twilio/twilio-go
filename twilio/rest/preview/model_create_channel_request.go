@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateChannelRequest struct for CreateChannelRequest
 type CreateChannelRequest struct {
 	// The unique SID identifier of the Phone Number of the Phone number to be assigned to the Branded Channel.

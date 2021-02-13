@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateAccountRequest struct for UpdateAccountRequest
 type UpdateAccountRequest struct {
 	// Update the human-readable description of this Account

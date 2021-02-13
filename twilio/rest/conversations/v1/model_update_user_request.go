@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateUserRequest struct for UpdateUserRequest
 type UpdateUserRequest struct {
 	// The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.

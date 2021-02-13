@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // VoiceReceiveMode the model 'VoiceReceiveMode'
 type VoiceReceiveMode string
 
 // List of voice_receive_mode
 const (
 	VOICERECEIVEMODE_VOICE VoiceReceiveMode = "voice"
-	VOICERECEIVEMODE_FAX VoiceReceiveMode = "fax"
+	VOICERECEIVEMODE_FAX   VoiceReceiveMode = "fax"
 )

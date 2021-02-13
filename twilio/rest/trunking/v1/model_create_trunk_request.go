@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateTrunkRequest struct for CreateTrunkRequest
 type CreateTrunkRequest struct {
 	// Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.

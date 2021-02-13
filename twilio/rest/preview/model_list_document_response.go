@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListDocumentResponse struct for ListDocumentResponse
 type ListDocumentResponse struct {
 	Documents []PreviewSyncServiceDocument `json:"Documents,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta      ListDayResponseMeta          `json:"Meta,omitempty"`
 }

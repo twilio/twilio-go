@@ -9,17 +9,19 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // MessagingV1ServiceAlphaSender struct for MessagingV1ServiceAlphaSender
 type MessagingV1ServiceAlphaSender struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AlphaSender string `json:"AlphaSender,omitempty"`
-	Capabilities []string `json:"Capabilities,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid   string    `json:"AccountSid,omitempty"`
+	AlphaSender  string    `json:"AlphaSender,omitempty"`
+	Capabilities []string  `json:"Capabilities,omitempty"`
+	DateCreated  time.Time `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time `json:"DateUpdated,omitempty"`
+	ServiceSid   string    `json:"ServiceSid,omitempty"`
+	Sid          string    `json:"Sid,omitempty"`
+	Url          string    `json:"Url,omitempty"`
 }

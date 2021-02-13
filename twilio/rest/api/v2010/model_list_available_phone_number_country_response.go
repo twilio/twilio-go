@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // ListAvailablePhoneNumberCountryResponse struct for ListAvailablePhoneNumberCountryResponse
 type ListAvailablePhoneNumberCountryResponse struct {
-	Countries []ApiV2010AccountAvailablePhoneNumberCountry `json:"Countries,omitempty"`
-	End int32 `json:"End,omitempty"`
-	FirstPageUri string `json:"FirstPageUri,omitempty"`
-	NextPageUri string `json:"NextPageUri,omitempty"`
-	Page int32 `json:"Page,omitempty"`
-	PageSize int32 `json:"PageSize,omitempty"`
-	PreviousPageUri string `json:"PreviousPageUri,omitempty"`
-	Start int32 `json:"Start,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	Countries       []ApiV2010AccountAvailablePhoneNumberCountry `json:"Countries,omitempty"`
+	End             int32                                        `json:"End,omitempty"`
+	FirstPageUri    string                                       `json:"FirstPageUri,omitempty"`
+	NextPageUri     string                                       `json:"NextPageUri,omitempty"`
+	Page            int32                                        `json:"Page,omitempty"`
+	PageSize        int32                                        `json:"PageSize,omitempty"`
+	PreviousPageUri string                                       `json:"PreviousPageUri,omitempty"`
+	Start           int32                                        `json:"Start,omitempty"`
+	Uri             string                                       `json:"Uri,omitempty"`
 }

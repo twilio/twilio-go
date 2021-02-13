@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateAssistantRequest struct for CreateAssistantRequest
 type CreateAssistantRequest struct {
 	// Reserved.

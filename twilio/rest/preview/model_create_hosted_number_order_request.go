@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateHostedNumberOrderRequest struct for CreateHostedNumberOrderRequest
 type CreateHostedNumberOrderRequest struct {
 	// This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.

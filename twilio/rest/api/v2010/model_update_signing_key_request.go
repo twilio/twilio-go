@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSigningKeyRequest struct for UpdateSigningKeyRequest
 type UpdateSigningKeyRequest struct {
 	FriendlyName string `json:"FriendlyName,omitempty"`

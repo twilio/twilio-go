@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSipDomainRequest struct for CreateSipDomainRequest
 type CreateSipDomainRequest struct {
 	// The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.

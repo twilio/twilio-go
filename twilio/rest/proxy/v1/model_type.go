@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // ModelType the model 'ModelType'
 type ModelType string
 
 // List of Type_
 const (
 	MODELTYPE_MESSAGE ModelType = "message"
-	MODELTYPE_VOICE ModelType = "voice"
+	MODELTYPE_VOICE   ModelType = "voice"
 	MODELTYPE_UNKNOWN ModelType = "unknown"
 )

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateParticipantRequest struct for CreateParticipantRequest
 type CreateParticipantRequest struct {
 	// Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.

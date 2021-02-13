@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListWebhookResponse struct for ListWebhookResponse
 type ListWebhookResponse struct {
-	Meta ListAssistantResponseMeta `json:"Meta,omitempty"`
+	Meta     ListAssistantResponseMeta     `json:"Meta,omitempty"`
 	Webhooks []AutopilotV1AssistantWebhook `json:"Webhooks,omitempty"`
 }

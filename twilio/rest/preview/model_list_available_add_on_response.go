@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListAvailableAddOnResponse struct for ListAvailableAddOnResponse
 type ListAvailableAddOnResponse struct {
 	AvailableAddOns []PreviewMarketplaceAvailableAddOn `json:"AvailableAddOns,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta            ListDayResponseMeta                `json:"Meta,omitempty"`
 }

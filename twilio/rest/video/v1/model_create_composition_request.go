@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateCompositionRequest struct for CreateCompositionRequest
 type CreateCompositionRequest struct {
 	// An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request

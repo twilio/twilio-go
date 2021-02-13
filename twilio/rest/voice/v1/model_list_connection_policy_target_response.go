@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListConnectionPolicyTargetResponse struct for ListConnectionPolicyTargetResponse
 type ListConnectionPolicyTargetResponse struct {
-	Meta ListByocTrunkResponseMeta `json:"Meta,omitempty"`
+	Meta    ListByocTrunkResponseMeta                       `json:"Meta,omitempty"`
 	Targets []VoiceV1ConnectionPolicyConnectionPolicyTarget `json:"Targets,omitempty"`
 }

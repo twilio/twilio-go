@@ -9,14 +9,16 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // EventsV1SchemaVersion struct for EventsV1SchemaVersion
 type EventsV1SchemaVersion struct {
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	Id string `json:"Id,omitempty"`
-	Raw string `json:"Raw,omitempty"`
-	SchemaVersion int32 `json:"SchemaVersion,omitempty"`
-	Url string `json:"Url,omitempty"`
+	DateCreated   time.Time `json:"DateCreated,omitempty"`
+	Id            string    `json:"Id,omitempty"`
+	Raw           string    `json:"Raw,omitempty"`
+	SchemaVersion int32     `json:"SchemaVersion,omitempty"`
+	Url           string    `json:"Url,omitempty"`
 }

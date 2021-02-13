@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // BindingType the model 'BindingType'
 type BindingType string
 

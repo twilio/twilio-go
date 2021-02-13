@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListDeviceResponse struct for ListDeviceResponse
 type ListDeviceResponse struct {
 	Devices []PreviewDeployedDevicesFleetDevice `json:"Devices,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta    ListDayResponseMeta                 `json:"Meta,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateNewSigningKeyRequest struct for CreateNewSigningKeyRequest
 type CreateNewSigningKeyRequest struct {
 	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.

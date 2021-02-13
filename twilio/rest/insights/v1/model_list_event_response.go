@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListEventResponse struct for ListEventResponse
 type ListEventResponse struct {
-	Events []InsightsV1CallEvent `json:"Events,omitempty"`
-	Meta ListVideoRoomSummaryResponseMeta `json:"Meta,omitempty"`
+	Events []InsightsV1CallEvent            `json:"Events,omitempty"`
+	Meta   ListVideoRoomSummaryResponseMeta `json:"Meta,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateRecordingRequest struct for UpdateRecordingRequest
 type UpdateRecordingRequest struct {
 	// The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.

@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // StudioV1FlowEngagementStepStepContext struct for StudioV1FlowEngagementStepStepContext
 type StudioV1FlowEngagementStepStepContext struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Context map[string]interface{} `json:"Context,omitempty"`
-	EngagementSid string `json:"EngagementSid,omitempty"`
-	FlowSid string `json:"FlowSid,omitempty"`
-	StepSid string `json:"StepSid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid    string                 `json:"AccountSid,omitempty"`
+	Context       map[string]interface{} `json:"Context,omitempty"`
+	EngagementSid string                 `json:"EngagementSid,omitempty"`
+	FlowSid       string                 `json:"FlowSid,omitempty"`
+	StepSid       string                 `json:"StepSid,omitempty"`
+	Url           string                 `json:"Url,omitempty"`
 }

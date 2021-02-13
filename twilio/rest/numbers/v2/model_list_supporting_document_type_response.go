@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListSupportingDocumentTypeResponse struct for ListSupportingDocumentTypeResponse
 type ListSupportingDocumentTypeResponse struct {
-	Meta ListBundleResponseMeta `json:"Meta,omitempty"`
+	Meta                    ListBundleResponseMeta                                `json:"Meta,omitempty"`
 	SupportingDocumentTypes []NumbersV2RegulatoryComplianceSupportingDocumentType `json:"SupportingDocumentTypes,omitempty"`
 }

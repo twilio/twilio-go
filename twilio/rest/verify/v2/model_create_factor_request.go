@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateFactorRequest struct for CreateFactorRequest
 type CreateFactorRequest struct {
 	// The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`

@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // ServerlessV1ServiceBuildBuildStatus struct for ServerlessV1ServiceBuildBuildStatus
 type ServerlessV1ServiceBuildBuildStatus struct {
 	AccountSid string `json:"AccountSid,omitempty"`
 	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Sid        string `json:"Sid,omitempty"`
+	Status     Status `json:"Status,omitempty"`
+	Url        string `json:"Url,omitempty"`
 }

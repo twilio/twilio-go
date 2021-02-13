@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListUsageRecordResponse struct for ListUsageRecordResponse
 type ListUsageRecordResponse struct {
-	Meta ListCommandResponseMeta `json:"Meta,omitempty"`
+	Meta         ListCommandResponseMeta    `json:"Meta,omitempty"`
 	UsageRecords []WirelessV1SimUsageRecord `json:"UsageRecords,omitempty"`
 }

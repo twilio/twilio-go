@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // TriggerField the model 'TriggerField'
 type TriggerField string
 

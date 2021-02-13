@@ -9,21 +9,23 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // ConversationsV1ConversationConversationParticipant struct for ConversationsV1ConversationConversationParticipant
 type ConversationsV1ConversationConversationParticipant struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Attributes string `json:"Attributes,omitempty"`
-	ConversationSid string `json:"ConversationSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Identity string `json:"Identity,omitempty"`
-	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
-	LastReadTimestamp string `json:"LastReadTimestamp,omitempty"`
-	MessagingBinding map[string]interface{} `json:"MessagingBinding,omitempty"`
-	RoleSid string `json:"RoleSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid           string                 `json:"AccountSid,omitempty"`
+	Attributes           string                 `json:"Attributes,omitempty"`
+	ConversationSid      string                 `json:"ConversationSid,omitempty"`
+	DateCreated          time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated          time.Time              `json:"DateUpdated,omitempty"`
+	Identity             string                 `json:"Identity,omitempty"`
+	LastReadMessageIndex *int32                 `json:"LastReadMessageIndex,omitempty"`
+	LastReadTimestamp    string                 `json:"LastReadTimestamp,omitempty"`
+	MessagingBinding     map[string]interface{} `json:"MessagingBinding,omitempty"`
+	RoleSid              string                 `json:"RoleSid,omitempty"`
+	Sid                  string                 `json:"Sid,omitempty"`
+	Url                  string                 `json:"Url,omitempty"`
 }

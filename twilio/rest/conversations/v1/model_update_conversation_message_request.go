@@ -9,9 +9,11 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // UpdateConversationMessageRequest struct for UpdateConversationMessageRequest
 type UpdateConversationMessageRequest struct {
 	// A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.

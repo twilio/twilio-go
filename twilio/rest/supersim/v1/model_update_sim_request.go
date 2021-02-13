@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSimRequest struct for UpdateSimRequest
 type UpdateSimRequest struct {
 	// The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.

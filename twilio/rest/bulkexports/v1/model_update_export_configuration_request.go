@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateExportConfigurationRequest struct for UpdateExportConfigurationRequest
 type UpdateExportConfigurationRequest struct {
 	// If true, Twilio will automatically generate every day's file when the day is over.

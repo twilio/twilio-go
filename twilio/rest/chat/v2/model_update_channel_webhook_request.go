@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateChannelWebhookRequest struct for UpdateChannelWebhookRequest
 type UpdateChannelWebhookRequest struct {
 	// The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).

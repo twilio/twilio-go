@@ -9,16 +9,18 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VerifyV2ServiceMessagingConfiguration struct for VerifyV2ServiceMessagingConfiguration
 type VerifyV2ServiceMessagingConfiguration struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	Country string `json:"Country,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	MessagingServiceSid string `json:"MessagingServiceSid,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid          string    `json:"AccountSid,omitempty"`
+	Country             string    `json:"Country,omitempty"`
+	DateCreated         time.Time `json:"DateCreated,omitempty"`
+	DateUpdated         time.Time `json:"DateUpdated,omitempty"`
+	MessagingServiceSid string    `json:"MessagingServiceSid,omitempty"`
+	ServiceSid          string    `json:"ServiceSid,omitempty"`
+	Url                 string    `json:"Url,omitempty"`
 }

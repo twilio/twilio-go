@@ -15,6 +15,8 @@ import (
 	"fmt"
 	twilio "github.com/twilio/twilio-go/client"
 	"net/url"
+	"strings"
+	"time"
 )
 
 type DefaultApiService struct {
@@ -23,11 +25,12 @@ type DefaultApiService struct {
 }
 
 func NewDefaultApiService(client *twilio.Client) *DefaultApiService {
-	return &DefaultApiService {
-		client: client,
+	return &DefaultApiService{
+		client:  client,
 		baseURL: fmt.Sprintf("https://serverless.twilio.com"),
 	}
 }
+
 // CreateAssetParams Optional parameters for the method 'CreateAsset'
 type CreateAssetParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -45,14 +48,12 @@ func (c *DefaultApiService) CreateAsset(ServiceSid string, params *CreateAssetPa
 	path := "/v1/Services/{ServiceSid}/Assets"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -68,12 +69,13 @@ func (c *DefaultApiService) CreateAsset(ServiceSid string, params *CreateAssetPa
 
 	return ps, err
 }
+
 // CreateBuildParams Optional parameters for the method 'CreateBuild'
 type CreateBuildParams struct {
-	AssetVersions *[]string `json:"AssetVersions,omitempty"`
-	Dependencies *string `json:"Dependencies,omitempty"`
+	AssetVersions    *[]string `json:"AssetVersions,omitempty"`
+	Dependencies     *string   `json:"Dependencies,omitempty"`
 	FunctionVersions *[]string `json:"FunctionVersions,omitempty"`
-	Runtime *string `json:"Runtime,omitempty"`
+	Runtime          *string   `json:"Runtime,omitempty"`
 }
 
 /*
@@ -91,23 +93,21 @@ func (c *DefaultApiService) CreateBuild(ServiceSid string, params *CreateBuildPa
 	path := "/v1/Services/{ServiceSid}/Builds"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.AssetVersions != nil {
-		data.Set("AssetVersions",  strings.Join(*params.AssetVersions, ","))
+		data.Set("AssetVersions", strings.Join(*params.AssetVersions, ","))
 	}
 	if params != nil && params.Dependencies != nil {
-		data.Set("Dependencies", *params.Dependencies) 
+		data.Set("Dependencies", *params.Dependencies)
 	}
 	if params != nil && params.FunctionVersions != nil {
-		data.Set("FunctionVersions",  strings.Join(*params.FunctionVersions, ","))
+		data.Set("FunctionVersions", strings.Join(*params.FunctionVersions, ","))
 	}
 	if params != nil && params.Runtime != nil {
-		data.Set("Runtime", *params.Runtime) 
+		data.Set("Runtime", *params.Runtime)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -123,6 +123,7 @@ func (c *DefaultApiService) CreateBuild(ServiceSid string, params *CreateBuildPa
 
 	return ps, err
 }
+
 // CreateDeploymentParams Optional parameters for the method 'CreateDeployment'
 type CreateDeploymentParams struct {
 	BuildSid *string `json:"BuildSid,omitempty"`
@@ -142,14 +143,12 @@ func (c *DefaultApiService) CreateDeployment(ServiceSid string, EnvironmentSid s
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.BuildSid != nil {
-		data.Set("BuildSid", *params.BuildSid) 
+		data.Set("BuildSid", *params.BuildSid)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -165,10 +164,11 @@ func (c *DefaultApiService) CreateDeployment(ServiceSid string, EnvironmentSid s
 
 	return ps, err
 }
+
 // CreateEnvironmentParams Optional parameters for the method 'CreateEnvironment'
 type CreateEnvironmentParams struct {
 	DomainSuffix *string `json:"DomainSuffix,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName   *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -184,17 +184,15 @@ func (c *DefaultApiService) CreateEnvironment(ServiceSid string, params *CreateE
 	path := "/v1/Services/{ServiceSid}/Environments"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.DomainSuffix != nil {
-		data.Set("DomainSuffix", *params.DomainSuffix) 
+		data.Set("DomainSuffix", *params.DomainSuffix)
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -210,6 +208,7 @@ func (c *DefaultApiService) CreateEnvironment(ServiceSid string, params *CreateE
 
 	return ps, err
 }
+
 // CreateFunctionParams Optional parameters for the method 'CreateFunction'
 type CreateFunctionParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -227,14 +226,12 @@ func (c *DefaultApiService) CreateFunction(ServiceSid string, params *CreateFunc
 	path := "/v1/Services/{ServiceSid}/Functions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -250,12 +247,13 @@ func (c *DefaultApiService) CreateFunction(ServiceSid string, params *CreateFunc
 
 	return ps, err
 }
+
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	IncludeCredentials *bool `json:"IncludeCredentials,omitempty"`
-	UiEditable *bool `json:"UiEditable,omitempty"`
-	UniqueName *string `json:"UniqueName,omitempty"`
+	FriendlyName       *string `json:"FriendlyName,omitempty"`
+	IncludeCredentials *bool   `json:"IncludeCredentials,omitempty"`
+	UiEditable         *bool   `json:"UiEditable,omitempty"`
+	UniqueName         *string `json:"UniqueName,omitempty"`
 }
 
 /*
@@ -271,23 +269,21 @@ Create a new Service resource.
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ServerlessV1Service, error) {
 	path := "/v1/Services"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.IncludeCredentials != nil {
-		data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials)) 
+		data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials))
 	}
 	if params != nil && params.UiEditable != nil {
-		data.Set("UiEditable", fmt.Sprint(*params.UiEditable)) 
+		data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
 	}
 	if params != nil && params.UniqueName != nil {
-		data.Set("UniqueName", *params.UniqueName) 
+		data.Set("UniqueName", *params.UniqueName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -303,9 +299,10 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*Serverl
 
 	return ps, err
 }
+
 // CreateVariableParams Optional parameters for the method 'CreateVariable'
 type CreateVariableParams struct {
-	Key *string `json:"Key,omitempty"`
+	Key   *string `json:"Key,omitempty"`
 	Value *string `json:"Value,omitempty"`
 }
 
@@ -324,17 +321,15 @@ func (c *DefaultApiService) CreateVariable(ServiceSid string, EnvironmentSid str
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Key != nil {
-		data.Set("Key", *params.Key) 
+		data.Set("Key", *params.Key)
 	}
 	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value) 
+		data.Set("Value", *params.Value)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -357,16 +352,13 @@ Delete an Asset resource.
  * @param ServiceSid The SID of the Service to delete the Asset resource from.
  * @param Sid The SID that identifies the Asset resource to delete.
 */
-func (c *DefaultApiService) DeleteAsset(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteAsset(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -384,16 +376,13 @@ Delete a Build resource.
  * @param ServiceSid The SID of the Service to delete the Build resource from.
  * @param Sid The SID of the Build resource to delete.
 */
-func (c *DefaultApiService) DeleteBuild(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteBuild(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -411,16 +400,13 @@ Delete a specific environment.
  * @param ServiceSid The SID of the Service to delete the Environment resource from.
  * @param Sid The SID of the Environment resource to delete.
 */
-func (c *DefaultApiService) DeleteEnvironment(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteEnvironment(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Environments/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -438,16 +424,13 @@ Delete a Function resource.
  * @param ServiceSid The SID of the Service to delete the Function resource from.
  * @param Sid The SID of the Function resource to delete.
 */
-func (c *DefaultApiService) DeleteFunction(ServiceSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteFunction(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -464,15 +447,12 @@ DeleteService Method for DeleteService
 Delete a Service resource.
  * @param Sid The `sid` or `unique_name` of the Service resource to delete.
 */
-func (c *DefaultApiService) DeleteService(Sid string) (error) {
+func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -491,17 +471,14 @@ Delete a specific Variable.
  * @param EnvironmentSid The SID of the Environment with the Variables to delete.
  * @param Sid The SID of the Variable resource to delete.
 */
-func (c *DefaultApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Sid string) (error) {
+func (c *DefaultApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -525,11 +502,8 @@ func (c *DefaultApiService) FetchAsset(ServiceSid string, Sid string) (*Serverle
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -560,11 +534,8 @@ func (c *DefaultApiService) FetchAssetVersion(ServiceSid string, AssetSid string
 	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -593,11 +564,8 @@ func (c *DefaultApiService) FetchBuild(ServiceSid string, Sid string) (*Serverle
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -626,11 +594,8 @@ func (c *DefaultApiService) FetchBuildStatus(ServiceSid string, Sid string) (*Se
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -661,11 +626,8 @@ func (c *DefaultApiService) FetchDeployment(ServiceSid string, EnvironmentSid st
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -694,11 +656,8 @@ func (c *DefaultApiService) FetchEnvironment(ServiceSid string, Sid string) (*Se
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -727,11 +686,8 @@ func (c *DefaultApiService) FetchFunction(ServiceSid string, Sid string) (*Serve
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -762,11 +718,8 @@ func (c *DefaultApiService) FetchFunctionVersion(ServiceSid string, FunctionSid 
 	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -797,11 +750,8 @@ func (c *DefaultApiService) FetchFunctionVersionContent(ServiceSid string, Funct
 	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -832,11 +782,8 @@ func (c *DefaultApiService) FetchLog(ServiceSid string, EnvironmentSid string, S
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -863,11 +810,8 @@ func (c *DefaultApiService) FetchService(Sid string) (*ServerlessV1Service, erro
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -898,11 +842,8 @@ func (c *DefaultApiService) FetchVariable(ServiceSid string, EnvironmentSid stri
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
-
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -918,6 +859,7 @@ func (c *DefaultApiService) FetchVariable(ServiceSid string, EnvironmentSid stri
 
 	return ps, err
 }
+
 // ListAssetParams Optional parameters for the method 'ListAsset'
 type ListAssetParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -935,14 +877,12 @@ func (c *DefaultApiService) ListAsset(ServiceSid string, params *ListAssetParams
 	path := "/v1/Services/{ServiceSid}/Assets"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -958,6 +898,7 @@ func (c *DefaultApiService) ListAsset(ServiceSid string, params *ListAssetParams
 
 	return ps, err
 }
+
 // ListAssetVersionParams Optional parameters for the method 'ListAssetVersion'
 type ListAssetVersionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -977,14 +918,12 @@ func (c *DefaultApiService) ListAssetVersion(ServiceSid string, AssetSid string,
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1000,6 +939,7 @@ func (c *DefaultApiService) ListAssetVersion(ServiceSid string, AssetSid string,
 
 	return ps, err
 }
+
 // ListBuildParams Optional parameters for the method 'ListBuild'
 type ListBuildParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1017,14 +957,12 @@ func (c *DefaultApiService) ListBuild(ServiceSid string, params *ListBuildParams
 	path := "/v1/Services/{ServiceSid}/Builds"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1040,6 +978,7 @@ func (c *DefaultApiService) ListBuild(ServiceSid string, params *ListBuildParams
 
 	return ps, err
 }
+
 // ListDeploymentParams Optional parameters for the method 'ListDeployment'
 type ListDeploymentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1059,14 +998,12 @@ func (c *DefaultApiService) ListDeployment(ServiceSid string, EnvironmentSid str
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1082,6 +1019,7 @@ func (c *DefaultApiService) ListDeployment(ServiceSid string, EnvironmentSid str
 
 	return ps, err
 }
+
 // ListEnvironmentParams Optional parameters for the method 'ListEnvironment'
 type ListEnvironmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1099,14 +1037,12 @@ func (c *DefaultApiService) ListEnvironment(ServiceSid string, params *ListEnvir
 	path := "/v1/Services/{ServiceSid}/Environments"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1122,6 +1058,7 @@ func (c *DefaultApiService) ListEnvironment(ServiceSid string, params *ListEnvir
 
 	return ps, err
 }
+
 // ListFunctionParams Optional parameters for the method 'ListFunction'
 type ListFunctionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1139,14 +1076,12 @@ func (c *DefaultApiService) ListFunction(ServiceSid string, params *ListFunction
 	path := "/v1/Services/{ServiceSid}/Functions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1162,6 +1097,7 @@ func (c *DefaultApiService) ListFunction(ServiceSid string, params *ListFunction
 
 	return ps, err
 }
+
 // ListFunctionVersionParams Optional parameters for the method 'ListFunctionVersion'
 type ListFunctionVersionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1181,14 +1117,12 @@ func (c *DefaultApiService) ListFunctionVersion(ServiceSid string, FunctionSid s
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1204,12 +1138,13 @@ func (c *DefaultApiService) ListFunctionVersion(ServiceSid string, FunctionSid s
 
 	return ps, err
 }
+
 // ListLogParams Optional parameters for the method 'ListLog'
 type ListLogParams struct {
-	FunctionSid *string `json:"FunctionSid,omitempty"`
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	EndDate *time.Time `json:"EndDate,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	FunctionSid *string    `json:"FunctionSid,omitempty"`
+	StartDate   *time.Time `json:"StartDate,omitempty"`
+	EndDate     *time.Time `json:"EndDate,omitempty"`
+	PageSize    *int32     `json:"PageSize,omitempty"`
 }
 
 /*
@@ -1229,23 +1164,21 @@ func (c *DefaultApiService) ListLog(ServiceSid string, EnvironmentSid string, pa
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FunctionSid != nil {
-		data.Set("FunctionSid", *params.FunctionSid) 
+		data.Set("FunctionSid", *params.FunctionSid)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate)) 
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate)) 
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1261,6 +1194,7 @@ func (c *DefaultApiService) ListLog(ServiceSid string, EnvironmentSid string, pa
 
 	return ps, err
 }
+
 // ListServiceParams Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1276,14 +1210,12 @@ Retrieve a list of all Services.
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1299,6 +1231,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 
 	return ps, err
 }
+
 // ListVariableParams Optional parameters for the method 'ListVariable'
 type ListVariableParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -1318,14 +1251,12 @@ func (c *DefaultApiService) ListVariable(ServiceSid string, EnvironmentSid strin
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize)) 
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
-
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1341,6 +1272,7 @@ func (c *DefaultApiService) ListVariable(ServiceSid string, EnvironmentSid strin
 
 	return ps, err
 }
+
 // UpdateAssetParams Optional parameters for the method 'UpdateAsset'
 type UpdateAssetParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -1360,14 +1292,12 @@ func (c *DefaultApiService) UpdateAsset(ServiceSid string, Sid string, params *U
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1383,6 +1313,7 @@ func (c *DefaultApiService) UpdateAsset(ServiceSid string, Sid string, params *U
 
 	return ps, err
 }
+
 // UpdateFunctionParams Optional parameters for the method 'UpdateFunction'
 type UpdateFunctionParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
@@ -1402,14 +1333,12 @@ func (c *DefaultApiService) UpdateFunction(ServiceSid string, Sid string, params
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1425,11 +1354,12 @@ func (c *DefaultApiService) UpdateFunction(ServiceSid string, Sid string, params
 
 	return ps, err
 }
+
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	FriendlyName *string `json:"FriendlyName,omitempty"`
-	IncludeCredentials *bool `json:"IncludeCredentials,omitempty"`
-	UiEditable *bool `json:"UiEditable,omitempty"`
+	FriendlyName       *string `json:"FriendlyName,omitempty"`
+	IncludeCredentials *bool   `json:"IncludeCredentials,omitempty"`
+	UiEditable         *bool   `json:"UiEditable,omitempty"`
 }
 
 /*
@@ -1446,20 +1376,18 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName) 
+		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.IncludeCredentials != nil {
-		data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials)) 
+		data.Set("IncludeCredentials", fmt.Sprint(*params.IncludeCredentials))
 	}
 	if params != nil && params.UiEditable != nil {
-		data.Set("UiEditable", fmt.Sprint(*params.UiEditable)) 
+		data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1475,9 +1403,10 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 
 	return ps, err
 }
+
 // UpdateVariableParams Optional parameters for the method 'UpdateVariable'
 type UpdateVariableParams struct {
-	Key *string `json:"Key,omitempty"`
+	Key   *string `json:"Key,omitempty"`
 	Value *string `json:"Value,omitempty"`
 }
 
@@ -1498,17 +1427,15 @@ func (c *DefaultApiService) UpdateVariable(ServiceSid string, EnvironmentSid str
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
-
 	data := url.Values{}
 	headers := 0
 
 	if params != nil && params.Key != nil {
-		data.Set("Key", *params.Key) 
+		data.Set("Key", *params.Key)
 	}
 	if params != nil && params.Value != nil {
-		data.Set("Value", *params.Value) 
+		data.Set("Value", *params.Value)
 	}
-
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {

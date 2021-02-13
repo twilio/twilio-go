@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateMessageRequest struct for CreateMessageRequest
 type CreateMessageRequest struct {
 	// A valid JSON string that contains application-specific data.

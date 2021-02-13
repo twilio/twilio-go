@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // VerificationType the model 'VerificationType'
 type VerificationType string
 

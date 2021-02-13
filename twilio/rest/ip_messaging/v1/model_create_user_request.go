@@ -9,10 +9,11 @@
  */
 
 package openapi
+
 // CreateUserRequest struct for CreateUserRequest
 type CreateUserRequest struct {
-	Attributes string `json:"Attributes,omitempty"`
+	Attributes   string `json:"Attributes,omitempty"`
 	FriendlyName string `json:"FriendlyName,omitempty"`
-	Identity string `json:"Identity"`
-	RoleSid string `json:"RoleSid,omitempty"`
+	Identity     string `json:"Identity"`
+	RoleSid      string `json:"RoleSid,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateDialingPermissionsCountryBulkUpdateRequest struct for CreateDialingPermissionsCountryBulkUpdateRequest
 type CreateDialingPermissionsCountryBulkUpdateRequest struct {
 	// URL encoded JSON array of update objects. example : `[ { \"iso_code\": \"GB\", \"low_risk_numbers_enabled\": \"true\", \"high_risk_special_numbers_enabled\":\"true\", \"high_risk_tollfraud_numbers_enabled\": \"false\" } ]`

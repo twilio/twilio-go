@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateFlexFlowRequest struct for UpdateFlexFlowRequest
 type UpdateFlexFlowRequest struct {
 	// The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.

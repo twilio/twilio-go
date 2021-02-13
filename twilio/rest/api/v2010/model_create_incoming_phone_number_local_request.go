@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateIncomingPhoneNumberLocalRequest struct for CreateIncomingPhoneNumberLocalRequest
 type CreateIncomingPhoneNumberLocalRequest struct {
 	// The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.

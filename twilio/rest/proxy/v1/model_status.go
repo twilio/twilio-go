@@ -9,14 +9,15 @@
  */
 
 package openapi
+
 // Status the model 'Status'
 type Status string
 
 // List of status
 const (
-	STATUS_OPEN Status = "open"
+	STATUS_OPEN        Status = "open"
 	STATUS_IN_PROGRESS Status = "in-progress"
-	STATUS_CLOSED Status = "closed"
-	STATUS_FAILED Status = "failed"
-	STATUS_UNKNOWN Status = "unknown"
+	STATUS_CLOSED      Status = "closed"
+	STATUS_FAILED      Status = "failed"
+	STATUS_UNKNOWN     Status = "unknown"
 )

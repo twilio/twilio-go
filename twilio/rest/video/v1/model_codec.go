@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // Codec the model 'Codec'
 type Codec string
 
 // List of codec
 const (
-	CODEC_VP8 Codec = "VP8"
+	CODEC_VP8  Codec = "VP8"
 	CODEC_H264 Codec = "H264"
 	CODEC_OPUS Codec = "OPUS"
 	CODEC_PCMU Codec = "PCMU"

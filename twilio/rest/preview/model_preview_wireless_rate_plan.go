@@ -9,23 +9,25 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // PreviewWirelessRatePlan struct for PreviewWirelessRatePlan
 type PreviewWirelessRatePlan struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DataEnabled bool `json:"DataEnabled,omitempty"`
-	DataLimit int32 `json:"DataLimit,omitempty"`
-	DataMetering string `json:"DataMetering,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	InternationalRoaming []string `json:"InternationalRoaming,omitempty"`
-	MessagingEnabled bool `json:"MessagingEnabled,omitempty"`
-	NationalRoamingEnabled bool `json:"NationalRoamingEnabled,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
-	Url string `json:"Url,omitempty"`
-	VoiceEnabled bool `json:"VoiceEnabled,omitempty"`
+	AccountSid             string    `json:"AccountSid,omitempty"`
+	DataEnabled            bool      `json:"DataEnabled,omitempty"`
+	DataLimit              int32     `json:"DataLimit,omitempty"`
+	DataMetering           string    `json:"DataMetering,omitempty"`
+	DateCreated            time.Time `json:"DateCreated,omitempty"`
+	DateUpdated            time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName           string    `json:"FriendlyName,omitempty"`
+	InternationalRoaming   []string  `json:"InternationalRoaming,omitempty"`
+	MessagingEnabled       bool      `json:"MessagingEnabled,omitempty"`
+	NationalRoamingEnabled bool      `json:"NationalRoamingEnabled,omitempty"`
+	Sid                    string    `json:"Sid,omitempty"`
+	UniqueName             string    `json:"UniqueName,omitempty"`
+	Url                    string    `json:"Url,omitempty"`
+	VoiceEnabled           bool      `json:"VoiceEnabled,omitempty"`
 }

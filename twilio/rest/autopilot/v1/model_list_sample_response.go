@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListSampleResponse struct for ListSampleResponse
 type ListSampleResponse struct {
-	Meta ListAssistantResponseMeta `json:"Meta,omitempty"`
+	Meta    ListAssistantResponseMeta        `json:"Meta,omitempty"`
 	Samples []AutopilotV1AssistantTaskSample `json:"Samples,omitempty"`
 }

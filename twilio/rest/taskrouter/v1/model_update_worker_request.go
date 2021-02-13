@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateWorkerRequest struct for UpdateWorkerRequest
 type UpdateWorkerRequest struct {
 	// The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.

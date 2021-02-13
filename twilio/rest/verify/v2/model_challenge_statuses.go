@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // ChallengeStatuses the model 'ChallengeStatuses'
 type ChallengeStatuses string
 
 // List of challenge_statuses
 const (
-	CHALLENGESTATUSES_PENDING ChallengeStatuses = "pending"
-	CHALLENGESTATUSES_EXPIRED ChallengeStatuses = "expired"
+	CHALLENGESTATUSES_PENDING  ChallengeStatuses = "pending"
+	CHALLENGESTATUSES_EXPIRED  ChallengeStatuses = "expired"
 	CHALLENGESTATUSES_APPROVED ChallengeStatuses = "approved"
-	CHALLENGESTATUSES_DENIED ChallengeStatuses = "denied"
+	CHALLENGESTATUSES_DENIED   ChallengeStatuses = "denied"
 )

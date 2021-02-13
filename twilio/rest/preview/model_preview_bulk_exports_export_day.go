@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // PreviewBulkExportsExportDay struct for PreviewBulkExportsExportDay
 type PreviewBulkExportsExportDay struct {
-	CreateDate string `json:"CreateDate,omitempty"`
-	Day string `json:"Day,omitempty"`
+	CreateDate   string `json:"CreateDate,omitempty"`
+	Day          string `json:"Day,omitempty"`
 	FriendlyName string `json:"FriendlyName,omitempty"`
 	ResourceType string `json:"ResourceType,omitempty"`
-	Size int32 `json:"Size,omitempty"`
+	Size         int32  `json:"Size,omitempty"`
 }

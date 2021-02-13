@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateBindingRequest struct for CreateBindingRequest
 type CreateBindingRequest struct {
 	// The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateTaskActionsRequest struct for UpdateTaskActionsRequest
 type UpdateTaskActionsRequest struct {
 	// The JSON actions that instruct the Assistant how to perform this task.

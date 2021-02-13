@@ -9,14 +9,16 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // AccountsV1AuthTokenPromotion struct for AccountsV1AuthTokenPromotion
 type AccountsV1AuthTokenPromotion struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AuthToken string `json:"AuthToken,omitempty"`
+	AccountSid  string    `json:"AccountSid,omitempty"`
+	AuthToken   string    `json:"AuthToken,omitempty"`
 	DateCreated time.Time `json:"DateCreated,omitempty"`
 	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Url         string    `json:"Url,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateMessagingConfigurationRequest struct for UpdateMessagingConfigurationRequest
 type UpdateMessagingConfigurationRequest struct {
 	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.

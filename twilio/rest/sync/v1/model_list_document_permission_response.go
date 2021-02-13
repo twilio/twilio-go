@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListDocumentPermissionResponse struct for ListDocumentPermissionResponse
 type ListDocumentPermissionResponse struct {
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Meta        ListServiceResponseMeta                   `json:"Meta,omitempty"`
 	Permissions []SyncV1ServiceDocumentDocumentPermission `json:"Permissions,omitempty"`
 }

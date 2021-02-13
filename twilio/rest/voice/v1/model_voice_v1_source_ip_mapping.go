@@ -9,15 +9,17 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VoiceV1SourceIpMapping struct for VoiceV1SourceIpMapping
 type VoiceV1SourceIpMapping struct {
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	IpRecordSid string `json:"IpRecordSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	SipDomainSid string `json:"SipDomainSid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	DateCreated  time.Time `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time `json:"DateUpdated,omitempty"`
+	IpRecordSid  string    `json:"IpRecordSid,omitempty"`
+	Sid          string    `json:"Sid,omitempty"`
+	SipDomainSid string    `json:"SipDomainSid,omitempty"`
+	Url          string    `json:"Url,omitempty"`
 }

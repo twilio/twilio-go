@@ -9,16 +9,18 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // FaxV1FaxFaxMedia struct for FaxV1FaxFaxMedia
 type FaxV1FaxFaxMedia struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	ContentType string `json:"ContentType,omitempty"`
+	AccountSid  string    `json:"AccountSid,omitempty"`
+	ContentType string    `json:"ContentType,omitempty"`
 	DateCreated time.Time `json:"DateCreated,omitempty"`
 	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FaxSid string `json:"FaxSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	FaxSid      string    `json:"FaxSid,omitempty"`
+	Sid         string    `json:"Sid,omitempty"`
+	Url         string    `json:"Url,omitempty"`
 }

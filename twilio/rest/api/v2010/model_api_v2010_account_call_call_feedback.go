@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // ApiV2010AccountCallCallFeedback struct for ApiV2010AccountCallCallFeedback
 type ApiV2010AccountCallCallFeedback struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated string `json:"DateCreated,omitempty"`
-	DateUpdated string `json:"DateUpdated,omitempty"`
-	Issues []string `json:"Issues,omitempty"`
-	QualityScore int32 `json:"QualityScore,omitempty"`
-	Sid string `json:"Sid,omitempty"`
+	AccountSid   string   `json:"AccountSid,omitempty"`
+	DateCreated  string   `json:"DateCreated,omitempty"`
+	DateUpdated  string   `json:"DateUpdated,omitempty"`
+	Issues       []string `json:"Issues,omitempty"`
+	QualityScore int32    `json:"QualityScore,omitempty"`
+	Sid          string   `json:"Sid,omitempty"`
 }

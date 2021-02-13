@@ -9,16 +9,18 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // CreateChannelRequest struct for CreateChannelRequest
 type CreateChannelRequest struct {
-	Attributes string `json:"Attributes,omitempty"`
-	CreatedBy string `json:"CreatedBy,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	Type string `json:"Type,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
+	Attributes   string    `json:"Attributes,omitempty"`
+	CreatedBy    string    `json:"CreatedBy,omitempty"`
+	DateCreated  time.Time `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time `json:"DateUpdated,omitempty"`
+	FriendlyName string    `json:"FriendlyName,omitempty"`
+	Type         string    `json:"Type,omitempty"`
+	UniqueName   string    `json:"UniqueName,omitempty"`
 }

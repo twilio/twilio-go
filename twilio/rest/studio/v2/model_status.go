@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Status the model 'Status'
 type Status string
 
 // List of status
 const (
-	STATUS_DRAFT Status = "draft"
+	STATUS_DRAFT     Status = "draft"
 	STATUS_PUBLISHED Status = "published"
 )

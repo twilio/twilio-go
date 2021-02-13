@@ -9,17 +9,19 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VerifyV2ServiceEntity struct for VerifyV2ServiceEntity
 type VerifyV2ServiceEntity struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Identity string `json:"Identity,omitempty"`
-	Links map[string]interface{} `json:"Links,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid  string                 `json:"AccountSid,omitempty"`
+	DateCreated time.Time              `json:"DateCreated,omitempty"`
+	DateUpdated time.Time              `json:"DateUpdated,omitempty"`
+	Identity    string                 `json:"Identity,omitempty"`
+	Links       map[string]interface{} `json:"Links,omitempty"`
+	ServiceSid  string                 `json:"ServiceSid,omitempty"`
+	Sid         string                 `json:"Sid,omitempty"`
+	Url         string                 `json:"Url,omitempty"`
 }

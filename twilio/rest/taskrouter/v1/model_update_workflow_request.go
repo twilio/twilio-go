@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateWorkflowRequest struct for UpdateWorkflowRequest
 type UpdateWorkflowRequest struct {
 	// The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateRoomRequest struct for CreateRoomRequest
 type CreateRoomRequest struct {
 	// Deprecated, now always considered to be true.

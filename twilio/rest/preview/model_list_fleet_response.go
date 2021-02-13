@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListFleetResponse struct for ListFleetResponse
 type ListFleetResponse struct {
 	Fleets []PreviewDeployedDevicesFleet `json:"Fleets,omitempty"`
-	Meta ListDayResponseMeta `json:"Meta,omitempty"`
+	Meta   ListDayResponseMeta           `json:"Meta,omitempty"`
 }

@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateQueueRequest struct for CreateQueueRequest
 type CreateQueueRequest struct {
 	// A descriptive string that you created to describe this resource. It can be up to 64 characters long.

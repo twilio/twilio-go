@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateAssistantFallbackActionsRequest struct for UpdateAssistantFallbackActionsRequest
 type UpdateAssistantFallbackActionsRequest struct {
 	FallbackActions map[string]interface{} `json:"FallbackActions,omitempty"`

@@ -9,19 +9,21 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // PreviewUnderstandAssistantTaskSample struct for PreviewUnderstandAssistantTaskSample
 type PreviewUnderstandAssistantTaskSample struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AssistantSid string `json:"AssistantSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Language string `json:"Language,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	SourceChannel string `json:"SourceChannel,omitempty"`
-	TaggedText string `json:"TaggedText,omitempty"`
-	TaskSid string `json:"TaskSid,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid    string    `json:"AccountSid,omitempty"`
+	AssistantSid  string    `json:"AssistantSid,omitempty"`
+	DateCreated   time.Time `json:"DateCreated,omitempty"`
+	DateUpdated   time.Time `json:"DateUpdated,omitempty"`
+	Language      string    `json:"Language,omitempty"`
+	Sid           string    `json:"Sid,omitempty"`
+	SourceChannel string    `json:"SourceChannel,omitempty"`
+	TaggedText    string    `json:"TaggedText,omitempty"`
+	TaskSid       string    `json:"TaskSid,omitempty"`
+	Url           string    `json:"Url,omitempty"`
 }

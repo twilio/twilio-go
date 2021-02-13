@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateSampleRequest struct for CreateSampleRequest
 type CreateSampleRequest struct {
 	// An ISO language-country string of the sample.

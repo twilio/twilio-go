@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateRoleRequest struct for UpdateRoleRequest
 type UpdateRoleRequest struct {
 	Permission []string `json:"Permission"`

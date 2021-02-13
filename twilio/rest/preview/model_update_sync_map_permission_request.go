@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateSyncMapPermissionRequest struct for UpdateSyncMapPermissionRequest
 type UpdateSyncMapPermissionRequest struct {
 	// Boolean flag specifying whether the identity can delete the Sync Map.

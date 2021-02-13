@@ -9,10 +9,11 @@
  */
 
 package openapi
+
 // PhoneNumberCapabilities struct for PhoneNumberCapabilities
 type PhoneNumberCapabilities struct {
-	Fax bool `json:"Fax,omitempty"`
-	Mms bool `json:"Mms,omitempty"`
-	Sms bool `json:"Sms,omitempty"`
+	Fax   bool `json:"Fax,omitempty"`
+	Mms   bool `json:"Mms,omitempty"`
+	Sms   bool `json:"Sms,omitempty"`
 	Voice bool `json:"Voice,omitempty"`
 }

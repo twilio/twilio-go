@@ -9,19 +9,21 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // AutopilotV1AssistantFieldTypeFieldValue struct for AutopilotV1AssistantFieldTypeFieldValue
 type AutopilotV1AssistantFieldTypeFieldValue struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	AssistantSid string `json:"AssistantSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	FieldTypeSid string `json:"FieldTypeSid,omitempty"`
-	Language string `json:"Language,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	SynonymOf string `json:"SynonymOf,omitempty"`
-	Url string `json:"Url,omitempty"`
-	Value string `json:"Value,omitempty"`
+	AccountSid   string    `json:"AccountSid,omitempty"`
+	AssistantSid string    `json:"AssistantSid,omitempty"`
+	DateCreated  time.Time `json:"DateCreated,omitempty"`
+	DateUpdated  time.Time `json:"DateUpdated,omitempty"`
+	FieldTypeSid string    `json:"FieldTypeSid,omitempty"`
+	Language     string    `json:"Language,omitempty"`
+	Sid          string    `json:"Sid,omitempty"`
+	SynonymOf    string    `json:"SynonymOf,omitempty"`
+	Url          string    `json:"Url,omitempty"`
+	Value        string    `json:"Value,omitempty"`
 }

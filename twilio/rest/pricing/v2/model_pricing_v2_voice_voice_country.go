@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // PricingV2VoiceVoiceCountry struct for PricingV2VoiceVoiceCountry
 type PricingV2VoiceVoiceCountry struct {
-	Country string `json:"Country,omitempty"`
+	Country    string `json:"Country,omitempty"`
 	IsoCountry string `json:"IsoCountry,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Url        string `json:"Url,omitempty"`
 }

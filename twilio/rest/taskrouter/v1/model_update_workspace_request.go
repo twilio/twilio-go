@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateWorkspaceRequest struct for UpdateWorkspaceRequest
 type UpdateWorkspaceRequest struct {
 	// The SID of the Activity that will be used when new Workers are created in the Workspace.

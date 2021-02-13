@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Status the model 'Status'
 type Status string
 
 // List of status
 const (
-	STATUS_COMPLIANT Status = "compliant"
+	STATUS_COMPLIANT    Status = "compliant"
 	STATUS_NONCOMPLIANT Status = "noncompliant"
 )

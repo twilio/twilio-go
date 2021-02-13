@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateIpRecordRequest struct for CreateIpRecordRequest
 type CreateIpRecordRequest struct {
 	// An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.

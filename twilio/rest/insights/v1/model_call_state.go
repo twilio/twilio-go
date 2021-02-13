@@ -9,17 +9,18 @@
  */
 
 package openapi
+
 // CallState the model 'CallState'
 type CallState string
 
 // List of call_state
 const (
-	CALLSTATE_RINGING CallState = "ringing"
+	CALLSTATE_RINGING   CallState = "ringing"
 	CALLSTATE_COMPLETED CallState = "completed"
-	CALLSTATE_BUSY CallState = "busy"
-	CALLSTATE_FAIL CallState = "fail"
-	CALLSTATE_NOANSWER CallState = "noanswer"
-	CALLSTATE_CANCELED CallState = "canceled"
-	CALLSTATE_ANSWERED CallState = "answered"
-	CALLSTATE_UNDIALED CallState = "undialed"
+	CALLSTATE_BUSY      CallState = "busy"
+	CALLSTATE_FAIL      CallState = "fail"
+	CALLSTATE_NOANSWER  CallState = "noanswer"
+	CALLSTATE_CANCELED  CallState = "canceled"
+	CALLSTATE_ANSWERED  CallState = "answered"
+	CALLSTATE_UNDIALED  CallState = "undialed"
 )

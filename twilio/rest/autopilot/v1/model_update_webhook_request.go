@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateWebhookRequest struct for UpdateWebhookRequest
 type UpdateWebhookRequest struct {
 	// The list of space-separated events that this Webhook will subscribe to.

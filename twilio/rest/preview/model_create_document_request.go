@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // CreateDocumentRequest struct for CreateDocumentRequest
 type CreateDocumentRequest struct {
-	Data map[string]interface{} `json:"Data,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
+	Data       map[string]interface{} `json:"Data,omitempty"`
+	UniqueName string                 `json:"UniqueName,omitempty"`
 }

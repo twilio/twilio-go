@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // StudioV2FlowTestUser struct for StudioV2FlowTestUser
 type StudioV2FlowTestUser struct {
-	Sid string `json:"Sid,omitempty"`
+	Sid       string   `json:"Sid,omitempty"`
 	TestUsers []string `json:"TestUsers,omitempty"`
-	Url string `json:"Url,omitempty"`
+	Url       string   `json:"Url,omitempty"`
 }

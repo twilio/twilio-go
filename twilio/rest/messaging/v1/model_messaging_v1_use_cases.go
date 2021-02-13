@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // MessagingV1UseCases struct for MessagingV1UseCases
 type MessagingV1UseCases struct {
-	Code string `json:"Code,omitempty"`
+	Code        string `json:"Code,omitempty"`
 	Description string `json:"Description,omitempty"`
-	Name string `json:"Name,omitempty"`
+	Name        string `json:"Name,omitempty"`
 }

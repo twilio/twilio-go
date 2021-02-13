@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // PricingV1VoiceVoiceNumber struct for PricingV1VoiceVoiceNumber
 type PricingV1VoiceVoiceNumber struct {
-	Country string `json:"Country,omitempty"`
-	InboundCallPrice InboundCallPrice `json:"InboundCallPrice,omitempty"`
-	IsoCountry string `json:"IsoCountry,omitempty"`
-	Number string `json:"Number,omitempty"`
+	Country           string            `json:"Country,omitempty"`
+	InboundCallPrice  InboundCallPrice  `json:"InboundCallPrice,omitempty"`
+	IsoCountry        string            `json:"IsoCountry,omitempty"`
+	Number            string            `json:"Number,omitempty"`
 	OutboundCallPrice OutboundCallPrice `json:"OutboundCallPrice,omitempty"`
-	PriceUnit string `json:"PriceUnit,omitempty"`
-	Url string `json:"Url,omitempty"`
+	PriceUnit         string            `json:"PriceUnit,omitempty"`
+	Url               string            `json:"Url,omitempty"`
 }

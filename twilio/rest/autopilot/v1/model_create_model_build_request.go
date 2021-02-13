@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateModelBuildRequest struct for CreateModelBuildRequest
 type CreateModelBuildRequest struct {
 	// The URL we should call using a POST method to send status information to your application.

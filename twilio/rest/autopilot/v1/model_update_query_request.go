@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateQueryRequest struct for UpdateQueryRequest
 type UpdateQueryRequest struct {
 	// The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.

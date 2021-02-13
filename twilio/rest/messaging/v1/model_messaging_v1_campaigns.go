@@ -9,23 +9,25 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // MessagingV1Campaigns struct for MessagingV1Campaigns
 type MessagingV1Campaigns struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	BrandRegistrationSid string `json:"BrandRegistrationSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Description string `json:"Description,omitempty"`
-	FailureReason string `json:"FailureReason,omitempty"`
-	HasEmbeddedLinks bool `json:"HasEmbeddedLinks,omitempty"`
-	HasEmbeddedPhone bool `json:"HasEmbeddedPhone,omitempty"`
-	MessageSamples []string `json:"MessageSamples,omitempty"`
-	MessagingServiceSid string `json:"MessagingServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status Status `json:"Status,omitempty"`
-	Url string `json:"Url,omitempty"`
-	UseCase string `json:"UseCase,omitempty"`
+	AccountSid           string    `json:"AccountSid,omitempty"`
+	BrandRegistrationSid string    `json:"BrandRegistrationSid,omitempty"`
+	DateCreated          time.Time `json:"DateCreated,omitempty"`
+	DateUpdated          time.Time `json:"DateUpdated,omitempty"`
+	Description          string    `json:"Description,omitempty"`
+	FailureReason        string    `json:"FailureReason,omitempty"`
+	HasEmbeddedLinks     bool      `json:"HasEmbeddedLinks,omitempty"`
+	HasEmbeddedPhone     bool      `json:"HasEmbeddedPhone,omitempty"`
+	MessageSamples       []string  `json:"MessageSamples,omitempty"`
+	MessagingServiceSid  string    `json:"MessagingServiceSid,omitempty"`
+	Sid                  string    `json:"Sid,omitempty"`
+	Status               Status    `json:"Status,omitempty"`
+	Url                  string    `json:"Url,omitempty"`
+	UseCase              string    `json:"UseCase,omitempty"`
 }

@@ -9,14 +9,15 @@
  */
 
 package openapi
+
 // PreviewSyncServiceDocumentDocumentPermission struct for PreviewSyncServiceDocumentDocumentPermission
 type PreviewSyncServiceDocumentDocumentPermission struct {
-	AccountSid string `json:"AccountSid,omitempty"`
+	AccountSid  string `json:"AccountSid,omitempty"`
 	DocumentSid string `json:"DocumentSid,omitempty"`
-	Identity string `json:"Identity,omitempty"`
-	Manage bool `json:"Manage,omitempty"`
-	Read bool `json:"Read,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Url string `json:"Url,omitempty"`
-	Write bool `json:"Write,omitempty"`
+	Identity    string `json:"Identity,omitempty"`
+	Manage      bool   `json:"Manage,omitempty"`
+	Read        bool   `json:"Read,omitempty"`
+	ServiceSid  string `json:"ServiceSid,omitempty"`
+	Url         string `json:"Url,omitempty"`
+	Write       bool   `json:"Write,omitempty"`
 }

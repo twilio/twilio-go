@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListMessagingConfigurationResponse struct for ListMessagingConfigurationResponse
 type ListMessagingConfigurationResponse struct {
 	MessagingConfigurations []VerifyV2ServiceMessagingConfiguration `json:"MessagingConfigurations,omitempty"`
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Meta                    ListServiceResponseMeta                 `json:"Meta,omitempty"`
 }

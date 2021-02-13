@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateCallRequest struct for UpdateCallRequest
 type UpdateCallRequest struct {
 	// The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.

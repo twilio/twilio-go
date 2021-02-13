@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateInviteRequest struct for CreateInviteRequest
 type CreateInviteRequest struct {
 	// The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.

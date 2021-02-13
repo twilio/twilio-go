@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // CreateServiceUserRequest struct for CreateServiceUserRequest
 type CreateServiceUserRequest struct {
 	// The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.

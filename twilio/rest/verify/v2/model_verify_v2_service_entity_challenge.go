@@ -9,25 +9,27 @@
  */
 
 package openapi
+
 import (
 	"time"
 )
+
 // VerifyV2ServiceEntityChallenge struct for VerifyV2ServiceEntityChallenge
 type VerifyV2ServiceEntityChallenge struct {
-	AccountSid string `json:"AccountSid,omitempty"`
-	DateCreated time.Time `json:"DateCreated,omitempty"`
-	DateResponded time.Time `json:"DateResponded,omitempty"`
-	DateUpdated time.Time `json:"DateUpdated,omitempty"`
-	Details map[string]interface{} `json:"Details,omitempty"`
-	EntitySid string `json:"EntitySid,omitempty"`
-	ExpirationDate time.Time `json:"ExpirationDate,omitempty"`
-	FactorSid string `json:"FactorSid,omitempty"`
-	FactorType FactorTypes `json:"FactorType,omitempty"`
-	HiddenDetails map[string]interface{} `json:"HiddenDetails,omitempty"`
-	Identity string `json:"Identity,omitempty"`
-	RespondedReason ChallengeReasons `json:"RespondedReason,omitempty"`
-	ServiceSid string `json:"ServiceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	Status ChallengeStatuses `json:"Status,omitempty"`
-	Url string `json:"Url,omitempty"`
+	AccountSid      string                 `json:"AccountSid,omitempty"`
+	DateCreated     time.Time              `json:"DateCreated,omitempty"`
+	DateResponded   time.Time              `json:"DateResponded,omitempty"`
+	DateUpdated     time.Time              `json:"DateUpdated,omitempty"`
+	Details         map[string]interface{} `json:"Details,omitempty"`
+	EntitySid       string                 `json:"EntitySid,omitempty"`
+	ExpirationDate  time.Time              `json:"ExpirationDate,omitempty"`
+	FactorSid       string                 `json:"FactorSid,omitempty"`
+	FactorType      FactorTypes            `json:"FactorType,omitempty"`
+	HiddenDetails   map[string]interface{} `json:"HiddenDetails,omitempty"`
+	Identity        string                 `json:"Identity,omitempty"`
+	RespondedReason ChallengeReasons       `json:"RespondedReason,omitempty"`
+	ServiceSid      string                 `json:"ServiceSid,omitempty"`
+	Sid             string                 `json:"Sid,omitempty"`
+	Status          ChallengeStatuses      `json:"Status,omitempty"`
+	Url             string                 `json:"Url,omitempty"`
 }

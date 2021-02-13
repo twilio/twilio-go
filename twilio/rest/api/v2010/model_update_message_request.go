@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateMessageRequest struct for UpdateMessageRequest
 type UpdateMessageRequest struct {
 	// The text of the message you want to send. Can be up to 1,600 characters long.

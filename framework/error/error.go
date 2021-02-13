@@ -8,11 +8,11 @@ import (
 
 // TwilioRestError provides information about an unsuccessful request.
 type TwilioRestError struct {
-	Code     int					`json:"code"`
-	Details  map[string]interface{}	`json:"details"`
-	Message  string					`json:"message"`
-	MoreInfo string					`json:"more_info"`
-	Status   int					`json:"status"`
+	Code     int                    `json:"code"`
+	Details  map[string]interface{} `json:"details"`
+	Message  string                 `json:"message"`
+	MoreInfo string                 `json:"more_info"`
+	Status   int                    `json:"status"`
 }
 
 func (err *TwilioRestError) Error() string {

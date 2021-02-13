@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // UpdateCertificateRequest struct for UpdateCertificateRequest
 type UpdateCertificateRequest struct {
 	// Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.

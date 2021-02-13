@@ -9,8 +9,9 @@
  */
 
 package openapi
+
 // ListCustomerProfileResponse struct for ListCustomerProfileResponse
 type ListCustomerProfileResponse struct {
-	Meta ListCustomerProfileResponseMeta `json:"Meta,omitempty"`
-	Results []TrusthubV1CustomerProfile `json:"Results,omitempty"`
+	Meta    ListCustomerProfileResponseMeta `json:"Meta,omitempty"`
+	Results []TrusthubV1CustomerProfile     `json:"Results,omitempty"`
 }

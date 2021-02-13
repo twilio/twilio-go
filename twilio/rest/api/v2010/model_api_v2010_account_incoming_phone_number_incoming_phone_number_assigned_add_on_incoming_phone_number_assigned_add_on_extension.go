@@ -9,15 +9,16 @@
  */
 
 package openapi
+
 // ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension struct for ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension
 type ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension struct {
-	AccountSid string `json:"AccountSid,omitempty"`
+	AccountSid       string `json:"AccountSid,omitempty"`
 	AssignedAddOnSid string `json:"AssignedAddOnSid,omitempty"`
-	Enabled bool `json:"Enabled,omitempty"`
-	FriendlyName string `json:"FriendlyName,omitempty"`
-	ProductName string `json:"ProductName,omitempty"`
-	ResourceSid string `json:"ResourceSid,omitempty"`
-	Sid string `json:"Sid,omitempty"`
-	UniqueName string `json:"UniqueName,omitempty"`
-	Uri string `json:"Uri,omitempty"`
+	Enabled          bool   `json:"Enabled,omitempty"`
+	FriendlyName     string `json:"FriendlyName,omitempty"`
+	ProductName      string `json:"ProductName,omitempty"`
+	ResourceSid      string `json:"ResourceSid,omitempty"`
+	Sid              string `json:"Sid,omitempty"`
+	UniqueName       string `json:"UniqueName,omitempty"`
+	Uri              string `json:"Uri,omitempty"`
 }
