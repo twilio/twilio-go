@@ -5,3 +5,6 @@ install:
 
 test:
 	go test ./...
+
+fmt:
+	gofmt -w twilio/*

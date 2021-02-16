@@ -1,5 +1,8 @@
 # twilio-go
 
+[![Build Status](https://travis-ci.com/twilio/twilio-go.png?branch=main)](https://travis-ci.com/twilio/twilio-go)
+[![Learn OSS Contribution in TwilioQuest](https://img.shields.io/static/v1?label=TwilioQuest&message=Learn%20to%20contribute%21&color=F22F46&labelColor=1f243c&style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAASFBMVEUAAAAZGRkcHBwjIyMoKCgAAABgYGBoaGiAgICMjIyzs7PJycnMzMzNzc3UoBfd3d3m5ubqrhfrMEDu7u739/f4vSb/3AD///9tbdyEAAAABXRSTlMAAAAAAMJrBrEAAAKoSURBVHgB7ZrRcuI6EESdyxXGYoNFvMD//+l2bSszRgyUYpFAsXOeiJGmj4NkuWx1Qeh+Ekl9DgEXOBwOx+Px5xyQhDykfgq4wG63MxxaR4ddIkg6Ul3g84vCIcjPBA5gmUMeXESrlukuoK33+33uID8TWeLAdOWsKpJYzwVMB7bOzYSGOciyUlXSn0/ABXTosJ1M1SbypZ4O4MbZuIDMU02PMbauhhHMHXbmebmALIiEbbbbbUrpF1gwE9kFfRNAJaP+FQEXCCTGyJ4ngDrjOFo3jEL5JdqjF/pueR4cCeCGgAtwmuRS6gDwaRiGvu+DMFwSBLTE3+jF8JyuV1okPZ+AC4hDFhCHyHQjdjPHUKFDlHSJkHQXMB3KpSwXNGJPcwwTdZiXlRN0gSp0zpWxNtM0beYE0nRH6QIbO7rawwXaBYz0j78gxjokDuv12gVeUuBD0MDi0OQCLvDaAho4juP1Q/jkAncXqIcCfd+7gAu4QLMACCLxpRsSuQh0igu0C9Svhi7weAGZg50L3IE3cai4IfkNZAC8dfdhsUD3CgKBVC9JE5ABAFzg4QL/taYPAAWrHdYcgfLaIgAXWJ7OV38n1LEF8tt2TH29E+QAoDoO5Ve/LtCQDmKM9kPbvCEBApK+IXzbcSJ0cIGF6e8gpcRhUDogWZ8JnaWjPXc/fNnBBUKRngiHgTUSivSzDRDgHZQOLvBQgf8rRt+VdBUUhwkU6VpJ+xcOwQUqZr+mR0kvBUgv6cB4+37hQAkXqE8PwGisGhJtN4xAHMzrsgvI7rccXqSvKh6jltGlrOHA3Xk1At3LC4QiPdX9/0ndHpGVvTjR4bZA1ypAKgVcwE5vx74ulwIugDt8e/X7JgfkucBMIAr26ndnB4UCLnDOqvteQsHlgX9N4A+c4cW3DXSPbwAAAABJRU5ErkJggg==)](https://twil.io/learn-open-source)
+
 ## Documentation
 
 The documentation for the Twilio API can be found [here][apidocs].
@@ -33,7 +36,19 @@ import "github.com/twilio/twilio-go"
 
 accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-client := twilio.NewClient(s, a)
+client := twilio.NewClient(accountSID, authToken)
+```
+
+We suggest storing your credentials as environment variables and then use it in your code. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
+
+```go
+import (
+	"github.com/twilio/twilio-go/twilio"
+	"os"
+)
+accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+client := twilio.NewClient(accountSid, authToken)
 ```
 
 ### Buy a phone number
@@ -43,18 +58,27 @@ package main
 import (
 	"fmt"
 	"github.com/twilio/twilio-go/twilio"
+	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
+	"os"
 )
 
 func main() {
-    accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    client := twilio.NewClient(accountSID, authToken)
-    params := &twilio.IncomingPhoneNumberParams{PhoneNumber:twilio.String("+15017122661")}
-    pn, err := client.IncomingPhoneNumbers.Create(params)
-    if err != nil {
-        fmt.Println(err)
-    }
-    fmt.Println(pn)
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	client := twilio.NewClient(accountSid, authToken)
+
+	phoneNumber := "+15017122661"
+
+	params := &openapi.CreateIncomingPhoneNumberParams{}
+	params.PhoneNumber = &phoneNumber
+
+	resp, err := client.ApiV2010.CreateIncomingPhoneNumber(accountSid, params)
+	if err != nil {
+		fmt.Println(err.Error())
+		err = nil
+	} else {
+		fmt.Println(resp)
+	}
 }
 ```
 
@@ -94,16 +118,16 @@ func main() {
 ```
 
 ### Make a call
-
 ``` go
 package main
 
 import (
-	"fmt"
-	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
-	"github.com/twilio/twilio-go/twilio"
-	"os"
+    "fmt"
+    "github.com/twilio/twilio-go/twilio"
+    openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
+    "os"
 )
+
 func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
@@ -132,30 +156,39 @@ func main() {
 ```go
 package main
 import (
-    "fmt"
-    "github.com/twilio/twilio-go/framework/error"
-    "github.com/twilio/twilio-go/twilio"
+	"fmt"
+	"github.com/twilio/twilio-go/framework/error"
+	"github.com/twilio/twilio-go/twilio"
+	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
+	"os"
 )
 
 func main() {
-    accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    client := twilio.NewClient(accountSID, authToken)
-    params := &twilio.IncomingPhoneNumberParams{PhoneNumber:twilio.String("+15017122661")}
-    pn, err := client.IncomingPhoneNumbers.Create(params)
-    if err != nil {
-        twilioError := err.(*error.TwilioRestError)
-        fmt.Println(twilioError.Error())
-    }
-    fmt.Println(pn)
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	client := twilio.NewClient(accountSid, authToken)
+
+	phoneNumber := "+15017122661"
+
+	params := &openapi.CreateIncomingPhoneNumberParams{}
+	params.PhoneNumber = &phoneNumber
+
+	resp, err := client.ApiV2010.CreateIncomingPhoneNumber(accountSid, params)
+	if err != nil {
+		twilioError := err.(*error.TwilioRestError)
+		fmt.Println(twilioError.Error())
+	}
+	fmt.Println(resp)
 }
 ```
+
+For more descriptive exception types, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/python/usage-guide#exceptions).
 
 ### Building
 To build *twilio-go* run:
 
 ```bash
-go build
+go build ./...
 ```
 
 ### Testing
@@ -163,75 +196,16 @@ go build
 To execute the test suite run:
 
 ```bash
-go test [-v]
+go test ./...
 ```
 
-### Service Coverage
-*twilio-go* provides clients for:
- - [Available Phone Number Local](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource)
- - [Chat Role](https://www.twilio.com/docs/chat/rest/role-resource)
- - [Chat Service](https://www.twilio.com/docs/chat/rest/service-resource)
- - [Flex Flow](https://www.twilio.com/docs/flex/flow)
- - [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource)
- - [Proxy Phone Number](https://www.twilio.com/docs/proxy/api/phone-number)
- - [Proxy Service](https://www.twilio.com/docs/proxy/api/service)
- - [Runtime Environment](https://www.twilio.com/docs/runtime/functions-assets-api/api/environment)
- - [Runtime Service](https://www.twilio.com/docs/runtime/functions-assets-api/api/service)
- - [Studio Flow](https://www.twilio.com/docs/studio/rest-api/v2/flow)
- - [Sync Service](https://www.twilio.com/docs/sync/api/service)
- - [TaskRouter Activity](https://www.twilio.com/docs/taskrouter/api/activity)
- - [TaskRouter TaskQueue](https://www.twilio.com/docs/taskrouter/api/task-queue)
- - [TaskRouter Workflow](https://www.twilio.com/docs/taskrouter/api/workflow)
- - [TaskRouter Workspace](https://www.twilio.com/docs/taskrouter/api/workspace)
+### Getting help
 
- ### Code Organization
- In general each service's client is implemented in a namesake file (e.g. [Chat Service](https://www.twilio.com/docs/chat/rest/service-resource) is in **chat_service.go**)
- Large services are split between files and will share the same prefix (e.g. **taskrouter_activity.go** and **taskrouter_taskqueue.go**).
- Files for testing are appended with `_test` (e.g. **sync_service_test.go**).
- **twilio.go** ties the library together by defining the `Twilio` struct and the `Client` constructor `NewClient`.
-The `Client` structure promotes memory reuse between service clients, and provides the `baseURL` to service clients to allow redirecting requests to non-production domains.
+If you need help installing or using the library, please check the [Twilio Support Help Center](https://support.twilio.com) first, and [file a support ticket](https://twilio.com/help/contact) if you don't find an answer to your question.
 
-Under the hood the Twilio Client relies on the private functionality within **internal/twilio.go**.
-The main functionality is captured by `SendRequest` and `doWithErr`.
-`SendRequest` and `doWithErr` facilitate network requests and allow the library to provide an `http.Response` and `error` object.
-`SendRequest` performs the required encoding and request configuration to comply with Twilio's HTTP standards.
-Go's built in struct marshalling is not compatible with Twilio's requirements for form encoding so encoding is performed by the `form` package forked from https://github.com/ajg/form.
-`doWithErr` executes the request from `SendRequest`, parses the error (if any), and returns the result.
-The `error` returned by `doWithErr` may be the `TwilioRestError` object, which is meant to parse Twilio-specific error messages from the body of responses to failed requests.
-
-### Creating and Updating Resources ###
-
-All structs for Twilio resources use pointer values for all non-repeated fields.
-Pointer values allow users to distinguish between unset fields (`null`) and those set to a zero-value.
-`twilio-go` provides helper functions that easily create these pointers for string,
-bool, float, time, and int values. For example:
-
-```go
-// create a new incoming phone number
-params := &twilio.IncomingPhoneNumberParams{
-    PhoneNumber: twilio.String("+15017122661")
-}
-p, err := client.IncomingPhoneNumbers.Create(params)
-```
-Users who have worked with protocol buffers should find this pattern familiar.
-
-### Inspirations and References ###
-While the overall code structure and client interface is modeled after existing Twilio SDKs, we found additional inspiration in some of the following Go SDKs:
-- [Github](https://github.com/google/go-github)
-- [DigitalOcean](https://github.com/digitalocean/godo)
-- [Terraform](https://github.com/hashicorp/go-tfe)
-
-These existing SDKs influenced things like our module pattern (using one module instead of breaking everything into separate resource modules) and unit testing strategy.
-
-### Behavioral Notes and Future Improvements
-Things that we wanted to address had we been given more time:
-- [ ] **Parameter Validation** - *twilio-go* provides no built-in parameter validation.
-- [ ] **Enums**- Properties that are of an enumberable type are defaulted to a string
-- [ ] **Retry functionality** - There is a 10 second timeout for requests with no retry functionality.
-
-### Code Style
-The code is styled with `go fmt` and adheres to [Go's Style Guide](https://github.com/golang/go/wiki/CodeReviewComments) wherever possible.
-We use `golangci-lint` for linting locally and as part of the PR process (this will catch most violations of the above guidelines).
-
+All the code [here](twilio/rest) was generated by [twilio-oai-generator](https://github.com/twilio/twilio-oai-generator) by leveraging [openapi-generator](https://github.com/OpenAPITools/openapi-generator) and [twilio-oai](https://github.com/twilio/twilio-oai). If you find an issue with the generation or the openapi specs, please go ahead and open an issue or a PR against the relevant repositories. 
 
 [apidocs]: https://www.twilio.com/docs/api
+[twiml]: https://www.twilio.com/docs/api/twiml
+[libdocs]: https://twilio.github.io/twilio-go
+
