@@ -36,6 +36,7 @@ import "github.com/twilio/twilio-go"
 
 accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+
 client := twilio.NewClient(accountSID, authToken)
 ```
 
@@ -46,6 +47,7 @@ import (
 	"github.com/twilio/twilio-go/twilio"
 	"os"
 )
+
 accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 client := twilio.NewClient(accountSid, authToken)
@@ -57,7 +59,7 @@ client := twilio.NewClient(accountSid, authToken)
 package main
 import (
 	"fmt"
-	"github.com/twilio/twilio-go/twilio"
+	twilio "github.com/twilio/twilio-go/client"
 	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
 )
@@ -65,9 +67,9 @@ import (
 func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	client := twilio.NewClient(accountSid, authToken)
+	phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
 
-	phoneNumber := "+15017122661"
+	client := twilio.NewClient(accountSid, authToken)
 
 	params := &openapi.CreateIncomingPhoneNumberParams{}
 	params.PhoneNumber = &phoneNumber
@@ -95,10 +97,11 @@ import (
 func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
+	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
+
 	client := twilio.NewClient(accountSid, authToken)
 
-	from := "9999999999"
-	to := "4444444444"
 	text := "Hello there"
 
 	params := &openapi.CreateMessageParams{}
@@ -122,19 +125,20 @@ func main() {
 package main
 
 import (
-    "fmt"
-    "github.com/twilio/twilio-go/twilio"
-    openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
-    "os"
+	"fmt"
+	twilio "github.com/twilio/twilio-go/client"
+	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
+	"os"
 )
 
 func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
+	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
+
 	client := twilio.NewClient(accountSid, authToken)
 
-	from := "9999999999"
-	to := "4444444444"
 	callurl := "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient"
 
 	params := &openapi.CreateCallParams{}
@@ -157,8 +161,8 @@ func main() {
 package main
 import (
 	"fmt"
+	twilio "github.com/twilio/twilio-go/client"
 	"github.com/twilio/twilio-go/framework/error"
-	"github.com/twilio/twilio-go/twilio"
 	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
 )
@@ -166,9 +170,9 @@ import (
 func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	client := twilio.NewClient(accountSid, authToken)
+	phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
 
-	phoneNumber := "+15017122661"
+	client := twilio.NewClient(accountSid, authToken)
 
 	params := &openapi.CreateIncomingPhoneNumberParams{}
 	params.PhoneNumber = &phoneNumber
@@ -179,10 +183,9 @@ func main() {
 		fmt.Println(twilioError.Error())
 	}
 	fmt.Println(resp)
-}
 ```
 
-For more descriptive exception types, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/python/usage-guide#exceptions).
+For more descriptive exception types, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/go/usage-guide#exceptions).
 
 ### Building
 To build *twilio-go* run:
