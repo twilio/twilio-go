@@ -6,5 +6,6 @@ install:
 test:
 	go test ./...
 
-fmt:
-	gofmt -w twilio/*
+goimports:
+	go get golang.org/x/tools/cmd/goimports
+	goimports -w twilio/rest
