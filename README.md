@@ -59,7 +59,7 @@ client := twilio.NewClient(accountSid, authToken)
 package main
 import (
 	"fmt"
-	twilio "github.com/twilio/twilio-go/client"
+	twilio "github.com/twilio/twilio-go/twilio"
 	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
 )
@@ -126,7 +126,7 @@ package main
 
 import (
 	"fmt"
-	twilio "github.com/twilio/twilio-go/client"
+	twilio "github.com/twilio/twilio-go/twilio"
 	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
 )
@@ -161,7 +161,7 @@ func main() {
 package main
 import (
 	"fmt"
-	twilio "github.com/twilio/twilio-go/client"
+	twilio "github.com/twilio/twilio-go/twilio"
 	"github.com/twilio/twilio-go/framework/error"
 	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
