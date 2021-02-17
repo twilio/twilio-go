@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDocument
 
-> DeleteDocument(ctx, ServiceSid, Sid, optional)
+> DeleteDocument(ctx, ServiceSid, Sid)
 
 
 
@@ -441,18 +441,6 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to delete. | 
 **Sid** | **string**| The SID of the Document resource to delete. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***DeleteDocumentOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a DeleteDocumentOpts struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
 
 ### Return type
 
@@ -600,7 +588,7 @@ Name | Type | Description  | Notes
 
 
 
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
+ **IfMatch** | **optional.String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
 
 ### Return type
 
@@ -716,7 +704,7 @@ Name | Type | Description  | Notes
 
 
 
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
+ **IfMatch** | **optional.String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
 
 ### Return type
 
@@ -1821,7 +1809,7 @@ Name | Type | Description  | Notes
 
 
 
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
+ **IfMatch** | **optional.String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
  **CollectionTtl** | **optional.Int32**| How long, in seconds, before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
  **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. | 
  **ItemTtl** | **optional.Int32**| How long, in seconds, before the List Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the List Item does not expire. The List Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
@@ -1969,7 +1957,7 @@ Name | Type | Description  | Notes
 
 
 
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
+ **IfMatch** | **optional.String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
  **CollectionTtl** | **optional.Int32**| How long, in seconds, before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync Map does not expire. This parameter can only be used when the Map Item&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
  **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. | 
  **ItemTtl** | **optional.Int32**| How long, in seconds, before the Map Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Map Item does not expire. The Map Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 

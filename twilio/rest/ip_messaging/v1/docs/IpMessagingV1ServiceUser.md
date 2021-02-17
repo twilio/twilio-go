@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Identity** | **string** |  | [optional] 
 **IsNotifiable** | **bool** |  | [optional] 
 **IsOnline** | **bool** |  | [optional] 
-**JoinedChannelsCount** | **int32** |  | [optional] 
+**JoinedChannelsCount** | Pointer to **int32** |  | [optional] 
 **Links** | [**map[string]interface{}**](.md) |  | [optional] 
 **RoleSid** | **string** |  | [optional] 
 **ServiceSid** | **string** |  | [optional] 
