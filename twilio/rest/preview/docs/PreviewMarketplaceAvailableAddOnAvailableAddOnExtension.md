@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvailableAddOnSid** | **string** |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**ProductName** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**UniqueName** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AvailableAddOnSid** | Pointer to **string** |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**ProductName** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**UniqueName** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

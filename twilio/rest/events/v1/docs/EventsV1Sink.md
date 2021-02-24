@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**Description** | **string** |  | [optional] 
-**Links** | [**map[string]interface{}**](.md) |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**SinkConfiguration** | [**map[string]interface{}**](.md) |  | [optional] 
-**SinkType** | [**SinkType**](sink_type.md) |  | [optional] 
-**Status** | [**Status**](status.md) |  | [optional] 
-**Url** | **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**Links** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**SinkConfiguration** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**SinkType** | Pointer to [**SinkSinkType**](sink_sink_type.md) |  | [optional] 
+**Status** | Pointer to [**SinkStatus**](sink_status.md) |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**BrandSid** | **string** |  | [optional] 
-**BrandedChannelSid** | **string** |  | [optional] 
-**BusinessSid** | **string** |  | [optional] 
-**PhoneNumber** | **string** |  | [optional] 
-**PhoneNumberSid** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**BrandSid** | Pointer to **string** |  | [optional] 
+**BrandedChannelSid** | Pointer to **string** |  | [optional] 
+**BusinessSid** | Pointer to **string** |  | [optional] 
+**PhoneNumber** | Pointer to **string** |  | [optional] 
+**PhoneNumberSid** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

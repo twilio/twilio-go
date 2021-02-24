@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**AssistantSid** | **string** |  | [optional] 
-**Data** | [**map[string]interface{}**](.md) |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**AssistantSid** | Pointer to **string** |  | [optional] 
+**Data** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateResponded** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**Details** | [**map[string]interface{}**](.md) |  | [optional] 
-**EntitySid** | **string** |  | [optional] 
-**ExpirationDate** | [**time.Time**](time.Time.md) |  | [optional] 
-**FactorSid** | **string** |  | [optional] 
-**FactorType** | [**FactorTypes**](factor_types.md) |  | [optional] 
-**HiddenDetails** | [**map[string]interface{}**](.md) |  | [optional] 
-**Identity** | **string** |  | [optional] 
-**RespondedReason** | [**ChallengeReasons**](challenge_reasons.md) |  | [optional] 
-**ServiceSid** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Status** | [**ChallengeStatuses**](challenge_statuses.md) |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateResponded** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**Details** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**EntitySid** | Pointer to **string** |  | [optional] 
+**ExpirationDate** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**FactorSid** | Pointer to **string** |  | [optional] 
+**FactorType** | Pointer to [**ChallengeFactorTypes**](challenge_factor_types.md) |  | [optional] 
+**HiddenDetails** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Identity** | Pointer to **string** |  | [optional] 
+**RespondedReason** | Pointer to [**ChallengeChallengeReasons**](challenge_challenge_reasons.md) |  | [optional] 
+**ServiceSid** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to [**ChallengeChallengeStatuses**](challenge_challenge_statuses.md) |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

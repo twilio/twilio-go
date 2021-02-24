@@ -31,6 +31,7 @@ Method | HTTP request | Description
 [**FetchRateLimit**](DefaultApi.md#FetchRateLimit) | **Get** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
 [**FetchService**](DefaultApi.md#FetchService) | **Get** /v2/Services/{Sid} | 
 [**FetchVerification**](DefaultApi.md#FetchVerification) | **Get** /v2/Services/{ServiceSid}/Verifications/{Sid} | 
+[**FetchVerificationAttempt**](DefaultApi.md#FetchVerificationAttempt) | **Get** /v2/Attempts/{Sid} | 
 [**FetchWebhook**](DefaultApi.md#FetchWebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
 [**ListBucket**](DefaultApi.md#ListBucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
 [**ListChallenge**](DefaultApi.md#ListChallenge) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | 
@@ -39,6 +40,7 @@ Method | HTTP request | Description
 [**ListMessagingConfiguration**](DefaultApi.md#ListMessagingConfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations | 
 [**ListRateLimit**](DefaultApi.md#ListRateLimit) | **Get** /v2/Services/{ServiceSid}/RateLimits | 
 [**ListService**](DefaultApi.md#ListService) | **Get** /v2/Services | 
+[**ListVerificationAttempt**](DefaultApi.md#ListVerificationAttempt) | **Get** /v2/Attempts | 
 [**ListWebhook**](DefaultApi.md#ListWebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks | 
 [**UpdateBucket**](DefaultApi.md#UpdateBucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
 [**UpdateChallenge**](DefaultApi.md#UpdateChallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid} | 
@@ -1156,6 +1158,40 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## FetchVerificationAttempt
+
+> VerifyV2VerificationAttempt FetchVerificationAttempt(ctx, Sid)
+
+
+
+Fetch a specific verification attempt.
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string**| The unique SID identifier of a Verification Attempt | 
+
+### Return type
+
+[**VerifyV2VerificationAttempt**](verify.v2.verification_attempt.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## FetchWebhook
 
 > VerifyV2ServiceWebhook FetchWebhook(ctx, ServiceSid, Sid)
@@ -1497,6 +1533,52 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListServiceResponse**](ListServiceResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListVerificationAttempt
+
+> ListVerificationAttemptResponse ListVerificationAttempt(ctx, optional)
+
+
+
+List all the verification attempts for a given Account.
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ListVerificationAttemptOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a ListVerificationAttemptOpts struct
+ 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **DateCreatedAfter** | **optional.Time**| Datetime filter used to query Verification Attempts created after this datetime. | 
+ **DateCreatedBefore** | **optional.Time**| Datetime filter used to query Verification Attempts created before this datetime. | 
+ **ChannelDataTo** | **optional.String**| Destination of a verification. Depending on the type of channel, it could be a phone number in E.164 format or an email address. | 
+ **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+
+### Return type
+
+[**ListVerificationAttemptResponse**](ListVerificationAttemptResponse.md)
 
 ### Authorization
 

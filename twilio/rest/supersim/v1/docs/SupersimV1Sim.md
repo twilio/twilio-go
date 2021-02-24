@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**FleetSid** | **string** |  | [optional] 
-**Iccid** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Status** | [**Status**](status.md) |  | [optional] 
-**UniqueName** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**FleetSid** | Pointer to **string** |  | [optional] 
+**Iccid** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to [**SimStatus**](sim_status.md) |  | [optional] 
+**UniqueName** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

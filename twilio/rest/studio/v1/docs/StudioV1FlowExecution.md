@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**ContactChannelAddress** | **string** |  | [optional] 
-**ContactSid** | **string** |  | [optional] 
-**Context** | [**map[string]interface{}**](.md) |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**FlowSid** | **string** |  | [optional] 
-**Links** | [**map[string]interface{}**](.md) |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Status** | [**Status**](status.md) |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**ContactChannelAddress** | Pointer to **string** |  | [optional] 
+**ContactSid** | Pointer to **string** |  | [optional] 
+**Context** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**FlowSid** | Pointer to **string** |  | [optional] 
+**Links** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to [**ExecutionStatus**](execution_status.md) |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

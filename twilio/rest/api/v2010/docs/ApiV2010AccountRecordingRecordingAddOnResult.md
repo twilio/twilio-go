@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**AddOnConfigurationSid** | **string** |  | [optional] 
-**AddOnSid** | **string** |  | [optional] 
-**DateCompleted** | **string** |  | [optional] 
-**DateCreated** | **string** |  | [optional] 
-**DateUpdated** | **string** |  | [optional] 
-**ReferenceSid** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Status** | [**Status**](status.md) |  | [optional] 
-**SubresourceUris** | [**map[string]interface{}**](.md) |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**AddOnConfigurationSid** | Pointer to **string** |  | [optional] 
+**AddOnSid** | Pointer to **string** |  | [optional] 
+**DateCompleted** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to **string** |  | [optional] 
+**DateUpdated** | Pointer to **string** |  | [optional] 
+**ReferenceSid** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to [**RecordingAddOnResultStatus**](recording_add_on_result_status.md) |  | [optional] 
+**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

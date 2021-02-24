@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BgColor** | **string** |  | [optional] 
-**Caller** | **string** |  | [optional] 
-**CreatedAt** | [**time.Time**](time.Time.md) |  | [optional] 
-**FontColor** | **string** |  | [optional] 
-**From** | **string** |  | [optional] 
-**Logo** | **string** |  | [optional] 
-**Manager** | **string** |  | [optional] 
-**Reason** | **string** |  | [optional] 
-**ShieldImg** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
-**To** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
-**UseCase** | **string** |  | [optional] 
+**BgColor** | Pointer to **string** |  | [optional] 
+**Caller** | Pointer to **string** |  | [optional] 
+**CreatedAt** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**FontColor** | Pointer to **string** |  | [optional] 
+**From** | Pointer to **string** |  | [optional] 
+**Logo** | Pointer to **string** |  | [optional] 
+**Manager** | Pointer to **string** |  | [optional] 
+**Reason** | Pointer to **string** |  | [optional] 
+**ShieldImg** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** |  | [optional] 
+**To** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
+**UseCase** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

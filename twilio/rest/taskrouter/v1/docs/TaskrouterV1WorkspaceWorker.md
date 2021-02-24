@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**ActivityName** | **string** |  | [optional] 
-**ActivitySid** | **string** |  | [optional] 
-**Attributes** | **string** |  | [optional] 
-**Available** | **bool** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateStatusChanged** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**Links** | [**map[string]interface{}**](.md) |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
-**WorkspaceSid** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**ActivityName** | Pointer to **string** |  | [optional] 
+**ActivitySid** | Pointer to **string** |  | [optional] 
+**Attributes** | Pointer to **string** |  | [optional] 
+**Available** | Pointer to **bool** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateStatusChanged** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**Links** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
+**WorkspaceSid** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

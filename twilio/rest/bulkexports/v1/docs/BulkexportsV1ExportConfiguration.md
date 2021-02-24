@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Enabled** | **bool** |  | [optional] 
-**ResourceType** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
-**WebhookMethod** | **string** |  | [optional] 
-**WebhookUrl** | **string** |  | [optional] 
+**Enabled** | Pointer to **bool** |  | [optional] 
+**ResourceType** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
+**WebhookMethod** | Pointer to **string** |  | [optional] 
+**WebhookUrl** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

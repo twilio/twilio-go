@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**ConnectAppCompanyName** | **string** |  | [optional] 
-**ConnectAppDescription** | **string** |  | [optional] 
-**ConnectAppFriendlyName** | **string** |  | [optional] 
-**ConnectAppHomepageUrl** | **string** |  | [optional] 
-**ConnectAppSid** | **string** |  | [optional] 
-**DateCreated** | **string** |  | [optional] 
-**DateUpdated** | **string** |  | [optional] 
-**Permissions** | **[]string** |  | [optional] 
-**Uri** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**ConnectAppCompanyName** | Pointer to **string** |  | [optional] 
+**ConnectAppDescription** | Pointer to **string** |  | [optional] 
+**ConnectAppFriendlyName** | Pointer to **string** |  | [optional] 
+**ConnectAppHomepageUrl** | Pointer to **string** |  | [optional] 
+**ConnectAppSid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to **string** |  | [optional] 
+**DateUpdated** | Pointer to **string** |  | [optional] 
+**Permissions** | Pointer to **[]string** |  | [optional] 
+**Uri** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

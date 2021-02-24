@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**CnamLookupEnabled** | **bool** |  | [optional] 
-**ConnectionPolicySid** | **string** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**FromDomainSid** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**StatusCallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
-**StatusCallbackUrl** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
-**VoiceFallbackMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
-**VoiceFallbackUrl** | **string** |  | [optional] 
-**VoiceMethod** | [**HttpMethod**](http_method.md) |  | [optional] 
-**VoiceUrl** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**CnamLookupEnabled** | Pointer to **bool** |  | [optional] 
+**ConnectionPolicySid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**FromDomainSid** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**StatusCallbackMethod** | Pointer to [**HttpMethod**](http_method.md) |  | [optional] 
+**StatusCallbackUrl** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
+**VoiceFallbackMethod** | Pointer to [**HttpMethod**](http_method.md) |  | [optional] 
+**VoiceFallbackUrl** | Pointer to **string** |  | [optional] 
+**VoiceMethod** | Pointer to [**HttpMethod**](http_method.md) |  | [optional] 
+**VoiceUrl** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

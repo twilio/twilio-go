@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**City** | **string** |  | [optional] 
-**CustomerName** | **string** |  | [optional] 
-**DateCreated** | **string** |  | [optional] 
-**DateUpdated** | **string** |  | [optional] 
-**EmergencyEnabled** | **bool** |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**IsoCountry** | **string** |  | [optional] 
-**PostalCode** | **string** |  | [optional] 
-**Region** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Street** | **string** |  | [optional] 
-**Uri** | **string** |  | [optional] 
-**Validated** | **bool** |  | [optional] 
-**Verified** | **bool** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**City** | Pointer to **string** |  | [optional] 
+**CustomerName** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to **string** |  | [optional] 
+**DateUpdated** | Pointer to **string** |  | [optional] 
+**EmergencyEnabled** | Pointer to **bool** |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**IsoCountry** | Pointer to **string** |  | [optional] 
+**PostalCode** | Pointer to **string** |  | [optional] 
+**Region** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Street** | Pointer to **string** |  | [optional] 
+**Uri** | Pointer to **string** |  | [optional] 
+**Validated** | Pointer to **bool** |  | [optional] 
+**Verified** | Pointer to **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

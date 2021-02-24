@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**AssistantSid** | **string** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**Language** | **string** |  | [optional] 
-**ModelBuildSid** | **string** |  | [optional] 
-**Query** | **string** |  | [optional] 
-**Results** | [**map[string]interface{}**](.md) |  | [optional] 
-**SampleSid** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**SourceChannel** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**AssistantSid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**Language** | Pointer to **string** |  | [optional] 
+**ModelBuildSid** | Pointer to **string** |  | [optional] 
+**Query** | Pointer to **string** |  | [optional] 
+**Results** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**SampleSid** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**SourceChannel** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

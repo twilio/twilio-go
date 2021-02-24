@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreateDate** | **string** |  | [optional] 
-**Day** | **string** |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**ResourceType** | **string** |  | [optional] 
-**Size** | **int32** |  | [optional] 
+**CreateDate** | Pointer to **string** |  | [optional] 
+**Day** | Pointer to **string** |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**ResourceType** | Pointer to **string** |  | [optional] 
+**Size** | Pointer to **int32** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

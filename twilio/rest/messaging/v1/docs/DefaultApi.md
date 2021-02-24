@@ -6,29 +6,24 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAlphaSender**](DefaultApi.md#CreateAlphaSender) | **Post** /v1/Services/{ServiceSid}/AlphaSenders | 
 [**CreateBrandRegistrations**](DefaultApi.md#CreateBrandRegistrations) | **Post** /v1/a2p/BrandRegistrations | 
-[**CreateCampaigns**](DefaultApi.md#CreateCampaigns) | **Post** /v1/a2p/Campaigns | 
 [**CreatePhoneNumber**](DefaultApi.md#CreatePhoneNumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
 [**CreateService**](DefaultApi.md#CreateService) | **Post** /v1/Services | 
 [**CreateShortCode**](DefaultApi.md#CreateShortCode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | 
 [**DeleteAlphaSender**](DefaultApi.md#DeleteAlphaSender) | **Delete** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
-[**DeleteCampaigns**](DefaultApi.md#DeleteCampaigns) | **Delete** /v1/a2p/Campaigns/{Sid} | 
 [**DeletePhoneNumber**](DefaultApi.md#DeletePhoneNumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
 [**DeleteService**](DefaultApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | 
 [**DeleteShortCode**](DefaultApi.md#DeleteShortCode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
 [**FetchAlphaSender**](DefaultApi.md#FetchAlphaSender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
 [**FetchBrandRegistrations**](DefaultApi.md#FetchBrandRegistrations) | **Get** /v1/a2p/BrandRegistrations/{Sid} | 
-[**FetchCampaigns**](DefaultApi.md#FetchCampaigns) | **Get** /v1/a2p/Campaigns/{Sid} | 
 [**FetchDeactivation**](DefaultApi.md#FetchDeactivation) | **Get** /v1/Deactivations | 
 [**FetchPhoneNumber**](DefaultApi.md#FetchPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
 [**FetchService**](DefaultApi.md#FetchService) | **Get** /v1/Services/{Sid} | 
 [**FetchShortCode**](DefaultApi.md#FetchShortCode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
 [**ListAlphaSender**](DefaultApi.md#ListAlphaSender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders | 
 [**ListBrandRegistrations**](DefaultApi.md#ListBrandRegistrations) | **Get** /v1/a2p/BrandRegistrations | 
-[**ListCampaigns**](DefaultApi.md#ListCampaigns) | **Get** /v1/a2p/Campaigns | 
 [**ListPhoneNumber**](DefaultApi.md#ListPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | 
 [**ListService**](DefaultApi.md#ListService) | **Get** /v1/Services | 
 [**ListShortCode**](DefaultApi.md#ListShortCode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | 
-[**ListUseCases**](DefaultApi.md#ListUseCases) | **Get** /v1/a2p/UseCases | 
 [**UpdateService**](DefaultApi.md#UpdateService) | **Post** /v1/Services/{Sid} | 
 
 
@@ -103,53 +98,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MessagingV1BrandRegistrations**](messaging.v1.brand_registrations.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateCampaigns
-
-> MessagingV1Campaigns CreateCampaigns(ctx, optional)
-
-
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCampaignsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateCampaignsOpts struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **BrandRegistrationSid** | **optional.String**| A2P BrandRegistration Sid | 
- **Description** | **optional.String**| A short description of what this SMS campaign does. | 
- **HasEmbeddedLinks** | **optional.Bool**| Indicate that this SMS campaign will send messages that contain links. | 
- **HasEmbeddedPhone** | **optional.Bool**| Indicates that this SMS campaign will send messages that contain phone numbers. | 
- **MessageSamples** | [**optional.Interface of []string**](string.md)| Message samples, up to 5 sample messages, &lt;&#x3D;255 chars each. Example: [ \&quot;EXPRESS: Denim Days Event is ON\&quot;, \&quot;LAST CHANCE: Book your next flight for just 1 (ONE) EUR\&quot; ] | 
- **MessagingServiceSid** | **optional.String**| The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from. | 
- **UseCase** | **optional.String**| A2P Campaign UseCase. One of [ 2FA, EMERGENCY, MARKETING ] | 
-
-### Return type
-
-[**MessagingV1Campaigns**](messaging.v1.campaigns.md)
 
 ### Authorization
 
@@ -338,38 +286,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteCampaigns
-
-> DeleteCampaigns(ctx, Sid)
-
-
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The SID of the Campaign resource to delete. | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## DeletePhoneNumber
 
 > DeletePhoneNumber(ctx, ServiceSid, Sid)
@@ -518,38 +434,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MessagingV1BrandRegistrations**](messaging.v1.brand_registrations.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## FetchCampaigns
-
-> MessagingV1Campaigns FetchCampaigns(ctx, Sid)
-
-
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The SID of the Campaign resource to fetch. | 
-
-### Return type
-
-[**MessagingV1Campaigns**](messaging.v1.campaigns.md)
 
 ### Authorization
 
@@ -790,47 +674,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ListCampaigns
-
-> ListCampaignsResponse ListCampaigns(ctx, optional)
-
-
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCampaignsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListCampaignsOpts struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
-
-### Return type
-
-[**ListCampaignsResponse**](ListCampaignsResponse.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListPhoneNumber
 
 > ListPhoneNumberResponse ListPhoneNumber(ctx, ServiceSid, optional)
@@ -943,47 +786,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListShortCodeResponse**](ListShortCodeResponse.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListUseCases
-
-> ListUseCasesResponse ListUseCases(ctx, optional)
-
-
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListUseCasesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListUseCasesOpts struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
-
-### Return type
-
-[**ListUseCasesResponse**](ListUseCasesResponse.md)
 
 ### Authorization
 

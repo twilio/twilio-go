@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FileLink** | **string** |  | [optional] 
-**FileLinkTtlInSeconds** | **string** |  | [optional] 
-**UpdateTime** | [**time.Time**](time.Time.md) |  | [optional] 
-**Url** | **string** |  | [optional] 
+**FileLink** | Pointer to **string** |  | [optional] 
+**FileLinkTtlInSeconds** | Pointer to **string** |  | [optional] 
+**UpdateTime** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

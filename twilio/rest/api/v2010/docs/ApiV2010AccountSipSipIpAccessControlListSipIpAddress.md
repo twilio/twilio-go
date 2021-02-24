@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**CidrPrefixLength** | **int32** |  | [optional] 
-**DateCreated** | **string** |  | [optional] 
-**DateUpdated** | **string** |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**IpAccessControlListSid** | **string** |  | [optional] 
-**IpAddress** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Uri** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**CidrPrefixLength** | Pointer to **int32** |  | [optional] 
+**DateCreated** | Pointer to **string** |  | [optional] 
+**DateUpdated** | Pointer to **string** |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**IpAccessControlListSid** | Pointer to **string** |  | [optional] 
+**IpAddress** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Uri** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

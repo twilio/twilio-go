@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**Links** | [**map[string]interface{}**](.md) |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Status** | [**Status**](status.md) |  | [optional] 
-**Url** | **string** |  | [optional] 
-**Version** | **int32** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**Links** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to [**FlowStatus**](flow_status.md) |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
+**Version** | Pointer to **int32** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
