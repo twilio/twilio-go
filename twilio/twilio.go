@@ -33,6 +33,7 @@ import (
     SyncV1 "github.com/twilio/twilio-go/twilio/rest/sync/v1"
     TaskrouterV1 "github.com/twilio/twilio-go/twilio/rest/taskrouter/v1"
     TrunkingV1 "github.com/twilio/twilio-go/twilio/rest/trunking/v1"
+    TrusthubV1 "github.com/twilio/twilio-go/twilio/rest/trusthub/v1"
     VerifyV2 "github.com/twilio/twilio-go/twilio/rest/verify/v2"
     VideoV1 "github.com/twilio/twilio-go/twilio/rest/video/v1"
     VoiceV1 "github.com/twilio/twilio-go/twilio/rest/voice/v1"
@@ -74,6 +75,7 @@ type Twilio struct {
     SyncV1 *SyncV1.DefaultApiService
     TaskrouterV1 *TaskrouterV1.DefaultApiService
     TrunkingV1 *TrunkingV1.DefaultApiService
+    TrusthubV1 *TrusthubV1.DefaultApiService
     VerifyV2 *VerifyV2.DefaultApiService
     VideoV1 *VideoV1.DefaultApiService
     VoiceV1 *VoiceV1.DefaultApiService
@@ -139,6 +141,7 @@ func NewClient(accountSID string, authToken string) *Twilio {
     c.SyncV1 = SyncV1.NewDefaultApiService(c.Client)
     c.TaskrouterV1 = TaskrouterV1.NewDefaultApiService(c.Client)
     c.TrunkingV1 = TrunkingV1.NewDefaultApiService(c.Client)
+    c.TrusthubV1 = TrusthubV1.NewDefaultApiService(c.Client)
     c.VerifyV2 = VerifyV2.NewDefaultApiService(c.Client)
     c.VideoV1 = VideoV1.NewDefaultApiService(c.Client)
     c.VoiceV1 = VoiceV1.NewDefaultApiService(c.Client)
