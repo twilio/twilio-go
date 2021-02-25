@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**CallSid** | **string** |  | [optional] 
-**CallSidToCoach** | **string** |  | [optional] 
-**Coaching** | **bool** |  | [optional] 
-**ConferenceSid** | **string** |  | [optional] 
-**DateCreated** | **string** |  | [optional] 
-**DateUpdated** | **string** |  | [optional] 
-**EndConferenceOnExit** | **bool** |  | [optional] 
-**Hold** | **bool** |  | [optional] 
-**Label** | **string** |  | [optional] 
-**Muted** | **bool** |  | [optional] 
-**StartConferenceOnEnter** | **bool** |  | [optional] 
-**Status** | [**Status**](status.md) |  | [optional] 
-**Uri** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**CallSid** | Pointer to **string** |  | [optional] 
+**CallSidToCoach** | Pointer to **string** |  | [optional] 
+**Coaching** | Pointer to **bool** |  | [optional] 
+**ConferenceSid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to **string** |  | [optional] 
+**DateUpdated** | Pointer to **string** |  | [optional] 
+**EndConferenceOnExit** | Pointer to **bool** |  | [optional] 
+**Hold** | Pointer to **bool** |  | [optional] 
+**Label** | Pointer to **string** |  | [optional] 
+**Muted** | Pointer to **bool** |  | [optional] 
+**StartConferenceOnEnter** | Pointer to **bool** |  | [optional] 
+**Status** | Pointer to [**ParticipantStatus**](participant_status.md) |  | [optional] 
+**Uri** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

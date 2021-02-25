@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**AverageWaitTime** | **int32** |  | [optional] 
-**CurrentSize** | **int32** |  | [optional] 
-**DateCreated** | **string** |  | [optional] 
-**DateUpdated** | **string** |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**MaxSize** | **int32** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Uri** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**AverageWaitTime** | Pointer to **int32** |  | [optional] 
+**CurrentSize** | Pointer to **int32** |  | [optional] 
+**DateCreated** | Pointer to **string** |  | [optional] 
+**DateUpdated** | Pointer to **string** |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**MaxSize** | Pointer to **int32** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Uri** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

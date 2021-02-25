@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**Attributes** | **string** |  | [optional] 
-**ChatServiceSid** | **string** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**Links** | [**map[string]interface{}**](.md) |  | [optional] 
-**MessagingServiceSid** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**State** | [**State**](state.md) |  | [optional] 
-**Timers** | [**map[string]interface{}**](.md) |  | [optional] 
-**UniqueName** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**Attributes** | Pointer to **string** |  | [optional] 
+**ChatServiceSid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**Links** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**MessagingServiceSid** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**State** | Pointer to [**ConversationState**](conversation_state.md) |  | [optional] 
+**Timers** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**UniqueName** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

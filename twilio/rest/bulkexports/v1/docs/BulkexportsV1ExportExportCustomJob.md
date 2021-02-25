@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Details** | [**map[string]interface{}**](.md) |  | [optional] 
-**Email** | **string** |  | [optional] 
-**EndDay** | **string** |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**JobSid** | **string** |  | [optional] 
-**ResourceType** | **string** |  | [optional] 
-**StartDay** | **string** |  | [optional] 
-**WebhookMethod** | **string** |  | [optional] 
-**WebhookUrl** | **string** |  | [optional] 
+**Details** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Email** | Pointer to **string** |  | [optional] 
+**EndDay** | Pointer to **string** |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**JobSid** | Pointer to **string** |  | [optional] 
+**ResourceType** | Pointer to **string** |  | [optional] 
+**StartDay** | Pointer to **string** |  | [optional] 
+**WebhookMethod** | Pointer to **string** |  | [optional] 
+**WebhookUrl** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

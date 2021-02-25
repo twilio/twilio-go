@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**ApiVersion** | **string** |  | [optional] 
-**AsOf** | **string** |  | [optional] 
-**Category** | [**Category**](category.md) |  | [optional] 
-**Count** | **string** |  | [optional] 
-**CountUnit** | **string** |  | [optional] 
-**Description** | **string** |  | [optional] 
-**EndDate** | [**time.Time**](time.Time.md) |  | [optional] 
-**Price** | **float32** |  | [optional] 
-**PriceUnit** | **string** |  | [optional] 
-**StartDate** | [**time.Time**](time.Time.md) |  | [optional] 
-**SubresourceUris** | [**map[string]interface{}**](.md) |  | [optional] 
-**Uri** | **string** |  | [optional] 
-**Usage** | **string** |  | [optional] 
-**UsageUnit** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**ApiVersion** | Pointer to **string** |  | [optional] 
+**AsOf** | Pointer to **string** |  | [optional] 
+**Category** | Pointer to [**UsageRecordThisMonthCategory**](usage_record_this_month_category.md) |  | [optional] 
+**Count** | Pointer to **string** |  | [optional] 
+**CountUnit** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**EndDate** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**Price** | Pointer to **float32** |  | [optional] 
+**PriceUnit** | Pointer to **string** |  | [optional] 
+**StartDate** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Uri** | Pointer to **string** |  | [optional] 
+**Usage** | Pointer to **string** |  | [optional] 
+**UsageUnit** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

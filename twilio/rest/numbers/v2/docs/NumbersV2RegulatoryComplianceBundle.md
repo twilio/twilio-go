@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**Email** | **string** |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**Links** | [**map[string]interface{}**](.md) |  | [optional] 
-**RegulationSid** | **string** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Status** | [**Status**](status.md) |  | [optional] 
-**StatusCallback** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
-**ValidUntil** | [**time.Time**](time.Time.md) |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**Email** | Pointer to **string** |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**Links** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**RegulationSid** | Pointer to **string** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to [**BundleStatus**](bundle_status.md) |  | [optional] 
+**StatusCallback** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
+**ValidUntil** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

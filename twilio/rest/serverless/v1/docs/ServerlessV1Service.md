@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**IncludeCredentials** | **bool** |  | [optional] 
-**Links** | [**map[string]interface{}**](.md) |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**UiEditable** | **bool** |  | [optional] 
-**UniqueName** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**IncludeCredentials** | Pointer to **bool** |  | [optional] 
+**Links** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**UiEditable** | Pointer to **bool** |  | [optional] 
+**UniqueName** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

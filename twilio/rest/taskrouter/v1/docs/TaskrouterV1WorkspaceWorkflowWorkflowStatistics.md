@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**Cumulative** | [**map[string]interface{}**](.md) |  | [optional] 
-**Realtime** | [**map[string]interface{}**](.md) |  | [optional] 
-**Url** | **string** |  | [optional] 
-**WorkflowSid** | **string** |  | [optional] 
-**WorkspaceSid** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**Cumulative** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Realtime** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
+**WorkflowSid** | Pointer to **string** |  | [optional] 
+**WorkspaceSid** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**ChannelType** | [**ChannelType**](channel_type.md) |  | [optional] 
-**ChatServiceSid** | **string** |  | [optional] 
-**ContactIdentity** | **string** |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**Enabled** | **bool** |  | [optional] 
-**FriendlyName** | **string** |  | [optional] 
-**Integration** | [**map[string]interface{}**](.md) |  | [optional] 
-**IntegrationType** | [**IntegrationType**](integration_type.md) |  | [optional] 
-**JanitorEnabled** | **bool** |  | [optional] 
-**LongLived** | **bool** |  | [optional] 
-**Sid** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**ChannelType** | Pointer to [**FlexFlowChannelType**](flex_flow_channel_type.md) |  | [optional] 
+**ChatServiceSid** | Pointer to **string** |  | [optional] 
+**ContactIdentity** | Pointer to **string** |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**Enabled** | Pointer to **bool** |  | [optional] 
+**FriendlyName** | Pointer to **string** |  | [optional] 
+**Integration** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**IntegrationType** | Pointer to [**FlexFlowIntegrationType**](flex_flow_integration_type.md) |  | [optional] 
+**JanitorEnabled** | Pointer to **bool** |  | [optional] 
+**LongLived** | Pointer to **bool** |  | [optional] 
+**Sid** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

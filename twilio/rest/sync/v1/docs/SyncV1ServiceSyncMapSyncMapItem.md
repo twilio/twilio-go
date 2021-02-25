@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | **string** |  | [optional] 
-**CreatedBy** | **string** |  | [optional] 
-**Data** | [**map[string]interface{}**](.md) |  | [optional] 
-**DateCreated** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateExpires** | [**time.Time**](time.Time.md) |  | [optional] 
-**DateUpdated** | [**time.Time**](time.Time.md) |  | [optional] 
-**Key** | **string** |  | [optional] 
-**MapSid** | **string** |  | [optional] 
-**Revision** | **string** |  | [optional] 
-**ServiceSid** | **string** |  | [optional] 
-**Url** | **string** |  | [optional] 
+**AccountSid** | Pointer to **string** |  | [optional] 
+**CreatedBy** | Pointer to **string** |  | [optional] 
+**Data** | Pointer to [**map[string]interface{}**](.md) |  | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateExpires** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**Key** | Pointer to **string** |  | [optional] 
+**MapSid** | Pointer to **string** |  | [optional] 
+**Revision** | Pointer to **string** |  | [optional] 
+**ServiceSid** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
