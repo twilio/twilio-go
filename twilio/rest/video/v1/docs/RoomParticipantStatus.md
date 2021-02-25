@@ -1,9 +1,11 @@
 # RoomParticipantStatus
 
-## Properties
+## Enum
+Name | Type | Notes
+------------ | ------------- | -------------
+**CONNECTED** | string | (value: `"connected"`)
+**DISCONNECTED** | string | (value: `"disconnected"`)
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

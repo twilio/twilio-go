@@ -60,20 +60,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
- **optional** | ***CreateChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateChannelOpts struct
+Optional parameters are passed through a pointer to a CreateChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **Type** | **optional.String**| The visibility of the channel. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service. | 
+**Attributes** | **String**| A valid JSON string that contains application-specific data. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+**Type** | **String**| The visibility of the channel. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service. | 
 
 ### Return type
 
@@ -105,22 +104,22 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCredentialOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCredentialRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCredentialOpts struct
+Optional parameters are passed through a pointer to a CreateCredentialRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ApiKey** | **optional.String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
- **Certificate** | **optional.String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60; | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **PrivateKey** | **optional.String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR. -----END RSA PRIVATE KEY-----&#x60; | 
- **Sandbox** | **optional.Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
- **Secret** | **optional.String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
- **Type** | **optional.String**| The type of push-notification service the credential is for. Can be: &#x60;gcm&#x60;, &#x60;fcm&#x60;, or &#x60;apn&#x60;. | 
+**ApiKey** | **String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
+**Certificate** | **String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60; | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+**PrivateKey** | **String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR. -----END RSA PRIVATE KEY-----&#x60; | 
+**Sandbox** | **Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
+**Secret** | **String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
+**Type** | **String**| The type of push-notification service the credential is for. Can be: &#x60;gcm&#x60;, &#x60;fcm&#x60;, or &#x60;apn&#x60;. | 
 
 ### Return type
 
@@ -154,19 +153,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
 **ChannelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new resource belongs to. | 
- **optional** | ***CreateInviteOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateInviteRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateInviteOpts struct
+Optional parameters are passed through a pointer to a CreateInviteRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Identity** | **optional.String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info. | 
- **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new member. | 
+**Identity** | **String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info. | 
+**RoleSid** | **String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new member. | 
 
 ### Return type
 
@@ -200,19 +197,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
 **ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new member belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
- **optional** | ***CreateMemberOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateMemberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateMemberOpts struct
+Optional parameters are passed through a pointer to a CreateMemberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Identity** | **optional.String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
- **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). | 
+**Identity** | **String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
+**RoleSid** | **String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). | 
 
 ### Return type
 
@@ -246,20 +241,18 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
 **ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new resource belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
- **optional** | ***CreateMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateMessageOpts struct
+Optional parameters are passed through a pointer to a CreateMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **Body** | **optional.String**| The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. | 
- **From** | **optional.String**| The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message&#39;s author. The default value is &#x60;system&#x60;. | 
+**Attributes** | **String**| A valid JSON string that contains application-specific data. | 
+**Body** | **String**| The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. | 
+**From** | **String**| The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message&#39;s author. The default value is &#x60;system&#x60;. | 
 
 ### Return type
 
@@ -292,19 +285,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
- **optional** | ***CreateRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateRoleOpts struct
+Optional parameters are passed through a pointer to a CreateRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **Permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60; and are described in the documentation. | 
- **Type** | **optional.String**| The type of role. Can be: &#x60;channel&#x60; for [Channel](https://www.twilio.com/docs/chat/api/channels) roles or &#x60;deployment&#x60; for [Service](https://www.twilio.com/docs/chat/api/services) roles. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+**Permission** | [**[]string**](string.md)| A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60; and are described in the documentation. | 
+**Type** | **String**| The type of role. Can be: &#x60;channel&#x60; for [Channel](https://www.twilio.com/docs/chat/api/channels) roles or &#x60;deployment&#x60; for [Service](https://www.twilio.com/docs/chat/api/services) roles. | 
 
 ### Return type
 
@@ -336,16 +328,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceOpts struct
+Optional parameters are passed through a pointer to a CreateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -378,20 +370,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. | 
- **optional** | ***CreateUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateUserOpts struct
+Optional parameters are passed through a pointer to a CreateUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. This value is often used for display purposes. | 
- **Identity** | **optional.String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details. | 
- **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new User. | 
+**Attributes** | **String**| A valid JSON string that contains application-specific data. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the new resource. This value is often used for display purposes. | 
+**Identity** | **String**| The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details. | 
+**RoleSid** | **String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new User. | 
 
 ### Return type
 
@@ -954,18 +945,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
- **optional** | ***ListChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListChannelOpts struct
+Optional parameters are passed through a pointer to a ListChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Type** | [**optional.Interface of []string**](string.md)| The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Type** | [**[]string**](string.md)| The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -997,16 +987,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCredentialOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCredentialRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCredentialOpts struct
+Optional parameters are passed through a pointer to a ListCredentialRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1040,19 +1030,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
 **ChannelSid** | **string**| The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resources to read belong to. | 
- **optional** | ***ListInviteOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListInviteRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListInviteOpts struct
+Optional parameters are passed through a pointer to a ListInviteRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Identity** | [**optional.Interface of []string**](string.md)| The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Identity** | [**[]string**](string.md)| The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1086,19 +1074,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
 **ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the members to read belong to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60; value. | 
- **optional** | ***ListMemberOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListMemberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListMemberOpts struct
+Optional parameters are passed through a pointer to a ListMemberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Identity** | [**optional.Interface of []string**](string.md)| The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Identity** | [**[]string**](string.md)| The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1132,19 +1118,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
 **ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message to read belongs to. Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
- **optional** | ***ListMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListMessageOpts struct
+Optional parameters are passed through a pointer to a ListMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Order** | **optional.String**| The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;asc&#x60; as the default. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Order** | **String**| The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;asc&#x60; as the default. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1177,17 +1161,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
- **optional** | ***ListRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListRoleOpts struct
+Optional parameters are passed through a pointer to a ListRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1219,16 +1202,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceOpts struct
+Optional parameters are passed through a pointer to a ListServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1261,17 +1244,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
- **optional** | ***ListUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListUserOpts struct
+Optional parameters are passed through a pointer to a ListUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1307,18 +1289,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. | 
 **UserSid** | **string**| The SID of the [User](https://www.twilio.com/docs/api/chat/rest/users) to read the User Channel resources from. | 
- **optional** | ***ListUserChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListUserChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListUserChannelOpts struct
+Optional parameters are passed through a pointer to a ListUserChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1352,20 +1332,18 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
 **Sid** | **string**| The Twilio-provided string that uniquely identifies the Channel resource to update. | 
- **optional** | ***UpdateChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateChannelOpts struct
+Optional parameters are passed through a pointer to a UpdateChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service. | 
+**Attributes** | **String**| A valid JSON string that contains application-specific data. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service. | 
 
 ### Return type
 
@@ -1398,22 +1376,21 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The Twilio-provided string that uniquely identifies the Credential resource to update. | 
- **optional** | ***UpdateCredentialOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateCredentialRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateCredentialOpts struct
+Optional parameters are passed through a pointer to a UpdateCredentialRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ApiKey** | **optional.String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
- **Certificate** | **optional.String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60; | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **PrivateKey** | **optional.String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR. -----END RSA PRIVATE KEY-----&#x60; | 
- **Sandbox** | **optional.Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
- **Secret** | **optional.String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
+**ApiKey** | **String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
+**Certificate** | **String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60; | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**PrivateKey** | **String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR. -----END RSA PRIVATE KEY-----&#x60; | 
+**Sandbox** | **Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
+**Secret** | **String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
 
 ### Return type
 
@@ -1448,20 +1425,17 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
 **ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the member to update belongs to. Can be the Channel resource&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
 **Sid** | **string**| The Twilio-provided string that uniquely identifies the Member resource to update. | 
- **optional** | ***UpdateMemberOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateMemberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateMemberOpts struct
+Optional parameters are passed through a pointer to a UpdateMemberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **LastConsumedMessageIndex** | **optional.Int32**| The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels). | 
- **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). | 
+**LastConsumedMessageIndex** | **Int32**| The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels). | 
+**RoleSid** | **String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services). | 
 
 ### Return type
 
@@ -1496,20 +1470,17 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
 **ChannelSid** | **string**| The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to. Can be the Channel&#39;s &#x60;sid&#x60; or &#x60;unique_name&#x60;. | 
 **Sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to update. | 
- **optional** | ***UpdateMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateMessageOpts struct
+Optional parameters are passed through a pointer to a UpdateMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **Body** | **optional.String**| The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. | 
+**Attributes** | **String**| A valid JSON string that contains application-specific data. | 
+**Body** | **String**| The message to send to the channel. Can also be an empty string or &#x60;null&#x60;, which sets the value as an empty string. You can send structured data in the body by serializing it as a string. | 
 
 ### Return type
 
@@ -1543,18 +1514,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
 **Sid** | **string**| The Twilio-provided string that uniquely identifies the Role resource to update. | 
- **optional** | ***UpdateRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateRoleOpts struct
+Optional parameters are passed through a pointer to a UpdateRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60; and are described in the documentation. | 
+**Permission** | [**[]string**](string.md)| A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60; and are described in the documentation. | 
 
 ### Return type
 
@@ -1587,70 +1556,69 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The Twilio-provided string that uniquely identifies the Service resource to update. | 
- **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ConsumptionReportInterval** | **optional.Int32**| DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints. | 
- **DefaultChannelCreatorRoleSid** | **optional.String**| The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
- **DefaultChannelRoleSid** | **optional.String**| The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
- **DefaultServiceRoleSid** | **optional.String**| The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **LimitsChannelMembers** | **optional.Int32**| The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000. | 
- **LimitsUserChannels** | **optional.Int32**| The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000. | 
- **NotificationsAddedToChannelEnabled** | **optional.Bool**| Whether to send a notification when a member is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
- **NotificationsAddedToChannelTemplate** | **optional.String**| The template to use to create the notification text displayed when a member is added to a channel and &#x60;notifications.added_to_channel.enabled&#x60; is &#x60;true&#x60;. | 
- **NotificationsInvitedToChannelEnabled** | **optional.Bool**| Whether to send a notification when a user is invited to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
- **NotificationsInvitedToChannelTemplate** | **optional.String**| The template to use to create the notification text displayed when a user is invited to a channel and &#x60;notifications.invited_to_channel.enabled&#x60; is &#x60;true&#x60;. | 
- **NotificationsNewMessageEnabled** | **optional.Bool**| Whether to send a notification when a new message is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
- **NotificationsNewMessageTemplate** | **optional.String**| The template to use to create the notification text displayed when a new message is added to a channel and &#x60;notifications.new_message.enabled&#x60; is &#x60;true&#x60;. | 
- **NotificationsRemovedFromChannelEnabled** | **optional.Bool**| Whether to send a notification to a user when they are removed from a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
- **NotificationsRemovedFromChannelTemplate** | **optional.String**| The template to use to create the notification text displayed to a user when they are removed from a channel and &#x60;notifications.removed_from_channel.enabled&#x60; is &#x60;true&#x60;. | 
- **PostWebhookUrl** | **optional.String**| The URL for post-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. | 
- **PreWebhookUrl** | **optional.String**| The URL for pre-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. | 
- **ReachabilityEnabled** | **optional.Bool**| Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is &#x60;false&#x60;. | 
- **ReadStatusEnabled** | **optional.Bool**| Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is &#x60;true&#x60;. | 
- **TypingIndicatorTimeout** | **optional.Int32**| How long in seconds after a &#x60;started typing&#x60; event until clients should assume that user is no longer typing, even if no &#x60;ended typing&#x60; message was received.  The default is 5 seconds. | 
- **WebhookFilters** | [**optional.Interface of []string**](string.md)| The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. | 
- **WebhookMethod** | **optional.String**| The HTTP method to use for calls to the &#x60;pre_webhook_url&#x60; and &#x60;post_webhook_url&#x60; webhooks.  Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. | 
- **WebhooksOnChannelAddMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_add.url&#x60;. | 
- **WebhooksOnChannelAddUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_add&#x60; event using the &#x60;webhooks.on_channel_add.method&#x60; HTTP method. | 
- **WebhooksOnChannelAddedMethod** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event&#x60;. | 
- **WebhooksOnChannelAddedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_added.method&#x60; HTTP method. | 
- **WebhooksOnChannelDestroyMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_destroy.url&#x60;. | 
- **WebhooksOnChannelDestroyUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_destroy&#x60; event using the &#x60;webhooks.on_channel_destroy.method&#x60; HTTP method. | 
- **WebhooksOnChannelDestroyedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_destroyed.url&#x60;. | 
- **WebhooksOnChannelDestroyedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_destroyed.method&#x60; HTTP method. | 
- **WebhooksOnChannelUpdateMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_update.url&#x60;. | 
- **WebhooksOnChannelUpdateUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_update&#x60; event using the &#x60;webhooks.on_channel_update.method&#x60; HTTP method. | 
- **WebhooksOnChannelUpdatedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;. | 
- **WebhooksOnChannelUpdatedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method. | 
- **WebhooksOnMemberAddMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_member_add.url&#x60;. | 
- **WebhooksOnMemberAddUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_member_add&#x60; event using the &#x60;webhooks.on_member_add.method&#x60; HTTP method. | 
- **WebhooksOnMemberAddedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;. | 
- **WebhooksOnMemberAddedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method. | 
- **WebhooksOnMemberRemoveMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_member_remove.url&#x60;. | 
- **WebhooksOnMemberRemoveUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_member_remove&#x60; event using the &#x60;webhooks.on_member_remove.method&#x60; HTTP method. | 
- **WebhooksOnMemberRemovedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_member_removed.url&#x60;. | 
- **WebhooksOnMemberRemovedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_member_removed&#x60; event using the &#x60;webhooks.on_member_removed.method&#x60; HTTP method. | 
- **WebhooksOnMessageRemoveMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_remove.url&#x60;. | 
- **WebhooksOnMessageRemoveUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_remove&#x60; event using the &#x60;webhooks.on_message_remove.method&#x60; HTTP method. | 
- **WebhooksOnMessageRemovedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_removed.url&#x60;. | 
- **WebhooksOnMessageRemovedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_removed&#x60; event using the &#x60;webhooks.on_message_removed.method&#x60; HTTP method. | 
- **WebhooksOnMessageSendMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_send.url&#x60;. | 
- **WebhooksOnMessageSendUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_send&#x60; event using the &#x60;webhooks.on_message_send.method&#x60; HTTP method. | 
- **WebhooksOnMessageSentMethod** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event&#x60;. | 
- **WebhooksOnMessageSentUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event using the &#x60;webhooks.on_message_sent.method&#x60; HTTP method. | 
- **WebhooksOnMessageUpdateMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_update.url&#x60;. | 
- **WebhooksOnMessageUpdateUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_update&#x60; event using the &#x60;webhooks.on_message_update.method&#x60; HTTP method. | 
- **WebhooksOnMessageUpdatedMethod** | **optional.String**| The HTTP method to use when calling the &#x60;webhooks.on_message_updated.url&#x60;. | 
- **WebhooksOnMessageUpdatedUrl** | **optional.String**| The URL of the webhook to call in response to the &#x60;on_message_updated&#x60; event using the &#x60;webhooks.on_message_updated.method&#x60; HTTP method. | 
+**ConsumptionReportInterval** | **Int32**| DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints. | 
+**DefaultChannelCreatorRoleSid** | **String**| The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
+**DefaultChannelRoleSid** | **String**| The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
+**DefaultServiceRoleSid** | **String**| The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**LimitsChannelMembers** | **Int32**| The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000. | 
+**LimitsUserChannels** | **Int32**| The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000. | 
+**NotificationsAddedToChannelEnabled** | **Bool**| Whether to send a notification when a member is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**NotificationsAddedToChannelTemplate** | **String**| The template to use to create the notification text displayed when a member is added to a channel and &#x60;notifications.added_to_channel.enabled&#x60; is &#x60;true&#x60;. | 
+**NotificationsInvitedToChannelEnabled** | **Bool**| Whether to send a notification when a user is invited to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**NotificationsInvitedToChannelTemplate** | **String**| The template to use to create the notification text displayed when a user is invited to a channel and &#x60;notifications.invited_to_channel.enabled&#x60; is &#x60;true&#x60;. | 
+**NotificationsNewMessageEnabled** | **Bool**| Whether to send a notification when a new message is added to a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**NotificationsNewMessageTemplate** | **String**| The template to use to create the notification text displayed when a new message is added to a channel and &#x60;notifications.new_message.enabled&#x60; is &#x60;true&#x60;. | 
+**NotificationsRemovedFromChannelEnabled** | **Bool**| Whether to send a notification to a user when they are removed from a channel. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**NotificationsRemovedFromChannelTemplate** | **String**| The template to use to create the notification text displayed to a user when they are removed from a channel and &#x60;notifications.removed_from_channel.enabled&#x60; is &#x60;true&#x60;. | 
+**PostWebhookUrl** | **String**| The URL for post-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. | 
+**PreWebhookUrl** | **String**| The URL for pre-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details. | 
+**ReachabilityEnabled** | **Bool**| Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is &#x60;false&#x60;. | 
+**ReadStatusEnabled** | **Bool**| Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is &#x60;true&#x60;. | 
+**TypingIndicatorTimeout** | **Int32**| How long in seconds after a &#x60;started typing&#x60; event until clients should assume that user is no longer typing, even if no &#x60;ended typing&#x60; message was received.  The default is 5 seconds. | 
+**WebhookFilters** | [**[]string**](string.md)| The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. | 
+**WebhookMethod** | **String**| The HTTP method to use for calls to the &#x60;pre_webhook_url&#x60; and &#x60;post_webhook_url&#x60; webhooks.  Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details. | 
+**WebhooksOnChannelAddMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_add.url&#x60;. | 
+**WebhooksOnChannelAddUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_channel_add&#x60; event using the &#x60;webhooks.on_channel_add.method&#x60; HTTP method. | 
+**WebhooksOnChannelAddedMethod** | **String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event&#x60;. | 
+**WebhooksOnChannelAddedUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_added.method&#x60; HTTP method. | 
+**WebhooksOnChannelDestroyMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_destroy.url&#x60;. | 
+**WebhooksOnChannelDestroyUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_channel_destroy&#x60; event using the &#x60;webhooks.on_channel_destroy.method&#x60; HTTP method. | 
+**WebhooksOnChannelDestroyedMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_destroyed.url&#x60;. | 
+**WebhooksOnChannelDestroyedUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_channel_added&#x60; event using the &#x60;webhooks.on_channel_destroyed.method&#x60; HTTP method. | 
+**WebhooksOnChannelUpdateMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_update.url&#x60;. | 
+**WebhooksOnChannelUpdateUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_channel_update&#x60; event using the &#x60;webhooks.on_channel_update.method&#x60; HTTP method. | 
+**WebhooksOnChannelUpdatedMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;. | 
+**WebhooksOnChannelUpdatedUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method. | 
+**WebhooksOnMemberAddMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_member_add.url&#x60;. | 
+**WebhooksOnMemberAddUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_member_add&#x60; event using the &#x60;webhooks.on_member_add.method&#x60; HTTP method. | 
+**WebhooksOnMemberAddedMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_channel_updated.url&#x60;. | 
+**WebhooksOnMemberAddedUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_channel_updated&#x60; event using the &#x60;webhooks.on_channel_updated.method&#x60; HTTP method. | 
+**WebhooksOnMemberRemoveMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_member_remove.url&#x60;. | 
+**WebhooksOnMemberRemoveUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_member_remove&#x60; event using the &#x60;webhooks.on_member_remove.method&#x60; HTTP method. | 
+**WebhooksOnMemberRemovedMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_member_removed.url&#x60;. | 
+**WebhooksOnMemberRemovedUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_member_removed&#x60; event using the &#x60;webhooks.on_member_removed.method&#x60; HTTP method. | 
+**WebhooksOnMessageRemoveMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_message_remove.url&#x60;. | 
+**WebhooksOnMessageRemoveUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_message_remove&#x60; event using the &#x60;webhooks.on_message_remove.method&#x60; HTTP method. | 
+**WebhooksOnMessageRemovedMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_message_removed.url&#x60;. | 
+**WebhooksOnMessageRemovedUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_message_removed&#x60; event using the &#x60;webhooks.on_message_removed.method&#x60; HTTP method. | 
+**WebhooksOnMessageSendMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_message_send.url&#x60;. | 
+**WebhooksOnMessageSendUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_message_send&#x60; event using the &#x60;webhooks.on_message_send.method&#x60; HTTP method. | 
+**WebhooksOnMessageSentMethod** | **String**| The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event&#x60;. | 
+**WebhooksOnMessageSentUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_message_sent&#x60; event using the &#x60;webhooks.on_message_sent.method&#x60; HTTP method. | 
+**WebhooksOnMessageUpdateMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_message_update.url&#x60;. | 
+**WebhooksOnMessageUpdateUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_message_update&#x60; event using the &#x60;webhooks.on_message_update.method&#x60; HTTP method. | 
+**WebhooksOnMessageUpdatedMethod** | **String**| The HTTP method to use when calling the &#x60;webhooks.on_message_updated.url&#x60;. | 
+**WebhooksOnMessageUpdatedUrl** | **String**| The URL of the webhook to call in response to the &#x60;on_message_updated&#x60; event using the &#x60;webhooks.on_message_updated.method&#x60; HTTP method. | 
 
 ### Return type
 
@@ -1684,20 +1652,18 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. | 
 **Sid** | **string**| The Twilio-provided string that uniquely identifies the User resource to update. | 
- **optional** | ***UpdateUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateUserOpts struct
+Optional parameters are passed through a pointer to a UpdateUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Attributes** | **optional.String**| A valid JSON string that contains application-specific data. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It is often used for display purposes. | 
- **RoleSid** | **optional.String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user. | 
+**Attributes** | **String**| A valid JSON string that contains application-specific data. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It is often used for display purposes. | 
+**RoleSid** | **String**| The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user. | 
 
 ### Return type
 

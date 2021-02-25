@@ -180,23 +180,23 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateAssistantOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateAssistantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateAssistantOpts struct
+Optional parameters are passed through a pointer to a CreateAssistantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **CallbackEvents** | **optional.String**| Space-separated list of callback events that will trigger callbacks. | 
- **CallbackUrl** | **optional.String**| A user-provided URL to send event callbacks to. | 
- **FallbackActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
- **FriendlyName** | **optional.String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
- **InitiationActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
- **LogQueries** | **optional.Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
- **StyleSheet** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
- **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**CallbackEvents** | **String**| Space-separated list of callback events that will trigger callbacks. | 
+**CallbackUrl** | **String**| A user-provided URL to send event callbacks to. | 
+**FallbackActions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
+**FriendlyName** | **String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
+**InitiationActions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
+**LogQueries** | **Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
+**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
+**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -230,21 +230,21 @@ Create an AuthorizationDocument for authorizing the hosting of phone number capa
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateAuthorizationDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateAuthorizationDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateAuthorizationDocumentOpts struct
+Optional parameters are passed through a pointer to a CreateAuthorizationDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **AddressSid** | **optional.String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
- **CcEmails** | [**optional.Interface of []string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed. | 
- **ContactPhoneNumber** | **optional.String**| The contact phone number of the person authorized to sign the Authorization Document. | 
- **ContactTitle** | **optional.String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
- **Email** | **optional.String**| Email that this AuthorizationDocument will be sent to for signing. | 
- **HostedNumberOrderSids** | [**optional.Interface of []string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
+**AddressSid** | **String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
+**CcEmails** | [**[]string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed. | 
+**ContactPhoneNumber** | **String**| The contact phone number of the person authorized to sign the Authorization Document. | 
+**ContactTitle** | **String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
+**Email** | **String**| Email that this AuthorizationDocument will be sent to for signing. | 
+**HostedNumberOrderSids** | [**[]string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
 
 ### Return type
 
@@ -279,19 +279,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
- **optional** | ***CreateCertificateOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCertificateRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCertificateOpts struct
+Optional parameters are passed through a pointer to a CreateCertificateRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **CertificateData** | **optional.String**| Provides a URL encoded representation of the public certificate in PEM format. | 
- **DeviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
+**CertificateData** | **String**| Provides a URL encoded representation of the public certificate in PEM format. | 
+**DeviceSid** | **String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
+**FriendlyName** | **String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -326,17 +325,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **BrandedChannelSid** | **string**| The unique SID identifier of the Branded Channel. The given phone number is going to be assigned to this Branded Channel | 
- **optional** | ***CreateChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateChannelOpts struct
+Optional parameters are passed through a pointer to a CreateChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PhoneNumberSid** | **optional.String**| The unique SID identifier of the Phone Number of the Phone number to be assigned to the Branded Channel. | 
+**PhoneNumberSid** | **String**| The unique SID identifier of the Phone Number of the Phone number to be assigned to the Branded Channel. | 
 
 ### Return type
 
@@ -368,22 +366,22 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCommandOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCommandRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCommandOpts struct
+Optional parameters are passed through a pointer to a CreateCommandRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **CallbackMethod** | **optional.String**|  | 
- **CallbackUrl** | **optional.String**|  | 
- **Command** | **optional.String**|  | 
- **CommandMode** | **optional.String**|  | 
- **Device** | **optional.String**|  | 
- **IncludeSid** | **optional.String**|  | 
- **Sim** | **optional.String**|  | 
+**CallbackMethod** | **String**|  | 
+**CallbackUrl** | **String**|  | 
+**Command** | **String**|  | 
+**CommandMode** | **String**|  | 
+**Device** | **String**|  | 
+**IncludeSid** | **String**|  | 
+**Sim** | **String**|  | 
 
 ### Return type
 
@@ -418,18 +416,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
- **optional** | ***CreateDeploymentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateDeploymentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateDeploymentOpts struct
+Optional parameters are passed through a pointer to a CreateDeploymentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Deployment, up to 256 characters long. | 
- **SyncServiceSid** | **optional.String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
+**FriendlyName** | **String**| Provides a human readable descriptive text for this Deployment, up to 256 characters long. | 
+**SyncServiceSid** | **String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
 
 ### Return type
 
@@ -464,21 +461,20 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
- **optional** | ***CreateDeviceOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateDeviceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateDeviceOpts struct
+Optional parameters are passed through a pointer to a CreateDeviceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **DeploymentSid** | **optional.String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
- **Enabled** | **optional.Bool**|  | 
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
- **Identity** | **optional.String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
- **UniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long. | 
+**DeploymentSid** | **String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
+**Enabled** | **Bool**|  | 
+**FriendlyName** | **String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
+**Identity** | **String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
+**UniqueName** | **String**| Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long. | 
 
 ### Return type
 
@@ -511,18 +507,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***CreateDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateDocumentOpts struct
+Optional parameters are passed through a pointer to a CreateDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
- **UniqueName** | **optional.String**|  | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
+**UniqueName** | **String**|  | 
 
 ### Return type
 
@@ -555,22 +550,21 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ResourceType** | **string**| The type of communication – Messages or Calls, Conferences, and Participants | 
- **optional** | ***CreateExportCustomJobOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateExportCustomJobRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateExportCustomJobOpts struct
+Optional parameters are passed through a pointer to a CreateExportCustomJobRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Email** | **optional.String**| The optional email to send the completion notification to | 
- **EndDay** | **optional.String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
- **FriendlyName** | **optional.String**| The friendly name specified when creating the job | 
- **StartDay** | **optional.String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
- **WebhookMethod** | **optional.String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
- **WebhookUrl** | **optional.String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. | 
+**Email** | **String**| The optional email to send the completion notification to | 
+**EndDay** | **String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
+**FriendlyName** | **String**| The friendly name specified when creating the job | 
+**StartDay** | **String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
+**WebhookMethod** | **String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
+**WebhookUrl** | **String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. | 
 
 ### Return type
 
@@ -604,19 +598,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the parent Assistant. | 
 **TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
- **optional** | ***CreateFieldOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateFieldRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateFieldOpts struct
+Optional parameters are passed through a pointer to a CreateFieldRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **FieldType** | **optional.String**| The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type. | 
- **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**FieldType** | **String**| The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type. | 
+**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -649,18 +641,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
- **optional** | ***CreateFieldTypeOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateFieldTypeRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateFieldTypeOpts struct
+Optional parameters are passed through a pointer to a CreateFieldTypeRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
- **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**FriendlyName** | **String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -694,20 +685,18 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
 **FieldTypeSid** | **string**|  | 
- **optional** | ***CreateFieldValueOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateFieldValueRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateFieldValueOpts struct
+Optional parameters are passed through a pointer to a CreateFieldValueRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Language** | **optional.String**| An ISO language-country string of the value. | 
- **SynonymOf** | **optional.String**| A value that indicates this field value is a synonym of. Empty if the value is not a synonym. | 
- **Value** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**Language** | **String**| An ISO language-country string of the value. | 
+**SynonymOf** | **String**| A value that indicates this field value is a synonym of. Empty if the value is not a synonym. | 
+**Value** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -741,16 +730,16 @@ Create a new Fleet for scoping of deployed devices within your account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateFleetOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateFleetRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateFleetOpts struct
+Optional parameters are passed through a pointer to a CreateFleetRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
+**FriendlyName** | **String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
 
 ### Return type
 
@@ -784,32 +773,32 @@ Host a phone number's capability on Twilio's platform.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateHostedNumberOrderOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateHostedNumberOrderRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateHostedNumberOrderOpts struct
+Optional parameters are passed through a pointer to a CreateHostedNumberOrderRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **AccountSid** | **optional.String**| This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to. | 
- **AddressSid** | **optional.String**| Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number. | 
- **CcEmails** | [**optional.Interface of []string**](string.md)| Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to. | 
- **Email** | **optional.String**| Optional. Email of the owner of this phone number that is being hosted. | 
- **FriendlyName** | **optional.String**| A 64 character string that is a human readable text that describes this resource. | 
- **PhoneNumber** | **optional.String**| The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format | 
- **SmsApplicationSid** | **optional.String**| Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a &#x60;SmsApplicationSid&#x60; is present, Twilio will ignore all of the SMS urls above and use those set on the application. | 
- **SmsCapability** | **optional.Bool**| Used to specify that the SMS capability will be hosted on Twilio&#39;s platform. | 
- **SmsFallbackMethod** | **optional.String**| The HTTP method that should be used to request the SmsFallbackUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;. This will be copied onto the IncomingPhoneNumber resource. | 
- **SmsFallbackUrl** | **optional.String**| A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource. | 
- **SmsMethod** | **optional.String**| The HTTP method that should be used to request the SmsUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;.  This will be copied onto the IncomingPhoneNumber resource. | 
- **SmsUrl** | **optional.String**| The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource. | 
- **StatusCallbackMethod** | **optional.String**| Optional. The Status Callback Method attached to the IncomingPhoneNumber resource. | 
- **StatusCallbackUrl** | **optional.String**| Optional. The Status Callback URL attached to the IncomingPhoneNumber resource. | 
- **UniqueName** | **optional.String**| Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
- **VerificationDocumentSid** | **optional.String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
- **VerificationType** | **optional.String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
+**AccountSid** | **String**| This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to. | 
+**AddressSid** | **String**| Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number. | 
+**CcEmails** | [**[]string**](string.md)| Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to. | 
+**Email** | **String**| Optional. Email of the owner of this phone number that is being hosted. | 
+**FriendlyName** | **String**| A 64 character string that is a human readable text that describes this resource. | 
+**PhoneNumber** | **String**| The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format | 
+**SmsApplicationSid** | **String**| Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a &#x60;SmsApplicationSid&#x60; is present, Twilio will ignore all of the SMS urls above and use those set on the application. | 
+**SmsCapability** | **Bool**| Used to specify that the SMS capability will be hosted on Twilio&#39;s platform. | 
+**SmsFallbackMethod** | **String**| The HTTP method that should be used to request the SmsFallbackUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;. This will be copied onto the IncomingPhoneNumber resource. | 
+**SmsFallbackUrl** | **String**| A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource. | 
+**SmsMethod** | **String**| The HTTP method that should be used to request the SmsUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;.  This will be copied onto the IncomingPhoneNumber resource. | 
+**SmsUrl** | **String**| The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource. | 
+**StatusCallbackMethod** | **String**| Optional. The Status Callback Method attached to the IncomingPhoneNumber resource. | 
+**StatusCallbackUrl** | **String**| Optional. The Status Callback URL attached to the IncomingPhoneNumber resource. | 
+**UniqueName** | **String**| Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+**VerificationDocumentSid** | **String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
+**VerificationType** | **String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
 
 ### Return type
 
@@ -843,19 +832,19 @@ Install an Add-on for the Account specified.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateInstalledAddOnOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateInstalledAddOnRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateInstalledAddOnOpts struct
+Optional parameters are passed through a pointer to a CreateInstalledAddOnRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **AcceptTermsOfService** | **optional.Bool**| Whether the Terms of Service were accepted. | 
- **AvailableAddOnSid** | **optional.String**| The SID of the AvaliableAddOn to install. | 
- **Configuration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON object that represents the configuration of the new Add-on being installed. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
+**AcceptTermsOfService** | **Bool**| Whether the Terms of Service were accepted. | 
+**AvailableAddOnSid** | **String**| The SID of the AvaliableAddOn to install. | 
+**Configuration** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON object that represents the configuration of the new Add-on being installed. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
 
 ### Return type
 
@@ -890,18 +879,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
- **optional** | ***CreateKeyOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateKeyRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateKeyOpts struct
+Optional parameters are passed through a pointer to a CreateKeyRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **DeviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
+**DeviceSid** | **String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
+**FriendlyName** | **String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -934,18 +922,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
- **optional** | ***CreateModelBuildOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateModelBuildRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateModelBuildOpts struct
+Optional parameters are passed through a pointer to a CreateModelBuildRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **StatusCallback** | **optional.String**|  | 
- **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
+**StatusCallback** | **String**|  | 
+**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
 
 ### Return type
 
@@ -978,21 +965,20 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the parent Assistant. | 
- **optional** | ***CreateQueryOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateQueryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateQueryOpts struct
+Optional parameters are passed through a pointer to a CreateQueryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Field** | **optional.String**| Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name* | 
- **Language** | **optional.String**| An ISO language-country string of the sample. | 
- **ModelBuild** | **optional.String**| The Model Build Sid or unique name of the Model Build to be queried. | 
- **Query** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long. | 
- **Tasks** | **optional.String**| Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2* | 
+**Field** | **String**| Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name* | 
+**Language** | **String**| An ISO language-country string of the sample. | 
+**ModelBuild** | **String**| The Model Build Sid or unique name of the Model Build to be queried. | 
+**Query** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long. | 
+**Tasks** | **String**| Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2* | 
 
 ### Return type
 
@@ -1024,25 +1010,25 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateRatePlanOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateRatePlanRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateRatePlanOpts struct
+Optional parameters are passed through a pointer to a CreateRatePlanRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **CommandsEnabled** | **optional.Bool**|  | 
- **DataEnabled** | **optional.Bool**|  | 
- **DataLimit** | **optional.Int32**|  | 
- **DataMetering** | **optional.String**|  | 
- **FriendlyName** | **optional.String**|  | 
- **InternationalRoaming** | [**optional.Interface of []string**](string.md)|  | 
- **MessagingEnabled** | **optional.Bool**|  | 
- **NationalRoamingEnabled** | **optional.Bool**|  | 
- **UniqueName** | **optional.String**|  | 
- **VoiceEnabled** | **optional.Bool**|  | 
+**CommandsEnabled** | **Bool**|  | 
+**DataEnabled** | **Bool**|  | 
+**DataLimit** | **Int32**|  | 
+**DataMetering** | **String**|  | 
+**FriendlyName** | **String**|  | 
+**InternationalRoaming** | [**[]string**](string.md)|  | 
+**MessagingEnabled** | **Bool**|  | 
+**NationalRoamingEnabled** | **Bool**|  | 
+**UniqueName** | **String**|  | 
+**VoiceEnabled** | **Bool**|  | 
 
 ### Return type
 
@@ -1076,20 +1062,18 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the Assistant. | 
 **TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
- **optional** | ***CreateSampleOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSampleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSampleOpts struct
+Optional parameters are passed through a pointer to a CreateSampleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Language** | **optional.String**| An ISO language-country string of the sample. | 
- **SourceChannel** | **optional.String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
- **TaggedText** | **optional.String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
+**Language** | **String**| An ISO language-country string of the sample. | 
+**SourceChannel** | **String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
+**TaggedText** | **String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
 
 ### Return type
 
@@ -1121,19 +1105,19 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceOpts struct
+Optional parameters are passed through a pointer to a CreateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **AclEnabled** | **optional.Bool**|  | 
- **FriendlyName** | **optional.String**|  | 
- **ReachabilityWebhooksEnabled** | **optional.Bool**|  | 
- **WebhookUrl** | **optional.String**|  | 
+**AclEnabled** | **Bool**|  | 
+**FriendlyName** | **String**|  | 
+**ReachabilityWebhooksEnabled** | **Bool**|  | 
+**WebhookUrl** | **String**|  | 
 
 ### Return type
 
@@ -1166,17 +1150,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***CreateSyncListOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSyncListRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncListOpts struct
+Optional parameters are passed through a pointer to a CreateSyncListRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **UniqueName** | **optional.String**|  | 
+**UniqueName** | **String**|  | 
 
 ### Return type
 
@@ -1210,18 +1193,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ListSid** | **string**|  | 
- **optional** | ***CreateSyncListItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSyncListItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncListItemOpts struct
+Optional parameters are passed through a pointer to a CreateSyncListItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -1254,17 +1235,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***CreateSyncMapOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSyncMapRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncMapOpts struct
+Optional parameters are passed through a pointer to a CreateSyncMapRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **UniqueName** | **optional.String**|  | 
+**UniqueName** | **String**|  | 
 
 ### Return type
 
@@ -1298,19 +1278,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **MapSid** | **string**|  | 
- **optional** | ***CreateSyncMapItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSyncMapItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncMapItemOpts struct
+Optional parameters are passed through a pointer to a CreateSyncMapItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
- **Key** | **optional.String**|  | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
+**Key** | **String**|  | 
 
 ### Return type
 
@@ -1343,20 +1321,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the Assistant. | 
- **optional** | ***CreateTaskOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateTaskRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateTaskOpts struct
+Optional parameters are passed through a pointer to a CreateTaskRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Actions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
- **ActionsUrl** | **optional.String**| User-provided HTTP endpoint where from the assistant fetches actions | 
- **FriendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
- **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**Actions** | [**map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
+**ActionsUrl** | **String**| User-provided HTTP endpoint where from the assistant fetches actions | 
+**FriendlyName** | **String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -2064,19 +2041,16 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **ListSid** | **string**|  | 
 **Index** | **int32**|  | 
- **optional** | ***DeleteSyncListItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteSyncListItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteSyncListItemOpts struct
+Optional parameters are passed through a pointer to a DeleteSyncListItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
+**IfMatch** | **String**| The If-Match HTTP request header | 
 
 ### Return type
 
@@ -2180,19 +2154,16 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **MapSid** | **string**|  | 
 **Key** | **string**|  | 
- **optional** | ***DeleteSyncMapItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteSyncMapItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteSyncMapItemOpts struct
+Optional parameters are passed through a pointer to a DeleteSyncMapItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
+**IfMatch** | **String**| The If-Match HTTP request header | 
 
 ### Return type
 
@@ -2528,16 +2499,16 @@ Retrieve the newest available BrandInformation
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***FetchBrandsInformationOpts** | optional parameters | nil if no parameters
+ **optional** | ***FetchBrandsInformationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a FetchBrandsInformationOpts struct
+Optional parameters are passed through a pointer to a FetchBrandsInformationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **IfNoneMatch** | **optional.String**| Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match. | 
+**IfNoneMatch** | **String**| Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match. | 
 
 ### Return type
 
@@ -2638,16 +2609,16 @@ Fetch a specific Call Placement Service (CPS) given a phone number via `X-XCNAM-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***FetchCpsOpts** | optional parameters | nil if no parameters
+ **optional** | ***FetchCpsRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a FetchCpsOpts struct
+Optional parameters are passed through a pointer to a FetchCpsRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **XXcnamSensitivePhoneNumber** | **optional.String**| Phone number used to retrieve its corresponding CPS. | 
+**XXcnamSensitivePhoneNumber** | **String**| Phone number used to retrieve its corresponding CPS. | 
 
 ### Return type
 
@@ -2681,17 +2652,17 @@ Retrieve a current call given the originating and terminating number via `X-XCNA
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***FetchCurrentCallOpts** | optional parameters | nil if no parameters
+ **optional** | ***FetchCurrentCallRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a FetchCurrentCallOpts struct
+Optional parameters are passed through a pointer to a FetchCurrentCallRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **XXcnamSensitivePhoneNumberFrom** | **optional.String**| The originating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). This phone number should be a Twilio number, otherwise it will return an error with HTTP Status Code 400. | 
- **XXcnamSensitivePhoneNumberTo** | **optional.String**| The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). | 
+**XXcnamSensitivePhoneNumberFrom** | **String**| The originating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). This phone number should be a Twilio number, otherwise it will return an error with HTTP Status Code 400. | 
+**XXcnamSensitivePhoneNumberTo** | **String**| The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). | 
 
 ### Return type
 
@@ -3841,18 +3812,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **SimSid** | **string**|  | 
- **optional** | ***FetchUsageOpts** | optional parameters | nil if no parameters
+ **optional** | ***FetchUsageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a FetchUsageOpts struct
+Optional parameters are passed through a pointer to a FetchUsageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **End** | **optional.String**|  | 
- **Start** | **optional.String**|  | 
+**End** | **String**|  | 
+**Start** | **String**|  | 
 
 ### Return type
 
@@ -3884,16 +3854,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListAssistantOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListAssistantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListAssistantOpts struct
+Optional parameters are passed through a pointer to a ListAssistantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -3927,18 +3897,18 @@ Retrieve a list of AuthorizationDocuments belonging to the account initiating th
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListAuthorizationDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListAuthorizationDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListAuthorizationDocumentOpts struct
+Optional parameters are passed through a pointer to a ListAuthorizationDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Email** | **optional.String**| Email that this AuthorizationDocument will be sent to for signing. | 
- **Status** | **optional.String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Email** | **String**| Email that this AuthorizationDocument will be sent to for signing. | 
+**Status** | **String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -3972,16 +3942,16 @@ Retrieve a list of Add-ons currently available to be installed.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListAvailableAddOnOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListAvailableAddOnRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListAvailableAddOnOpts struct
+Optional parameters are passed through a pointer to a ListAvailableAddOnRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4016,17 +3986,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AvailableAddOnSid** | **string**| The SID of the AvailableAddOn resource with the extensions to read. | 
- **optional** | ***ListAvailableAddOnExtensionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListAvailableAddOnExtensionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListAvailableAddOnExtensionOpts struct
+Optional parameters are passed through a pointer to a ListAvailableAddOnExtensionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4061,18 +4030,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
- **optional** | ***ListCertificateOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCertificateRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCertificateOpts struct
+Optional parameters are passed through a pointer to a ListCertificateRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **DeviceSid** | **optional.String**| Filters the resulting list of Certificates by a unique string identifier of an authenticated Device. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DeviceSid** | **String**| Filters the resulting list of Certificates by a unique string identifier of an authenticated Device. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4104,20 +4072,20 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCommandOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCommandRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCommandOpts struct
+Optional parameters are passed through a pointer to a ListCommandRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Device** | **optional.String**|  | 
- **Sim** | **optional.String**|  | 
- **Status** | **optional.String**|  | 
- **Direction** | **optional.String**|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Device** | **String**|  | 
+**Sim** | **String**|  | 
+**Status** | **String**|  | 
+**Direction** | **String**|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4152,17 +4120,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***ListDayOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDayRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDayOpts struct
+Optional parameters are passed through a pointer to a ListDayRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4197,22 +4164,21 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **SigningDocumentSid** | **string**|  | 
- **optional** | ***ListDependentHostedNumberOrderOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDependentHostedNumberOrderRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDependentHostedNumberOrderOpts struct
+Optional parameters are passed through a pointer to a ListDependentHostedNumberOrderRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Status** | **optional.String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
- **PhoneNumber** | **optional.String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
- **IncomingPhoneNumberSid** | **optional.String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
- **FriendlyName** | **optional.String**| A human readable description of this resource, up to 64 characters. | 
- **UniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Status** | **String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
+**PhoneNumber** | **String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
+**IncomingPhoneNumberSid** | **String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
+**FriendlyName** | **String**| A human readable description of this resource, up to 64 characters. | 
+**UniqueName** | **String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4247,17 +4213,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
- **optional** | ***ListDeploymentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDeploymentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDeploymentOpts struct
+Optional parameters are passed through a pointer to a ListDeploymentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4292,18 +4257,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
- **optional** | ***ListDeviceOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDeviceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDeviceOpts struct
+Optional parameters are passed through a pointer to a ListDeviceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **DeploymentSid** | **optional.String**| Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DeploymentSid** | **String**| Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4336,17 +4300,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***ListDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDocumentOpts struct
+Optional parameters are passed through a pointer to a ListDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4382,18 +4345,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
- **optional** | ***ListDocumentPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDocumentPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDocumentPermissionOpts struct
+Optional parameters are passed through a pointer to a ListDocumentPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4426,17 +4387,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***ListExportCustomJobOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListExportCustomJobRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListExportCustomJobOpts struct
+Optional parameters are passed through a pointer to a ListExportCustomJobRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4470,18 +4430,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the Assistant. | 
 **TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
- **optional** | ***ListFieldOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListFieldRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListFieldOpts struct
+Optional parameters are passed through a pointer to a ListFieldRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4514,17 +4472,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
- **optional** | ***ListFieldTypeOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListFieldTypeRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListFieldTypeOpts struct
+Optional parameters are passed through a pointer to a ListFieldTypeRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4558,19 +4515,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
 **FieldTypeSid** | **string**|  | 
- **optional** | ***ListFieldValueOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListFieldValueRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListFieldValueOpts struct
+Optional parameters are passed through a pointer to a ListFieldValueRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Language** | **optional.String**| An ISO language-country string of the value. For example: *en-US* | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Language** | **String**| An ISO language-country string of the value. For example: *en-US* | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4604,16 +4559,16 @@ Retrieve a list of all Fleets belonging to your account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListFleetOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListFleetRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListFleetOpts struct
+Optional parameters are passed through a pointer to a ListFleetRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4647,21 +4602,21 @@ Retrieve a list of HostedNumberOrders belonging to the account initiating the re
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListHostedNumberOrderOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListHostedNumberOrderRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListHostedNumberOrderOpts struct
+Optional parameters are passed through a pointer to a ListHostedNumberOrderRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Status** | **optional.String**| The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;. | 
- **PhoneNumber** | **optional.String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
- **IncomingPhoneNumberSid** | **optional.String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
- **FriendlyName** | **optional.String**| A human readable description of this resource, up to 64 characters. | 
- **UniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Status** | **String**| The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;. | 
+**PhoneNumber** | **String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
+**IncomingPhoneNumberSid** | **String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
+**FriendlyName** | **String**| A human readable description of this resource, up to 64 characters. | 
+**UniqueName** | **String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4695,16 +4650,16 @@ Retrieve a list of Add-ons currently installed on this Account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListInstalledAddOnOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListInstalledAddOnRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListInstalledAddOnOpts struct
+Optional parameters are passed through a pointer to a ListInstalledAddOnRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4739,17 +4694,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **InstalledAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extensions to read. | 
- **optional** | ***ListInstalledAddOnExtensionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListInstalledAddOnExtensionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListInstalledAddOnExtensionOpts struct
+Optional parameters are passed through a pointer to a ListInstalledAddOnExtensionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4784,18 +4738,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
- **optional** | ***ListKeyOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListKeyRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListKeyOpts struct
+Optional parameters are passed through a pointer to a ListKeyRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **DeviceSid** | **optional.String**| Filters the resulting list of Keys by a unique string identifier of an authenticated Device. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DeviceSid** | **String**| Filters the resulting list of Keys by a unique string identifier of an authenticated Device. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4828,17 +4781,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
- **optional** | ***ListModelBuildOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListModelBuildRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListModelBuildOpts struct
+Optional parameters are passed through a pointer to a ListModelBuildRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4871,20 +4823,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the parent Assistant. | 
- **optional** | ***ListQueryOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListQueryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListQueryOpts struct
+Optional parameters are passed through a pointer to a ListQueryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Language** | **optional.String**| An ISO language-country string of the sample. | 
- **ModelBuild** | **optional.String**| The Model Build Sid or unique name of the Model Build to be queried. | 
- **Status** | **optional.String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Language** | **String**| An ISO language-country string of the sample. | 
+**ModelBuild** | **String**| The Model Build Sid or unique name of the Model Build to be queried. | 
+**Status** | **String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4916,16 +4867,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListRatePlanOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListRatePlanRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListRatePlanOpts struct
+Optional parameters are passed through a pointer to a ListRatePlanRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4959,19 +4910,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the Assistant. | 
 **TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
- **optional** | ***ListSampleOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSampleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSampleOpts struct
+Optional parameters are passed through a pointer to a ListSampleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Language** | **optional.String**| An ISO language-country string of the sample. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Language** | **String**| An ISO language-country string of the sample. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5003,16 +4952,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceOpts struct
+Optional parameters are passed through a pointer to a ListServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5044,21 +4993,21 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListSimOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSimRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSimOpts struct
+Optional parameters are passed through a pointer to a ListSimRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Status** | **optional.String**|  | 
- **Iccid** | **optional.String**|  | 
- **RatePlan** | **optional.String**|  | 
- **EId** | **optional.String**|  | 
- **SimRegistrationCode** | **optional.String**|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Status** | **String**|  | 
+**Iccid** | **String**|  | 
+**RatePlan** | **String**|  | 
+**EId** | **String**|  | 
+**SimRegistrationCode** | **String**|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5091,17 +5040,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***ListSyncListOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncListRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncListOpts struct
+Optional parameters are passed through a pointer to a ListSyncListRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5135,21 +5083,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ListSid** | **string**|  | 
- **optional** | ***ListSyncListItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncListItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncListItemOpts struct
+Optional parameters are passed through a pointer to a ListSyncListItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Order** | **optional.String**|  | 
- **From** | **optional.String**|  | 
- **Bounds** | **optional.String**|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Order** | **String**|  | 
+**From** | **String**|  | 
+**Bounds** | **String**|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5185,18 +5131,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
- **optional** | ***ListSyncListPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncListPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncListPermissionOpts struct
+Optional parameters are passed through a pointer to a ListSyncListPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5229,17 +5173,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***ListSyncMapOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncMapRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncMapOpts struct
+Optional parameters are passed through a pointer to a ListSyncMapRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5273,21 +5216,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **MapSid** | **string**|  | 
- **optional** | ***ListSyncMapItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncMapItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncMapItemOpts struct
+Optional parameters are passed through a pointer to a ListSyncMapItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Order** | **optional.String**|  | 
- **From** | **optional.String**|  | 
- **Bounds** | **optional.String**|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Order** | **String**|  | 
+**From** | **String**|  | 
+**Bounds** | **String**|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5323,18 +5264,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
- **optional** | ***ListSyncMapPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncMapPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncMapPermissionOpts struct
+Optional parameters are passed through a pointer to a ListSyncMapPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5367,17 +5306,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the Assistant. | 
- **optional** | ***ListTaskOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListTaskRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListTaskOpts struct
+Optional parameters are passed through a pointer to a ListTaskRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5410,24 +5348,23 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateAssistantOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateAssistantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateAssistantOpts struct
+Optional parameters are passed through a pointer to a UpdateAssistantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **CallbackEvents** | **optional.String**| Space-separated list of callback events that will trigger callbacks. | 
- **CallbackUrl** | **optional.String**| A user-provided URL to send event callbacks to. | 
- **FallbackActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
- **FriendlyName** | **optional.String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
- **InitiationActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
- **LogQueries** | **optional.Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
- **StyleSheet** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
- **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**CallbackEvents** | **String**| Space-separated list of callback events that will trigger callbacks. | 
+**CallbackUrl** | **String**| A user-provided URL to send event callbacks to. | 
+**FallbackActions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
+**FriendlyName** | **String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
+**InitiationActions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
+**LogQueries** | **Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
+**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
+**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -5460,17 +5397,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
- **optional** | ***UpdateAssistantFallbackActionsOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateAssistantFallbackActionsRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateAssistantFallbackActionsOpts struct
+Optional parameters are passed through a pointer to a UpdateAssistantFallbackActionsRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FallbackActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+**FallbackActions** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -5503,17 +5439,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
- **optional** | ***UpdateAssistantInitiationActionsOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateAssistantInitiationActionsRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateAssistantInitiationActionsOpts struct
+Optional parameters are passed through a pointer to a UpdateAssistantInitiationActionsRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **InitiationActions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+**InitiationActions** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -5548,23 +5483,22 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**|  | 
- **optional** | ***UpdateAuthorizationDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateAuthorizationDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateAuthorizationDocumentOpts struct
+Optional parameters are passed through a pointer to a UpdateAuthorizationDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **AddressSid** | **optional.String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
- **CcEmails** | [**optional.Interface of []string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed | 
- **ContactPhoneNumber** | **optional.String**| The contact phone number of the person authorized to sign the Authorization Document. | 
- **ContactTitle** | **optional.String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
- **Email** | **optional.String**| Email that this AuthorizationDocument will be sent to for signing. | 
- **HostedNumberOrderSids** | [**optional.Interface of []string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
- **Status** | **optional.String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
+**AddressSid** | **String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
+**CcEmails** | [**[]string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed | 
+**ContactPhoneNumber** | **String**| The contact phone number of the person authorized to sign the Authorization Document. | 
+**ContactTitle** | **String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
+**Email** | **String**| Email that this AuthorizationDocument will be sent to for signing. | 
+**HostedNumberOrderSids** | [**[]string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
+**Status** | **String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
 
 ### Return type
 
@@ -5600,19 +5534,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
 **Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
- **optional** | ***UpdateCertificateOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateCertificateRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateCertificateOpts struct
+Optional parameters are passed through a pointer to a UpdateCertificateRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **DeviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
+**DeviceSid** | **String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
+**FriendlyName** | **String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -5648,19 +5580,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
 **Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
- **optional** | ***UpdateDeploymentOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateDeploymentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateDeploymentOpts struct
+Optional parameters are passed through a pointer to a UpdateDeploymentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Deployment, up to 64 characters long | 
- **SyncServiceSid** | **optional.String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
+**FriendlyName** | **String**| Provides a human readable descriptive text for this Deployment, up to 64 characters long | 
+**SyncServiceSid** | **String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
 
 ### Return type
 
@@ -5696,21 +5626,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
 **Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
- **optional** | ***UpdateDeviceOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateDeviceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateDeviceOpts struct
+Optional parameters are passed through a pointer to a UpdateDeviceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **DeploymentSid** | **optional.String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
- **Enabled** | **optional.Bool**|  | 
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
- **Identity** | **optional.String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
+**DeploymentSid** | **String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
+**Enabled** | **Bool**|  | 
+**FriendlyName** | **String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
+**Identity** | **String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
 
 ### Return type
 
@@ -5744,19 +5672,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***UpdateDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateDocumentOpts struct
+Optional parameters are passed through a pointer to a UpdateDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+**IfMatch** | **String**| The If-Match HTTP request header | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -5793,21 +5719,18 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
 **DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
 **Identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
- **optional** | ***UpdateDocumentPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateDocumentPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateDocumentPermissionOpts struct
+Optional parameters are passed through a pointer to a UpdateDocumentPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **Manage** | **optional.Bool**| Boolean flag specifying whether the identity can delete the Sync Document. | 
- **Read** | **optional.Bool**| Boolean flag specifying whether the identity can read the Sync Document. | 
- **Write** | **optional.Bool**| Boolean flag specifying whether the identity can update the Sync Document. | 
+**Manage** | **Bool**| Boolean flag specifying whether the identity can delete the Sync Document. | 
+**Read** | **Bool**| Boolean flag specifying whether the identity can read the Sync Document. | 
+**Write** | **Bool**| Boolean flag specifying whether the identity can update the Sync Document. | 
 
 ### Return type
 
@@ -5842,19 +5765,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***UpdateExportConfigurationOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateExportConfigurationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateExportConfigurationOpts struct
+Optional parameters are passed through a pointer to a UpdateExportConfigurationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Enabled** | **optional.Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
- **WebhookMethod** | **optional.String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
- **WebhookUrl** | **optional.String**| Stores the URL destination for the method specified in webhook_method. | 
+**Enabled** | **Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
+**WebhookMethod** | **String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
+**WebhookUrl** | **String**| Stores the URL destination for the method specified in webhook_method. | 
 
 ### Return type
 
@@ -5888,19 +5810,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***UpdateFieldTypeOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateFieldTypeRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateFieldTypeOpts struct
+Optional parameters are passed through a pointer to a UpdateFieldTypeRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **FriendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
- **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**FriendlyName** | **String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -5935,18 +5855,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
- **optional** | ***UpdateFleetOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateFleetRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateFleetOpts struct
+Optional parameters are passed through a pointer to a UpdateFleetRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **DefaultDeploymentSid** | **optional.String**| Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet. | 
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
+**DefaultDeploymentSid** | **String**| Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet. | 
+**FriendlyName** | **String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
 
 ### Return type
 
@@ -5981,26 +5900,25 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**|  | 
- **optional** | ***UpdateHostedNumberOrderOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateHostedNumberOrderRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateHostedNumberOrderOpts struct
+Optional parameters are passed through a pointer to a UpdateHostedNumberOrderRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **CallDelay** | **optional.Int32**| The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0. | 
- **CcEmails** | [**optional.Interface of []string**](string.md)| Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to. | 
- **Email** | **optional.String**| Email of the owner of this phone number that is being hosted. | 
- **Extension** | **optional.String**| Digits to dial after connecting the verification call. | 
- **FriendlyName** | **optional.String**| A 64 character string that is a human readable text that describes this resource. | 
- **Status** | **optional.String**| User can only post to &#x60;pending-verification&#x60; status to transition the HostedNumberOrder to initiate a verification call or verification of ownership with a copy of a phone bill. | 
- **UniqueName** | **optional.String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
- **VerificationCode** | **optional.String**| A verification code that is given to the user via a phone call to the phone number that is being hosted. | 
- **VerificationDocumentSid** | **optional.String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
- **VerificationType** | **optional.String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
+**CallDelay** | **Int32**| The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0. | 
+**CcEmails** | [**[]string**](string.md)| Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to. | 
+**Email** | **String**| Email of the owner of this phone number that is being hosted. | 
+**Extension** | **String**| Digits to dial after connecting the verification call. | 
+**FriendlyName** | **String**| A 64 character string that is a human readable text that describes this resource. | 
+**Status** | **String**| User can only post to &#x60;pending-verification&#x60; status to transition the HostedNumberOrder to initiate a verification call or verification of ownership with a copy of a phone bill. | 
+**UniqueName** | **String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+**VerificationCode** | **String**| A verification code that is given to the user via a phone call to the phone number that is being hosted. | 
+**VerificationDocumentSid** | **String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
+**VerificationType** | **String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
 
 ### Return type
 
@@ -6035,18 +5953,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The SID of the InstalledAddOn resource to update. | 
- **optional** | ***UpdateInstalledAddOnOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateInstalledAddOnRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateInstalledAddOnOpts struct
+Optional parameters are passed through a pointer to a UpdateInstalledAddOnRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Configuration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
+**Configuration** | [**map[string]interface{}**](map[string]interface{}.md)| Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
 
 ### Return type
 
@@ -6082,18 +5999,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **InstalledAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extension to update. | 
 **Sid** | **string**| The SID of the InstalledAddOn Extension resource to update. | 
- **optional** | ***UpdateInstalledAddOnExtensionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateInstalledAddOnExtensionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateInstalledAddOnExtensionOpts struct
+Optional parameters are passed through a pointer to a UpdateInstalledAddOnExtensionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Enabled** | **optional.Bool**| Whether the Extension should be invoked. | 
+**Enabled** | **Bool**| Whether the Extension should be invoked. | 
 
 ### Return type
 
@@ -6129,19 +6044,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FleetSid** | **string**|  | 
 **Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
- **optional** | ***UpdateKeyOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateKeyRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateKeyOpts struct
+Optional parameters are passed through a pointer to a UpdateKeyRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **DeviceSid** | **optional.String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
- **FriendlyName** | **optional.String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
+**DeviceSid** | **String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
+**FriendlyName** | **String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -6175,18 +6088,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***UpdateModelBuildOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateModelBuildRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateModelBuildOpts struct
+Optional parameters are passed through a pointer to a UpdateModelBuildRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
+**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
 
 ### Return type
 
@@ -6220,19 +6131,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the parent Assistant. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateQueryOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateQueryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateQueryOpts struct
+Optional parameters are passed through a pointer to a UpdateQueryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **SampleSid** | **optional.String**| An optional reference to the Sample created from this query. | 
- **Status** | **optional.String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
+**SampleSid** | **String**| An optional reference to the Sample created from this query. | 
+**Status** | **String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
 
 ### Return type
 
@@ -6265,18 +6174,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**|  | 
- **optional** | ***UpdateRatePlanOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateRatePlanRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateRatePlanOpts struct
+Optional parameters are passed through a pointer to a UpdateRatePlanRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**|  | 
- **UniqueName** | **optional.String**|  | 
+**FriendlyName** | **String**|  | 
+**UniqueName** | **String**|  | 
 
 ### Return type
 
@@ -6311,21 +6219,18 @@ Name | Type | Description  | Notes
 **AssistantSid** | **string**| The unique ID of the Assistant. | 
 **TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateSampleOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSampleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSampleOpts struct
+Optional parameters are passed through a pointer to a UpdateSampleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **Language** | **optional.String**| An ISO language-country string of the sample. | 
- **SourceChannel** | **optional.String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
- **TaggedText** | **optional.String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
+**Language** | **String**| An ISO language-country string of the sample. | 
+**SourceChannel** | **String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
+**TaggedText** | **String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
 
 ### Return type
 
@@ -6358,20 +6263,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**|  | 
- **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **AclEnabled** | **optional.Bool**|  | 
- **FriendlyName** | **optional.String**|  | 
- **ReachabilityWebhooksEnabled** | **optional.Bool**|  | 
- **WebhookUrl** | **optional.String**|  | 
+**AclEnabled** | **Bool**|  | 
+**FriendlyName** | **String**|  | 
+**ReachabilityWebhooksEnabled** | **Bool**|  | 
+**WebhookUrl** | **String**|  | 
 
 ### Return type
 
@@ -6404,32 +6308,31 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**|  | 
- **optional** | ***UpdateSimOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSimRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSimOpts struct
+Optional parameters are passed through a pointer to a UpdateSimRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **CallbackMethod** | **optional.String**|  | 
- **CallbackUrl** | **optional.String**|  | 
- **CommandsCallbackMethod** | **optional.String**|  | 
- **CommandsCallbackUrl** | **optional.String**|  | 
- **FriendlyName** | **optional.String**|  | 
- **RatePlan** | **optional.String**|  | 
- **SmsFallbackMethod** | **optional.String**|  | 
- **SmsFallbackUrl** | **optional.String**|  | 
- **SmsMethod** | **optional.String**|  | 
- **SmsUrl** | **optional.String**|  | 
- **Status** | **optional.String**|  | 
- **UniqueName** | **optional.String**|  | 
- **VoiceFallbackMethod** | **optional.String**|  | 
- **VoiceFallbackUrl** | **optional.String**|  | 
- **VoiceMethod** | **optional.String**|  | 
- **VoiceUrl** | **optional.String**|  | 
+**CallbackMethod** | **String**|  | 
+**CallbackUrl** | **String**|  | 
+**CommandsCallbackMethod** | **String**|  | 
+**CommandsCallbackUrl** | **String**|  | 
+**FriendlyName** | **String**|  | 
+**RatePlan** | **String**|  | 
+**SmsFallbackMethod** | **String**|  | 
+**SmsFallbackUrl** | **String**|  | 
+**SmsMethod** | **String**|  | 
+**SmsUrl** | **String**|  | 
+**Status** | **String**|  | 
+**UniqueName** | **String**|  | 
+**VoiceFallbackMethod** | **String**|  | 
+**VoiceFallbackUrl** | **String**|  | 
+**VoiceMethod** | **String**|  | 
+**VoiceUrl** | **String**|  | 
 
 ### Return type
 
@@ -6464,17 +6367,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the Assistant | 
- **optional** | ***UpdateStyleSheetOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateStyleSheetRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateStyleSheetOpts struct
+Optional parameters are passed through a pointer to a UpdateStyleSheetRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **StyleSheet** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON Style sheet string | 
+**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON Style sheet string | 
 
 ### Return type
 
@@ -6509,20 +6411,17 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **ListSid** | **string**|  | 
 **Index** | **int32**|  | 
- **optional** | ***UpdateSyncListItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncListItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncListItemOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncListItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+**IfMatch** | **String**| The If-Match HTTP request header | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -6559,21 +6458,18 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
 **ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
 **Identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
- **optional** | ***UpdateSyncListPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncListPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncListPermissionOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncListPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **Manage** | **optional.Bool**| Boolean flag specifying whether the identity can delete the Sync List. | 
- **Read** | **optional.Bool**| Boolean flag specifying whether the identity can read the Sync List. | 
- **Write** | **optional.Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync List. | 
+**Manage** | **Bool**| Boolean flag specifying whether the identity can delete the Sync List. | 
+**Read** | **Bool**| Boolean flag specifying whether the identity can read the Sync List. | 
+**Write** | **Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync List. | 
 
 ### Return type
 
@@ -6608,20 +6504,17 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **MapSid** | **string**|  | 
 **Key** | **string**|  | 
- **optional** | ***UpdateSyncMapItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncMapItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncMapItemOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncMapItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)|  | 
+**IfMatch** | **String**| The If-Match HTTP request header | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
 
 ### Return type
 
@@ -6658,21 +6551,18 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
 **MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
 **Identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
- **optional** | ***UpdateSyncMapPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncMapPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncMapPermissionOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncMapPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **Manage** | **optional.Bool**| Boolean flag specifying whether the identity can delete the Sync Map. | 
- **Read** | **optional.Bool**| Boolean flag specifying whether the identity can read the Sync Map. | 
- **Write** | **optional.Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map. | 
+**Manage** | **Bool**| Boolean flag specifying whether the identity can delete the Sync Map. | 
+**Read** | **Bool**| Boolean flag specifying whether the identity can read the Sync Map. | 
+**Write** | **Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map. | 
 
 ### Return type
 
@@ -6706,21 +6596,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the Assistant. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateTaskOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateTaskRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateTaskOpts struct
+Optional parameters are passed through a pointer to a UpdateTaskRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Actions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
- **ActionsUrl** | **optional.String**| User-provided HTTP endpoint where from the assistant fetches actions | 
- **FriendlyName** | **optional.String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
- **UniqueName** | **optional.String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**Actions** | [**map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
+**ActionsUrl** | **String**| User-provided HTTP endpoint where from the assistant fetches actions | 
+**FriendlyName** | **String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -6756,18 +6644,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **AssistantSid** | **string**| The unique ID of the parent Assistant. | 
 **TaskSid** | **string**| The unique ID of the Task. | 
- **optional** | ***UpdateTaskActionsOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateTaskActionsRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateTaskActionsOpts struct
+Optional parameters are passed through a pointer to a UpdateTaskActionsRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Actions** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The JSON actions that instruct the Assistant how to perform this task. | 
+**Actions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions that instruct the Assistant how to perform this task. | 
 
 ### Return type
 

@@ -29,22 +29,21 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ResourceType** | **string**| The type of communication – Messages or Calls, Conferences, and Participants | 
- **optional** | ***CreateExportCustomJobOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateExportCustomJobRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateExportCustomJobOpts struct
+Optional parameters are passed through a pointer to a CreateExportCustomJobRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Email** | **optional.String**| The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job&#39;s status. | 
- **EndDay** | **optional.String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
- **FriendlyName** | **optional.String**| The friendly name specified when creating the job | 
- **StartDay** | **optional.String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
- **WebhookMethod** | **optional.String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
- **WebhookUrl** | **optional.String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. If you set neither webhook nor email, you will have to check your job&#39;s status manually. | 
+**Email** | **String**| The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job&#39;s status. | 
+**EndDay** | **String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
+**FriendlyName** | **String**| The friendly name specified when creating the job | 
+**StartDay** | **String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
+**WebhookMethod** | **String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
+**WebhookUrl** | **String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. If you set neither webhook nor email, you will have to check your job&#39;s status manually. | 
 
 ### Return type
 
@@ -246,17 +245,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***ListDayOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDayRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDayOpts struct
+Optional parameters are passed through a pointer to a ListDayRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -289,17 +287,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***ListExportCustomJobOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListExportCustomJobRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListExportCustomJobOpts struct
+Optional parameters are passed through a pointer to a ListExportCustomJobRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -334,19 +331,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***UpdateExportConfigurationOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateExportConfigurationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateExportConfigurationOpts struct
+Optional parameters are passed through a pointer to a UpdateExportConfigurationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Enabled** | **optional.Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
- **WebhookMethod** | **optional.String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
- **WebhookUrl** | **optional.String**| Stores the URL destination for the method specified in webhook_method. | 
+**Enabled** | **Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
+**WebhookMethod** | **String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
+**WebhookUrl** | **String**| Stores the URL destination for the method specified in webhook_method. | 
 
 ### Return type
 

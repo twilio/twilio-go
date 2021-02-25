@@ -105,25 +105,25 @@ Create a new conversation in your account's default service
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateConversationOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateConversationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateConversationOpts struct
+Optional parameters are passed through a pointer to a CreateConversationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. | 
- **FriendlyName** | **optional.String**| The human-readable name of this conversation, limited to 256 characters. Optional. | 
- **MessagingServiceSid** | **optional.String**| The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. | 
- **State** | **optional.String**| Current state of this conversation. Can be either &#x60;active&#x60;, &#x60;inactive&#x60; or &#x60;closed&#x60; and defaults to &#x60;active&#x60; | 
- **TimersClosed** | **optional.String**| ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
- **TimersInactive** | **optional.String**| ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. | 
+**FriendlyName** | **String**| The human-readable name of this conversation, limited to 256 characters. Optional. | 
+**MessagingServiceSid** | **String**| The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. | 
+**State** | **String**| Current state of this conversation. Can be either &#x60;active&#x60;, &#x60;inactive&#x60; or &#x60;closed&#x60; and defaults to &#x60;active&#x60; | 
+**TimersClosed** | **String**| ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
+**TimersInactive** | **String**| ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. | 
 
 ### Return type
 
@@ -158,23 +158,22 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. | 
- **optional** | ***CreateConversationMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateConversationMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateConversationMessageOpts struct
+Optional parameters are passed through a pointer to a CreateConversationMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **Author** | **optional.String**| The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;. | 
- **Body** | **optional.String**| The content of the message, can be up to 1,600 characters long. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited. | 
- **MediaSid** | **optional.String**| The Media SID to be attached to the new Message. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**Author** | **String**| The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;. | 
+**Body** | **String**| The content of the message, can be up to 1,600 characters long. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited. | 
+**MediaSid** | **String**| The Media SID to be attached to the new Message. | 
 
 ### Return type
 
@@ -209,25 +208,24 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant. | 
- **optional** | ***CreateConversationParticipantOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateConversationParticipantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateConversationParticipantOpts struct
+Optional parameters are passed through a pointer to a CreateConversationParticipantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. | 
- **Identity** | **optional.String**| A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. | 
- **MessagingBindingAddress** | **optional.String**| The address of the participant&#39;s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the &#39;identity&#39; field). | 
- **MessagingBindingProjectedAddress** | **optional.String**| The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity. | 
- **MessagingBindingProxyAddress** | **optional.String**| The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the &#39;identity&#39; field). | 
- **RoleSid** | **optional.String**| The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. | 
+**Identity** | **String**| A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. | 
+**MessagingBindingAddress** | **String**| The address of the participant&#39;s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the &#39;identity&#39; field). | 
+**MessagingBindingProjectedAddress** | **String**| The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity. | 
+**MessagingBindingProxyAddress** | **String**| The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the &#39;identity&#39; field). | 
+**RoleSid** | **String**| The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. | 
 
 ### Return type
 
@@ -262,23 +260,22 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook. | 
- **optional** | ***CreateConversationScopedWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateConversationScopedWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateConversationScopedWebhookOpts struct
+Optional parameters are passed through a pointer to a CreateConversationScopedWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ConfigurationFilters** | [**optional.Interface of []string**](string.md)| The list of events, firing webhook event for this Conversation. | 
- **ConfigurationFlowSid** | **optional.String**| The studio flow SID, where the webhook should be sent to. | 
- **ConfigurationMethod** | **optional.String**| The HTTP method to be used when sending a webhook request. | 
- **ConfigurationReplayAfter** | **optional.Int32**| The message index for which and it&#39;s successors the webhook will be replayed. Not set by default | 
- **ConfigurationTriggers** | [**optional.Interface of []string**](string.md)| The list of keywords, firing webhook event for this Conversation. | 
- **ConfigurationUrl** | **optional.String**| The absolute url the webhook request should be sent to. | 
- **Target** | **optional.String**| The target of this webhook: &#x60;webhook&#x60;, &#x60;studio&#x60;, &#x60;trigger&#x60; | 
+**ConfigurationFilters** | [**[]string**](string.md)| The list of events, firing webhook event for this Conversation. | 
+**ConfigurationFlowSid** | **String**| The studio flow SID, where the webhook should be sent to. | 
+**ConfigurationMethod** | **String**| The HTTP method to be used when sending a webhook request. | 
+**ConfigurationReplayAfter** | **Int32**| The message index for which and it&#39;s successors the webhook will be replayed. Not set by default | 
+**ConfigurationTriggers** | [**[]string**](string.md)| The list of keywords, firing webhook event for this Conversation. | 
+**ConfigurationUrl** | **String**| The absolute url the webhook request should be sent to. | 
+**Target** | **String**| The target of this webhook: &#x60;webhook&#x60;, &#x60;studio&#x60;, &#x60;trigger&#x60; | 
 
 ### Return type
 
@@ -312,22 +309,22 @@ Add a new push notification credential to your account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCredentialOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCredentialRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCredentialOpts struct
+Optional parameters are passed through a pointer to a CreateCredentialRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ApiKey** | **optional.String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
- **Certificate** | **optional.String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60;. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **PrivateKey** | **optional.String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----&#x60;. | 
- **Sandbox** | **optional.Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
- **Secret** | **optional.String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
- **Type** | **optional.String**| The type of push-notification service the credential is for. Can be: &#x60;fcm&#x60;, &#x60;gcm&#x60;, or &#x60;apn&#x60;. | 
+**ApiKey** | **String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
+**Certificate** | **String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60;. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+**PrivateKey** | **String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----&#x60;. | 
+**Sandbox** | **Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
+**Secret** | **String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
+**Type** | **String**| The type of push-notification service the credential is for. Can be: &#x60;fcm&#x60;, &#x60;gcm&#x60;, or &#x60;apn&#x60;. | 
 
 ### Return type
 
@@ -361,18 +358,18 @@ Create a new user role in your account's default service
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateRoleOpts struct
+Optional parameters are passed through a pointer to a CreateRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **Permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60;. | 
- **Type** | **optional.String**| The type of role. Can be: &#x60;conversation&#x60; for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or &#x60;service&#x60; for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+**Permission** | [**[]string**](string.md)| A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60;. | 
+**Type** | **String**| The type of role. Can be: &#x60;conversation&#x60; for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or &#x60;service&#x60; for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles. | 
 
 ### Return type
 
@@ -406,16 +403,16 @@ Create a new conversation service on your account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceOpts struct
+Optional parameters are passed through a pointer to a CreateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **FriendlyName** | **optional.String**| The human-readable name of this service, limited to 256 characters. Optional. | 
+**FriendlyName** | **String**| The human-readable name of this service, limited to 256 characters. Optional. | 
 
 ### Return type
 
@@ -450,26 +447,25 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. | 
- **optional** | ***CreateServiceConversationOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceConversationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceConversationOpts struct
+Optional parameters are passed through a pointer to a CreateServiceConversationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. | 
- **FriendlyName** | **optional.String**| The human-readable name of this conversation, limited to 256 characters. Optional. | 
- **MessagingServiceSid** | **optional.String**| The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. | 
- **State** | **optional.String**| Current state of this conversation. Can be either &#x60;active&#x60;, &#x60;inactive&#x60; or &#x60;closed&#x60; and defaults to &#x60;active&#x60; | 
- **TimersClosed** | **optional.String**| ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
- **TimersInactive** | **optional.String**| ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. | 
+**FriendlyName** | **String**| The human-readable name of this conversation, limited to 256 characters. Optional. | 
+**MessagingServiceSid** | **String**| The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. | 
+**State** | **String**| Current state of this conversation. Can be either &#x60;active&#x60;, &#x60;inactive&#x60; or &#x60;closed&#x60; and defaults to &#x60;active&#x60; | 
+**TimersClosed** | **String**| ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
+**TimersInactive** | **String**| ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. | 
 
 ### Return type
 
@@ -505,24 +501,22 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. | 
- **optional** | ***CreateServiceConversationMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceConversationMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceConversationMessageOpts struct
+Optional parameters are passed through a pointer to a CreateServiceConversationMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **Author** | **optional.String**| The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;. | 
- **Body** | **optional.String**| The content of the message, can be up to 1,600 characters long. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited. | 
- **MediaSid** | **optional.String**| The Media SID to be attached to the new Message. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**Author** | **String**| The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;. | 
+**Body** | **String**| The content of the message, can be up to 1,600 characters long. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited. | 
+**MediaSid** | **String**| The Media SID to be attached to the new Message. | 
 
 ### Return type
 
@@ -558,26 +552,24 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant. | 
- **optional** | ***CreateServiceConversationParticipantOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceConversationParticipantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceConversationParticipantOpts struct
+Optional parameters are passed through a pointer to a CreateServiceConversationParticipantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. | 
- **Identity** | **optional.String**| A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters. | 
- **MessagingBindingAddress** | **optional.String**| The address of the participant&#39;s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the &#39;identity&#39; field). | 
- **MessagingBindingProjectedAddress** | **optional.String**| The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity. | 
- **MessagingBindingProxyAddress** | **optional.String**| The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the &#39;identity&#39; field). | 
- **RoleSid** | **optional.String**| The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. | 
+**Identity** | **String**| A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters. | 
+**MessagingBindingAddress** | **String**| The address of the participant&#39;s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the &#39;identity&#39; field). | 
+**MessagingBindingProjectedAddress** | **String**| The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity. | 
+**MessagingBindingProxyAddress** | **String**| The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the &#39;identity&#39; field). | 
+**RoleSid** | **String**| The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. | 
 
 ### Return type
 
@@ -613,24 +605,22 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook. | 
- **optional** | ***CreateServiceConversationScopedWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceConversationScopedWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceConversationScopedWebhookOpts struct
+Optional parameters are passed through a pointer to a CreateServiceConversationScopedWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **ConfigurationFilters** | [**optional.Interface of []string**](string.md)| The list of events, firing webhook event for this Conversation. | 
- **ConfigurationFlowSid** | **optional.String**| The studio flow SID, where the webhook should be sent to. | 
- **ConfigurationMethod** | **optional.String**| The HTTP method to be used when sending a webhook request. | 
- **ConfigurationReplayAfter** | **optional.Int32**| The message index for which and it&#39;s successors the webhook will be replayed. Not set by default | 
- **ConfigurationTriggers** | [**optional.Interface of []string**](string.md)| The list of keywords, firing webhook event for this Conversation. | 
- **ConfigurationUrl** | **optional.String**| The absolute url the webhook request should be sent to. | 
- **Target** | **optional.String**| The target of this webhook: &#x60;webhook&#x60;, &#x60;studio&#x60;, &#x60;trigger&#x60; | 
+**ConfigurationFilters** | [**[]string**](string.md)| The list of events, firing webhook event for this Conversation. | 
+**ConfigurationFlowSid** | **String**| The studio flow SID, where the webhook should be sent to. | 
+**ConfigurationMethod** | **String**| The HTTP method to be used when sending a webhook request. | 
+**ConfigurationReplayAfter** | **Int32**| The message index for which and it&#39;s successors the webhook will be replayed. Not set by default | 
+**ConfigurationTriggers** | [**[]string**](string.md)| The list of keywords, firing webhook event for this Conversation. | 
+**ConfigurationUrl** | **String**| The absolute url the webhook request should be sent to. | 
+**Target** | **String**| The target of this webhook: &#x60;webhook&#x60;, &#x60;studio&#x60;, &#x60;trigger&#x60; | 
 
 ### Return type
 
@@ -665,19 +655,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to create the Role resource under. | 
- **optional** | ***CreateServiceRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceRoleOpts struct
+Optional parameters are passed through a pointer to a CreateServiceRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **Permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60;. | 
- **Type** | **optional.String**| The type of role. Can be: &#x60;conversation&#x60; for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or &#x60;service&#x60; for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+**Permission** | [**[]string**](string.md)| A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60;. | 
+**Type** | **String**| The type of role. Can be: &#x60;conversation&#x60; for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or &#x60;service&#x60; for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles. | 
 
 ### Return type
 
@@ -712,21 +701,20 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with. | 
- **optional** | ***CreateServiceUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceUserOpts struct
+Optional parameters are passed through a pointer to a CreateServiceUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **Identity** | **optional.String**| The application-defined string that uniquely identifies the resource&#39;s User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive. | 
- **RoleSid** | **optional.String**| The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**Identity** | **String**| The application-defined string that uniquely identifies the resource&#39;s User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive. | 
+**RoleSid** | **String**| The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user. | 
 
 ### Return type
 
@@ -760,20 +748,20 @@ Add a new conversation user to your account's default service
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateUserOpts struct
+Optional parameters are passed through a pointer to a CreateUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **Identity** | **optional.String**| The application-defined string that uniquely identifies the resource&#39;s User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive. | 
- **RoleSid** | **optional.String**| The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**Identity** | **String**| The application-defined string that uniquely identifies the resource&#39;s User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive. | 
+**RoleSid** | **String**| The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user. | 
 
 ### Return type
 
@@ -808,17 +796,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. Can also be the &#x60;unique_name&#x60; of the Conversation. | 
- **optional** | ***DeleteConversationOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteConversationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteConversationOpts struct
+Optional parameters are passed through a pointer to a DeleteConversationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -854,18 +841,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***DeleteConversationMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteConversationMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteConversationMessageOpts struct
+Optional parameters are passed through a pointer to a DeleteConversationMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -901,18 +886,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***DeleteConversationParticipantOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteConversationParticipantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteConversationParticipantOpts struct
+Optional parameters are passed through a pointer to a DeleteConversationParticipantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -1120,18 +1103,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. Can also be the &#x60;unique_name&#x60; of the Conversation. | 
- **optional** | ***DeleteServiceConversationOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteServiceConversationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteServiceConversationOpts struct
+Optional parameters are passed through a pointer to a DeleteServiceConversationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -1168,19 +1149,16 @@ Name | Type | Description  | Notes
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***DeleteServiceConversationMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteServiceConversationMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteServiceConversationMessageOpts struct
+Optional parameters are passed through a pointer to a DeleteServiceConversationMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -1217,19 +1195,16 @@ Name | Type | Description  | Notes
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***DeleteServiceConversationParticipantOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteServiceConversationParticipantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteServiceConversationParticipantOpts struct
+Optional parameters are passed through a pointer to a DeleteServiceConversationParticipantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -1336,18 +1311,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the User resource from. | 
 **Sid** | **string**| The SID of the User resource to delete. This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource to delete. | 
- **optional** | ***DeleteServiceUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteServiceUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteServiceUserOpts struct
+Optional parameters are passed through a pointer to a DeleteServiceUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -1382,17 +1355,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The SID of the User resource to delete. This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource to delete. | 
- **optional** | ***DeleteUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteUserOpts struct
+Optional parameters are passed through a pointer to a DeleteUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -2148,16 +2120,16 @@ Retrieve a list of conversations in your account's default service
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListConversationOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListConversationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListConversationOpts struct
+Optional parameters are passed through a pointer to a ListConversationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2192,17 +2164,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages. | 
- **optional** | ***ListConversationMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListConversationMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListConversationMessageOpts struct
+Optional parameters are passed through a pointer to a ListConversationMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2238,18 +2209,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. | 
 **MessageSid** | **string**| The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to. | 
- **optional** | ***ListConversationMessageReceiptOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListConversationMessageReceiptRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListConversationMessageReceiptOpts struct
+Optional parameters are passed through a pointer to a ListConversationMessageReceiptRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2284,17 +2253,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants. | 
- **optional** | ***ListConversationParticipantOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListConversationParticipantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListConversationParticipantOpts struct
+Optional parameters are passed through a pointer to a ListConversationParticipantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2329,17 +2297,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook. | 
- **optional** | ***ListConversationScopedWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListConversationScopedWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListConversationScopedWebhookOpts struct
+Optional parameters are passed through a pointer to a ListConversationScopedWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2373,16 +2340,16 @@ Retrieve a list of all push notification credentials on your account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCredentialOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCredentialRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCredentialOpts struct
+Optional parameters are passed through a pointer to a ListCredentialRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2416,16 +2383,16 @@ Retrieve a list of all user roles in your account's default service
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListRoleOpts struct
+Optional parameters are passed through a pointer to a ListRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2459,16 +2426,16 @@ Retrieve a list of all conversation services on your account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceOpts struct
+Optional parameters are passed through a pointer to a ListServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2503,19 +2470,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with. | 
- **optional** | ***ListServiceBindingOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceBindingRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceBindingOpts struct
+Optional parameters are passed through a pointer to a ListServiceBindingRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **BindingType** | [**optional.Interface of []string**](string.md)| The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. | 
- **Identity** | [**optional.Interface of []string**](string.md)| The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**BindingType** | [**[]string**](string.md)| The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. | 
+**Identity** | [**[]string**](string.md)| The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2550,17 +2516,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. | 
- **optional** | ***ListServiceConversationOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceConversationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceConversationOpts struct
+Optional parameters are passed through a pointer to a ListServiceConversationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2596,18 +2561,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages. | 
- **optional** | ***ListServiceConversationMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceConversationMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceConversationMessageOpts struct
+Optional parameters are passed through a pointer to a ListServiceConversationMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2644,19 +2607,16 @@ Name | Type | Description  | Notes
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. | 
 **MessageSid** | **string**| The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to. | 
- **optional** | ***ListServiceConversationMessageReceiptOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceConversationMessageReceiptRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceConversationMessageReceiptOpts struct
+Optional parameters are passed through a pointer to a ListServiceConversationMessageReceiptRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2692,18 +2652,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants. | 
- **optional** | ***ListServiceConversationParticipantOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceConversationParticipantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceConversationParticipantOpts struct
+Optional parameters are passed through a pointer to a ListServiceConversationParticipantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2739,18 +2697,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook. | 
- **optional** | ***ListServiceConversationScopedWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceConversationScopedWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceConversationScopedWebhookOpts struct
+Optional parameters are passed through a pointer to a ListServiceConversationScopedWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2785,17 +2741,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the Role resources from. | 
- **optional** | ***ListServiceRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceRoleOpts struct
+Optional parameters are passed through a pointer to a ListServiceRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2830,17 +2785,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the User resources from. | 
- **optional** | ***ListServiceUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceUserOpts struct
+Optional parameters are passed through a pointer to a ListServiceUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2874,16 +2828,16 @@ Retrieve a list of all conversation users in your account's default service
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListUserOpts struct
+Optional parameters are passed through a pointer to a ListUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -2917,19 +2871,19 @@ Update the global configuration of conversations on your account
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateConfigurationOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateConfigurationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateConfigurationOpts struct
+Optional parameters are passed through a pointer to a UpdateConfigurationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **DefaultChatServiceSid** | **optional.String**| The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation. | 
- **DefaultClosedTimer** | **optional.String**| Default ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
- **DefaultInactiveTimer** | **optional.String**| Default ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
- **DefaultMessagingServiceSid** | **optional.String**| The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation. | 
+**DefaultChatServiceSid** | **String**| The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation. | 
+**DefaultClosedTimer** | **String**| Default ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
+**DefaultInactiveTimer** | **String**| Default ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
+**DefaultMessagingServiceSid** | **String**| The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation. | 
 
 ### Return type
 
@@ -2961,20 +2915,20 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateConfigurationWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateConfigurationWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateConfigurationWebhookOpts struct
+Optional parameters are passed through a pointer to a UpdateConfigurationWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Filters** | [**optional.Interface of []string**](string.md)| The list of webhook event triggers that are enabled for this Service: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60; | 
- **Method** | **optional.String**| The HTTP method to be used when sending a webhook request. | 
- **PostWebhookUrl** | **optional.String**| The absolute url the post-event webhook request should be sent to. | 
- **PreWebhookUrl** | **optional.String**| The absolute url the pre-event webhook request should be sent to. | 
- **Target** | **optional.String**| The routing target of the webhook. | 
+**Filters** | [**[]string**](string.md)| The list of webhook event triggers that are enabled for this Service: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60; | 
+**Method** | **String**| The HTTP method to be used when sending a webhook request. | 
+**PostWebhookUrl** | **String**| The absolute url the post-event webhook request should be sent to. | 
+**PreWebhookUrl** | **String**| The absolute url the pre-event webhook request should be sent to. | 
+**Target** | **String**| The routing target of the webhook. | 
 
 ### Return type
 
@@ -3009,26 +2963,25 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. Can also be the &#x60;unique_name&#x60; of the Conversation. | 
- **optional** | ***UpdateConversationOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateConversationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateConversationOpts struct
+Optional parameters are passed through a pointer to a UpdateConversationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. | 
- **FriendlyName** | **optional.String**| The human-readable name of this conversation, limited to 256 characters. Optional. | 
- **MessagingServiceSid** | **optional.String**| The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. | 
- **State** | **optional.String**| Current state of this conversation. Can be either &#x60;active&#x60;, &#x60;inactive&#x60; or &#x60;closed&#x60; and defaults to &#x60;active&#x60; | 
- **TimersClosed** | **optional.String**| ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
- **TimersInactive** | **optional.String**| ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. | 
+**FriendlyName** | **String**| The human-readable name of this conversation, limited to 256 characters. Optional. | 
+**MessagingServiceSid** | **String**| The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. | 
+**State** | **String**| Current state of this conversation. Can be either &#x60;active&#x60;, &#x60;inactive&#x60; or &#x60;closed&#x60; and defaults to &#x60;active&#x60; | 
+**TimersClosed** | **String**| ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
+**TimersInactive** | **String**| ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. | 
 
 ### Return type
 
@@ -3064,23 +3017,21 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateConversationMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateConversationMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateConversationMessageOpts struct
+Optional parameters are passed through a pointer to a UpdateConversationMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **Author** | **optional.String**| The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;. | 
- **Body** | **optional.String**| The content of the message, can be up to 1,600 characters long. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**Author** | **String**| The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;. | 
+**Body** | **String**| The content of the message, can be up to 1,600 characters long. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited. | 
 
 ### Return type
 
@@ -3116,27 +3067,25 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateConversationParticipantOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateConversationParticipantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateConversationParticipantOpts struct
+Optional parameters are passed through a pointer to a UpdateConversationParticipantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. | 
- **Identity** | **optional.String**| A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. | 
- **LastReadMessageIndex** | **optional.Int32**| Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. | 
- **LastReadTimestamp** | **optional.String**| Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. | 
- **MessagingBindingProjectedAddress** | **optional.String**| The address of the Twilio phone number that is used in Group MMS. &#39;null&#39; value will remove it. | 
- **MessagingBindingProxyAddress** | **optional.String**| The address of the Twilio phone number that the participant is in contact with. &#39;null&#39; value will remove it. | 
- **RoleSid** | **optional.String**| The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. | 
+**Identity** | **String**| A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. | 
+**LastReadMessageIndex** | **Int32**| Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. | 
+**LastReadTimestamp** | **String**| Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. | 
+**MessagingBindingProjectedAddress** | **String**| The address of the Twilio phone number that is used in Group MMS. &#39;null&#39; value will remove it. | 
+**MessagingBindingProxyAddress** | **String**| The address of the Twilio phone number that the participant is in contact with. &#39;null&#39; value will remove it. | 
+**RoleSid** | **String**| The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. | 
 
 ### Return type
 
@@ -3172,22 +3121,20 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateConversationScopedWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateConversationScopedWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateConversationScopedWebhookOpts struct
+Optional parameters are passed through a pointer to a UpdateConversationScopedWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **ConfigurationFilters** | [**optional.Interface of []string**](string.md)| The list of events, firing webhook event for this Conversation. | 
- **ConfigurationFlowSid** | **optional.String**| The studio flow SID, where the webhook should be sent to. | 
- **ConfigurationMethod** | **optional.String**| The HTTP method to be used when sending a webhook request. | 
- **ConfigurationTriggers** | [**optional.Interface of []string**](string.md)| The list of keywords, firing webhook event for this Conversation. | 
- **ConfigurationUrl** | **optional.String**| The absolute url the webhook request should be sent to. | 
+**ConfigurationFilters** | [**[]string**](string.md)| The list of events, firing webhook event for this Conversation. | 
+**ConfigurationFlowSid** | **String**| The studio flow SID, where the webhook should be sent to. | 
+**ConfigurationMethod** | **String**| The HTTP method to be used when sending a webhook request. | 
+**ConfigurationTriggers** | [**[]string**](string.md)| The list of keywords, firing webhook event for this Conversation. | 
+**ConfigurationUrl** | **String**| The absolute url the webhook request should be sent to. | 
 
 ### Return type
 
@@ -3222,23 +3169,22 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateCredentialOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateCredentialRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateCredentialOpts struct
+Optional parameters are passed through a pointer to a UpdateCredentialRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ApiKey** | **optional.String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
- **Certificate** | **optional.String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60;. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
- **PrivateKey** | **optional.String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----&#x60;. | 
- **Sandbox** | **optional.Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
- **Secret** | **optional.String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
- **Type** | **optional.String**| The type of push-notification service the credential is for. Can be: &#x60;fcm&#x60;, &#x60;gcm&#x60;, or &#x60;apn&#x60;. | 
+**ApiKey** | **String**| [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential. | 
+**Certificate** | **String**| [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60;. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the new resource. It can be up to 64 characters long. | 
+**PrivateKey** | **String**| [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----&#x60;. | 
+**Sandbox** | **Bool**| [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production. | 
+**Secret** | **String**| [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging. | 
+**Type** | **String**| The type of push-notification service the credential is for. Can be: &#x60;fcm&#x60;, &#x60;gcm&#x60;, or &#x60;apn&#x60;. | 
 
 ### Return type
 
@@ -3273,17 +3219,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The SID of the Role resource to update. | 
- **optional** | ***UpdateRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateRoleOpts struct
+Optional parameters are passed through a pointer to a UpdateRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role&#39;s &#x60;type&#x60;. | 
+**Permission** | [**[]string**](string.md)| A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role&#39;s &#x60;type&#x60;. | 
 
 ### Return type
 
@@ -3318,20 +3263,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the Service configuration resource to update. | 
- **optional** | ***UpdateServiceConfigurationOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceConfigurationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceConfigurationOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceConfigurationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **DefaultChatServiceRoleSid** | **optional.String**| The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. | 
- **DefaultConversationCreatorRoleSid** | **optional.String**| The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. | 
- **DefaultConversationRoleSid** | **optional.String**| The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. | 
- **ReachabilityEnabled** | **optional.Bool**| Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is &#x60;false&#x60;. | 
+**DefaultChatServiceRoleSid** | **String**| The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. | 
+**DefaultConversationCreatorRoleSid** | **String**| The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. | 
+**DefaultConversationRoleSid** | **String**| The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. | 
+**ReachabilityEnabled** | **Bool**| Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -3367,27 +3311,25 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. Can also be the &#x60;unique_name&#x60; of the Conversation. | 
- **optional** | ***UpdateServiceConversationOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceConversationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceConversationOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceConversationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. | 
- **FriendlyName** | **optional.String**| The human-readable name of this conversation, limited to 256 characters. Optional. | 
- **MessagingServiceSid** | **optional.String**| The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. | 
- **State** | **optional.String**| Current state of this conversation. Can be either &#x60;active&#x60;, &#x60;inactive&#x60; or &#x60;closed&#x60; and defaults to &#x60;active&#x60; | 
- **TimersClosed** | **optional.String**| ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
- **TimersInactive** | **optional.String**| ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. | 
+**FriendlyName** | **String**| The human-readable name of this conversation, limited to 256 characters. Optional. | 
+**MessagingServiceSid** | **String**| The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to. | 
+**State** | **String**| Current state of this conversation. Can be either &#x60;active&#x60;, &#x60;inactive&#x60; or &#x60;closed&#x60; and defaults to &#x60;active&#x60; | 
+**TimersClosed** | **String**| ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. Minimum value for this timer is 10 minutes. | 
+**TimersInactive** | **String**| ISO8601 duration when conversation will be switched to &#x60;inactive&#x60; state. Minimum value for this timer is 1 minute. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. | 
 
 ### Return type
 
@@ -3424,24 +3366,21 @@ Name | Type | Description  | Notes
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateServiceConversationMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceConversationMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceConversationMessageOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceConversationMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **Author** | **optional.String**| The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;. | 
- **Body** | **optional.String**| The content of the message, can be up to 1,600 characters long. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**Author** | **String**| The channel specific identifier of the message&#39;s author. Defaults to &#x60;system&#x60;. | 
+**Body** | **String**| The content of the message, can be up to 1,600 characters long. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited. | 
 
 ### Return type
 
@@ -3478,28 +3417,25 @@ Name | Type | Description  | Notes
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateServiceConversationParticipantOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceConversationParticipantRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceConversationParticipantOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceConversationParticipantRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
- **DateCreated** | **optional.Time**| The date that this resource was created. | 
- **DateUpdated** | **optional.Time**| The date that this resource was last updated. | 
- **Identity** | **optional.String**| A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters. | 
- **LastReadMessageIndex** | **optional.Int32**| Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. | 
- **LastReadTimestamp** | **optional.String**| Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. | 
- **MessagingBindingProjectedAddress** | **optional.String**| The address of the Twilio phone number that is used in Group MMS. &#39;null&#39; value will remove it. | 
- **MessagingBindingProxyAddress** | **optional.String**| The address of the Twilio phone number that the participant is in contact with. &#39;null&#39; value will remove it. | 
- **RoleSid** | **optional.String**| The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned. | 
+**DateCreated** | **Time**| The date that this resource was created. | 
+**DateUpdated** | **Time**| The date that this resource was last updated. | 
+**Identity** | **String**| A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters. | 
+**LastReadMessageIndex** | **Int32**| Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. | 
+**LastReadTimestamp** | **String**| Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant. | 
+**MessagingBindingProjectedAddress** | **String**| The address of the Twilio phone number that is used in Group MMS. &#39;null&#39; value will remove it. | 
+**MessagingBindingProxyAddress** | **String**| The address of the Twilio phone number that the participant is in contact with. &#39;null&#39; value will remove it. | 
+**RoleSid** | **String**| The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant. | 
 
 ### Return type
 
@@ -3536,23 +3472,20 @@ Name | Type | Description  | Notes
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with. | 
 **ConversationSid** | **string**| The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook. | 
 **Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateServiceConversationScopedWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceConversationScopedWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceConversationScopedWebhookOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceConversationScopedWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **ConfigurationFilters** | [**optional.Interface of []string**](string.md)| The list of events, firing webhook event for this Conversation. | 
- **ConfigurationFlowSid** | **optional.String**| The studio flow SID, where the webhook should be sent to. | 
- **ConfigurationMethod** | **optional.String**| The HTTP method to be used when sending a webhook request. | 
- **ConfigurationTriggers** | [**optional.Interface of []string**](string.md)| The list of keywords, firing webhook event for this Conversation. | 
- **ConfigurationUrl** | **optional.String**| The absolute url the webhook request should be sent to. | 
+**ConfigurationFilters** | [**[]string**](string.md)| The list of events, firing webhook event for this Conversation. | 
+**ConfigurationFlowSid** | **String**| The studio flow SID, where the webhook should be sent to. | 
+**ConfigurationMethod** | **String**| The HTTP method to be used when sending a webhook request. | 
+**ConfigurationTriggers** | [**[]string**](string.md)| The list of keywords, firing webhook event for this Conversation. | 
+**ConfigurationUrl** | **String**| The absolute url the webhook request should be sent to. | 
 
 ### Return type
 
@@ -3587,27 +3520,26 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to. | 
- **optional** | ***UpdateServiceNotificationOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceNotificationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceNotificationOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceNotificationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **AddedToConversationEnabled** | **optional.Bool**| Whether to send a notification when a participant is added to a conversation. The default is &#x60;false&#x60;. | 
- **AddedToConversationSound** | **optional.String**| The name of the sound to play when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;. | 
- **AddedToConversationTemplate** | **optional.String**| The template to use to create the notification text displayed when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;. | 
- **LogEnabled** | **optional.Bool**| Weather the notification logging is enabled. | 
- **NewMessageBadgeCountEnabled** | **optional.Bool**| Whether the new message badge is enabled. The default is &#x60;false&#x60;. | 
- **NewMessageEnabled** | **optional.Bool**| Whether to send a notification when a new message is added to a conversation. The default is &#x60;false&#x60;. | 
- **NewMessageSound** | **optional.String**| The name of the sound to play when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;. | 
- **NewMessageTemplate** | **optional.String**| The template to use to create the notification text displayed when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;. | 
- **RemovedFromConversationEnabled** | **optional.Bool**| Whether to send a notification to a user when they are removed from a conversation. The default is &#x60;false&#x60;. | 
- **RemovedFromConversationSound** | **optional.String**| The name of the sound to play to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;. | 
- **RemovedFromConversationTemplate** | **optional.String**| The template to use to create the notification text displayed to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;. | 
+**AddedToConversationEnabled** | **Bool**| Whether to send a notification when a participant is added to a conversation. The default is &#x60;false&#x60;. | 
+**AddedToConversationSound** | **String**| The name of the sound to play when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;. | 
+**AddedToConversationTemplate** | **String**| The template to use to create the notification text displayed when a participant is added to a conversation and &#x60;added_to_conversation.enabled&#x60; is &#x60;true&#x60;. | 
+**LogEnabled** | **Bool**| Weather the notification logging is enabled. | 
+**NewMessageBadgeCountEnabled** | **Bool**| Whether the new message badge is enabled. The default is &#x60;false&#x60;. | 
+**NewMessageEnabled** | **Bool**| Whether to send a notification when a new message is added to a conversation. The default is &#x60;false&#x60;. | 
+**NewMessageSound** | **String**| The name of the sound to play when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;. | 
+**NewMessageTemplate** | **String**| The template to use to create the notification text displayed when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;. | 
+**RemovedFromConversationEnabled** | **Bool**| Whether to send a notification to a user when they are removed from a conversation. The default is &#x60;false&#x60;. | 
+**RemovedFromConversationSound** | **String**| The name of the sound to play to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;. | 
+**RemovedFromConversationTemplate** | **String**| The template to use to create the notification text displayed to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;. | 
 
 ### Return type
 
@@ -3643,18 +3575,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to update the Role resource in. | 
 **Sid** | **string**| The SID of the Role resource to update. | 
- **optional** | ***UpdateServiceRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceRoleOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Permission** | [**optional.Interface of []string**](string.md)| A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role&#39;s &#x60;type&#x60;. | 
+**Permission** | [**[]string**](string.md)| A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role&#39;s &#x60;type&#x60;. | 
 
 ### Return type
 
@@ -3690,21 +3620,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ChatServiceSid** | **string**| The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with. | 
 **Sid** | **string**| The SID of the User resource to update. This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource to update. | 
- **optional** | ***UpdateServiceUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceUserOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **RoleSid** | **optional.String**| The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**RoleSid** | **String**| The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user. | 
 
 ### Return type
 
@@ -3739,20 +3667,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The SID of the User resource to update. This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource to update. | 
- **optional** | ***UpdateUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateUserOpts struct
+Optional parameters are passed through a pointer to a UpdateUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**| The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **RoleSid** | **optional.String**| The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user. | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**| The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**RoleSid** | **String**| The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user. | 
 
 ### Return type
 

@@ -1,10 +1,9 @@
 # CreateIncomingPhoneNumberAssignedAddOnRequest
 
 ## Properties
-
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**InstalledAddOnSid** | **string** | The SID that identifies the Add-on installation. | 
+Name | Type | Notes
+------------ | ------------- | -------------
+**InstalledAddOnSid** | **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -44,17 +44,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk to associate the credential list with. | 
- **optional** | ***CreateCredentialListOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCredentialListRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCredentialListOpts struct
+Optional parameters are passed through a pointer to a CreateCredentialListRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **CredentialListSid** | **optional.String**| The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list. | 
+**CredentialListSid** | **String**| The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list. | 
 
 ### Return type
 
@@ -89,17 +88,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk to associate the IP Access Control List with. | 
- **optional** | ***CreateIpAccessControlListOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateIpAccessControlListRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateIpAccessControlListOpts struct
+Optional parameters are passed through a pointer to a CreateIpAccessControlListRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **IpAccessControlListSid** | **optional.String**| The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk. | 
+**IpAccessControlListSid** | **String**| The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk. | 
 
 ### Return type
 
@@ -132,21 +130,20 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk to associate the resource with. | 
- **optional** | ***CreateOriginationUrlOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateOriginationUrlRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateOriginationUrlOpts struct
+Optional parameters are passed through a pointer to a CreateOriginationUrlRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Enabled** | **optional.Bool**| Whether the URL is enabled. The default is &#x60;true&#x60;. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **Priority** | **optional.Int32**| The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. | 
- **SipUrl** | **optional.String**| The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. | 
- **Weight** | **optional.Int32**| The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. | 
+**Enabled** | **Bool**| Whether the URL is enabled. The default is &#x60;true&#x60;. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**Priority** | **Int32**| The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. | 
+**SipUrl** | **String**| The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. | 
+**Weight** | **Int32**| The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. | 
 
 ### Return type
 
@@ -179,17 +176,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk to associate the phone number with. | 
- **optional** | ***CreatePhoneNumberOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreatePhoneNumberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreatePhoneNumberOpts struct
+Optional parameters are passed through a pointer to a CreatePhoneNumberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PhoneNumberSid** | **optional.String**| The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk. | 
+**PhoneNumberSid** | **String**| The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk. | 
 
 ### Return type
 
@@ -221,22 +217,22 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateTrunkOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateTrunkRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateTrunkOpts struct
+Optional parameters are passed through a pointer to a CreateTrunkRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **CnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
- **DisasterRecoveryMethod** | **optional.String**| The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **DisasterRecoveryUrl** | **optional.String**| The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. | 
- **DomainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **Secure** | **optional.Bool**| Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. | 
- **TransferMode** | **optional.String**| The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. | 
+**CnamLookupEnabled** | **Bool**| Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
+**DisasterRecoveryMethod** | **String**| The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**DisasterRecoveryUrl** | **String**| The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. | 
+**DomainName** | **String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**Secure** | **Bool**| Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. | 
+**TransferMode** | **String**| The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. | 
 
 ### Return type
 
@@ -631,17 +627,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk from which to read the credential lists. | 
- **optional** | ***ListCredentialListOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCredentialListRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCredentialListOpts struct
+Optional parameters are passed through a pointer to a ListCredentialListRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -676,17 +671,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk from which to read the IP Access Control Lists. | 
- **optional** | ***ListIpAccessControlListOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListIpAccessControlListRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListIpAccessControlListOpts struct
+Optional parameters are passed through a pointer to a ListIpAccessControlListRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -719,17 +713,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk from which to read the OriginationUrl. | 
- **optional** | ***ListOriginationUrlOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListOriginationUrlRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListOriginationUrlOpts struct
+Optional parameters are passed through a pointer to a ListOriginationUrlRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -762,17 +755,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk from which to read the PhoneNumber resources. | 
- **optional** | ***ListPhoneNumberOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListPhoneNumberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListPhoneNumberOpts struct
+Optional parameters are passed through a pointer to a ListPhoneNumberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -804,16 +796,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListTrunkOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListTrunkRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListTrunkOpts struct
+Optional parameters are passed through a pointer to a ListTrunkRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -847,22 +839,20 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk from which to update the OriginationUrl. | 
 **Sid** | **string**| The unique string that we created to identify the OriginationUrl resource to update. | 
- **optional** | ***UpdateOriginationUrlOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateOriginationUrlRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateOriginationUrlOpts struct
+Optional parameters are passed through a pointer to a UpdateOriginationUrlRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Enabled** | **optional.Bool**| Whether the URL is enabled. The default is &#x60;true&#x60;. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **Priority** | **optional.Int32**| The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. | 
- **SipUrl** | **optional.String**| The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported. | 
- **Weight** | **optional.Int32**| The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. | 
+**Enabled** | **Bool**| Whether the URL is enabled. The default is &#x60;true&#x60;. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**Priority** | **Int32**| The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. | 
+**SipUrl** | **String**| The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported. | 
+**Weight** | **Int32**| The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. | 
 
 ### Return type
 
@@ -895,18 +885,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrunkSid** | **string**| The SID of the Trunk that will have its recording settings updated. | 
- **optional** | ***UpdateRecordingOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateRecordingRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateRecordingOpts struct
+Optional parameters are passed through a pointer to a UpdateRecordingRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Mode** | **optional.String**| The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual. | 
- **Trim** | **optional.String**| The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence. | 
+**Mode** | **String**| The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual. | 
+**Trim** | **String**| The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence. | 
 
 ### Return type
 
@@ -939,23 +928,22 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The unique string that we created to identify the OriginationUrl resource to update. | 
- **optional** | ***UpdateTrunkOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateTrunkRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateTrunkOpts struct
+Optional parameters are passed through a pointer to a UpdateTrunkRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **CnamLookupEnabled** | **optional.Bool**| Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
- **DisasterRecoveryMethod** | **optional.String**| The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
- **DisasterRecoveryUrl** | **optional.String**| The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. | 
- **DomainName** | **optional.String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **Secure** | **optional.Bool**| Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. | 
- **TransferMode** | **optional.String**| The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. | 
+**CnamLookupEnabled** | **Bool**| Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. | 
+**DisasterRecoveryMethod** | **String**| The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**DisasterRecoveryUrl** | **String**| The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. | 
+**DomainName** | **String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**Secure** | **Bool**| Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. | 
+**TransferMode** | **String**| The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. | 
 
 ### Return type
 

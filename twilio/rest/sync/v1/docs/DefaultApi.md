@@ -68,19 +68,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Document resource in. | 
- **optional** | ***CreateDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateDocumentOpts struct
+Optional parameters are passed through a pointer to a CreateDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. | 
- **Ttl** | **optional.Int32**| How long, in seconds, before the Sync Document expires and is deleted (the Sync Document&#39;s time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync Document does not expire. The Sync Document will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the Sync Document | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. | 
+**Ttl** | **Int32**| How long, in seconds, before the Sync Document expires and is deleted (the Sync Document&#39;s time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync Document does not expire. The Sync Document will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the Sync Document | 
 
 ### Return type
 
@@ -112,22 +111,22 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceOpts struct
+Optional parameters are passed through a pointer to a CreateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **AclEnabled** | **optional.Bool**| Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource. | 
- **FriendlyName** | **optional.String**| A string that you assign to describe the resource. | 
- **ReachabilityDebouncingEnabled** | **optional.Bool**| Whether every &#x60;endpoint_disconnected&#x60; event should occur after a configurable delay. The default is &#x60;false&#x60;, where the &#x60;endpoint_disconnected&#x60; event occurs immediately after disconnection. When &#x60;true&#x60;, intervening reconnections can prevent the &#x60;endpoint_disconnected&#x60; event. | 
- **ReachabilityDebouncingWindow** | **optional.Int32**| The reachability event delay in milliseconds if &#x60;reachability_debouncing_enabled&#x60; &#x3D; &#x60;true&#x60;.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the &#x60;webhook_url&#x60; is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to &#x60;webhook_url&#x60;. | 
- **ReachabilityWebhooksEnabled** | **optional.Bool**| Whether the service instance should call &#x60;webhook_url&#x60; when client endpoints connect to Sync. The default is &#x60;false&#x60;. | 
- **WebhookUrl** | **optional.String**| The URL we should call when Sync objects are manipulated. | 
- **WebhooksFromRestEnabled** | **optional.Bool**| Whether the Service instance should call &#x60;webhook_url&#x60; when the REST API is used to update Sync objects. The default is &#x60;false&#x60;. | 
+**AclEnabled** | **Bool**| Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource. | 
+**FriendlyName** | **String**| A string that you assign to describe the resource. | 
+**ReachabilityDebouncingEnabled** | **Bool**| Whether every &#x60;endpoint_disconnected&#x60; event should occur after a configurable delay. The default is &#x60;false&#x60;, where the &#x60;endpoint_disconnected&#x60; event occurs immediately after disconnection. When &#x60;true&#x60;, intervening reconnections can prevent the &#x60;endpoint_disconnected&#x60; event. | 
+**ReachabilityDebouncingWindow** | **Int32**| The reachability event delay in milliseconds if &#x60;reachability_debouncing_enabled&#x60; &#x3D; &#x60;true&#x60;.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the &#x60;webhook_url&#x60; is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to &#x60;webhook_url&#x60;. | 
+**ReachabilityWebhooksEnabled** | **Bool**| Whether the service instance should call &#x60;webhook_url&#x60; when client endpoints connect to Sync. The default is &#x60;false&#x60;. | 
+**WebhookUrl** | **String**| The URL we should call when Sync objects are manipulated. | 
+**WebhooksFromRestEnabled** | **Bool**| Whether the Service instance should call &#x60;webhook_url&#x60; when the REST API is used to update Sync objects. The default is &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -163,18 +162,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream Message in. | 
 **StreamSid** | **string**| The SID of the Sync Stream to create the new Stream Message resource for. | 
- **optional** | ***CreateStreamMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateStreamMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateStreamMessageOpts struct
+Optional parameters are passed through a pointer to a CreateStreamMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length. | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length. | 
 
 ### Return type
 
@@ -207,19 +204,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Sync List in. | 
- **optional** | ***CreateSyncListOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSyncListRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncListOpts struct
+Optional parameters are passed through a pointer to a CreateSyncListRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **CollectionTtl** | **optional.Int32**| How long, in seconds, before the Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Ttl** | **optional.Int32**| Alias for collection_ttl. If both are provided, this value is ignored. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The &#x60;unique_name&#x60; value can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. | 
+**CollectionTtl** | **Int32**| How long, in seconds, before the Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Ttl** | **Int32**| Alias for collection_ttl. If both are provided, this value is ignored. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The &#x60;unique_name&#x60; value can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. | 
 
 ### Return type
 
@@ -253,21 +249,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new List Item in. | 
 **ListSid** | **string**| The SID of the Sync List to add the new List Item to. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***CreateSyncListItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSyncListItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncListItemOpts struct
+Optional parameters are passed through a pointer to a CreateSyncListItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **CollectionTtl** | **optional.Int32**| How long, in seconds, before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. | 
- **ItemTtl** | **optional.Int32**| How long, in seconds, before the List Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the List Item does not expire. The List Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Ttl** | **optional.Int32**| An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored. | 
+**CollectionTtl** | **Int32**| How long, in seconds, before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. | 
+**ItemTtl** | **Int32**| How long, in seconds, before the List Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the List Item does not expire. The List Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Ttl** | **Int32**| An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored. | 
 
 ### Return type
 
@@ -300,19 +294,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Sync Map in. | 
- **optional** | ***CreateSyncMapOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSyncMapRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncMapOpts struct
+Optional parameters are passed through a pointer to a CreateSyncMapRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **CollectionTtl** | **optional.Int32**| How long, in seconds, before the Sync Map expires (time-to-live) and is deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync Map does not expire. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Ttl** | **optional.Int32**| An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. | 
+**CollectionTtl** | **Int32**| How long, in seconds, before the Sync Map expires (time-to-live) and is deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync Map does not expire. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Ttl** | **Int32**| An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. | 
 
 ### Return type
 
@@ -346,22 +339,20 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Map Item in. | 
 **MapSid** | **string**| The SID of the Sync Map to add the new Map Item to. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***CreateSyncMapItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSyncMapItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncMapItemOpts struct
+Optional parameters are passed through a pointer to a CreateSyncMapItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **CollectionTtl** | **optional.Int32**| How long, in seconds, before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync Map does not expire. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. | 
- **ItemTtl** | **optional.Int32**| How long, in seconds, before the Map Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Map Item does not expire.  The Map Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Key** | **optional.String**| The unique, user-defined key for the Map Item. Can be up to 320 characters long. | 
- **Ttl** | **optional.Int32**| An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored. | 
+**CollectionTtl** | **Int32**| How long, in seconds, before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync Map does not expire. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. | 
+**ItemTtl** | **Int32**| How long, in seconds, before the Map Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Map Item does not expire.  The Map Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Key** | **String**| The unique, user-defined key for the Map Item. Can be up to 320 characters long. | 
+**Ttl** | **Int32**| An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored. | 
 
 ### Return type
 
@@ -396,18 +387,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream in. | 
- **optional** | ***CreateSyncStreamOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSyncStreamRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncStreamOpts struct
+Optional parameters are passed through a pointer to a CreateSyncStreamRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Ttl** | **optional.Int32**| How long, in seconds, before the Stream expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Stream does not expire. The Stream will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **UniqueName** | **optional.String**| An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The &#x60;unique_name&#x60; value can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. | 
+**Ttl** | **Int32**| How long, in seconds, before the Stream expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Stream does not expire. The Stream will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The &#x60;unique_name&#x60; value can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource. | 
 
 ### Return type
 
@@ -576,19 +566,16 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to delete. | 
 **ListSid** | **string**| The SID of the Sync List with the Sync List Item resource to delete. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
 **Index** | **int32**| The index of the Sync List Item resource to delete. | 
- **optional** | ***DeleteSyncListItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteSyncListItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteSyncListItemOpts struct
+Optional parameters are passed through a pointer to a DeleteSyncListItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **IfMatch** | **optional.String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
+**IfMatch** | **String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
 
 ### Return type
 
@@ -692,19 +679,16 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to delete. | 
 **MapSid** | **string**| The SID of the Sync Map with the Sync Map Item resource to delete. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
 **Key** | **string**| The &#x60;key&#x60; value of the Sync Map Item resource to delete. | 
- **optional** | ***DeleteSyncMapItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteSyncMapItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteSyncMapItemOpts struct
+Optional parameters are passed through a pointer to a DeleteSyncMapItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **IfMatch** | **optional.String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
+**IfMatch** | **String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
 
 ### Return type
 
@@ -1150,17 +1134,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resources to read. | 
- **optional** | ***ListDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDocumentOpts struct
+Optional parameters are passed through a pointer to a ListDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1196,18 +1179,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resources to read. | 
 **DocumentSid** | **string**| The SID of the Sync Document with the Document Permission resources to read. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***ListDocumentPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDocumentPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDocumentPermissionOpts struct
+Optional parameters are passed through a pointer to a ListDocumentPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1239,16 +1220,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceOpts struct
+Optional parameters are passed through a pointer to a ListServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1281,17 +1262,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resources to read. | 
- **optional** | ***ListSyncListOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncListRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncListOpts struct
+Optional parameters are passed through a pointer to a ListSyncListRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1325,21 +1305,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the List Item resources to read. | 
 **ListSid** | **string**| The SID of the Sync List with the List Items to read. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***ListSyncListItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncListItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncListItemOpts struct
+Optional parameters are passed through a pointer to a ListSyncListItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Order** | **optional.String**| How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. | 
- **From** | **optional.String**| The &#x60;index&#x60; of the first Sync List Item resource to read. See also &#x60;bounds&#x60;. | 
- **Bounds** | **optional.String**| Whether to include the List Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the List Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next List Item. The default value is &#x60;inclusive&#x60;. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Order** | **String**| How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. | 
+**From** | **String**| The &#x60;index&#x60; of the first Sync List Item resource to read. See also &#x60;bounds&#x60;. | 
+**Bounds** | **String**| Whether to include the List Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the List Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next List Item. The default value is &#x60;inclusive&#x60;. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1375,18 +1353,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resources to read. | 
 **ListSid** | **string**| The SID of the Sync List with the Sync List Permission resources to read. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***ListSyncListPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncListPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncListPermissionOpts struct
+Optional parameters are passed through a pointer to a ListSyncListPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1419,17 +1395,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resources to read. | 
- **optional** | ***ListSyncMapOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncMapRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncMapOpts struct
+Optional parameters are passed through a pointer to a ListSyncMapRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1463,21 +1438,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Map Item resources to read. | 
 **MapSid** | **string**| The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***ListSyncMapItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncMapItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncMapItemOpts struct
+Optional parameters are passed through a pointer to a ListSyncMapItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Order** | **optional.String**| How to order the Map Items returned by their &#x60;key&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key. | 
- **From** | **optional.String**| The &#x60;key&#x60; of the first Sync Map Item resource to read. See also &#x60;bounds&#x60;. | 
- **Bounds** | **optional.String**| Whether to include the Map Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the Map Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next Map Item. The default value is &#x60;inclusive&#x60;. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Order** | **String**| How to order the Map Items returned by their &#x60;key&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key. | 
+**From** | **String**| The &#x60;key&#x60; of the first Sync Map Item resource to read. See also &#x60;bounds&#x60;. | 
+**Bounds** | **String**| Whether to include the Map Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the Map Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next Map Item. The default value is &#x60;inclusive&#x60;. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1513,18 +1486,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resources to read. Can be the Service&#39;s &#x60;sid&#x60; value or &#x60;default&#x60;. | 
 **MapSid** | **string**| The SID of the Sync Map with the Permission resources to read. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***ListSyncMapPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncMapPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncMapPermissionOpts struct
+Optional parameters are passed through a pointer to a ListSyncMapPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1559,17 +1530,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Stream resources to read. | 
- **optional** | ***ListSyncStreamOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSyncStreamRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSyncStreamOpts struct
+Optional parameters are passed through a pointer to a ListSyncStreamRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1603,20 +1573,18 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to update. | 
 **Sid** | **string**| The SID of the Document resource to update. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***UpdateDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateDocumentOpts struct
+Optional parameters are passed through a pointer to a UpdateDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **IfMatch** | **optional.String**| The If-Match HTTP request header | 
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. | 
- **Ttl** | **optional.Int32**| How long, in seconds, before the Sync Document expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Document resource does not expire. The Document resource will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**IfMatch** | **String**| The If-Match HTTP request header | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length. | 
+**Ttl** | **Int32**| How long, in seconds, before the Sync Document expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Document resource does not expire. The Document resource will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
 
 ### Return type
 
@@ -1653,21 +1621,18 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to update. | 
 **DocumentSid** | **string**| The SID of the Sync Document with the Document Permission resource to update. Can be the Document resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
 **Identity** | **string**| The application-defined string that uniquely identifies the User&#39;s Document Permission resource to update. | 
- **optional** | ***UpdateDocumentPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateDocumentPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateDocumentPermissionOpts struct
+Optional parameters are passed through a pointer to a UpdateDocumentPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **Manage** | **optional.Bool**| Whether the identity can delete the Sync Document. Default value is &#x60;false&#x60;. | 
- **Read** | **optional.Bool**| Whether the identity can read the Sync Document. Default value is &#x60;false&#x60;. | 
- **Write** | **optional.Bool**| Whether the identity can update the Sync Document. Default value is &#x60;false&#x60;. | 
+**Manage** | **Bool**| Whether the identity can delete the Sync Document. Default value is &#x60;false&#x60;. | 
+**Read** | **Bool**| Whether the identity can read the Sync Document. Default value is &#x60;false&#x60;. | 
+**Write** | **Bool**| Whether the identity can update the Sync Document. Default value is &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -1700,23 +1665,22 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The SID of the Service resource to update. | 
- **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **AclEnabled** | **optional.Bool**| Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource. | 
- **FriendlyName** | **optional.String**| A string that you assign to describe the resource. | 
- **ReachabilityDebouncingEnabled** | **optional.Bool**| Whether every &#x60;endpoint_disconnected&#x60; event should occur after a configurable delay. The default is &#x60;false&#x60;, where the &#x60;endpoint_disconnected&#x60; event occurs immediately after disconnection. When &#x60;true&#x60;, intervening reconnections can prevent the &#x60;endpoint_disconnected&#x60; event. | 
- **ReachabilityDebouncingWindow** | **optional.Int32**| The reachability event delay in milliseconds if &#x60;reachability_debouncing_enabled&#x60; &#x3D; &#x60;true&#x60;.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called. | 
- **ReachabilityWebhooksEnabled** | **optional.Bool**| Whether the service instance should call &#x60;webhook_url&#x60; when client endpoints connect to Sync. The default is &#x60;false&#x60;. | 
- **WebhookUrl** | **optional.String**| The URL we should call when Sync objects are manipulated. | 
- **WebhooksFromRestEnabled** | **optional.Bool**| Whether the Service instance should call &#x60;webhook_url&#x60; when the REST API is used to update Sync objects. The default is &#x60;false&#x60;. | 
+**AclEnabled** | **Bool**| Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource. | 
+**FriendlyName** | **String**| A string that you assign to describe the resource. | 
+**ReachabilityDebouncingEnabled** | **Bool**| Whether every &#x60;endpoint_disconnected&#x60; event should occur after a configurable delay. The default is &#x60;false&#x60;, where the &#x60;endpoint_disconnected&#x60; event occurs immediately after disconnection. When &#x60;true&#x60;, intervening reconnections can prevent the &#x60;endpoint_disconnected&#x60; event. | 
+**ReachabilityDebouncingWindow** | **Int32**| The reachability event delay in milliseconds if &#x60;reachability_debouncing_enabled&#x60; &#x3D; &#x60;true&#x60;.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called. | 
+**ReachabilityWebhooksEnabled** | **Bool**| Whether the service instance should call &#x60;webhook_url&#x60; when client endpoints connect to Sync. The default is &#x60;false&#x60;. | 
+**WebhookUrl** | **String**| The URL we should call when Sync objects are manipulated. | 
+**WebhooksFromRestEnabled** | **Bool**| Whether the Service instance should call &#x60;webhook_url&#x60; when the REST API is used to update Sync objects. The default is &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -1750,19 +1714,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update. | 
 **Sid** | **string**| The SID of the Sync List resource to update. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***UpdateSyncListOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncListRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncListOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncListRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **CollectionTtl** | **optional.Int32**| How long, in seconds, before the Sync List expires (time-to-live) and is deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Ttl** | **optional.Int32**| An alias for &#x60;collection_ttl&#x60;. If both are provided, this value is ignored. | 
+**CollectionTtl** | **Int32**| How long, in seconds, before the Sync List expires (time-to-live) and is deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Ttl** | **Int32**| An alias for &#x60;collection_ttl&#x60;. If both are provided, this value is ignored. | 
 
 ### Return type
 
@@ -1797,23 +1759,20 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update. | 
 **ListSid** | **string**| The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
 **Index** | **int32**| The index of the Sync List Item resource to update. | 
- **optional** | ***UpdateSyncListItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncListItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncListItemOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncListItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **IfMatch** | **optional.String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
- **CollectionTtl** | **optional.Int32**| How long, in seconds, before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. | 
- **ItemTtl** | **optional.Int32**| How long, in seconds, before the List Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the List Item does not expire. The List Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Ttl** | **optional.Int32**| An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored. | 
+**IfMatch** | **String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
+**CollectionTtl** | **Int32**| How long, in seconds, before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length. | 
+**ItemTtl** | **Int32**| How long, in seconds, before the List Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the List Item does not expire. The List Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Ttl** | **Int32**| An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored. | 
 
 ### Return type
 
@@ -1850,21 +1809,18 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resource to update. | 
 **ListSid** | **string**| The SID of the Sync List with the Sync List Permission resource to update. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
 **Identity** | **string**| The application-defined string that uniquely identifies the User&#39;s Sync List Permission resource to update. | 
- **optional** | ***UpdateSyncListPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncListPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncListPermissionOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncListPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **Manage** | **optional.Bool**| Whether the identity can delete the Sync List. Default value is &#x60;false&#x60;. | 
- **Read** | **optional.Bool**| Whether the identity can read the Sync List and its Items. Default value is &#x60;false&#x60;. | 
- **Write** | **optional.Bool**| Whether the identity can create, update, and delete Items in the Sync List. Default value is &#x60;false&#x60;. | 
+**Manage** | **Bool**| Whether the identity can delete the Sync List. Default value is &#x60;false&#x60;. | 
+**Read** | **Bool**| Whether the identity can read the Sync List and its Items. Default value is &#x60;false&#x60;. | 
+**Write** | **Bool**| Whether the identity can create, update, and delete Items in the Sync List. Default value is &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -1898,19 +1854,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to update. | 
 **Sid** | **string**| The SID of the Sync Map resource to update. Can be the Sync Map&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
- **optional** | ***UpdateSyncMapOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncMapRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncMapOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncMapRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **CollectionTtl** | **optional.Int32**| How long, in seconds, before the Sync Map expires (time-to-live) and is deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync Map does not expire. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Ttl** | **optional.Int32**| An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored. | 
+**CollectionTtl** | **Int32**| How long, in seconds, before the Sync Map expires (time-to-live) and is deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Sync Map does not expire. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Ttl** | **Int32**| An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored. | 
 
 ### Return type
 
@@ -1945,23 +1899,20 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to update. | 
 **MapSid** | **string**| The SID of the Sync Map with the Sync Map Item resource to update. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
 **Key** | **string**| The &#x60;key&#x60; value of the Sync Map Item resource to update.  | 
- **optional** | ***UpdateSyncMapItemOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncMapItemRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncMapItemOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncMapItemRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **IfMatch** | **optional.String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
- **CollectionTtl** | **optional.Int32**| How long, in seconds, before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync Map does not expire. This parameter can only be used when the Map Item&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Data** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. | 
- **ItemTtl** | **optional.Int32**| How long, in seconds, before the Map Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Map Item does not expire. The Map Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
- **Ttl** | **optional.Int32**| An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored. | 
+**IfMatch** | **String**| If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). | 
+**CollectionTtl** | **Int32**| How long, in seconds, before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the parent Sync Map does not expire. This parameter can only be used when the Map Item&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md)| A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length. | 
+**ItemTtl** | **Int32**| How long, in seconds, before the Map Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Map Item does not expire. The Map Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Ttl** | **Int32**| An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored. | 
 
 ### Return type
 
@@ -1998,21 +1949,18 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to update. Can be the Service&#39;s &#x60;sid&#x60; value or &#x60;default&#x60;. | 
 **MapSid** | **string**| The SID of the Sync Map with the Sync Map Permission resource to update. Can be the Sync Map resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;. | 
 **Identity** | **string**| The application-defined string that uniquely identifies the User&#39;s Sync Map Permission resource to update. | 
- **optional** | ***UpdateSyncMapPermissionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncMapPermissionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncMapPermissionOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncMapPermissionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **Manage** | **optional.Bool**| Whether the identity can delete the Sync Map. Default value is &#x60;false&#x60;. | 
- **Read** | **optional.Bool**| Whether the identity can read the Sync Map and its Items. Default value is &#x60;false&#x60;. | 
- **Write** | **optional.Bool**| Whether the identity can create, update, and delete Items in the Sync Map. Default value is &#x60;false&#x60;. | 
+**Manage** | **Bool**| Whether the identity can delete the Sync Map. Default value is &#x60;false&#x60;. | 
+**Read** | **Bool**| Whether the identity can read the Sync Map and its Items. Default value is &#x60;false&#x60;. | 
+**Write** | **Bool**| Whether the identity can create, update, and delete Items in the Sync Map. Default value is &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -2048,18 +1996,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to update. | 
 **Sid** | **string**| The SID of the Stream resource to update. | 
- **optional** | ***UpdateSyncStreamOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSyncStreamRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncStreamOpts struct
+Optional parameters are passed through a pointer to a UpdateSyncStreamRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Ttl** | **optional.Int32**| How long, in seconds, before the Stream expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Stream does not expire. The Stream will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
+**Ttl** | **Int32**| How long, in seconds, before the Stream expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is &#x60;0&#x60;, which means the Stream does not expire. The Stream will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources&#39;s deletion. | 
 
 ### Return type
 

@@ -1,10 +1,9 @@
 # CreateFunctionRequest
 
 ## Properties
-
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
+Name | Type | Notes
+------------ | ------------- | -------------
+**FriendlyName** | **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -60,17 +60,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CallSid** | **string**|  | 
- **optional** | ***FetchSummaryOpts** | optional parameters | nil if no parameters
+ **optional** | ***FetchSummaryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a FetchSummaryOpts struct
+Optional parameters are passed through a pointer to a FetchSummaryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ProcessingState** | **optional.String**|  | 
+**ProcessingState** | **String**|  | 
 
 ### Return type
 
@@ -168,18 +167,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CallSid** | **string**|  | 
- **optional** | ***ListEventOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListEventRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListEventOpts struct
+Optional parameters are passed through a pointer to a ListEventRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Edge** | **optional.String**|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Edge** | **String**|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -212,19 +210,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CallSid** | **string**|  | 
- **optional** | ***ListMetricOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListMetricRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListMetricOpts struct
+Optional parameters are passed through a pointer to a ListMetricRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Edge** | **optional.String**|  | 
- **Direction** | **optional.String**|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Edge** | **String**|  | 
+**Direction** | **String**|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -257,17 +254,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **RoomSid** | **string**|  | 
- **optional** | ***ListVideoParticipantSummaryOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListVideoParticipantSummaryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListVideoParticipantSummaryOpts struct
+Optional parameters are passed through a pointer to a ListVideoParticipantSummaryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -299,21 +295,21 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListVideoRoomSummaryOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListVideoRoomSummaryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListVideoRoomSummaryOpts struct
+Optional parameters are passed through a pointer to a ListVideoRoomSummaryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **RoomType** | [**optional.Interface of []string**](string.md)|  | 
- **Codec** | [**optional.Interface of []string**](string.md)|  | 
- **RoomName** | **optional.String**|  | 
- **CreatedAfter** | **optional.Time**|  | 
- **CreatedBefore** | **optional.Time**|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**RoomType** | [**[]string**](string.md)|  | 
+**Codec** | [**[]string**](string.md)|  | 
+**RoomName** | **String**|  | 
+**CreatedAfter** | **Time**|  | 
+**CreatedBefore** | **Time**|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

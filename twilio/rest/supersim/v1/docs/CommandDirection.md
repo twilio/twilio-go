@@ -1,9 +1,11 @@
 # CommandDirection
 
-## Properties
+## Enum
+Name | Type | Notes
+------------ | ------------- | -------------
+**TO_SIM** | string | (value: `"to_sim"`)
+**FROM_SIM** | string | (value: `"from_sim"`)
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
