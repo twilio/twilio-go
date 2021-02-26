@@ -3,11 +3,11 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**Beta** | Pointer to **bool** | [optional] 
-**Country** | Pointer to **string** | [optional] 
-**CountryCode** | Pointer to **string** | [optional] 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Uri** | Pointer to **string** | [optional] 
+**Beta** | Pointer to **bool** | 
+**Country** | Pointer to **string** | 
+**CountryCode** | Pointer to **string** | 
+**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**Uri** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

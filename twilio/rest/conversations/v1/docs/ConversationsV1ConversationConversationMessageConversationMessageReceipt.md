@@ -3,17 +3,17 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**ChannelMessageSid** | Pointer to **string** | [optional] 
-**ConversationSid** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**ErrorCode** | Pointer to **int32** | [optional] 
-**MessageSid** | Pointer to **string** | [optional] 
-**ParticipantSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**ConversationMessageReceiptDeliveryStatus**](conversation_message_receipt_delivery_status.md) | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**ChannelMessageSid** | Pointer to **string** | 
+**ConversationSid** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**ErrorCode** | Pointer to **int32** | 
+**MessageSid** | Pointer to **string** | 
+**ParticipantSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Status** | Pointer to [**ConversationMessageReceiptDeliveryStatus**](conversation_message_receipt_delivery_status.md) | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

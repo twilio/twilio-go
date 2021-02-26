@@ -3,11 +3,11 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**Fields** | Pointer to **[]map[string]interface{}** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**MachineName** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**Fields** | Pointer to **[]map[string]interface{}** | 
+**FriendlyName** | Pointer to **string** | 
+**MachineName** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -3,17 +3,17 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**CreatedBy** | Pointer to **string** | [optional] 
-**Data** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateExpires** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Index** | Pointer to **int32** | [optional] 
-**ListSid** | Pointer to **string** | [optional] 
-**Revision** | Pointer to **string** | [optional] 
-**ServiceSid** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**CreatedBy** | Pointer to **string** | 
+**Data** | Pointer to [**map[string]interface{}**](.md) | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateExpires** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**Index** | Pointer to **int32** | 
+**ListSid** | Pointer to **string** | 
+**Revision** | Pointer to **string** | 
+**ServiceSid** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

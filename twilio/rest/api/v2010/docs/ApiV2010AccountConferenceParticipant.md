@@ -3,20 +3,20 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**CallSid** | Pointer to **string** | [optional] 
-**CallSidToCoach** | Pointer to **string** | [optional] 
-**Coaching** | Pointer to **bool** | [optional] 
-**ConferenceSid** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to **string** | [optional] 
-**DateUpdated** | Pointer to **string** | [optional] 
-**EndConferenceOnExit** | Pointer to **bool** | [optional] 
-**Hold** | Pointer to **bool** | [optional] 
-**Label** | Pointer to **string** | [optional] 
-**Muted** | Pointer to **bool** | [optional] 
-**StartConferenceOnEnter** | Pointer to **bool** | [optional] 
-**Status** | Pointer to [**ParticipantStatus**](participant_status.md) | [optional] 
-**Uri** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**CallSid** | Pointer to **string** | 
+**CallSidToCoach** | Pointer to **string** | 
+**Coaching** | Pointer to **bool** | 
+**ConferenceSid** | Pointer to **string** | 
+**DateCreated** | Pointer to **string** | 
+**DateUpdated** | Pointer to **string** | 
+**EndConferenceOnExit** | Pointer to **bool** | 
+**Hold** | Pointer to **bool** | 
+**Label** | Pointer to **string** | 
+**Muted** | Pointer to **bool** | 
+**StartConferenceOnEnter** | Pointer to **bool** | 
+**Status** | Pointer to [**ParticipantStatus**](participant_status.md) | 
+**Uri** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

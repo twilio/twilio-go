@@ -3,11 +3,11 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Cumulative** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Realtime** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**TaskQueueSid** | Pointer to **string** | [optional] 
-**WorkspaceSid** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Cumulative** | Pointer to [**map[string]interface{}**](.md) | 
+**Realtime** | Pointer to [**map[string]interface{}**](.md) | 
+**TaskQueueSid** | Pointer to **string** | 
+**WorkspaceSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

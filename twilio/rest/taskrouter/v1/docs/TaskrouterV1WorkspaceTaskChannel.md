@@ -3,16 +3,16 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**ChannelOptimizedRouting** | Pointer to **bool** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**UniqueName** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**WorkspaceSid** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**ChannelOptimizedRouting** | Pointer to **bool** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**FriendlyName** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Sid** | Pointer to **string** | 
+**UniqueName** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
+**WorkspaceSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

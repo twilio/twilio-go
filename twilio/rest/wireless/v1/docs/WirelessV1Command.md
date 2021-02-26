@@ -3,18 +3,18 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Command** | Pointer to **string** | [optional] 
-**CommandMode** | Pointer to [**CommandCommandMode**](command_command_mode.md) | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DeliveryReceiptRequested** | Pointer to **bool** | [optional] 
-**Direction** | Pointer to [**CommandDirection**](command_direction.md) | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**SimSid** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**CommandStatus**](command_status.md) | [optional] 
-**Transport** | Pointer to [**CommandTransport**](command_transport.md) | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Command** | Pointer to **string** | 
+**CommandMode** | Pointer to [**CommandCommandMode**](command_command_mode.md) | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**DeliveryReceiptRequested** | Pointer to **bool** | 
+**Direction** | Pointer to [**CommandDirection**](command_direction.md) | 
+**Sid** | Pointer to **string** | 
+**SimSid** | Pointer to **string** | 
+**Status** | Pointer to [**CommandStatus**](command_status.md) | 
+**Transport** | Pointer to [**CommandTransport**](command_transport.md) | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

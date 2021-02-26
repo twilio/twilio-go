@@ -3,20 +3,20 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**BgColor** | Pointer to **string** | [optional] 
-**Caller** | Pointer to **string** | [optional] 
-**CreatedAt** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**FontColor** | Pointer to **string** | [optional] 
-**From** | Pointer to **string** | [optional] 
-**Logo** | Pointer to **string** | [optional] 
-**Manager** | Pointer to **string** | [optional] 
-**Reason** | Pointer to **string** | [optional] 
-**ShieldImg** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Status** | Pointer to **string** | [optional] 
-**To** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**UseCase** | Pointer to **string** | [optional] 
+**BgColor** | Pointer to **string** | 
+**Caller** | Pointer to **string** | 
+**CreatedAt** | Pointer to [**time.Time**](time.Time.md) | 
+**FontColor** | Pointer to **string** | 
+**From** | Pointer to **string** | 
+**Logo** | Pointer to **string** | 
+**Manager** | Pointer to **string** | 
+**Reason** | Pointer to **string** | 
+**ShieldImg** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Status** | Pointer to **string** | 
+**To** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
+**UseCase** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

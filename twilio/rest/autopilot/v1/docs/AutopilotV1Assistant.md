@@ -3,20 +3,20 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**CallbackEvents** | Pointer to **string** | [optional] 
-**CallbackUrl** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DevelopmentStage** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**LatestModelBuildSid** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**LogQueries** | Pointer to **bool** | [optional] 
-**NeedsModelBuild** | Pointer to **bool** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**UniqueName** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**CallbackEvents** | Pointer to **string** | 
+**CallbackUrl** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**DevelopmentStage** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**LatestModelBuildSid** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**LogQueries** | Pointer to **bool** | 
+**NeedsModelBuild** | Pointer to **bool** | 
+**Sid** | Pointer to **string** | 
+**UniqueName** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

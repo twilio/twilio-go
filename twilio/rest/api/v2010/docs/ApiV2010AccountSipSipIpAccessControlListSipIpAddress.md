@@ -3,15 +3,15 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**CidrPrefixLength** | Pointer to **int32** | [optional] 
-**DateCreated** | Pointer to **string** | [optional] 
-**DateUpdated** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**IpAccessControlListSid** | Pointer to **string** | [optional] 
-**IpAddress** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Uri** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**CidrPrefixLength** | Pointer to **int32** | 
+**DateCreated** | Pointer to **string** | 
+**DateUpdated** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**IpAccessControlListSid** | Pointer to **string** | 
+**IpAddress** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Uri** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

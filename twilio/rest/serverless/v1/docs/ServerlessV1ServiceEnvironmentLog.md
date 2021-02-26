@@ -3,18 +3,18 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**BuildSid** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DeploymentSid** | Pointer to **string** | [optional] 
-**EnvironmentSid** | Pointer to **string** | [optional] 
-**FunctionSid** | Pointer to **string** | [optional] 
-**Level** | Pointer to [**LogLevel**](log_level.md) | [optional] 
-**Message** | Pointer to **string** | [optional] 
-**RequestSid** | Pointer to **string** | [optional] 
-**ServiceSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**BuildSid** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DeploymentSid** | Pointer to **string** | 
+**EnvironmentSid** | Pointer to **string** | 
+**FunctionSid** | Pointer to **string** | 
+**Level** | Pointer to [**LogLevel**](log_level.md) | 
+**Message** | Pointer to **string** | 
+**RequestSid** | Pointer to **string** | 
+**ServiceSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -3,26 +3,26 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**ApiVersion** | Pointer to **string** | [optional] 
-**Body** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to **string** | [optional] 
-**DateSent** | Pointer to **string** | [optional] 
-**DateUpdated** | Pointer to **string** | [optional] 
-**Direction** | Pointer to [**MessageDirection**](message_direction.md) | [optional] 
-**ErrorCode** | Pointer to **int32** | [optional] 
-**ErrorMessage** | Pointer to **string** | [optional] 
-**From** | Pointer to **string** | [optional] 
-**MessagingServiceSid** | Pointer to **string** | [optional] 
-**NumMedia** | Pointer to **string** | [optional] 
-**NumSegments** | Pointer to **string** | [optional] 
-**Price** | Pointer to **string** | [optional] 
-**PriceUnit** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**MessageStatus**](message_status.md) | [optional] 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**To** | Pointer to **string** | [optional] 
-**Uri** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**ApiVersion** | Pointer to **string** | 
+**Body** | Pointer to **string** | 
+**DateCreated** | Pointer to **string** | 
+**DateSent** | Pointer to **string** | 
+**DateUpdated** | Pointer to **string** | 
+**Direction** | Pointer to [**MessageDirection**](message_direction.md) | 
+**ErrorCode** | Pointer to **int32** | 
+**ErrorMessage** | Pointer to **string** | 
+**From** | Pointer to **string** | 
+**MessagingServiceSid** | Pointer to **string** | 
+**NumMedia** | Pointer to **string** | 
+**NumSegments** | Pointer to **string** | 
+**Price** | Pointer to **string** | 
+**PriceUnit** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Status** | Pointer to [**MessageStatus**](message_status.md) | 
+**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**To** | Pointer to **string** | 
+**Uri** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

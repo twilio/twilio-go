@@ -3,12 +3,12 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**FriendlyName** | Pointer to **string** | [optional] 
-**Identifiers** | Pointer to **[]map[string]interface{}** | [optional] 
-**IsoCountry** | Pointer to **string** | [optional] 
-**NetworkAccessProfileSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**FriendlyName** | Pointer to **string** | 
+**Identifiers** | Pointer to **[]map[string]interface{}** | 
+**IsoCountry** | Pointer to **string** | 
+**NetworkAccessProfileSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

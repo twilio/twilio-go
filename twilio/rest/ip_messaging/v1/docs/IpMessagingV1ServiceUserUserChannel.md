@@ -3,14 +3,14 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**ChannelSid** | Pointer to **string** | [optional] 
-**LastConsumedMessageIndex** | Pointer to **int32** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**MemberSid** | Pointer to **string** | [optional] 
-**ServiceSid** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**UserChannelChannelStatus**](user_channel_channel_status.md) | [optional] 
-**UnreadMessagesCount** | Pointer to **int32** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**ChannelSid** | Pointer to **string** | 
+**LastConsumedMessageIndex** | Pointer to **int32** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**MemberSid** | Pointer to **string** | 
+**ServiceSid** | Pointer to **string** | 
+**Status** | Pointer to [**UserChannelChannelStatus**](user_channel_channel_status.md) | 
+**UnreadMessagesCount** | Pointer to **int32** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

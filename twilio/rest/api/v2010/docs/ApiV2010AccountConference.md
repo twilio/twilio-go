@@ -3,18 +3,18 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**ApiVersion** | Pointer to **string** | [optional] 
-**CallSidEndingConference** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to **string** | [optional] 
-**DateUpdated** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**ReasonConferenceEnded** | Pointer to [**ConferenceReasonConferenceEnded**](conference_reason_conference_ended.md) | [optional] 
-**Region** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**ConferenceStatus**](conference_status.md) | [optional] 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Uri** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**ApiVersion** | Pointer to **string** | 
+**CallSidEndingConference** | Pointer to **string** | 
+**DateCreated** | Pointer to **string** | 
+**DateUpdated** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**ReasonConferenceEnded** | Pointer to [**ConferenceReasonConferenceEnded**](conference_reason_conference_ended.md) | 
+**Region** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Status** | Pointer to [**ConferenceStatus**](conference_status.md) | 
+**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**Uri** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

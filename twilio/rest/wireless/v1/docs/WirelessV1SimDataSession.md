@@ -3,22 +3,22 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**CellId** | Pointer to **string** | [optional] 
-**CellLocationEstimate** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**End** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Imei** | Pointer to **string** | [optional] 
-**LastUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**OperatorCountry** | Pointer to **string** | [optional] 
-**OperatorMcc** | Pointer to **string** | [optional] 
-**OperatorMnc** | Pointer to **string** | [optional] 
-**OperatorName** | Pointer to **string** | [optional] 
-**PacketsDownloaded** | Pointer to **int32** | [optional] 
-**PacketsUploaded** | Pointer to **int32** | [optional] 
-**RadioLink** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**SimSid** | Pointer to **string** | [optional] 
-**Start** | Pointer to [**time.Time**](time.Time.md) | [optional] 
+**AccountSid** | Pointer to **string** | 
+**CellId** | Pointer to **string** | 
+**CellLocationEstimate** | Pointer to [**map[string]interface{}**](.md) | 
+**End** | Pointer to [**time.Time**](time.Time.md) | 
+**Imei** | Pointer to **string** | 
+**LastUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**OperatorCountry** | Pointer to **string** | 
+**OperatorMcc** | Pointer to **string** | 
+**OperatorMnc** | Pointer to **string** | 
+**OperatorName** | Pointer to **string** | 
+**PacketsDownloaded** | Pointer to **int32** | 
+**PacketsUploaded** | Pointer to **int32** | 
+**RadioLink** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**SimSid** | Pointer to **string** | 
+**Start** | Pointer to [**time.Time**](time.Time.md) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

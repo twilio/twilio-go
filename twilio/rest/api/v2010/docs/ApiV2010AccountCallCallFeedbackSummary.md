@@ -3,20 +3,20 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**CallCount** | Pointer to **int32** | [optional] 
-**CallFeedbackCount** | Pointer to **int32** | [optional] 
-**DateCreated** | Pointer to **string** | [optional] 
-**DateUpdated** | Pointer to **string** | [optional] 
-**EndDate** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**IncludeSubaccounts** | Pointer to **bool** | [optional] 
-**Issues** | Pointer to **[]map[string]interface{}** | [optional] 
-**QualityScoreAverage** | Pointer to **float32** | [optional] 
-**QualityScoreMedian** | Pointer to **float32** | [optional] 
-**QualityScoreStandardDeviation** | Pointer to **float32** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**StartDate** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Status** | Pointer to [**CallFeedbackSummaryStatus**](call_feedback_summary_status.md) | [optional] 
+**AccountSid** | Pointer to **string** | 
+**CallCount** | Pointer to **int32** | 
+**CallFeedbackCount** | Pointer to **int32** | 
+**DateCreated** | Pointer to **string** | 
+**DateUpdated** | Pointer to **string** | 
+**EndDate** | Pointer to [**time.Time**](time.Time.md) | 
+**IncludeSubaccounts** | Pointer to **bool** | 
+**Issues** | Pointer to **[]map[string]interface{}** | 
+**QualityScoreAverage** | Pointer to **float32** | 
+**QualityScoreMedian** | Pointer to **float32** | 
+**QualityScoreStandardDeviation** | Pointer to **float32** | 
+**Sid** | Pointer to **string** | 
+**StartDate** | Pointer to [**time.Time**](time.Time.md) | 
+**Status** | Pointer to [**CallFeedbackSummaryStatus**](call_feedback_summary_status.md) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

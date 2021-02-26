@@ -3,26 +3,26 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**AreaCodeGeomatch** | Pointer to **bool** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**FallbackMethod** | Pointer to [**HttpMethod**](http_method.md) | [optional] 
-**FallbackToLongCode** | Pointer to **bool** | [optional] 
-**FallbackUrl** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**InboundMethod** | Pointer to [**HttpMethod**](http_method.md) | [optional] 
-**InboundRequestUrl** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**MmsConverter** | Pointer to **bool** | [optional] 
-**ScanMessageContent** | Pointer to [**ServiceScanMessageContent**](service_scan_message_content.md) | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**SmartEncoding** | Pointer to **bool** | [optional] 
-**StatusCallback** | Pointer to **string** | [optional] 
-**StickySender** | Pointer to **bool** | [optional] 
-**SynchronousValidation** | Pointer to **bool** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**ValidityPeriod** | Pointer to **int32** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**AreaCodeGeomatch** | Pointer to **bool** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**FallbackMethod** | Pointer to [**HttpMethod**](http_method.md) | 
+**FallbackToLongCode** | Pointer to **bool** | 
+**FallbackUrl** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**InboundMethod** | Pointer to [**HttpMethod**](http_method.md) | 
+**InboundRequestUrl** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**MmsConverter** | Pointer to **bool** | 
+**ScanMessageContent** | Pointer to [**ServiceScanMessageContent**](service_scan_message_content.md) | 
+**Sid** | Pointer to **string** | 
+**SmartEncoding** | Pointer to **bool** | 
+**StatusCallback** | Pointer to **string** | 
+**StickySender** | Pointer to **bool** | 
+**SynchronousValidation** | Pointer to **bool** | 
+**Url** | Pointer to **string** | 
+**ValidityPeriod** | Pointer to **int32** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -3,19 +3,19 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**ActivityName** | Pointer to **string** | [optional] 
-**ActivitySid** | Pointer to **string** | [optional] 
-**Attributes** | Pointer to **string** | [optional] 
-**Available** | Pointer to **bool** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateStatusChanged** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**WorkspaceSid** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**ActivityName** | Pointer to **string** | 
+**ActivitySid** | Pointer to **string** | 
+**Attributes** | Pointer to **string** | 
+**Available** | Pointer to **bool** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateStatusChanged** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**FriendlyName** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Sid** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
+**WorkspaceSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

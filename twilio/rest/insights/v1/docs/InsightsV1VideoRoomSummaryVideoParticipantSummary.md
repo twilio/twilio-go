@@ -3,23 +3,23 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Codecs** | Pointer to **[]string** | [optional] 
-**DurationSec** | Pointer to **int32** | [optional] 
-**EdgeLocation** | Pointer to [**VideoParticipantSummaryEdgeLocation**](video_participant_summary_edge_location.md) | [optional] 
-**EndReason** | Pointer to **string** | [optional] 
-**ErrorCode** | Pointer to **int32** | [optional] 
-**ErrorCodeUrl** | Pointer to **string** | [optional] 
-**JoinTime** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**LeaveTime** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**MediaRegion** | Pointer to [**VideoParticipantSummaryTwilioRealm**](video_participant_summary_twilio_realm.md) | [optional] 
-**ParticipantIdentity** | Pointer to **string** | [optional] 
-**ParticipantSid** | Pointer to **string** | [optional] 
-**Properties** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**PublisherInfo** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**RoomSid** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**VideoParticipantSummaryRoomStatus**](video_participant_summary_room_status.md) | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Codecs** | Pointer to **[]string** | 
+**DurationSec** | Pointer to **int32** | 
+**EdgeLocation** | Pointer to [**VideoParticipantSummaryEdgeLocation**](video_participant_summary_edge_location.md) | 
+**EndReason** | Pointer to **string** | 
+**ErrorCode** | Pointer to **int32** | 
+**ErrorCodeUrl** | Pointer to **string** | 
+**JoinTime** | Pointer to [**time.Time**](time.Time.md) | 
+**LeaveTime** | Pointer to [**time.Time**](time.Time.md) | 
+**MediaRegion** | Pointer to [**VideoParticipantSummaryTwilioRealm**](video_participant_summary_twilio_realm.md) | 
+**ParticipantIdentity** | Pointer to **string** | 
+**ParticipantSid** | Pointer to **string** | 
+**Properties** | Pointer to [**map[string]interface{}**](.md) | 
+**PublisherInfo** | Pointer to [**map[string]interface{}**](.md) | 
+**RoomSid** | Pointer to **string** | 
+**Status** | Pointer to [**VideoParticipantSummaryRoomStatus**](video_participant_summary_room_status.md) | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

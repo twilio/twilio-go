@@ -7,7 +7,7 @@ Name | Type | Notes
 **DateCreated** | [**time.Time**](time.Time.md) | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) | [optional] 
 **Identity** | **string** | [optional] 
-**LastReadMessageIndex** | Pointer to **int32** | [optional] 
+**LastReadMessageIndex** | Pointer to **int32** | 
 **LastReadTimestamp** | **string** | [optional] 
 **MessagingBindingProjectedAddress** | **string** | [optional] 
 **MessagingBindingProxyAddress** | **string** | [optional] 

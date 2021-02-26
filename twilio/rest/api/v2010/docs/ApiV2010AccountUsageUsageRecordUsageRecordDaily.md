@@ -3,21 +3,21 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**ApiVersion** | Pointer to **string** | [optional] 
-**AsOf** | Pointer to **string** | [optional] 
-**Category** | Pointer to [**UsageRecordDailyCategory**](usage_record_daily_category.md) | [optional] 
-**Count** | Pointer to **string** | [optional] 
-**CountUnit** | Pointer to **string** | [optional] 
-**Description** | Pointer to **string** | [optional] 
-**EndDate** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Price** | Pointer to **float32** | [optional] 
-**PriceUnit** | Pointer to **string** | [optional] 
-**StartDate** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Uri** | Pointer to **string** | [optional] 
-**Usage** | Pointer to **string** | [optional] 
-**UsageUnit** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**ApiVersion** | Pointer to **string** | 
+**AsOf** | Pointer to **string** | 
+**Category** | Pointer to [**UsageRecordDailyCategory**](usage_record_daily_category.md) | 
+**Count** | Pointer to **string** | 
+**CountUnit** | Pointer to **string** | 
+**Description** | Pointer to **string** | 
+**EndDate** | Pointer to [**time.Time**](time.Time.md) | 
+**Price** | Pointer to **float32** | 
+**PriceUnit** | Pointer to **string** | 
+**StartDate** | Pointer to [**time.Time**](time.Time.md) | 
+**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**Uri** | Pointer to **string** | 
+**Usage** | Pointer to **string** | 
+**UsageUnit** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

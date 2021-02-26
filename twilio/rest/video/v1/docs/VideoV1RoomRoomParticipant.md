@@ -3,18 +3,18 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Duration** | Pointer to **int32** | [optional] 
-**EndTime** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Identity** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**RoomSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**StartTime** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Status** | Pointer to [**RoomParticipantStatus**](room_participant_status.md) | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**Duration** | Pointer to **int32** | 
+**EndTime** | Pointer to [**time.Time**](time.Time.md) | 
+**Identity** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**RoomSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**StartTime** | Pointer to [**time.Time**](time.Time.md) | 
+**Status** | Pointer to [**RoomParticipantStatus**](room_participant_status.md) | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

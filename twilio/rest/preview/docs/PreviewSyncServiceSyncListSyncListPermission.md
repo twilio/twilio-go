@@ -3,14 +3,14 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Identity** | Pointer to **string** | [optional] 
-**ListSid** | Pointer to **string** | [optional] 
-**Manage** | Pointer to **bool** | [optional] 
-**Read** | Pointer to **bool** | [optional] 
-**ServiceSid** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**Write** | Pointer to **bool** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Identity** | Pointer to **string** | 
+**ListSid** | Pointer to **string** | 
+**Manage** | Pointer to **bool** | 
+**Read** | Pointer to **bool** | 
+**ServiceSid** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
+**Write** | Pointer to **bool** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

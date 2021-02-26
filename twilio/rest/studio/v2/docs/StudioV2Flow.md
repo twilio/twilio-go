@@ -3,21 +3,21 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**CommitMessage** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Definition** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Errors** | Pointer to **[]map[string]interface{}** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Revision** | Pointer to **int32** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**FlowStatus**](flow_status.md) | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**Valid** | Pointer to **bool** | [optional] 
-**Warnings** | Pointer to **[]map[string]interface{}** | [optional] 
-**WebhookUrl** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**CommitMessage** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**Definition** | Pointer to [**map[string]interface{}**](.md) | 
+**Errors** | Pointer to **[]map[string]interface{}** | 
+**FriendlyName** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Revision** | Pointer to **int32** | 
+**Sid** | Pointer to **string** | 
+**Status** | Pointer to [**FlowStatus**](flow_status.md) | 
+**Url** | Pointer to **string** | 
+**Valid** | Pointer to **bool** | 
+**Warnings** | Pointer to **[]map[string]interface{}** | 
+**WebhookUrl** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
