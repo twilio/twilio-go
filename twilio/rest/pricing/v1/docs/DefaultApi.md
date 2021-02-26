@@ -154,16 +154,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListMessagingCountryOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListMessagingCountryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListMessagingCountryOpts struct
+Optional parameters are passed through a pointer to a ListMessagingCountryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -195,16 +195,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListPhoneNumberCountryOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListPhoneNumberCountryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListPhoneNumberCountryOpts struct
+Optional parameters are passed through a pointer to a ListPhoneNumberCountryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -236,16 +236,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListVoiceCountryOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListVoiceCountryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListVoiceCountryOpts struct
+Optional parameters are passed through a pointer to a ListVoiceCountryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

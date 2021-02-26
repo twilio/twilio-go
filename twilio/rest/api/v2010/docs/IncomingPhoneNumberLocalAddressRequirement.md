@@ -1,9 +1,13 @@
 # IncomingPhoneNumberLocalAddressRequirement
 
-## Properties
+## Enum
+Name | Type | Notes
+------------ | ------------- | -------------
+**NONE** | string | (value: `"none"`)
+**ANY** | string | (value: `"any"`)
+**LOCAL** | string | (value: `"local"`)
+**FOREIGN** | string | (value: `"foreign"`)
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -34,18 +34,18 @@ Create a new AWS Credential
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCredentialAwsOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCredentialAwsRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCredentialAwsOpts struct
+Optional parameters are passed through a pointer to a CreateCredentialAwsRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **AccountSid** | **optional.String**| The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request. | 
- **Credentials** | **optional.String**| A string that contains the AWS access credentials in the format &#x60;&lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;&#x60;. For example, &#x60;AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#x60; | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**AccountSid** | **String**| The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request. | 
+**Credentials** | **String**| A string that contains the AWS access credentials in the format &#x60;&lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;&#x60;. For example, &#x60;AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#x60; | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -79,18 +79,18 @@ Create a new Public Key Credential
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCredentialPublicKeyOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCredentialPublicKeyRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCredentialPublicKeyOpts struct
+Optional parameters are passed through a pointer to a CreateCredentialPublicKeyRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **AccountSid** | **optional.String**| The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request | 
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
- **PublicKey** | **optional.String**| A URL encoded representation of the public key. For example, &#x60;-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----&#x60; | 
+**AccountSid** | **String**| The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**PublicKey** | **String**| A URL encoded representation of the public key. For example, &#x60;-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----&#x60; | 
 
 ### Return type
 
@@ -320,16 +320,16 @@ Retrieves a collection of AWS Credentials belonging to the account used to make 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCredentialAwsOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCredentialAwsRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCredentialAwsOpts struct
+Optional parameters are passed through a pointer to a ListCredentialAwsRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -363,16 +363,16 @@ Retrieves a collection of Public Key Credentials belonging to the account used t
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCredentialPublicKeyOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCredentialPublicKeyRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCredentialPublicKeyOpts struct
+Optional parameters are passed through a pointer to a ListCredentialPublicKeyRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -437,17 +437,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The Twilio-provided string that uniquely identifies the AWS resource to update. | 
- **optional** | ***UpdateCredentialAwsOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateCredentialAwsRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateCredentialAwsOpts struct
+Optional parameters are passed through a pointer to a UpdateCredentialAwsRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -482,17 +481,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The Twilio-provided string that uniquely identifies the PublicKey resource to update. | 
- **optional** | ***UpdateCredentialPublicKeyOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateCredentialPublicKeyRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateCredentialPublicKeyOpts struct
+Optional parameters are passed through a pointer to a UpdateCredentialPublicKeyRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 

@@ -69,19 +69,19 @@ Create a new Customer-Profile.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCustomerProfileOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCustomerProfileRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCustomerProfileOpts struct
+Optional parameters are passed through a pointer to a CreateCustomerProfileRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Email** | **optional.String**| The email address that will receive updates when the Customer-Profile resource changes status. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **PolicySid** | **optional.String**| The unique string of a policy that is associated to the Customer-Profile resource. | 
- **StatusCallback** | **optional.String**| The URL we call to inform your application of status changes. | 
+**Email** | **String**| The email address that will receive updates when the Customer-Profile resource changes status. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**PolicySid** | **String**| The unique string of a policy that is associated to the Customer-Profile resource. | 
+**StatusCallback** | **String**| The URL we call to inform your application of status changes. | 
 
 ### Return type
 
@@ -116,18 +116,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CustomerProfileSid** | **string**| The unique string that we created to identify the CustomerProfile resource. | 
- **optional** | ***CreateCustomerProfileChannelEndpointAssignmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCustomerProfileChannelEndpointAssignmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCustomerProfileChannelEndpointAssignmentOpts struct
+Optional parameters are passed through a pointer to a CreateCustomerProfileChannelEndpointAssignmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ChannelEndpointSid** | **optional.String**| The SID of an channel endpoint | 
- **ChannelEndpointType** | **optional.String**| The type of channel endpoint. eg: phone-number | 
+**ChannelEndpointSid** | **String**| The SID of an channel endpoint | 
+**ChannelEndpointType** | **String**| The type of channel endpoint. eg: phone-number | 
 
 ### Return type
 
@@ -162,17 +161,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CustomerProfileSid** | **string**| The unique string that we created to identify the CustomerProfile resource. | 
- **optional** | ***CreateCustomerProfileEntityAssignmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCustomerProfileEntityAssignmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCustomerProfileEntityAssignmentOpts struct
+Optional parameters are passed through a pointer to a CreateCustomerProfileEntityAssignmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ObjectSid** | **optional.String**| The SID of an object bag that holds information of the different items. | 
+**ObjectSid** | **String**| The SID of an object bag that holds information of the different items. | 
 
 ### Return type
 
@@ -207,17 +205,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CustomerProfileSid** | **string**| The unique string that we created to identify the CustomerProfile resource. | 
- **optional** | ***CreateCustomerProfileEvaluationOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCustomerProfileEvaluationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCustomerProfileEvaluationOpts struct
+Optional parameters are passed through a pointer to a CreateCustomerProfileEvaluationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PolicySid** | **optional.String**| The unique string of a policy that is associated to the customer_profile resource. | 
+**PolicySid** | **String**| The unique string of a policy that is associated to the customer_profile resource. | 
 
 ### Return type
 
@@ -251,18 +248,18 @@ Create a new End User.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateEndUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateEndUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateEndUserOpts struct
+Optional parameters are passed through a pointer to a CreateEndUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **Type** | **optional.String**| The type of end user of the Bundle resource - can be &#x60;individual&#x60; or &#x60;business&#x60;. | 
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**Type** | **String**| The type of end user of the Bundle resource - can be &#x60;individual&#x60; or &#x60;business&#x60;. | 
 
 ### Return type
 
@@ -296,18 +293,18 @@ Create a new Supporting Document.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateSupportingDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSupportingDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSupportingDocumentOpts struct
+Optional parameters are passed through a pointer to a CreateSupportingDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **Type** | **optional.String**| The type of the Supporting Document. | 
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**Type** | **String**| The type of the Supporting Document. | 
 
 ### Return type
 
@@ -341,19 +338,19 @@ Create a new Customer-Profile.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateTrustProductOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateTrustProductRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateTrustProductOpts struct
+Optional parameters are passed through a pointer to a CreateTrustProductRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Email** | **optional.String**| The email address that will receive updates when the Customer-Profile resource changes status. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **PolicySid** | **optional.String**| The unique string of a policy that is associated to the Customer-Profile resource. | 
- **StatusCallback** | **optional.String**| The URL we call to inform your application of status changes. | 
+**Email** | **String**| The email address that will receive updates when the Customer-Profile resource changes status. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**PolicySid** | **String**| The unique string of a policy that is associated to the Customer-Profile resource. | 
+**StatusCallback** | **String**| The URL we call to inform your application of status changes. | 
 
 ### Return type
 
@@ -388,18 +385,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrustProductSid** | **string**| The unique string that we created to identify the CustomerProfile resource. | 
- **optional** | ***CreateTrustProductChannelEndpointAssignmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateTrustProductChannelEndpointAssignmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateTrustProductChannelEndpointAssignmentOpts struct
+Optional parameters are passed through a pointer to a CreateTrustProductChannelEndpointAssignmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ChannelEndpointSid** | **optional.String**| The SID of an channel endpoint | 
- **ChannelEndpointType** | **optional.String**| The type of channel endpoint. eg: phone-number | 
+**ChannelEndpointSid** | **String**| The SID of an channel endpoint | 
+**ChannelEndpointType** | **String**| The type of channel endpoint. eg: phone-number | 
 
 ### Return type
 
@@ -434,17 +430,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrustProductSid** | **string**| The unique string that we created to identify the TrustProduct resource. | 
- **optional** | ***CreateTrustProductEntityAssignmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateTrustProductEntityAssignmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateTrustProductEntityAssignmentOpts struct
+Optional parameters are passed through a pointer to a CreateTrustProductEntityAssignmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ObjectSid** | **optional.String**| The SID of an object bag that holds information of the different items. | 
+**ObjectSid** | **String**| The SID of an object bag that holds information of the different items. | 
 
 ### Return type
 
@@ -479,17 +474,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrustProductSid** | **string**| The unique string that we created to identify the trust_product resource. | 
- **optional** | ***CreateTrustProductEvaluationOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateTrustProductEvaluationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateTrustProductEvaluationOpts struct
+Optional parameters are passed through a pointer to a CreateTrustProductEvaluationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PolicySid** | **optional.String**| The unique string of a policy that is associated to the customer_profile resource. | 
+**PolicySid** | **String**| The unique string of a policy that is associated to the customer_profile resource. | 
 
 ### Return type
 
@@ -1247,19 +1241,19 @@ Retrieve a list of all Customer-Profiles for an account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCustomerProfileOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCustomerProfileRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCustomerProfileOpts struct
+Optional parameters are passed through a pointer to a ListCustomerProfileRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Status** | **optional.String**| The verification status of the Customer-Profile resource. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **PolicySid** | **optional.String**| The unique string of a policy that is associated to the Customer-Profile resource. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Status** | **String**| The verification status of the Customer-Profile resource. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**PolicySid** | **String**| The unique string of a policy that is associated to the Customer-Profile resource. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1294,19 +1288,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CustomerProfileSid** | **string**| The unique string that we created to identify the CustomerProfile resource. | 
- **optional** | ***ListCustomerProfileChannelEndpointAssignmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCustomerProfileChannelEndpointAssignmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCustomerProfileChannelEndpointAssignmentOpts struct
+Optional parameters are passed through a pointer to a ListCustomerProfileChannelEndpointAssignmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ChannelEndpointSid** | **optional.String**| The SID of an channel endpoint | 
- **ChannelEndpointSids** | **optional.String**| comma separated list of channel endpoint sids | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**ChannelEndpointSid** | **String**| The SID of an channel endpoint | 
+**ChannelEndpointSids** | **String**| comma separated list of channel endpoint sids | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1341,17 +1334,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CustomerProfileSid** | **string**| The unique string that we created to identify the CustomerProfile resource. | 
- **optional** | ***ListCustomerProfileEntityAssignmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCustomerProfileEntityAssignmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCustomerProfileEntityAssignmentOpts struct
+Optional parameters are passed through a pointer to a ListCustomerProfileEntityAssignmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1386,17 +1378,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **CustomerProfileSid** | **string**| The unique string that we created to identify the CustomerProfile resource. | 
- **optional** | ***ListCustomerProfileEvaluationOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCustomerProfileEvaluationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCustomerProfileEvaluationOpts struct
+Optional parameters are passed through a pointer to a ListCustomerProfileEvaluationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1430,16 +1421,16 @@ Retrieve a list of all End User for an account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListEndUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListEndUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListEndUserOpts struct
+Optional parameters are passed through a pointer to a ListEndUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1473,16 +1464,16 @@ Retrieve a list of all End-User Types.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListEndUserTypeOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListEndUserTypeRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListEndUserTypeOpts struct
+Optional parameters are passed through a pointer to a ListEndUserTypeRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1516,16 +1507,16 @@ Retrieve a list of all Policys.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListPoliciesOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListPoliciesRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListPoliciesOpts struct
+Optional parameters are passed through a pointer to a ListPoliciesRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1559,16 +1550,16 @@ Retrieve a list of all Supporting Document for an account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListSupportingDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSupportingDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSupportingDocumentOpts struct
+Optional parameters are passed through a pointer to a ListSupportingDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1602,16 +1593,16 @@ Retrieve a list of all Supporting Document Types.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListSupportingDocumentTypeOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSupportingDocumentTypeRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSupportingDocumentTypeOpts struct
+Optional parameters are passed through a pointer to a ListSupportingDocumentTypeRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1645,19 +1636,19 @@ Retrieve a list of all Customer-Profiles for an account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListTrustProductOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListTrustProductRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListTrustProductOpts struct
+Optional parameters are passed through a pointer to a ListTrustProductRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Status** | **optional.String**| The verification status of the Customer-Profile resource. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **PolicySid** | **optional.String**| The unique string of a policy that is associated to the Customer-Profile resource. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Status** | **String**| The verification status of the Customer-Profile resource. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**PolicySid** | **String**| The unique string of a policy that is associated to the Customer-Profile resource. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1692,19 +1683,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrustProductSid** | **string**| The unique string that we created to identify the CustomerProfile resource. | 
- **optional** | ***ListTrustProductChannelEndpointAssignmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListTrustProductChannelEndpointAssignmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListTrustProductChannelEndpointAssignmentOpts struct
+Optional parameters are passed through a pointer to a ListTrustProductChannelEndpointAssignmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ChannelEndpointSid** | **optional.String**| The SID of an channel endpoint | 
- **ChannelEndpointSids** | **optional.String**| comma separated list of channel endpoint sids | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**ChannelEndpointSid** | **String**| The SID of an channel endpoint | 
+**ChannelEndpointSids** | **String**| comma separated list of channel endpoint sids | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1739,17 +1729,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrustProductSid** | **string**| The unique string that we created to identify the TrustProduct resource. | 
- **optional** | ***ListTrustProductEntityAssignmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListTrustProductEntityAssignmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListTrustProductEntityAssignmentOpts struct
+Optional parameters are passed through a pointer to a ListTrustProductEntityAssignmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1784,17 +1773,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **TrustProductSid** | **string**| The unique string that we created to identify the trust_product resource. | 
- **optional** | ***ListTrustProductEvaluationOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListTrustProductEvaluationRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListTrustProductEvaluationOpts struct
+Optional parameters are passed through a pointer to a ListTrustProductEvaluationRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1829,20 +1817,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The unique string that we created to identify the Customer-Profile resource. | 
- **optional** | ***UpdateCustomerProfileOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateCustomerProfileRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateCustomerProfileOpts struct
+Optional parameters are passed through a pointer to a UpdateCustomerProfileRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Email** | **optional.String**| The email address that will receive updates when the Customer-Profile resource changes status. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **Status** | **optional.String**| The verification status of the Customer-Profile resource. | 
- **StatusCallback** | **optional.String**| The URL we call to inform your application of status changes. | 
+**Email** | **String**| The email address that will receive updates when the Customer-Profile resource changes status. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**Status** | **String**| The verification status of the Customer-Profile resource. | 
+**StatusCallback** | **String**| The URL we call to inform your application of status changes. | 
 
 ### Return type
 
@@ -1877,18 +1864,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The unique string created by Twilio to identify the End User resource. | 
- **optional** | ***UpdateEndUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateEndUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateEndUserOpts struct
+Optional parameters are passed through a pointer to a UpdateEndUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
 
 ### Return type
 
@@ -1923,18 +1909,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The unique string created by Twilio to identify the Supporting Document resource. | 
- **optional** | ***UpdateSupportingDocumentOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSupportingDocumentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSupportingDocumentOpts struct
+Optional parameters are passed through a pointer to a UpdateSupportingDocumentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Attributes** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md)| The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
 
 ### Return type
 
@@ -1969,20 +1954,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The unique string that we created to identify the Customer-Profile resource. | 
- **optional** | ***UpdateTrustProductOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateTrustProductRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateTrustProductOpts struct
+Optional parameters are passed through a pointer to a UpdateTrustProductRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Email** | **optional.String**| The email address that will receive updates when the Customer-Profile resource changes status. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the resource. | 
- **Status** | **optional.String**| The verification status of the Customer-Profile resource. | 
- **StatusCallback** | **optional.String**| The URL we call to inform your application of status changes. | 
+**Email** | **String**| The email address that will receive updates when the Customer-Profile resource changes status. | 
+**FriendlyName** | **String**| The string that you assigned to describe the resource. | 
+**Status** | **String**| The verification status of the Customer-Profile resource. | 
+**StatusCallback** | **String**| The URL we call to inform your application of status changes. | 
 
 ### Return type
 

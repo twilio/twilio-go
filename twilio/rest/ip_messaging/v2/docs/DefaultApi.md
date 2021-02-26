@@ -74,24 +74,23 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***CreateChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateChannelOpts struct
+Optional parameters are passed through a pointer to a CreateChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**|  | 
- **CreatedBy** | **optional.String**|  | 
- **DateCreated** | **optional.Time**|  | 
- **DateUpdated** | **optional.Time**|  | 
- **FriendlyName** | **optional.String**|  | 
- **Type** | **optional.String**|  | 
- **UniqueName** | **optional.String**|  | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**|  | 
+**CreatedBy** | **String**|  | 
+**DateCreated** | **Time**|  | 
+**DateUpdated** | **Time**|  | 
+**FriendlyName** | **String**|  | 
+**Type** | **String**|  | 
+**UniqueName** | **String**|  | 
 
 ### Return type
 
@@ -125,24 +124,22 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
- **optional** | ***CreateChannelWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateChannelWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateChannelWebhookOpts struct
+Optional parameters are passed through a pointer to a CreateChannelWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **ConfigurationFilters** | [**optional.Interface of []string**](string.md)|  | 
- **ConfigurationFlowSid** | **optional.String**|  | 
- **ConfigurationMethod** | **optional.String**|  | 
- **ConfigurationRetryCount** | **optional.Int32**|  | 
- **ConfigurationTriggers** | [**optional.Interface of []string**](string.md)|  | 
- **ConfigurationUrl** | **optional.String**|  | 
- **Type** | **optional.String**|  | 
+**ConfigurationFilters** | [**[]string**](string.md)|  | 
+**ConfigurationFlowSid** | **String**|  | 
+**ConfigurationMethod** | **String**|  | 
+**ConfigurationRetryCount** | **Int32**|  | 
+**ConfigurationTriggers** | [**[]string**](string.md)|  | 
+**ConfigurationUrl** | **String**|  | 
+**Type** | **String**|  | 
 
 ### Return type
 
@@ -174,22 +171,22 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCredentialOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateCredentialRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateCredentialOpts struct
+Optional parameters are passed through a pointer to a CreateCredentialRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ApiKey** | **optional.String**|  | 
- **Certificate** | **optional.String**|  | 
- **FriendlyName** | **optional.String**|  | 
- **PrivateKey** | **optional.String**|  | 
- **Sandbox** | **optional.Bool**|  | 
- **Secret** | **optional.String**|  | 
- **Type** | **optional.String**|  | 
+**ApiKey** | **String**|  | 
+**Certificate** | **String**|  | 
+**FriendlyName** | **String**|  | 
+**PrivateKey** | **String**|  | 
+**Sandbox** | **Bool**|  | 
+**Secret** | **String**|  | 
+**Type** | **String**|  | 
 
 ### Return type
 
@@ -223,19 +220,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
- **optional** | ***CreateInviteOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateInviteRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateInviteOpts struct
+Optional parameters are passed through a pointer to a CreateInviteRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Identity** | **optional.String**|  | 
- **RoleSid** | **optional.String**|  | 
+**Identity** | **String**|  | 
+**RoleSid** | **String**|  | 
 
 ### Return type
 
@@ -269,25 +264,23 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
- **optional** | ***CreateMemberOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateMemberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateMemberOpts struct
+Optional parameters are passed through a pointer to a CreateMemberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**|  | 
- **DateCreated** | **optional.Time**|  | 
- **DateUpdated** | **optional.Time**|  | 
- **Identity** | **optional.String**|  | 
- **LastConsumedMessageIndex** | **optional.Int32**|  | 
- **LastConsumptionTimestamp** | **optional.Time**|  | 
- **RoleSid** | **optional.String**|  | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**|  | 
+**DateCreated** | **Time**|  | 
+**DateUpdated** | **Time**|  | 
+**Identity** | **String**|  | 
+**LastConsumedMessageIndex** | **Int32**|  | 
+**LastConsumptionTimestamp** | **Time**|  | 
+**RoleSid** | **String**|  | 
 
 ### Return type
 
@@ -321,25 +314,23 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
- **optional** | ***CreateMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateMessageOpts struct
+Optional parameters are passed through a pointer to a CreateMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**|  | 
- **Body** | **optional.String**|  | 
- **DateCreated** | **optional.Time**|  | 
- **DateUpdated** | **optional.Time**|  | 
- **From** | **optional.String**|  | 
- **LastUpdatedBy** | **optional.String**|  | 
- **MediaSid** | **optional.String**|  | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**|  | 
+**Body** | **String**|  | 
+**DateCreated** | **Time**|  | 
+**DateUpdated** | **Time**|  | 
+**From** | **String**|  | 
+**LastUpdatedBy** | **String**|  | 
+**MediaSid** | **String**|  | 
 
 ### Return type
 
@@ -372,19 +363,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***CreateRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateRoleOpts struct
+Optional parameters are passed through a pointer to a CreateRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**|  | 
- **Permission** | [**optional.Interface of []string**](string.md)|  | 
- **Type** | **optional.String**|  | 
+**FriendlyName** | **String**|  | 
+**Permission** | [**[]string**](string.md)|  | 
+**Type** | **String**|  | 
 
 ### Return type
 
@@ -416,16 +406,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceOpts struct
+Optional parameters are passed through a pointer to a CreateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **FriendlyName** | **optional.String**|  | 
+**FriendlyName** | **String**|  | 
 
 ### Return type
 
@@ -458,21 +448,20 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***CreateUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateUserOpts struct
+Optional parameters are passed through a pointer to a CreateUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**|  | 
- **FriendlyName** | **optional.String**|  | 
- **Identity** | **optional.String**|  | 
- **RoleSid** | **optional.String**|  | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**|  | 
+**FriendlyName** | **String**|  | 
+**Identity** | **String**|  | 
+**RoleSid** | **String**|  | 
 
 ### Return type
 
@@ -539,18 +528,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***DeleteChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteChannelOpts struct
+Optional parameters are passed through a pointer to a DeleteChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -685,19 +672,16 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***DeleteMemberOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteMemberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteMemberOpts struct
+Optional parameters are passed through a pointer to a DeleteMemberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -732,19 +716,16 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***DeleteMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***DeleteMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a DeleteMessageOpts struct
+Optional parameters are passed through a pointer to a DeleteMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
 
 ### Return type
 
@@ -1343,19 +1324,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***ListBindingOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListBindingRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListBindingOpts struct
+Optional parameters are passed through a pointer to a ListBindingRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **BindingType** | [**optional.Interface of []string**](string.md)|  | 
- **Identity** | [**optional.Interface of []string**](string.md)|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**BindingType** | [**[]string**](string.md)|  | 
+**Identity** | [**[]string**](string.md)|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1388,18 +1368,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***ListChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListChannelOpts struct
+Optional parameters are passed through a pointer to a ListChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Type** | [**optional.Interface of []string**](string.md)|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Type** | [**[]string**](string.md)|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1433,18 +1412,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
- **optional** | ***ListChannelWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListChannelWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListChannelWebhookOpts struct
+Optional parameters are passed through a pointer to a ListChannelWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1476,16 +1453,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCredentialOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListCredentialRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListCredentialOpts struct
+Optional parameters are passed through a pointer to a ListCredentialRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1519,19 +1496,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
- **optional** | ***ListInviteOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListInviteRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListInviteOpts struct
+Optional parameters are passed through a pointer to a ListInviteRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Identity** | [**optional.Interface of []string**](string.md)|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Identity** | [**[]string**](string.md)|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1565,19 +1540,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
- **optional** | ***ListMemberOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListMemberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListMemberOpts struct
+Optional parameters are passed through a pointer to a ListMemberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Identity** | [**optional.Interface of []string**](string.md)|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Identity** | [**[]string**](string.md)|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1611,19 +1584,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
- **optional** | ***ListMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListMessageOpts struct
+Optional parameters are passed through a pointer to a ListMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Order** | **optional.String**|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Order** | **String**|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1656,17 +1627,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***ListRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListRoleOpts struct
+Optional parameters are passed through a pointer to a ListRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1698,16 +1668,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceOpts struct
+Optional parameters are passed through a pointer to a ListServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1740,17 +1710,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
- **optional** | ***ListUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListUserOpts struct
+Optional parameters are passed through a pointer to a ListUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1784,19 +1753,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **UserSid** | **string**|  | 
- **optional** | ***ListUserBindingOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListUserBindingRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListUserBindingOpts struct
+Optional parameters are passed through a pointer to a ListUserBindingRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **BindingType** | [**optional.Interface of []string**](string.md)|  | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**BindingType** | [**[]string**](string.md)|  | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1830,18 +1797,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **UserSid** | **string**|  | 
- **optional** | ***ListUserChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListUserChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListUserChannelOpts struct
+Optional parameters are passed through a pointer to a ListUserChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1875,24 +1840,22 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***UpdateChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateChannelOpts struct
+Optional parameters are passed through a pointer to a UpdateChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**|  | 
- **CreatedBy** | **optional.String**|  | 
- **DateCreated** | **optional.Time**|  | 
- **DateUpdated** | **optional.Time**|  | 
- **FriendlyName** | **optional.String**|  | 
- **UniqueName** | **optional.String**|  | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**|  | 
+**CreatedBy** | **String**|  | 
+**DateCreated** | **Time**|  | 
+**DateUpdated** | **Time**|  | 
+**FriendlyName** | **String**|  | 
+**UniqueName** | **String**|  | 
 
 ### Return type
 
@@ -1927,24 +1890,21 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***UpdateChannelWebhookOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateChannelWebhookRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateChannelWebhookOpts struct
+Optional parameters are passed through a pointer to a UpdateChannelWebhookRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **ConfigurationFilters** | [**optional.Interface of []string**](string.md)|  | 
- **ConfigurationFlowSid** | **optional.String**|  | 
- **ConfigurationMethod** | **optional.String**|  | 
- **ConfigurationRetryCount** | **optional.Int32**|  | 
- **ConfigurationTriggers** | [**optional.Interface of []string**](string.md)|  | 
- **ConfigurationUrl** | **optional.String**|  | 
+**ConfigurationFilters** | [**[]string**](string.md)|  | 
+**ConfigurationFlowSid** | **String**|  | 
+**ConfigurationMethod** | **String**|  | 
+**ConfigurationRetryCount** | **Int32**|  | 
+**ConfigurationTriggers** | [**[]string**](string.md)|  | 
+**ConfigurationUrl** | **String**|  | 
 
 ### Return type
 
@@ -1977,22 +1937,21 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**|  | 
- **optional** | ***UpdateCredentialOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateCredentialRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateCredentialOpts struct
+Optional parameters are passed through a pointer to a UpdateCredentialRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ApiKey** | **optional.String**|  | 
- **Certificate** | **optional.String**|  | 
- **FriendlyName** | **optional.String**|  | 
- **PrivateKey** | **optional.String**|  | 
- **Sandbox** | **optional.Bool**|  | 
- **Secret** | **optional.String**|  | 
+**ApiKey** | **String**|  | 
+**Certificate** | **String**|  | 
+**FriendlyName** | **String**|  | 
+**PrivateKey** | **String**|  | 
+**Sandbox** | **Bool**|  | 
+**Secret** | **String**|  | 
 
 ### Return type
 
@@ -2027,25 +1986,22 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***UpdateMemberOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateMemberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateMemberOpts struct
+Optional parameters are passed through a pointer to a UpdateMemberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**|  | 
- **DateCreated** | **optional.Time**|  | 
- **DateUpdated** | **optional.Time**|  | 
- **LastConsumedMessageIndex** | **optional.Int32**|  | 
- **LastConsumptionTimestamp** | **optional.Time**|  | 
- **RoleSid** | **optional.String**|  | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**|  | 
+**DateCreated** | **Time**|  | 
+**DateUpdated** | **Time**|  | 
+**LastConsumedMessageIndex** | **Int32**|  | 
+**LastConsumptionTimestamp** | **Time**|  | 
+**RoleSid** | **String**|  | 
 
 ### Return type
 
@@ -2080,25 +2036,22 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***UpdateMessageOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateMessageRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateMessageOpts struct
+Optional parameters are passed through a pointer to a UpdateMessageRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**|  | 
- **Body** | **optional.String**|  | 
- **DateCreated** | **optional.Time**|  | 
- **DateUpdated** | **optional.Time**|  | 
- **From** | **optional.String**|  | 
- **LastUpdatedBy** | **optional.String**|  | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**|  | 
+**Body** | **String**|  | 
+**DateCreated** | **Time**|  | 
+**DateUpdated** | **Time**|  | 
+**From** | **String**|  | 
+**LastUpdatedBy** | **String**|  | 
 
 ### Return type
 
@@ -2132,18 +2085,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***UpdateRoleOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateRoleRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateRoleOpts struct
+Optional parameters are passed through a pointer to a UpdateRoleRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Permission** | [**optional.Interface of []string**](string.md)|  | 
+**Permission** | [**[]string**](string.md)|  | 
 
 ### Return type
 
@@ -2176,47 +2127,46 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**|  | 
- **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **ConsumptionReportInterval** | **optional.Int32**|  | 
- **DefaultChannelCreatorRoleSid** | **optional.String**|  | 
- **DefaultChannelRoleSid** | **optional.String**|  | 
- **DefaultServiceRoleSid** | **optional.String**|  | 
- **FriendlyName** | **optional.String**|  | 
- **LimitsChannelMembers** | **optional.Int32**|  | 
- **LimitsUserChannels** | **optional.Int32**|  | 
- **MediaCompatibilityMessage** | **optional.String**|  | 
- **NotificationsAddedToChannelEnabled** | **optional.Bool**|  | 
- **NotificationsAddedToChannelSound** | **optional.String**|  | 
- **NotificationsAddedToChannelTemplate** | **optional.String**|  | 
- **NotificationsInvitedToChannelEnabled** | **optional.Bool**|  | 
- **NotificationsInvitedToChannelSound** | **optional.String**|  | 
- **NotificationsInvitedToChannelTemplate** | **optional.String**|  | 
- **NotificationsLogEnabled** | **optional.Bool**|  | 
- **NotificationsNewMessageBadgeCountEnabled** | **optional.Bool**|  | 
- **NotificationsNewMessageEnabled** | **optional.Bool**|  | 
- **NotificationsNewMessageSound** | **optional.String**|  | 
- **NotificationsNewMessageTemplate** | **optional.String**|  | 
- **NotificationsRemovedFromChannelEnabled** | **optional.Bool**|  | 
- **NotificationsRemovedFromChannelSound** | **optional.String**|  | 
- **NotificationsRemovedFromChannelTemplate** | **optional.String**|  | 
- **PostWebhookRetryCount** | **optional.Int32**|  | 
- **PostWebhookUrl** | **optional.String**|  | 
- **PreWebhookRetryCount** | **optional.Int32**|  | 
- **PreWebhookUrl** | **optional.String**|  | 
- **ReachabilityEnabled** | **optional.Bool**|  | 
- **ReadStatusEnabled** | **optional.Bool**|  | 
- **TypingIndicatorTimeout** | **optional.Int32**|  | 
- **WebhookFilters** | [**optional.Interface of []string**](string.md)|  | 
- **WebhookMethod** | **optional.String**|  | 
+**ConsumptionReportInterval** | **Int32**|  | 
+**DefaultChannelCreatorRoleSid** | **String**|  | 
+**DefaultChannelRoleSid** | **String**|  | 
+**DefaultServiceRoleSid** | **String**|  | 
+**FriendlyName** | **String**|  | 
+**LimitsChannelMembers** | **Int32**|  | 
+**LimitsUserChannels** | **Int32**|  | 
+**MediaCompatibilityMessage** | **String**|  | 
+**NotificationsAddedToChannelEnabled** | **Bool**|  | 
+**NotificationsAddedToChannelSound** | **String**|  | 
+**NotificationsAddedToChannelTemplate** | **String**|  | 
+**NotificationsInvitedToChannelEnabled** | **Bool**|  | 
+**NotificationsInvitedToChannelSound** | **String**|  | 
+**NotificationsInvitedToChannelTemplate** | **String**|  | 
+**NotificationsLogEnabled** | **Bool**|  | 
+**NotificationsNewMessageBadgeCountEnabled** | **Bool**|  | 
+**NotificationsNewMessageEnabled** | **Bool**|  | 
+**NotificationsNewMessageSound** | **String**|  | 
+**NotificationsNewMessageTemplate** | **String**|  | 
+**NotificationsRemovedFromChannelEnabled** | **Bool**|  | 
+**NotificationsRemovedFromChannelSound** | **String**|  | 
+**NotificationsRemovedFromChannelTemplate** | **String**|  | 
+**PostWebhookRetryCount** | **Int32**|  | 
+**PostWebhookUrl** | **String**|  | 
+**PreWebhookRetryCount** | **Int32**|  | 
+**PreWebhookUrl** | **String**|  | 
+**ReachabilityEnabled** | **Bool**|  | 
+**ReadStatusEnabled** | **Bool**|  | 
+**TypingIndicatorTimeout** | **Int32**|  | 
+**WebhookFilters** | [**[]string**](string.md)|  | 
+**WebhookMethod** | **String**|  | 
 
 ### Return type
 
@@ -2250,21 +2200,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**|  | 
 **Sid** | **string**|  | 
- **optional** | ***UpdateUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateUserOpts struct
+Optional parameters are passed through a pointer to a UpdateUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **XTwilioWebhookEnabled** | **optional.String**| The X-Twilio-Webhook-Enabled HTTP request header | 
- **Attributes** | **optional.String**|  | 
- **FriendlyName** | **optional.String**|  | 
- **RoleSid** | **optional.String**|  | 
+**XTwilioWebhookEnabled** | **String**| The X-Twilio-Webhook-Enabled HTTP request header | 
+**Attributes** | **String**|  | 
+**FriendlyName** | **String**|  | 
+**RoleSid** | **String**|  | 
 
 ### Return type
 
@@ -2299,21 +2247,18 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**|  | 
 **UserSid** | **string**|  | 
 **ChannelSid** | **string**|  | 
- **optional** | ***UpdateUserChannelOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateUserChannelRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateUserChannelOpts struct
+Optional parameters are passed through a pointer to a UpdateUserChannelRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **LastConsumedMessageIndex** | **optional.Int32**|  | 
- **LastConsumptionTimestamp** | **optional.Time**|  | 
- **NotificationLevel** | **optional.String**|  | 
+**LastConsumedMessageIndex** | **Int32**|  | 
+**LastConsumptionTimestamp** | **Time**|  | 
+**NotificationLevel** | **String**|  | 
 
 ### Return type
 

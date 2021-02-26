@@ -59,17 +59,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **DestinationNumber** | **string**| The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
- **optional** | ***FetchVoiceNumberOpts** | optional parameters | nil if no parameters
+ **optional** | ***FetchVoiceNumberRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a FetchVoiceNumberOpts struct
+Optional parameters are passed through a pointer to a FetchVoiceNumberRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **OriginationNumber** | **optional.String**| The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
+**OriginationNumber** | **String**| The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
 
 ### Return type
 
@@ -101,16 +100,16 @@ Name | Type | Description  | Notes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListVoiceCountryOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListVoiceCountryRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListVoiceCountryOpts struct
+Optional parameters are passed through a pointer to a ListVoiceCountryRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 

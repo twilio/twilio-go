@@ -1,9 +1,11 @@
 # CommandCommandMode
 
-## Properties
+## Enum
+Name | Type | Notes
+------------ | ------------- | -------------
+**TEXT** | string | (value: `"text"`)
+**BINARY** | string | (value: `"binary"`)
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

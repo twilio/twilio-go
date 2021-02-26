@@ -1,10 +1,9 @@
 # UpdateRoomRequest
 
 ## Properties
-
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Status** | **string** | The new status of the resource. Set to &#x60;completed&#x60; to end the room. | 
+Name | Type | Notes
+------------ | ------------- | -------------
+**Status** | **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

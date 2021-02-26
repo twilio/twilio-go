@@ -1,9 +1,12 @@
 # VideoRoomSummaryCreatedMethod
 
-## Properties
+## Enum
+Name | Type | Notes
+------------ | ------------- | -------------
+**SDK** | string | (value: `"sdk"`)
+**AD_HOC** | string | (value: `"ad_hoc"`)
+**API** | string | (value: `"api"`)
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

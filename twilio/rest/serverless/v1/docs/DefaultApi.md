@@ -61,17 +61,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to create the Asset resource under. | 
- **optional** | ***CreateAssetOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateAssetRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateAssetOpts struct
+Optional parameters are passed through a pointer to a CreateAssetRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -106,20 +105,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to create the Build resource under. | 
- **optional** | ***CreateBuildOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateBuildRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateBuildOpts struct
+Optional parameters are passed through a pointer to a CreateBuildRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **AssetVersions** | [**optional.Interface of []string**](string.md)| The list of Asset Version resource SIDs to include in the Build. | 
- **Dependencies** | **optional.String**| A list of objects that describe the Dependencies included in the Build. Each object contains the &#x60;name&#x60; and &#x60;version&#x60; of the dependency. | 
- **FunctionVersions** | [**optional.Interface of []string**](string.md)| The list of the Function Version resource SIDs to include in the Build. | 
- **Runtime** | **optional.String**| The Runtime version that will be used to run the Build resource when it is deployed. | 
+**AssetVersions** | [**[]string**](string.md)| The list of Asset Version resource SIDs to include in the Build. | 
+**Dependencies** | **String**| A list of objects that describe the Dependencies included in the Build. Each object contains the &#x60;name&#x60; and &#x60;version&#x60; of the dependency. | 
+**FunctionVersions** | [**[]string**](string.md)| The list of the Function Version resource SIDs to include in the Build. | 
+**Runtime** | **String**| The Runtime version that will be used to run the Build resource when it is deployed. | 
 
 ### Return type
 
@@ -155,18 +153,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to create the Deployment resource under. | 
 **EnvironmentSid** | **string**| The SID of the Environment for the Deployment. | 
- **optional** | ***CreateDeploymentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateDeploymentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateDeploymentOpts struct
+Optional parameters are passed through a pointer to a CreateDeploymentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **BuildSid** | **optional.String**| The SID of the Build for the Deployment. | 
+**BuildSid** | **String**| The SID of the Build for the Deployment. | 
 
 ### Return type
 
@@ -201,18 +197,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to create the Environment resource under. | 
- **optional** | ***CreateEnvironmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateEnvironmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateEnvironmentOpts struct
+Optional parameters are passed through a pointer to a CreateEnvironmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **DomainSuffix** | **optional.String**| A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. | 
- **UniqueName** | **optional.String**| A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. | 
+**DomainSuffix** | **String**| A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. | 
+**UniqueName** | **String**| A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. | 
 
 ### Return type
 
@@ -247,17 +242,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to create the Function resource under. | 
- **optional** | ***CreateFunctionOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateFunctionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateFunctionOpts struct
+Optional parameters are passed through a pointer to a CreateFunctionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -291,19 +285,19 @@ Create a new Service resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateServiceOpts struct
+Optional parameters are passed through a pointer to a CreateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
- **IncludeCredentials** | **optional.Bool**| Whether to inject Account credentials into a function invocation context. The default value is &#x60;true&#x60;. | 
- **UiEditable** | **optional.Bool**| Whether the Service&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
- **UniqueName** | **optional.String**| A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
+**IncludeCredentials** | **Bool**| Whether to inject Account credentials into a function invocation context. The default value is &#x60;true&#x60;. | 
+**UiEditable** | **Bool**| Whether the Service&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
+**UniqueName** | **String**| A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique. | 
 
 ### Return type
 
@@ -339,19 +333,17 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to create the Variable resource under. | 
 **EnvironmentSid** | **string**| The SID of the Environment in which the Variable resource exists. | 
- **optional** | ***CreateVariableOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateVariableRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateVariableOpts struct
+Optional parameters are passed through a pointer to a CreateVariableRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Key** | **optional.String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
- **Value** | **optional.String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
+**Key** | **String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
+**Value** | **String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
 
 ### Return type
 
@@ -1021,17 +1013,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to read the Asset resources from. | 
- **optional** | ***ListAssetOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListAssetRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListAssetOpts struct
+Optional parameters are passed through a pointer to a ListAssetRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1067,18 +1058,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to read the Asset Version resource from. | 
 **AssetSid** | **string**| The SID of the Asset resource that is the parent of the Asset Version resources to read. | 
- **optional** | ***ListAssetVersionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListAssetVersionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListAssetVersionOpts struct
+Optional parameters are passed through a pointer to a ListAssetVersionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1113,17 +1102,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to read the Build resources from. | 
- **optional** | ***ListBuildOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListBuildRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListBuildOpts struct
+Optional parameters are passed through a pointer to a ListBuildRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1159,18 +1147,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to read the Deployment resources from. | 
 **EnvironmentSid** | **string**| The SID of the Environment used by the Deployment resources to read. | 
- **optional** | ***ListDeploymentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListDeploymentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListDeploymentOpts struct
+Optional parameters are passed through a pointer to a ListDeploymentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1205,17 +1191,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to read the Environment resources from. | 
- **optional** | ***ListEnvironmentOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListEnvironmentRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListEnvironmentOpts struct
+Optional parameters are passed through a pointer to a ListEnvironmentRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1250,17 +1235,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to read the Function resources from. | 
- **optional** | ***ListFunctionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListFunctionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListFunctionOpts struct
+Optional parameters are passed through a pointer to a ListFunctionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1296,18 +1280,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to read the Function Version resources from. | 
 **FunctionSid** | **string**| The SID of the function that is the parent of the Function Version resources to read. | 
- **optional** | ***ListFunctionVersionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListFunctionVersionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListFunctionVersionOpts struct
+Optional parameters are passed through a pointer to a ListFunctionVersionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1343,21 +1325,19 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to read the Log resource from. | 
 **EnvironmentSid** | **string**| The SID of the environment with the Log resources to read. | 
- **optional** | ***ListLogOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListLogRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListLogOpts struct
+Optional parameters are passed through a pointer to a ListLogRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **FunctionSid** | **optional.String**| The SID of the function whose invocation produced the Log resources to read. | 
- **StartDate** | **optional.Time**| The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. | 
- **EndDate** | **optional.Time**| The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**FunctionSid** | **String**| The SID of the function whose invocation produced the Log resources to read. | 
+**StartDate** | **Time**| The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. | 
+**EndDate** | **Time**| The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1391,16 +1371,16 @@ Retrieve a list of all Services.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListServiceOpts struct
+Optional parameters are passed through a pointer to a ListServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1436,18 +1416,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to read the Variable resources from. | 
 **EnvironmentSid** | **string**| The SID of the Environment with the Variable resources to read. | 
- **optional** | ***ListVariableOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListVariableRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListVariableOpts struct
+Optional parameters are passed through a pointer to a ListVariableRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1483,18 +1461,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to update the Asset resource from. | 
 **Sid** | **string**| The SID that identifies the Asset resource to update. | 
- **optional** | ***UpdateAssetOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateAssetRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateAssetOpts struct
+Optional parameters are passed through a pointer to a UpdateAssetRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -1530,18 +1506,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string**| The SID of the Service to update the Function resource from. | 
 **Sid** | **string**| The SID of the Function resource to update. | 
- **optional** | ***UpdateFunctionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateFunctionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateFunctionOpts struct
+Optional parameters are passed through a pointer to a UpdateFunctionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -1576,19 +1550,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to update. | 
- **optional** | ***UpdateServiceOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateServiceRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceOpts struct
+Optional parameters are passed through a pointer to a UpdateServiceRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **FriendlyName** | **optional.String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
- **IncludeCredentials** | **optional.Bool**| Whether to inject Account credentials into a function invocation context. | 
- **UiEditable** | **optional.Bool**| Whether the Service resource&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
+**FriendlyName** | **String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
+**IncludeCredentials** | **Bool**| Whether to inject Account credentials into a function invocation context. | 
+**UiEditable** | **Bool**| Whether the Service resource&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -1625,20 +1598,17 @@ Name | Type | Description  | Notes
 **ServiceSid** | **string**| The SID of the Service to update the Variable resource under. | 
 **EnvironmentSid** | **string**| The SID of the Environment with the Variable resource to update. | 
 **Sid** | **string**| The SID of the Variable resource to update. | 
- **optional** | ***UpdateVariableOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateVariableRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateVariableOpts struct
+Optional parameters are passed through a pointer to a UpdateVariableRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
- **Key** | **optional.String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
- **Value** | **optional.String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
+**Key** | **String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
+**Value** | **String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
 
 ### Return type
 

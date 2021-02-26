@@ -1,9 +1,11 @@
 # MessageFeedbackOutcome
 
-## Properties
+## Enum
+Name | Type | Notes
+------------ | ------------- | -------------
+**CONFIRMED** | string | (value: `"confirmed"`)
+**UNCONFIRMED** | string | (value: `"unconfirmed"`)
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -38,18 +38,18 @@ Create a new Sink
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateSinkOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSinkRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSinkOpts struct
+Optional parameters are passed through a pointer to a CreateSinkRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Description** | **optional.String**| A human readable description for the Sink **This value should not contain PII.** | 
- **SinkConfiguration** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| The information required for Twilio to connect to the provided Sink encoded as JSON. | 
- **SinkType** | **optional.String**| The Sink type. Can only be \\\&quot;kinesis\\\&quot; or \\\&quot;webhook\\\&quot; currently. | 
+**Description** | **String**| A human readable description for the Sink **This value should not contain PII.** | 
+**SinkConfiguration** | [**map[string]interface{}**](map[string]interface{}.md)| The information required for Twilio to connect to the provided Sink encoded as JSON. | 
+**SinkType** | **String**| The Sink type. Can only be \\\&quot;kinesis\\\&quot; or \\\&quot;webhook\\\&quot; currently. | 
 
 ### Return type
 
@@ -118,17 +118,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**|  | 
- **optional** | ***CreateSinkValidateOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSinkValidateRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSinkValidateOpts struct
+Optional parameters are passed through a pointer to a CreateSinkValidateRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **TestId** | **optional.String**| A 34 character string that uniquely identifies the test event for a Sink being validated. | 
+**TestId** | **String**| A 34 character string that uniquely identifies the test event for a Sink being validated. | 
 
 ### Return type
 
@@ -162,18 +161,18 @@ Create a new Subscription.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateSubscriptionOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateSubscriptionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateSubscriptionOpts struct
+Optional parameters are passed through a pointer to a CreateSubscriptionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Description** | **optional.String**| A human readable description for the Subscription **This value should not contain PII.** | 
- **SinkSid** | **optional.String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
- **Types** | [**optional.Interface of []map[string]interface{}**](map[string]interface{}.md)| An array of objects containing the subscribed Event Types | 
+**Description** | **String**| A human readable description for the Subscription **This value should not contain PII.** | 
+**SinkSid** | **String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
+**Types** | [**[]map[string]interface{}**](map[string]interface{}.md)| An array of objects containing the subscribed Event Types | 
 
 ### Return type
 
@@ -446,16 +445,16 @@ Retrieve a paginated list of all the available Event Types.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListEventTypeOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListEventTypeRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListEventTypeOpts struct
+Optional parameters are passed through a pointer to a ListEventTypeRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -489,16 +488,16 @@ Retrieve a paginated list of Sinks belonging to the account used to make the req
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListSinkOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSinkRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSinkOpts struct
+Optional parameters are passed through a pointer to a ListSinkRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -533,17 +532,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **SubscriptionSid** | **string**| The unique SID identifier of the Subscription. | 
- **optional** | ***ListSubscribedEventOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSubscribedEventRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSubscribedEventOpts struct
+Optional parameters are passed through a pointer to a ListSubscribedEventRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -577,17 +575,17 @@ Retrieve a paginated list of Subscriptions belonging to the account used to make
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListSubscriptionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListSubscriptionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListSubscriptionOpts struct
+Optional parameters are passed through a pointer to a ListSubscriptionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **SinkSid** | **optional.String**| The SID of the sink that the list of Subscriptions should be filtered by. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**SinkSid** | **String**| The SID of the sink that the list of Subscriptions should be filtered by. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -622,17 +620,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
- **optional** | ***ListVersionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListVersionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListVersionOpts struct
+Optional parameters are passed through a pointer to a ListVersionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -667,18 +664,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
- **optional** | ***UpdateSubscriptionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateSubscriptionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateSubscriptionOpts struct
+Optional parameters are passed through a pointer to a UpdateSubscriptionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **Description** | **optional.String**| A human readable description for the Subscription. | 
- **SinkSid** | **optional.String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
+**Description** | **String**| A human readable description for the Subscription. | 
+**SinkSid** | **String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
 
 ### Return type
 

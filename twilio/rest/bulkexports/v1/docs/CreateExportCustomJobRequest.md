@@ -1,15 +1,14 @@
 # CreateExportCustomJobRequest
 
 ## Properties
-
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Email** | **string** | The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job&#39;s status. | [optional] 
-**EndDay** | **string** | The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
-**FriendlyName** | **string** | The friendly name specified when creating the job | 
-**StartDay** | **string** | The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
-**WebhookMethod** | **string** | This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | [optional] 
-**WebhookUrl** | **string** | The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. If you set neither webhook nor email, you will have to check your job&#39;s status manually. | [optional] 
+Name | Type | Notes
+------------ | ------------- | -------------
+**Email** | **string** | [optional] 
+**EndDay** | **string** | 
+**FriendlyName** | **string** | 
+**StartDay** | **string** | 
+**WebhookMethod** | **string** | [optional] 
+**WebhookUrl** | **string** | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

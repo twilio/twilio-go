@@ -41,19 +41,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FlowSid** | **string**| The SID of the Excecution&#39;s Flow. | 
- **optional** | ***CreateExecutionOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateExecutionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateExecutionOpts struct
+Optional parameters are passed through a pointer to a CreateExecutionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **From** | **optional.String**| The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;. | 
- **Parameters** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON data that will be added to the Flow&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. | 
- **To** | **optional.String**| The Contact phone number to start a Studio Flow Execution, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
+**From** | **String**| The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;. | 
+**Parameters** | [**map[string]interface{}**](map[string]interface{}.md)| JSON data that will be added to the Flow&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. | 
+**To** | **String**| The Contact phone number to start a Studio Flow Execution, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
 
 ### Return type
 
@@ -87,19 +86,19 @@ Create a Flow.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateFlowOpts** | optional parameters | nil if no parameters
+ **optional** | ***CreateFlowRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a CreateFlowOpts struct
+Optional parameters are passed through a pointer to a CreateFlowRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **CommitMessage** | **optional.String**| Description of change made in the revision. | 
- **Definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the Flow. | 
- **Status** | **optional.String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
+**CommitMessage** | **String**| Description of change made in the revision. | 
+**Definition** | [**map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
+**FriendlyName** | **String**| The string that you assigned to describe the Flow. | 
+**Status** | **String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
 
 ### Return type
 
@@ -448,19 +447,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FlowSid** | **string**| The SID of the Flow with the Execution resources to read. | 
- **optional** | ***ListExecutionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListExecutionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListExecutionOpts struct
+Optional parameters are passed through a pointer to a ListExecutionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **DateCreatedFrom** | **optional.Time**| Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
- **DateCreatedTo** | **optional.Time**| Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DateCreatedFrom** | **Time**| Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
+**DateCreatedTo** | **Time**| Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -496,18 +494,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FlowSid** | **string**| The SID of the Flow with the Steps to read. | 
 **ExecutionSid** | **string**| The SID of the Execution with the Steps to read. | 
- **optional** | ***ListExecutionStepOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListExecutionStepRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListExecutionStepOpts struct
+Optional parameters are passed through a pointer to a ListExecutionStepRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -541,16 +537,16 @@ Retrieve a list of all Flows.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListFlowOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListFlowRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListFlowOpts struct
+Optional parameters are passed through a pointer to a ListFlowRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -585,17 +581,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The SID of the Flow resource to fetch. | 
- **optional** | ***ListFlowRevisionOpts** | optional parameters | nil if no parameters
+ **optional** | ***ListFlowRevisionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a ListFlowRevisionOpts struct
+Optional parameters are passed through a pointer to a ListFlowRevisionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **PageSize** | **optional.Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -631,18 +626,16 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **FlowSid** | **string**| The SID of the Flow with the Execution resources to update. | 
 **Sid** | **string**| The SID of the Execution resource to update. | 
- **optional** | ***UpdateExecutionOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateExecutionRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateExecutionOpts struct
+Optional parameters are passed through a pointer to a UpdateExecutionRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
- **Status** | **optional.String**| The status of the Execution. Can only be &#x60;ended&#x60;. | 
+**Status** | **String**| The status of the Execution. Can only be &#x60;ended&#x60;. | 
 
 ### Return type
 
@@ -677,20 +670,19 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| The SID of the Flow resource to fetch. | 
- **optional** | ***UpdateFlowOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateFlowRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateFlowOpts struct
+Optional parameters are passed through a pointer to a UpdateFlowRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **CommitMessage** | **optional.String**| Description of change made in the revision. | 
- **Definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the Flow. | 
- **Status** | **optional.String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
+**CommitMessage** | **String**| Description of change made in the revision. | 
+**Definition** | [**map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
+**FriendlyName** | **String**| The string that you assigned to describe the Flow. | 
+**Status** | **String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
 
 ### Return type
 
@@ -724,19 +716,19 @@ Validate flow JSON definition
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UpdateFlowValidateOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateFlowValidateRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateFlowValidateOpts struct
+Optional parameters are passed through a pointer to a UpdateFlowValidateRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **CommitMessage** | **optional.String**| Description of change made in the revision. | 
- **Definition** | [**optional.Interface of map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
- **FriendlyName** | **optional.String**| The string that you assigned to describe the Flow. | 
- **Status** | **optional.String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
+**CommitMessage** | **String**| Description of change made in the revision. | 
+**Definition** | [**map[string]interface{}**](map[string]interface{}.md)| JSON representation of flow definition. | 
+**FriendlyName** | **String**| The string that you assigned to describe the Flow. | 
+**Status** | **String**| The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;. | 
 
 ### Return type
 
@@ -771,17 +763,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Sid** | **string**| Unique identifier of the flow. | 
- **optional** | ***UpdateTestUserOpts** | optional parameters | nil if no parameters
+ **optional** | ***UpdateTestUserRequest** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 
-Optional parameters are passed through a pointer to a UpdateTestUserOpts struct
+Optional parameters are passed through a pointer to a UpdateTestUserRequest struct
  
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **TestUsers** | [**optional.Interface of []string**](string.md)| List of test user identities that can test draft versions of the flow. | 
+**TestUsers** | [**[]string**](string.md)| List of test user identities that can test draft versions of the flow. | 
 
 ### Return type
 

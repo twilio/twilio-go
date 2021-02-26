@@ -1,9 +1,10 @@
 # SimResetStatus
 
-## Properties
+## Enum
+Name | Type | Notes
+------------ | ------------- | -------------
+**RESETTING** | string | (value: `"resetting"`)
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
