@@ -3,15 +3,15 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**AverageWaitTime** | Pointer to **int32** | [optional] 
-**CurrentSize** | Pointer to **int32** | [optional] 
-**DateCreated** | Pointer to **string** | [optional] 
-**DateUpdated** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**MaxSize** | Pointer to **int32** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Uri** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**AverageWaitTime** | Pointer to **int32** | 
+**CurrentSize** | Pointer to **int32** | 
+**DateCreated** | Pointer to **string** | 
+**DateUpdated** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**MaxSize** | Pointer to **int32** | 
+**Sid** | Pointer to **string** | 
+**Uri** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

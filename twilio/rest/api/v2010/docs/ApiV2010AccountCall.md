@@ -3,33 +3,33 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Annotation** | Pointer to **string** | [optional] 
-**AnsweredBy** | Pointer to **string** | [optional] 
-**ApiVersion** | Pointer to **string** | [optional] 
-**CallerName** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to **string** | [optional] 
-**DateUpdated** | Pointer to **string** | [optional] 
-**Direction** | Pointer to **string** | [optional] 
-**Duration** | Pointer to **string** | [optional] 
-**EndTime** | Pointer to **string** | [optional] 
-**ForwardedFrom** | Pointer to **string** | [optional] 
-**From** | Pointer to **string** | [optional] 
-**FromFormatted** | Pointer to **string** | [optional] 
-**GroupSid** | Pointer to **string** | [optional] 
-**ParentCallSid** | Pointer to **string** | [optional] 
-**PhoneNumberSid** | Pointer to **string** | [optional] 
-**Price** | Pointer to **string** | [optional] 
-**PriceUnit** | Pointer to **string** | [optional] 
-**QueueTime** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**StartTime** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**CallStatus**](call_status.md) | [optional] 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**To** | Pointer to **string** | [optional] 
-**ToFormatted** | Pointer to **string** | [optional] 
-**TrunkSid** | Pointer to **string** | [optional] 
-**Uri** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Annotation** | Pointer to **string** | 
+**AnsweredBy** | Pointer to **string** | 
+**ApiVersion** | Pointer to **string** | 
+**CallerName** | Pointer to **string** | 
+**DateCreated** | Pointer to **string** | 
+**DateUpdated** | Pointer to **string** | 
+**Direction** | Pointer to **string** | 
+**Duration** | Pointer to **string** | 
+**EndTime** | Pointer to **string** | 
+**ForwardedFrom** | Pointer to **string** | 
+**From** | Pointer to **string** | 
+**FromFormatted** | Pointer to **string** | 
+**GroupSid** | Pointer to **string** | 
+**ParentCallSid** | Pointer to **string** | 
+**PhoneNumberSid** | Pointer to **string** | 
+**Price** | Pointer to **string** | 
+**PriceUnit** | Pointer to **string** | 
+**QueueTime** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**StartTime** | Pointer to **string** | 
+**Status** | Pointer to [**CallStatus**](call_status.md) | 
+**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**To** | Pointer to **string** | 
+**ToFormatted** | Pointer to **string** | 
+**TrunkSid** | Pointer to **string** | 
+**Uri** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**LastConsumedMessageIndex** | Pointer to **int32** | [optional] 
+**LastConsumedMessageIndex** | Pointer to **int32** | 
 **LastConsumptionTimestamp** | [**time.Time**](time.Time.md) | [optional] 
 **NotificationLevel** | **string** | [optional] 
 

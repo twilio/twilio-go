@@ -3,15 +3,15 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DeviceSid** | Pointer to **string** | [optional] 
-**FleetSid** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Thumbprint** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**DeviceSid** | Pointer to **string** | 
+**FleetSid** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Thumbprint** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

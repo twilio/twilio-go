@@ -3,18 +3,18 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Context** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**EngagementSid** | Pointer to **string** | [optional] 
-**FlowSid** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Name** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**TransitionedFrom** | Pointer to **string** | [optional] 
-**TransitionedTo** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Context** | Pointer to [**map[string]interface{}**](.md) | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**EngagementSid** | Pointer to **string** | 
+**FlowSid** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Name** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**TransitionedFrom** | Pointer to **string** | 
+**TransitionedTo** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

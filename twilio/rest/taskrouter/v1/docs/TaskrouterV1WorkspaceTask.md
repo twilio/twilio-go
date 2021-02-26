@@ -3,27 +3,27 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Addons** | Pointer to **string** | [optional] 
-**Age** | Pointer to **int32** | [optional] 
-**AssignmentStatus** | Pointer to [**TaskStatus**](task_status.md) | [optional] 
-**Attributes** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Priority** | Pointer to **int32** | [optional] 
-**Reason** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**TaskChannelSid** | Pointer to **string** | [optional] 
-**TaskChannelUniqueName** | Pointer to **string** | [optional] 
-**TaskQueueEnteredDate** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**TaskQueueFriendlyName** | Pointer to **string** | [optional] 
-**TaskQueueSid** | Pointer to **string** | [optional] 
-**Timeout** | Pointer to **int32** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**WorkflowFriendlyName** | Pointer to **string** | [optional] 
-**WorkflowSid** | Pointer to **string** | [optional] 
-**WorkspaceSid** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Addons** | Pointer to **string** | 
+**Age** | Pointer to **int32** | 
+**AssignmentStatus** | Pointer to [**TaskStatus**](task_status.md) | 
+**Attributes** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Priority** | Pointer to **int32** | 
+**Reason** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**TaskChannelSid** | Pointer to **string** | 
+**TaskChannelUniqueName** | Pointer to **string** | 
+**TaskQueueEnteredDate** | Pointer to [**time.Time**](time.Time.md) | 
+**TaskQueueFriendlyName** | Pointer to **string** | 
+**TaskQueueSid** | Pointer to **string** | 
+**Timeout** | Pointer to **int32** | 
+**Url** | Pointer to **string** | 
+**WorkflowFriendlyName** | Pointer to **string** | 
+**WorkflowSid** | Pointer to **string** | 
+**WorkspaceSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

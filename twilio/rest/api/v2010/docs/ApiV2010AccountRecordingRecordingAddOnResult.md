@@ -3,16 +3,16 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**AddOnConfigurationSid** | Pointer to **string** | [optional] 
-**AddOnSid** | Pointer to **string** | [optional] 
-**DateCompleted** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to **string** | [optional] 
-**DateUpdated** | Pointer to **string** | [optional] 
-**ReferenceSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**RecordingAddOnResultStatus**](recording_add_on_result_status.md) | [optional] 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | [optional] 
+**AccountSid** | Pointer to **string** | 
+**AddOnConfigurationSid** | Pointer to **string** | 
+**AddOnSid** | Pointer to **string** | 
+**DateCompleted** | Pointer to **string** | 
+**DateCreated** | Pointer to **string** | 
+**DateUpdated** | Pointer to **string** | 
+**ReferenceSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Status** | Pointer to [**RecordingAddOnResultStatus**](recording_add_on_result_status.md) | 
+**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

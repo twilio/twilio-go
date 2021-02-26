@@ -3,27 +3,27 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**AvgTaskAcceptanceTime** | Pointer to **int32** | [optional] 
-**EndTime** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**ReservationsAccepted** | Pointer to **int32** | [optional] 
-**ReservationsCanceled** | Pointer to **int32** | [optional] 
-**ReservationsCreated** | Pointer to **int32** | [optional] 
-**ReservationsRejected** | Pointer to **int32** | [optional] 
-**ReservationsRescinded** | Pointer to **int32** | [optional] 
-**ReservationsTimedOut** | Pointer to **int32** | [optional] 
-**SplitByWaitTime** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**StartTime** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**TasksCanceled** | Pointer to **int32** | [optional] 
-**TasksCompleted** | Pointer to **int32** | [optional] 
-**TasksCreated** | Pointer to **int32** | [optional] 
-**TasksDeleted** | Pointer to **int32** | [optional] 
-**TasksMoved** | Pointer to **int32** | [optional] 
-**TasksTimedOutInWorkflow** | Pointer to **int32** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**WaitDurationUntilAccepted** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**WaitDurationUntilCanceled** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**WorkspaceSid** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**AvgTaskAcceptanceTime** | Pointer to **int32** | 
+**EndTime** | Pointer to [**time.Time**](time.Time.md) | 
+**ReservationsAccepted** | Pointer to **int32** | 
+**ReservationsCanceled** | Pointer to **int32** | 
+**ReservationsCreated** | Pointer to **int32** | 
+**ReservationsRejected** | Pointer to **int32** | 
+**ReservationsRescinded** | Pointer to **int32** | 
+**ReservationsTimedOut** | Pointer to **int32** | 
+**SplitByWaitTime** | Pointer to [**map[string]interface{}**](.md) | 
+**StartTime** | Pointer to [**time.Time**](time.Time.md) | 
+**TasksCanceled** | Pointer to **int32** | 
+**TasksCompleted** | Pointer to **int32** | 
+**TasksCreated** | Pointer to **int32** | 
+**TasksDeleted** | Pointer to **int32** | 
+**TasksMoved** | Pointer to **int32** | 
+**TasksTimedOutInWorkflow** | Pointer to **int32** | 
+**Url** | Pointer to **string** | 
+**WaitDurationUntilAccepted** | Pointer to [**map[string]interface{}**](.md) | 
+**WaitDurationUntilCanceled** | Pointer to [**map[string]interface{}**](.md) | 
+**WorkspaceSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

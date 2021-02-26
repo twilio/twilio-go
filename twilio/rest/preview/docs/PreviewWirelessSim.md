@@ -3,28 +3,28 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**CommandsCallbackMethod** | Pointer to **string** | [optional] 
-**CommandsCallbackUrl** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**EId** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**Iccid** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**RatePlanSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**SmsFallbackMethod** | Pointer to [**HttpMethod**](http_method.md) | [optional] 
-**SmsFallbackUrl** | Pointer to **string** | [optional] 
-**SmsMethod** | Pointer to [**HttpMethod**](http_method.md) | [optional] 
-**SmsUrl** | Pointer to **string** | [optional] 
-**Status** | Pointer to **string** | [optional] 
-**UniqueName** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**VoiceFallbackMethod** | Pointer to [**HttpMethod**](http_method.md) | [optional] 
-**VoiceFallbackUrl** | Pointer to **string** | [optional] 
-**VoiceMethod** | Pointer to [**HttpMethod**](http_method.md) | [optional] 
-**VoiceUrl** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**CommandsCallbackMethod** | Pointer to **string** | 
+**CommandsCallbackUrl** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**EId** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**Iccid** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**RatePlanSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**SmsFallbackMethod** | Pointer to [**HttpMethod**](http_method.md) | 
+**SmsFallbackUrl** | Pointer to **string** | 
+**SmsMethod** | Pointer to [**HttpMethod**](http_method.md) | 
+**SmsUrl** | Pointer to **string** | 
+**Status** | Pointer to **string** | 
+**UniqueName** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
+**VoiceFallbackMethod** | Pointer to [**HttpMethod**](http_method.md) | 
+**VoiceFallbackUrl** | Pointer to **string** | 
+**VoiceMethod** | Pointer to [**HttpMethod**](http_method.md) | 
+**VoiceUrl** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

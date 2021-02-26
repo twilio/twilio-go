@@ -6,7 +6,7 @@ Name | Type | Notes
 **Attributes** | **string** | [optional] 
 **DateCreated** | [**time.Time**](time.Time.md) | [optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) | [optional] 
-**LastConsumedMessageIndex** | Pointer to **int32** | [optional] 
+**LastConsumedMessageIndex** | Pointer to **int32** | 
 **LastConsumptionTimestamp** | [**time.Time**](time.Time.md) | [optional] 
 **RoleSid** | **string** | [optional] 
 

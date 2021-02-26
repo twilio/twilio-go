@@ -3,12 +3,12 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**Country** | Pointer to **string** | [optional] 
-**InboundCallPrices** | Pointer to **[]map[string]interface{}** | [optional] 
-**IsoCountry** | Pointer to **string** | [optional] 
-**OutboundPrefixPrices** | Pointer to **[]map[string]interface{}** | [optional] 
-**PriceUnit** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**Country** | Pointer to **string** | 
+**InboundCallPrices** | Pointer to **[]map[string]interface{}** | 
+**IsoCountry** | Pointer to **string** | 
+**OutboundPrefixPrices** | Pointer to **[]map[string]interface{}** | 
+**PriceUnit** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

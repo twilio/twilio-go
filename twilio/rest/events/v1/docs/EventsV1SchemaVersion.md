@@ -3,11 +3,11 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Id** | Pointer to **string** | [optional] 
-**Raw** | Pointer to **string** | [optional] 
-**SchemaVersion** | Pointer to **int32** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**Id** | Pointer to **string** | 
+**Raw** | Pointer to **string** | 
+**SchemaVersion** | Pointer to **int32** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

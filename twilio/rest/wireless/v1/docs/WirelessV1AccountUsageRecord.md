@@ -3,10 +3,10 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Commands** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Data** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Period** | Pointer to [**map[string]interface{}**](.md) | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Commands** | Pointer to [**map[string]interface{}**](.md) | 
+**Data** | Pointer to [**map[string]interface{}**](.md) | 
+**Period** | Pointer to [**map[string]interface{}**](.md) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

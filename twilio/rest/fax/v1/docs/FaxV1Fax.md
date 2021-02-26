@@ -3,24 +3,24 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**ApiVersion** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Direction** | Pointer to [**FaxDirection**](fax_direction.md) | [optional] 
-**Duration** | Pointer to **int32** | [optional] 
-**From** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**MediaSid** | Pointer to **string** | [optional] 
-**MediaUrl** | Pointer to **string** | [optional] 
-**NumPages** | Pointer to **int32** | [optional] 
-**Price** | Pointer to **float32** | [optional] 
-**PriceUnit** | Pointer to **string** | [optional] 
-**Quality** | Pointer to [**FaxQuality**](fax_quality.md) | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**FaxStatus**](fax_status.md) | [optional] 
-**To** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**ApiVersion** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**Direction** | Pointer to [**FaxDirection**](fax_direction.md) | 
+**Duration** | Pointer to **int32** | 
+**From** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**MediaSid** | Pointer to **string** | 
+**MediaUrl** | Pointer to **string** | 
+**NumPages** | Pointer to **int32** | 
+**Price** | Pointer to **float32** | 
+**PriceUnit** | Pointer to **string** | 
+**Quality** | Pointer to [**FaxQuality**](fax_quality.md) | 
+**Sid** | Pointer to **string** | 
+**Status** | Pointer to [**FaxStatus**](fax_status.md) | 
+**To** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -3,14 +3,14 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**AwsCredentialsSid** | Pointer to **string** | [optional] 
-**AwsS3Url** | Pointer to **string** | [optional] 
-**AwsStorageEnabled** | Pointer to **bool** | [optional] 
-**EncryptionEnabled** | Pointer to **bool** | [optional] 
-**EncryptionKeySid** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**AwsCredentialsSid** | Pointer to **string** | 
+**AwsS3Url** | Pointer to **string** | 
+**AwsStorageEnabled** | Pointer to **bool** | 
+**EncryptionEnabled** | Pointer to **bool** | 
+**EncryptionKeySid** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

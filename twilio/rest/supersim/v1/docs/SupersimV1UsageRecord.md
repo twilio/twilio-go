@@ -3,15 +3,15 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**DataDownload** | Pointer to **int32** | [optional] 
-**DataTotal** | Pointer to **int32** | [optional] 
-**DataUpload** | Pointer to **int32** | [optional] 
-**FleetSid** | Pointer to **string** | [optional] 
-**IsoCountry** | Pointer to **string** | [optional] 
-**NetworkSid** | Pointer to **string** | [optional] 
-**Period** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**SimSid** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**DataDownload** | Pointer to **int32** | 
+**DataTotal** | Pointer to **int32** | 
+**DataUpload** | Pointer to **int32** | 
+**FleetSid** | Pointer to **string** | 
+**IsoCountry** | Pointer to **string** | 
+**NetworkSid** | Pointer to **string** | 
+**Period** | Pointer to [**map[string]interface{}**](.md) | 
+**SimSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

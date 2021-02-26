@@ -3,45 +3,45 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Attributes** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**CallRecordingEnabled** | Pointer to **bool** | [optional] 
-**CallRecordingWebhookUrl** | Pointer to **string** | [optional] 
-**ChatServiceInstanceSid** | Pointer to **string** | [optional] 
-**CrmAttributes** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**CrmCallbackUrl** | Pointer to **string** | [optional] 
-**CrmEnabled** | Pointer to **bool** | [optional] 
-**CrmFallbackUrl** | Pointer to **string** | [optional] 
-**CrmType** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**FlexServiceInstanceSid** | Pointer to **string** | [optional] 
-**Integrations** | Pointer to **[]map[string]interface{}** | [optional] 
-**Markdown** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**MessagingServiceInstanceSid** | Pointer to **string** | [optional] 
-**Notifications** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**OutboundCallFlows** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**PluginServiceAttributes** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**PluginServiceEnabled** | Pointer to **bool** | [optional] 
-**PublicAttributes** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**QueueStatsConfiguration** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**RuntimeDomain** | Pointer to **string** | [optional] 
-**ServerlessServiceSids** | Pointer to **[]string** | [optional] 
-**ServiceVersion** | Pointer to **string** | [optional] 
-**Status** | Pointer to [**ConfigurationStatus**](configuration_status.md) | [optional] 
-**TaskrouterOfflineActivitySid** | Pointer to **string** | [optional] 
-**TaskrouterSkills** | Pointer to **[]map[string]interface{}** | [optional] 
-**TaskrouterTargetTaskqueueSid** | Pointer to **string** | [optional] 
-**TaskrouterTargetWorkflowSid** | Pointer to **string** | [optional] 
-**TaskrouterTaskqueues** | Pointer to **[]map[string]interface{}** | [optional] 
-**TaskrouterWorkerAttributes** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**TaskrouterWorkerChannels** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**TaskrouterWorkspaceSid** | Pointer to **string** | [optional] 
-**UiAttributes** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**UiDependencies** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**UiLanguage** | Pointer to **string** | [optional] 
-**UiVersion** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Attributes** | Pointer to [**map[string]interface{}**](.md) | 
+**CallRecordingEnabled** | Pointer to **bool** | 
+**CallRecordingWebhookUrl** | Pointer to **string** | 
+**ChatServiceInstanceSid** | Pointer to **string** | 
+**CrmAttributes** | Pointer to [**map[string]interface{}**](.md) | 
+**CrmCallbackUrl** | Pointer to **string** | 
+**CrmEnabled** | Pointer to **bool** | 
+**CrmFallbackUrl** | Pointer to **string** | 
+**CrmType** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**FlexServiceInstanceSid** | Pointer to **string** | 
+**Integrations** | Pointer to **[]map[string]interface{}** | 
+**Markdown** | Pointer to [**map[string]interface{}**](.md) | 
+**MessagingServiceInstanceSid** | Pointer to **string** | 
+**Notifications** | Pointer to [**map[string]interface{}**](.md) | 
+**OutboundCallFlows** | Pointer to [**map[string]interface{}**](.md) | 
+**PluginServiceAttributes** | Pointer to [**map[string]interface{}**](.md) | 
+**PluginServiceEnabled** | Pointer to **bool** | 
+**PublicAttributes** | Pointer to [**map[string]interface{}**](.md) | 
+**QueueStatsConfiguration** | Pointer to [**map[string]interface{}**](.md) | 
+**RuntimeDomain** | Pointer to **string** | 
+**ServerlessServiceSids** | Pointer to **[]string** | 
+**ServiceVersion** | Pointer to **string** | 
+**Status** | Pointer to [**ConfigurationStatus**](configuration_status.md) | 
+**TaskrouterOfflineActivitySid** | Pointer to **string** | 
+**TaskrouterSkills** | Pointer to **[]map[string]interface{}** | 
+**TaskrouterTargetTaskqueueSid** | Pointer to **string** | 
+**TaskrouterTargetWorkflowSid** | Pointer to **string** | 
+**TaskrouterTaskqueues** | Pointer to **[]map[string]interface{}** | 
+**TaskrouterWorkerAttributes** | Pointer to [**map[string]interface{}**](.md) | 
+**TaskrouterWorkerChannels** | Pointer to [**map[string]interface{}**](.md) | 
+**TaskrouterWorkspaceSid** | Pointer to **string** | 
+**UiAttributes** | Pointer to [**map[string]interface{}**](.md) | 
+**UiDependencies** | Pointer to [**map[string]interface{}**](.md) | 
+**UiLanguage** | Pointer to **string** | 
+**UiVersion** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

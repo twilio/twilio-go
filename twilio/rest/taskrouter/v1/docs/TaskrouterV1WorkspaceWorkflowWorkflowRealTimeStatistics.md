@@ -3,15 +3,15 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**LongestTaskWaitingAge** | Pointer to **int32** | [optional] 
-**LongestTaskWaitingSid** | Pointer to **string** | [optional] 
-**TasksByPriority** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**TasksByStatus** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**TotalTasks** | Pointer to **int32** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**WorkflowSid** | Pointer to **string** | [optional] 
-**WorkspaceSid** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**LongestTaskWaitingAge** | Pointer to **int32** | 
+**LongestTaskWaitingSid** | Pointer to **string** | 
+**TasksByPriority** | Pointer to [**map[string]interface{}**](.md) | 
+**TasksByStatus** | Pointer to [**map[string]interface{}**](.md) | 
+**TotalTasks** | Pointer to **int32** | 
+**Url** | Pointer to **string** | 
+**WorkflowSid** | Pointer to **string** | 
+**WorkspaceSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

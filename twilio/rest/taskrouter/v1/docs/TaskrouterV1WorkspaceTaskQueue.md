@@ -3,21 +3,21 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**AssignmentActivityName** | Pointer to **string** | [optional] 
-**AssignmentActivitySid** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**MaxReservedWorkers** | Pointer to **int32** | [optional] 
-**ReservationActivityName** | Pointer to **string** | [optional] 
-**ReservationActivitySid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**TargetWorkers** | Pointer to **string** | [optional] 
-**TaskOrder** | Pointer to [**TaskQueueTaskOrder**](task_queue_task_order.md) | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**WorkspaceSid** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**AssignmentActivityName** | Pointer to **string** | 
+**AssignmentActivitySid** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**FriendlyName** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**MaxReservedWorkers** | Pointer to **int32** | 
+**ReservationActivityName** | Pointer to **string** | 
+**ReservationActivitySid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**TargetWorkers** | Pointer to **string** | 
+**TaskOrder** | Pointer to [**TaskQueueTaskOrder**](task_queue_task_order.md) | 
+**Url** | Pointer to **string** | 
+**WorkspaceSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

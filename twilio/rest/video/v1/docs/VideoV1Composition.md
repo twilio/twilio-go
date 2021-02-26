@@ -3,24 +3,24 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**AudioSources** | Pointer to **[]string** | [optional] 
-**AudioSourcesExcluded** | Pointer to **[]string** | [optional] 
-**Bitrate** | Pointer to **int32** | [optional] 
-**DateCompleted** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateDeleted** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Duration** | Pointer to **int32** | [optional] 
-**Format** | Pointer to [**CompositionFormat**](composition_format.md) | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Resolution** | Pointer to **string** | [optional] 
-**RoomSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Size** | Pointer to **int32** | [optional] 
-**Status** | Pointer to [**CompositionStatus**](composition_status.md) | [optional] 
-**Trim** | Pointer to **bool** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**VideoLayout** | Pointer to [**map[string]interface{}**](.md) | [optional] 
+**AccountSid** | Pointer to **string** | 
+**AudioSources** | Pointer to **[]string** | 
+**AudioSourcesExcluded** | Pointer to **[]string** | 
+**Bitrate** | Pointer to **int32** | 
+**DateCompleted** | Pointer to [**time.Time**](time.Time.md) | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateDeleted** | Pointer to [**time.Time**](time.Time.md) | 
+**Duration** | Pointer to **int32** | 
+**Format** | Pointer to [**CompositionFormat**](composition_format.md) | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Resolution** | Pointer to **string** | 
+**RoomSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Size** | Pointer to **int32** | 
+**Status** | Pointer to [**CompositionStatus**](composition_status.md) | 
+**Trim** | Pointer to **bool** | 
+**Url** | Pointer to **string** | 
+**VideoLayout** | Pointer to [**map[string]interface{}**](.md) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -3,29 +3,29 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**ConsumptionReportInterval** | Pointer to **int32** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DefaultChannelCreatorRoleSid** | Pointer to **string** | [optional] 
-**DefaultChannelRoleSid** | Pointer to **string** | [optional] 
-**DefaultServiceRoleSid** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**Limits** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Media** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Notifications** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**PostWebhookRetryCount** | Pointer to **int32** | [optional] 
-**PostWebhookUrl** | Pointer to **string** | [optional] 
-**PreWebhookRetryCount** | Pointer to **int32** | [optional] 
-**PreWebhookUrl** | Pointer to **string** | [optional] 
-**ReachabilityEnabled** | Pointer to **bool** | [optional] 
-**ReadStatusEnabled** | Pointer to **bool** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**TypingIndicatorTimeout** | Pointer to **int32** | [optional] 
-**Url** | Pointer to **string** | [optional] 
-**WebhookFilters** | Pointer to **[]string** | [optional] 
-**WebhookMethod** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**ConsumptionReportInterval** | Pointer to **int32** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**DefaultChannelCreatorRoleSid** | Pointer to **string** | 
+**DefaultChannelRoleSid** | Pointer to **string** | 
+**DefaultServiceRoleSid** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**Limits** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Media** | Pointer to [**map[string]interface{}**](.md) | 
+**Notifications** | Pointer to [**map[string]interface{}**](.md) | 
+**PostWebhookRetryCount** | Pointer to **int32** | 
+**PostWebhookUrl** | Pointer to **string** | 
+**PreWebhookRetryCount** | Pointer to **int32** | 
+**PreWebhookUrl** | Pointer to **string** | 
+**ReachabilityEnabled** | Pointer to **bool** | 
+**ReadStatusEnabled** | Pointer to **bool** | 
+**Sid** | Pointer to **string** | 
+**TypingIndicatorTimeout** | Pointer to **int32** | 
+**Url** | Pointer to **string** | 
+**WebhookFilters** | Pointer to **[]string** | 
+**WebhookMethod** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

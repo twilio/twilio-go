@@ -3,20 +3,20 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Address** | Pointer to **string** | [optional] 
-**BindingType** | Pointer to **string** | [optional] 
-**CredentialSid** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Endpoint** | Pointer to **string** | [optional] 
-**Identity** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**NotificationProtocolVersion** | Pointer to **string** | [optional] 
-**ServiceSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Tags** | Pointer to **[]string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Address** | Pointer to **string** | 
+**BindingType** | Pointer to **string** | 
+**CredentialSid** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**Endpoint** | Pointer to **string** | 
+**Identity** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**NotificationProtocolVersion** | Pointer to **string** | 
+**ServiceSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Tags** | Pointer to **[]string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

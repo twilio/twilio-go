@@ -3,22 +3,22 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**AuthType** | Pointer to **string** | [optional] 
-**AuthTypeSet** | Pointer to **[]string** | [optional] 
-**CnamLookupEnabled** | Pointer to **bool** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DisasterRecoveryMethod** | Pointer to [**HttpMethod**](http_method.md) | [optional] 
-**DisasterRecoveryUrl** | Pointer to **string** | [optional] 
-**DomainName** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Recording** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Secure** | Pointer to **bool** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**TransferMode** | Pointer to [**TrunkTransferSetting**](trunk_transfer_setting.md) | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**AuthType** | Pointer to **string** | 
+**AuthTypeSet** | Pointer to **[]string** | 
+**CnamLookupEnabled** | Pointer to **bool** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**DisasterRecoveryMethod** | Pointer to [**HttpMethod**](http_method.md) | 
+**DisasterRecoveryUrl** | Pointer to **string** | 
+**DomainName** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Recording** | Pointer to [**map[string]interface{}**](.md) | 
+**Secure** | Pointer to **bool** | 
+**Sid** | Pointer to **string** | 
+**TransferMode** | Pointer to [**TrunkTransferSetting**](trunk_transfer_setting.md) | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

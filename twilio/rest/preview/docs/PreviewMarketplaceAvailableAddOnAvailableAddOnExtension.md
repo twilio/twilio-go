@@ -3,12 +3,12 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AvailableAddOnSid** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**ProductName** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**UniqueName** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AvailableAddOnSid** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**ProductName** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**UniqueName** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

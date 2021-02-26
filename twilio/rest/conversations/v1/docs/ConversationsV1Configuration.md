@@ -3,13 +3,13 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**DefaultChatServiceSid** | Pointer to **string** | [optional] 
-**DefaultClosedTimer** | Pointer to **string** | [optional] 
-**DefaultInactiveTimer** | Pointer to **string** | [optional] 
-**DefaultMessagingServiceSid** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**DefaultChatServiceSid** | Pointer to **string** | 
+**DefaultClosedTimer** | Pointer to **string** | 
+**DefaultInactiveTimer** | Pointer to **string** | 
+**DefaultMessagingServiceSid** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

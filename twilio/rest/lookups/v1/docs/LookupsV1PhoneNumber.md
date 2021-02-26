@@ -3,13 +3,13 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AddOns** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**CallerName** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**Carrier** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**CountryCode** | Pointer to **string** | [optional] 
-**NationalFormat** | Pointer to **string** | [optional] 
-**PhoneNumber** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AddOns** | Pointer to [**map[string]interface{}**](.md) | 
+**CallerName** | Pointer to [**map[string]interface{}**](.md) | 
+**Carrier** | Pointer to [**map[string]interface{}**](.md) | 
+**CountryCode** | Pointer to **string** | 
+**NationalFormat** | Pointer to **string** | 
+**PhoneNumber** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -3,26 +3,26 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**AlexaSkillId** | Pointer to **string** | [optional] 
-**ApnCredentialSid** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DefaultAlexaNotificationProtocolVersion** | Pointer to **string** | [optional] 
-**DefaultApnNotificationProtocolVersion** | Pointer to **string** | [optional] 
-**DefaultFcmNotificationProtocolVersion** | Pointer to **string** | [optional] 
-**DefaultGcmNotificationProtocolVersion** | Pointer to **string** | [optional] 
-**DeliveryCallbackEnabled** | Pointer to **bool** | [optional] 
-**DeliveryCallbackUrl** | Pointer to **string** | [optional] 
-**FacebookMessengerPageId** | Pointer to **string** | [optional] 
-**FcmCredentialSid** | Pointer to **string** | [optional] 
-**FriendlyName** | Pointer to **string** | [optional] 
-**GcmCredentialSid** | Pointer to **string** | [optional] 
-**Links** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**LogEnabled** | Pointer to **bool** | [optional] 
-**MessagingServiceSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**AlexaSkillId** | Pointer to **string** | 
+**ApnCredentialSid** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**DefaultAlexaNotificationProtocolVersion** | Pointer to **string** | 
+**DefaultApnNotificationProtocolVersion** | Pointer to **string** | 
+**DefaultFcmNotificationProtocolVersion** | Pointer to **string** | 
+**DefaultGcmNotificationProtocolVersion** | Pointer to **string** | 
+**DeliveryCallbackEnabled** | Pointer to **bool** | 
+**DeliveryCallbackUrl** | Pointer to **string** | 
+**FacebookMessengerPageId** | Pointer to **string** | 
+**FcmCredentialSid** | Pointer to **string** | 
+**FriendlyName** | Pointer to **string** | 
+**GcmCredentialSid** | Pointer to **string** | 
+**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**LogEnabled** | Pointer to **bool** | 
+**MessagingServiceSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

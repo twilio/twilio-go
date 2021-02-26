@@ -3,18 +3,18 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AccountSid** | Pointer to **string** | [optional] 
-**Attributes** | Pointer to **string** | [optional] 
-**ConversationSid** | Pointer to **string** | [optional] 
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | [optional] 
-**Identity** | Pointer to **string** | [optional] 
-**LastReadMessageIndex** | Pointer to **int32** | [optional] 
-**LastReadTimestamp** | Pointer to **string** | [optional] 
-**MessagingBinding** | Pointer to [**map[string]interface{}**](.md) | [optional] 
-**RoleSid** | Pointer to **string** | [optional] 
-**Sid** | Pointer to **string** | [optional] 
-**Url** | Pointer to **string** | [optional] 
+**AccountSid** | Pointer to **string** | 
+**Attributes** | Pointer to **string** | 
+**ConversationSid** | Pointer to **string** | 
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
+**Identity** | Pointer to **string** | 
+**LastReadMessageIndex** | Pointer to **int32** | 
+**LastReadTimestamp** | Pointer to **string** | 
+**MessagingBinding** | Pointer to [**map[string]interface{}**](.md) | 
+**RoleSid** | Pointer to **string** | 
+**Sid** | Pointer to **string** | 
+**Url** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
