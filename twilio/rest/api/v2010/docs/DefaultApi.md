@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010Account**](api.v2010.account.md)
+[**ApiV2010Account**](ApiV2010Account.md)
 
 ### Authorization
 
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAddress**](api.v2010.account.address.md)
+[**ApiV2010AccountAddress**](ApiV2010AccountAddress.md)
 
 ### Authorization
 
@@ -334,7 +334,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountApplication**](api.v2010.account.application.md)
+[**ApiV2010AccountApplication**](ApiV2010AccountApplication.md)
 
 ### Authorization
 
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCall**](api.v2010.account.call.md)
+[**ApiV2010AccountCall**](ApiV2010AccountCall.md)
 
 ### Authorization
 
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallFeedbackSummary**](api.v2010.account.call.call_feedback_summary.md)
+[**ApiV2010AccountCallCallFeedbackSummary**](ApiV2010AccountCallCallFeedbackSummary.md)
 
 ### Authorization
 
@@ -508,7 +508,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallRecording**](api.v2010.account.call.call_recording.md)
+[**ApiV2010AccountCallCallRecording**](ApiV2010AccountCallCallRecording.md)
 
 ### Authorization
 
@@ -575,7 +575,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumber**](api.v2010.account.incoming_phone_number.md)
+[**ApiV2010AccountIncomingPhoneNumber**](ApiV2010AccountIncomingPhoneNumber.md)
 
 ### Authorization
 
@@ -620,7 +620,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn**](api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on.md)
+[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn.md)
 
 ### Authorization
 
@@ -684,7 +684,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal**](api.v2010.account.incoming_phone_number.incoming_phone_number_local.md)
+[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal.md)
 
 ### Authorization
 
@@ -748,7 +748,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile**](api.v2010.account.incoming_phone_number.incoming_phone_number_mobile.md)
+[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile.md)
 
 ### Authorization
 
@@ -812,7 +812,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree**](api.v2010.account.incoming_phone_number.incoming_phone_number_toll_free.md)
+[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree.md)
 
 ### Authorization
 
@@ -871,7 +871,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountMessage**](api.v2010.account.message.md)
+[**ApiV2010AccountMessage**](ApiV2010AccountMessage.md)
 
 ### Authorization
 
@@ -914,7 +914,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountMessageMessageFeedback**](api.v2010.account.message.message_feedback.md)
+[**ApiV2010AccountMessageMessageFeedback**](ApiV2010AccountMessageMessageFeedback.md)
 
 ### Authorization
 
@@ -956,7 +956,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountNewKey**](api.v2010.account.new_key.md)
+[**ApiV2010AccountNewKey**](ApiV2010AccountNewKey.md)
 
 ### Authorization
 
@@ -1000,7 +1000,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountNewSigningKey**](api.v2010.account.new_signing_key.md)
+[**ApiV2010AccountNewSigningKey**](ApiV2010AccountNewSigningKey.md)
 
 ### Authorization
 
@@ -1080,7 +1080,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipant**](api.v2010.account.conference.participant.md)
+[**ApiV2010AccountConferenceParticipant**](ApiV2010AccountConferenceParticipant.md)
 
 ### Authorization
 
@@ -1140,7 +1140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallPayments**](api.v2010.account.call.payments.md)
+[**ApiV2010AccountCallPayments**](ApiV2010AccountCallPayments.md)
 
 ### Authorization
 
@@ -1185,7 +1185,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountQueue**](api.v2010.account.queue.md)
+[**ApiV2010AccountQueue**](ApiV2010AccountQueue.md)
 
 ### Authorization
 
@@ -1230,7 +1230,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping**](api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping**](ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping.md)
 
 ### Authorization
 
@@ -1275,7 +1275,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping**](api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping**](ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping.md)
 
 ### Authorization
 
@@ -1320,7 +1320,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping**](api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping**](ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping.md)
 
 ### Authorization
 
@@ -1366,7 +1366,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialListSipCredential**](api.v2010.account.sip.sip_credential_list.sip_credential.md)
+[**ApiV2010AccountSipSipCredentialListSipCredential**](ApiV2010AccountSipSipCredentialListSipCredential.md)
 
 ### Authorization
 
@@ -1410,7 +1410,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialList**](api.v2010.account.sip.sip_credential_list.md)
+[**ApiV2010AccountSipSipCredentialList**](ApiV2010AccountSipSipCredentialList.md)
 
 ### Authorization
 
@@ -1455,7 +1455,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipCredentialListMapping**](api.v2010.account.sip.sip_domain.sip_credential_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipCredentialListMapping**](ApiV2010AccountSipSipDomainSipCredentialListMapping.md)
 
 ### Authorization
 
@@ -1511,7 +1511,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomain**](api.v2010.account.sip.sip_domain.md)
+[**ApiV2010AccountSipSipDomain**](ApiV2010AccountSipSipDomain.md)
 
 ### Authorization
 
@@ -1555,7 +1555,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlList**](api.v2010.account.sip.sip_ip_access_control_list.md)
+[**ApiV2010AccountSipSipIpAccessControlList**](ApiV2010AccountSipSipIpAccessControlList.md)
 
 ### Authorization
 
@@ -1600,7 +1600,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipIpAccessControlListMapping**](api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipIpAccessControlListMapping**](ApiV2010AccountSipSipDomainSipIpAccessControlListMapping.md)
 
 ### Authorization
 
@@ -1647,7 +1647,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlListSipIpAddress**](api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address.md)
+[**ApiV2010AccountSipSipIpAccessControlListSipIpAddress**](ApiV2010AccountSipSipIpAccessControlListSipIpAddress.md)
 
 ### Authorization
 
@@ -1691,7 +1691,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountToken**](api.v2010.account.token.md)
+[**ApiV2010AccountToken**](ApiV2010AccountToken.md)
 
 ### Authorization
 
@@ -1741,7 +1741,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageTrigger**](api.v2010.account.usage.usage_trigger.md)
+[**ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md)
 
 ### Authorization
 
@@ -1788,7 +1788,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountValidationRequest**](api.v2010.account.validation_request.md)
+[**ApiV2010AccountValidationRequest**](ApiV2010AccountValidationRequest.md)
 
 ### Authorization
 
@@ -2948,7 +2948,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010Account**](api.v2010.account.md)
+[**ApiV2010Account**](ApiV2010Account.md)
 
 ### Authorization
 
@@ -2981,7 +2981,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAddress**](api.v2010.account.address.md)
+[**ApiV2010AccountAddress**](ApiV2010AccountAddress.md)
 
 ### Authorization
 
@@ -3016,7 +3016,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountApplication**](api.v2010.account.application.md)
+[**ApiV2010AccountApplication**](ApiV2010AccountApplication.md)
 
 ### Authorization
 
@@ -3051,7 +3051,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAuthorizedConnectApp**](api.v2010.account.authorized_connect_app.md)
+[**ApiV2010AccountAuthorizedConnectApp**](ApiV2010AccountAuthorizedConnectApp.md)
 
 ### Authorization
 
@@ -3084,7 +3084,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountry**](api.v2010.account.available_phone_number_country.md)
+[**ApiV2010AccountAvailablePhoneNumberCountry**](ApiV2010AccountAvailablePhoneNumberCountry.md)
 
 ### Authorization
 
@@ -3118,7 +3118,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountBalance**](api.v2010.account.balance.md)
+[**ApiV2010AccountBalance**](ApiV2010AccountBalance.md)
 
 ### Authorization
 
@@ -3153,7 +3153,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCall**](api.v2010.account.call.md)
+[**ApiV2010AccountCall**](ApiV2010AccountCall.md)
 
 ### Authorization
 
@@ -3188,7 +3188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallFeedback**](api.v2010.account.call.call_feedback.md)
+[**ApiV2010AccountCallCallFeedback**](ApiV2010AccountCallCallFeedback.md)
 
 ### Authorization
 
@@ -3223,7 +3223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallFeedbackSummary**](api.v2010.account.call.call_feedback_summary.md)
+[**ApiV2010AccountCallCallFeedbackSummary**](ApiV2010AccountCallCallFeedbackSummary.md)
 
 ### Authorization
 
@@ -3257,7 +3257,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallNotificationInstance**](api.v2010.account.call.call_notification-instance.md)
+[**ApiV2010AccountCallCallNotificationInstance**](ApiV2010AccountCallCallNotificationInstance.md)
 
 ### Authorization
 
@@ -3293,7 +3293,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallRecording**](api.v2010.account.call.call_recording.md)
+[**ApiV2010AccountCallCallRecording**](ApiV2010AccountCallCallRecording.md)
 
 ### Authorization
 
@@ -3328,7 +3328,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConference**](api.v2010.account.conference.md)
+[**ApiV2010AccountConference**](ApiV2010AccountConference.md)
 
 ### Authorization
 
@@ -3364,7 +3364,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConferenceConferenceRecording**](api.v2010.account.conference.conference_recording.md)
+[**ApiV2010AccountConferenceConferenceRecording**](ApiV2010AccountConferenceConferenceRecording.md)
 
 ### Authorization
 
@@ -3399,7 +3399,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConnectApp**](api.v2010.account.connect_app.md)
+[**ApiV2010AccountConnectApp**](ApiV2010AccountConnectApp.md)
 
 ### Authorization
 
@@ -3434,7 +3434,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumber**](api.v2010.account.incoming_phone_number.md)
+[**ApiV2010AccountIncomingPhoneNumber**](ApiV2010AccountIncomingPhoneNumber.md)
 
 ### Authorization
 
@@ -3470,7 +3470,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn**](api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on.md)
+[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn.md)
 
 ### Authorization
 
@@ -3507,7 +3507,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension**](api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on.incoming_phone_number_assigned_add_on_extension.md)
+[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension.md)
 
 ### Authorization
 
@@ -3540,7 +3540,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountKey**](api.v2010.account.key.md)
+[**ApiV2010AccountKey**](ApiV2010AccountKey.md)
 
 ### Authorization
 
@@ -3576,7 +3576,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountMessageMedia**](api.v2010.account.message.media.md)
+[**ApiV2010AccountMessageMedia**](ApiV2010AccountMessageMedia.md)
 
 ### Authorization
 
@@ -3612,7 +3612,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountQueueMember**](api.v2010.account.queue.member.md)
+[**ApiV2010AccountQueueMember**](ApiV2010AccountQueueMember.md)
 
 ### Authorization
 
@@ -3647,7 +3647,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountMessage**](api.v2010.account.message.md)
+[**ApiV2010AccountMessage**](ApiV2010AccountMessage.md)
 
 ### Authorization
 
@@ -3682,7 +3682,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountNotificationInstance**](api.v2010.account.notification-instance.md)
+[**ApiV2010AccountNotificationInstance**](ApiV2010AccountNotificationInstance.md)
 
 ### Authorization
 
@@ -3717,7 +3717,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountOutgoingCallerId**](api.v2010.account.outgoing_caller_id.md)
+[**ApiV2010AccountOutgoingCallerId**](ApiV2010AccountOutgoingCallerId.md)
 
 ### Authorization
 
@@ -3753,7 +3753,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipant**](api.v2010.account.conference.participant.md)
+[**ApiV2010AccountConferenceParticipant**](ApiV2010AccountConferenceParticipant.md)
 
 ### Authorization
 
@@ -3788,7 +3788,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountQueue**](api.v2010.account.queue.md)
+[**ApiV2010AccountQueue**](ApiV2010AccountQueue.md)
 
 ### Authorization
 
@@ -3823,7 +3823,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountRecording**](api.v2010.account.recording.md)
+[**ApiV2010AccountRecording**](ApiV2010AccountRecording.md)
 
 ### Authorization
 
@@ -3859,7 +3859,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountRecordingRecordingAddOnResult**](api.v2010.account.recording.recording_add_on_result.md)
+[**ApiV2010AccountRecordingRecordingAddOnResult**](ApiV2010AccountRecordingRecordingAddOnResult.md)
 
 ### Authorization
 
@@ -3896,7 +3896,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload**](api.v2010.account.recording.recording_add_on_result.recording_add_on_result_payload.md)
+[**ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload**](ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload.md)
 
 ### Authorization
 
@@ -3930,7 +3930,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountRecordingRecordingTranscription**](api.v2010.account.recording.recording_transcription.md)
+[**ApiV2010AccountRecordingRecordingTranscription**](ApiV2010AccountRecordingRecordingTranscription.md)
 
 ### Authorization
 
@@ -3965,7 +3965,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountShortCode**](api.v2010.account.short_code.md)
+[**ApiV2010AccountShortCode**](ApiV2010AccountShortCode.md)
 
 ### Authorization
 
@@ -3998,7 +3998,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSigningKey**](api.v2010.account.signing_key.md)
+[**ApiV2010AccountSigningKey**](ApiV2010AccountSigningKey.md)
 
 ### Authorization
 
@@ -4034,7 +4034,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping**](api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping**](ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping.md)
 
 ### Authorization
 
@@ -4070,7 +4070,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping**](api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping**](ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping.md)
 
 ### Authorization
 
@@ -4106,7 +4106,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping**](api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping**](ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping.md)
 
 ### Authorization
 
@@ -4142,7 +4142,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialListSipCredential**](api.v2010.account.sip.sip_credential_list.sip_credential.md)
+[**ApiV2010AccountSipSipCredentialListSipCredential**](ApiV2010AccountSipSipCredentialListSipCredential.md)
 
 ### Authorization
 
@@ -4177,7 +4177,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialList**](api.v2010.account.sip.sip_credential_list.md)
+[**ApiV2010AccountSipSipCredentialList**](ApiV2010AccountSipSipCredentialList.md)
 
 ### Authorization
 
@@ -4213,7 +4213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipCredentialListMapping**](api.v2010.account.sip.sip_domain.sip_credential_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipCredentialListMapping**](ApiV2010AccountSipSipDomainSipCredentialListMapping.md)
 
 ### Authorization
 
@@ -4248,7 +4248,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomain**](api.v2010.account.sip.sip_domain.md)
+[**ApiV2010AccountSipSipDomain**](ApiV2010AccountSipSipDomain.md)
 
 ### Authorization
 
@@ -4283,7 +4283,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlList**](api.v2010.account.sip.sip_ip_access_control_list.md)
+[**ApiV2010AccountSipSipIpAccessControlList**](ApiV2010AccountSipSipIpAccessControlList.md)
 
 ### Authorization
 
@@ -4319,7 +4319,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipIpAccessControlListMapping**](api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping.md)
+[**ApiV2010AccountSipSipDomainSipIpAccessControlListMapping**](ApiV2010AccountSipSipDomainSipIpAccessControlListMapping.md)
 
 ### Authorization
 
@@ -4355,7 +4355,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlListSipIpAddress**](api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address.md)
+[**ApiV2010AccountSipSipIpAccessControlListSipIpAddress**](ApiV2010AccountSipSipIpAccessControlListSipIpAddress.md)
 
 ### Authorization
 
@@ -4390,7 +4390,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountTranscription**](api.v2010.account.transcription.md)
+[**ApiV2010AccountTranscription**](ApiV2010AccountTranscription.md)
 
 ### Authorization
 
@@ -4425,7 +4425,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageTrigger**](api.v2010.account.usage.usage_trigger.md)
+[**ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md)
 
 ### Authorization
 
@@ -7371,7 +7371,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010Account**](api.v2010.account.md)
+[**ApiV2010Account**](ApiV2010Account.md)
 
 ### Authorization
 
@@ -7421,7 +7421,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountAddress**](api.v2010.account.address.md)
+[**ApiV2010AccountAddress**](ApiV2010AccountAddress.md)
 
 ### Authorization
 
@@ -7480,7 +7480,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountApplication**](api.v2010.account.application.md)
+[**ApiV2010AccountApplication**](ApiV2010AccountApplication.md)
 
 ### Authorization
 
@@ -7532,7 +7532,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCall**](api.v2010.account.call.md)
+[**ApiV2010AccountCall**](ApiV2010AccountCall.md)
 
 ### Authorization
 
@@ -7578,7 +7578,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallFeedback**](api.v2010.account.call.call_feedback.md)
+[**ApiV2010AccountCallCallFeedback**](ApiV2010AccountCallCallFeedback.md)
 
 ### Authorization
 
@@ -7625,7 +7625,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallCallRecording**](api.v2010.account.call.call_recording.md)
+[**ApiV2010AccountCallCallRecording**](ApiV2010AccountCallCallRecording.md)
 
 ### Authorization
 
@@ -7670,7 +7670,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConference**](api.v2010.account.conference.md)
+[**ApiV2010AccountConference**](ApiV2010AccountConference.md)
 
 ### Authorization
 
@@ -7717,7 +7717,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConferenceConferenceRecording**](api.v2010.account.conference.conference_recording.md)
+[**ApiV2010AccountConferenceConferenceRecording**](ApiV2010AccountConferenceConferenceRecording.md)
 
 ### Authorization
 
@@ -7769,7 +7769,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConnectApp**](api.v2010.account.connect_app.md)
+[**ApiV2010AccountConnectApp**](ApiV2010AccountConnectApp.md)
 
 ### Authorization
 
@@ -7836,7 +7836,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumber**](api.v2010.account.incoming_phone_number.md)
+[**ApiV2010AccountIncomingPhoneNumber**](ApiV2010AccountIncomingPhoneNumber.md)
 
 ### Authorization
 
@@ -7879,7 +7879,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountKey**](api.v2010.account.key.md)
+[**ApiV2010AccountKey**](ApiV2010AccountKey.md)
 
 ### Authorization
 
@@ -7926,7 +7926,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountQueueMember**](api.v2010.account.queue.member.md)
+[**ApiV2010AccountQueueMember**](ApiV2010AccountQueueMember.md)
 
 ### Authorization
 
@@ -7971,7 +7971,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountMessage**](api.v2010.account.message.md)
+[**ApiV2010AccountMessage**](ApiV2010AccountMessage.md)
 
 ### Authorization
 
@@ -8016,7 +8016,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountOutgoingCallerId**](api.v2010.account.outgoing_caller_id.md)
+[**ApiV2010AccountOutgoingCallerId**](ApiV2010AccountOutgoingCallerId.md)
 
 ### Authorization
 
@@ -8073,7 +8073,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipant**](api.v2010.account.conference.participant.md)
+[**ApiV2010AccountConferenceParticipant**](ApiV2010AccountConferenceParticipant.md)
 
 ### Authorization
 
@@ -8122,7 +8122,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountCallPayments**](api.v2010.account.call.payments.md)
+[**ApiV2010AccountCallPayments**](ApiV2010AccountCallPayments.md)
 
 ### Authorization
 
@@ -8168,7 +8168,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountQueue**](api.v2010.account.queue.md)
+[**ApiV2010AccountQueue**](ApiV2010AccountQueue.md)
 
 ### Authorization
 
@@ -8218,7 +8218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountShortCode**](api.v2010.account.short_code.md)
+[**ApiV2010AccountShortCode**](ApiV2010AccountShortCode.md)
 
 ### Authorization
 
@@ -8261,7 +8261,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSigningKey**](api.v2010.account.signing_key.md)
+[**ApiV2010AccountSigningKey**](ApiV2010AccountSigningKey.md)
 
 ### Authorization
 
@@ -8307,7 +8307,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialListSipCredential**](api.v2010.account.sip.sip_credential_list.sip_credential.md)
+[**ApiV2010AccountSipSipCredentialListSipCredential**](ApiV2010AccountSipSipCredentialListSipCredential.md)
 
 ### Authorization
 
@@ -8352,7 +8352,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialList**](api.v2010.account.sip.sip_credential_list.md)
+[**ApiV2010AccountSipSipCredentialList**](ApiV2010AccountSipSipCredentialList.md)
 
 ### Authorization
 
@@ -8409,7 +8409,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomain**](api.v2010.account.sip.sip_domain.md)
+[**ApiV2010AccountSipSipDomain**](ApiV2010AccountSipSipDomain.md)
 
 ### Authorization
 
@@ -8454,7 +8454,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlList**](api.v2010.account.sip.sip_ip_access_control_list.md)
+[**ApiV2010AccountSipSipIpAccessControlList**](ApiV2010AccountSipSipIpAccessControlList.md)
 
 ### Authorization
 
@@ -8502,7 +8502,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlListSipIpAddress**](api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address.md)
+[**ApiV2010AccountSipSipIpAccessControlListSipIpAddress**](ApiV2010AccountSipSipIpAccessControlListSipIpAddress.md)
 
 ### Authorization
 
@@ -8549,7 +8549,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageTrigger**](api.v2010.account.usage.usage_trigger.md)
+[**ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md)
 
 ### Authorization
 

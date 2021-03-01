@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1Command**](wireless.v1.command.md)
+[**WirelessV1Command**](WirelessV1Command.md)
 
 ### Authorization
 
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1RatePlan**](wireless.v1.rate_plan.md)
+[**WirelessV1RatePlan**](WirelessV1RatePlan.md)
 
 ### Authorization
 
@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1Command**](wireless.v1.command.md)
+[**WirelessV1Command**](WirelessV1Command.md)
 
 ### Authorization
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1RatePlan**](wireless.v1.rate_plan.md)
+[**WirelessV1RatePlan**](WirelessV1RatePlan.md)
 
 ### Authorization
 
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1Sim**](wireless.v1.sim.md)
+[**WirelessV1Sim**](WirelessV1Sim.md)
 
 ### Authorization
 
@@ -617,7 +617,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1RatePlan**](wireless.v1.rate_plan.md)
+[**WirelessV1RatePlan**](WirelessV1RatePlan.md)
 
 ### Authorization
 
@@ -678,7 +678,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WirelessV1Sim**](wireless.v1.sim.md)
+[**WirelessV1Sim**](WirelessV1Sim.md)
 
 ### Authorization
 

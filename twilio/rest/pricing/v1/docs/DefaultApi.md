@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -30,7 +30,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV1MessagingMessagingCountryInstance**](pricing.v1.messaging.messaging_country-instance.md)
+[**PricingV1MessagingMessagingCountryInstance**](PricingV1MessagingMessagingCountryInstance.md)
 
 ### Authorization
 
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV1PhoneNumberPhoneNumberCountryInstance**](pricing.v1.phone_number.phone_number_country-instance.md)
+[**PricingV1PhoneNumberPhoneNumberCountryInstance**](PricingV1PhoneNumberPhoneNumberCountryInstance.md)
 
 ### Authorization
 
@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV1VoiceVoiceCountryInstance**](pricing.v1.voice.voice_country-instance.md)
+[**PricingV1VoiceVoiceCountryInstance**](PricingV1VoiceVoiceCountryInstance.md)
 
 ### Authorization
 
@@ -126,7 +126,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV1VoiceVoiceNumber**](pricing.v1.voice.voice_number.md)
+[**PricingV1VoiceVoiceNumber**](PricingV1VoiceVoiceNumber.md)
 
 ### Authorization
 

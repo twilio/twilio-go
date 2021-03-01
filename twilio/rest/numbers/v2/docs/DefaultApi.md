@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundle**](numbers.v2.regulatory_compliance.bundle.md)
+[**NumbersV2RegulatoryComplianceBundle**](NumbersV2RegulatoryComplianceBundle.md)
 
 ### Authorization
 
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUser**](numbers.v2.regulatory_compliance.end_user.md)
+[**NumbersV2RegulatoryComplianceEndUser**](NumbersV2RegulatoryComplianceEndUser.md)
 
 ### Authorization
 
@@ -145,7 +145,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleEvaluation**](numbers.v2.regulatory_compliance.bundle.evaluation.md)
+[**NumbersV2RegulatoryComplianceBundleEvaluation**](NumbersV2RegulatoryComplianceBundleEvaluation.md)
 
 ### Authorization
 
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleItemAssignment**](numbers.v2.regulatory_compliance.bundle.item_assignment.md)
+[**NumbersV2RegulatoryComplianceBundleItemAssignment**](NumbersV2RegulatoryComplianceBundleItemAssignment.md)
 
 ### Authorization
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocument**](numbers.v2.regulatory_compliance.supporting_document.md)
+[**NumbersV2RegulatoryComplianceSupportingDocument**](NumbersV2RegulatoryComplianceSupportingDocument.md)
 
 ### Authorization
 
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundle**](numbers.v2.regulatory_compliance.bundle.md)
+[**NumbersV2RegulatoryComplianceBundle**](NumbersV2RegulatoryComplianceBundle.md)
 
 ### Authorization
 
@@ -439,7 +439,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUser**](numbers.v2.regulatory_compliance.end_user.md)
+[**NumbersV2RegulatoryComplianceEndUser**](NumbersV2RegulatoryComplianceEndUser.md)
 
 ### Authorization
 
@@ -473,7 +473,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUserType**](numbers.v2.regulatory_compliance.end_user_type.md)
+[**NumbersV2RegulatoryComplianceEndUserType**](NumbersV2RegulatoryComplianceEndUserType.md)
 
 ### Authorization
 
@@ -508,7 +508,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleEvaluation**](numbers.v2.regulatory_compliance.bundle.evaluation.md)
+[**NumbersV2RegulatoryComplianceBundleEvaluation**](NumbersV2RegulatoryComplianceBundleEvaluation.md)
 
 ### Authorization
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleItemAssignment**](numbers.v2.regulatory_compliance.bundle.item_assignment.md)
+[**NumbersV2RegulatoryComplianceBundleItemAssignment**](NumbersV2RegulatoryComplianceBundleItemAssignment.md)
 
 ### Authorization
 
@@ -577,7 +577,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceRegulation**](numbers.v2.regulatory_compliance.regulation.md)
+[**NumbersV2RegulatoryComplianceRegulation**](NumbersV2RegulatoryComplianceRegulation.md)
 
 ### Authorization
 
@@ -611,7 +611,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocument**](numbers.v2.regulatory_compliance.supporting_document.md)
+[**NumbersV2RegulatoryComplianceSupportingDocument**](NumbersV2RegulatoryComplianceSupportingDocument.md)
 
 ### Authorization
 
@@ -645,7 +645,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocumentType**](numbers.v2.regulatory_compliance.supporting_document_type.md)
+[**NumbersV2RegulatoryComplianceSupportingDocumentType**](NumbersV2RegulatoryComplianceSupportingDocumentType.md)
 
 ### Authorization
 
@@ -1046,7 +1046,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundle**](numbers.v2.regulatory_compliance.bundle.md)
+[**NumbersV2RegulatoryComplianceBundle**](NumbersV2RegulatoryComplianceBundle.md)
 
 ### Authorization
 
@@ -1091,7 +1091,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUser**](numbers.v2.regulatory_compliance.end_user.md)
+[**NumbersV2RegulatoryComplianceEndUser**](NumbersV2RegulatoryComplianceEndUser.md)
 
 ### Authorization
 
@@ -1136,7 +1136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocument**](numbers.v2.regulatory_compliance.supporting_document.md)
+[**NumbersV2RegulatoryComplianceSupportingDocument**](NumbersV2RegulatoryComplianceSupportingDocument.md)
 
 ### Authorization
 

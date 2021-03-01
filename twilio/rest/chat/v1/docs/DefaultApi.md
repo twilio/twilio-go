@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannel**](chat.v1.service.channel.md)
+[**ChatV1ServiceChannel**](ChatV1ServiceChannel.md)
 
 ### Authorization
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1Credential**](chat.v1.credential.md)
+[**ChatV1Credential**](ChatV1Credential.md)
 
 ### Authorization
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelInvite**](chat.v1.service.channel.invite.md)
+[**ChatV1ServiceChannelInvite**](ChatV1ServiceChannelInvite.md)
 
 ### Authorization
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelMember**](chat.v1.service.channel.member.md)
+[**ChatV1ServiceChannelMember**](ChatV1ServiceChannelMember.md)
 
 ### Authorization
 
@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelMessage**](chat.v1.service.channel.message.md)
+[**ChatV1ServiceChannelMessage**](ChatV1ServiceChannelMessage.md)
 
 ### Authorization
 
@@ -300,7 +300,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceRole**](chat.v1.service.role.md)
+[**ChatV1ServiceRole**](ChatV1ServiceRole.md)
 
 ### Authorization
 
@@ -341,7 +341,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1Service**](chat.v1.service.md)
+[**ChatV1Service**](ChatV1Service.md)
 
 ### Authorization
 
@@ -386,7 +386,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceUser**](chat.v1.service.user.md)
+[**ChatV1ServiceUser**](ChatV1ServiceUser.md)
 
 ### Authorization
 
@@ -684,7 +684,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannel**](chat.v1.service.channel.md)
+[**ChatV1ServiceChannel**](ChatV1ServiceChannel.md)
 
 ### Authorization
 
@@ -716,7 +716,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1Credential**](chat.v1.credential.md)
+[**ChatV1Credential**](ChatV1Credential.md)
 
 ### Authorization
 
@@ -750,7 +750,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelInvite**](chat.v1.service.channel.invite.md)
+[**ChatV1ServiceChannelInvite**](ChatV1ServiceChannelInvite.md)
 
 ### Authorization
 
@@ -784,7 +784,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelMember**](chat.v1.service.channel.member.md)
+[**ChatV1ServiceChannelMember**](ChatV1ServiceChannelMember.md)
 
 ### Authorization
 
@@ -818,7 +818,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelMessage**](chat.v1.service.channel.message.md)
+[**ChatV1ServiceChannelMessage**](ChatV1ServiceChannelMessage.md)
 
 ### Authorization
 
@@ -851,7 +851,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceRole**](chat.v1.service.role.md)
+[**ChatV1ServiceRole**](ChatV1ServiceRole.md)
 
 ### Authorization
 
@@ -883,7 +883,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1Service**](chat.v1.service.md)
+[**ChatV1Service**](ChatV1Service.md)
 
 ### Authorization
 
@@ -916,7 +916,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceUser**](chat.v1.service.user.md)
+[**ChatV1ServiceUser**](ChatV1ServiceUser.md)
 
 ### Authorization
 
@@ -1347,7 +1347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannel**](chat.v1.service.channel.md)
+[**ChatV1ServiceChannel**](ChatV1ServiceChannel.md)
 
 ### Authorization
 
@@ -1394,7 +1394,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1Credential**](chat.v1.credential.md)
+[**ChatV1Credential**](ChatV1Credential.md)
 
 ### Authorization
 
@@ -1439,7 +1439,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelMember**](chat.v1.service.channel.member.md)
+[**ChatV1ServiceChannelMember**](ChatV1ServiceChannelMember.md)
 
 ### Authorization
 
@@ -1484,7 +1484,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceChannelMessage**](chat.v1.service.channel.message.md)
+[**ChatV1ServiceChannelMessage**](ChatV1ServiceChannelMessage.md)
 
 ### Authorization
 
@@ -1527,7 +1527,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceRole**](chat.v1.service.role.md)
+[**ChatV1ServiceRole**](ChatV1ServiceRole.md)
 
 ### Authorization
 
@@ -1622,7 +1622,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1Service**](chat.v1.service.md)
+[**ChatV1Service**](ChatV1Service.md)
 
 ### Authorization
 
@@ -1667,7 +1667,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChatV1ServiceUser**](chat.v1.service.user.md)
+[**ChatV1ServiceUser**](ChatV1ServiceUser.md)
 
 ### Authorization
 

@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1Command**](supersim.v1.command.md)
+[**SupersimV1Command**](SupersimV1Command.md)
 
 ### Authorization
 
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1Fleet**](supersim.v1.fleet.md)
+[**SupersimV1Fleet**](SupersimV1Fleet.md)
 
 ### Authorization
 
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1NetworkAccessProfile**](supersim.v1.network_access_profile.md)
+[**SupersimV1NetworkAccessProfile**](SupersimV1NetworkAccessProfile.md)
 
 ### Authorization
 
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork**](supersim.v1.network_access_profile.network_access_profile_network.md)
+[**SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork**](SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork.md)
 
 ### Authorization
 
@@ -264,7 +264,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1Command**](supersim.v1.command.md)
+[**SupersimV1Command**](SupersimV1Command.md)
 
 ### Authorization
 
@@ -298,7 +298,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1Fleet**](supersim.v1.fleet.md)
+[**SupersimV1Fleet**](SupersimV1Fleet.md)
 
 ### Authorization
 
@@ -332,7 +332,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1Network**](supersim.v1.network.md)
+[**SupersimV1Network**](SupersimV1Network.md)
 
 ### Authorization
 
@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1NetworkAccessProfile**](supersim.v1.network_access_profile.md)
+[**SupersimV1NetworkAccessProfile**](SupersimV1NetworkAccessProfile.md)
 
 ### Authorization
 
@@ -401,7 +401,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork**](supersim.v1.network_access_profile.network_access_profile_network.md)
+[**SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork**](SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork.md)
 
 ### Authorization
 
@@ -435,7 +435,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1Sim**](supersim.v1.sim.md)
+[**SupersimV1Sim**](SupersimV1Sim.md)
 
 ### Authorization
 
@@ -802,7 +802,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1Fleet**](supersim.v1.fleet.md)
+[**SupersimV1Fleet**](SupersimV1Fleet.md)
 
 ### Authorization
 
@@ -846,7 +846,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1NetworkAccessProfile**](supersim.v1.network_access_profile.md)
+[**SupersimV1NetworkAccessProfile**](SupersimV1NetworkAccessProfile.md)
 
 ### Authorization
 
@@ -895,7 +895,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SupersimV1Sim**](supersim.v1.sim.md)
+[**SupersimV1Sim**](SupersimV1Sim.md)
 
 ### Authorization
 

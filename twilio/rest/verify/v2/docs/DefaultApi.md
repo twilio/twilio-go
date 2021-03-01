@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceAccessToken**](verify.v2.service.access_token.md)
+[**VerifyV2ServiceAccessToken**](VerifyV2ServiceAccessToken.md)
 
 ### Authorization
 
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceRateLimitBucket**](verify.v2.service.rate_limit.bucket.md)
+[**VerifyV2ServiceRateLimitBucket**](VerifyV2ServiceRateLimitBucket.md)
 
 ### Authorization
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntityChallenge**](verify.v2.service.entity.challenge.md)
+[**VerifyV2ServiceEntityChallenge**](VerifyV2ServiceEntityChallenge.md)
 
 ### Authorization
 
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntity**](verify.v2.service.entity.md)
+[**VerifyV2ServiceEntity**](VerifyV2ServiceEntity.md)
 
 ### Authorization
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntityFactor**](verify.v2.service.entity.factor.md)
+[**VerifyV2ServiceEntityFactor**](VerifyV2ServiceEntityFactor.md)
 
 ### Authorization
 
@@ -318,7 +318,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceMessagingConfiguration**](verify.v2.service.messaging_configuration.md)
+[**VerifyV2ServiceMessagingConfiguration**](VerifyV2ServiceMessagingConfiguration.md)
 
 ### Authorization
 
@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceRateLimit**](verify.v2.service.rate_limit.md)
+[**VerifyV2ServiceRateLimit**](VerifyV2ServiceRateLimit.md)
 
 ### Authorization
 
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2Service**](verify.v2.service.md)
+[**VerifyV2Service**](VerifyV2Service.md)
 
 ### Authorization
 
@@ -472,7 +472,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceVerification**](verify.v2.service.verification.md)
+[**VerifyV2ServiceVerification**](VerifyV2ServiceVerification.md)
 
 ### Authorization
 
@@ -520,7 +520,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceVerificationCheck**](verify.v2.service.verification_check.md)
+[**VerifyV2ServiceVerificationCheck**](VerifyV2ServiceVerificationCheck.md)
 
 ### Authorization
 
@@ -567,7 +567,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceWebhook**](verify.v2.service.webhook.md)
+[**VerifyV2ServiceWebhook**](VerifyV2ServiceWebhook.md)
 
 ### Authorization
 
@@ -849,7 +849,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceRateLimitBucket**](verify.v2.service.rate_limit.bucket.md)
+[**VerifyV2ServiceRateLimitBucket**](VerifyV2ServiceRateLimitBucket.md)
 
 ### Authorization
 
@@ -885,7 +885,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntityChallenge**](verify.v2.service.entity.challenge.md)
+[**VerifyV2ServiceEntityChallenge**](VerifyV2ServiceEntityChallenge.md)
 
 ### Authorization
 
@@ -920,7 +920,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntity**](verify.v2.service.entity.md)
+[**VerifyV2ServiceEntity**](VerifyV2ServiceEntity.md)
 
 ### Authorization
 
@@ -956,7 +956,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntityFactor**](verify.v2.service.entity.factor.md)
+[**VerifyV2ServiceEntityFactor**](VerifyV2ServiceEntityFactor.md)
 
 ### Authorization
 
@@ -990,7 +990,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2Form**](verify.v2.form.md)
+[**VerifyV2Form**](VerifyV2Form.md)
 
 ### Authorization
 
@@ -1025,7 +1025,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceMessagingConfiguration**](verify.v2.service.messaging_configuration.md)
+[**VerifyV2ServiceMessagingConfiguration**](VerifyV2ServiceMessagingConfiguration.md)
 
 ### Authorization
 
@@ -1060,7 +1060,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceRateLimit**](verify.v2.service.rate_limit.md)
+[**VerifyV2ServiceRateLimit**](VerifyV2ServiceRateLimit.md)
 
 ### Authorization
 
@@ -1094,7 +1094,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2Service**](verify.v2.service.md)
+[**VerifyV2Service**](VerifyV2Service.md)
 
 ### Authorization
 
@@ -1129,7 +1129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceVerification**](verify.v2.service.verification.md)
+[**VerifyV2ServiceVerification**](VerifyV2ServiceVerification.md)
 
 ### Authorization
 
@@ -1163,7 +1163,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2VerificationAttempt**](verify.v2.verification_attempt.md)
+[**VerifyV2VerificationAttempt**](VerifyV2VerificationAttempt.md)
 
 ### Authorization
 
@@ -1198,7 +1198,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceWebhook**](verify.v2.service.webhook.md)
+[**VerifyV2ServiceWebhook**](VerifyV2ServiceWebhook.md)
 
 ### Authorization
 
@@ -1647,7 +1647,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceRateLimitBucket**](verify.v2.service.rate_limit.bucket.md)
+[**VerifyV2ServiceRateLimitBucket**](VerifyV2ServiceRateLimitBucket.md)
 
 ### Authorization
 
@@ -1693,7 +1693,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntityChallenge**](verify.v2.service.entity.challenge.md)
+[**VerifyV2ServiceEntityChallenge**](VerifyV2ServiceEntityChallenge.md)
 
 ### Authorization
 
@@ -1742,7 +1742,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceEntityFactor**](verify.v2.service.entity.factor.md)
+[**VerifyV2ServiceEntityFactor**](VerifyV2ServiceEntityFactor.md)
 
 ### Authorization
 
@@ -1787,7 +1787,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceMessagingConfiguration**](verify.v2.service.messaging_configuration.md)
+[**VerifyV2ServiceMessagingConfiguration**](VerifyV2ServiceMessagingConfiguration.md)
 
 ### Authorization
 
@@ -1832,7 +1832,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceRateLimit**](verify.v2.service.rate_limit.md)
+[**VerifyV2ServiceRateLimit**](VerifyV2ServiceRateLimit.md)
 
 ### Authorization
 
@@ -1887,7 +1887,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2Service**](verify.v2.service.md)
+[**VerifyV2Service**](VerifyV2Service.md)
 
 ### Authorization
 
@@ -1932,7 +1932,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceVerification**](verify.v2.service.verification.md)
+[**VerifyV2ServiceVerification**](VerifyV2ServiceVerification.md)
 
 ### Authorization
 
@@ -1978,7 +1978,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VerifyV2ServiceWebhook**](verify.v2.service.webhook.md)
+[**VerifyV2ServiceWebhook**](VerifyV2ServiceWebhook.md)
 
 ### Authorization
 

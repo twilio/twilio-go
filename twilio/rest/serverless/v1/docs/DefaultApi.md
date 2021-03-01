@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceAsset**](serverless.v1.service.asset.md)
+[**ServerlessV1ServiceAsset**](ServerlessV1ServiceAsset.md)
 
 ### Authorization
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceBuild**](serverless.v1.service.build.md)
+[**ServerlessV1ServiceBuild**](ServerlessV1ServiceBuild.md)
 
 ### Authorization
 
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentDeployment**](serverless.v1.service.environment.deployment.md)
+[**ServerlessV1ServiceEnvironmentDeployment**](ServerlessV1ServiceEnvironmentDeployment.md)
 
 ### Authorization
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironment**](serverless.v1.service.environment.md)
+[**ServerlessV1ServiceEnvironment**](ServerlessV1ServiceEnvironment.md)
 
 ### Authorization
 
@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceFunction**](serverless.v1.service.function.md)
+[**ServerlessV1ServiceFunction**](ServerlessV1ServiceFunction.md)
 
 ### Authorization
 
@@ -301,7 +301,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1Service**](serverless.v1.service.md)
+[**ServerlessV1Service**](ServerlessV1Service.md)
 
 ### Authorization
 
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentVariable**](serverless.v1.service.environment.variable.md)
+[**ServerlessV1ServiceEnvironmentVariable**](ServerlessV1ServiceEnvironmentVariable.md)
 
 ### Authorization
 
@@ -592,7 +592,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceAsset**](serverless.v1.service.asset.md)
+[**ServerlessV1ServiceAsset**](ServerlessV1ServiceAsset.md)
 
 ### Authorization
 
@@ -628,7 +628,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceAssetAssetVersion**](serverless.v1.service.asset.asset_version.md)
+[**ServerlessV1ServiceAssetAssetVersion**](ServerlessV1ServiceAssetAssetVersion.md)
 
 ### Authorization
 
@@ -663,7 +663,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceBuild**](serverless.v1.service.build.md)
+[**ServerlessV1ServiceBuild**](ServerlessV1ServiceBuild.md)
 
 ### Authorization
 
@@ -698,7 +698,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceBuildBuildStatus**](serverless.v1.service.build.build_status.md)
+[**ServerlessV1ServiceBuildBuildStatus**](ServerlessV1ServiceBuildBuildStatus.md)
 
 ### Authorization
 
@@ -734,7 +734,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentDeployment**](serverless.v1.service.environment.deployment.md)
+[**ServerlessV1ServiceEnvironmentDeployment**](ServerlessV1ServiceEnvironmentDeployment.md)
 
 ### Authorization
 
@@ -769,7 +769,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironment**](serverless.v1.service.environment.md)
+[**ServerlessV1ServiceEnvironment**](ServerlessV1ServiceEnvironment.md)
 
 ### Authorization
 
@@ -804,7 +804,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceFunction**](serverless.v1.service.function.md)
+[**ServerlessV1ServiceFunction**](ServerlessV1ServiceFunction.md)
 
 ### Authorization
 
@@ -840,7 +840,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceFunctionFunctionVersion**](serverless.v1.service.function.function_version.md)
+[**ServerlessV1ServiceFunctionFunctionVersion**](ServerlessV1ServiceFunctionFunctionVersion.md)
 
 ### Authorization
 
@@ -876,7 +876,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent**](serverless.v1.service.function.function_version.function_version_content.md)
+[**ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent**](ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent.md)
 
 ### Authorization
 
@@ -912,7 +912,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentLog**](serverless.v1.service.environment.log.md)
+[**ServerlessV1ServiceEnvironmentLog**](ServerlessV1ServiceEnvironmentLog.md)
 
 ### Authorization
 
@@ -946,7 +946,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1Service**](serverless.v1.service.md)
+[**ServerlessV1Service**](ServerlessV1Service.md)
 
 ### Authorization
 
@@ -982,7 +982,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentVariable**](serverless.v1.service.environment.variable.md)
+[**ServerlessV1ServiceEnvironmentVariable**](ServerlessV1ServiceEnvironmentVariable.md)
 
 ### Authorization
 
@@ -1474,7 +1474,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceAsset**](serverless.v1.service.asset.md)
+[**ServerlessV1ServiceAsset**](ServerlessV1ServiceAsset.md)
 
 ### Authorization
 
@@ -1519,7 +1519,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceFunction**](serverless.v1.service.function.md)
+[**ServerlessV1ServiceFunction**](ServerlessV1ServiceFunction.md)
 
 ### Authorization
 
@@ -1565,7 +1565,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1Service**](serverless.v1.service.md)
+[**ServerlessV1Service**](ServerlessV1Service.md)
 
 ### Authorization
 
@@ -1612,7 +1612,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentVariable**](serverless.v1.service.environment.variable.md)
+[**ServerlessV1ServiceEnvironmentVariable**](ServerlessV1ServiceEnvironmentVariable.md)
 
 ### Authorization
 

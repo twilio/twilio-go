@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Conversation**](conversations.v1.conversation.md)
+[**ConversationsV1Conversation**](ConversationsV1Conversation.md)
 
 ### Authorization
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationMessage**](conversations.v1.conversation.conversation_message.md)
+[**ConversationsV1ConversationConversationMessage**](ConversationsV1ConversationConversationMessage.md)
 
 ### Authorization
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationParticipant**](conversations.v1.conversation.conversation_participant.md)
+[**ConversationsV1ConversationConversationParticipant**](ConversationsV1ConversationConversationParticipant.md)
 
 ### Authorization
 
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationScopedWebhook**](conversations.v1.conversation.conversation_scoped_webhook.md)
+[**ConversationsV1ConversationConversationScopedWebhook**](ConversationsV1ConversationConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -328,7 +328,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Credential**](conversations.v1.credential.md)
+[**ConversationsV1Credential**](ConversationsV1Credential.md)
 
 ### Authorization
 
@@ -373,7 +373,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Role**](conversations.v1.role.md)
+[**ConversationsV1Role**](ConversationsV1Role.md)
 
 ### Authorization
 
@@ -416,7 +416,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Service**](conversations.v1.service.md)
+[**ConversationsV1Service**](ConversationsV1Service.md)
 
 ### Authorization
 
@@ -469,7 +469,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversation**](conversations.v1.service.service_conversation.md)
+[**ConversationsV1ServiceServiceConversation**](ConversationsV1ServiceServiceConversation.md)
 
 ### Authorization
 
@@ -520,7 +520,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessage**](conversations.v1.service.service_conversation.service_conversation_message.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationMessage**](ConversationsV1ServiceServiceConversationServiceConversationMessage.md)
 
 ### Authorization
 
@@ -573,7 +573,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationParticipant**](conversations.v1.service.service_conversation.service_conversation_participant.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationParticipant**](ConversationsV1ServiceServiceConversationServiceConversationParticipant.md)
 
 ### Authorization
 
@@ -624,7 +624,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook**](conversations.v1.service.service_conversation.service_conversation_scoped_webhook.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook**](ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -670,7 +670,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceRole**](conversations.v1.service.service_role.md)
+[**ConversationsV1ServiceServiceRole**](ConversationsV1ServiceServiceRole.md)
 
 ### Authorization
 
@@ -718,7 +718,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceUser**](conversations.v1.service.service_user.md)
+[**ConversationsV1ServiceServiceUser**](ConversationsV1ServiceServiceUser.md)
 
 ### Authorization
 
@@ -765,7 +765,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1User**](conversations.v1.user.md)
+[**ConversationsV1User**](ConversationsV1User.md)
 
 ### Authorization
 
@@ -1398,7 +1398,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ConversationsV1Configuration**](conversations.v1.configuration.md)
+[**ConversationsV1Configuration**](ConversationsV1Configuration.md)
 
 ### Authorization
 
@@ -1426,7 +1426,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ConversationsV1ConfigurationConfigurationWebhook**](conversations.v1.configuration.configuration_webhook.md)
+[**ConversationsV1ConfigurationConfigurationWebhook**](ConversationsV1ConfigurationConfigurationWebhook.md)
 
 ### Authorization
 
@@ -1460,7 +1460,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Conversation**](conversations.v1.conversation.md)
+[**ConversationsV1Conversation**](ConversationsV1Conversation.md)
 
 ### Authorization
 
@@ -1495,7 +1495,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationMessage**](conversations.v1.conversation.conversation_message.md)
+[**ConversationsV1ConversationConversationMessage**](ConversationsV1ConversationConversationMessage.md)
 
 ### Authorization
 
@@ -1531,7 +1531,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationMessageConversationMessageReceipt**](conversations.v1.conversation.conversation_message.conversation_message_receipt.md)
+[**ConversationsV1ConversationConversationMessageConversationMessageReceipt**](ConversationsV1ConversationConversationMessageConversationMessageReceipt.md)
 
 ### Authorization
 
@@ -1566,7 +1566,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationParticipant**](conversations.v1.conversation.conversation_participant.md)
+[**ConversationsV1ConversationConversationParticipant**](ConversationsV1ConversationConversationParticipant.md)
 
 ### Authorization
 
@@ -1601,7 +1601,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationScopedWebhook**](conversations.v1.conversation.conversation_scoped_webhook.md)
+[**ConversationsV1ConversationConversationScopedWebhook**](ConversationsV1ConversationConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -1635,7 +1635,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Credential**](conversations.v1.credential.md)
+[**ConversationsV1Credential**](ConversationsV1Credential.md)
 
 ### Authorization
 
@@ -1669,7 +1669,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Role**](conversations.v1.role.md)
+[**ConversationsV1Role**](ConversationsV1Role.md)
 
 ### Authorization
 
@@ -1703,7 +1703,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Service**](conversations.v1.service.md)
+[**ConversationsV1Service**](ConversationsV1Service.md)
 
 ### Authorization
 
@@ -1738,7 +1738,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceBinding**](conversations.v1.service.service_binding.md)
+[**ConversationsV1ServiceServiceBinding**](ConversationsV1ServiceServiceBinding.md)
 
 ### Authorization
 
@@ -1772,7 +1772,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConfiguration**](conversations.v1.service.service_configuration.md)
+[**ConversationsV1ServiceServiceConfiguration**](ConversationsV1ServiceServiceConfiguration.md)
 
 ### Authorization
 
@@ -1807,7 +1807,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversation**](conversations.v1.service.service_conversation.md)
+[**ConversationsV1ServiceServiceConversation**](ConversationsV1ServiceServiceConversation.md)
 
 ### Authorization
 
@@ -1843,7 +1843,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessage**](conversations.v1.service.service_conversation.service_conversation_message.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationMessage**](ConversationsV1ServiceServiceConversationServiceConversationMessage.md)
 
 ### Authorization
 
@@ -1880,7 +1880,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt**](conversations.v1.service.service_conversation.service_conversation_message.service_conversation_message_receipt.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt**](ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt.md)
 
 ### Authorization
 
@@ -1916,7 +1916,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationParticipant**](conversations.v1.service.service_conversation.service_conversation_participant.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationParticipant**](ConversationsV1ServiceServiceConversationServiceConversationParticipant.md)
 
 ### Authorization
 
@@ -1952,7 +1952,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook**](conversations.v1.service.service_conversation.service_conversation_scoped_webhook.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook**](ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -1986,7 +1986,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConfigurationServiceNotification**](conversations.v1.service.service_configuration.service_notification.md)
+[**ConversationsV1ServiceServiceConfigurationServiceNotification**](ConversationsV1ServiceServiceConfigurationServiceNotification.md)
 
 ### Authorization
 
@@ -2021,7 +2021,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceRole**](conversations.v1.service.service_role.md)
+[**ConversationsV1ServiceServiceRole**](ConversationsV1ServiceServiceRole.md)
 
 ### Authorization
 
@@ -2056,7 +2056,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceUser**](conversations.v1.service.service_user.md)
+[**ConversationsV1ServiceServiceUser**](ConversationsV1ServiceServiceUser.md)
 
 ### Authorization
 
@@ -2090,7 +2090,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1User**](conversations.v1.user.md)
+[**ConversationsV1User**](ConversationsV1User.md)
 
 ### Authorization
 
@@ -2887,7 +2887,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Configuration**](conversations.v1.configuration.md)
+[**ConversationsV1Configuration**](ConversationsV1Configuration.md)
 
 ### Authorization
 
@@ -2932,7 +2932,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConfigurationConfigurationWebhook**](conversations.v1.configuration.configuration_webhook.md)
+[**ConversationsV1ConfigurationConfigurationWebhook**](ConversationsV1ConfigurationConfigurationWebhook.md)
 
 ### Authorization
 
@@ -2985,7 +2985,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Conversation**](conversations.v1.conversation.md)
+[**ConversationsV1Conversation**](ConversationsV1Conversation.md)
 
 ### Authorization
 
@@ -3035,7 +3035,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationMessage**](conversations.v1.conversation.conversation_message.md)
+[**ConversationsV1ConversationConversationMessage**](ConversationsV1ConversationConversationMessage.md)
 
 ### Authorization
 
@@ -3089,7 +3089,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationParticipant**](conversations.v1.conversation.conversation_participant.md)
+[**ConversationsV1ConversationConversationParticipant**](ConversationsV1ConversationConversationParticipant.md)
 
 ### Authorization
 
@@ -3138,7 +3138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ConversationConversationScopedWebhook**](conversations.v1.conversation.conversation_scoped_webhook.md)
+[**ConversationsV1ConversationConversationScopedWebhook**](ConversationsV1ConversationConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -3188,7 +3188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Credential**](conversations.v1.credential.md)
+[**ConversationsV1Credential**](ConversationsV1Credential.md)
 
 ### Authorization
 
@@ -3232,7 +3232,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1Role**](conversations.v1.role.md)
+[**ConversationsV1Role**](ConversationsV1Role.md)
 
 ### Authorization
 
@@ -3279,7 +3279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConfiguration**](conversations.v1.service.service_configuration.md)
+[**ConversationsV1ServiceServiceConfiguration**](ConversationsV1ServiceServiceConfiguration.md)
 
 ### Authorization
 
@@ -3333,7 +3333,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversation**](conversations.v1.service.service_conversation.md)
+[**ConversationsV1ServiceServiceConversation**](ConversationsV1ServiceServiceConversation.md)
 
 ### Authorization
 
@@ -3384,7 +3384,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessage**](conversations.v1.service.service_conversation.service_conversation_message.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationMessage**](ConversationsV1ServiceServiceConversationServiceConversationMessage.md)
 
 ### Authorization
 
@@ -3439,7 +3439,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationParticipant**](conversations.v1.service.service_conversation.service_conversation_participant.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationParticipant**](ConversationsV1ServiceServiceConversationServiceConversationParticipant.md)
 
 ### Authorization
 
@@ -3489,7 +3489,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook**](conversations.v1.service.service_conversation.service_conversation_scoped_webhook.md)
+[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook**](ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -3543,7 +3543,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConfigurationServiceNotification**](conversations.v1.service.service_configuration.service_notification.md)
+[**ConversationsV1ServiceServiceConfigurationServiceNotification**](ConversationsV1ServiceServiceConfigurationServiceNotification.md)
 
 ### Authorization
 
@@ -3588,7 +3588,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceRole**](conversations.v1.service.service_role.md)
+[**ConversationsV1ServiceServiceRole**](ConversationsV1ServiceServiceRole.md)
 
 ### Authorization
 
@@ -3636,7 +3636,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1ServiceServiceUser**](conversations.v1.service.service_user.md)
+[**ConversationsV1ServiceServiceUser**](ConversationsV1ServiceServiceUser.md)
 
 ### Authorization
 
@@ -3683,7 +3683,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConversationsV1User**](conversations.v1.user.md)
+[**ConversationsV1User**](ConversationsV1User.md)
 
 ### Authorization
 

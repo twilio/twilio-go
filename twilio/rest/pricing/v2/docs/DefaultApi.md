@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -28,7 +28,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV2VoiceVoiceCountryInstance**](pricing.v2.voice.voice_country-instance.md)
+[**PricingV2VoiceVoiceCountryInstance**](PricingV2VoiceVoiceCountryInstance.md)
 
 ### Authorization
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PricingV2VoiceVoiceNumber**](pricing.v2.voice.voice_number.md)
+[**PricingV2VoiceVoiceNumber**](PricingV2VoiceVoiceNumber.md)
 
 ### Authorization
 

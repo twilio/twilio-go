@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceActivity**](taskrouter.v1.workspace.activity.md)
+[**TaskrouterV1WorkspaceActivity**](TaskrouterV1WorkspaceActivity.md)
 
 ### Authorization
 
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTask**](taskrouter.v1.workspace.task.md)
+[**TaskrouterV1WorkspaceTask**](TaskrouterV1WorkspaceTask.md)
 
 ### Authorization
 
@@ -184,7 +184,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskChannel**](taskrouter.v1.workspace.task_channel.md)
+[**TaskrouterV1WorkspaceTaskChannel**](TaskrouterV1WorkspaceTaskChannel.md)
 
 ### Authorization
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueue**](taskrouter.v1.workspace.task_queue.md)
+[**TaskrouterV1WorkspaceTaskQueue**](TaskrouterV1WorkspaceTaskQueue.md)
 
 ### Authorization
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorker**](taskrouter.v1.workspace.worker.md)
+[**TaskrouterV1WorkspaceWorker**](TaskrouterV1WorkspaceWorker.md)
 
 ### Authorization
 
@@ -321,7 +321,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflow**](taskrouter.v1.workspace.workflow.md)
+[**TaskrouterV1WorkspaceWorkflow**](TaskrouterV1WorkspaceWorkflow.md)
 
 ### Authorization
 
@@ -367,7 +367,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1Workspace**](taskrouter.v1.workspace.md)
+[**TaskrouterV1Workspace**](TaskrouterV1Workspace.md)
 
 ### Authorization
 
@@ -630,7 +630,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceActivity**](taskrouter.v1.workspace.activity.md)
+[**TaskrouterV1WorkspaceActivity**](TaskrouterV1WorkspaceActivity.md)
 
 ### Authorization
 
@@ -663,7 +663,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceEvent**](taskrouter.v1.workspace.event.md)
+[**TaskrouterV1WorkspaceEvent**](TaskrouterV1WorkspaceEvent.md)
 
 ### Authorization
 
@@ -696,7 +696,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTask**](taskrouter.v1.workspace.task.md)
+[**TaskrouterV1WorkspaceTask**](TaskrouterV1WorkspaceTask.md)
 
 ### Authorization
 
@@ -729,7 +729,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskChannel**](taskrouter.v1.workspace.task_channel.md)
+[**TaskrouterV1WorkspaceTaskChannel**](TaskrouterV1WorkspaceTaskChannel.md)
 
 ### Authorization
 
@@ -762,7 +762,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueue**](taskrouter.v1.workspace.task_queue.md)
+[**TaskrouterV1WorkspaceTaskQueue**](TaskrouterV1WorkspaceTaskQueue.md)
 
 ### Authorization
 
@@ -809,7 +809,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics**](taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.md)
+[**TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics**](TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics.md)
 
 ### Authorization
 
@@ -852,7 +852,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics**](taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.md)
+[**TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics**](TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics.md)
 
 ### Authorization
 
@@ -899,7 +899,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics**](taskrouter.v1.workspace.task_queue.task_queue_statistics.md)
+[**TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics**](TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics.md)
 
 ### Authorization
 
@@ -933,7 +933,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskTaskReservation**](taskrouter.v1.workspace.task.task_reservation.md)
+[**TaskrouterV1WorkspaceTaskTaskReservation**](TaskrouterV1WorkspaceTaskTaskReservation.md)
 
 ### Authorization
 
@@ -966,7 +966,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorker**](taskrouter.v1.workspace.worker.md)
+[**TaskrouterV1WorkspaceWorker**](TaskrouterV1WorkspaceWorker.md)
 
 ### Authorization
 
@@ -1000,7 +1000,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerChannel**](taskrouter.v1.workspace.worker.worker_channel.md)
+[**TaskrouterV1WorkspaceWorkerWorkerChannel**](TaskrouterV1WorkspaceWorkerWorkerChannel.md)
 
 ### Authorization
 
@@ -1046,7 +1046,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics**](taskrouter.v1.workspace.worker.worker_instance_statistics.md)
+[**TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics**](TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics.md)
 
 ### Authorization
 
@@ -1080,7 +1080,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerReservation**](taskrouter.v1.workspace.worker.worker_reservation.md)
+[**TaskrouterV1WorkspaceWorkerWorkerReservation**](TaskrouterV1WorkspaceWorkerWorkerReservation.md)
 
 ### Authorization
 
@@ -1128,7 +1128,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerStatistics**](taskrouter.v1.workspace.worker.worker_statistics.md)
+[**TaskrouterV1WorkspaceWorkerWorkerStatistics**](TaskrouterV1WorkspaceWorkerWorkerStatistics.md)
 
 ### Authorization
 
@@ -1173,7 +1173,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics**](taskrouter.v1.workspace.worker.workers_cumulative_statistics.md)
+[**TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics**](TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics.md)
 
 ### Authorization
 
@@ -1215,7 +1215,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics**](taskrouter.v1.workspace.worker.workers_real_time_statistics.md)
+[**TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics**](TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics.md)
 
 ### Authorization
 
@@ -1248,7 +1248,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflow**](taskrouter.v1.workspace.workflow.md)
+[**TaskrouterV1WorkspaceWorkflow**](TaskrouterV1WorkspaceWorkflow.md)
 
 ### Authorization
 
@@ -1295,7 +1295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics**](taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.md)
+[**TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics**](TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics.md)
 
 ### Authorization
 
@@ -1338,7 +1338,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics**](taskrouter.v1.workspace.workflow.workflow_real_time_statistics.md)
+[**TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics**](TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics.md)
 
 ### Authorization
 
@@ -1385,7 +1385,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflowWorkflowStatistics**](taskrouter.v1.workspace.workflow.workflow_statistics.md)
+[**TaskrouterV1WorkspaceWorkflowWorkflowStatistics**](TaskrouterV1WorkspaceWorkflowWorkflowStatistics.md)
 
 ### Authorization
 
@@ -1417,7 +1417,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1Workspace**](taskrouter.v1.workspace.md)
+[**TaskrouterV1Workspace**](TaskrouterV1Workspace.md)
 
 ### Authorization
 
@@ -1463,7 +1463,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkspaceCumulativeStatistics**](taskrouter.v1.workspace.workspace_cumulative_statistics.md)
+[**TaskrouterV1WorkspaceWorkspaceCumulativeStatistics**](TaskrouterV1WorkspaceWorkspaceCumulativeStatistics.md)
 
 ### Authorization
 
@@ -1505,7 +1505,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkspaceRealTimeStatistics**](taskrouter.v1.workspace.workspace_real_time_statistics.md)
+[**TaskrouterV1WorkspaceWorkspaceRealTimeStatistics**](TaskrouterV1WorkspaceWorkspaceRealTimeStatistics.md)
 
 ### Authorization
 
@@ -1551,7 +1551,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkspaceStatistics**](taskrouter.v1.workspace.workspace_statistics.md)
+[**TaskrouterV1WorkspaceWorkspaceStatistics**](TaskrouterV1WorkspaceWorkspaceStatistics.md)
 
 ### Authorization
 
@@ -2142,7 +2142,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceActivity**](taskrouter.v1.workspace.activity.md)
+[**TaskrouterV1WorkspaceActivity**](TaskrouterV1WorkspaceActivity.md)
 
 ### Authorization
 
@@ -2189,7 +2189,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTask**](taskrouter.v1.workspace.task.md)
+[**TaskrouterV1WorkspaceTask**](TaskrouterV1WorkspaceTask.md)
 
 ### Authorization
 
@@ -2233,7 +2233,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskChannel**](taskrouter.v1.workspace.task_channel.md)
+[**TaskrouterV1WorkspaceTaskChannel**](TaskrouterV1WorkspaceTaskChannel.md)
 
 ### Authorization
 
@@ -2281,7 +2281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueue**](taskrouter.v1.workspace.task_queue.md)
+[**TaskrouterV1WorkspaceTaskQueue**](TaskrouterV1WorkspaceTaskQueue.md)
 
 ### Authorization
 
@@ -2377,7 +2377,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskTaskReservation**](taskrouter.v1.workspace.task.task_reservation.md)
+[**TaskrouterV1WorkspaceTaskTaskReservation**](TaskrouterV1WorkspaceTaskTaskReservation.md)
 
 ### Authorization
 
@@ -2423,7 +2423,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorker**](taskrouter.v1.workspace.worker.md)
+[**TaskrouterV1WorkspaceWorker**](TaskrouterV1WorkspaceWorker.md)
 
 ### Authorization
 
@@ -2468,7 +2468,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerChannel**](taskrouter.v1.workspace.worker.worker_channel.md)
+[**TaskrouterV1WorkspaceWorkerWorkerChannel**](TaskrouterV1WorkspaceWorkerWorkerChannel.md)
 
 ### Authorization
 
@@ -2562,7 +2562,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerReservation**](taskrouter.v1.workspace.worker.worker_reservation.md)
+[**TaskrouterV1WorkspaceWorkerWorkerReservation**](TaskrouterV1WorkspaceWorkerWorkerReservation.md)
 
 ### Authorization
 
@@ -2610,7 +2610,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflow**](taskrouter.v1.workspace.workflow.md)
+[**TaskrouterV1WorkspaceWorkflow**](TaskrouterV1WorkspaceWorkflow.md)
 
 ### Authorization
 
@@ -2658,7 +2658,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskrouterV1Workspace**](taskrouter.v1.workspace.md)
+[**TaskrouterV1Workspace**](TaskrouterV1Workspace.md)
 
 ### Authorization
 

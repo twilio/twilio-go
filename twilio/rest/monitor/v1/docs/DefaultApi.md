@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -27,7 +27,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MonitorV1AlertInstance**](monitor.v1.alert-instance.md)
+[**MonitorV1AlertInstance**](MonitorV1AlertInstance.md)
 
 ### Authorization
 
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MonitorV1Event**](monitor.v1.event.md)
+[**MonitorV1Event**](MonitorV1Event.md)
 
 ### Authorization
 

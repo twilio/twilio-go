@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkCredentialList**](trunking.v1.trunk.credential_list.md)
+[**TrunkingV1TrunkCredentialList**](TrunkingV1TrunkCredentialList.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkIpAccessControlList**](trunking.v1.trunk.ip_access_control_list.md)
+[**TrunkingV1TrunkIpAccessControlList**](TrunkingV1TrunkIpAccessControlList.md)
 
 ### Authorization
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkOriginationUrl**](trunking.v1.trunk.origination_url.md)
+[**TrunkingV1TrunkOriginationUrl**](TrunkingV1TrunkOriginationUrl.md)
 
 ### Authorization
 
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkPhoneNumber**](trunking.v1.trunk.phone_number.md)
+[**TrunkingV1TrunkPhoneNumber**](TrunkingV1TrunkPhoneNumber.md)
 
 ### Authorization
 
@@ -236,7 +236,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1Trunk**](trunking.v1.trunk.md)
+[**TrunkingV1Trunk**](TrunkingV1Trunk.md)
 
 ### Authorization
 
@@ -435,7 +435,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkCredentialList**](trunking.v1.trunk.credential_list.md)
+[**TrunkingV1TrunkCredentialList**](TrunkingV1TrunkCredentialList.md)
 
 ### Authorization
 
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkIpAccessControlList**](trunking.v1.trunk.ip_access_control_list.md)
+[**TrunkingV1TrunkIpAccessControlList**](TrunkingV1TrunkIpAccessControlList.md)
 
 ### Authorization
 
@@ -501,7 +501,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkOriginationUrl**](trunking.v1.trunk.origination_url.md)
+[**TrunkingV1TrunkOriginationUrl**](TrunkingV1TrunkOriginationUrl.md)
 
 ### Authorization
 
@@ -534,7 +534,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkPhoneNumber**](trunking.v1.trunk.phone_number.md)
+[**TrunkingV1TrunkPhoneNumber**](TrunkingV1TrunkPhoneNumber.md)
 
 ### Authorization
 
@@ -566,7 +566,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkRecording**](trunking.v1.trunk.recording.md)
+[**TrunkingV1TrunkRecording**](TrunkingV1TrunkRecording.md)
 
 ### Authorization
 
@@ -598,7 +598,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1Trunk**](trunking.v1.trunk.md)
+[**TrunkingV1Trunk**](TrunkingV1Trunk.md)
 
 ### Authorization
 
@@ -856,7 +856,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkOriginationUrl**](trunking.v1.trunk.origination_url.md)
+[**TrunkingV1TrunkOriginationUrl**](TrunkingV1TrunkOriginationUrl.md)
 
 ### Authorization
 
@@ -899,7 +899,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1TrunkRecording**](trunking.v1.trunk.recording.md)
+[**TrunkingV1TrunkRecording**](TrunkingV1TrunkRecording.md)
 
 ### Authorization
 
@@ -947,7 +947,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrunkingV1Trunk**](trunking.v1.trunk.md)
+[**TrunkingV1Trunk**](TrunkingV1Trunk.md)
 
 ### Authorization
 

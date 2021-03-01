@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceDocument**](sync.v1.service.document.md)
+[**SyncV1ServiceDocument**](SyncV1ServiceDocument.md)
 
 ### Authorization
 
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1Service**](sync.v1.service.md)
+[**SyncV1Service**](SyncV1Service.md)
 
 ### Authorization
 
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncStreamStreamMessage**](sync.v1.service.sync_stream.stream_message.md)
+[**SyncV1ServiceSyncStreamStreamMessage**](SyncV1ServiceSyncStreamStreamMessage.md)
 
 ### Authorization
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncList**](sync.v1.service.sync_list.md)
+[**SyncV1ServiceSyncList**](SyncV1ServiceSyncList.md)
 
 ### Authorization
 
@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncListSyncListItem**](sync.v1.service.sync_list.sync_list_item.md)
+[**SyncV1ServiceSyncListSyncListItem**](SyncV1ServiceSyncListSyncListItem.md)
 
 ### Authorization
 
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncMap**](sync.v1.service.sync_map.md)
+[**SyncV1ServiceSyncMap**](SyncV1ServiceSyncMap.md)
 
 ### Authorization
 
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapItem**](sync.v1.service.sync_map.sync_map_item.md)
+[**SyncV1ServiceSyncMapSyncMapItem**](SyncV1ServiceSyncMapSyncMapItem.md)
 
 ### Authorization
 
@@ -401,7 +401,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncStream**](sync.v1.service.sync_stream.md)
+[**SyncV1ServiceSyncStream**](SyncV1ServiceSyncStream.md)
 
 ### Authorization
 
@@ -796,7 +796,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceDocument**](sync.v1.service.document.md)
+[**SyncV1ServiceDocument**](SyncV1ServiceDocument.md)
 
 ### Authorization
 
@@ -832,7 +832,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceDocumentDocumentPermission**](sync.v1.service.document.document_permission.md)
+[**SyncV1ServiceDocumentDocumentPermission**](SyncV1ServiceDocumentDocumentPermission.md)
 
 ### Authorization
 
@@ -864,7 +864,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1Service**](sync.v1.service.md)
+[**SyncV1Service**](SyncV1Service.md)
 
 ### Authorization
 
@@ -897,7 +897,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncList**](sync.v1.service.sync_list.md)
+[**SyncV1ServiceSyncList**](SyncV1ServiceSyncList.md)
 
 ### Authorization
 
@@ -931,7 +931,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncListSyncListItem**](sync.v1.service.sync_list.sync_list_item.md)
+[**SyncV1ServiceSyncListSyncListItem**](SyncV1ServiceSyncListSyncListItem.md)
 
 ### Authorization
 
@@ -967,7 +967,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncListSyncListPermission**](sync.v1.service.sync_list.sync_list_permission.md)
+[**SyncV1ServiceSyncListSyncListPermission**](SyncV1ServiceSyncListSyncListPermission.md)
 
 ### Authorization
 
@@ -1000,7 +1000,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncMap**](sync.v1.service.sync_map.md)
+[**SyncV1ServiceSyncMap**](SyncV1ServiceSyncMap.md)
 
 ### Authorization
 
@@ -1034,7 +1034,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapItem**](sync.v1.service.sync_map.sync_map_item.md)
+[**SyncV1ServiceSyncMapSyncMapItem**](SyncV1ServiceSyncMapSyncMapItem.md)
 
 ### Authorization
 
@@ -1070,7 +1070,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapPermission**](sync.v1.service.sync_map.sync_map_permission.md)
+[**SyncV1ServiceSyncMapSyncMapPermission**](SyncV1ServiceSyncMapSyncMapPermission.md)
 
 ### Authorization
 
@@ -1105,7 +1105,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncStream**](sync.v1.service.sync_stream.md)
+[**SyncV1ServiceSyncStream**](SyncV1ServiceSyncStream.md)
 
 ### Authorization
 
@@ -1588,7 +1588,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceDocument**](sync.v1.service.document.md)
+[**SyncV1ServiceDocument**](SyncV1ServiceDocument.md)
 
 ### Authorization
 
@@ -1636,7 +1636,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceDocumentDocumentPermission**](sync.v1.service.document.document_permission.md)
+[**SyncV1ServiceDocumentDocumentPermission**](SyncV1ServiceDocumentDocumentPermission.md)
 
 ### Authorization
 
@@ -1684,7 +1684,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1Service**](sync.v1.service.md)
+[**SyncV1Service**](SyncV1Service.md)
 
 ### Authorization
 
@@ -1728,7 +1728,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncList**](sync.v1.service.sync_list.md)
+[**SyncV1ServiceSyncList**](SyncV1ServiceSyncList.md)
 
 ### Authorization
 
@@ -1776,7 +1776,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncListSyncListItem**](sync.v1.service.sync_list.sync_list_item.md)
+[**SyncV1ServiceSyncListSyncListItem**](SyncV1ServiceSyncListSyncListItem.md)
 
 ### Authorization
 
@@ -1824,7 +1824,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncListSyncListPermission**](sync.v1.service.sync_list.sync_list_permission.md)
+[**SyncV1ServiceSyncListSyncListPermission**](SyncV1ServiceSyncListSyncListPermission.md)
 
 ### Authorization
 
@@ -1868,7 +1868,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncMap**](sync.v1.service.sync_map.md)
+[**SyncV1ServiceSyncMap**](SyncV1ServiceSyncMap.md)
 
 ### Authorization
 
@@ -1916,7 +1916,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapItem**](sync.v1.service.sync_map.sync_map_item.md)
+[**SyncV1ServiceSyncMapSyncMapItem**](SyncV1ServiceSyncMapSyncMapItem.md)
 
 ### Authorization
 
@@ -1964,7 +1964,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapPermission**](sync.v1.service.sync_map.sync_map_permission.md)
+[**SyncV1ServiceSyncMapSyncMapPermission**](SyncV1ServiceSyncMapSyncMapPermission.md)
 
 ### Authorization
 
@@ -2009,7 +2009,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncV1ServiceSyncStream**](sync.v1.service.sync_stream.md)
+[**SyncV1ServiceSyncStream**](SyncV1ServiceSyncStream.md)
 
 ### Authorization
 

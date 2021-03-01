@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistant**](preview.understand.assistant.md)
+[**PreviewUnderstandAssistant**](PreviewUnderstandAssistant.md)
 
 ### Authorization
 
@@ -248,7 +248,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewHostedNumbersAuthorizationDocument**](preview.hosted_numbers.authorization_document.md)
+[**PreviewHostedNumbersAuthorizationDocument**](PreviewHostedNumbersAuthorizationDocument.md)
 
 ### Authorization
 
@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetCertificate**](preview.deployed_devices.fleet.certificate.md)
+[**PreviewDeployedDevicesFleetCertificate**](PreviewDeployedDevicesFleetCertificate.md)
 
 ### Authorization
 
@@ -338,7 +338,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewTrustedCommsBrandedChannelChannel**](preview.trusted_comms.branded_channel.channel.md)
+[**PreviewTrustedCommsBrandedChannelChannel**](PreviewTrustedCommsBrandedChannelChannel.md)
 
 ### Authorization
 
@@ -385,7 +385,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessCommand**](preview.wireless.command.md)
+[**PreviewWirelessCommand**](PreviewWirelessCommand.md)
 
 ### Authorization
 
@@ -430,7 +430,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetDeployment**](preview.deployed_devices.fleet.deployment.md)
+[**PreviewDeployedDevicesFleetDeployment**](PreviewDeployedDevicesFleetDeployment.md)
 
 ### Authorization
 
@@ -478,7 +478,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetDevice**](preview.deployed_devices.fleet.device.md)
+[**PreviewDeployedDevicesFleetDevice**](PreviewDeployedDevicesFleetDevice.md)
 
 ### Authorization
 
@@ -521,7 +521,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceDocument**](preview.sync.service.document.md)
+[**PreviewSyncServiceDocument**](PreviewSyncServiceDocument.md)
 
 ### Authorization
 
@@ -568,7 +568,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewBulkExportsExportExportCustomJob**](preview.bulk_exports.export.export_custom_job.md)
+[**PreviewBulkExportsExportExportCustomJob**](PreviewBulkExportsExportExportCustomJob.md)
 
 ### Authorization
 
@@ -612,7 +612,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskField**](preview.understand.assistant.task.field.md)
+[**PreviewUnderstandAssistantTaskField**](PreviewUnderstandAssistantTaskField.md)
 
 ### Authorization
 
@@ -655,7 +655,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantFieldType**](preview.understand.assistant.field_type.md)
+[**PreviewUnderstandAssistantFieldType**](PreviewUnderstandAssistantFieldType.md)
 
 ### Authorization
 
@@ -700,7 +700,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantFieldTypeFieldValue**](preview.understand.assistant.field_type.field_value.md)
+[**PreviewUnderstandAssistantFieldTypeFieldValue**](PreviewUnderstandAssistantFieldTypeFieldValue.md)
 
 ### Authorization
 
@@ -743,7 +743,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleet**](preview.deployed_devices.fleet.md)
+[**PreviewDeployedDevicesFleet**](PreviewDeployedDevicesFleet.md)
 
 ### Authorization
 
@@ -802,7 +802,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewHostedNumbersHostedNumberOrder**](preview.hosted_numbers.hosted_number_order.md)
+[**PreviewHostedNumbersHostedNumberOrder**](PreviewHostedNumbersHostedNumberOrder.md)
 
 ### Authorization
 
@@ -848,7 +848,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceInstalledAddOn**](preview.marketplace.installed_add_on.md)
+[**PreviewMarketplaceInstalledAddOn**](PreviewMarketplaceInstalledAddOn.md)
 
 ### Authorization
 
@@ -893,7 +893,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetKey**](preview.deployed_devices.fleet.key.md)
+[**PreviewDeployedDevicesFleetKey**](PreviewDeployedDevicesFleetKey.md)
 
 ### Authorization
 
@@ -936,7 +936,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantModelBuild**](preview.understand.assistant.model_build.md)
+[**PreviewUnderstandAssistantModelBuild**](PreviewUnderstandAssistantModelBuild.md)
 
 ### Authorization
 
@@ -982,7 +982,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantQuery**](preview.understand.assistant.query.md)
+[**PreviewUnderstandAssistantQuery**](PreviewUnderstandAssistantQuery.md)
 
 ### Authorization
 
@@ -1032,7 +1032,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessRatePlan**](preview.wireless.rate_plan.md)
+[**PreviewWirelessRatePlan**](PreviewWirelessRatePlan.md)
 
 ### Authorization
 
@@ -1077,7 +1077,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskSample**](preview.understand.assistant.task.sample.md)
+[**PreviewUnderstandAssistantTaskSample**](PreviewUnderstandAssistantTaskSample.md)
 
 ### Authorization
 
@@ -1121,7 +1121,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncService**](preview.sync.service.md)
+[**PreviewSyncService**](PreviewSyncService.md)
 
 ### Authorization
 
@@ -1163,7 +1163,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncList**](preview.sync.service.sync_list.md)
+[**PreviewSyncServiceSyncList**](PreviewSyncServiceSyncList.md)
 
 ### Authorization
 
@@ -1206,7 +1206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncListSyncListItem**](preview.sync.service.sync_list.sync_list_item.md)
+[**PreviewSyncServiceSyncListSyncListItem**](PreviewSyncServiceSyncListSyncListItem.md)
 
 ### Authorization
 
@@ -1248,7 +1248,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMap**](preview.sync.service.sync_map.md)
+[**PreviewSyncServiceSyncMap**](PreviewSyncServiceSyncMap.md)
 
 ### Authorization
 
@@ -1292,7 +1292,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMapSyncMapItem**](preview.sync.service.sync_map.sync_map_item.md)
+[**PreviewSyncServiceSyncMapSyncMapItem**](PreviewSyncServiceSyncMapSyncMapItem.md)
 
 ### Authorization
 
@@ -1337,7 +1337,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTask**](preview.understand.assistant.task.md)
+[**PreviewUnderstandAssistantTask**](PreviewUnderstandAssistantTask.md)
 
 ### Authorization
 
@@ -2268,7 +2268,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistant**](preview.understand.assistant.md)
+[**PreviewUnderstandAssistant**](PreviewUnderstandAssistant.md)
 
 ### Authorization
 
@@ -2300,7 +2300,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantAssistantFallbackActions**](preview.understand.assistant.assistant_fallback_actions.md)
+[**PreviewUnderstandAssistantAssistantFallbackActions**](PreviewUnderstandAssistantAssistantFallbackActions.md)
 
 ### Authorization
 
@@ -2332,7 +2332,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantAssistantInitiationActions**](preview.understand.assistant.assistant_initiation_actions.md)
+[**PreviewUnderstandAssistantAssistantInitiationActions**](PreviewUnderstandAssistantAssistantInitiationActions.md)
 
 ### Authorization
 
@@ -2366,7 +2366,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewHostedNumbersAuthorizationDocument**](preview.hosted_numbers.authorization_document.md)
+[**PreviewHostedNumbersAuthorizationDocument**](PreviewHostedNumbersAuthorizationDocument.md)
 
 ### Authorization
 
@@ -2400,7 +2400,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceAvailableAddOn**](preview.marketplace.available_add_on.md)
+[**PreviewMarketplaceAvailableAddOn**](PreviewMarketplaceAvailableAddOn.md)
 
 ### Authorization
 
@@ -2435,7 +2435,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceAvailableAddOnAvailableAddOnExtension**](preview.marketplace.available_add_on.available_add_on_extension.md)
+[**PreviewMarketplaceAvailableAddOnAvailableAddOnExtension**](PreviewMarketplaceAvailableAddOnAvailableAddOnExtension.md)
 
 ### Authorization
 
@@ -2469,7 +2469,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewTrustedCommsBrandedChannel**](preview.trusted_comms.branded_channel.md)
+[**PreviewTrustedCommsBrandedChannel**](PreviewTrustedCommsBrandedChannel.md)
 
 ### Authorization
 
@@ -2512,7 +2512,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewTrustedCommsBrandsInformation**](preview.trusted_comms.brands_information.md)
+[**PreviewTrustedCommsBrandsInformation**](PreviewTrustedCommsBrandsInformation.md)
 
 ### Authorization
 
@@ -2547,7 +2547,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetCertificate**](preview.deployed_devices.fleet.certificate.md)
+[**PreviewDeployedDevicesFleetCertificate**](PreviewDeployedDevicesFleetCertificate.md)
 
 ### Authorization
 
@@ -2579,7 +2579,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessCommand**](preview.wireless.command.md)
+[**PreviewWirelessCommand**](PreviewWirelessCommand.md)
 
 ### Authorization
 
@@ -2622,7 +2622,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewTrustedCommsCps**](preview.trusted_comms.cps.md)
+[**PreviewTrustedCommsCps**](PreviewTrustedCommsCps.md)
 
 ### Authorization
 
@@ -2666,7 +2666,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewTrustedCommsCurrentCall**](preview.trusted_comms.current_call.md)
+[**PreviewTrustedCommsCurrentCall**](PreviewTrustedCommsCurrentCall.md)
 
 ### Authorization
 
@@ -2736,7 +2736,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetDeployment**](preview.deployed_devices.fleet.deployment.md)
+[**PreviewDeployedDevicesFleetDeployment**](PreviewDeployedDevicesFleetDeployment.md)
 
 ### Authorization
 
@@ -2771,7 +2771,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetDevice**](preview.deployed_devices.fleet.device.md)
+[**PreviewDeployedDevicesFleetDevice**](PreviewDeployedDevicesFleetDevice.md)
 
 ### Authorization
 
@@ -2804,7 +2804,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantDialogue**](preview.understand.assistant.dialogue.md)
+[**PreviewUnderstandAssistantDialogue**](PreviewUnderstandAssistantDialogue.md)
 
 ### Authorization
 
@@ -2837,7 +2837,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceDocument**](preview.sync.service.document.md)
+[**PreviewSyncServiceDocument**](PreviewSyncServiceDocument.md)
 
 ### Authorization
 
@@ -2873,7 +2873,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceDocumentDocumentPermission**](preview.sync.service.document.document_permission.md)
+[**PreviewSyncServiceDocumentDocumentPermission**](PreviewSyncServiceDocumentDocumentPermission.md)
 
 ### Authorization
 
@@ -2907,7 +2907,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewBulkExportsExport**](preview.bulk_exports.export.md)
+[**PreviewBulkExportsExport**](PreviewBulkExportsExport.md)
 
 ### Authorization
 
@@ -2941,7 +2941,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewBulkExportsExportConfiguration**](preview.bulk_exports.export_configuration.md)
+[**PreviewBulkExportsExportConfiguration**](PreviewBulkExportsExportConfiguration.md)
 
 ### Authorization
 
@@ -2975,7 +2975,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskField**](preview.understand.assistant.task.field.md)
+[**PreviewUnderstandAssistantTaskField**](PreviewUnderstandAssistantTaskField.md)
 
 ### Authorization
 
@@ -3008,7 +3008,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantFieldType**](preview.understand.assistant.field_type.md)
+[**PreviewUnderstandAssistantFieldType**](PreviewUnderstandAssistantFieldType.md)
 
 ### Authorization
 
@@ -3042,7 +3042,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantFieldTypeFieldValue**](preview.understand.assistant.field_type.field_value.md)
+[**PreviewUnderstandAssistantFieldTypeFieldValue**](PreviewUnderstandAssistantFieldTypeFieldValue.md)
 
 ### Authorization
 
@@ -3076,7 +3076,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleet**](preview.deployed_devices.fleet.md)
+[**PreviewDeployedDevicesFleet**](PreviewDeployedDevicesFleet.md)
 
 ### Authorization
 
@@ -3110,7 +3110,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewHostedNumbersHostedNumberOrder**](preview.hosted_numbers.hosted_number_order.md)
+[**PreviewHostedNumbersHostedNumberOrder**](PreviewHostedNumbersHostedNumberOrder.md)
 
 ### Authorization
 
@@ -3144,7 +3144,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceInstalledAddOn**](preview.marketplace.installed_add_on.md)
+[**PreviewMarketplaceInstalledAddOn**](PreviewMarketplaceInstalledAddOn.md)
 
 ### Authorization
 
@@ -3179,7 +3179,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceInstalledAddOnInstalledAddOnExtension**](preview.marketplace.installed_add_on.installed_add_on_extension.md)
+[**PreviewMarketplaceInstalledAddOnInstalledAddOnExtension**](PreviewMarketplaceInstalledAddOnInstalledAddOnExtension.md)
 
 ### Authorization
 
@@ -3211,7 +3211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewBulkExportsExportJob**](preview.bulk_exports.export.job.md)
+[**PreviewBulkExportsExportJob**](PreviewBulkExportsExportJob.md)
 
 ### Authorization
 
@@ -3246,7 +3246,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetKey**](preview.deployed_devices.fleet.key.md)
+[**PreviewDeployedDevicesFleetKey**](PreviewDeployedDevicesFleetKey.md)
 
 ### Authorization
 
@@ -3279,7 +3279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantModelBuild**](preview.understand.assistant.model_build.md)
+[**PreviewUnderstandAssistantModelBuild**](PreviewUnderstandAssistantModelBuild.md)
 
 ### Authorization
 
@@ -3312,7 +3312,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantQuery**](preview.understand.assistant.query.md)
+[**PreviewUnderstandAssistantQuery**](PreviewUnderstandAssistantQuery.md)
 
 ### Authorization
 
@@ -3344,7 +3344,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessRatePlan**](preview.wireless.rate_plan.md)
+[**PreviewWirelessRatePlan**](PreviewWirelessRatePlan.md)
 
 ### Authorization
 
@@ -3378,7 +3378,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskSample**](preview.understand.assistant.task.sample.md)
+[**PreviewUnderstandAssistantTaskSample**](PreviewUnderstandAssistantTaskSample.md)
 
 ### Authorization
 
@@ -3410,7 +3410,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncService**](preview.sync.service.md)
+[**PreviewSyncService**](PreviewSyncService.md)
 
 ### Authorization
 
@@ -3442,7 +3442,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessSim**](preview.wireless.sim.md)
+[**PreviewWirelessSim**](PreviewWirelessSim.md)
 
 ### Authorization
 
@@ -3476,7 +3476,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantStyleSheet**](preview.understand.assistant.style_sheet.md)
+[**PreviewUnderstandAssistantStyleSheet**](PreviewUnderstandAssistantStyleSheet.md)
 
 ### Authorization
 
@@ -3509,7 +3509,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncList**](preview.sync.service.sync_list.md)
+[**PreviewSyncServiceSyncList**](PreviewSyncServiceSyncList.md)
 
 ### Authorization
 
@@ -3543,7 +3543,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncListSyncListItem**](preview.sync.service.sync_list.sync_list_item.md)
+[**PreviewSyncServiceSyncListSyncListItem**](PreviewSyncServiceSyncListSyncListItem.md)
 
 ### Authorization
 
@@ -3579,7 +3579,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncListSyncListPermission**](preview.sync.service.sync_list.sync_list_permission.md)
+[**PreviewSyncServiceSyncListSyncListPermission**](PreviewSyncServiceSyncListSyncListPermission.md)
 
 ### Authorization
 
@@ -3612,7 +3612,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMap**](preview.sync.service.sync_map.md)
+[**PreviewSyncServiceSyncMap**](PreviewSyncServiceSyncMap.md)
 
 ### Authorization
 
@@ -3646,7 +3646,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMapSyncMapItem**](preview.sync.service.sync_map.sync_map_item.md)
+[**PreviewSyncServiceSyncMapSyncMapItem**](PreviewSyncServiceSyncMapSyncMapItem.md)
 
 ### Authorization
 
@@ -3682,7 +3682,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMapSyncMapPermission**](preview.sync.service.sync_map.sync_map_permission.md)
+[**PreviewSyncServiceSyncMapSyncMapPermission**](PreviewSyncServiceSyncMapSyncMapPermission.md)
 
 ### Authorization
 
@@ -3715,7 +3715,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTask**](preview.understand.assistant.task.md)
+[**PreviewUnderstandAssistantTask**](PreviewUnderstandAssistantTask.md)
 
 ### Authorization
 
@@ -3750,7 +3750,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskTaskActions**](preview.understand.assistant.task.task_actions.md)
+[**PreviewUnderstandAssistantTaskTaskActions**](PreviewUnderstandAssistantTaskTaskActions.md)
 
 ### Authorization
 
@@ -3783,7 +3783,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskTaskStatistics**](preview.understand.assistant.task.task_statistics.md)
+[**PreviewUnderstandAssistantTaskTaskStatistics**](PreviewUnderstandAssistantTaskTaskStatistics.md)
 
 ### Authorization
 
@@ -3826,7 +3826,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessSimUsage**](preview.wireless.sim.usage.md)
+[**PreviewWirelessSimUsage**](PreviewWirelessSimUsage.md)
 
 ### Authorization
 
@@ -5368,7 +5368,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistant**](preview.understand.assistant.md)
+[**PreviewUnderstandAssistant**](PreviewUnderstandAssistant.md)
 
 ### Authorization
 
@@ -5410,7 +5410,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantAssistantFallbackActions**](preview.understand.assistant.assistant_fallback_actions.md)
+[**PreviewUnderstandAssistantAssistantFallbackActions**](PreviewUnderstandAssistantAssistantFallbackActions.md)
 
 ### Authorization
 
@@ -5452,7 +5452,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantAssistantInitiationActions**](preview.understand.assistant.assistant_initiation_actions.md)
+[**PreviewUnderstandAssistantAssistantInitiationActions**](PreviewUnderstandAssistantAssistantInitiationActions.md)
 
 ### Authorization
 
@@ -5502,7 +5502,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewHostedNumbersAuthorizationDocument**](preview.hosted_numbers.authorization_document.md)
+[**PreviewHostedNumbersAuthorizationDocument**](PreviewHostedNumbersAuthorizationDocument.md)
 
 ### Authorization
 
@@ -5548,7 +5548,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetCertificate**](preview.deployed_devices.fleet.certificate.md)
+[**PreviewDeployedDevicesFleetCertificate**](PreviewDeployedDevicesFleetCertificate.md)
 
 ### Authorization
 
@@ -5594,7 +5594,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetDeployment**](preview.deployed_devices.fleet.deployment.md)
+[**PreviewDeployedDevicesFleetDeployment**](PreviewDeployedDevicesFleetDeployment.md)
 
 ### Authorization
 
@@ -5642,7 +5642,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetDevice**](preview.deployed_devices.fleet.device.md)
+[**PreviewDeployedDevicesFleetDevice**](PreviewDeployedDevicesFleetDevice.md)
 
 ### Authorization
 
@@ -5686,7 +5686,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceDocument**](preview.sync.service.document.md)
+[**PreviewSyncServiceDocument**](PreviewSyncServiceDocument.md)
 
 ### Authorization
 
@@ -5734,7 +5734,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceDocumentDocumentPermission**](preview.sync.service.document.document_permission.md)
+[**PreviewSyncServiceDocumentDocumentPermission**](PreviewSyncServiceDocumentDocumentPermission.md)
 
 ### Authorization
 
@@ -5780,7 +5780,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewBulkExportsExportConfiguration**](preview.bulk_exports.export_configuration.md)
+[**PreviewBulkExportsExportConfiguration**](PreviewBulkExportsExportConfiguration.md)
 
 ### Authorization
 
@@ -5824,7 +5824,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantFieldType**](preview.understand.assistant.field_type.md)
+[**PreviewUnderstandAssistantFieldType**](PreviewUnderstandAssistantFieldType.md)
 
 ### Authorization
 
@@ -5869,7 +5869,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleet**](preview.deployed_devices.fleet.md)
+[**PreviewDeployedDevicesFleet**](PreviewDeployedDevicesFleet.md)
 
 ### Authorization
 
@@ -5922,7 +5922,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewHostedNumbersHostedNumberOrder**](preview.hosted_numbers.hosted_number_order.md)
+[**PreviewHostedNumbersHostedNumberOrder**](PreviewHostedNumbersHostedNumberOrder.md)
 
 ### Authorization
 
@@ -5967,7 +5967,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceInstalledAddOn**](preview.marketplace.installed_add_on.md)
+[**PreviewMarketplaceInstalledAddOn**](PreviewMarketplaceInstalledAddOn.md)
 
 ### Authorization
 
@@ -6012,7 +6012,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewMarketplaceInstalledAddOnInstalledAddOnExtension**](preview.marketplace.installed_add_on.installed_add_on_extension.md)
+[**PreviewMarketplaceInstalledAddOnInstalledAddOnExtension**](PreviewMarketplaceInstalledAddOnInstalledAddOnExtension.md)
 
 ### Authorization
 
@@ -6058,7 +6058,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewDeployedDevicesFleetKey**](preview.deployed_devices.fleet.key.md)
+[**PreviewDeployedDevicesFleetKey**](PreviewDeployedDevicesFleetKey.md)
 
 ### Authorization
 
@@ -6101,7 +6101,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantModelBuild**](preview.understand.assistant.model_build.md)
+[**PreviewUnderstandAssistantModelBuild**](PreviewUnderstandAssistantModelBuild.md)
 
 ### Authorization
 
@@ -6145,7 +6145,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantQuery**](preview.understand.assistant.query.md)
+[**PreviewUnderstandAssistantQuery**](PreviewUnderstandAssistantQuery.md)
 
 ### Authorization
 
@@ -6188,7 +6188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessRatePlan**](preview.wireless.rate_plan.md)
+[**PreviewWirelessRatePlan**](PreviewWirelessRatePlan.md)
 
 ### Authorization
 
@@ -6234,7 +6234,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskSample**](preview.understand.assistant.task.sample.md)
+[**PreviewUnderstandAssistantTaskSample**](PreviewUnderstandAssistantTaskSample.md)
 
 ### Authorization
 
@@ -6279,7 +6279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncService**](preview.sync.service.md)
+[**PreviewSyncService**](PreviewSyncService.md)
 
 ### Authorization
 
@@ -6336,7 +6336,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewWirelessSim**](preview.wireless.sim.md)
+[**PreviewWirelessSim**](PreviewWirelessSim.md)
 
 ### Authorization
 
@@ -6380,7 +6380,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantStyleSheet**](preview.understand.assistant.style_sheet.md)
+[**PreviewUnderstandAssistantStyleSheet**](PreviewUnderstandAssistantStyleSheet.md)
 
 ### Authorization
 
@@ -6425,7 +6425,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncListSyncListItem**](preview.sync.service.sync_list.sync_list_item.md)
+[**PreviewSyncServiceSyncListSyncListItem**](PreviewSyncServiceSyncListSyncListItem.md)
 
 ### Authorization
 
@@ -6473,7 +6473,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncListSyncListPermission**](preview.sync.service.sync_list.sync_list_permission.md)
+[**PreviewSyncServiceSyncListSyncListPermission**](PreviewSyncServiceSyncListSyncListPermission.md)
 
 ### Authorization
 
@@ -6518,7 +6518,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMapSyncMapItem**](preview.sync.service.sync_map.sync_map_item.md)
+[**PreviewSyncServiceSyncMapSyncMapItem**](PreviewSyncServiceSyncMapSyncMapItem.md)
 
 ### Authorization
 
@@ -6566,7 +6566,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewSyncServiceSyncMapSyncMapPermission**](preview.sync.service.sync_map.sync_map_permission.md)
+[**PreviewSyncServiceSyncMapSyncMapPermission**](PreviewSyncServiceSyncMapSyncMapPermission.md)
 
 ### Authorization
 
@@ -6612,7 +6612,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTask**](preview.understand.assistant.task.md)
+[**PreviewUnderstandAssistantTask**](PreviewUnderstandAssistantTask.md)
 
 ### Authorization
 
@@ -6657,7 +6657,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PreviewUnderstandAssistantTaskTaskActions**](preview.understand.assistant.task.task_actions.md)
+[**PreviewUnderstandAssistantTaskTaskActions**](PreviewUnderstandAssistantTaskTaskActions.md)
 
 ### Authorization
 

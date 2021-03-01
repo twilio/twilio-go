@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipantMessageInteraction**](proxy.v1.service.session.participant.message_interaction.md)
+[**ProxyV1ServiceSessionParticipantMessageInteraction**](ProxyV1ServiceSessionParticipantMessageInteraction.md)
 
 ### Authorization
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipant**](proxy.v1.service.session.participant.md)
+[**ProxyV1ServiceSessionParticipant**](ProxyV1ServiceSessionParticipant.md)
 
 ### Authorization
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServicePhoneNumber**](proxy.v1.service.phone_number.md)
+[**ProxyV1ServicePhoneNumber**](ProxyV1ServicePhoneNumber.md)
 
 ### Authorization
 
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1Service**](proxy.v1.service.md)
+[**ProxyV1Service**](ProxyV1Service.md)
 
 ### Authorization
 
@@ -263,7 +263,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSession**](proxy.v1.service.session.md)
+[**ProxyV1ServiceSession**](ProxyV1ServiceSession.md)
 
 ### Authorization
 
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceShortCode**](proxy.v1.service.short_code.md)
+[**ProxyV1ServiceShortCode**](ProxyV1ServiceShortCode.md)
 
 ### Authorization
 
@@ -554,7 +554,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSessionInteraction**](proxy.v1.service.session.interaction.md)
+[**ProxyV1ServiceSessionInteraction**](ProxyV1ServiceSessionInteraction.md)
 
 ### Authorization
 
@@ -589,7 +589,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipantMessageInteraction**](proxy.v1.service.session.participant.message_interaction.md)
+[**ProxyV1ServiceSessionParticipantMessageInteraction**](ProxyV1ServiceSessionParticipantMessageInteraction.md)
 
 ### Authorization
 
@@ -625,7 +625,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipant**](proxy.v1.service.session.participant.md)
+[**ProxyV1ServiceSessionParticipant**](ProxyV1ServiceSessionParticipant.md)
 
 ### Authorization
 
@@ -660,7 +660,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServicePhoneNumber**](proxy.v1.service.phone_number.md)
+[**ProxyV1ServicePhoneNumber**](ProxyV1ServicePhoneNumber.md)
 
 ### Authorization
 
@@ -694,7 +694,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1Service**](proxy.v1.service.md)
+[**ProxyV1Service**](ProxyV1Service.md)
 
 ### Authorization
 
@@ -729,7 +729,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSession**](proxy.v1.service.session.md)
+[**ProxyV1ServiceSession**](ProxyV1ServiceSession.md)
 
 ### Authorization
 
@@ -764,7 +764,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceShortCode**](proxy.v1.service.short_code.md)
+[**ProxyV1ServiceShortCode**](ProxyV1ServiceShortCode.md)
 
 ### Authorization
 
@@ -1118,7 +1118,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServicePhoneNumber**](proxy.v1.service.phone_number.md)
+[**ProxyV1ServicePhoneNumber**](ProxyV1ServicePhoneNumber.md)
 
 ### Authorization
 
@@ -1169,7 +1169,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1Service**](proxy.v1.service.md)
+[**ProxyV1Service**](ProxyV1Service.md)
 
 ### Authorization
 
@@ -1217,7 +1217,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceSession**](proxy.v1.service.session.md)
+[**ProxyV1ServiceSession**](ProxyV1ServiceSession.md)
 
 ### Authorization
 
@@ -1262,7 +1262,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProxyV1ServiceShortCode**](proxy.v1.service.short_code.md)
+[**ProxyV1ServiceShortCode**](ProxyV1ServiceShortCode.md)
 
 ### Authorization
 

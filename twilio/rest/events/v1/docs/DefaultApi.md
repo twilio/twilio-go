@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1Sink**](events.v1.sink.md)
+[**EventsV1Sink**](EventsV1Sink.md)
 
 ### Authorization
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1SinkSinkTest**](events.v1.sink.sink_test.md)
+[**EventsV1SinkSinkTest**](EventsV1SinkSinkTest.md)
 
 ### Authorization
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1SinkSinkValidate**](events.v1.sink.sink_validate.md)
+[**EventsV1SinkSinkValidate**](EventsV1SinkSinkValidate.md)
 
 ### Authorization
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1Subscription**](events.v1.subscription.md)
+[**EventsV1Subscription**](EventsV1Subscription.md)
 
 ### Authorization
 
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1EventType**](events.v1.event_type.md)
+[**EventsV1EventType**](EventsV1EventType.md)
 
 ### Authorization
 
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1Schema**](events.v1.schema.md)
+[**EventsV1Schema**](EventsV1Schema.md)
 
 ### Authorization
 
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1Sink**](events.v1.sink.md)
+[**EventsV1Sink**](EventsV1Sink.md)
 
 ### Authorization
 
@@ -380,7 +380,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1Subscription**](events.v1.subscription.md)
+[**EventsV1Subscription**](EventsV1Subscription.md)
 
 ### Authorization
 
@@ -415,7 +415,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1SchemaVersion**](events.v1.schema.version.md)
+[**EventsV1SchemaVersion**](EventsV1SchemaVersion.md)
 
 ### Authorization
 
@@ -678,7 +678,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventsV1Subscription**](events.v1.subscription.md)
+[**EventsV1Subscription**](EventsV1Subscription.md)
 
 ### Authorization
 
