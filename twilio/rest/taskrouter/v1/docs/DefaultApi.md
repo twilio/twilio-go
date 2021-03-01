@@ -1,4 +1,4 @@
-# \DefaultApi
+# DefaultApi
 
 All URIs are relative to *http://localhost*
 
