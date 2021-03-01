@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ByocTrunk**](voice.v1.byoc_trunk.md)
+[**VoiceV1ByocTrunk**](VoiceV1ByocTrunk.md)
 
 ### Authorization
 
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ConnectionPolicy**](voice.v1.connection_policy.md)
+[**VoiceV1ConnectionPolicy**](VoiceV1ConnectionPolicy.md)
 
 ### Authorization
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ConnectionPolicyConnectionPolicyTarget**](voice.v1.connection_policy.connection_policy_target.md)
+[**VoiceV1ConnectionPolicyConnectionPolicyTarget**](VoiceV1ConnectionPolicyConnectionPolicyTarget.md)
 
 ### Authorization
 
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate**](voice.v1.dialing_permissions.dialing_permissions_country_bulk_update.md)
+[**VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate**](VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate.md)
 
 ### Authorization
 
@@ -245,7 +245,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1IpRecord**](voice.v1.ip_record.md)
+[**VoiceV1IpRecord**](VoiceV1IpRecord.md)
 
 ### Authorization
 
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1SourceIpMapping**](voice.v1.source_ip_mapping.md)
+[**VoiceV1SourceIpMapping**](VoiceV1SourceIpMapping.md)
 
 ### Authorization
 
@@ -480,7 +480,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ByocTrunk**](voice.v1.byoc_trunk.md)
+[**VoiceV1ByocTrunk**](VoiceV1ByocTrunk.md)
 
 ### Authorization
 
@@ -512,7 +512,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ConnectionPolicy**](voice.v1.connection_policy.md)
+[**VoiceV1ConnectionPolicy**](VoiceV1ConnectionPolicy.md)
 
 ### Authorization
 
@@ -545,7 +545,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ConnectionPolicyConnectionPolicyTarget**](voice.v1.connection_policy.connection_policy_target.md)
+[**VoiceV1ConnectionPolicyConnectionPolicyTarget**](VoiceV1ConnectionPolicyConnectionPolicyTarget.md)
 
 ### Authorization
 
@@ -579,7 +579,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsCountryInstance**](voice.v1.dialing_permissions.dialing_permissions_country-instance.md)
+[**VoiceV1DialingPermissionsDialingPermissionsCountryInstance**](VoiceV1DialingPermissionsDialingPermissionsCountryInstance.md)
 
 ### Authorization
 
@@ -609,7 +609,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsSettings**](voice.v1.dialing_permissions.dialing_permissions_settings.md)
+[**VoiceV1DialingPermissionsDialingPermissionsSettings**](VoiceV1DialingPermissionsDialingPermissionsSettings.md)
 
 ### Authorization
 
@@ -641,7 +641,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1IpRecord**](voice.v1.ip_record.md)
+[**VoiceV1IpRecord**](VoiceV1IpRecord.md)
 
 ### Authorization
 
@@ -673,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1SourceIpMapping**](voice.v1.source_ip_mapping.md)
+[**VoiceV1SourceIpMapping**](VoiceV1SourceIpMapping.md)
 
 ### Authorization
 
@@ -1023,7 +1023,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ByocTrunk**](voice.v1.byoc_trunk.md)
+[**VoiceV1ByocTrunk**](VoiceV1ByocTrunk.md)
 
 ### Authorization
 
@@ -1065,7 +1065,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ConnectionPolicy**](voice.v1.connection_policy.md)
+[**VoiceV1ConnectionPolicy**](VoiceV1ConnectionPolicy.md)
 
 ### Authorization
 
@@ -1112,7 +1112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1ConnectionPolicyConnectionPolicyTarget**](voice.v1.connection_policy.connection_policy_target.md)
+[**VoiceV1ConnectionPolicyConnectionPolicyTarget**](VoiceV1ConnectionPolicyConnectionPolicyTarget.md)
 
 ### Authorization
 
@@ -1155,7 +1155,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsSettings**](voice.v1.dialing_permissions.dialing_permissions_settings.md)
+[**VoiceV1DialingPermissionsDialingPermissionsSettings**](VoiceV1DialingPermissionsDialingPermissionsSettings.md)
 
 ### Authorization
 
@@ -1197,7 +1197,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1IpRecord**](voice.v1.ip_record.md)
+[**VoiceV1IpRecord**](VoiceV1IpRecord.md)
 
 ### Authorization
 
@@ -1239,7 +1239,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VoiceV1SourceIpMapping**](voice.v1.source_ip_mapping.md)
+[**VoiceV1SourceIpMapping**](VoiceV1SourceIpMapping.md)
 
 ### Authorization
 

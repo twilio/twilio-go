@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1ServiceBinding**](notify.v1.service.binding.md)
+[**NotifyV1ServiceBinding**](NotifyV1ServiceBinding.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1Credential**](notify.v1.credential.md)
+[**NotifyV1Credential**](NotifyV1Credential.md)
 
 ### Authorization
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1ServiceNotification**](notify.v1.service.notification.md)
+[**NotifyV1ServiceNotification**](NotifyV1ServiceNotification.md)
 
 ### Authorization
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1Service**](notify.v1.service.md)
+[**NotifyV1Service**](NotifyV1Service.md)
 
 ### Authorization
 
@@ -344,7 +344,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1ServiceBinding**](notify.v1.service.binding.md)
+[**NotifyV1ServiceBinding**](NotifyV1ServiceBinding.md)
 
 ### Authorization
 
@@ -376,7 +376,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1Credential**](notify.v1.credential.md)
+[**NotifyV1Credential**](NotifyV1Credential.md)
 
 ### Authorization
 
@@ -408,7 +408,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1Service**](notify.v1.service.md)
+[**NotifyV1Service**](NotifyV1Service.md)
 
 ### Authorization
 
@@ -584,7 +584,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1Credential**](notify.v1.credential.md)
+[**NotifyV1Credential**](NotifyV1Credential.md)
 
 ### Authorization
 
@@ -639,7 +639,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotifyV1Service**](notify.v1.service.md)
+[**NotifyV1Service**](NotifyV1Service.md)
 
 ### Authorization
 

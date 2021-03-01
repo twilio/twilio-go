@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowExecution**](studio.v2.flow.execution.md)
+[**StudioV2FlowExecution**](StudioV2FlowExecution.md)
 
 ### Authorization
 
@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2Flow**](studio.v2.flow.md)
+[**StudioV2Flow**](StudioV2Flow.md)
 
 ### Authorization
 
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowExecution**](studio.v2.flow.execution.md)
+[**StudioV2FlowExecution**](StudioV2FlowExecution.md)
 
 ### Authorization
 
@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowExecutionExecutionContext**](studio.v2.flow.execution.execution_context.md)
+[**StudioV2FlowExecutionExecutionContext**](StudioV2FlowExecutionExecutionContext.md)
 
 ### Authorization
 
@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowExecutionExecutionStep**](studio.v2.flow.execution.execution_step.md)
+[**StudioV2FlowExecutionExecutionStep**](StudioV2FlowExecutionExecutionStep.md)
 
 ### Authorization
 
@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowExecutionExecutionStepExecutionStepContext**](studio.v2.flow.execution.execution_step.execution_step_context.md)
+[**StudioV2FlowExecutionExecutionStepExecutionStepContext**](StudioV2FlowExecutionExecutionStepExecutionStepContext.md)
 
 ### Authorization
 
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2Flow**](studio.v2.flow.md)
+[**StudioV2Flow**](StudioV2Flow.md)
 
 ### Authorization
 
@@ -382,7 +382,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowFlowRevision**](studio.v2.flow.flow_revision.md)
+[**StudioV2FlowFlowRevision**](StudioV2FlowFlowRevision.md)
 
 ### Authorization
 
@@ -416,7 +416,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowTestUser**](studio.v2.flow.test_user.md)
+[**StudioV2FlowTestUser**](StudioV2FlowTestUser.md)
 
 ### Authorization
 
@@ -639,7 +639,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowExecution**](studio.v2.flow.execution.md)
+[**StudioV2FlowExecution**](StudioV2FlowExecution.md)
 
 ### Authorization
 
@@ -686,7 +686,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2Flow**](studio.v2.flow.md)
+[**StudioV2Flow**](StudioV2Flow.md)
 
 ### Authorization
 
@@ -732,7 +732,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowValidate**](studio.v2.flow_validate.md)
+[**StudioV2FlowValidate**](StudioV2FlowValidate.md)
 
 ### Authorization
 
@@ -776,7 +776,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV2FlowTestUser**](studio.v2.flow.test_user.md)
+[**StudioV2FlowTestUser**](StudioV2FlowTestUser.md)
 
 ### Authorization
 

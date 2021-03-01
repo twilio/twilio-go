@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServiceAlphaSender**](messaging.v1.service.alpha_sender.md)
+[**MessagingV1ServiceAlphaSender**](MessagingV1ServiceAlphaSender.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1BrandRegistrations**](messaging.v1.brand_registrations.md)
+[**MessagingV1BrandRegistrations**](MessagingV1BrandRegistrations.md)
 
 ### Authorization
 
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServicePhoneNumber**](messaging.v1.service.phone_number.md)
+[**MessagingV1ServicePhoneNumber**](MessagingV1ServicePhoneNumber.md)
 
 ### Authorization
 
@@ -192,7 +192,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1Service**](messaging.v1.service.md)
+[**MessagingV1Service**](MessagingV1Service.md)
 
 ### Authorization
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServiceShortCode**](messaging.v1.service.short_code.md)
+[**MessagingV1ServiceShortCode**](MessagingV1ServiceShortCode.md)
 
 ### Authorization
 
@@ -398,7 +398,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServiceAlphaSender**](messaging.v1.service.alpha_sender.md)
+[**MessagingV1ServiceAlphaSender**](MessagingV1ServiceAlphaSender.md)
 
 ### Authorization
 
@@ -430,7 +430,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1BrandRegistrations**](messaging.v1.brand_registrations.md)
+[**MessagingV1BrandRegistrations**](MessagingV1BrandRegistrations.md)
 
 ### Authorization
 
@@ -506,7 +506,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServicePhoneNumber**](messaging.v1.service.phone_number.md)
+[**MessagingV1ServicePhoneNumber**](MessagingV1ServicePhoneNumber.md)
 
 ### Authorization
 
@@ -538,7 +538,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1Service**](messaging.v1.service.md)
+[**MessagingV1Service**](MessagingV1Service.md)
 
 ### Authorization
 
@@ -571,7 +571,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1ServiceShortCode**](messaging.v1.service.short_code.md)
+[**MessagingV1ServiceShortCode**](MessagingV1ServiceShortCode.md)
 
 ### Authorization
 
@@ -834,7 +834,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MessagingV1Service**](messaging.v1.service.md)
+[**MessagingV1Service**](MessagingV1Service.md)
 
 ### Authorization
 

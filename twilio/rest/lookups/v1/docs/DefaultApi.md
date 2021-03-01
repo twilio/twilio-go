@@ -37,7 +37,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**LookupsV1PhoneNumber**](lookups.v1.phone_number.md)
+[**LookupsV1PhoneNumber**](LookupsV1PhoneNumber.md)
 
 ### Authorization
 

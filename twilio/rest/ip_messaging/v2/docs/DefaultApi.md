@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannel**](ip_messaging.v2.service.channel.md)
+[**IpMessagingV2ServiceChannel**](IpMessagingV2ServiceChannel.md)
 
 ### Authorization
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelChannelWebhook**](ip_messaging.v2.service.channel.channel_webhook.md)
+[**IpMessagingV2ServiceChannelChannelWebhook**](IpMessagingV2ServiceChannelChannelWebhook.md)
 
 ### Authorization
 
@@ -190,7 +190,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2Credential**](ip_messaging.v2.credential.md)
+[**IpMessagingV2Credential**](IpMessagingV2Credential.md)
 
 ### Authorization
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelInvite**](ip_messaging.v2.service.channel.invite.md)
+[**IpMessagingV2ServiceChannelInvite**](IpMessagingV2ServiceChannelInvite.md)
 
 ### Authorization
 
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelMember**](ip_messaging.v2.service.channel.member.md)
+[**IpMessagingV2ServiceChannelMember**](IpMessagingV2ServiceChannelMember.md)
 
 ### Authorization
 
@@ -334,7 +334,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelMessage**](ip_messaging.v2.service.channel.message.md)
+[**IpMessagingV2ServiceChannelMessage**](IpMessagingV2ServiceChannelMessage.md)
 
 ### Authorization
 
@@ -378,7 +378,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceRole**](ip_messaging.v2.service.role.md)
+[**IpMessagingV2ServiceRole**](IpMessagingV2ServiceRole.md)
 
 ### Authorization
 
@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2Service**](ip_messaging.v2.service.md)
+[**IpMessagingV2Service**](IpMessagingV2Service.md)
 
 ### Authorization
 
@@ -465,7 +465,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceUser**](ip_messaging.v2.service.user.md)
+[**IpMessagingV2ServiceUser**](IpMessagingV2ServiceUser.md)
 
 ### Authorization
 
@@ -928,7 +928,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceBinding**](ip_messaging.v2.service.binding.md)
+[**IpMessagingV2ServiceBinding**](IpMessagingV2ServiceBinding.md)
 
 ### Authorization
 
@@ -961,7 +961,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannel**](ip_messaging.v2.service.channel.md)
+[**IpMessagingV2ServiceChannel**](IpMessagingV2ServiceChannel.md)
 
 ### Authorization
 
@@ -995,7 +995,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelChannelWebhook**](ip_messaging.v2.service.channel.channel_webhook.md)
+[**IpMessagingV2ServiceChannelChannelWebhook**](IpMessagingV2ServiceChannelChannelWebhook.md)
 
 ### Authorization
 
@@ -1027,7 +1027,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2Credential**](ip_messaging.v2.credential.md)
+[**IpMessagingV2Credential**](IpMessagingV2Credential.md)
 
 ### Authorization
 
@@ -1061,7 +1061,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelInvite**](ip_messaging.v2.service.channel.invite.md)
+[**IpMessagingV2ServiceChannelInvite**](IpMessagingV2ServiceChannelInvite.md)
 
 ### Authorization
 
@@ -1095,7 +1095,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelMember**](ip_messaging.v2.service.channel.member.md)
+[**IpMessagingV2ServiceChannelMember**](IpMessagingV2ServiceChannelMember.md)
 
 ### Authorization
 
@@ -1129,7 +1129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelMessage**](ip_messaging.v2.service.channel.message.md)
+[**IpMessagingV2ServiceChannelMessage**](IpMessagingV2ServiceChannelMessage.md)
 
 ### Authorization
 
@@ -1162,7 +1162,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceRole**](ip_messaging.v2.service.role.md)
+[**IpMessagingV2ServiceRole**](IpMessagingV2ServiceRole.md)
 
 ### Authorization
 
@@ -1194,7 +1194,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2Service**](ip_messaging.v2.service.md)
+[**IpMessagingV2Service**](IpMessagingV2Service.md)
 
 ### Authorization
 
@@ -1227,7 +1227,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceUser**](ip_messaging.v2.service.user.md)
+[**IpMessagingV2ServiceUser**](IpMessagingV2ServiceUser.md)
 
 ### Authorization
 
@@ -1261,7 +1261,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceUserUserBinding**](ip_messaging.v2.service.user.user_binding.md)
+[**IpMessagingV2ServiceUserUserBinding**](IpMessagingV2ServiceUserUserBinding.md)
 
 ### Authorization
 
@@ -1295,7 +1295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceUserUserChannel**](ip_messaging.v2.service.user.user_channel.md)
+[**IpMessagingV2ServiceUserUserChannel**](IpMessagingV2ServiceUserUserChannel.md)
 
 ### Authorization
 
@@ -1859,7 +1859,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannel**](ip_messaging.v2.service.channel.md)
+[**IpMessagingV2ServiceChannel**](IpMessagingV2ServiceChannel.md)
 
 ### Authorization
 
@@ -1908,7 +1908,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelChannelWebhook**](ip_messaging.v2.service.channel.channel_webhook.md)
+[**IpMessagingV2ServiceChannelChannelWebhook**](IpMessagingV2ServiceChannelChannelWebhook.md)
 
 ### Authorization
 
@@ -1955,7 +1955,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2Credential**](ip_messaging.v2.credential.md)
+[**IpMessagingV2Credential**](IpMessagingV2Credential.md)
 
 ### Authorization
 
@@ -2005,7 +2005,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelMember**](ip_messaging.v2.service.channel.member.md)
+[**IpMessagingV2ServiceChannelMember**](IpMessagingV2ServiceChannelMember.md)
 
 ### Authorization
 
@@ -2055,7 +2055,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelMessage**](ip_messaging.v2.service.channel.message.md)
+[**IpMessagingV2ServiceChannelMessage**](IpMessagingV2ServiceChannelMessage.md)
 
 ### Authorization
 
@@ -2098,7 +2098,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceRole**](ip_messaging.v2.service.role.md)
+[**IpMessagingV2ServiceRole**](IpMessagingV2ServiceRole.md)
 
 ### Authorization
 
@@ -2170,7 +2170,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2Service**](ip_messaging.v2.service.md)
+[**IpMessagingV2Service**](IpMessagingV2Service.md)
 
 ### Authorization
 
@@ -2216,7 +2216,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceUser**](ip_messaging.v2.service.user.md)
+[**IpMessagingV2ServiceUser**](IpMessagingV2ServiceUser.md)
 
 ### Authorization
 
@@ -2262,7 +2262,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IpMessagingV2ServiceUserUserChannel**](ip_messaging.v2.service.user.user_channel.md)
+[**IpMessagingV2ServiceUserUserChannel**](IpMessagingV2ServiceUserUserChannel.md)
 
 ### Authorization
 

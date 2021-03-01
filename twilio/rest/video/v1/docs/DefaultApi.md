@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1Composition**](video.v1.composition.md)
+[**VideoV1Composition**](VideoV1Composition.md)
 
 ### Authorization
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1CompositionHook**](video.v1.composition_hook.md)
+[**VideoV1CompositionHook**](VideoV1CompositionHook.md)
 
 ### Authorization
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1CompositionSettings**](video.v1.composition_settings.md)
+[**VideoV1CompositionSettings**](VideoV1CompositionSettings.md)
 
 ### Authorization
 
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RecordingSettings**](video.v1.recording_settings.md)
+[**VideoV1RecordingSettings**](VideoV1RecordingSettings.md)
 
 ### Authorization
 
@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1Room**](video.v1.room.md)
+[**VideoV1Room**](VideoV1Room.md)
 
 ### Authorization
 
@@ -434,7 +434,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1Composition**](video.v1.composition.md)
+[**VideoV1Composition**](VideoV1Composition.md)
 
 ### Authorization
 
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1CompositionHook**](video.v1.composition_hook.md)
+[**VideoV1CompositionHook**](VideoV1CompositionHook.md)
 
 ### Authorization
 
@@ -496,7 +496,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**VideoV1CompositionSettings**](video.v1.composition_settings.md)
+[**VideoV1CompositionSettings**](VideoV1CompositionSettings.md)
 
 ### Authorization
 
@@ -530,7 +530,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1Recording**](video.v1.recording.md)
+[**VideoV1Recording**](VideoV1Recording.md)
 
 ### Authorization
 
@@ -558,7 +558,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**VideoV1RecordingSettings**](video.v1.recording_settings.md)
+[**VideoV1RecordingSettings**](VideoV1RecordingSettings.md)
 
 ### Authorization
 
@@ -590,7 +590,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1Room**](video.v1.room.md)
+[**VideoV1Room**](VideoV1Room.md)
 
 ### Authorization
 
@@ -623,7 +623,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomParticipant**](video.v1.room.room_participant.md)
+[**VideoV1RoomRoomParticipant**](VideoV1RoomRoomParticipant.md)
 
 ### Authorization
 
@@ -659,7 +659,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantRoomParticipantPublishedTrack**](video.v1.room.room_participant.room_participant_published_track.md)
+[**VideoV1RoomRoomParticipantRoomParticipantPublishedTrack**](VideoV1RoomRoomParticipantRoomParticipantPublishedTrack.md)
 
 ### Authorization
 
@@ -694,7 +694,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantRoomParticipantSubscribeRule**](video.v1.room.room_participant.room_participant_subscribe_rule.md)
+[**VideoV1RoomRoomParticipantRoomParticipantSubscribeRule**](VideoV1RoomRoomParticipantRoomParticipantSubscribeRule.md)
 
 ### Authorization
 
@@ -730,7 +730,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack**](video.v1.room.room_participant.room_participant_subscribed_track.md)
+[**VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack**](VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack.md)
 
 ### Authorization
 
@@ -763,7 +763,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomRecording**](video.v1.room.room_recording.md)
+[**VideoV1RoomRoomRecording**](VideoV1RoomRoomRecording.md)
 
 ### Authorization
 
@@ -797,7 +797,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomRecordingRule**](video.v1.room.room_recording_rule.md)
+[**VideoV1RoomRoomRecordingRule**](VideoV1RoomRoomRecordingRule.md)
 
 ### Authorization
 
@@ -1218,7 +1218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1CompositionHook**](video.v1.composition_hook.md)
+[**VideoV1CompositionHook**](VideoV1CompositionHook.md)
 
 ### Authorization
 
@@ -1260,7 +1260,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1Room**](video.v1.room.md)
+[**VideoV1Room**](VideoV1Room.md)
 
 ### Authorization
 
@@ -1303,7 +1303,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomParticipant**](video.v1.room.room_participant.md)
+[**VideoV1RoomRoomParticipant**](VideoV1RoomRoomParticipant.md)
 
 ### Authorization
 
@@ -1348,7 +1348,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantRoomParticipantSubscribeRule**](video.v1.room.room_participant.room_participant_subscribe_rule.md)
+[**VideoV1RoomRoomParticipantRoomParticipantSubscribeRule**](VideoV1RoomRoomParticipantRoomParticipantSubscribeRule.md)
 
 ### Authorization
 
@@ -1392,7 +1392,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VideoV1RoomRoomRecordingRule**](video.v1.room.room_recording_rule.md)
+[**VideoV1RoomRoomRecordingRule**](VideoV1RoomRoomRecordingRule.md)
 
 ### Authorization
 

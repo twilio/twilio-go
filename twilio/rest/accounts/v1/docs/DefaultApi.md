@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountsV1CredentialCredentialAws**](accounts.v1.credential.credential_aws.md)
+[**AccountsV1CredentialCredentialAws**](AccountsV1CredentialCredentialAws.md)
 
 ### Authorization
 
@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountsV1CredentialCredentialPublicKey**](accounts.v1.credential.credential_public_key.md)
+[**AccountsV1CredentialCredentialPublicKey**](AccountsV1CredentialCredentialPublicKey.md)
 
 ### Authorization
 
@@ -124,7 +124,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**AccountsV1SecondaryAuthToken**](accounts.v1.secondary_auth_token.md)
+[**AccountsV1SecondaryAuthToken**](AccountsV1SecondaryAuthToken.md)
 
 ### Authorization
 
@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountsV1CredentialCredentialAws**](accounts.v1.credential.credential_aws.md)
+[**AccountsV1CredentialCredentialAws**](AccountsV1CredentialCredentialAws.md)
 
 ### Authorization
 
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountsV1CredentialCredentialPublicKey**](accounts.v1.credential.credential_public_key.md)
+[**AccountsV1CredentialCredentialPublicKey**](AccountsV1CredentialCredentialPublicKey.md)
 
 ### Authorization
 
@@ -406,7 +406,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**AccountsV1AuthTokenPromotion**](accounts.v1.auth_token_promotion.md)
+[**AccountsV1AuthTokenPromotion**](AccountsV1AuthTokenPromotion.md)
 
 ### Authorization
 
@@ -450,7 +450,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountsV1CredentialCredentialAws**](accounts.v1.credential.credential_aws.md)
+[**AccountsV1CredentialCredentialAws**](AccountsV1CredentialCredentialAws.md)
 
 ### Authorization
 
@@ -494,7 +494,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountsV1CredentialCredentialPublicKey**](accounts.v1.credential.credential_public_key.md)
+[**AccountsV1CredentialCredentialPublicKey**](AccountsV1CredentialCredentialPublicKey.md)
 
 ### Authorization
 

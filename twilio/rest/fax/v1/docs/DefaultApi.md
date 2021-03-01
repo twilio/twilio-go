@@ -50,7 +50,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FaxV1Fax**](fax.v1.fax.md)
+[**FaxV1Fax**](FaxV1Fax.md)
 
 ### Authorization
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FaxV1Fax**](fax.v1.fax.md)
+[**FaxV1Fax**](FaxV1Fax.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FaxV1FaxFaxMedia**](fax.v1.fax.fax_media.md)
+[**FaxV1FaxFaxMedia**](FaxV1FaxFaxMedia.md)
 
 ### Authorization
 
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FaxV1Fax**](fax.v1.fax.md)
+[**FaxV1Fax**](FaxV1Fax.md)
 
 ### Authorization
 

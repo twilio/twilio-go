@@ -47,7 +47,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkexportsV1ExportExportCustomJob**](bulkexports.v1.export.export_custom_job.md)
+[**BulkexportsV1ExportExportCustomJob**](BulkexportsV1ExportExportCustomJob.md)
 
 ### Authorization
 
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkexportsV1Export**](bulkexports.v1.export.md)
+[**BulkexportsV1Export**](BulkexportsV1Export.md)
 
 ### Authorization
 
@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkexportsV1ExportConfiguration**](bulkexports.v1.export_configuration.md)
+[**BulkexportsV1ExportConfiguration**](BulkexportsV1ExportConfiguration.md)
 
 ### Authorization
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkexportsV1ExportJob**](bulkexports.v1.export.job.md)
+[**BulkexportsV1ExportJob**](BulkexportsV1ExportJob.md)
 
 ### Authorization
 
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkexportsV1ExportConfiguration**](bulkexports.v1.export_configuration.md)
+[**BulkexportsV1ExportConfiguration**](BulkexportsV1ExportConfiguration.md)
 
 ### Authorization
 

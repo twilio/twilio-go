@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1Assistant**](autopilot.v1.assistant.md)
+[**AutopilotV1Assistant**](AutopilotV1Assistant.md)
 
 ### Authorization
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskField**](autopilot.v1.assistant.task.field.md)
+[**AutopilotV1AssistantTaskField**](AutopilotV1AssistantTaskField.md)
 
 ### Authorization
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantFieldType**](autopilot.v1.assistant.field_type.md)
+[**AutopilotV1AssistantFieldType**](AutopilotV1AssistantFieldType.md)
 
 ### Authorization
 
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantFieldTypeFieldValue**](autopilot.v1.assistant.field_type.field_value.md)
+[**AutopilotV1AssistantFieldTypeFieldValue**](AutopilotV1AssistantFieldTypeFieldValue.md)
 
 ### Authorization
 
@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantModelBuild**](autopilot.v1.assistant.model_build.md)
+[**AutopilotV1AssistantModelBuild**](AutopilotV1AssistantModelBuild.md)
 
 ### Authorization
 
@@ -310,7 +310,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantQuery**](autopilot.v1.assistant.query.md)
+[**AutopilotV1AssistantQuery**](AutopilotV1AssistantQuery.md)
 
 ### Authorization
 
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskSample**](autopilot.v1.assistant.task.sample.md)
+[**AutopilotV1AssistantTaskSample**](AutopilotV1AssistantTaskSample.md)
 
 ### Authorization
 
@@ -400,7 +400,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTask**](autopilot.v1.assistant.task.md)
+[**AutopilotV1AssistantTask**](AutopilotV1AssistantTask.md)
 
 ### Authorization
 
@@ -445,7 +445,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantWebhook**](autopilot.v1.assistant.webhook.md)
+[**AutopilotV1AssistantWebhook**](AutopilotV1AssistantWebhook.md)
 
 ### Authorization
 
@@ -776,7 +776,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1Assistant**](autopilot.v1.assistant.md)
+[**AutopilotV1Assistant**](AutopilotV1Assistant.md)
 
 ### Authorization
 
@@ -808,7 +808,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantDefaults**](autopilot.v1.assistant.defaults.md)
+[**AutopilotV1AssistantDefaults**](AutopilotV1AssistantDefaults.md)
 
 ### Authorization
 
@@ -841,7 +841,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantDialogue**](autopilot.v1.assistant.dialogue.md)
+[**AutopilotV1AssistantDialogue**](AutopilotV1AssistantDialogue.md)
 
 ### Authorization
 
@@ -875,7 +875,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskField**](autopilot.v1.assistant.task.field.md)
+[**AutopilotV1AssistantTaskField**](AutopilotV1AssistantTaskField.md)
 
 ### Authorization
 
@@ -908,7 +908,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantFieldType**](autopilot.v1.assistant.field_type.md)
+[**AutopilotV1AssistantFieldType**](AutopilotV1AssistantFieldType.md)
 
 ### Authorization
 
@@ -942,7 +942,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantFieldTypeFieldValue**](autopilot.v1.assistant.field_type.field_value.md)
+[**AutopilotV1AssistantFieldTypeFieldValue**](AutopilotV1AssistantFieldTypeFieldValue.md)
 
 ### Authorization
 
@@ -975,7 +975,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantModelBuild**](autopilot.v1.assistant.model_build.md)
+[**AutopilotV1AssistantModelBuild**](AutopilotV1AssistantModelBuild.md)
 
 ### Authorization
 
@@ -1008,7 +1008,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantQuery**](autopilot.v1.assistant.query.md)
+[**AutopilotV1AssistantQuery**](AutopilotV1AssistantQuery.md)
 
 ### Authorization
 
@@ -1042,7 +1042,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskSample**](autopilot.v1.assistant.task.sample.md)
+[**AutopilotV1AssistantTaskSample**](AutopilotV1AssistantTaskSample.md)
 
 ### Authorization
 
@@ -1076,7 +1076,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantStyleSheet**](autopilot.v1.assistant.style_sheet.md)
+[**AutopilotV1AssistantStyleSheet**](AutopilotV1AssistantStyleSheet.md)
 
 ### Authorization
 
@@ -1109,7 +1109,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTask**](autopilot.v1.assistant.task.md)
+[**AutopilotV1AssistantTask**](AutopilotV1AssistantTask.md)
 
 ### Authorization
 
@@ -1144,7 +1144,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskTaskActions**](autopilot.v1.assistant.task.task_actions.md)
+[**AutopilotV1AssistantTaskTaskActions**](AutopilotV1AssistantTaskTaskActions.md)
 
 ### Authorization
 
@@ -1177,7 +1177,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskTaskStatistics**](autopilot.v1.assistant.task.task_statistics.md)
+[**AutopilotV1AssistantTaskTaskStatistics**](AutopilotV1AssistantTaskTaskStatistics.md)
 
 ### Authorization
 
@@ -1210,7 +1210,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantWebhook**](autopilot.v1.assistant.webhook.md)
+[**AutopilotV1AssistantWebhook**](AutopilotV1AssistantWebhook.md)
 
 ### Authorization
 
@@ -1645,7 +1645,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1Assistant**](autopilot.v1.assistant.md)
+[**AutopilotV1Assistant**](AutopilotV1Assistant.md)
 
 ### Authorization
 
@@ -1687,7 +1687,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantDefaults**](autopilot.v1.assistant.defaults.md)
+[**AutopilotV1AssistantDefaults**](AutopilotV1AssistantDefaults.md)
 
 ### Authorization
 
@@ -1731,7 +1731,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantFieldType**](autopilot.v1.assistant.field_type.md)
+[**AutopilotV1AssistantFieldType**](AutopilotV1AssistantFieldType.md)
 
 ### Authorization
 
@@ -1774,7 +1774,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantModelBuild**](autopilot.v1.assistant.model_build.md)
+[**AutopilotV1AssistantModelBuild**](AutopilotV1AssistantModelBuild.md)
 
 ### Authorization
 
@@ -1818,7 +1818,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantQuery**](autopilot.v1.assistant.query.md)
+[**AutopilotV1AssistantQuery**](AutopilotV1AssistantQuery.md)
 
 ### Authorization
 
@@ -1859,7 +1859,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1RestoreAssistant**](autopilot.v1.restore_assistant.md)
+[**AutopilotV1RestoreAssistant**](AutopilotV1RestoreAssistant.md)
 
 ### Authorization
 
@@ -1905,7 +1905,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskSample**](autopilot.v1.assistant.task.sample.md)
+[**AutopilotV1AssistantTaskSample**](AutopilotV1AssistantTaskSample.md)
 
 ### Authorization
 
@@ -1949,7 +1949,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantStyleSheet**](autopilot.v1.assistant.style_sheet.md)
+[**AutopilotV1AssistantStyleSheet**](AutopilotV1AssistantStyleSheet.md)
 
 ### Authorization
 
@@ -1995,7 +1995,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTask**](autopilot.v1.assistant.task.md)
+[**AutopilotV1AssistantTask**](AutopilotV1AssistantTask.md)
 
 ### Authorization
 
@@ -2040,7 +2040,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantTaskTaskActions**](autopilot.v1.assistant.task.task_actions.md)
+[**AutopilotV1AssistantTaskTaskActions**](AutopilotV1AssistantTaskTaskActions.md)
 
 ### Authorization
 
@@ -2086,7 +2086,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutopilotV1AssistantWebhook**](autopilot.v1.assistant.webhook.md)
+[**AutopilotV1AssistantWebhook**](AutopilotV1AssistantWebhook.md)
 
 ### Authorization
 

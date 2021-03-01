@@ -31,7 +31,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InsightsV1Call**](insights.v1.call.md)
+[**InsightsV1Call**](InsightsV1Call.md)
 
 ### Authorization
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InsightsV1CallSummary**](insights.v1.call.summary.md)
+[**InsightsV1CallSummary**](InsightsV1CallSummary.md)
 
 ### Authorization
 
@@ -106,7 +106,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InsightsV1VideoRoomSummaryVideoParticipantSummary**](insights.v1.video_room_summary.video_participant_summary.md)
+[**InsightsV1VideoRoomSummaryVideoParticipantSummary**](InsightsV1VideoRoomSummaryVideoParticipantSummary.md)
 
 ### Authorization
 
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InsightsV1VideoRoomSummary**](insights.v1.video_room_summary.md)
+[**InsightsV1VideoRoomSummary**](InsightsV1VideoRoomSummary.md)
 
 ### Authorization
 

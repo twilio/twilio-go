@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowEngagement**](studio.v1.flow.engagement.md)
+[**StudioV1FlowEngagement**](StudioV1FlowEngagement.md)
 
 ### Authorization
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowExecution**](studio.v1.flow.execution.md)
+[**StudioV1FlowExecution**](StudioV1FlowExecution.md)
 
 ### Authorization
 
@@ -242,7 +242,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowEngagement**](studio.v1.flow.engagement.md)
+[**StudioV1FlowEngagement**](StudioV1FlowEngagement.md)
 
 ### Authorization
 
@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowEngagementEngagementContext**](studio.v1.flow.engagement.engagement_context.md)
+[**StudioV1FlowEngagementEngagementContext**](StudioV1FlowEngagementEngagementContext.md)
 
 ### Authorization
 
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowExecution**](studio.v1.flow.execution.md)
+[**StudioV1FlowExecution**](StudioV1FlowExecution.md)
 
 ### Authorization
 
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowExecutionExecutionContext**](studio.v1.flow.execution.execution_context.md)
+[**StudioV1FlowExecutionExecutionContext**](StudioV1FlowExecutionExecutionContext.md)
 
 ### Authorization
 
@@ -383,7 +383,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowExecutionExecutionStep**](studio.v1.flow.execution.execution_step.md)
+[**StudioV1FlowExecutionExecutionStep**](StudioV1FlowExecutionExecutionStep.md)
 
 ### Authorization
 
@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowExecutionExecutionStepExecutionStepContext**](studio.v1.flow.execution.execution_step.execution_step_context.md)
+[**StudioV1FlowExecutionExecutionStepExecutionStepContext**](StudioV1FlowExecutionExecutionStepExecutionStepContext.md)
 
 ### Authorization
 
@@ -453,7 +453,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1Flow**](studio.v1.flow.md)
+[**StudioV1Flow**](StudioV1Flow.md)
 
 ### Authorization
 
@@ -489,7 +489,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowEngagementStep**](studio.v1.flow.engagement.step.md)
+[**StudioV1FlowEngagementStep**](StudioV1FlowEngagementStep.md)
 
 ### Authorization
 
@@ -525,7 +525,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowEngagementStepStepContext**](studio.v1.flow.engagement.step.step_context.md)
+[**StudioV1FlowEngagementStepStepContext**](StudioV1FlowEngagementStepStepContext.md)
 
 ### Authorization
 
@@ -793,7 +793,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudioV1FlowExecution**](studio.v1.flow.execution.md)
+[**StudioV1FlowExecution**](StudioV1FlowExecution.md)
 
 ### Authorization
 

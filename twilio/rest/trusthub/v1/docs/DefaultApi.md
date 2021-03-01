@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1CustomerProfile**](trusthub.v1.customer_profile.md)
+[**TrusthubV1CustomerProfile**](TrusthubV1CustomerProfile.md)
 
 ### Authorization
 
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment**](trusthub.v1.customer_profile.customer_profile_channel_endpoint_assignment.md)
+[**TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment**](TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment.md)
 
 ### Authorization
 
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileEntityAssignment**](trusthub.v1.customer_profile.customer_profile_entity_assignment.md)
+[**TrusthubV1CustomerProfileCustomerProfileEntityAssignment**](TrusthubV1CustomerProfileCustomerProfileEntityAssignment.md)
 
 ### Authorization
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileEvaluation**](trusthub.v1.customer_profile.customer_profile_evaluation.md)
+[**TrusthubV1CustomerProfileCustomerProfileEvaluation**](TrusthubV1CustomerProfileCustomerProfileEvaluation.md)
 
 ### Authorization
 
@@ -263,7 +263,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1EndUser**](trusthub.v1.end_user.md)
+[**TrusthubV1EndUser**](TrusthubV1EndUser.md)
 
 ### Authorization
 
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1SupportingDocument**](trusthub.v1.supporting_document.md)
+[**TrusthubV1SupportingDocument**](TrusthubV1SupportingDocument.md)
 
 ### Authorization
 
@@ -354,7 +354,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1TrustProduct**](trusthub.v1.trust_product.md)
+[**TrusthubV1TrustProduct**](TrusthubV1TrustProduct.md)
 
 ### Authorization
 
@@ -399,7 +399,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductChannelEndpointAssignment**](trusthub.v1.trust_product.trust_product_channel_endpoint_assignment.md)
+[**TrusthubV1TrustProductTrustProductChannelEndpointAssignment**](TrusthubV1TrustProductTrustProductChannelEndpointAssignment.md)
 
 ### Authorization
 
@@ -443,7 +443,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductEntityAssignment**](trusthub.v1.trust_product.trust_product_entity_assignment.md)
+[**TrusthubV1TrustProductTrustProductEntityAssignment**](TrusthubV1TrustProductTrustProductEntityAssignment.md)
 
 ### Authorization
 
@@ -487,7 +487,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductEvaluation**](trusthub.v1.trust_product.trust_product_evaluation.md)
+[**TrusthubV1TrustProductTrustProductEvaluation**](TrusthubV1TrustProductTrustProductEvaluation.md)
 
 ### Authorization
 
@@ -797,7 +797,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1CustomerProfile**](trusthub.v1.customer_profile.md)
+[**TrusthubV1CustomerProfile**](TrusthubV1CustomerProfile.md)
 
 ### Authorization
 
@@ -832,7 +832,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment**](trusthub.v1.customer_profile.customer_profile_channel_endpoint_assignment.md)
+[**TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment**](TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment.md)
 
 ### Authorization
 
@@ -867,7 +867,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileEntityAssignment**](trusthub.v1.customer_profile.customer_profile_entity_assignment.md)
+[**TrusthubV1CustomerProfileCustomerProfileEntityAssignment**](TrusthubV1CustomerProfileCustomerProfileEntityAssignment.md)
 
 ### Authorization
 
@@ -902,7 +902,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileEvaluation**](trusthub.v1.customer_profile.customer_profile_evaluation.md)
+[**TrusthubV1CustomerProfileCustomerProfileEvaluation**](TrusthubV1CustomerProfileCustomerProfileEvaluation.md)
 
 ### Authorization
 
@@ -936,7 +936,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1EndUser**](trusthub.v1.end_user.md)
+[**TrusthubV1EndUser**](TrusthubV1EndUser.md)
 
 ### Authorization
 
@@ -970,7 +970,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1EndUserType**](trusthub.v1.end_user_type.md)
+[**TrusthubV1EndUserType**](TrusthubV1EndUserType.md)
 
 ### Authorization
 
@@ -1004,7 +1004,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1Policies**](trusthub.v1.policies.md)
+[**TrusthubV1Policies**](TrusthubV1Policies.md)
 
 ### Authorization
 
@@ -1038,7 +1038,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1SupportingDocument**](trusthub.v1.supporting_document.md)
+[**TrusthubV1SupportingDocument**](TrusthubV1SupportingDocument.md)
 
 ### Authorization
 
@@ -1072,7 +1072,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1SupportingDocumentType**](trusthub.v1.supporting_document_type.md)
+[**TrusthubV1SupportingDocumentType**](TrusthubV1SupportingDocumentType.md)
 
 ### Authorization
 
@@ -1106,7 +1106,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1TrustProduct**](trusthub.v1.trust_product.md)
+[**TrusthubV1TrustProduct**](TrusthubV1TrustProduct.md)
 
 ### Authorization
 
@@ -1141,7 +1141,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductChannelEndpointAssignment**](trusthub.v1.trust_product.trust_product_channel_endpoint_assignment.md)
+[**TrusthubV1TrustProductTrustProductChannelEndpointAssignment**](TrusthubV1TrustProductTrustProductChannelEndpointAssignment.md)
 
 ### Authorization
 
@@ -1176,7 +1176,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductEntityAssignment**](trusthub.v1.trust_product.trust_product_entity_assignment.md)
+[**TrusthubV1TrustProductTrustProductEntityAssignment**](TrusthubV1TrustProductTrustProductEntityAssignment.md)
 
 ### Authorization
 
@@ -1211,7 +1211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductEvaluation**](trusthub.v1.trust_product.trust_product_evaluation.md)
+[**TrusthubV1TrustProductTrustProductEvaluation**](TrusthubV1TrustProductTrustProductEvaluation.md)
 
 ### Authorization
 
@@ -1833,7 +1833,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1CustomerProfile**](trusthub.v1.customer_profile.md)
+[**TrusthubV1CustomerProfile**](TrusthubV1CustomerProfile.md)
 
 ### Authorization
 
@@ -1878,7 +1878,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1EndUser**](trusthub.v1.end_user.md)
+[**TrusthubV1EndUser**](TrusthubV1EndUser.md)
 
 ### Authorization
 
@@ -1923,7 +1923,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1SupportingDocument**](trusthub.v1.supporting_document.md)
+[**TrusthubV1SupportingDocument**](TrusthubV1SupportingDocument.md)
 
 ### Authorization
 
@@ -1970,7 +1970,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrusthubV1TrustProduct**](trusthub.v1.trust_product.md)
+[**TrusthubV1TrustProduct**](TrusthubV1TrustProduct.md)
 
 ### Authorization
 

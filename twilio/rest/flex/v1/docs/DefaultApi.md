@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1Channel**](flex.v1.channel.md)
+[**FlexV1Channel**](FlexV1Channel.md)
 
 ### Authorization
 
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1FlexFlow**](flex.v1.flex_flow.md)
+[**FlexV1FlexFlow**](FlexV1FlexFlow.md)
 
 ### Authorization
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1WebChannel**](flex.v1.web_channel.md)
+[**FlexV1WebChannel**](FlexV1WebChannel.md)
 
 ### Authorization
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1Channel**](flex.v1.channel.md)
+[**FlexV1Channel**](FlexV1Channel.md)
 
 ### Authorization
 
@@ -329,7 +329,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1Configuration**](flex.v1.configuration.md)
+[**FlexV1Configuration**](FlexV1Configuration.md)
 
 ### Authorization
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1FlexFlow**](flex.v1.flex_flow.md)
+[**FlexV1FlexFlow**](FlexV1FlexFlow.md)
 
 ### Authorization
 
@@ -393,7 +393,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1WebChannel**](flex.v1.web_channel.md)
+[**FlexV1WebChannel**](FlexV1WebChannel.md)
 
 ### Authorization
 
@@ -545,7 +545,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**FlexV1Configuration**](flex.v1.configuration.md)
+[**FlexV1Configuration**](FlexV1Configuration.md)
 
 ### Authorization
 
@@ -603,7 +603,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1FlexFlow**](flex.v1.flex_flow.md)
+[**FlexV1FlexFlow**](FlexV1FlexFlow.md)
 
 ### Authorization
 
@@ -646,7 +646,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlexV1WebChannel**](flex.v1.web_channel.md)
+[**FlexV1WebChannel**](FlexV1WebChannel.md)
 
 ### Authorization
 
