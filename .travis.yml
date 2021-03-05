@@ -2,6 +2,7 @@ language: go
 go:
 - "1.14"
 - "1.15"
+- "1.16"
 - master
 install:
 - make install

@@ -70,7 +70,7 @@ func TestClient_SendRequestWithRedirect(t *testing.T) {
 	mockServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
 			writer.WriteHeader(307)
-			writer.Write([]byte(`{"redirect_to": "some_place"}`))
+			_, _ = writer.Write([]byte(`{"redirect_to": "some_place"}`))
 		}))
 	defer mockServer.Close()
 
