@@ -11,7 +11,7 @@ The documentation for the Twilio API can be found [here][apidocs].
 
 This library supports the following Go implementations:
 
-* 1.14 & 1.15
+* 1.14, 1.15, 1.16
 
 ## Installation
 
