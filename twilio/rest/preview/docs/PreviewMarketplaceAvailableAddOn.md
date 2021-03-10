@@ -3,10 +3,10 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**ConfigurationSchema** | Pointer to [**map[string]interface{}**](.md) | 
+**ConfigurationSchema** | Pointer to **map[string]interface{}** | 
 **Description** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **PricingType** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **Url** | Pointer to **string** | 

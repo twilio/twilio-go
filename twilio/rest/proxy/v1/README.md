@@ -65,12 +65,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CreateMessageInteractionRequest](docs/CreateMessageInteractionRequest.md)
- - [CreateParticipantRequest](docs/CreateParticipantRequest.md)
- - [CreatePhoneNumberRequest](docs/CreatePhoneNumberRequest.md)
- - [CreateServiceRequest](docs/CreateServiceRequest.md)
- - [CreateSessionRequest](docs/CreateSessionRequest.md)
- - [CreateShortCodeRequest](docs/CreateShortCodeRequest.md)
  - [InteractionResourceStatus](docs/InteractionResourceStatus.md)
  - [InteractionType](docs/InteractionType.md)
  - [ListInteractionResponse](docs/ListInteractionResponse.md)
@@ -95,10 +89,6 @@ Class | Method | HTTP request | Description
  - [ServiceNumberSelectionBehavior](docs/ServiceNumberSelectionBehavior.md)
  - [SessionMode](docs/SessionMode.md)
  - [SessionStatus](docs/SessionStatus.md)
- - [UpdatePhoneNumberRequest](docs/UpdatePhoneNumberRequest.md)
- - [UpdateServiceRequest](docs/UpdateServiceRequest.md)
- - [UpdateSessionRequest](docs/UpdateSessionRequest.md)
- - [UpdateShortCodeRequest](docs/UpdateShortCodeRequest.md)
 
 
 ## Documentation For Authorization

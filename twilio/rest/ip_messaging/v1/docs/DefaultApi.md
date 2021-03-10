@@ -49,30 +49,29 @@ Method | HTTP request | Description
 
 ## CreateChannel
 
-> IpMessagingV1ServiceChannel CreateChannel(ctx, ServiceSid, optional)
+> IpMessagingV1ServiceChannel CreateChannel(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***CreateChannelRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateChannelRequest struct
- 
+Other parameters are passed through a pointer to a CreateChannelParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Attributes** | **String**|  | 
-**FriendlyName** | **String**|  | 
-**Type** | **String**|  | 
-**UniqueName** | **String**|  | 
+**Attributes** | **string** |  | 
+**FriendlyName** | **string** |  | 
+**Type** | **string** |  | 
+**UniqueName** | **string** |  | 
 
 ### Return type
 
@@ -84,8 +83,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -98,28 +97,24 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateCredentialParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCredentialRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateCredentialRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ApiKey** | **String**|  | 
-**Certificate** | **String**|  | 
-**FriendlyName** | **String**|  | 
-**PrivateKey** | **String**|  | 
-**Sandbox** | **Bool**|  | 
-**Secret** | **String**|  | 
-**Type** | **String**|  | 
+**ApiKey** | **string** |  | 
+**Certificate** | **string** |  | 
+**FriendlyName** | **string** |  | 
+**PrivateKey** | **string** |  | 
+**Sandbox** | **bool** |  | 
+**Secret** | **string** |  | 
+**Type** | **string** |  | 
 
 ### Return type
 
@@ -131,8 +126,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -141,29 +136,28 @@ Name | Type | Description  | Notes
 
 ## CreateInvite
 
-> IpMessagingV1ServiceChannelInvite CreateInvite(ctx, ServiceSid, ChannelSid, optional)
+> IpMessagingV1ServiceChannelInvite CreateInvite(ctx, ServiceSidChannelSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
- **optional** | ***CreateInviteRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateInviteRequest struct
- 
+Other parameters are passed through a pointer to a CreateInviteParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Identity** | **String**|  | 
-**RoleSid** | **String**|  | 
+**Identity** | **string** |  | 
+**RoleSid** | **string** |  | 
 
 ### Return type
 
@@ -175,8 +169,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -185,29 +179,28 @@ Name | Type | Description  | Notes
 
 ## CreateMember
 
-> IpMessagingV1ServiceChannelMember CreateMember(ctx, ServiceSid, ChannelSid, optional)
+> IpMessagingV1ServiceChannelMember CreateMember(ctx, ServiceSidChannelSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
- **optional** | ***CreateMemberRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateMemberRequest struct
- 
+Other parameters are passed through a pointer to a CreateMemberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Identity** | **String**|  | 
-**RoleSid** | **String**|  | 
+**Identity** | **string** |  | 
+**RoleSid** | **string** |  | 
 
 ### Return type
 
@@ -219,8 +212,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -229,30 +222,29 @@ Name | Type | Description  | Notes
 
 ## CreateMessage
 
-> IpMessagingV1ServiceChannelMessage CreateMessage(ctx, ServiceSid, ChannelSid, optional)
+> IpMessagingV1ServiceChannelMessage CreateMessage(ctx, ServiceSidChannelSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
- **optional** | ***CreateMessageRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateMessageRequest struct
- 
+Other parameters are passed through a pointer to a CreateMessageParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Attributes** | **String**|  | 
-**Body** | **String**|  | 
-**From** | **String**|  | 
+**Attributes** | **string** |  | 
+**Body** | **string** |  | 
+**From** | **string** |  | 
 
 ### Return type
 
@@ -264,8 +256,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -274,29 +266,28 @@ Name | Type | Description  | Notes
 
 ## CreateRole
 
-> IpMessagingV1ServiceRole CreateRole(ctx, ServiceSid, optional)
+> IpMessagingV1ServiceRole CreateRole(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***CreateRoleRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateRoleRequest struct
- 
+Other parameters are passed through a pointer to a CreateRoleParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**|  | 
-**Permission** | [**[]string**](string.md)|  | 
-**Type** | **String**|  | 
+**FriendlyName** | **string** |  | 
+**Permission** | **[]string** |  | 
+**Type** | **string** |  | 
 
 ### Return type
 
@@ -308,8 +299,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -322,22 +313,18 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServiceRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateServiceRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**|  | 
+**FriendlyName** | **string** |  | 
 
 ### Return type
 
@@ -349,8 +336,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -359,30 +346,29 @@ Name | Type | Description  | Notes
 
 ## CreateUser
 
-> IpMessagingV1ServiceUser CreateUser(ctx, ServiceSid, optional)
+> IpMessagingV1ServiceUser CreateUser(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***CreateUserRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateUserRequest struct
- 
+Other parameters are passed through a pointer to a CreateUserParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Attributes** | **String**|  | 
-**FriendlyName** | **String**|  | 
-**Identity** | **String**|  | 
-**RoleSid** | **String**|  | 
+**Attributes** | **string** |  | 
+**FriendlyName** | **string** |  | 
+**Identity** | **string** |  | 
+**RoleSid** | **string** |  | 
 
 ### Return type
 
@@ -394,8 +380,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -404,18 +390,26 @@ Name | Type | Description  | Notes
 
 ## DeleteChannel
 
-> DeleteChannel(ctx, ServiceSid, Sid)
+> DeleteChannel(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteChannelParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -441,13 +435,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteCredentialParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -469,19 +471,27 @@ Name | Type | Description  | Notes
 
 ## DeleteInvite
 
-> DeleteInvite(ctx, ServiceSid, ChannelSid, Sid)
+> DeleteInvite(ctx, ServiceSidChannelSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteInviteParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -503,19 +513,27 @@ Name | Type | Description  | Notes
 
 ## DeleteMember
 
-> DeleteMember(ctx, ServiceSid, ChannelSid, Sid)
+> DeleteMember(ctx, ServiceSidChannelSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteMemberParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -537,19 +555,27 @@ Name | Type | Description  | Notes
 
 ## DeleteMessage
 
-> DeleteMessage(ctx, ServiceSid, ChannelSid, Sid)
+> DeleteMessage(ctx, ServiceSidChannelSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteMessageParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -571,18 +597,26 @@ Name | Type | Description  | Notes
 
 ## DeleteRole
 
-> DeleteRole(ctx, ServiceSid, Sid)
+> DeleteRole(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteRoleParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -608,13 +642,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteServiceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -636,18 +678,26 @@ Name | Type | Description  | Notes
 
 ## DeleteUser
 
-> DeleteUser(ctx, ServiceSid, Sid)
+> DeleteUser(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteUserParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -669,18 +719,26 @@ Name | Type | Description  | Notes
 
 ## FetchChannel
 
-> IpMessagingV1ServiceChannel FetchChannel(ctx, ServiceSid, Sid)
+> IpMessagingV1ServiceChannel FetchChannel(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchChannelParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -693,7 +751,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -706,13 +764,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCredentialParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -725,7 +791,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -734,19 +800,27 @@ Name | Type | Description  | Notes
 
 ## FetchInvite
 
-> IpMessagingV1ServiceChannelInvite FetchInvite(ctx, ServiceSid, ChannelSid, Sid)
+> IpMessagingV1ServiceChannelInvite FetchInvite(ctx, ServiceSidChannelSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchInviteParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -759,7 +833,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -768,19 +842,27 @@ Name | Type | Description  | Notes
 
 ## FetchMember
 
-> IpMessagingV1ServiceChannelMember FetchMember(ctx, ServiceSid, ChannelSid, Sid)
+> IpMessagingV1ServiceChannelMember FetchMember(ctx, ServiceSidChannelSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchMemberParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -793,7 +875,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -802,19 +884,27 @@ Name | Type | Description  | Notes
 
 ## FetchMessage
 
-> IpMessagingV1ServiceChannelMessage FetchMessage(ctx, ServiceSid, ChannelSid, Sid)
+> IpMessagingV1ServiceChannelMessage FetchMessage(ctx, ServiceSidChannelSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchMessageParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -827,7 +917,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -836,18 +926,26 @@ Name | Type | Description  | Notes
 
 ## FetchRole
 
-> IpMessagingV1ServiceRole FetchRole(ctx, ServiceSid, Sid)
+> IpMessagingV1ServiceRole FetchRole(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchRoleParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -860,7 +958,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -873,13 +971,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchServiceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -892,7 +998,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -901,18 +1007,26 @@ Name | Type | Description  | Notes
 
 ## FetchUser
 
-> IpMessagingV1ServiceUser FetchUser(ctx, ServiceSid, Sid)
+> IpMessagingV1ServiceUser FetchUser(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchUserParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -925,7 +1039,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -934,28 +1048,27 @@ Name | Type | Description  | Notes
 
 ## ListChannel
 
-> ListChannelResponse ListChannel(ctx, ServiceSid, optional)
+> ListChannelResponse ListChannel(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***ListChannelRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListChannelRequest struct
- 
+Other parameters are passed through a pointer to a ListChannelParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Type** | [**[]string**](string.md)|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Type** | **[]string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -968,7 +1081,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -981,22 +1094,18 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListCredentialParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCredentialRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListCredentialRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1009,7 +1118,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1018,29 +1127,28 @@ Name | Type | Description  | Notes
 
 ## ListInvite
 
-> ListInviteResponse ListInvite(ctx, ServiceSid, ChannelSid, optional)
+> ListInviteResponse ListInvite(ctx, ServiceSidChannelSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
- **optional** | ***ListInviteRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListInviteRequest struct
- 
+Other parameters are passed through a pointer to a ListInviteParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Identity** | [**[]string**](string.md)|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Identity** | **[]string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1053,7 +1161,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1062,29 +1170,28 @@ Name | Type | Description  | Notes
 
 ## ListMember
 
-> ListMemberResponse ListMember(ctx, ServiceSid, ChannelSid, optional)
+> ListMemberResponse ListMember(ctx, ServiceSidChannelSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
- **optional** | ***ListMemberRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListMemberRequest struct
- 
+Other parameters are passed through a pointer to a ListMemberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Identity** | [**[]string**](string.md)|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Identity** | **[]string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1097,7 +1204,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1106,29 +1213,28 @@ Name | Type | Description  | Notes
 
 ## ListMessage
 
-> ListMessageResponse ListMessage(ctx, ServiceSid, ChannelSid, optional)
+> ListMessageResponse ListMessage(ctx, ServiceSidChannelSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
- **optional** | ***ListMessageRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListMessageRequest struct
- 
+Other parameters are passed through a pointer to a ListMessageParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Order** | **String**|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Order** | **string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1141,7 +1247,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1150,27 +1256,26 @@ Name | Type | Description  | Notes
 
 ## ListRole
 
-> ListRoleResponse ListRole(ctx, ServiceSid, optional)
+> ListRoleResponse ListRole(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***ListRoleRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListRoleRequest struct
- 
+Other parameters are passed through a pointer to a ListRoleParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1183,7 +1288,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1196,22 +1301,18 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListServiceRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListServiceRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1224,7 +1325,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1233,27 +1334,26 @@ Name | Type | Description  | Notes
 
 ## ListUser
 
-> ListUserResponse ListUser(ctx, ServiceSid, optional)
+> ListUserResponse ListUser(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***ListUserRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUserRequest struct
- 
+Other parameters are passed through a pointer to a ListUserParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1266,7 +1366,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1275,28 +1375,27 @@ Name | Type | Description  | Notes
 
 ## ListUserChannel
 
-> ListUserChannelResponse ListUserChannel(ctx, ServiceSid, UserSid, optional)
+> ListUserChannelResponse ListUserChannel(ctx, ServiceSidUserSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**UserSid** | **string**|  | 
- **optional** | ***ListUserChannelRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**UserSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUserChannelRequest struct
- 
+Other parameters are passed through a pointer to a ListUserChannelParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1309,7 +1408,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1318,30 +1417,29 @@ Name | Type | Description  | Notes
 
 ## UpdateChannel
 
-> IpMessagingV1ServiceChannel UpdateChannel(ctx, ServiceSid, Sid, optional)
+> IpMessagingV1ServiceChannel UpdateChannel(ctx, ServiceSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
- **optional** | ***UpdateChannelRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateChannelRequest struct
- 
+Other parameters are passed through a pointer to a UpdateChannelParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Attributes** | **String**|  | 
-**FriendlyName** | **String**|  | 
-**UniqueName** | **String**|  | 
+**Attributes** | **string** |  | 
+**FriendlyName** | **string** |  | 
+**UniqueName** | **string** |  | 
 
 ### Return type
 
@@ -1353,8 +1451,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1363,32 +1461,31 @@ Name | Type | Description  | Notes
 
 ## UpdateCredential
 
-> IpMessagingV1Credential UpdateCredential(ctx, Sid, optional)
+> IpMessagingV1Credential UpdateCredential(ctx, Sidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
- **optional** | ***UpdateCredentialRequest** | optional parameters | nil if no parameters
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateCredentialRequest struct
- 
+Other parameters are passed through a pointer to a UpdateCredentialParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ApiKey** | **String**|  | 
-**Certificate** | **String**|  | 
-**FriendlyName** | **String**|  | 
-**PrivateKey** | **String**|  | 
-**Sandbox** | **Bool**|  | 
-**Secret** | **String**|  | 
+**ApiKey** | **string** |  | 
+**Certificate** | **string** |  | 
+**FriendlyName** | **string** |  | 
+**PrivateKey** | **string** |  | 
+**Sandbox** | **bool** |  | 
+**Secret** | **string** |  | 
 
 ### Return type
 
@@ -1400,8 +1497,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1410,30 +1507,29 @@ Name | Type | Description  | Notes
 
 ## UpdateMember
 
-> IpMessagingV1ServiceChannelMember UpdateMember(ctx, ServiceSid, ChannelSid, Sid, optional)
+> IpMessagingV1ServiceChannelMember UpdateMember(ctx, ServiceSidChannelSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
-**Sid** | **string**|  | 
- **optional** | ***UpdateMemberRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateMemberRequest struct
- 
+Other parameters are passed through a pointer to a UpdateMemberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**LastConsumedMessageIndex** | **Int32**|  | 
-**RoleSid** | **String**|  | 
+**LastConsumedMessageIndex** | **int32** |  | 
+**RoleSid** | **string** |  | 
 
 ### Return type
 
@@ -1445,8 +1541,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1455,30 +1551,29 @@ Name | Type | Description  | Notes
 
 ## UpdateMessage
 
-> IpMessagingV1ServiceChannelMessage UpdateMessage(ctx, ServiceSid, ChannelSid, Sid, optional)
+> IpMessagingV1ServiceChannelMessage UpdateMessage(ctx, ServiceSidChannelSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ChannelSid** | **string**|  | 
-**Sid** | **string**|  | 
- **optional** | ***UpdateMessageRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ChannelSid** | **string** |  | 
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateMessageRequest struct
- 
+Other parameters are passed through a pointer to a UpdateMessageParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Attributes** | **String**|  | 
-**Body** | **String**|  | 
+**Attributes** | **string** |  | 
+**Body** | **string** |  | 
 
 ### Return type
 
@@ -1490,8 +1585,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1500,28 +1595,27 @@ Name | Type | Description  | Notes
 
 ## UpdateRole
 
-> IpMessagingV1ServiceRole UpdateRole(ctx, ServiceSid, Sid, optional)
+> IpMessagingV1ServiceRole UpdateRole(ctx, ServiceSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
- **optional** | ***UpdateRoleRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateRoleRequest struct
- 
+Other parameters are passed through a pointer to a UpdateRoleParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Permission** | [**[]string**](string.md)|  | 
+**Permission** | **[]string** |  | 
 
 ### Return type
 
@@ -1533,8 +1627,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1543,80 +1637,79 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> IpMessagingV1Service UpdateService(ctx, Sid, optional)
+> IpMessagingV1Service UpdateService(ctx, Sidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
- **optional** | ***UpdateServiceRequest** | optional parameters | nil if no parameters
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceRequest struct
- 
+Other parameters are passed through a pointer to a UpdateServiceParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ConsumptionReportInterval** | **Int32**|  | 
-**DefaultChannelCreatorRoleSid** | **String**|  | 
-**DefaultChannelRoleSid** | **String**|  | 
-**DefaultServiceRoleSid** | **String**|  | 
-**FriendlyName** | **String**|  | 
-**LimitsChannelMembers** | **Int32**|  | 
-**LimitsUserChannels** | **Int32**|  | 
-**NotificationsAddedToChannelEnabled** | **Bool**|  | 
-**NotificationsAddedToChannelTemplate** | **String**|  | 
-**NotificationsInvitedToChannelEnabled** | **Bool**|  | 
-**NotificationsInvitedToChannelTemplate** | **String**|  | 
-**NotificationsNewMessageEnabled** | **Bool**|  | 
-**NotificationsNewMessageTemplate** | **String**|  | 
-**NotificationsRemovedFromChannelEnabled** | **Bool**|  | 
-**NotificationsRemovedFromChannelTemplate** | **String**|  | 
-**PostWebhookUrl** | **String**|  | 
-**PreWebhookUrl** | **String**|  | 
-**ReachabilityEnabled** | **Bool**|  | 
-**ReadStatusEnabled** | **Bool**|  | 
-**TypingIndicatorTimeout** | **Int32**|  | 
-**WebhookFilters** | [**[]string**](string.md)|  | 
-**WebhookMethod** | **String**|  | 
-**WebhooksOnChannelAddMethod** | **String**|  | 
-**WebhooksOnChannelAddUrl** | **String**|  | 
-**WebhooksOnChannelAddedMethod** | **String**|  | 
-**WebhooksOnChannelAddedUrl** | **String**|  | 
-**WebhooksOnChannelDestroyMethod** | **String**|  | 
-**WebhooksOnChannelDestroyUrl** | **String**|  | 
-**WebhooksOnChannelDestroyedMethod** | **String**|  | 
-**WebhooksOnChannelDestroyedUrl** | **String**|  | 
-**WebhooksOnChannelUpdateMethod** | **String**|  | 
-**WebhooksOnChannelUpdateUrl** | **String**|  | 
-**WebhooksOnChannelUpdatedMethod** | **String**|  | 
-**WebhooksOnChannelUpdatedUrl** | **String**|  | 
-**WebhooksOnMemberAddMethod** | **String**|  | 
-**WebhooksOnMemberAddUrl** | **String**|  | 
-**WebhooksOnMemberAddedMethod** | **String**|  | 
-**WebhooksOnMemberAddedUrl** | **String**|  | 
-**WebhooksOnMemberRemoveMethod** | **String**|  | 
-**WebhooksOnMemberRemoveUrl** | **String**|  | 
-**WebhooksOnMemberRemovedMethod** | **String**|  | 
-**WebhooksOnMemberRemovedUrl** | **String**|  | 
-**WebhooksOnMessageRemoveMethod** | **String**|  | 
-**WebhooksOnMessageRemoveUrl** | **String**|  | 
-**WebhooksOnMessageRemovedMethod** | **String**|  | 
-**WebhooksOnMessageRemovedUrl** | **String**|  | 
-**WebhooksOnMessageSendMethod** | **String**|  | 
-**WebhooksOnMessageSendUrl** | **String**|  | 
-**WebhooksOnMessageSentMethod** | **String**|  | 
-**WebhooksOnMessageSentUrl** | **String**|  | 
-**WebhooksOnMessageUpdateMethod** | **String**|  | 
-**WebhooksOnMessageUpdateUrl** | **String**|  | 
-**WebhooksOnMessageUpdatedMethod** | **String**|  | 
-**WebhooksOnMessageUpdatedUrl** | **String**|  | 
+**ConsumptionReportInterval** | **int32** |  | 
+**DefaultChannelCreatorRoleSid** | **string** |  | 
+**DefaultChannelRoleSid** | **string** |  | 
+**DefaultServiceRoleSid** | **string** |  | 
+**FriendlyName** | **string** |  | 
+**LimitsChannelMembers** | **int32** |  | 
+**LimitsUserChannels** | **int32** |  | 
+**NotificationsAddedToChannelEnabled** | **bool** |  | 
+**NotificationsAddedToChannelTemplate** | **string** |  | 
+**NotificationsInvitedToChannelEnabled** | **bool** |  | 
+**NotificationsInvitedToChannelTemplate** | **string** |  | 
+**NotificationsNewMessageEnabled** | **bool** |  | 
+**NotificationsNewMessageTemplate** | **string** |  | 
+**NotificationsRemovedFromChannelEnabled** | **bool** |  | 
+**NotificationsRemovedFromChannelTemplate** | **string** |  | 
+**PostWebhookUrl** | **string** |  | 
+**PreWebhookUrl** | **string** |  | 
+**ReachabilityEnabled** | **bool** |  | 
+**ReadStatusEnabled** | **bool** |  | 
+**TypingIndicatorTimeout** | **int32** |  | 
+**WebhookFilters** | **[]string** |  | 
+**WebhookMethod** | **string** |  | 
+**WebhooksOnChannelAddMethod** | **string** |  | 
+**WebhooksOnChannelAddUrl** | **string** |  | 
+**WebhooksOnChannelAddedMethod** | **string** |  | 
+**WebhooksOnChannelAddedUrl** | **string** |  | 
+**WebhooksOnChannelDestroyMethod** | **string** |  | 
+**WebhooksOnChannelDestroyUrl** | **string** |  | 
+**WebhooksOnChannelDestroyedMethod** | **string** |  | 
+**WebhooksOnChannelDestroyedUrl** | **string** |  | 
+**WebhooksOnChannelUpdateMethod** | **string** |  | 
+**WebhooksOnChannelUpdateUrl** | **string** |  | 
+**WebhooksOnChannelUpdatedMethod** | **string** |  | 
+**WebhooksOnChannelUpdatedUrl** | **string** |  | 
+**WebhooksOnMemberAddMethod** | **string** |  | 
+**WebhooksOnMemberAddUrl** | **string** |  | 
+**WebhooksOnMemberAddedMethod** | **string** |  | 
+**WebhooksOnMemberAddedUrl** | **string** |  | 
+**WebhooksOnMemberRemoveMethod** | **string** |  | 
+**WebhooksOnMemberRemoveUrl** | **string** |  | 
+**WebhooksOnMemberRemovedMethod** | **string** |  | 
+**WebhooksOnMemberRemovedUrl** | **string** |  | 
+**WebhooksOnMessageRemoveMethod** | **string** |  | 
+**WebhooksOnMessageRemoveUrl** | **string** |  | 
+**WebhooksOnMessageRemovedMethod** | **string** |  | 
+**WebhooksOnMessageRemovedUrl** | **string** |  | 
+**WebhooksOnMessageSendMethod** | **string** |  | 
+**WebhooksOnMessageSendUrl** | **string** |  | 
+**WebhooksOnMessageSentMethod** | **string** |  | 
+**WebhooksOnMessageSentUrl** | **string** |  | 
+**WebhooksOnMessageUpdateMethod** | **string** |  | 
+**WebhooksOnMessageUpdateUrl** | **string** |  | 
+**WebhooksOnMessageUpdatedMethod** | **string** |  | 
+**WebhooksOnMessageUpdatedUrl** | **string** |  | 
 
 ### Return type
 
@@ -1628,8 +1721,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1638,30 +1731,29 @@ Name | Type | Description  | Notes
 
 ## UpdateUser
 
-> IpMessagingV1ServiceUser UpdateUser(ctx, ServiceSid, Sid, optional)
+> IpMessagingV1ServiceUser UpdateUser(ctx, ServiceSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
- **optional** | ***UpdateUserRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateUserRequest struct
- 
+Other parameters are passed through a pointer to a UpdateUserParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Attributes** | **String**|  | 
-**FriendlyName** | **String**|  | 
-**RoleSid** | **String**|  | 
+**Attributes** | **string** |  | 
+**FriendlyName** | **string** |  | 
+**RoleSid** | **string** |  | 
 
 ### Return type
 
@@ -1673,8 +1765,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

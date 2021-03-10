@@ -66,12 +66,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CreateByocTrunkRequest](docs/CreateByocTrunkRequest.md)
- - [CreateConnectionPolicyRequest](docs/CreateConnectionPolicyRequest.md)
- - [CreateConnectionPolicyTargetRequest](docs/CreateConnectionPolicyTargetRequest.md)
- - [CreateDialingPermissionsCountryBulkUpdateRequest](docs/CreateDialingPermissionsCountryBulkUpdateRequest.md)
- - [CreateIpRecordRequest](docs/CreateIpRecordRequest.md)
- - [CreateSourceIpMappingRequest](docs/CreateSourceIpMappingRequest.md)
  - [HttpMethod](docs/HttpMethod.md)
  - [ListByocTrunkResponse](docs/ListByocTrunkResponse.md)
  - [ListByocTrunkResponseMeta](docs/ListByocTrunkResponseMeta.md)
@@ -81,12 +75,6 @@ Class | Method | HTTP request | Description
  - [ListDialingPermissionsHrsPrefixesResponse](docs/ListDialingPermissionsHrsPrefixesResponse.md)
  - [ListIpRecordResponse](docs/ListIpRecordResponse.md)
  - [ListSourceIpMappingResponse](docs/ListSourceIpMappingResponse.md)
- - [UpdateByocTrunkRequest](docs/UpdateByocTrunkRequest.md)
- - [UpdateConnectionPolicyRequest](docs/UpdateConnectionPolicyRequest.md)
- - [UpdateConnectionPolicyTargetRequest](docs/UpdateConnectionPolicyTargetRequest.md)
- - [UpdateDialingPermissionsSettingsRequest](docs/UpdateDialingPermissionsSettingsRequest.md)
- - [UpdateIpRecordRequest](docs/UpdateIpRecordRequest.md)
- - [UpdateSourceIpMappingRequest](docs/UpdateSourceIpMappingRequest.md)
  - [VoiceV1ByocTrunk](docs/VoiceV1ByocTrunk.md)
  - [VoiceV1ConnectionPolicy](docs/VoiceV1ConnectionPolicy.md)
  - [VoiceV1ConnectionPolicyConnectionPolicyTarget](docs/VoiceV1ConnectionPolicyConnectionPolicyTarget.md)

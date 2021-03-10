@@ -8,7 +8,7 @@ Name | Type | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **ReachabilityWebhooksEnabled** | Pointer to **bool** | 
 **Sid** | Pointer to **string** | 
 **Url** | Pointer to **string** | 

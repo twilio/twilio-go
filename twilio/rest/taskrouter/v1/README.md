@@ -95,13 +95,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CreateActivityRequest](docs/CreateActivityRequest.md)
- - [CreateTaskChannelRequest](docs/CreateTaskChannelRequest.md)
- - [CreateTaskQueueRequest](docs/CreateTaskQueueRequest.md)
- - [CreateTaskRequest](docs/CreateTaskRequest.md)
- - [CreateWorkerRequest](docs/CreateWorkerRequest.md)
- - [CreateWorkflowRequest](docs/CreateWorkflowRequest.md)
- - [CreateWorkspaceRequest](docs/CreateWorkspaceRequest.md)
  - [ListActivityResponse](docs/ListActivityResponse.md)
  - [ListEventResponse](docs/ListEventResponse.md)
  - [ListTaskChannelResponse](docs/ListTaskChannelResponse.md)
@@ -143,16 +136,6 @@ Class | Method | HTTP request | Description
  - [TaskrouterV1WorkspaceWorkspaceCumulativeStatistics](docs/TaskrouterV1WorkspaceWorkspaceCumulativeStatistics.md)
  - [TaskrouterV1WorkspaceWorkspaceRealTimeStatistics](docs/TaskrouterV1WorkspaceWorkspaceRealTimeStatistics.md)
  - [TaskrouterV1WorkspaceWorkspaceStatistics](docs/TaskrouterV1WorkspaceWorkspaceStatistics.md)
- - [UpdateActivityRequest](docs/UpdateActivityRequest.md)
- - [UpdateTaskChannelRequest](docs/UpdateTaskChannelRequest.md)
- - [UpdateTaskQueueRequest](docs/UpdateTaskQueueRequest.md)
- - [UpdateTaskRequest](docs/UpdateTaskRequest.md)
- - [UpdateTaskReservationRequest](docs/UpdateTaskReservationRequest.md)
- - [UpdateWorkerChannelRequest](docs/UpdateWorkerChannelRequest.md)
- - [UpdateWorkerRequest](docs/UpdateWorkerRequest.md)
- - [UpdateWorkerReservationRequest](docs/UpdateWorkerReservationRequest.md)
- - [UpdateWorkflowRequest](docs/UpdateWorkflowRequest.md)
- - [UpdateWorkspaceRequest](docs/UpdateWorkspaceRequest.md)
  - [WorkerReservationStatus](docs/WorkerReservationStatus.md)
  - [WorkspaceQueueOrder](docs/WorkspaceQueueOrder.md)
 

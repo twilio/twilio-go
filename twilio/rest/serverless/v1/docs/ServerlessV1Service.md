@@ -8,7 +8,7 @@ Name | Type | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **FriendlyName** | Pointer to **string** | 
 **IncludeCredentials** | Pointer to **bool** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Sid** | Pointer to **string** | 
 **UiEditable** | Pointer to **bool** | 
 **UniqueName** | Pointer to **string** | 

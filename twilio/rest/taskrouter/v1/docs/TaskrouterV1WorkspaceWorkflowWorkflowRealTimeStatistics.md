@@ -6,8 +6,8 @@ Name | Type | Notes
 **AccountSid** | Pointer to **string** | 
 **LongestTaskWaitingAge** | Pointer to **int32** | 
 **LongestTaskWaitingSid** | Pointer to **string** | 
-**TasksByPriority** | Pointer to [**map[string]interface{}**](.md) | 
-**TasksByStatus** | Pointer to [**map[string]interface{}**](.md) | 
+**TasksByPriority** | Pointer to **map[string]interface{}** | 
+**TasksByStatus** | Pointer to **map[string]interface{}** | 
 **TotalTasks** | Pointer to **int32** | 
 **Url** | Pointer to **string** | 
 **WorkflowSid** | Pointer to **string** | 

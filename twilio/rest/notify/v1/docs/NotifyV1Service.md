@@ -18,7 +18,7 @@ Name | Type | Notes
 **FcmCredentialSid** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
 **GcmCredentialSid** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **LogEnabled** | Pointer to **bool** | 
 **MessagingServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

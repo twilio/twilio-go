@@ -7,7 +7,7 @@ Name | Type | Notes
 **CommitMessage** | Pointer to **string** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
-**Definition** | Pointer to [**map[string]interface{}**](.md) | 
+**Definition** | Pointer to **map[string]interface{}** | 
 **Errors** | Pointer to **[]map[string]interface{}** | 
 **FriendlyName** | Pointer to **string** | 
 **Revision** | Pointer to **int32** | 

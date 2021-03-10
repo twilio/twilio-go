@@ -12,7 +12,7 @@ Name | Type | Notes
 **ReservationsRejected** | Pointer to **int32** | 
 **ReservationsRescinded** | Pointer to **int32** | 
 **ReservationsTimedOut** | Pointer to **int32** | 
-**SplitByWaitTime** | Pointer to [**map[string]interface{}**](.md) | 
+**SplitByWaitTime** | Pointer to **map[string]interface{}** | 
 **StartTime** | Pointer to [**time.Time**](time.Time.md) | 
 **TasksCanceled** | Pointer to **int32** | 
 **TasksCompleted** | Pointer to **int32** | 
@@ -21,8 +21,8 @@ Name | Type | Notes
 **TasksMoved** | Pointer to **int32** | 
 **TasksTimedOutInWorkflow** | Pointer to **int32** | 
 **Url** | Pointer to **string** | 
-**WaitDurationUntilAccepted** | Pointer to [**map[string]interface{}**](.md) | 
-**WaitDurationUntilCanceled** | Pointer to [**map[string]interface{}**](.md) | 
+**WaitDurationUntilAccepted** | Pointer to **map[string]interface{}** | 
+**WaitDurationUntilCanceled** | Pointer to **map[string]interface{}** | 
 **WorkspaceSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

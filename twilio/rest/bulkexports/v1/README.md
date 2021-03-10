@@ -50,11 +50,9 @@ Class | Method | HTTP request | Description
  - [BulkexportsV1ExportDayInstance](docs/BulkexportsV1ExportDayInstance.md)
  - [BulkexportsV1ExportExportCustomJob](docs/BulkexportsV1ExportExportCustomJob.md)
  - [BulkexportsV1ExportJob](docs/BulkexportsV1ExportJob.md)
- - [CreateExportCustomJobRequest](docs/CreateExportCustomJobRequest.md)
  - [ListDayResponse](docs/ListDayResponse.md)
  - [ListDayResponseMeta](docs/ListDayResponseMeta.md)
  - [ListExportCustomJobResponse](docs/ListExportCustomJobResponse.md)
- - [UpdateExportConfigurationRequest](docs/UpdateExportConfigurationRequest.md)
 
 
 ## Documentation For Authorization

@@ -11,7 +11,7 @@ Name | Type | Notes
 **EventCallbackUrl** | Pointer to **string** | 
 **EventsFilter** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **MultiTaskEnabled** | Pointer to **bool** | 
 **PrioritizeQueueOrder** | Pointer to [**WorkspaceQueueOrder**](workspace_queue_order.md) | 
 **Sid** | Pointer to **string** | 

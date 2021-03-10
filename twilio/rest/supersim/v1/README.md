@@ -58,10 +58,6 @@ Class | Method | HTTP request | Description
 
  - [CommandDirection](docs/CommandDirection.md)
  - [CommandStatus](docs/CommandStatus.md)
- - [CreateCommandRequest](docs/CreateCommandRequest.md)
- - [CreateFleetRequest](docs/CreateFleetRequest.md)
- - [CreateNetworkAccessProfileNetworkRequest](docs/CreateNetworkAccessProfileNetworkRequest.md)
- - [CreateNetworkAccessProfileRequest](docs/CreateNetworkAccessProfileRequest.md)
  - [FleetDataMetering](docs/FleetDataMetering.md)
  - [HttpMethod](docs/HttpMethod.md)
  - [ListCommandResponse](docs/ListCommandResponse.md)
@@ -80,9 +76,6 @@ Class | Method | HTTP request | Description
  - [SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork](docs/SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork.md)
  - [SupersimV1Sim](docs/SupersimV1Sim.md)
  - [SupersimV1UsageRecord](docs/SupersimV1UsageRecord.md)
- - [UpdateFleetRequest](docs/UpdateFleetRequest.md)
- - [UpdateNetworkAccessProfileRequest](docs/UpdateNetworkAccessProfileRequest.md)
- - [UpdateSimRequest](docs/UpdateSimRequest.md)
 
 
 ## Documentation For Authorization

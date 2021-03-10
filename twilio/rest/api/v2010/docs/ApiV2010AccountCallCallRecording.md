@@ -11,7 +11,7 @@ Name | Type | Notes
 **DateCreated** | Pointer to **string** | 
 **DateUpdated** | Pointer to **string** | 
 **Duration** | Pointer to **string** | 
-**EncryptionDetails** | Pointer to [**map[string]interface{}**](.md) | 
+**EncryptionDetails** | Pointer to **map[string]interface{}** | 
 **ErrorCode** | Pointer to **int32** | 
 **Price** | Pointer to **float32** | 
 **PriceUnit** | Pointer to **string** | 

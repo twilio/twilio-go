@@ -5,7 +5,7 @@ Name | Type | Notes
 ------------ | ------------- | -------------
 **AccountSid** | Pointer to **string** | 
 **CellId** | Pointer to **string** | 
-**CellLocationEstimate** | Pointer to [**map[string]interface{}**](.md) | 
+**CellLocationEstimate** | Pointer to **map[string]interface{}** | 
 **End** | Pointer to [**time.Time**](time.Time.md) | 
 **Imei** | Pointer to **string** | 
 **LastUpdated** | Pointer to [**time.Time**](time.Time.md) | 

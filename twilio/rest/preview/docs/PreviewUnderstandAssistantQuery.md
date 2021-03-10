@@ -10,7 +10,7 @@ Name | Type | Notes
 **Language** | Pointer to **string** | 
 **ModelBuildSid** | Pointer to **string** | 
 **Query** | Pointer to **string** | 
-**Results** | Pointer to [**map[string]interface{}**](.md) | 
+**Results** | Pointer to **map[string]interface{}** | 
 **SampleSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **SourceChannel** | Pointer to **string** | 

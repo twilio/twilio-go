@@ -4,7 +4,7 @@
 Name | Type | Notes
 ------------ | ------------- | -------------
 **AccountSid** | Pointer to **string** | 
-**Config** | Pointer to [**map[string]interface{}**](.md) | 
+**Config** | Pointer to **map[string]interface{}** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **EntitySid** | Pointer to **string** | 

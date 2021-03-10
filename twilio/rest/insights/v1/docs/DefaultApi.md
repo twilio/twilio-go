@@ -21,13 +21,21 @@ Method | HTTP request | Description
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCallParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -40,7 +48,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -49,27 +57,26 @@ Name | Type | Description  | Notes
 
 ## FetchSummary
 
-> InsightsV1CallSummary FetchSummary(ctx, CallSid, optional)
+> InsightsV1CallSummary FetchSummary(ctx, CallSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CallSid** | **string**|  | 
- **optional** | ***FetchSummaryRequest** | optional parameters | nil if no parameters
+**CallSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a FetchSummaryRequest struct
- 
+Other parameters are passed through a pointer to a FetchSummaryParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ProcessingState** | **String**|  | 
+**ProcessingState** | **string** |  | 
 
 ### Return type
 
@@ -82,7 +89,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -91,18 +98,26 @@ Name | Type | Description  | Notes
 
 ## FetchVideoParticipantSummary
 
-> InsightsV1VideoRoomSummaryVideoParticipantSummary FetchVideoParticipantSummary(ctx, RoomSid, ParticipantSid)
+> InsightsV1VideoRoomSummaryVideoParticipantSummary FetchVideoParticipantSummary(ctx, RoomSidParticipantSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**RoomSid** | **string**|  | 
-**ParticipantSid** | **string**|  | 
+**RoomSid** | **string** |  | 
+**ParticipantSid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchVideoParticipantSummaryParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -115,7 +130,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -128,13 +143,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**RoomSid** | **string**|  | 
+**RoomSid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchVideoRoomSummaryParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -147,7 +170,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -156,28 +179,27 @@ Name | Type | Description  | Notes
 
 ## ListEvent
 
-> ListEventResponse ListEvent(ctx, CallSid, optional)
+> ListEventResponse ListEvent(ctx, CallSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CallSid** | **string**|  | 
- **optional** | ***ListEventRequest** | optional parameters | nil if no parameters
+**CallSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListEventRequest struct
- 
+Other parameters are passed through a pointer to a ListEventParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Edge** | **String**|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Edge** | **string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -190,7 +212,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -199,29 +221,28 @@ Name | Type | Description  | Notes
 
 ## ListMetric
 
-> ListMetricResponse ListMetric(ctx, CallSid, optional)
+> ListMetricResponse ListMetric(ctx, CallSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CallSid** | **string**|  | 
- **optional** | ***ListMetricRequest** | optional parameters | nil if no parameters
+**CallSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListMetricRequest struct
- 
+Other parameters are passed through a pointer to a ListMetricParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Edge** | **String**|  | 
-**Direction** | **String**|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Edge** | **string** |  | 
+**Direction** | **string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -234,7 +255,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -243,27 +264,26 @@ Name | Type | Description  | Notes
 
 ## ListVideoParticipantSummary
 
-> ListVideoParticipantSummaryResponse ListVideoParticipantSummary(ctx, RoomSid, optional)
+> ListVideoParticipantSummaryResponse ListVideoParticipantSummary(ctx, RoomSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**RoomSid** | **string**|  | 
- **optional** | ***ListVideoParticipantSummaryRequest** | optional parameters | nil if no parameters
+**RoomSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListVideoParticipantSummaryRequest struct
- 
+Other parameters are passed through a pointer to a ListVideoParticipantSummaryParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -276,7 +296,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -289,27 +309,23 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListVideoRoomSummaryParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListVideoRoomSummaryRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListVideoRoomSummaryRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**RoomType** | [**[]string**](string.md)|  | 
-**Codec** | [**[]string**](string.md)|  | 
-**RoomName** | **String**|  | 
-**CreatedAfter** | **Time**|  | 
-**CreatedBefore** | **Time**|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**RoomType** | **[]string** |  | 
+**Codec** | **[]string** |  | 
+**RoomName** | **string** |  | 
+**CreatedAfter** | **time.Time** |  | 
+**CreatedBefore** | **time.Time** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -322,7 +338,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

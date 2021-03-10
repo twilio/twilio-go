@@ -16,7 +16,7 @@ Name | Type | Notes
 **Secure** | Pointer to **bool** | 
 **Sid** | Pointer to **string** | 
 **SipRegistration** | Pointer to **bool** | 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**SubresourceUris** | Pointer to **map[string]interface{}** | 
 **Uri** | Pointer to **string** | 
 **VoiceFallbackMethod** | Pointer to [**HttpMethod**](http_method.md) | 
 **VoiceFallbackUrl** | Pointer to **string** | 

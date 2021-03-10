@@ -9,7 +9,7 @@ Name | Type | Notes
 **Duration** | Pointer to **int32** | 
 **EnableTurn** | Pointer to **bool** | 
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **MaxConcurrentPublishedTracks** | Pointer to **int32** | 
 **MaxParticipants** | Pointer to **int32** | 
 **MediaRegion** | Pointer to **string** | 

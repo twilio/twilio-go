@@ -10,7 +10,7 @@ Name | Type | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **Endpoint** | Pointer to **string** | 
 **Identity** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **MessageTypes** | Pointer to **[]string** | 
 **ServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

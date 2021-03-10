@@ -7,10 +7,10 @@ Name | Type | Notes
 **CommitMessage** | Pointer to **string** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
-**Definition** | Pointer to [**map[string]interface{}**](.md) | 
+**Definition** | Pointer to **map[string]interface{}** | 
 **Errors** | Pointer to **[]map[string]interface{}** | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Revision** | Pointer to **int32** | 
 **Sid** | Pointer to **string** | 
 **Status** | Pointer to [**FlowStatus**](flow_status.md) | 

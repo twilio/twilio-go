@@ -20,7 +20,7 @@ Name | Type | Notes
 **PriceUnit** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **Status** | Pointer to [**MessageStatus**](message_status.md) | 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**SubresourceUris** | Pointer to **map[string]interface{}** | 
 **To** | Pointer to **string** | 
 **Uri** | Pointer to **string** | 
 

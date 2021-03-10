@@ -9,7 +9,7 @@ Name | Type | Notes
 **Duration** | Pointer to **int32** | 
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | 
 **Identity** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **RoomSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **StartTime** | Pointer to [**time.Time**](time.Time.md) | 

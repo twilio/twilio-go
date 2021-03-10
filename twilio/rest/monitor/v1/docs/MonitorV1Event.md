@@ -7,10 +7,10 @@ Name | Type | Notes
 **ActorSid** | Pointer to **string** | 
 **ActorType** | Pointer to **string** | 
 **Description** | Pointer to **string** | 
-**EventData** | Pointer to [**map[string]interface{}**](.md) | 
+**EventData** | Pointer to **map[string]interface{}** | 
 **EventDate** | Pointer to [**time.Time**](time.Time.md) | 
 **EventType** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **ResourceSid** | Pointer to **string** | 
 **ResourceType** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

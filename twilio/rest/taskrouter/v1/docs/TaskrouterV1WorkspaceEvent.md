@@ -8,7 +8,7 @@ Name | Type | Notes
 **ActorType** | Pointer to **string** | 
 **ActorUrl** | Pointer to **string** | 
 **Description** | Pointer to **string** | 
-**EventData** | Pointer to [**map[string]interface{}**](.md) | 
+**EventData** | Pointer to **map[string]interface{}** | 
 **EventDate** | Pointer to [**time.Time**](time.Time.md) | 
 **EventDateMs** | Pointer to **int32** | 
 **EventType** | Pointer to **string** | 

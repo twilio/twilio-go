@@ -5,20 +5,20 @@ Name | Type | Notes
 ------------ | ------------- | -------------
 **AccountSid** | Pointer to **string** | 
 **Action** | Pointer to **string** | 
-**Alexa** | Pointer to [**map[string]interface{}**](.md) | 
-**Apn** | Pointer to [**map[string]interface{}**](.md) | 
+**Alexa** | Pointer to **map[string]interface{}** | 
+**Apn** | Pointer to **map[string]interface{}** | 
 **Body** | Pointer to **string** | 
-**Data** | Pointer to [**map[string]interface{}**](.md) | 
+**Data** | Pointer to **map[string]interface{}** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
-**FacebookMessenger** | Pointer to [**map[string]interface{}**](.md) | 
-**Fcm** | Pointer to [**map[string]interface{}**](.md) | 
-**Gcm** | Pointer to [**map[string]interface{}**](.md) | 
+**FacebookMessenger** | Pointer to **map[string]interface{}** | 
+**Fcm** | Pointer to **map[string]interface{}** | 
+**Gcm** | Pointer to **map[string]interface{}** | 
 **Identities** | Pointer to **[]string** | 
 **Priority** | Pointer to [**NotificationPriority**](notification_priority.md) | 
 **Segments** | Pointer to **[]string** | 
 **ServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
-**Sms** | Pointer to [**map[string]interface{}**](.md) | 
+**Sms** | Pointer to **map[string]interface{}** | 
 **Sound** | Pointer to **string** | 
 **Tags** | Pointer to **[]string** | 
 **Title** | Pointer to **string** | 

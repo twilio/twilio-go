@@ -174,29 +174,25 @@ Method | HTTP request | Description
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateAssistantParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateAssistantRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateAssistantRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**CallbackEvents** | **String**| Space-separated list of callback events that will trigger callbacks. | 
-**CallbackUrl** | **String**| A user-provided URL to send event callbacks to. | 
-**FallbackActions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
-**FriendlyName** | **String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
-**InitiationActions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
-**LogQueries** | **Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
-**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
-**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**CallbackEvents** | **string** | Space-separated list of callback events that will trigger callbacks. | 
+**CallbackUrl** | **string** | A user-provided URL to send event callbacks to. | 
+**FallbackActions** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
+**FriendlyName** | **string** | A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
+**InitiationActions** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
+**LogQueries** | **bool** | A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
+**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON object that holds the style sheet for the assistant | 
+**UniqueName** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -208,8 +204,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -224,27 +220,23 @@ Name | Type | Description  | Notes
 
 Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio's platform.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateAuthorizationDocumentParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateAuthorizationDocumentRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateAuthorizationDocumentRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**AddressSid** | **String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
-**CcEmails** | [**[]string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed. | 
-**ContactPhoneNumber** | **String**| The contact phone number of the person authorized to sign the Authorization Document. | 
-**ContactTitle** | **String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
-**Email** | **String**| Email that this AuthorizationDocument will be sent to for signing. | 
-**HostedNumberOrderSids** | [**[]string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
+**AddressSid** | **string** | A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
+**CcEmails** | **[]string** | Email recipients who will be informed when an Authorization Document has been sent and signed. | 
+**ContactPhoneNumber** | **string** | The contact phone number of the person authorized to sign the Authorization Document. | 
+**ContactTitle** | **string** | The title of the person authorized to sign the Authorization Document for this phone number. | 
+**Email** | **string** | Email that this AuthorizationDocument will be sent to for signing. | 
+**HostedNumberOrderSids** | **[]string** | A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
 
 ### Return type
 
@@ -256,8 +248,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -266,31 +258,30 @@ Name | Type | Description  | Notes
 
 ## CreateCertificate
 
-> PreviewDeployedDevicesFleetCertificate CreateCertificate(ctx, FleetSid, optional)
+> PreviewDeployedDevicesFleetCertificate CreateCertificate(ctx, FleetSidoptional)
 
 
 
 Enroll a new Certificate credential to the Fleet, optionally giving it a friendly name and assigning to a Device.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
- **optional** | ***CreateCertificateRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateCertificateRequest struct
- 
+Other parameters are passed through a pointer to a CreateCertificateParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CertificateData** | **String**| Provides a URL encoded representation of the public certificate in PEM format. | 
-**DeviceSid** | **String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
-**FriendlyName** | **String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
+**CertificateData** | **string** | Provides a URL encoded representation of the public certificate in PEM format. | 
+**DeviceSid** | **string** | Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
+**FriendlyName** | **string** | Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -302,8 +293,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -312,29 +303,28 @@ Name | Type | Description  | Notes
 
 ## CreateChannel
 
-> PreviewTrustedCommsBrandedChannelChannel CreateChannel(ctx, BrandedChannelSid, optional)
+> PreviewTrustedCommsBrandedChannelChannel CreateChannel(ctx, BrandedChannelSidoptional)
 
 
 
 Associate a channel to a branded channel
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**BrandedChannelSid** | **string**| The unique SID identifier of the Branded Channel. The given phone number is going to be assigned to this Branded Channel | 
- **optional** | ***CreateChannelRequest** | optional parameters | nil if no parameters
+**BrandedChannelSid** | **string** | The unique SID identifier of the Branded Channel. The given phone number is going to be assigned to this Branded Channel | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateChannelRequest struct
- 
+Other parameters are passed through a pointer to a CreateChannelParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PhoneNumberSid** | **String**| The unique SID identifier of the Phone Number of the Phone number to be assigned to the Branded Channel. | 
+**PhoneNumberSid** | **string** | The unique SID identifier of the Phone Number of the Phone number to be assigned to the Branded Channel. | 
 
 ### Return type
 
@@ -346,8 +336,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -360,28 +350,24 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateCommandParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateCommandRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateCommandRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**CallbackMethod** | **String**|  | 
-**CallbackUrl** | **String**|  | 
-**Command** | **String**|  | 
-**CommandMode** | **String**|  | 
-**Device** | **String**|  | 
-**IncludeSid** | **String**|  | 
-**Sim** | **String**|  | 
+**CallbackMethod** | **string** |  | 
+**CallbackUrl** | **string** |  | 
+**Command** | **string** |  | 
+**CommandMode** | **string** |  | 
+**Device** | **string** |  | 
+**IncludeSid** | **string** |  | 
+**Sim** | **string** |  | 
 
 ### Return type
 
@@ -393,8 +379,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -403,30 +389,29 @@ Name | Type | Description  | Notes
 
 ## CreateDeployment
 
-> PreviewDeployedDevicesFleetDeployment CreateDeployment(ctx, FleetSid, optional)
+> PreviewDeployedDevicesFleetDeployment CreateDeployment(ctx, FleetSidoptional)
 
 
 
 Create a new Deployment in the Fleet, optionally giving it a friendly name and linking to a specific Twilio Sync service instance.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
- **optional** | ***CreateDeploymentRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateDeploymentRequest struct
- 
+Other parameters are passed through a pointer to a CreateDeploymentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| Provides a human readable descriptive text for this Deployment, up to 256 characters long. | 
-**SyncServiceSid** | **String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
+**FriendlyName** | **string** | Provides a human readable descriptive text for this Deployment, up to 256 characters long. | 
+**SyncServiceSid** | **string** | Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
 
 ### Return type
 
@@ -438,8 +423,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -448,33 +433,32 @@ Name | Type | Description  | Notes
 
 ## CreateDevice
 
-> PreviewDeployedDevicesFleetDevice CreateDevice(ctx, FleetSid, optional)
+> PreviewDeployedDevicesFleetDevice CreateDevice(ctx, FleetSidoptional)
 
 
 
 Create a new Device in the Fleet, optionally giving it a unique name, friendly name, and assigning to a Deployment and/or human identity.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
- **optional** | ***CreateDeviceRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateDeviceRequest struct
- 
+Other parameters are passed through a pointer to a CreateDeviceParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DeploymentSid** | **String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
-**Enabled** | **Bool**|  | 
-**FriendlyName** | **String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
-**Identity** | **String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
-**UniqueName** | **String**| Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long. | 
+**DeploymentSid** | **string** | Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
+**Enabled** | **bool** |  | 
+**FriendlyName** | **string** | Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
+**Identity** | **string** | Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
+**UniqueName** | **string** | Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long. | 
 
 ### Return type
 
@@ -486,8 +470,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -496,28 +480,27 @@ Name | Type | Description  | Notes
 
 ## CreateDocument
 
-> PreviewSyncServiceDocument CreateDocument(ctx, ServiceSid, optional)
+> PreviewSyncServiceDocument CreateDocument(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***CreateDocumentRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateDocumentRequest struct
- 
+Other parameters are passed through a pointer to a CreateDocumentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
-**UniqueName** | **String**|  | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
+**UniqueName** | **string** |  | 
 
 ### Return type
 
@@ -529,8 +512,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -539,32 +522,31 @@ Name | Type | Description  | Notes
 
 ## CreateExportCustomJob
 
-> PreviewBulkExportsExportExportCustomJob CreateExportCustomJob(ctx, ResourceType, optional)
+> PreviewBulkExportsExportExportCustomJob CreateExportCustomJob(ctx, ResourceTypeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages or Calls, Conferences, and Participants | 
- **optional** | ***CreateExportCustomJobRequest** | optional parameters | nil if no parameters
+**ResourceType** | **string** | The type of communication – Messages or Calls, Conferences, and Participants | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateExportCustomJobRequest struct
- 
+Other parameters are passed through a pointer to a CreateExportCustomJobParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Email** | **String**| The optional email to send the completion notification to | 
-**EndDay** | **String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
-**FriendlyName** | **String**| The friendly name specified when creating the job | 
-**StartDay** | **String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
-**WebhookMethod** | **String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
-**WebhookUrl** | **String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. | 
+**Email** | **string** | The optional email to send the completion notification to | 
+**EndDay** | **string** | The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
+**FriendlyName** | **string** | The friendly name specified when creating the job | 
+**StartDay** | **string** | The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
+**WebhookMethod** | **string** | This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
+**WebhookUrl** | **string** | The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. | 
 
 ### Return type
 
@@ -576,8 +558,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -586,29 +568,28 @@ Name | Type | Description  | Notes
 
 ## CreateField
 
-> PreviewUnderstandAssistantTaskField CreateField(ctx, AssistantSid, TaskSid, optional)
+> PreviewUnderstandAssistantTaskField CreateField(ctx, AssistantSidTaskSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
- **optional** | ***CreateFieldRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the parent Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Field. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateFieldRequest struct
- 
+Other parameters are passed through a pointer to a CreateFieldParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FieldType** | **String**| The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type. | 
-**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**FieldType** | **string** | The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type. | 
+**UniqueName** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -620,8 +601,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -630,28 +611,27 @@ Name | Type | Description  | Notes
 
 ## CreateFieldType
 
-> PreviewUnderstandAssistantFieldType CreateFieldType(ctx, AssistantSid, optional)
+> PreviewUnderstandAssistantFieldType CreateFieldType(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
- **optional** | ***CreateFieldTypeRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateFieldTypeRequest struct
- 
+Other parameters are passed through a pointer to a CreateFieldTypeParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
-**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**FriendlyName** | **string** | A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+**UniqueName** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -663,8 +643,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -673,30 +653,29 @@ Name | Type | Description  | Notes
 
 ## CreateFieldValue
 
-> PreviewUnderstandAssistantFieldTypeFieldValue CreateFieldValue(ctx, AssistantSid, FieldTypeSid, optional)
+> PreviewUnderstandAssistantFieldTypeFieldValue CreateFieldValue(ctx, AssistantSidFieldTypeSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**FieldTypeSid** | **string**|  | 
- **optional** | ***CreateFieldValueRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
+**FieldTypeSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateFieldValueRequest struct
- 
+Other parameters are passed through a pointer to a CreateFieldValueParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Language** | **String**| An ISO language-country string of the value. | 
-**SynonymOf** | **String**| A value that indicates this field value is a synonym of. Empty if the value is not a synonym. | 
-**Value** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**Language** | **string** | An ISO language-country string of the value. | 
+**SynonymOf** | **string** | A value that indicates this field value is a synonym of. Empty if the value is not a synonym. | 
+**Value** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -708,8 +687,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -724,22 +703,18 @@ Name | Type | Description  | Notes
 
 Create a new Fleet for scoping of deployed devices within your account.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateFleetParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateFleetRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateFleetRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
+**FriendlyName** | **string** | Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
 
 ### Return type
 
@@ -751,8 +726,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -767,38 +742,34 @@ Name | Type | Description  | Notes
 
 Host a phone number's capability on Twilio's platform.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateHostedNumberOrderParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateHostedNumberOrderRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateHostedNumberOrderRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**AccountSid** | **String**| This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to. | 
-**AddressSid** | **String**| Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number. | 
-**CcEmails** | [**[]string**](string.md)| Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to. | 
-**Email** | **String**| Optional. Email of the owner of this phone number that is being hosted. | 
-**FriendlyName** | **String**| A 64 character string that is a human readable text that describes this resource. | 
-**PhoneNumber** | **String**| The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format | 
-**SmsApplicationSid** | **String**| Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a &#x60;SmsApplicationSid&#x60; is present, Twilio will ignore all of the SMS urls above and use those set on the application. | 
-**SmsCapability** | **Bool**| Used to specify that the SMS capability will be hosted on Twilio&#39;s platform. | 
-**SmsFallbackMethod** | **String**| The HTTP method that should be used to request the SmsFallbackUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;. This will be copied onto the IncomingPhoneNumber resource. | 
-**SmsFallbackUrl** | **String**| A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource. | 
-**SmsMethod** | **String**| The HTTP method that should be used to request the SmsUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;.  This will be copied onto the IncomingPhoneNumber resource. | 
-**SmsUrl** | **String**| The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource. | 
-**StatusCallbackMethod** | **String**| Optional. The Status Callback Method attached to the IncomingPhoneNumber resource. | 
-**StatusCallbackUrl** | **String**| Optional. The Status Callback URL attached to the IncomingPhoneNumber resource. | 
-**UniqueName** | **String**| Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
-**VerificationDocumentSid** | **String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
-**VerificationType** | **String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
+**AccountSid** | **string** | This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to. | 
+**AddressSid** | **string** | Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number. | 
+**CcEmails** | **[]string** | Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to. | 
+**Email** | **string** | Optional. Email of the owner of this phone number that is being hosted. | 
+**FriendlyName** | **string** | A 64 character string that is a human readable text that describes this resource. | 
+**PhoneNumber** | **string** | The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format | 
+**SmsApplicationSid** | **string** | Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a &#x60;SmsApplicationSid&#x60; is present, Twilio will ignore all of the SMS urls above and use those set on the application. | 
+**SmsCapability** | **bool** | Used to specify that the SMS capability will be hosted on Twilio&#39;s platform. | 
+**SmsFallbackMethod** | **string** | The HTTP method that should be used to request the SmsFallbackUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;. This will be copied onto the IncomingPhoneNumber resource. | 
+**SmsFallbackUrl** | **string** | A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource. | 
+**SmsMethod** | **string** | The HTTP method that should be used to request the SmsUrl. Must be either &#x60;GET&#x60; or &#x60;POST&#x60;.  This will be copied onto the IncomingPhoneNumber resource. | 
+**SmsUrl** | **string** | The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource. | 
+**StatusCallbackMethod** | **string** | Optional. The Status Callback Method attached to the IncomingPhoneNumber resource. | 
+**StatusCallbackUrl** | **string** | Optional. The Status Callback URL attached to the IncomingPhoneNumber resource. | 
+**UniqueName** | **string** | Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+**VerificationDocumentSid** | **string** | Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
+**VerificationType** | **string** | Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
 
 ### Return type
 
@@ -810,8 +781,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -826,25 +797,21 @@ Name | Type | Description  | Notes
 
 Install an Add-on for the Account specified.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateInstalledAddOnParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateInstalledAddOnRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateInstalledAddOnRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**AcceptTermsOfService** | **Bool**| Whether the Terms of Service were accepted. | 
-**AvailableAddOnSid** | **String**| The SID of the AvaliableAddOn to install. | 
-**Configuration** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON object that represents the configuration of the new Add-on being installed. | 
-**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
+**AcceptTermsOfService** | **bool** | Whether the Terms of Service were accepted. | 
+**AvailableAddOnSid** | **string** | The SID of the AvaliableAddOn to install. | 
+**Configuration** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON object that represents the configuration of the new Add-on being installed. | 
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
 
 ### Return type
 
@@ -856,8 +823,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -866,30 +833,29 @@ Name | Type | Description  | Notes
 
 ## CreateKey
 
-> PreviewDeployedDevicesFleetKey CreateKey(ctx, FleetSid, optional)
+> PreviewDeployedDevicesFleetKey CreateKey(ctx, FleetSidoptional)
 
 
 
 Create a new Key credential in the Fleet, optionally giving it a friendly name and assigning to a Device.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
- **optional** | ***CreateKeyRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateKeyRequest struct
- 
+Other parameters are passed through a pointer to a CreateKeyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DeviceSid** | **String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
-**FriendlyName** | **String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
+**DeviceSid** | **string** | Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
+**FriendlyName** | **string** | Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -901,8 +867,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -911,28 +877,27 @@ Name | Type | Description  | Notes
 
 ## CreateModelBuild
 
-> PreviewUnderstandAssistantModelBuild CreateModelBuild(ctx, AssistantSid, optional)
+> PreviewUnderstandAssistantModelBuild CreateModelBuild(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
- **optional** | ***CreateModelBuildRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateModelBuildRequest struct
- 
+Other parameters are passed through a pointer to a CreateModelBuildParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**StatusCallback** | **String**|  | 
-**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
+**StatusCallback** | **string** |  | 
+**UniqueName** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
 
 ### Return type
 
@@ -944,8 +909,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -954,31 +919,30 @@ Name | Type | Description  | Notes
 
 ## CreateQuery
 
-> PreviewUnderstandAssistantQuery CreateQuery(ctx, AssistantSid, optional)
+> PreviewUnderstandAssistantQuery CreateQuery(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
- **optional** | ***CreateQueryRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the parent Assistant. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateQueryRequest struct
- 
+Other parameters are passed through a pointer to a CreateQueryParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Field** | **String**| Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name* | 
-**Language** | **String**| An ISO language-country string of the sample. | 
-**ModelBuild** | **String**| The Model Build Sid or unique name of the Model Build to be queried. | 
-**Query** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long. | 
-**Tasks** | **String**| Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2* | 
+**Field** | **string** | Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name* | 
+**Language** | **string** | An ISO language-country string of the sample. | 
+**ModelBuild** | **string** | The Model Build Sid or unique name of the Model Build to be queried. | 
+**Query** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long. | 
+**Tasks** | **string** | Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2* | 
 
 ### Return type
 
@@ -990,8 +954,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1004,31 +968,27 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateRatePlanParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateRatePlanRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateRatePlanRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**CommandsEnabled** | **Bool**|  | 
-**DataEnabled** | **Bool**|  | 
-**DataLimit** | **Int32**|  | 
-**DataMetering** | **String**|  | 
-**FriendlyName** | **String**|  | 
-**InternationalRoaming** | [**[]string**](string.md)|  | 
-**MessagingEnabled** | **Bool**|  | 
-**NationalRoamingEnabled** | **Bool**|  | 
-**UniqueName** | **String**|  | 
-**VoiceEnabled** | **Bool**|  | 
+**CommandsEnabled** | **bool** |  | 
+**DataEnabled** | **bool** |  | 
+**DataLimit** | **int32** |  | 
+**DataMetering** | **string** |  | 
+**FriendlyName** | **string** |  | 
+**InternationalRoaming** | **[]string** |  | 
+**MessagingEnabled** | **bool** |  | 
+**NationalRoamingEnabled** | **bool** |  | 
+**UniqueName** | **string** |  | 
+**VoiceEnabled** | **bool** |  | 
 
 ### Return type
 
@@ -1040,8 +1000,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1050,30 +1010,29 @@ Name | Type | Description  | Notes
 
 ## CreateSample
 
-> PreviewUnderstandAssistantTaskSample CreateSample(ctx, AssistantSid, TaskSid, optional)
+> PreviewUnderstandAssistantTaskSample CreateSample(ctx, AssistantSidTaskSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
- **optional** | ***CreateSampleRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Sample. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSampleRequest struct
- 
+Other parameters are passed through a pointer to a CreateSampleParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Language** | **String**| An ISO language-country string of the sample. | 
-**SourceChannel** | **String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
-**TaggedText** | **String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
+**Language** | **string** | An ISO language-country string of the sample. | 
+**SourceChannel** | **string** | The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
+**TaggedText** | **string** | The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
 
 ### Return type
 
@@ -1085,8 +1044,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1099,25 +1058,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServiceRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateServiceRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**AclEnabled** | **Bool**|  | 
-**FriendlyName** | **String**|  | 
-**ReachabilityWebhooksEnabled** | **Bool**|  | 
-**WebhookUrl** | **String**|  | 
+**AclEnabled** | **bool** |  | 
+**FriendlyName** | **string** |  | 
+**ReachabilityWebhooksEnabled** | **bool** |  | 
+**WebhookUrl** | **string** |  | 
 
 ### Return type
 
@@ -1129,8 +1084,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1139,27 +1094,26 @@ Name | Type | Description  | Notes
 
 ## CreateSyncList
 
-> PreviewSyncServiceSyncList CreateSyncList(ctx, ServiceSid, optional)
+> PreviewSyncServiceSyncList CreateSyncList(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***CreateSyncListRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncListRequest struct
- 
+Other parameters are passed through a pointer to a CreateSyncListParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**UniqueName** | **String**|  | 
+**UniqueName** | **string** |  | 
 
 ### Return type
 
@@ -1171,8 +1125,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1181,28 +1135,27 @@ Name | Type | Description  | Notes
 
 ## CreateSyncListItem
 
-> PreviewSyncServiceSyncListSyncListItem CreateSyncListItem(ctx, ServiceSid, ListSid, optional)
+> PreviewSyncServiceSyncListSyncListItem CreateSyncListItem(ctx, ServiceSidListSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ListSid** | **string**|  | 
- **optional** | ***CreateSyncListItemRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ListSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncListItemRequest struct
- 
+Other parameters are passed through a pointer to a CreateSyncListItemParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
 
 ### Return type
 
@@ -1214,8 +1167,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1224,27 +1177,26 @@ Name | Type | Description  | Notes
 
 ## CreateSyncMap
 
-> PreviewSyncServiceSyncMap CreateSyncMap(ctx, ServiceSid, optional)
+> PreviewSyncServiceSyncMap CreateSyncMap(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***CreateSyncMapRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncMapRequest struct
- 
+Other parameters are passed through a pointer to a CreateSyncMapParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**UniqueName** | **String**|  | 
+**UniqueName** | **string** |  | 
 
 ### Return type
 
@@ -1256,8 +1208,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1266,29 +1218,28 @@ Name | Type | Description  | Notes
 
 ## CreateSyncMapItem
 
-> PreviewSyncServiceSyncMapSyncMapItem CreateSyncMapItem(ctx, ServiceSid, MapSid, optional)
+> PreviewSyncServiceSyncMapSyncMapItem CreateSyncMapItem(ctx, ServiceSidMapSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**MapSid** | **string**|  | 
- **optional** | ***CreateSyncMapItemRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**MapSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSyncMapItemRequest struct
- 
+Other parameters are passed through a pointer to a CreateSyncMapItemParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
-**Key** | **String**|  | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
+**Key** | **string** |  | 
 
 ### Return type
 
@@ -1300,8 +1251,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1310,30 +1261,29 @@ Name | Type | Description  | Notes
 
 ## CreateTask
 
-> PreviewUnderstandAssistantTask CreateTask(ctx, AssistantSid, optional)
+> PreviewUnderstandAssistantTask CreateTask(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
- **optional** | ***CreateTaskRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateTaskRequest struct
- 
+Other parameters are passed through a pointer to a CreateTaskParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Actions** | [**map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
-**ActionsUrl** | **String**| User-provided HTTP endpoint where from the assistant fetches actions | 
-**FriendlyName** | **String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
-**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**Actions** | [**map[string]interface{}**](map[string]interface{}.md) | A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
+**ActionsUrl** | **string** | User-provided HTTP endpoint where from the assistant fetches actions | 
+**FriendlyName** | **string** | A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+**UniqueName** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -1345,8 +1295,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1359,13 +1309,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteAssistantParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1387,20 +1345,28 @@ Name | Type | Description  | Notes
 
 ## DeleteCertificate
 
-> DeleteCertificate(ctx, FleetSid, Sid)
+> DeleteCertificate(ctx, FleetSidSid)
 
 
 
 Unregister a specific Certificate credential from the Fleet, effectively disallowing any inbound client connections that are presenting it.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteCertificateParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1422,20 +1388,28 @@ Name | Type | Description  | Notes
 
 ## DeleteDeployment
 
-> DeleteDeployment(ctx, FleetSid, Sid)
+> DeleteDeployment(ctx, FleetSidSid)
 
 
 
 Delete a specific Deployment from the Fleet, leaving associated devices effectively undeployed.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteDeploymentParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1457,20 +1431,28 @@ Name | Type | Description  | Notes
 
 ## DeleteDevice
 
-> DeleteDevice(ctx, FleetSid, Sid)
+> DeleteDevice(ctx, FleetSidSid)
 
 
 
 Delete a specific Device from the Fleet, also removing it from associated Deployments.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Device resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteDeviceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1492,18 +1474,26 @@ Name | Type | Description  | Notes
 
 ## DeleteDocument
 
-> DeleteDocument(ctx, ServiceSid, Sid)
+> DeleteDocument(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteDocumentParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1525,21 +1515,29 @@ Name | Type | Description  | Notes
 
 ## DeleteDocumentPermission
 
-> DeleteDocumentPermission(ctx, ServiceSid, DocumentSid, Identity)
+> DeleteDocumentPermission(ctx, ServiceSidDocumentSidIdentity)
 
 
 
 Delete a specific Sync Document Permission.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
-**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string** |  | 
+**DocumentSid** | **string** | Identifier of the Sync Document. Either a SID or a unique name. | 
+**Identity** | **string** | Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteDocumentPermissionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1561,19 +1559,27 @@ Name | Type | Description  | Notes
 
 ## DeleteField
 
-> DeleteField(ctx, AssistantSid, TaskSid, Sid)
+> DeleteField(ctx, AssistantSidTaskSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Field. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteFieldParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1595,18 +1601,26 @@ Name | Type | Description  | Notes
 
 ## DeleteFieldType
 
-> DeleteFieldType(ctx, AssistantSid, Sid)
+> DeleteFieldType(ctx, AssistantSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**Sid** | **string**|  | 
+**AssistantSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteFieldTypeParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1628,19 +1642,27 @@ Name | Type | Description  | Notes
 
 ## DeleteFieldValue
 
-> DeleteFieldValue(ctx, AssistantSid, FieldTypeSid, Sid)
+> DeleteFieldValue(ctx, AssistantSidFieldTypeSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**FieldTypeSid** | **string**|  | 
-**Sid** | **string**|  | 
+**AssistantSid** | **string** |  | 
+**FieldTypeSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteFieldValueParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1668,13 +1690,21 @@ Name | Type | Description  | Notes
 
 Delete a specific Fleet from your account, also destroys all nested resources: Devices, Deployments, Certificates, Keys.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteFleetParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1702,13 +1732,21 @@ Name | Type | Description  | Notes
 
 Cancel the HostedNumberOrder (only available when the status is in `received`).
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this HostedNumberOrder. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this HostedNumberOrder. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteHostedNumberOrderParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1736,13 +1774,21 @@ Name | Type | Description  | Notes
 
 Remove an Add-on installation from your account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The SID of the InstalledAddOn resource to delete. | 
+**Sid** | **string** | The SID of the InstalledAddOn resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteInstalledAddOnParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1768,13 +1814,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**JobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
+**JobSid** | **string** | The unique string that that we created to identify the Bulk Export job | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteJobParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1796,20 +1850,28 @@ Name | Type | Description  | Notes
 
 ## DeleteKey
 
-> DeleteKey(ctx, FleetSid, Sid)
+> DeleteKey(ctx, FleetSidSid)
 
 
 
 Delete a specific Key credential from the Fleet, effectively disallowing any inbound client connections that are presenting it.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteKeyParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1831,18 +1893,26 @@ Name | Type | Description  | Notes
 
 ## DeleteModelBuild
 
-> DeleteModelBuild(ctx, AssistantSid, Sid)
+> DeleteModelBuild(ctx, AssistantSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**Sid** | **string**|  | 
+**AssistantSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteModelBuildParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1864,18 +1934,26 @@ Name | Type | Description  | Notes
 
 ## DeleteQuery
 
-> DeleteQuery(ctx, AssistantSid, Sid)
+> DeleteQuery(ctx, AssistantSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteQueryParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1901,13 +1979,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteRatePlanParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1929,19 +2015,27 @@ Name | Type | Description  | Notes
 
 ## DeleteSample
 
-> DeleteSample(ctx, AssistantSid, TaskSid, Sid)
+> DeleteSample(ctx, AssistantSidTaskSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Sample. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSampleParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1967,13 +2061,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteServiceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1995,18 +2097,26 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncList
 
-> DeleteSyncList(ctx, ServiceSid, Sid)
+> DeleteSyncList(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSyncListParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2028,29 +2138,28 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncListItem
 
-> DeleteSyncListItem(ctx, ServiceSid, ListSid, Index, optional)
+> DeleteSyncListItem(ctx, ServiceSidListSidIndexoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ListSid** | **string**|  | 
-**Index** | **int32**|  | 
- **optional** | ***DeleteSyncListItemRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ListSid** | **string** |  | 
+**Index** | **int32** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a DeleteSyncListItemRequest struct
- 
+Other parameters are passed through a pointer to a DeleteSyncListItemParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**IfMatch** | **String**| The If-Match HTTP request header | 
+**IfMatch** | **string** | The If-Match HTTP request header | 
 
 ### Return type
 
@@ -2072,21 +2181,29 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncListPermission
 
-> DeleteSyncListPermission(ctx, ServiceSid, ListSid, Identity)
+> DeleteSyncListPermission(ctx, ServiceSidListSidIdentity)
 
 
 
 Delete a specific Sync List Permission.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
-**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string** |  | 
+**ListSid** | **string** | Identifier of the Sync List. Either a SID or a unique name. | 
+**Identity** | **string** | Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSyncListPermissionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2108,18 +2225,26 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncMap
 
-> DeleteSyncMap(ctx, ServiceSid, Sid)
+> DeleteSyncMap(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSyncMapParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2141,29 +2266,28 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncMapItem
 
-> DeleteSyncMapItem(ctx, ServiceSid, MapSid, Key, optional)
+> DeleteSyncMapItem(ctx, ServiceSidMapSidKeyoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**MapSid** | **string**|  | 
-**Key** | **string**|  | 
- **optional** | ***DeleteSyncMapItemRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**MapSid** | **string** |  | 
+**Key** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a DeleteSyncMapItemRequest struct
- 
+Other parameters are passed through a pointer to a DeleteSyncMapItemParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**IfMatch** | **String**| The If-Match HTTP request header | 
+**IfMatch** | **string** | The If-Match HTTP request header | 
 
 ### Return type
 
@@ -2185,21 +2309,29 @@ Name | Type | Description  | Notes
 
 ## DeleteSyncMapPermission
 
-> DeleteSyncMapPermission(ctx, ServiceSid, MapSid, Identity)
+> DeleteSyncMapPermission(ctx, ServiceSidMapSidIdentity)
 
 
 
 Delete a specific Sync Map Permission.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
-**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string** |  | 
+**MapSid** | **string** | Identifier of the Sync Map. Either a SID or a unique name. | 
+**Identity** | **string** | Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSyncMapPermissionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2221,18 +2353,26 @@ Name | Type | Description  | Notes
 
 ## DeleteTask
 
-> DeleteTask(ctx, AssistantSid, Sid)
+> DeleteTask(ctx, AssistantSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteTaskParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2258,13 +2398,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAssistantParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2277,7 +2425,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2290,13 +2438,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
+**AssistantSid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAssistantFallbackActionsParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2309,7 +2465,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2322,13 +2478,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
+**AssistantSid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAssistantInitiationActionsParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2341,7 +2505,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2356,13 +2520,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific AuthorizationDocument.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this AuthorizationDocument. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this AuthorizationDocument. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAuthorizationDocumentParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2375,7 +2547,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2390,13 +2562,21 @@ Name | Type | Description  | Notes
 
 Fetch an instance of an Add-on currently available to be installed.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The SID of the AvailableAddOn resource to fetch. | 
+**Sid** | **string** | The SID of the AvailableAddOn resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAvailableAddOnParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2409,7 +2589,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2418,20 +2598,28 @@ Name | Type | Description  | Notes
 
 ## FetchAvailableAddOnExtension
 
-> PreviewMarketplaceAvailableAddOnAvailableAddOnExtension FetchAvailableAddOnExtension(ctx, AvailableAddOnSid, Sid)
+> PreviewMarketplaceAvailableAddOnAvailableAddOnExtension FetchAvailableAddOnExtension(ctx, AvailableAddOnSidSid)
 
 
 
 Fetch an instance of an Extension for the Available Add-on.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AvailableAddOnSid** | **string**| The SID of the AvailableAddOn resource with the extension to fetch. | 
-**Sid** | **string**| The SID of the AvailableAddOn Extension resource to fetch. | 
+**AvailableAddOnSid** | **string** | The SID of the AvailableAddOn resource with the extension to fetch. | 
+**Sid** | **string** | The SID of the AvailableAddOn Extension resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAvailableAddOnExtensionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2444,7 +2632,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2459,13 +2647,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific Branded Channel.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The unique SID identifier of the Branded Channel. | 
+**Sid** | **string** | The unique SID identifier of the Branded Channel. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchBrandedChannelParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2478,7 +2674,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2493,22 +2689,18 @@ Name | Type | Description  | Notes
 
 Retrieve the newest available BrandInformation
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchBrandsInformationParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***FetchBrandsInformationRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a FetchBrandsInformationRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**IfNoneMatch** | **String**| Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match. | 
+**IfNoneMatch** | **string** | Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match. | 
 
 ### Return type
 
@@ -2521,7 +2713,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2530,20 +2722,28 @@ Name | Type | Description  | Notes
 
 ## FetchCertificate
 
-> PreviewDeployedDevicesFleetCertificate FetchCertificate(ctx, FleetSid, Sid)
+> PreviewDeployedDevicesFleetCertificate FetchCertificate(ctx, FleetSidSid)
 
 
 
 Fetch information about a specific Certificate credential in the Fleet.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCertificateParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2556,7 +2756,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2569,13 +2769,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCommandParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2588,7 +2796,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2603,22 +2811,18 @@ Name | Type | Description  | Notes
 
 Fetch a specific Call Placement Service (CPS) given a phone number via `X-XCNAM-Sensitive-Phone-Number` header.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCpsParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***FetchCpsRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a FetchCpsRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XXcnamSensitivePhoneNumber** | **String**| Phone number used to retrieve its corresponding CPS. | 
+**XXcnamSensitivePhoneNumber** | **string** | Phone number used to retrieve its corresponding CPS. | 
 
 ### Return type
 
@@ -2631,7 +2835,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2646,23 +2850,19 @@ Name | Type | Description  | Notes
 
 Retrieve a current call given the originating and terminating number via `X-XCNAM-Sensitive-Phone-Number-From` and `X-XCNAM-Sensitive-Phone-Number-To` headers.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCurrentCallParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***FetchCurrentCallRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a FetchCurrentCallRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XXcnamSensitivePhoneNumberFrom** | **String**| The originating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). This phone number should be a Twilio number, otherwise it will return an error with HTTP Status Code 400. | 
-**XXcnamSensitivePhoneNumberTo** | **String**| The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). | 
+**XXcnamSensitivePhoneNumberFrom** | **string** | The originating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). This phone number should be a Twilio number, otherwise it will return an error with HTTP Status Code 400. | 
+**XXcnamSensitivePhoneNumberTo** | **string** | The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). | 
 
 ### Return type
 
@@ -2675,7 +2875,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2684,20 +2884,28 @@ Name | Type | Description  | Notes
 
 ## FetchDay
 
-> FetchDay(ctx, ResourceType, Day)
+> FetchDay(ctx, ResourceTypeDay)
 
 
 
 Fetch a specific Day.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
-**Day** | **string**| The ISO 8601 format date of the resources in the file, for a UTC day | 
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
+**Day** | **string** | The ISO 8601 format date of the resources in the file, for a UTC day | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchDayParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2710,7 +2918,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2719,20 +2927,28 @@ Name | Type | Description  | Notes
 
 ## FetchDeployment
 
-> PreviewDeployedDevicesFleetDeployment FetchDeployment(ctx, FleetSid, Sid)
+> PreviewDeployedDevicesFleetDeployment FetchDeployment(ctx, FleetSidSid)
 
 
 
 Fetch information about a specific Deployment in the Fleet.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchDeploymentParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2745,7 +2961,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2754,20 +2970,28 @@ Name | Type | Description  | Notes
 
 ## FetchDevice
 
-> PreviewDeployedDevicesFleetDevice FetchDevice(ctx, FleetSid, Sid)
+> PreviewDeployedDevicesFleetDevice FetchDevice(ctx, FleetSidSid)
 
 
 
 Fetch information about a specific Device in the Fleet.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Device resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchDeviceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2780,7 +3004,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2789,18 +3013,26 @@ Name | Type | Description  | Notes
 
 ## FetchDialogue
 
-> PreviewUnderstandAssistantDialogue FetchDialogue(ctx, AssistantSid, Sid)
+> PreviewUnderstandAssistantDialogue FetchDialogue(ctx, AssistantSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**Sid** | **string**|  | 
+**AssistantSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchDialogueParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2813,7 +3045,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2822,18 +3054,26 @@ Name | Type | Description  | Notes
 
 ## FetchDocument
 
-> PreviewSyncServiceDocument FetchDocument(ctx, ServiceSid, Sid)
+> PreviewSyncServiceDocument FetchDocument(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchDocumentParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2846,7 +3086,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2855,21 +3095,29 @@ Name | Type | Description  | Notes
 
 ## FetchDocumentPermission
 
-> PreviewSyncServiceDocumentDocumentPermission FetchDocumentPermission(ctx, ServiceSid, DocumentSid, Identity)
+> PreviewSyncServiceDocumentDocumentPermission FetchDocumentPermission(ctx, ServiceSidDocumentSidIdentity)
 
 
 
 Fetch a specific Sync Document Permission.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
-**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string** |  | 
+**DocumentSid** | **string** | Identifier of the Sync Document. Either a SID or a unique name. | 
+**Identity** | **string** | Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchDocumentPermissionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2882,7 +3130,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2897,13 +3145,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific Export.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchExportParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2916,7 +3172,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2931,13 +3187,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific Export Configuration.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchExportConfigurationParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2950,7 +3214,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2959,19 +3223,27 @@ Name | Type | Description  | Notes
 
 ## FetchField
 
-> PreviewUnderstandAssistantTaskField FetchField(ctx, AssistantSid, TaskSid, Sid)
+> PreviewUnderstandAssistantTaskField FetchField(ctx, AssistantSidTaskSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Field. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchFieldParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2984,7 +3256,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2993,18 +3265,26 @@ Name | Type | Description  | Notes
 
 ## FetchFieldType
 
-> PreviewUnderstandAssistantFieldType FetchFieldType(ctx, AssistantSid, Sid)
+> PreviewUnderstandAssistantFieldType FetchFieldType(ctx, AssistantSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**Sid** | **string**|  | 
+**AssistantSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchFieldTypeParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3017,7 +3297,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3026,19 +3306,27 @@ Name | Type | Description  | Notes
 
 ## FetchFieldValue
 
-> PreviewUnderstandAssistantFieldTypeFieldValue FetchFieldValue(ctx, AssistantSid, FieldTypeSid, Sid)
+> PreviewUnderstandAssistantFieldTypeFieldValue FetchFieldValue(ctx, AssistantSidFieldTypeSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**FieldTypeSid** | **string**|  | 
-**Sid** | **string**|  | 
+**AssistantSid** | **string** |  | 
+**FieldTypeSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchFieldValueParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3051,7 +3339,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3066,13 +3354,21 @@ Name | Type | Description  | Notes
 
 Fetch information about a specific Fleet in your account.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchFleetParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3085,7 +3381,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3100,13 +3396,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific HostedNumberOrder.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this HostedNumberOrder. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this HostedNumberOrder. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchHostedNumberOrderParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3119,7 +3423,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3134,13 +3438,21 @@ Name | Type | Description  | Notes
 
 Fetch an instance of an Add-on currently installed on this Account.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The SID of the InstalledAddOn resource to fetch. | 
+**Sid** | **string** | The SID of the InstalledAddOn resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchInstalledAddOnParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3153,7 +3465,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3162,20 +3474,28 @@ Name | Type | Description  | Notes
 
 ## FetchInstalledAddOnExtension
 
-> PreviewMarketplaceInstalledAddOnInstalledAddOnExtension FetchInstalledAddOnExtension(ctx, InstalledAddOnSid, Sid)
+> PreviewMarketplaceInstalledAddOnInstalledAddOnExtension FetchInstalledAddOnExtension(ctx, InstalledAddOnSidSid)
 
 
 
 Fetch an instance of an Extension for the Installed Add-on.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**InstalledAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extension to fetch. | 
-**Sid** | **string**| The SID of the InstalledAddOn Extension resource to fetch. | 
+**InstalledAddOnSid** | **string** | The SID of the InstalledAddOn resource with the extension to fetch. | 
+**Sid** | **string** | The SID of the InstalledAddOn Extension resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchInstalledAddOnExtensionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3188,7 +3508,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3201,13 +3521,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**JobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
+**JobSid** | **string** | The unique string that that we created to identify the Bulk Export job | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchJobParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3220,7 +3548,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3229,20 +3557,28 @@ Name | Type | Description  | Notes
 
 ## FetchKey
 
-> PreviewDeployedDevicesFleetKey FetchKey(ctx, FleetSid, Sid)
+> PreviewDeployedDevicesFleetKey FetchKey(ctx, FleetSidSid)
 
 
 
 Fetch information about a specific Key credential in the Fleet.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchKeyParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3255,7 +3591,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3264,18 +3600,26 @@ Name | Type | Description  | Notes
 
 ## FetchModelBuild
 
-> PreviewUnderstandAssistantModelBuild FetchModelBuild(ctx, AssistantSid, Sid)
+> PreviewUnderstandAssistantModelBuild FetchModelBuild(ctx, AssistantSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**Sid** | **string**|  | 
+**AssistantSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchModelBuildParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3288,7 +3632,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3297,18 +3641,26 @@ Name | Type | Description  | Notes
 
 ## FetchQuery
 
-> PreviewUnderstandAssistantQuery FetchQuery(ctx, AssistantSid, Sid)
+> PreviewUnderstandAssistantQuery FetchQuery(ctx, AssistantSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchQueryParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3321,7 +3673,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3334,13 +3686,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchRatePlanParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3353,7 +3713,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3362,19 +3722,27 @@ Name | Type | Description  | Notes
 
 ## FetchSample
 
-> PreviewUnderstandAssistantTaskSample FetchSample(ctx, AssistantSid, TaskSid, Sid)
+> PreviewUnderstandAssistantTaskSample FetchSample(ctx, AssistantSidTaskSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Sample. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSampleParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3387,7 +3755,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3400,13 +3768,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchServiceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3419,7 +3795,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3432,13 +3808,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSimParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3451,7 +3835,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3466,13 +3850,21 @@ Name | Type | Description  | Notes
 
 Returns Style sheet JSON object for this Assistant
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant | 
+**AssistantSid** | **string** | The unique ID of the Assistant | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchStyleSheetParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3485,7 +3877,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3494,18 +3886,26 @@ Name | Type | Description  | Notes
 
 ## FetchSyncList
 
-> PreviewSyncServiceSyncList FetchSyncList(ctx, ServiceSid, Sid)
+> PreviewSyncServiceSyncList FetchSyncList(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSyncListParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3518,7 +3918,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3527,19 +3927,27 @@ Name | Type | Description  | Notes
 
 ## FetchSyncListItem
 
-> PreviewSyncServiceSyncListSyncListItem FetchSyncListItem(ctx, ServiceSid, ListSid, Index)
+> PreviewSyncServiceSyncListSyncListItem FetchSyncListItem(ctx, ServiceSidListSidIndex)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ListSid** | **string**|  | 
-**Index** | **int32**|  | 
+**ServiceSid** | **string** |  | 
+**ListSid** | **string** |  | 
+**Index** | **int32** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSyncListItemParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3552,7 +3960,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3561,21 +3969,29 @@ Name | Type | Description  | Notes
 
 ## FetchSyncListPermission
 
-> PreviewSyncServiceSyncListSyncListPermission FetchSyncListPermission(ctx, ServiceSid, ListSid, Identity)
+> PreviewSyncServiceSyncListSyncListPermission FetchSyncListPermission(ctx, ServiceSidListSidIdentity)
 
 
 
 Fetch a specific Sync List Permission.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
-**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string** |  | 
+**ListSid** | **string** | Identifier of the Sync List. Either a SID or a unique name. | 
+**Identity** | **string** | Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSyncListPermissionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3588,7 +4004,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3597,18 +4013,26 @@ Name | Type | Description  | Notes
 
 ## FetchSyncMap
 
-> PreviewSyncServiceSyncMap FetchSyncMap(ctx, ServiceSid, Sid)
+> PreviewSyncServiceSyncMap FetchSyncMap(ctx, ServiceSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSyncMapParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3621,7 +4045,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3630,19 +4054,27 @@ Name | Type | Description  | Notes
 
 ## FetchSyncMapItem
 
-> PreviewSyncServiceSyncMapSyncMapItem FetchSyncMapItem(ctx, ServiceSid, MapSid, Key)
+> PreviewSyncServiceSyncMapSyncMapItem FetchSyncMapItem(ctx, ServiceSidMapSidKey)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**MapSid** | **string**|  | 
-**Key** | **string**|  | 
+**ServiceSid** | **string** |  | 
+**MapSid** | **string** |  | 
+**Key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSyncMapItemParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3655,7 +4087,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3664,21 +4096,29 @@ Name | Type | Description  | Notes
 
 ## FetchSyncMapPermission
 
-> PreviewSyncServiceSyncMapSyncMapPermission FetchSyncMapPermission(ctx, ServiceSid, MapSid, Identity)
+> PreviewSyncServiceSyncMapSyncMapPermission FetchSyncMapPermission(ctx, ServiceSidMapSidIdentity)
 
 
 
 Fetch a specific Sync Map Permission.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
-**Identity** | **string**| Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+**ServiceSid** | **string** |  | 
+**MapSid** | **string** | Identifier of the Sync Map. Either a SID or a unique name. | 
+**Identity** | **string** | Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSyncMapPermissionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3691,7 +4131,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3700,18 +4140,26 @@ Name | Type | Description  | Notes
 
 ## FetchTask
 
-> PreviewUnderstandAssistantTask FetchTask(ctx, AssistantSid, Sid)
+> PreviewUnderstandAssistantTask FetchTask(ctx, AssistantSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchTaskParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3724,7 +4172,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3733,20 +4181,28 @@ Name | Type | Description  | Notes
 
 ## FetchTaskActions
 
-> PreviewUnderstandAssistantTaskTaskActions FetchTaskActions(ctx, AssistantSid, TaskSid)
+> PreviewUnderstandAssistantTaskTaskActions FetchTaskActions(ctx, AssistantSidTaskSid)
 
 
 
 Returns JSON actions for this Task.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task. | 
+**AssistantSid** | **string** | The unique ID of the parent Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchTaskActionsParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3759,7 +4215,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3768,18 +4224,26 @@ Name | Type | Description  | Notes
 
 ## FetchTaskStatistics
 
-> PreviewUnderstandAssistantTaskTaskStatistics FetchTaskStatistics(ctx, AssistantSid, TaskSid)
+> PreviewUnderstandAssistantTaskTaskStatistics FetchTaskStatistics(ctx, AssistantSidTaskSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
+**AssistantSid** | **string** | The unique ID of the parent Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Field. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchTaskStatisticsParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3792,7 +4256,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3801,28 +4265,27 @@ Name | Type | Description  | Notes
 
 ## FetchUsage
 
-> PreviewWirelessSimUsage FetchUsage(ctx, SimSid, optional)
+> PreviewWirelessSimUsage FetchUsage(ctx, SimSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**SimSid** | **string**|  | 
- **optional** | ***FetchUsageRequest** | optional parameters | nil if no parameters
+**SimSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a FetchUsageRequest struct
- 
+Other parameters are passed through a pointer to a FetchUsageParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**End** | **String**|  | 
-**Start** | **String**|  | 
+**End** | **string** |  | 
+**Start** | **string** |  | 
 
 ### Return type
 
@@ -3835,7 +4298,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3848,22 +4311,18 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListAssistantParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListAssistantRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListAssistantRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -3876,7 +4335,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3891,24 +4350,20 @@ Name | Type | Description  | Notes
 
 Retrieve a list of AuthorizationDocuments belonging to the account initiating the request.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListAuthorizationDocumentParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListAuthorizationDocumentRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListAuthorizationDocumentRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Email** | **String**| Email that this AuthorizationDocument will be sent to for signing. | 
-**Status** | **String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Email** | **string** | Email that this AuthorizationDocument will be sent to for signing. | 
+**Status** | **string** | Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -3921,7 +4376,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3936,22 +4391,18 @@ Name | Type | Description  | Notes
 
 Retrieve a list of Add-ons currently available to be installed.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListAvailableAddOnParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListAvailableAddOnRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListAvailableAddOnRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -3964,7 +4415,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3973,29 +4424,28 @@ Name | Type | Description  | Notes
 
 ## ListAvailableAddOnExtension
 
-> ListAvailableAddOnExtensionResponse ListAvailableAddOnExtension(ctx, AvailableAddOnSid, optional)
+> ListAvailableAddOnExtensionResponse ListAvailableAddOnExtension(ctx, AvailableAddOnSidoptional)
 
 
 
 Retrieve a list of Extensions for the Available Add-on.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AvailableAddOnSid** | **string**| The SID of the AvailableAddOn resource with the extensions to read. | 
- **optional** | ***ListAvailableAddOnExtensionRequest** | optional parameters | nil if no parameters
+**AvailableAddOnSid** | **string** | The SID of the AvailableAddOn resource with the extensions to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAvailableAddOnExtensionRequest struct
- 
+Other parameters are passed through a pointer to a ListAvailableAddOnExtensionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4008,7 +4458,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4017,30 +4467,29 @@ Name | Type | Description  | Notes
 
 ## ListCertificate
 
-> ListCertificateResponse ListCertificate(ctx, FleetSid, optional)
+> ListCertificateResponse ListCertificate(ctx, FleetSidoptional)
 
 
 
 Retrieve a list of all Certificate credentials belonging to the Fleet.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
- **optional** | ***ListCertificateRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListCertificateRequest struct
- 
+Other parameters are passed through a pointer to a ListCertificateParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DeviceSid** | **String**| Filters the resulting list of Certificates by a unique string identifier of an authenticated Device. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DeviceSid** | **string** | Filters the resulting list of Certificates by a unique string identifier of an authenticated Device. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4053,7 +4502,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4066,26 +4515,22 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListCommandParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListCommandRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListCommandRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Device** | **String**|  | 
-**Sim** | **String**|  | 
-**Status** | **String**|  | 
-**Direction** | **String**|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Device** | **string** |  | 
+**Sim** | **string** |  | 
+**Status** | **string** |  | 
+**Direction** | **string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4098,7 +4543,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4107,29 +4552,28 @@ Name | Type | Description  | Notes
 
 ## ListDay
 
-> ListDayResponse ListDay(ctx, ResourceType, optional)
+> ListDayResponse ListDay(ctx, ResourceTypeoptional)
 
 
 
 Retrieve a list of all Days for a resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***ListDayRequest** | optional parameters | nil if no parameters
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListDayRequest struct
- 
+Other parameters are passed through a pointer to a ListDayParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4142,7 +4586,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4151,34 +4595,33 @@ Name | Type | Description  | Notes
 
 ## ListDependentHostedNumberOrder
 
-> ListDependentHostedNumberOrderResponse ListDependentHostedNumberOrder(ctx, SigningDocumentSid, optional)
+> ListDependentHostedNumberOrderResponse ListDependentHostedNumberOrder(ctx, SigningDocumentSidoptional)
 
 
 
 Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**SigningDocumentSid** | **string**|  | 
- **optional** | ***ListDependentHostedNumberOrderRequest** | optional parameters | nil if no parameters
+**SigningDocumentSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListDependentHostedNumberOrderRequest struct
- 
+Other parameters are passed through a pointer to a ListDependentHostedNumberOrderParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Status** | **String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
-**PhoneNumber** | **String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
-**IncomingPhoneNumberSid** | **String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
-**FriendlyName** | **String**| A human readable description of this resource, up to 64 characters. | 
-**UniqueName** | **String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Status** | **string** | Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
+**PhoneNumber** | **string** | An E164 formatted phone number hosted by this HostedNumberOrder. | 
+**IncomingPhoneNumberSid** | **string** | A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
+**FriendlyName** | **string** | A human readable description of this resource, up to 64 characters. | 
+**UniqueName** | **string** | Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4191,7 +4634,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4200,29 +4643,28 @@ Name | Type | Description  | Notes
 
 ## ListDeployment
 
-> ListDeploymentResponse ListDeployment(ctx, FleetSid, optional)
+> ListDeploymentResponse ListDeployment(ctx, FleetSidoptional)
 
 
 
 Retrieve a list of all Deployments belonging to the Fleet.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
- **optional** | ***ListDeploymentRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListDeploymentRequest struct
- 
+Other parameters are passed through a pointer to a ListDeploymentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4235,7 +4677,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4244,30 +4686,29 @@ Name | Type | Description  | Notes
 
 ## ListDevice
 
-> ListDeviceResponse ListDevice(ctx, FleetSid, optional)
+> ListDeviceResponse ListDevice(ctx, FleetSidoptional)
 
 
 
 Retrieve a list of all Devices belonging to the Fleet.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
- **optional** | ***ListDeviceRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListDeviceRequest struct
- 
+Other parameters are passed through a pointer to a ListDeviceParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DeploymentSid** | **String**| Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DeploymentSid** | **string** | Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4280,7 +4721,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4289,27 +4730,26 @@ Name | Type | Description  | Notes
 
 ## ListDocument
 
-> ListDocumentResponse ListDocument(ctx, ServiceSid, optional)
+> ListDocumentResponse ListDocument(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***ListDocumentRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListDocumentRequest struct
- 
+Other parameters are passed through a pointer to a ListDocumentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4322,7 +4762,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4331,30 +4771,29 @@ Name | Type | Description  | Notes
 
 ## ListDocumentPermission
 
-> ListDocumentPermissionResponse ListDocumentPermission(ctx, ServiceSid, DocumentSid, optional)
+> ListDocumentPermissionResponse ListDocumentPermission(ctx, ServiceSidDocumentSidoptional)
 
 
 
 Retrieve a list of all Permissions applying to a Sync Document.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
- **optional** | ***ListDocumentPermissionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**DocumentSid** | **string** | Identifier of the Sync Document. Either a SID or a unique name. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListDocumentPermissionRequest struct
- 
+Other parameters are passed through a pointer to a ListDocumentPermissionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4367,7 +4806,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4376,27 +4815,26 @@ Name | Type | Description  | Notes
 
 ## ListExportCustomJob
 
-> ListExportCustomJobResponse ListExportCustomJob(ctx, ResourceType, optional)
+> ListExportCustomJobResponse ListExportCustomJob(ctx, ResourceTypeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***ListExportCustomJobRequest** | optional parameters | nil if no parameters
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListExportCustomJobRequest struct
- 
+Other parameters are passed through a pointer to a ListExportCustomJobParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4409,7 +4847,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4418,28 +4856,27 @@ Name | Type | Description  | Notes
 
 ## ListField
 
-> ListFieldResponse ListField(ctx, AssistantSid, TaskSid, optional)
+> ListFieldResponse ListField(ctx, AssistantSidTaskSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Field. | 
- **optional** | ***ListFieldRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Field. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListFieldRequest struct
- 
+Other parameters are passed through a pointer to a ListFieldParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4452,7 +4889,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4461,27 +4898,26 @@ Name | Type | Description  | Notes
 
 ## ListFieldType
 
-> ListFieldTypeResponse ListFieldType(ctx, AssistantSid, optional)
+> ListFieldTypeResponse ListFieldType(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
- **optional** | ***ListFieldTypeRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListFieldTypeRequest struct
- 
+Other parameters are passed through a pointer to a ListFieldTypeParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4494,7 +4930,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4503,29 +4939,28 @@ Name | Type | Description  | Notes
 
 ## ListFieldValue
 
-> ListFieldValueResponse ListFieldValue(ctx, AssistantSid, FieldTypeSid, optional)
+> ListFieldValueResponse ListFieldValue(ctx, AssistantSidFieldTypeSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**FieldTypeSid** | **string**|  | 
- **optional** | ***ListFieldValueRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
+**FieldTypeSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListFieldValueRequest struct
- 
+Other parameters are passed through a pointer to a ListFieldValueParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Language** | **String**| An ISO language-country string of the value. For example: *en-US* | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Language** | **string** | An ISO language-country string of the value. For example: *en-US* | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4538,7 +4973,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4553,22 +4988,18 @@ Name | Type | Description  | Notes
 
 Retrieve a list of all Fleets belonging to your account.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListFleetParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListFleetRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListFleetRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4581,7 +5012,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4596,27 +5027,23 @@ Name | Type | Description  | Notes
 
 Retrieve a list of HostedNumberOrders belonging to the account initiating the request.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListHostedNumberOrderParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListHostedNumberOrderRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListHostedNumberOrderRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Status** | **String**| The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;. | 
-**PhoneNumber** | **String**| An E164 formatted phone number hosted by this HostedNumberOrder. | 
-**IncomingPhoneNumberSid** | **String**| A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
-**FriendlyName** | **String**| A human readable description of this resource, up to 64 characters. | 
-**UniqueName** | **String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Status** | **string** | The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;. | 
+**PhoneNumber** | **string** | An E164 formatted phone number hosted by this HostedNumberOrder. | 
+**IncomingPhoneNumberSid** | **string** | A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder. | 
+**FriendlyName** | **string** | A human readable description of this resource, up to 64 characters. | 
+**UniqueName** | **string** | Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4629,7 +5056,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4644,22 +5071,18 @@ Name | Type | Description  | Notes
 
 Retrieve a list of Add-ons currently installed on this Account.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListInstalledAddOnParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListInstalledAddOnRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListInstalledAddOnRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4672,7 +5095,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4681,29 +5104,28 @@ Name | Type | Description  | Notes
 
 ## ListInstalledAddOnExtension
 
-> ListInstalledAddOnExtensionResponse ListInstalledAddOnExtension(ctx, InstalledAddOnSid, optional)
+> ListInstalledAddOnExtensionResponse ListInstalledAddOnExtension(ctx, InstalledAddOnSidoptional)
 
 
 
 Retrieve a list of Extensions for the Installed Add-on.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**InstalledAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extensions to read. | 
- **optional** | ***ListInstalledAddOnExtensionRequest** | optional parameters | nil if no parameters
+**InstalledAddOnSid** | **string** | The SID of the InstalledAddOn resource with the extensions to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListInstalledAddOnExtensionRequest struct
- 
+Other parameters are passed through a pointer to a ListInstalledAddOnExtensionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4716,7 +5138,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4725,30 +5147,29 @@ Name | Type | Description  | Notes
 
 ## ListKey
 
-> ListKeyResponse ListKey(ctx, FleetSid, optional)
+> ListKeyResponse ListKey(ctx, FleetSidoptional)
 
 
 
 Retrieve a list of all Keys credentials belonging to the Fleet.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
- **optional** | ***ListKeyRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListKeyRequest struct
- 
+Other parameters are passed through a pointer to a ListKeyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DeviceSid** | **String**| Filters the resulting list of Keys by a unique string identifier of an authenticated Device. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DeviceSid** | **string** | Filters the resulting list of Keys by a unique string identifier of an authenticated Device. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4761,7 +5182,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4770,27 +5191,26 @@ Name | Type | Description  | Notes
 
 ## ListModelBuild
 
-> ListModelBuildResponse ListModelBuild(ctx, AssistantSid, optional)
+> ListModelBuildResponse ListModelBuild(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
- **optional** | ***ListModelBuildRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListModelBuildRequest struct
- 
+Other parameters are passed through a pointer to a ListModelBuildParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4803,7 +5223,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4812,30 +5232,29 @@ Name | Type | Description  | Notes
 
 ## ListQuery
 
-> ListQueryResponse ListQuery(ctx, AssistantSid, optional)
+> ListQueryResponse ListQuery(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
- **optional** | ***ListQueryRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the parent Assistant. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListQueryRequest struct
- 
+Other parameters are passed through a pointer to a ListQueryParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Language** | **String**| An ISO language-country string of the sample. | 
-**ModelBuild** | **String**| The Model Build Sid or unique name of the Model Build to be queried. | 
-**Status** | **String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Language** | **string** | An ISO language-country string of the sample. | 
+**ModelBuild** | **string** | The Model Build Sid or unique name of the Model Build to be queried. | 
+**Status** | **string** | A string that described the query status. The values can be: pending_review, reviewed, discarded | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4848,7 +5267,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4861,22 +5280,18 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListRatePlanParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListRatePlanRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListRatePlanRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4889,7 +5304,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4898,29 +5313,28 @@ Name | Type | Description  | Notes
 
 ## ListSample
 
-> ListSampleResponse ListSample(ctx, AssistantSid, TaskSid, optional)
+> ListSampleResponse ListSample(ctx, AssistantSidTaskSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
- **optional** | ***ListSampleRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Sample. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSampleRequest struct
- 
+Other parameters are passed through a pointer to a ListSampleParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Language** | **String**| An ISO language-country string of the sample. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Language** | **string** | An ISO language-country string of the sample. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4933,7 +5347,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4946,22 +5360,18 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListServiceRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListServiceRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4974,7 +5384,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4987,27 +5397,23 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListSimParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListSimRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListSimRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Status** | **String**|  | 
-**Iccid** | **String**|  | 
-**RatePlan** | **String**|  | 
-**EId** | **String**|  | 
-**SimRegistrationCode** | **String**|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Status** | **string** |  | 
+**Iccid** | **string** |  | 
+**RatePlan** | **string** |  | 
+**EId** | **string** |  | 
+**SimRegistrationCode** | **string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5020,7 +5426,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5029,27 +5435,26 @@ Name | Type | Description  | Notes
 
 ## ListSyncList
 
-> ListSyncListResponse ListSyncList(ctx, ServiceSid, optional)
+> ListSyncListResponse ListSyncList(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***ListSyncListRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSyncListRequest struct
- 
+Other parameters are passed through a pointer to a ListSyncListParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5062,7 +5467,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5071,31 +5476,30 @@ Name | Type | Description  | Notes
 
 ## ListSyncListItem
 
-> ListSyncListItemResponse ListSyncListItem(ctx, ServiceSid, ListSid, optional)
+> ListSyncListItemResponse ListSyncListItem(ctx, ServiceSidListSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ListSid** | **string**|  | 
- **optional** | ***ListSyncListItemRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ListSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSyncListItemRequest struct
- 
+Other parameters are passed through a pointer to a ListSyncListItemParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Order** | **String**|  | 
-**From** | **String**|  | 
-**Bounds** | **String**|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Order** | **string** |  | 
+**From** | **string** |  | 
+**Bounds** | **string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5108,7 +5512,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5117,30 +5521,29 @@ Name | Type | Description  | Notes
 
 ## ListSyncListPermission
 
-> ListSyncListPermissionResponse ListSyncListPermission(ctx, ServiceSid, ListSid, optional)
+> ListSyncListPermissionResponse ListSyncListPermission(ctx, ServiceSidListSidoptional)
 
 
 
 Retrieve a list of all Permissions applying to a Sync List.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
- **optional** | ***ListSyncListPermissionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ListSid** | **string** | Identifier of the Sync List. Either a SID or a unique name. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSyncListPermissionRequest struct
- 
+Other parameters are passed through a pointer to a ListSyncListPermissionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5153,7 +5556,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5162,27 +5565,26 @@ Name | Type | Description  | Notes
 
 ## ListSyncMap
 
-> ListSyncMapResponse ListSyncMap(ctx, ServiceSid, optional)
+> ListSyncMapResponse ListSyncMap(ctx, ServiceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
- **optional** | ***ListSyncMapRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSyncMapRequest struct
- 
+Other parameters are passed through a pointer to a ListSyncMapParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5195,7 +5597,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5204,31 +5606,30 @@ Name | Type | Description  | Notes
 
 ## ListSyncMapItem
 
-> ListSyncMapItemResponse ListSyncMapItem(ctx, ServiceSid, MapSid, optional)
+> ListSyncMapItemResponse ListSyncMapItem(ctx, ServiceSidMapSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**MapSid** | **string**|  | 
- **optional** | ***ListSyncMapItemRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**MapSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSyncMapItemRequest struct
- 
+Other parameters are passed through a pointer to a ListSyncMapItemParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Order** | **String**|  | 
-**From** | **String**|  | 
-**Bounds** | **String**|  | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Order** | **string** |  | 
+**From** | **string** |  | 
+**Bounds** | **string** |  | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5241,7 +5642,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5250,30 +5651,29 @@ Name | Type | Description  | Notes
 
 ## ListSyncMapPermission
 
-> ListSyncMapPermissionResponse ListSyncMapPermission(ctx, ServiceSid, MapSid, optional)
+> ListSyncMapPermissionResponse ListSyncMapPermission(ctx, ServiceSidMapSidoptional)
 
 
 
 Retrieve a list of all Permissions applying to a Sync Map.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
- **optional** | ***ListSyncMapPermissionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**MapSid** | **string** | Identifier of the Sync Map. Either a SID or a unique name. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSyncMapPermissionRequest struct
- 
+Other parameters are passed through a pointer to a ListSyncMapPermissionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5286,7 +5686,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5295,27 +5695,26 @@ Name | Type | Description  | Notes
 
 ## ListTask
 
-> ListTaskResponse ListTask(ctx, AssistantSid, optional)
+> ListTaskResponse ListTask(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
- **optional** | ***ListTaskRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListTaskRequest struct
- 
+Other parameters are passed through a pointer to a ListTaskParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5328,7 +5727,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5337,34 +5736,33 @@ Name | Type | Description  | Notes
 
 ## UpdateAssistant
 
-> PreviewUnderstandAssistant UpdateAssistant(ctx, Sid, optional)
+> PreviewUnderstandAssistant UpdateAssistant(ctx, Sidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateAssistantRequest** | optional parameters | nil if no parameters
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateAssistantRequest struct
- 
+Other parameters are passed through a pointer to a UpdateAssistantParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CallbackEvents** | **String**| Space-separated list of callback events that will trigger callbacks. | 
-**CallbackUrl** | **String**| A user-provided URL to send event callbacks to. | 
-**FallbackActions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
-**FriendlyName** | **String**| A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
-**InitiationActions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
-**LogQueries** | **Bool**| A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
-**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON object that holds the style sheet for the assistant | 
-**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**CallbackEvents** | **string** | Space-separated list of callback events that will trigger callbacks. | 
+**CallbackUrl** | **string** | A user-provided URL to send event callbacks to. | 
+**FallbackActions** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON actions to be executed when the user&#39;s input is not recognized as matching any Task. | 
+**FriendlyName** | **string** | A text description for the Assistant. It is non-unique and can up to 255 characters long. | 
+**InitiationActions** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON actions to be executed on inbound phone calls when the Assistant has to say something first. | 
+**LogQueries** | **bool** | A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided. | 
+**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON object that holds the style sheet for the assistant | 
+**UniqueName** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -5376,8 +5774,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5386,27 +5784,26 @@ Name | Type | Description  | Notes
 
 ## UpdateAssistantFallbackActions
 
-> PreviewUnderstandAssistantAssistantFallbackActions UpdateAssistantFallbackActions(ctx, AssistantSid, optional)
+> PreviewUnderstandAssistantAssistantFallbackActions UpdateAssistantFallbackActions(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
- **optional** | ***UpdateAssistantFallbackActionsRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateAssistantFallbackActionsRequest struct
- 
+Other parameters are passed through a pointer to a UpdateAssistantFallbackActionsParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FallbackActions** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
+**FallbackActions** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
 
 ### Return type
 
@@ -5418,8 +5815,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5428,27 +5825,26 @@ Name | Type | Description  | Notes
 
 ## UpdateAssistantInitiationActions
 
-> PreviewUnderstandAssistantAssistantInitiationActions UpdateAssistantInitiationActions(ctx, AssistantSid, optional)
+> PreviewUnderstandAssistantAssistantInitiationActions UpdateAssistantInitiationActions(ctx, AssistantSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
- **optional** | ***UpdateAssistantInitiationActionsRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateAssistantInitiationActionsRequest struct
- 
+Other parameters are passed through a pointer to a UpdateAssistantInitiationActionsParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**InitiationActions** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
+**InitiationActions** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
 
 ### Return type
 
@@ -5460,8 +5856,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5470,35 +5866,34 @@ Name | Type | Description  | Notes
 
 ## UpdateAuthorizationDocument
 
-> PreviewHostedNumbersAuthorizationDocument UpdateAuthorizationDocument(ctx, Sid, optional)
+> PreviewHostedNumbersAuthorizationDocument UpdateAuthorizationDocument(ctx, Sidoptional)
 
 
 
 Updates a specific AuthorizationDocument.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
- **optional** | ***UpdateAuthorizationDocumentRequest** | optional parameters | nil if no parameters
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateAuthorizationDocumentRequest struct
- 
+Other parameters are passed through a pointer to a UpdateAuthorizationDocumentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AddressSid** | **String**| A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
-**CcEmails** | [**[]string**](string.md)| Email recipients who will be informed when an Authorization Document has been sent and signed | 
-**ContactPhoneNumber** | **String**| The contact phone number of the person authorized to sign the Authorization Document. | 
-**ContactTitle** | **String**| The title of the person authorized to sign the Authorization Document for this phone number. | 
-**Email** | **String**| Email that this AuthorizationDocument will be sent to for signing. | 
-**HostedNumberOrderSids** | [**[]string**](string.md)| A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
-**Status** | **String**| Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
+**AddressSid** | **string** | A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. | 
+**CcEmails** | **[]string** | Email recipients who will be informed when an Authorization Document has been sent and signed | 
+**ContactPhoneNumber** | **string** | The contact phone number of the person authorized to sign the Authorization Document. | 
+**ContactTitle** | **string** | The title of the person authorized to sign the Authorization Document for this phone number. | 
+**Email** | **string** | Email that this AuthorizationDocument will be sent to for signing. | 
+**HostedNumberOrderSids** | **[]string** | A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio&#39;s platform. | 
+**Status** | **string** | Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. | 
 
 ### Return type
 
@@ -5510,8 +5905,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5520,31 +5915,30 @@ Name | Type | Description  | Notes
 
 ## UpdateCertificate
 
-> PreviewDeployedDevicesFleetCertificate UpdateCertificate(ctx, FleetSid, Sid, optional)
+> PreviewDeployedDevicesFleetCertificate UpdateCertificate(ctx, FleetSidSidoptional)
 
 
 
 Update the given properties of a specific Certificate credential in the Fleet, giving it a friendly name or assigning to a Device.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
- **optional** | ***UpdateCertificateRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Certificate credential resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateCertificateRequest struct
- 
+Other parameters are passed through a pointer to a UpdateCertificateParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DeviceSid** | **String**| Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
-**FriendlyName** | **String**| Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
+**DeviceSid** | **string** | Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential. | 
+**FriendlyName** | **string** | Provides a human readable descriptive text for this Certificate credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -5556,8 +5950,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5566,31 +5960,30 @@ Name | Type | Description  | Notes
 
 ## UpdateDeployment
 
-> PreviewDeployedDevicesFleetDeployment UpdateDeployment(ctx, FleetSid, Sid, optional)
+> PreviewDeployedDevicesFleetDeployment UpdateDeployment(ctx, FleetSidSidoptional)
 
 
 
 Update the given properties of a specific Deployment credential in the Fleet, giving it a friendly name or linking to a specific Twilio Sync service instance.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
- **optional** | ***UpdateDeploymentRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Deployment resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateDeploymentRequest struct
- 
+Other parameters are passed through a pointer to a UpdateDeploymentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| Provides a human readable descriptive text for this Deployment, up to 64 characters long | 
-**SyncServiceSid** | **String**| Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
+**FriendlyName** | **string** | Provides a human readable descriptive text for this Deployment, up to 64 characters long | 
+**SyncServiceSid** | **string** | Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment. | 
 
 ### Return type
 
@@ -5602,8 +5995,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5612,33 +6005,32 @@ Name | Type | Description  | Notes
 
 ## UpdateDevice
 
-> PreviewDeployedDevicesFleetDevice UpdateDevice(ctx, FleetSid, Sid, optional)
+> PreviewDeployedDevicesFleetDevice UpdateDevice(ctx, FleetSidSidoptional)
 
 
 
 Update the given properties of a specific Device in the Fleet, giving it a friendly name, assigning to a Deployment, or a human identity.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Device resource. | 
- **optional** | ***UpdateDeviceRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Device resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateDeviceRequest struct
- 
+Other parameters are passed through a pointer to a UpdateDeviceParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DeploymentSid** | **String**| Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
-**Enabled** | **Bool**|  | 
-**FriendlyName** | **String**| Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
-**Identity** | **String**| Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
+**DeploymentSid** | **string** | Specifies the unique string identifier of the Deployment group that this Device is going to be associated with. | 
+**Enabled** | **bool** |  | 
+**FriendlyName** | **string** | Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long. | 
+**Identity** | **string** | Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long. | 
 
 ### Return type
 
@@ -5650,8 +6042,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5660,29 +6052,28 @@ Name | Type | Description  | Notes
 
 ## UpdateDocument
 
-> PreviewSyncServiceDocument UpdateDocument(ctx, ServiceSid, Sid, optional)
+> PreviewSyncServiceDocument UpdateDocument(ctx, ServiceSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**Sid** | **string**|  | 
- **optional** | ***UpdateDocumentRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateDocumentRequest struct
- 
+Other parameters are passed through a pointer to a UpdateDocumentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**IfMatch** | **String**| The If-Match HTTP request header | 
-**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
+**IfMatch** | **string** | The If-Match HTTP request header | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
 
 ### Return type
 
@@ -5694,8 +6085,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5704,33 +6095,32 @@ Name | Type | Description  | Notes
 
 ## UpdateDocumentPermission
 
-> PreviewSyncServiceDocumentDocumentPermission UpdateDocumentPermission(ctx, ServiceSid, DocumentSid, Identity, optional)
+> PreviewSyncServiceDocumentDocumentPermission UpdateDocumentPermission(ctx, ServiceSidDocumentSidIdentityoptional)
 
 
 
 Update an identity's access to a specific Sync Document.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
-**DocumentSid** | **string**| Identifier of the Sync Document. Either a SID or a unique name. | 
-**Identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
- **optional** | ***UpdateDocumentPermissionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The unique SID identifier of the Sync Service Instance. | 
+**DocumentSid** | **string** | Identifier of the Sync Document. Either a SID or a unique name. | 
+**Identity** | **string** | Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateDocumentPermissionRequest struct
- 
+Other parameters are passed through a pointer to a UpdateDocumentPermissionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Manage** | **Bool**| Boolean flag specifying whether the identity can delete the Sync Document. | 
-**Read** | **Bool**| Boolean flag specifying whether the identity can read the Sync Document. | 
-**Write** | **Bool**| Boolean flag specifying whether the identity can update the Sync Document. | 
+**Manage** | **bool** | Boolean flag specifying whether the identity can delete the Sync Document. | 
+**Read** | **bool** | Boolean flag specifying whether the identity can read the Sync Document. | 
+**Write** | **bool** | Boolean flag specifying whether the identity can update the Sync Document. | 
 
 ### Return type
 
@@ -5742,8 +6132,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5752,31 +6142,30 @@ Name | Type | Description  | Notes
 
 ## UpdateExportConfiguration
 
-> PreviewBulkExportsExportConfiguration UpdateExportConfiguration(ctx, ResourceType, optional)
+> PreviewBulkExportsExportConfiguration UpdateExportConfiguration(ctx, ResourceTypeoptional)
 
 
 
 Update a specific Export Configuration.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***UpdateExportConfigurationRequest** | optional parameters | nil if no parameters
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateExportConfigurationRequest struct
- 
+Other parameters are passed through a pointer to a UpdateExportConfigurationParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Enabled** | **Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
-**WebhookMethod** | **String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
-**WebhookUrl** | **String**| Stores the URL destination for the method specified in webhook_method. | 
+**Enabled** | **bool** | If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
+**WebhookMethod** | **string** | Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
+**WebhookUrl** | **string** | Stores the URL destination for the method specified in webhook_method. | 
 
 ### Return type
 
@@ -5788,8 +6177,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5798,29 +6187,28 @@ Name | Type | Description  | Notes
 
 ## UpdateFieldType
 
-> PreviewUnderstandAssistantFieldType UpdateFieldType(ctx, AssistantSid, Sid, optional)
+> PreviewUnderstandAssistantFieldType UpdateFieldType(ctx, AssistantSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**Sid** | **string**|  | 
- **optional** | ***UpdateFieldTypeRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateFieldTypeRequest struct
- 
+Other parameters are passed through a pointer to a UpdateFieldTypeParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
-**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**FriendlyName** | **string** | A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+**UniqueName** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -5832,8 +6220,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5842,30 +6230,29 @@ Name | Type | Description  | Notes
 
 ## UpdateFleet
 
-> PreviewDeployedDevicesFleet UpdateFleet(ctx, Sid, optional)
+> PreviewDeployedDevicesFleet UpdateFleet(ctx, Sidoptional)
 
 
 
 Update the friendly name property of a specific Fleet in your account.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
- **optional** | ***UpdateFleetRequest** | optional parameters | nil if no parameters
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Fleet resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateFleetRequest struct
- 
+Other parameters are passed through a pointer to a UpdateFleetParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DefaultDeploymentSid** | **String**| Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet. | 
-**FriendlyName** | **String**| Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
+**DefaultDeploymentSid** | **string** | Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet. | 
+**FriendlyName** | **string** | Provides a human readable descriptive text for this Fleet, up to 256 characters long. | 
 
 ### Return type
 
@@ -5877,8 +6264,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5887,38 +6274,37 @@ Name | Type | Description  | Notes
 
 ## UpdateHostedNumberOrder
 
-> PreviewHostedNumbersHostedNumberOrder UpdateHostedNumberOrder(ctx, Sid, optional)
+> PreviewHostedNumbersHostedNumberOrder UpdateHostedNumberOrder(ctx, Sidoptional)
 
 
 
 Updates a specific HostedNumberOrder.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
- **optional** | ***UpdateHostedNumberOrderRequest** | optional parameters | nil if no parameters
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateHostedNumberOrderRequest struct
- 
+Other parameters are passed through a pointer to a UpdateHostedNumberOrderParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CallDelay** | **Int32**| The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0. | 
-**CcEmails** | [**[]string**](string.md)| Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to. | 
-**Email** | **String**| Email of the owner of this phone number that is being hosted. | 
-**Extension** | **String**| Digits to dial after connecting the verification call. | 
-**FriendlyName** | **String**| A 64 character string that is a human readable text that describes this resource. | 
-**Status** | **String**| User can only post to &#x60;pending-verification&#x60; status to transition the HostedNumberOrder to initiate a verification call or verification of ownership with a copy of a phone bill. | 
-**UniqueName** | **String**| Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
-**VerificationCode** | **String**| A verification code that is given to the user via a phone call to the phone number that is being hosted. | 
-**VerificationDocumentSid** | **String**| Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
-**VerificationType** | **String**| Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
+**CallDelay** | **int32** | The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0. | 
+**CcEmails** | **[]string** | Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to. | 
+**Email** | **string** | Email of the owner of this phone number that is being hosted. | 
+**Extension** | **string** | Digits to dial after connecting the verification call. | 
+**FriendlyName** | **string** | A 64 character string that is a human readable text that describes this resource. | 
+**Status** | **string** | User can only post to &#x60;pending-verification&#x60; status to transition the HostedNumberOrder to initiate a verification call or verification of ownership with a copy of a phone bill. | 
+**UniqueName** | **string** | Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID. | 
+**VerificationCode** | **string** | A verification code that is given to the user via a phone call to the phone number that is being hosted. | 
+**VerificationDocumentSid** | **string** | Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill. | 
+**VerificationType** | **string** | Optional. The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill. | 
 
 ### Return type
 
@@ -5930,8 +6316,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5940,30 +6326,29 @@ Name | Type | Description  | Notes
 
 ## UpdateInstalledAddOn
 
-> PreviewMarketplaceInstalledAddOn UpdateInstalledAddOn(ctx, Sid, optional)
+> PreviewMarketplaceInstalledAddOn UpdateInstalledAddOn(ctx, Sidoptional)
 
 
 
 Update an Add-on installation for the Account specified.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The SID of the InstalledAddOn resource to update. | 
- **optional** | ***UpdateInstalledAddOnRequest** | optional parameters | nil if no parameters
+**Sid** | **string** | The SID of the InstalledAddOn resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateInstalledAddOnRequest struct
- 
+Other parameters are passed through a pointer to a UpdateInstalledAddOnParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Configuration** | [**map[string]interface{}**](map[string]interface{}.md)| Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured | 
-**UniqueName** | **String**| An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
+**Configuration** | [**map[string]interface{}**](map[string]interface{}.md) | Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured | 
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be unique within the Account. | 
 
 ### Return type
 
@@ -5975,8 +6360,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5985,30 +6370,29 @@ Name | Type | Description  | Notes
 
 ## UpdateInstalledAddOnExtension
 
-> PreviewMarketplaceInstalledAddOnInstalledAddOnExtension UpdateInstalledAddOnExtension(ctx, InstalledAddOnSid, Sid, optional)
+> PreviewMarketplaceInstalledAddOnInstalledAddOnExtension UpdateInstalledAddOnExtension(ctx, InstalledAddOnSidSidoptional)
 
 
 
 Update an Extension for an Add-on installation.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**InstalledAddOnSid** | **string**| The SID of the InstalledAddOn resource with the extension to update. | 
-**Sid** | **string**| The SID of the InstalledAddOn Extension resource to update. | 
- **optional** | ***UpdateInstalledAddOnExtensionRequest** | optional parameters | nil if no parameters
+**InstalledAddOnSid** | **string** | The SID of the InstalledAddOn resource with the extension to update. | 
+**Sid** | **string** | The SID of the InstalledAddOn Extension resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateInstalledAddOnExtensionRequest struct
- 
+Other parameters are passed through a pointer to a UpdateInstalledAddOnExtensionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Enabled** | **Bool**| Whether the Extension should be invoked. | 
+**Enabled** | **bool** | Whether the Extension should be invoked. | 
 
 ### Return type
 
@@ -6020,8 +6404,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6030,31 +6414,30 @@ Name | Type | Description  | Notes
 
 ## UpdateKey
 
-> PreviewDeployedDevicesFleetKey UpdateKey(ctx, FleetSid, Sid, optional)
+> PreviewDeployedDevicesFleetKey UpdateKey(ctx, FleetSidSidoptional)
 
 
 
 Update the given properties of a specific Key credential in the Fleet, giving it a friendly name or assigning to a Device.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FleetSid** | **string**|  | 
-**Sid** | **string**| Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
- **optional** | ***UpdateKeyRequest** | optional parameters | nil if no parameters
+**FleetSid** | **string** |  | 
+**Sid** | **string** | Provides a 34 character string that uniquely identifies the requested Key credential resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateKeyRequest struct
- 
+Other parameters are passed through a pointer to a UpdateKeyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DeviceSid** | **String**| Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
-**FriendlyName** | **String**| Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
+**DeviceSid** | **string** | Provides the unique string identifier of an existing Device to become authenticated with this Key credential. | 
+**FriendlyName** | **string** | Provides a human readable descriptive text for this Key credential, up to 256 characters long. | 
 
 ### Return type
 
@@ -6066,8 +6449,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6076,28 +6459,27 @@ Name | Type | Description  | Notes
 
 ## UpdateModelBuild
 
-> PreviewUnderstandAssistantModelBuild UpdateModelBuild(ctx, AssistantSid, Sid, optional)
+> PreviewUnderstandAssistantModelBuild UpdateModelBuild(ctx, AssistantSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**|  | 
-**Sid** | **string**|  | 
- **optional** | ***UpdateModelBuildRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** |  | 
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateModelBuildRequest struct
- 
+Other parameters are passed through a pointer to a UpdateModelBuildParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
+**UniqueName** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1 | 
 
 ### Return type
 
@@ -6109,8 +6491,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6119,29 +6501,28 @@ Name | Type | Description  | Notes
 
 ## UpdateQuery
 
-> PreviewUnderstandAssistantQuery UpdateQuery(ctx, AssistantSid, Sid, optional)
+> PreviewUnderstandAssistantQuery UpdateQuery(ctx, AssistantSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateQueryRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the parent Assistant. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateQueryRequest struct
- 
+Other parameters are passed through a pointer to a UpdateQueryParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**SampleSid** | **String**| An optional reference to the Sample created from this query. | 
-**Status** | **String**| A string that described the query status. The values can be: pending_review, reviewed, discarded | 
+**SampleSid** | **string** | An optional reference to the Sample created from this query. | 
+**Status** | **string** | A string that described the query status. The values can be: pending_review, reviewed, discarded | 
 
 ### Return type
 
@@ -6153,8 +6534,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6163,28 +6544,27 @@ Name | Type | Description  | Notes
 
 ## UpdateRatePlan
 
-> PreviewWirelessRatePlan UpdateRatePlan(ctx, Sid, optional)
+> PreviewWirelessRatePlan UpdateRatePlan(ctx, Sidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
- **optional** | ***UpdateRatePlanRequest** | optional parameters | nil if no parameters
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateRatePlanRequest struct
- 
+Other parameters are passed through a pointer to a UpdateRatePlanParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**|  | 
-**UniqueName** | **String**|  | 
+**FriendlyName** | **string** |  | 
+**UniqueName** | **string** |  | 
 
 ### Return type
 
@@ -6196,8 +6576,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6206,31 +6586,30 @@ Name | Type | Description  | Notes
 
 ## UpdateSample
 
-> PreviewUnderstandAssistantTaskSample UpdateSample(ctx, AssistantSid, TaskSid, Sid, optional)
+> PreviewUnderstandAssistantTaskSample UpdateSample(ctx, AssistantSidTaskSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task associated with this Sample. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateSampleRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task associated with this Sample. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSampleRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSampleParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Language** | **String**| An ISO language-country string of the sample. | 
-**SourceChannel** | **String**| The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
-**TaggedText** | **String**| The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
+**Language** | **string** | An ISO language-country string of the sample. | 
+**SourceChannel** | **string** | The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null | 
+**TaggedText** | **string** | The text example of how end-users may express this task. The sample may contain Field tag blocks. | 
 
 ### Return type
 
@@ -6242,8 +6621,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6252,30 +6631,29 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> PreviewSyncService UpdateService(ctx, Sid, optional)
+> PreviewSyncService UpdateService(ctx, Sidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
- **optional** | ***UpdateServiceRequest** | optional parameters | nil if no parameters
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceRequest struct
- 
+Other parameters are passed through a pointer to a UpdateServiceParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AclEnabled** | **Bool**|  | 
-**FriendlyName** | **String**|  | 
-**ReachabilityWebhooksEnabled** | **Bool**|  | 
-**WebhookUrl** | **String**|  | 
+**AclEnabled** | **bool** |  | 
+**FriendlyName** | **string** |  | 
+**ReachabilityWebhooksEnabled** | **bool** |  | 
+**WebhookUrl** | **string** |  | 
 
 ### Return type
 
@@ -6287,8 +6665,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6297,42 +6675,41 @@ Name | Type | Description  | Notes
 
 ## UpdateSim
 
-> PreviewWirelessSim UpdateSim(ctx, Sid, optional)
+> PreviewWirelessSim UpdateSim(ctx, Sidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
- **optional** | ***UpdateSimRequest** | optional parameters | nil if no parameters
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSimRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSimParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CallbackMethod** | **String**|  | 
-**CallbackUrl** | **String**|  | 
-**CommandsCallbackMethod** | **String**|  | 
-**CommandsCallbackUrl** | **String**|  | 
-**FriendlyName** | **String**|  | 
-**RatePlan** | **String**|  | 
-**SmsFallbackMethod** | **String**|  | 
-**SmsFallbackUrl** | **String**|  | 
-**SmsMethod** | **String**|  | 
-**SmsUrl** | **String**|  | 
-**Status** | **String**|  | 
-**UniqueName** | **String**|  | 
-**VoiceFallbackMethod** | **String**|  | 
-**VoiceFallbackUrl** | **String**|  | 
-**VoiceMethod** | **String**|  | 
-**VoiceUrl** | **String**|  | 
+**CallbackMethod** | **string** |  | 
+**CallbackUrl** | **string** |  | 
+**CommandsCallbackMethod** | **string** |  | 
+**CommandsCallbackUrl** | **string** |  | 
+**FriendlyName** | **string** |  | 
+**RatePlan** | **string** |  | 
+**SmsFallbackMethod** | **string** |  | 
+**SmsFallbackUrl** | **string** |  | 
+**SmsMethod** | **string** |  | 
+**SmsUrl** | **string** |  | 
+**Status** | **string** |  | 
+**UniqueName** | **string** |  | 
+**VoiceFallbackMethod** | **string** |  | 
+**VoiceFallbackUrl** | **string** |  | 
+**VoiceMethod** | **string** |  | 
+**VoiceUrl** | **string** |  | 
 
 ### Return type
 
@@ -6344,8 +6721,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6354,29 +6731,28 @@ Name | Type | Description  | Notes
 
 ## UpdateStyleSheet
 
-> PreviewUnderstandAssistantStyleSheet UpdateStyleSheet(ctx, AssistantSid, optional)
+> PreviewUnderstandAssistantStyleSheet UpdateStyleSheet(ctx, AssistantSidoptional)
 
 
 
 Updates the style sheet for an assistant identified by {AssistantSid} or {AssistantUniqueName}.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant | 
- **optional** | ***UpdateStyleSheetRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the Assistant | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateStyleSheetRequest struct
- 
+Other parameters are passed through a pointer to a UpdateStyleSheetParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON Style sheet string | 
+**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON Style sheet string | 
 
 ### Return type
 
@@ -6388,8 +6764,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6398,30 +6774,29 @@ Name | Type | Description  | Notes
 
 ## UpdateSyncListItem
 
-> PreviewSyncServiceSyncListSyncListItem UpdateSyncListItem(ctx, ServiceSid, ListSid, Index, optional)
+> PreviewSyncServiceSyncListSyncListItem UpdateSyncListItem(ctx, ServiceSidListSidIndexoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**ListSid** | **string**|  | 
-**Index** | **int32**|  | 
- **optional** | ***UpdateSyncListItemRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**ListSid** | **string** |  | 
+**Index** | **int32** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncListItemRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSyncListItemParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**IfMatch** | **String**| The If-Match HTTP request header | 
-**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
+**IfMatch** | **string** | The If-Match HTTP request header | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
 
 ### Return type
 
@@ -6433,8 +6808,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6443,33 +6818,32 @@ Name | Type | Description  | Notes
 
 ## UpdateSyncListPermission
 
-> PreviewSyncServiceSyncListSyncListPermission UpdateSyncListPermission(ctx, ServiceSid, ListSid, Identity, optional)
+> PreviewSyncServiceSyncListSyncListPermission UpdateSyncListPermission(ctx, ServiceSidListSidIdentityoptional)
 
 
 
 Update an identity's access to a specific Sync List.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
-**ListSid** | **string**| Identifier of the Sync List. Either a SID or a unique name. | 
-**Identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
- **optional** | ***UpdateSyncListPermissionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The unique SID identifier of the Sync Service Instance. | 
+**ListSid** | **string** | Identifier of the Sync List. Either a SID or a unique name. | 
+**Identity** | **string** | Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncListPermissionRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSyncListPermissionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Manage** | **Bool**| Boolean flag specifying whether the identity can delete the Sync List. | 
-**Read** | **Bool**| Boolean flag specifying whether the identity can read the Sync List. | 
-**Write** | **Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync List. | 
+**Manage** | **bool** | Boolean flag specifying whether the identity can delete the Sync List. | 
+**Read** | **bool** | Boolean flag specifying whether the identity can read the Sync List. | 
+**Write** | **bool** | Boolean flag specifying whether the identity can create, update and delete Items of the Sync List. | 
 
 ### Return type
 
@@ -6481,8 +6855,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6491,30 +6865,29 @@ Name | Type | Description  | Notes
 
 ## UpdateSyncMapItem
 
-> PreviewSyncServiceSyncMapSyncMapItem UpdateSyncMapItem(ctx, ServiceSid, MapSid, Key, optional)
+> PreviewSyncServiceSyncMapSyncMapItem UpdateSyncMapItem(ctx, ServiceSidMapSidKeyoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**|  | 
-**MapSid** | **string**|  | 
-**Key** | **string**|  | 
- **optional** | ***UpdateSyncMapItemRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** |  | 
+**MapSid** | **string** |  | 
+**Key** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncMapItemRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSyncMapItemParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**IfMatch** | **String**| The If-Match HTTP request header | 
-**Data** | [**map[string]interface{}**](map[string]interface{}.md)|  | 
+**IfMatch** | **string** | The If-Match HTTP request header | 
+**Data** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
 
 ### Return type
 
@@ -6526,8 +6899,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6536,33 +6909,32 @@ Name | Type | Description  | Notes
 
 ## UpdateSyncMapPermission
 
-> PreviewSyncServiceSyncMapSyncMapPermission UpdateSyncMapPermission(ctx, ServiceSid, MapSid, Identity, optional)
+> PreviewSyncServiceSyncMapSyncMapPermission UpdateSyncMapPermission(ctx, ServiceSidMapSidIdentityoptional)
 
 
 
 Update an identity's access to a specific Sync Map.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The unique SID identifier of the Sync Service Instance. | 
-**MapSid** | **string**| Identifier of the Sync Map. Either a SID or a unique name. | 
-**Identity** | **string**| Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
- **optional** | ***UpdateSyncMapPermissionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The unique SID identifier of the Sync Service Instance. | 
+**MapSid** | **string** | Identifier of the Sync Map. Either a SID or a unique name. | 
+**Identity** | **string** | Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSyncMapPermissionRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSyncMapPermissionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Manage** | **Bool**| Boolean flag specifying whether the identity can delete the Sync Map. | 
-**Read** | **Bool**| Boolean flag specifying whether the identity can read the Sync Map. | 
-**Write** | **Bool**| Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map. | 
+**Manage** | **bool** | Boolean flag specifying whether the identity can delete the Sync Map. | 
+**Read** | **bool** | Boolean flag specifying whether the identity can read the Sync Map. | 
+**Write** | **bool** | Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map. | 
 
 ### Return type
 
@@ -6574,8 +6946,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6584,31 +6956,30 @@ Name | Type | Description  | Notes
 
 ## UpdateTask
 
-> PreviewUnderstandAssistantTask UpdateTask(ctx, AssistantSid, Sid, optional)
+> PreviewUnderstandAssistantTask UpdateTask(ctx, AssistantSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the Assistant. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
- **optional** | ***UpdateTaskRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the Assistant. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateTaskRequest struct
- 
+Other parameters are passed through a pointer to a UpdateTaskParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Actions** | [**map[string]interface{}**](map[string]interface{}.md)| A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
-**ActionsUrl** | **String**| User-provided HTTP endpoint where from the assistant fetches actions | 
-**FriendlyName** | **String**| A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
-**UniqueName** | **String**| A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
+**Actions** | [**map[string]interface{}**](map[string]interface{}.md) | A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique. | 
+**ActionsUrl** | **string** | User-provided HTTP endpoint where from the assistant fetches actions | 
+**FriendlyName** | **string** | A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long. | 
+**UniqueName** | **string** | A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. | 
 
 ### Return type
 
@@ -6620,8 +6991,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6630,30 +7001,29 @@ Name | Type | Description  | Notes
 
 ## UpdateTaskActions
 
-> PreviewUnderstandAssistantTaskTaskActions UpdateTaskActions(ctx, AssistantSid, TaskSid, optional)
+> PreviewUnderstandAssistantTaskTaskActions UpdateTaskActions(ctx, AssistantSidTaskSidoptional)
 
 
 
 Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AssistantSid** | **string**| The unique ID of the parent Assistant. | 
-**TaskSid** | **string**| The unique ID of the Task. | 
- **optional** | ***UpdateTaskActionsRequest** | optional parameters | nil if no parameters
+**AssistantSid** | **string** | The unique ID of the parent Assistant. | 
+**TaskSid** | **string** | The unique ID of the Task. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateTaskActionsRequest struct
- 
+Other parameters are passed through a pointer to a UpdateTaskActionsParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Actions** | [**map[string]interface{}**](map[string]interface{}.md)| The JSON actions that instruct the Assistant how to perform this task. | 
+**Actions** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON actions that instruct the Assistant how to perform this task. | 
 
 ### Return type
 
@@ -6665,8 +7035,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

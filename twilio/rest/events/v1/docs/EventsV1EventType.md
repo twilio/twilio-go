@@ -6,7 +6,7 @@ Name | Type | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **Description** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **SchemaId** | Pointer to **string** | 
 **Type** | Pointer to **string** | 
 **Url** | Pointer to **string** | 

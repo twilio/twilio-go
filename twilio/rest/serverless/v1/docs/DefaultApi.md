@@ -48,29 +48,28 @@ Method | HTTP request | Description
 
 ## CreateAsset
 
-> ServerlessV1ServiceAsset CreateAsset(ctx, ServiceSid, optional)
+> ServerlessV1ServiceAsset CreateAsset(ctx, ServiceSidoptional)
 
 
 
 Create a new Asset resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to create the Asset resource under. | 
- **optional** | ***CreateAssetRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to create the Asset resource under. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateAssetRequest struct
- 
+Other parameters are passed through a pointer to a CreateAssetParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -82,8 +81,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -92,32 +91,31 @@ Name | Type | Description  | Notes
 
 ## CreateBuild
 
-> ServerlessV1ServiceBuild CreateBuild(ctx, ServiceSid, optional)
+> ServerlessV1ServiceBuild CreateBuild(ctx, ServiceSidoptional)
 
 
 
 Create a new Build resource. At least one function version or asset version is required.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to create the Build resource under. | 
- **optional** | ***CreateBuildRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to create the Build resource under. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateBuildRequest struct
- 
+Other parameters are passed through a pointer to a CreateBuildParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AssetVersions** | [**[]string**](string.md)| The list of Asset Version resource SIDs to include in the Build. | 
-**Dependencies** | **String**| A list of objects that describe the Dependencies included in the Build. Each object contains the &#x60;name&#x60; and &#x60;version&#x60; of the dependency. | 
-**FunctionVersions** | [**[]string**](string.md)| The list of the Function Version resource SIDs to include in the Build. | 
-**Runtime** | **String**| The Runtime version that will be used to run the Build resource when it is deployed. | 
+**AssetVersions** | **[]string** | The list of Asset Version resource SIDs to include in the Build. | 
+**Dependencies** | **string** | A list of objects that describe the Dependencies included in the Build. Each object contains the &#x60;name&#x60; and &#x60;version&#x60; of the dependency. | 
+**FunctionVersions** | **[]string** | The list of the Function Version resource SIDs to include in the Build. | 
+**Runtime** | **string** | The Runtime version that will be used to run the Build resource when it is deployed. | 
 
 ### Return type
 
@@ -129,8 +127,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -139,30 +137,29 @@ Name | Type | Description  | Notes
 
 ## CreateDeployment
 
-> ServerlessV1ServiceEnvironmentDeployment CreateDeployment(ctx, ServiceSid, EnvironmentSid, optional)
+> ServerlessV1ServiceEnvironmentDeployment CreateDeployment(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
 Create a new Deployment.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to create the Deployment resource under. | 
-**EnvironmentSid** | **string**| The SID of the Environment for the Deployment. | 
- **optional** | ***CreateDeploymentRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to create the Deployment resource under. | 
+**EnvironmentSid** | **string** | The SID of the Environment for the Deployment. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateDeploymentRequest struct
- 
+Other parameters are passed through a pointer to a CreateDeploymentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**BuildSid** | **String**| The SID of the Build for the Deployment. | 
+**BuildSid** | **string** | The SID of the Build for the Deployment. | 
 
 ### Return type
 
@@ -174,8 +171,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -184,30 +181,29 @@ Name | Type | Description  | Notes
 
 ## CreateEnvironment
 
-> ServerlessV1ServiceEnvironment CreateEnvironment(ctx, ServiceSid, optional)
+> ServerlessV1ServiceEnvironment CreateEnvironment(ctx, ServiceSidoptional)
 
 
 
 Create a new environment.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to create the Environment resource under. | 
- **optional** | ***CreateEnvironmentRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to create the Environment resource under. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateEnvironmentRequest struct
- 
+Other parameters are passed through a pointer to a CreateEnvironmentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DomainSuffix** | **String**| A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. | 
-**UniqueName** | **String**| A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. | 
+**DomainSuffix** | **string** | A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. | 
+**UniqueName** | **string** | A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. | 
 
 ### Return type
 
@@ -219,8 +215,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -229,29 +225,28 @@ Name | Type | Description  | Notes
 
 ## CreateFunction
 
-> ServerlessV1ServiceFunction CreateFunction(ctx, ServiceSid, optional)
+> ServerlessV1ServiceFunction CreateFunction(ctx, ServiceSidoptional)
 
 
 
 Create a new Function resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to create the Function resource under. | 
- **optional** | ***CreateFunctionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to create the Function resource under. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateFunctionRequest struct
- 
+Other parameters are passed through a pointer to a CreateFunctionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -263,8 +258,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -279,25 +274,21 @@ Name | Type | Description  | Notes
 
 Create a new Service resource.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateServiceRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateServiceRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
-**IncludeCredentials** | **Bool**| Whether to inject Account credentials into a function invocation context. The default value is &#x60;true&#x60;. | 
-**UiEditable** | **Bool**| Whether the Service&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
-**UniqueName** | **String**| A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
+**IncludeCredentials** | **bool** | Whether to inject Account credentials into a function invocation context. The default value is &#x60;true&#x60;. | 
+**UiEditable** | **bool** | Whether the Service&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
+**UniqueName** | **string** | A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique. | 
 
 ### Return type
 
@@ -309,8 +300,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -319,31 +310,30 @@ Name | Type | Description  | Notes
 
 ## CreateVariable
 
-> ServerlessV1ServiceEnvironmentVariable CreateVariable(ctx, ServiceSid, EnvironmentSid, optional)
+> ServerlessV1ServiceEnvironmentVariable CreateVariable(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
 Create a new Variable.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to create the Variable resource under. | 
-**EnvironmentSid** | **string**| The SID of the Environment in which the Variable resource exists. | 
- **optional** | ***CreateVariableRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to create the Variable resource under. | 
+**EnvironmentSid** | **string** | The SID of the Environment in which the Variable resource exists. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateVariableRequest struct
- 
+Other parameters are passed through a pointer to a CreateVariableParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Key** | **String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
-**Value** | **String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
+**Key** | **string** | A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
+**Value** | **string** | A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
 
 ### Return type
 
@@ -355,8 +345,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -365,20 +355,28 @@ Name | Type | Description  | Notes
 
 ## DeleteAsset
 
-> DeleteAsset(ctx, ServiceSid, Sid)
+> DeleteAsset(ctx, ServiceSidSid)
 
 
 
 Delete an Asset resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to delete the Asset resource from. | 
-**Sid** | **string**| The SID that identifies the Asset resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Asset resource from. | 
+**Sid** | **string** | The SID that identifies the Asset resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteAssetParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -400,20 +398,28 @@ Name | Type | Description  | Notes
 
 ## DeleteBuild
 
-> DeleteBuild(ctx, ServiceSid, Sid)
+> DeleteBuild(ctx, ServiceSidSid)
 
 
 
 Delete a Build resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to delete the Build resource from. | 
-**Sid** | **string**| The SID of the Build resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Build resource from. | 
+**Sid** | **string** | The SID of the Build resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteBuildParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -435,20 +441,28 @@ Name | Type | Description  | Notes
 
 ## DeleteEnvironment
 
-> DeleteEnvironment(ctx, ServiceSid, Sid)
+> DeleteEnvironment(ctx, ServiceSidSid)
 
 
 
 Delete a specific environment.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to delete the Environment resource from. | 
-**Sid** | **string**| The SID of the Environment resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Environment resource from. | 
+**Sid** | **string** | The SID of the Environment resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteEnvironmentParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -470,20 +484,28 @@ Name | Type | Description  | Notes
 
 ## DeleteFunction
 
-> DeleteFunction(ctx, ServiceSid, Sid)
+> DeleteFunction(ctx, ServiceSidSid)
 
 
 
 Delete a Function resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to delete the Function resource from. | 
-**Sid** | **string**| The SID of the Function resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Function resource from. | 
+**Sid** | **string** | The SID of the Function resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteFunctionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -511,13 +533,21 @@ Name | Type | Description  | Notes
 
 Delete a Service resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to delete. | 
+**Sid** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteServiceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -539,21 +569,29 @@ Name | Type | Description  | Notes
 
 ## DeleteVariable
 
-> DeleteVariable(ctx, ServiceSid, EnvironmentSid, Sid)
+> DeleteVariable(ctx, ServiceSidEnvironmentSidSid)
 
 
 
 Delete a specific Variable.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to delete the Variable resource from. | 
-**EnvironmentSid** | **string**| The SID of the Environment with the Variables to delete. | 
-**Sid** | **string**| The SID of the Variable resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Variable resource from. | 
+**EnvironmentSid** | **string** | The SID of the Environment with the Variables to delete. | 
+**Sid** | **string** | The SID of the Variable resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteVariableParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -575,20 +613,28 @@ Name | Type | Description  | Notes
 
 ## FetchAsset
 
-> ServerlessV1ServiceAsset FetchAsset(ctx, ServiceSid, Sid)
+> ServerlessV1ServiceAsset FetchAsset(ctx, ServiceSidSid)
 
 
 
 Retrieve a specific Asset resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Asset resource from. | 
-**Sid** | **string**| The SID that identifies the Asset resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Asset resource from. | 
+**Sid** | **string** | The SID that identifies the Asset resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAssetParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -601,7 +647,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -610,21 +656,29 @@ Name | Type | Description  | Notes
 
 ## FetchAssetVersion
 
-> ServerlessV1ServiceAssetAssetVersion FetchAssetVersion(ctx, ServiceSid, AssetSid, Sid)
+> ServerlessV1ServiceAssetAssetVersion FetchAssetVersion(ctx, ServiceSidAssetSidSid)
 
 
 
 Retrieve a specific Asset Version.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Asset Version resource from. | 
-**AssetSid** | **string**| The SID of the Asset resource that is the parent of the Asset Version resource to fetch. | 
-**Sid** | **string**| The SID of the Asset Version resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Asset Version resource from. | 
+**AssetSid** | **string** | The SID of the Asset resource that is the parent of the Asset Version resource to fetch. | 
+**Sid** | **string** | The SID of the Asset Version resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAssetVersionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -637,7 +691,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -646,20 +700,28 @@ Name | Type | Description  | Notes
 
 ## FetchBuild
 
-> ServerlessV1ServiceBuild FetchBuild(ctx, ServiceSid, Sid)
+> ServerlessV1ServiceBuild FetchBuild(ctx, ServiceSidSid)
 
 
 
 Retrieve a specific Build resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Build resource from. | 
-**Sid** | **string**| The SID of the Build resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Build resource from. | 
+**Sid** | **string** | The SID of the Build resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchBuildParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -672,7 +734,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -681,20 +743,28 @@ Name | Type | Description  | Notes
 
 ## FetchBuildStatus
 
-> ServerlessV1ServiceBuildBuildStatus FetchBuildStatus(ctx, ServiceSid, Sid)
+> ServerlessV1ServiceBuildBuildStatus FetchBuildStatus(ctx, ServiceSidSid)
 
 
 
 Retrieve a specific Build resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Build resource from. | 
-**Sid** | **string**| The SID of the Build resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Build resource from. | 
+**Sid** | **string** | The SID of the Build resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchBuildStatusParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -707,7 +777,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -716,21 +786,29 @@ Name | Type | Description  | Notes
 
 ## FetchDeployment
 
-> ServerlessV1ServiceEnvironmentDeployment FetchDeployment(ctx, ServiceSid, EnvironmentSid, Sid)
+> ServerlessV1ServiceEnvironmentDeployment FetchDeployment(ctx, ServiceSidEnvironmentSidSid)
 
 
 
 Retrieve a specific Deployment.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Deployment resource from. | 
-**EnvironmentSid** | **string**| The SID of the Environment used by the Deployment to fetch. | 
-**Sid** | **string**| The SID that identifies the Deployment resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Deployment resource from. | 
+**EnvironmentSid** | **string** | The SID of the Environment used by the Deployment to fetch. | 
+**Sid** | **string** | The SID that identifies the Deployment resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchDeploymentParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -743,7 +821,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -752,20 +830,28 @@ Name | Type | Description  | Notes
 
 ## FetchEnvironment
 
-> ServerlessV1ServiceEnvironment FetchEnvironment(ctx, ServiceSid, Sid)
+> ServerlessV1ServiceEnvironment FetchEnvironment(ctx, ServiceSidSid)
 
 
 
 Retrieve a specific environment.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Environment resource from. | 
-**Sid** | **string**| The SID of the Environment resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Environment resource from. | 
+**Sid** | **string** | The SID of the Environment resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchEnvironmentParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -778,7 +864,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -787,20 +873,28 @@ Name | Type | Description  | Notes
 
 ## FetchFunction
 
-> ServerlessV1ServiceFunction FetchFunction(ctx, ServiceSid, Sid)
+> ServerlessV1ServiceFunction FetchFunction(ctx, ServiceSidSid)
 
 
 
 Retrieve a specific Function resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Function resource from. | 
-**Sid** | **string**| The SID of the Function resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Function resource from. | 
+**Sid** | **string** | The SID of the Function resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchFunctionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -813,7 +907,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -822,21 +916,29 @@ Name | Type | Description  | Notes
 
 ## FetchFunctionVersion
 
-> ServerlessV1ServiceFunctionFunctionVersion FetchFunctionVersion(ctx, ServiceSid, FunctionSid, Sid)
+> ServerlessV1ServiceFunctionFunctionVersion FetchFunctionVersion(ctx, ServiceSidFunctionSidSid)
 
 
 
 Retrieve a specific Function Version resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Function Version resource from. | 
-**FunctionSid** | **string**| The SID of the function that is the parent of the Function Version resource to fetch. | 
-**Sid** | **string**| The SID of the Function Version resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Function Version resource from. | 
+**FunctionSid** | **string** | The SID of the function that is the parent of the Function Version resource to fetch. | 
+**Sid** | **string** | The SID of the Function Version resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchFunctionVersionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -849,7 +951,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -858,21 +960,29 @@ Name | Type | Description  | Notes
 
 ## FetchFunctionVersionContent
 
-> ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent FetchFunctionVersionContent(ctx, ServiceSid, FunctionSid, Sid)
+> ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent FetchFunctionVersionContent(ctx, ServiceSidFunctionSidSid)
 
 
 
 Retrieve a the content of a specific Function Version resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Function Version content from. | 
-**FunctionSid** | **string**| The SID of the Function that is the parent of the Function Version content to fetch. | 
-**Sid** | **string**| The SID of the Function Version content to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Function Version content from. | 
+**FunctionSid** | **string** | The SID of the Function that is the parent of the Function Version content to fetch. | 
+**Sid** | **string** | The SID of the Function Version content to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchFunctionVersionContentParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -885,7 +995,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -894,21 +1004,29 @@ Name | Type | Description  | Notes
 
 ## FetchLog
 
-> ServerlessV1ServiceEnvironmentLog FetchLog(ctx, ServiceSid, EnvironmentSid, Sid)
+> ServerlessV1ServiceEnvironmentLog FetchLog(ctx, ServiceSidEnvironmentSidSid)
 
 
 
 Retrieve a specific log.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Log resource from. | 
-**EnvironmentSid** | **string**| The SID of the environment with the Log resource to fetch. | 
-**Sid** | **string**| The SID of the Log resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Log resource from. | 
+**EnvironmentSid** | **string** | The SID of the environment with the Log resource to fetch. | 
+**Sid** | **string** | The SID of the Log resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchLogParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -921,7 +1039,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -936,13 +1054,21 @@ Name | Type | Description  | Notes
 
 Retrieve a specific Service resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to fetch. | 
+**Sid** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchServiceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -955,7 +1081,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -964,21 +1090,29 @@ Name | Type | Description  | Notes
 
 ## FetchVariable
 
-> ServerlessV1ServiceEnvironmentVariable FetchVariable(ctx, ServiceSid, EnvironmentSid, Sid)
+> ServerlessV1ServiceEnvironmentVariable FetchVariable(ctx, ServiceSidEnvironmentSidSid)
 
 
 
 Retrieve a specific Variable.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to fetch the Variable resource from. | 
-**EnvironmentSid** | **string**| The SID of the Environment with the Variable resource to fetch. | 
-**Sid** | **string**| The SID of the Variable resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Variable resource from. | 
+**EnvironmentSid** | **string** | The SID of the Environment with the Variable resource to fetch. | 
+**Sid** | **string** | The SID of the Variable resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchVariableParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -991,7 +1125,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1000,29 +1134,28 @@ Name | Type | Description  | Notes
 
 ## ListAsset
 
-> ListAssetResponse ListAsset(ctx, ServiceSid, optional)
+> ListAssetResponse ListAsset(ctx, ServiceSidoptional)
 
 
 
 Retrieve a list of all Assets.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to read the Asset resources from. | 
- **optional** | ***ListAssetRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to read the Asset resources from. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAssetRequest struct
- 
+Other parameters are passed through a pointer to a ListAssetParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1035,7 +1168,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1044,30 +1177,29 @@ Name | Type | Description  | Notes
 
 ## ListAssetVersion
 
-> ListAssetVersionResponse ListAssetVersion(ctx, ServiceSid, AssetSid, optional)
+> ListAssetVersionResponse ListAssetVersion(ctx, ServiceSidAssetSidoptional)
 
 
 
 Retrieve a list of all Asset Versions.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to read the Asset Version resource from. | 
-**AssetSid** | **string**| The SID of the Asset resource that is the parent of the Asset Version resources to read. | 
- **optional** | ***ListAssetVersionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to read the Asset Version resource from. | 
+**AssetSid** | **string** | The SID of the Asset resource that is the parent of the Asset Version resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAssetVersionRequest struct
- 
+Other parameters are passed through a pointer to a ListAssetVersionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1080,7 +1212,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1089,29 +1221,28 @@ Name | Type | Description  | Notes
 
 ## ListBuild
 
-> ListBuildResponse ListBuild(ctx, ServiceSid, optional)
+> ListBuildResponse ListBuild(ctx, ServiceSidoptional)
 
 
 
 Retrieve a list of all Builds.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to read the Build resources from. | 
- **optional** | ***ListBuildRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to read the Build resources from. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListBuildRequest struct
- 
+Other parameters are passed through a pointer to a ListBuildParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1124,7 +1255,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1133,30 +1264,29 @@ Name | Type | Description  | Notes
 
 ## ListDeployment
 
-> ListDeploymentResponse ListDeployment(ctx, ServiceSid, EnvironmentSid, optional)
+> ListDeploymentResponse ListDeployment(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
 Retrieve a list of all Deployments.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to read the Deployment resources from. | 
-**EnvironmentSid** | **string**| The SID of the Environment used by the Deployment resources to read. | 
- **optional** | ***ListDeploymentRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to read the Deployment resources from. | 
+**EnvironmentSid** | **string** | The SID of the Environment used by the Deployment resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListDeploymentRequest struct
- 
+Other parameters are passed through a pointer to a ListDeploymentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1169,7 +1299,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1178,29 +1308,28 @@ Name | Type | Description  | Notes
 
 ## ListEnvironment
 
-> ListEnvironmentResponse ListEnvironment(ctx, ServiceSid, optional)
+> ListEnvironmentResponse ListEnvironment(ctx, ServiceSidoptional)
 
 
 
 Retrieve a list of all environments.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to read the Environment resources from. | 
- **optional** | ***ListEnvironmentRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to read the Environment resources from. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListEnvironmentRequest struct
- 
+Other parameters are passed through a pointer to a ListEnvironmentParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1213,7 +1342,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1222,29 +1351,28 @@ Name | Type | Description  | Notes
 
 ## ListFunction
 
-> ListFunctionResponse ListFunction(ctx, ServiceSid, optional)
+> ListFunctionResponse ListFunction(ctx, ServiceSidoptional)
 
 
 
 Retrieve a list of all Functions.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to read the Function resources from. | 
- **optional** | ***ListFunctionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to read the Function resources from. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListFunctionRequest struct
- 
+Other parameters are passed through a pointer to a ListFunctionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1257,7 +1385,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1266,30 +1394,29 @@ Name | Type | Description  | Notes
 
 ## ListFunctionVersion
 
-> ListFunctionVersionResponse ListFunctionVersion(ctx, ServiceSid, FunctionSid, optional)
+> ListFunctionVersionResponse ListFunctionVersion(ctx, ServiceSidFunctionSidoptional)
 
 
 
 Retrieve a list of all Function Version resources.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to read the Function Version resources from. | 
-**FunctionSid** | **string**| The SID of the function that is the parent of the Function Version resources to read. | 
- **optional** | ***ListFunctionVersionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to read the Function Version resources from. | 
+**FunctionSid** | **string** | The SID of the function that is the parent of the Function Version resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListFunctionVersionRequest struct
- 
+Other parameters are passed through a pointer to a ListFunctionVersionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1302,7 +1429,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1311,33 +1438,32 @@ Name | Type | Description  | Notes
 
 ## ListLog
 
-> ListLogResponse ListLog(ctx, ServiceSid, EnvironmentSid, optional)
+> ListLogResponse ListLog(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
 Retrieve a list of all logs.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to read the Log resource from. | 
-**EnvironmentSid** | **string**| The SID of the environment with the Log resources to read. | 
- **optional** | ***ListLogRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to read the Log resource from. | 
+**EnvironmentSid** | **string** | The SID of the environment with the Log resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListLogRequest struct
- 
+Other parameters are passed through a pointer to a ListLogParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FunctionSid** | **String**| The SID of the function whose invocation produced the Log resources to read. | 
-**StartDate** | **Time**| The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. | 
-**EndDate** | **Time**| The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**FunctionSid** | **string** | The SID of the function whose invocation produced the Log resources to read. | 
+**StartDate** | **time.Time** | The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. | 
+**EndDate** | **time.Time** | The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1350,7 +1476,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1365,22 +1491,18 @@ Name | Type | Description  | Notes
 
 Retrieve a list of all Services.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListServiceRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListServiceRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1393,7 +1515,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1402,30 +1524,29 @@ Name | Type | Description  | Notes
 
 ## ListVariable
 
-> ListVariableResponse ListVariable(ctx, ServiceSid, EnvironmentSid, optional)
+> ListVariableResponse ListVariable(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
 Retrieve a list of all Variables.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to read the Variable resources from. | 
-**EnvironmentSid** | **string**| The SID of the Environment with the Variable resources to read. | 
- **optional** | ***ListVariableRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to read the Variable resources from. | 
+**EnvironmentSid** | **string** | The SID of the Environment with the Variable resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListVariableRequest struct
- 
+Other parameters are passed through a pointer to a ListVariableParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -1438,7 +1559,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1447,30 +1568,29 @@ Name | Type | Description  | Notes
 
 ## UpdateAsset
 
-> ServerlessV1ServiceAsset UpdateAsset(ctx, ServiceSid, Sid, optional)
+> ServerlessV1ServiceAsset UpdateAsset(ctx, ServiceSidSidoptional)
 
 
 
 Update a specific Asset resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to update the Asset resource from. | 
-**Sid** | **string**| The SID that identifies the Asset resource to update. | 
- **optional** | ***UpdateAssetRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to update the Asset resource from. | 
+**Sid** | **string** | The SID that identifies the Asset resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateAssetRequest struct
- 
+Other parameters are passed through a pointer to a UpdateAssetParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -1482,8 +1602,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1492,30 +1612,29 @@ Name | Type | Description  | Notes
 
 ## UpdateFunction
 
-> ServerlessV1ServiceFunction UpdateFunction(ctx, ServiceSid, Sid, optional)
+> ServerlessV1ServiceFunction UpdateFunction(ctx, ServiceSidSidoptional)
 
 
 
 Update a specific Function resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to update the Function resource from. | 
-**Sid** | **string**| The SID of the Function resource to update. | 
- **optional** | ***UpdateFunctionRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to update the Function resource from. | 
+**Sid** | **string** | The SID of the Function resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateFunctionRequest struct
- 
+Other parameters are passed through a pointer to a UpdateFunctionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
 
 ### Return type
 
@@ -1527,8 +1646,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1537,31 +1656,30 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> ServerlessV1Service UpdateService(ctx, Sid, optional)
+> ServerlessV1Service UpdateService(ctx, Sidoptional)
 
 
 
 Update a specific Service resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to update. | 
- **optional** | ***UpdateServiceRequest** | optional parameters | nil if no parameters
+**Sid** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateServiceRequest struct
- 
+Other parameters are passed through a pointer to a UpdateServiceParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
-**IncludeCredentials** | **Bool**| Whether to inject Account credentials into a function invocation context. | 
-**UiEditable** | **Bool**| Whether the Service resource&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
+**IncludeCredentials** | **bool** | Whether to inject Account credentials into a function invocation context. | 
+**UiEditable** | **bool** | Whether the Service resource&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -1573,8 +1691,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1583,32 +1701,31 @@ Name | Type | Description  | Notes
 
 ## UpdateVariable
 
-> ServerlessV1ServiceEnvironmentVariable UpdateVariable(ctx, ServiceSid, EnvironmentSid, Sid, optional)
+> ServerlessV1ServiceEnvironmentVariable UpdateVariable(ctx, ServiceSidEnvironmentSidSidoptional)
 
 
 
 Update a specific Variable.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string**| The SID of the Service to update the Variable resource under. | 
-**EnvironmentSid** | **string**| The SID of the Environment with the Variable resource to update. | 
-**Sid** | **string**| The SID of the Variable resource to update. | 
- **optional** | ***UpdateVariableRequest** | optional parameters | nil if no parameters
+**ServiceSid** | **string** | The SID of the Service to update the Variable resource under. | 
+**EnvironmentSid** | **string** | The SID of the Environment with the Variable resource to update. | 
+**Sid** | **string** | The SID of the Variable resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateVariableRequest struct
- 
+Other parameters are passed through a pointer to a UpdateVariableParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Key** | **String**| A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
-**Value** | **String**| A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
+**Key** | **string** | A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
+**Value** | **string** | A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
 
 ### Return type
 
@@ -1620,8 +1737,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

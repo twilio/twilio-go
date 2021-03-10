@@ -5,7 +5,7 @@ Name | Type | Notes
 ------------ | ------------- | -------------
 **AccountSid** | Pointer to **string** | 
 **ChatServiceSid** | Pointer to **string** | 
-**Configuration** | Pointer to [**map[string]interface{}**](.md) | 
+**Configuration** | Pointer to **map[string]interface{}** | 
 **ConversationSid** | Pointer to **string** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 

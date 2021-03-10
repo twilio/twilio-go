@@ -64,10 +64,6 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [BundleStatus](docs/BundleStatus.md)
- - [CreateBundleRequest](docs/CreateBundleRequest.md)
- - [CreateEndUserRequest](docs/CreateEndUserRequest.md)
- - [CreateItemAssignmentRequest](docs/CreateItemAssignmentRequest.md)
- - [CreateSupportingDocumentRequest](docs/CreateSupportingDocumentRequest.md)
  - [EndUserType](docs/EndUserType.md)
  - [EvaluationStatus](docs/EvaluationStatus.md)
  - [ListBundleResponse](docs/ListBundleResponse.md)
@@ -89,9 +85,6 @@ Class | Method | HTTP request | Description
  - [NumbersV2RegulatoryComplianceSupportingDocumentType](docs/NumbersV2RegulatoryComplianceSupportingDocumentType.md)
  - [RegulationEndUserType](docs/RegulationEndUserType.md)
  - [SupportingDocumentStatus](docs/SupportingDocumentStatus.md)
- - [UpdateBundleRequest](docs/UpdateBundleRequest.md)
- - [UpdateEndUserRequest](docs/UpdateEndUserRequest.md)
- - [UpdateSupportingDocumentRequest](docs/UpdateSupportingDocumentRequest.md)
 
 
 ## Documentation For Authorization

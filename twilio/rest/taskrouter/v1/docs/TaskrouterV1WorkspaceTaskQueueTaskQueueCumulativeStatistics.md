@@ -12,7 +12,7 @@ Name | Type | Notes
 **ReservationsRejected** | Pointer to **int32** | 
 **ReservationsRescinded** | Pointer to **int32** | 
 **ReservationsTimedOut** | Pointer to **int32** | 
-**SplitByWaitTime** | Pointer to [**map[string]interface{}**](.md) | 
+**SplitByWaitTime** | Pointer to **map[string]interface{}** | 
 **StartTime** | Pointer to [**time.Time**](time.Time.md) | 
 **TaskQueueSid** | Pointer to **string** | 
 **TasksCanceled** | Pointer to **int32** | 
@@ -21,9 +21,9 @@ Name | Type | Notes
 **TasksEntered** | Pointer to **int32** | 
 **TasksMoved** | Pointer to **int32** | 
 **Url** | Pointer to **string** | 
-**WaitDurationInQueueUntilAccepted** | Pointer to [**map[string]interface{}**](.md) | 
-**WaitDurationUntilAccepted** | Pointer to [**map[string]interface{}**](.md) | 
-**WaitDurationUntilCanceled** | Pointer to [**map[string]interface{}**](.md) | 
+**WaitDurationInQueueUntilAccepted** | Pointer to **map[string]interface{}** | 
+**WaitDurationUntilAccepted** | Pointer to **map[string]interface{}** | 
+**WaitDurationUntilCanceled** | Pointer to **map[string]interface{}** | 
 **WorkspaceSid** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

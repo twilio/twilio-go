@@ -10,7 +10,7 @@ Name | Type | Notes
 **Direction** | Pointer to [**FaxDirection**](fax_direction.md) | 
 **Duration** | Pointer to **int32** | 
 **From** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **MediaSid** | Pointer to **string** | 
 **MediaUrl** | Pointer to **string** | 
 **NumPages** | Pointer to **int32** | 

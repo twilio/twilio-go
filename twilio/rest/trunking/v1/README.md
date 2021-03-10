@@ -59,11 +59,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CreateCredentialListRequest](docs/CreateCredentialListRequest.md)
- - [CreateIpAccessControlListRequest](docs/CreateIpAccessControlListRequest.md)
- - [CreateOriginationUrlRequest](docs/CreateOriginationUrlRequest.md)
- - [CreatePhoneNumberRequest](docs/CreatePhoneNumberRequest.md)
- - [CreateTrunkRequest](docs/CreateTrunkRequest.md)
  - [HttpMethod](docs/HttpMethod.md)
  - [ListCredentialListResponse](docs/ListCredentialListResponse.md)
  - [ListIpAccessControlListResponse](docs/ListIpAccessControlListResponse.md)
@@ -81,9 +76,6 @@ Class | Method | HTTP request | Description
  - [TrunkingV1TrunkOriginationUrl](docs/TrunkingV1TrunkOriginationUrl.md)
  - [TrunkingV1TrunkPhoneNumber](docs/TrunkingV1TrunkPhoneNumber.md)
  - [TrunkingV1TrunkRecording](docs/TrunkingV1TrunkRecording.md)
- - [UpdateOriginationUrlRequest](docs/UpdateOriginationUrlRequest.md)
- - [UpdateRecordingRequest](docs/UpdateRecordingRequest.md)
- - [UpdateTrunkRequest](docs/UpdateTrunkRequest.md)
 
 
 ## Documentation For Authorization

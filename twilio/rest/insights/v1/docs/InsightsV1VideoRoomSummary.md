@@ -12,7 +12,7 @@ Name | Type | Notes
 **EdgeLocation** | Pointer to [**VideoRoomSummaryEdgeLocation**](video_room_summary_edge_location.md) | 
 **EndReason** | Pointer to [**VideoRoomSummaryEndReason**](video_room_summary_end_reason.md) | 
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **MaxConcurrentParticipants** | Pointer to **int32** | 
 **MaxParticipants** | Pointer to **int32** | 
 **MediaRegion** | Pointer to [**VideoRoomSummaryTwilioRealm**](video_room_summary_twilio_realm.md) | 

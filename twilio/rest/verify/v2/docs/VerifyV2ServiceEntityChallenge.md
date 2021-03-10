@@ -7,12 +7,12 @@ Name | Type | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateResponded** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
-**Details** | Pointer to [**map[string]interface{}**](.md) | 
+**Details** | Pointer to **map[string]interface{}** | 
 **EntitySid** | Pointer to **string** | 
 **ExpirationDate** | Pointer to [**time.Time**](time.Time.md) | 
 **FactorSid** | Pointer to **string** | 
 **FactorType** | Pointer to [**ChallengeFactorTypes**](challenge_factor_types.md) | 
-**HiddenDetails** | Pointer to [**map[string]interface{}**](.md) | 
+**HiddenDetails** | Pointer to **map[string]interface{}** | 
 **Identity** | Pointer to **string** | 
 **RespondedReason** | Pointer to [**ChallengeChallengeReasons**](challenge_challenge_reasons.md) | 
 **ServiceSid** | Pointer to **string** | 

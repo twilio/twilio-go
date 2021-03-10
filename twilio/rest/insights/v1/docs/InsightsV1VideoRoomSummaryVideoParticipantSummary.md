@@ -15,8 +15,8 @@ Name | Type | Notes
 **MediaRegion** | Pointer to [**VideoParticipantSummaryTwilioRealm**](video_participant_summary_twilio_realm.md) | 
 **ParticipantIdentity** | Pointer to **string** | 
 **ParticipantSid** | Pointer to **string** | 
-**Properties** | Pointer to [**map[string]interface{}**](.md) | 
-**PublisherInfo** | Pointer to [**map[string]interface{}**](.md) | 
+**Properties** | Pointer to **map[string]interface{}** | 
+**PublisherInfo** | Pointer to **map[string]interface{}** | 
 **RoomSid** | Pointer to **string** | 
 **Status** | Pointer to [**VideoParticipantSummaryRoomStatus**](video_participant_summary_room_status.md) | 
 **Url** | Pointer to **string** | 

@@ -7,7 +7,7 @@ Name | Type | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **Description** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **ServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **UniqueName** | Pointer to **string** | 

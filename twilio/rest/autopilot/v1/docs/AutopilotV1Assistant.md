@@ -11,7 +11,7 @@ Name | Type | Notes
 **DevelopmentStage** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
 **LatestModelBuildSid** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **LogQueries** | Pointer to **bool** | 
 **NeedsModelBuild** | Pointer to **bool** | 
 **Sid** | Pointer to **string** | 

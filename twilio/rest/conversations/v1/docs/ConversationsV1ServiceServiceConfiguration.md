@@ -7,7 +7,7 @@ Name | Type | Notes
 **DefaultChatServiceRoleSid** | Pointer to **string** | 
 **DefaultConversationCreatorRoleSid** | Pointer to **string** | 
 **DefaultConversationRoleSid** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **ReachabilityEnabled** | Pointer to **bool** | 
 **Url** | Pointer to **string** | 
 

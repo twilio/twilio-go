@@ -11,7 +11,7 @@ goimports:
 	goimports -w twilio
 
 govet: goimports
-	go vet
+	go vet ./...
 
 golint: govet
 	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.37.0

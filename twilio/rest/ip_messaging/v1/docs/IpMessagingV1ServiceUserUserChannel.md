@@ -6,7 +6,7 @@ Name | Type | Notes
 **AccountSid** | Pointer to **string** | 
 **ChannelSid** | Pointer to **string** | 
 **LastConsumedMessageIndex** | Pointer to **int32** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **MemberSid** | Pointer to **string** | 
 **ServiceSid** | Pointer to **string** | 
 **Status** | Pointer to [**UserChannelChannelStatus**](user_channel_channel_status.md) | 

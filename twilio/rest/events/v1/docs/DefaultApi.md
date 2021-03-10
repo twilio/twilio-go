@@ -32,24 +32,20 @@ Method | HTTP request | Description
 
 Create a new Sink
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateSinkParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateSinkRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateSinkRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Description** | **String**| A human readable description for the Sink **This value should not contain PII.** | 
-**SinkConfiguration** | [**map[string]interface{}**](map[string]interface{}.md)| The information required for Twilio to connect to the provided Sink encoded as JSON. | 
-**SinkType** | **String**| The Sink type. Can only be \\\&quot;kinesis\\\&quot; or \\\&quot;webhook\\\&quot; currently. | 
+**Description** | **string** | A human readable description for the Sink **This value should not contain PII.** | 
+**SinkConfiguration** | [**map[string]interface{}**](map[string]interface{}.md) | The information required for Twilio to connect to the provided Sink encoded as JSON. | 
+**SinkType** | **string** | The Sink type. Can only be \\\&quot;kinesis\\\&quot; or \\\&quot;webhook\\\&quot; currently. | 
 
 ### Return type
 
@@ -61,8 +57,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -77,13 +73,21 @@ Name | Type | Description  | Notes
 
 Create a new Sink Test Event for the given Sink.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies the Sink to be Tested. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the Sink to be Tested. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateSinkTestParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -95,8 +99,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -105,29 +109,28 @@ Name | Type | Description  | Notes
 
 ## CreateSinkValidate
 
-> EventsV1SinkSinkValidate CreateSinkValidate(ctx, Sid, optional)
+> EventsV1SinkSinkValidate CreateSinkValidate(ctx, Sidoptional)
 
 
 
 Validate that a test event for a Sink was received.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**|  | 
- **optional** | ***CreateSinkValidateRequest** | optional parameters | nil if no parameters
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSinkValidateRequest struct
- 
+Other parameters are passed through a pointer to a CreateSinkValidateParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**TestId** | **String**| A 34 character string that uniquely identifies the test event for a Sink being validated. | 
+**TestId** | **string** | A 34 character string that uniquely identifies the test event for a Sink being validated. | 
 
 ### Return type
 
@@ -139,8 +142,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -155,24 +158,20 @@ Name | Type | Description  | Notes
 
 Create a new Subscription.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateSubscriptionParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateSubscriptionRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateSubscriptionRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Description** | **String**| A human readable description for the Subscription **This value should not contain PII.** | 
-**SinkSid** | **String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
-**Types** | [**[]map[string]interface{}**](map[string]interface{}.md)| An array of objects containing the subscribed Event Types | 
+**Description** | **string** | A human readable description for the Subscription **This value should not contain PII.** | 
+**SinkSid** | **string** | The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
+**Types** | **[]map[string]interface{}** | An array of objects containing the subscribed Event Types | 
 
 ### Return type
 
@@ -184,8 +183,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -200,13 +199,21 @@ Name | Type | Description  | Notes
 
 Delete a specific Sink.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this Sink. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this Sink. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSinkParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -234,13 +241,21 @@ Name | Type | Description  | Notes
 
 Delete a specific Subscription.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this Subscription. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSubscriptionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -268,13 +283,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific Event Type.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Type** | **string**| A string that uniquely identifies this Event Type. | 
+**Type** | **string** | A string that uniquely identifies this Event Type. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchEventTypeParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -287,7 +310,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -302,13 +325,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific schema with its nested versions.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
+**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSchemaParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -321,7 +352,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -336,13 +367,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific Sink.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this Sink. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this Sink. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSinkParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -355,7 +394,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -370,13 +409,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific Subscription.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this Subscription. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSubscriptionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -389,7 +436,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -398,20 +445,28 @@ Name | Type | Description  | Notes
 
 ## FetchVersion
 
-> EventsV1SchemaVersion FetchVersion(ctx, Id, SchemaVersion)
+> EventsV1SchemaVersion FetchVersion(ctx, IdSchemaVersion)
 
 
 
 Fetch a specific schema and version.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
-**SchemaVersion** | **int32**| The version of the schema | 
+**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
+**SchemaVersion** | **int32** | The version of the schema | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchVersionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -424,7 +479,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -439,22 +494,18 @@ Name | Type | Description  | Notes
 
 Retrieve a paginated list of all the available Event Types.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListEventTypeParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListEventTypeRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListEventTypeRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -467,7 +518,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -482,22 +533,18 @@ Name | Type | Description  | Notes
 
 Retrieve a paginated list of Sinks belonging to the account used to make the request.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListSinkParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListSinkRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListSinkRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -510,7 +557,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -519,29 +566,28 @@ Name | Type | Description  | Notes
 
 ## ListSubscribedEvent
 
-> ListSubscribedEventResponse ListSubscribedEvent(ctx, SubscriptionSid, optional)
+> ListSubscribedEventResponse ListSubscribedEvent(ctx, SubscriptionSidoptional)
 
 
 
 Retrieve a list of all Subscribed Event types for a Subscription.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**SubscriptionSid** | **string**| The unique SID identifier of the Subscription. | 
- **optional** | ***ListSubscribedEventRequest** | optional parameters | nil if no parameters
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSubscribedEventRequest struct
- 
+Other parameters are passed through a pointer to a ListSubscribedEventParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -554,7 +600,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -569,23 +615,19 @@ Name | Type | Description  | Notes
 
 Retrieve a paginated list of Subscriptions belonging to the account used to make the request.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListSubscriptionParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListSubscriptionRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListSubscriptionRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**SinkSid** | **String**| The SID of the sink that the list of Subscriptions should be filtered by. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**SinkSid** | **string** | The SID of the sink that the list of Subscriptions should be filtered by. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -598,7 +640,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -607,29 +649,28 @@ Name | Type | Description  | Notes
 
 ## ListVersion
 
-> ListVersionResponse ListVersion(ctx, Id, optional)
+> ListVersionResponse ListVersion(ctx, Idoptional)
 
 
 
 Retrieve a paginated list of versions of the schema.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string**| The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
- **optional** | ***ListVersionRequest** | optional parameters | nil if no parameters
+**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListVersionRequest struct
- 
+Other parameters are passed through a pointer to a ListVersionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -642,7 +683,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -651,30 +692,29 @@ Name | Type | Description  | Notes
 
 ## UpdateSubscription
 
-> EventsV1Subscription UpdateSubscription(ctx, Sid, optional)
+> EventsV1Subscription UpdateSubscription(ctx, Sidoptional)
 
 
 
 Update a Subscription.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| A 34 character string that uniquely identifies this Subscription. | 
- **optional** | ***UpdateSubscriptionRequest** | optional parameters | nil if no parameters
+**Sid** | **string** | A 34 character string that uniquely identifies this Subscription. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSubscriptionRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSubscriptionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Description** | **String**| A human readable description for the Subscription. | 
-**SinkSid** | **String**| The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
+**Description** | **string** | A human readable description for the Subscription. | 
+**SinkSid** | **string** | The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
 
 ### Return type
 
@@ -686,8 +726,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

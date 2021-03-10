@@ -13,8 +13,8 @@ Name | Type | Notes
 **DisasterRecoveryUrl** | Pointer to **string** | 
 **DomainName** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
-**Recording** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
+**Recording** | Pointer to **map[string]interface{}** | 
 **Secure** | Pointer to **bool** | 
 **Sid** | Pointer to **string** | 
 **TransferMode** | Pointer to [**TrunkTransferSetting**](trunk_transfer_setting.md) | 

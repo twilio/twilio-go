@@ -52,13 +52,9 @@ Class | Method | HTTP request | Description
  - [AccountsV1CredentialCredentialAws](docs/AccountsV1CredentialCredentialAws.md)
  - [AccountsV1CredentialCredentialPublicKey](docs/AccountsV1CredentialCredentialPublicKey.md)
  - [AccountsV1SecondaryAuthToken](docs/AccountsV1SecondaryAuthToken.md)
- - [CreateCredentialAwsRequest](docs/CreateCredentialAwsRequest.md)
- - [CreateCredentialPublicKeyRequest](docs/CreateCredentialPublicKeyRequest.md)
  - [ListCredentialAwsResponse](docs/ListCredentialAwsResponse.md)
  - [ListCredentialAwsResponseMeta](docs/ListCredentialAwsResponseMeta.md)
  - [ListCredentialPublicKeyResponse](docs/ListCredentialPublicKeyResponse.md)
- - [UpdateCredentialAwsRequest](docs/UpdateCredentialAwsRequest.md)
- - [UpdateCredentialPublicKeyRequest](docs/UpdateCredentialPublicKeyRequest.md)
 
 
 ## Documentation For Authorization

@@ -13,7 +13,7 @@ Name | Type | Notes
 **Region** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **Status** | Pointer to [**ConferenceStatus**](conference_status.md) | 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**SubresourceUris** | Pointer to **map[string]interface{}** | 
 **Uri** | Pointer to **string** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

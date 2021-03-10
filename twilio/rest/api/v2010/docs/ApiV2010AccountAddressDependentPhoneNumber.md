@@ -6,7 +6,7 @@ Name | Type | Notes
 **AccountSid** | Pointer to **string** | 
 **AddressRequirements** | Pointer to [**DependentPhoneNumberAddressRequirement**](dependent_phone_number_address_requirement.md) | 
 **ApiVersion** | Pointer to **string** | 
-**Capabilities** | Pointer to [**map[string]interface{}**](.md) | 
+**Capabilities** | Pointer to **map[string]interface{}** | 
 **DateCreated** | Pointer to **string** | 
 **DateUpdated** | Pointer to **string** | 
 **EmergencyAddressSid** | Pointer to **string** | 

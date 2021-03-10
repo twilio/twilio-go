@@ -12,7 +12,7 @@ Name | Type | Notes
 **From** | Pointer to **string** | 
 **Index** | Pointer to **int32** | 
 **LastUpdatedBy** | Pointer to **string** | 
-**Media** | Pointer to [**map[string]interface{}**](.md) | 
+**Media** | Pointer to **map[string]interface{}** | 
 **ServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **To** | Pointer to **string** | 
