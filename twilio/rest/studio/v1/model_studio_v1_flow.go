@@ -17,13 +17,22 @@ import (
 
 // StudioV1Flow struct for StudioV1Flow
 type StudioV1Flow struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	DateCreated  *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time              `json:"DateUpdated,omitempty"`
-	FriendlyName *string                 `json:"FriendlyName,omitempty"`
-	Links        *map[string]interface{} `json:"Links,omitempty"`
-	Sid          *string                 `json:"Sid,omitempty"`
-	Status       *FlowStatus             `json:"Status,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
-	Version      *int32                  `json:"Version,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the Flow
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Nested resource URLs
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the Flow
+	Status *string `json:"Status,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
+	// The latest version number of the Flow's definition
+	Version *int32 `json:"Version,omitempty"`
 }

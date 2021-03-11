@@ -13,11 +13,18 @@ package openapi
 
 // ApiV2010AccountMessageMedia struct for ApiV2010AccountMessageMedia
 type ApiV2010AccountMessageMedia struct {
-	AccountSid  *string `json:"AccountSid,omitempty"`
+	// The SID of the Account that created this resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The default mime-type of the media
 	ContentType *string `json:"ContentType,omitempty"`
+	// The RFC 2822 date and time in GMT that this resource was created
 	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that this resource was last updated
 	DateUpdated *string `json:"DateUpdated,omitempty"`
-	ParentSid   *string `json:"ParentSid,omitempty"`
-	Sid         *string `json:"Sid,omitempty"`
-	Uri         *string `json:"Uri,omitempty"`
+	// The SID of the resource that created the media
+	ParentSid *string `json:"ParentSid,omitempty"`
+	// The unique string that identifies this resource
+	Sid *string `json:"Sid,omitempty"`
+	// The URI of this resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
 }

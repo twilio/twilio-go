@@ -17,8 +17,8 @@ type InsightsV1CallMetric struct {
 	CallSid     *string                 `json:"CallSid,omitempty"`
 	CarrierEdge *map[string]interface{} `json:"CarrierEdge,omitempty"`
 	ClientEdge  *map[string]interface{} `json:"ClientEdge,omitempty"`
-	Direction   *MetricStreamDirection  `json:"Direction,omitempty"`
-	Edge        *MetricTwilioEdge       `json:"Edge,omitempty"`
+	Direction   *string                 `json:"Direction,omitempty"`
+	Edge        *string                 `json:"Edge,omitempty"`
 	SdkEdge     *map[string]interface{} `json:"SdkEdge,omitempty"`
 	SipEdge     *map[string]interface{} `json:"SipEdge,omitempty"`
 	Timestamp   *string                 `json:"Timestamp,omitempty"`

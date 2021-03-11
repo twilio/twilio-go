@@ -17,24 +17,44 @@ import (
 
 // ProxyV1ServiceSessionParticipantMessageInteraction struct for ProxyV1ServiceSessionParticipantMessageInteraction
 type ProxyV1ServiceSessionParticipantMessageInteraction struct {
-	AccountSid             *string                           `json:"AccountSid,omitempty"`
-	Data                   *string                           `json:"Data,omitempty"`
-	DateCreated            *time.Time                        `json:"DateCreated,omitempty"`
-	DateUpdated            *time.Time                        `json:"DateUpdated,omitempty"`
-	InboundParticipantSid  *string                           `json:"InboundParticipantSid,omitempty"`
-	InboundResourceSid     *string                           `json:"InboundResourceSid,omitempty"`
-	InboundResourceStatus  *MessageInteractionResourceStatus `json:"InboundResourceStatus,omitempty"`
-	InboundResourceType    *string                           `json:"InboundResourceType,omitempty"`
-	InboundResourceUrl     *string                           `json:"InboundResourceUrl,omitempty"`
-	OutboundParticipantSid *string                           `json:"OutboundParticipantSid,omitempty"`
-	OutboundResourceSid    *string                           `json:"OutboundResourceSid,omitempty"`
-	OutboundResourceStatus *MessageInteractionResourceStatus `json:"OutboundResourceStatus,omitempty"`
-	OutboundResourceType   *string                           `json:"OutboundResourceType,omitempty"`
-	OutboundResourceUrl    *string                           `json:"OutboundResourceUrl,omitempty"`
-	ParticipantSid         *string                           `json:"ParticipantSid,omitempty"`
-	ServiceSid             *string                           `json:"ServiceSid,omitempty"`
-	SessionSid             *string                           `json:"SessionSid,omitempty"`
-	Sid                    *string                           `json:"Sid,omitempty"`
-	Type                   *MessageInteractionType           `json:"Type,omitempty"`
-	Url                    *string                           `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// A JSON string that includes the message body sent to the participant
+	Data *string `json:"Data,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Always empty for Message Interactions
+	InboundParticipantSid *string `json:"InboundParticipantSid,omitempty"`
+	// Always empty for Message Interactions
+	InboundResourceSid *string `json:"InboundResourceSid,omitempty"`
+	// Always empty for Message Interactions
+	InboundResourceStatus *string `json:"InboundResourceStatus,omitempty"`
+	// Always empty for Message Interactions
+	InboundResourceType *string `json:"InboundResourceType,omitempty"`
+	// Always empty for Message Interactions
+	InboundResourceUrl *string `json:"InboundResourceUrl,omitempty"`
+	// The SID of the outbound Participant resource
+	OutboundParticipantSid *string `json:"OutboundParticipantSid,omitempty"`
+	// The SID of the outbound Message resource
+	OutboundResourceSid *string `json:"OutboundResourceSid,omitempty"`
+	// The outbound resource status
+	OutboundResourceStatus *string `json:"OutboundResourceStatus,omitempty"`
+	// The outbound resource type
+	OutboundResourceType *string `json:"OutboundResourceType,omitempty"`
+	// The URL of the Twilio message resource
+	OutboundResourceUrl *string `json:"OutboundResourceUrl,omitempty"`
+	// The SID of the Participant resource
+	ParticipantSid *string `json:"ParticipantSid,omitempty"`
+	// The SID of the resource's parent Service
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The SID of the resource's parent Session
+	SessionSid *string `json:"SessionSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The Type of Message Interaction
+	Type *string `json:"Type,omitempty"`
+	// The absolute URL of the MessageInteraction resource
+	Url *string `json:"Url,omitempty"`
 }

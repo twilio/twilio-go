@@ -13,11 +13,18 @@ package openapi
 
 // ApiV2010AccountSipSipDomainSipIpAccessControlListMapping struct for ApiV2010AccountSipSipDomainSipIpAccessControlListMapping
 type ApiV2010AccountSipSipDomainSipIpAccessControlListMapping struct {
-	AccountSid      *string                 `json:"AccountSid,omitempty"`
-	DateCreated     *string                 `json:"DateCreated,omitempty"`
-	DateUpdated     *string                 `json:"DateUpdated,omitempty"`
-	FriendlyName    *string                 `json:"FriendlyName,omitempty"`
-	Sid             *string                 `json:"Sid,omitempty"`
+	// The unique id of the Account that is responsible for this resource.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The date that this resource was created, given as GMT in RFC 2822 format.
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The date that this resource was last updated, given as GMT in RFC 2822 format.
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// A human readable descriptive text for this resource, up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// A 34 character string that uniquely identifies this resource.
+	Sid *string `json:"Sid,omitempty"`
+	// The list of IP addresses associated with this domain.
 	SubresourceUris *map[string]interface{} `json:"SubresourceUris,omitempty"`
-	Uri             *string                 `json:"Uri,omitempty"`
+	// The URI for this resource, relative to https://api.twilio.com
+	Uri *string `json:"Uri,omitempty"`
 }

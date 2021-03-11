@@ -17,13 +17,21 @@ import (
 
 // ServerlessV1ServiceFunctionFunctionVersion struct for ServerlessV1ServiceFunctionFunctionVersion
 type ServerlessV1ServiceFunctionFunctionVersion struct {
-	AccountSid  *string                    `json:"AccountSid,omitempty"`
-	DateCreated *time.Time                 `json:"DateCreated,omitempty"`
-	FunctionSid *string                    `json:"FunctionSid,omitempty"`
-	Links       *map[string]interface{}    `json:"Links,omitempty"`
-	Path        *string                    `json:"Path,omitempty"`
-	ServiceSid  *string                    `json:"ServiceSid,omitempty"`
-	Sid         *string                    `json:"Sid,omitempty"`
-	Url         *string                    `json:"Url,omitempty"`
-	Visibility  *FunctionVersionVisibility `json:"Visibility,omitempty"`
+	// The SID of the Account that created the Function Version resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the Function Version resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The SID of the Function resource that is the parent of the Function Version resource
+	FunctionSid *string                 `json:"FunctionSid,omitempty"`
+	Links       *map[string]interface{} `json:"Links,omitempty"`
+	// The URL-friendly string by which the Function Version resource can be referenced
+	Path *string `json:"Path,omitempty"`
+	// The SID of the Service that the Function Version resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the Function Version resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Function Version resource
+	Url *string `json:"Url,omitempty"`
+	// The access control that determines how the Function Version resource can be accessed
+	Visibility *string `json:"Visibility,omitempty"`
 }

@@ -17,11 +17,17 @@ import (
 
 // EventsV1EventType struct for EventsV1EventType
 type EventsV1EventType struct {
-	DateCreated *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated *time.Time              `json:"DateUpdated,omitempty"`
+	// The date this Event Type was created.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date this Event Type was updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Event Type description.
 	Description *string                 `json:"Description,omitempty"`
 	Links       *map[string]interface{} `json:"Links,omitempty"`
-	SchemaId    *string                 `json:"SchemaId,omitempty"`
-	Type        *string                 `json:"Type,omitempty"`
-	Url         *string                 `json:"Url,omitempty"`
+	// The Schema identifier for this Event Type.
+	SchemaId *string `json:"SchemaId,omitempty"`
+	// The Event Type identifier.
+	Type *string `json:"Type,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"Url,omitempty"`
 }

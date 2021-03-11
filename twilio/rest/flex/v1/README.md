@@ -51,9 +51,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [ConfigurationStatus](docs/ConfigurationStatus.md)
- - [FlexFlowChannelType](docs/FlexFlowChannelType.md)
- - [FlexFlowIntegrationType](docs/FlexFlowIntegrationType.md)
  - [FlexV1Channel](docs/FlexV1Channel.md)
  - [FlexV1Configuration](docs/FlexV1Configuration.md)
  - [FlexV1FlexFlow](docs/FlexV1FlexFlow.md)

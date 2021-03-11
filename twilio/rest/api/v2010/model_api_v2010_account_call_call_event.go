@@ -13,6 +13,8 @@ package openapi
 
 // ApiV2010AccountCallCallEvent struct for ApiV2010AccountCallCallEvent
 type ApiV2010AccountCallCallEvent struct {
-	Request  *map[string]interface{} `json:"Request,omitempty"`
+	// Call Request.
+	Request *map[string]interface{} `json:"Request,omitempty"`
+	// Call Response with Events.
 	Response *map[string]interface{} `json:"Response,omitempty"`
 }

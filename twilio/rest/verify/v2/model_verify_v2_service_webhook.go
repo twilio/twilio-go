@@ -17,15 +17,26 @@ import (
 
 // VerifyV2ServiceWebhook struct for VerifyV2ServiceWebhook
 type VerifyV2ServiceWebhook struct {
-	AccountSid    *string         `json:"AccountSid,omitempty"`
-	DateCreated   *time.Time      `json:"DateCreated,omitempty"`
-	DateUpdated   *time.Time      `json:"DateUpdated,omitempty"`
-	EventTypes    *[]string       `json:"EventTypes,omitempty"`
-	FriendlyName  *string         `json:"FriendlyName,omitempty"`
-	ServiceSid    *string         `json:"ServiceSid,omitempty"`
-	Sid           *string         `json:"Sid,omitempty"`
-	Status        *WebhookStatus  `json:"Status,omitempty"`
-	Url           *string         `json:"Url,omitempty"`
-	WebhookMethod *WebhookMethods `json:"WebhookMethod,omitempty"`
-	WebhookUrl    *string         `json:"WebhookUrl,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The array of events that this Webhook is subscribed to.
+	EventTypes *[]string `json:"EventTypes,omitempty"`
+	// The string that you assigned to describe the webhook
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Service Sid.
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The webhook status
+	Status *string `json:"Status,omitempty"`
+	// The absolute URL of the Webhook resource
+	Url *string `json:"Url,omitempty"`
+	// The method used when calling the webhook's URL.
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	// The URL associated with this Webhook.
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }

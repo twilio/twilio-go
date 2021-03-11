@@ -17,21 +17,38 @@ import (
 
 // TaskrouterV1WorkspaceEvent struct for TaskrouterV1WorkspaceEvent
 type TaskrouterV1WorkspaceEvent struct {
-	AccountSid      *string                 `json:"AccountSid,omitempty"`
-	ActorSid        *string                 `json:"ActorSid,omitempty"`
-	ActorType       *string                 `json:"ActorType,omitempty"`
-	ActorUrl        *string                 `json:"ActorUrl,omitempty"`
-	Description     *string                 `json:"Description,omitempty"`
-	EventData       *map[string]interface{} `json:"EventData,omitempty"`
-	EventDate       *time.Time              `json:"EventDate,omitempty"`
-	EventDateMs     *int32                  `json:"EventDateMs,omitempty"`
-	EventType       *string                 `json:"EventType,omitempty"`
-	ResourceSid     *string                 `json:"ResourceSid,omitempty"`
-	ResourceType    *string                 `json:"ResourceType,omitempty"`
-	ResourceUrl     *string                 `json:"ResourceUrl,omitempty"`
-	Sid             *string                 `json:"Sid,omitempty"`
-	Source          *string                 `json:"Source,omitempty"`
-	SourceIpAddress *string                 `json:"SourceIpAddress,omitempty"`
-	Url             *string                 `json:"Url,omitempty"`
-	WorkspaceSid    *string                 `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the resource that triggered the event
+	ActorSid *string `json:"ActorSid,omitempty"`
+	// The type of resource that triggered the event
+	ActorType *string `json:"ActorType,omitempty"`
+	// The absolute URL of the resource that triggered the event
+	ActorUrl *string `json:"ActorUrl,omitempty"`
+	// A description of the event
+	Description *string `json:"Description,omitempty"`
+	// Data about the event
+	EventData *map[string]interface{} `json:"EventData,omitempty"`
+	// The time the event was sent
+	EventDate *time.Time `json:"EventDate,omitempty"`
+	// The time the event was sent in milliseconds
+	EventDateMs *int32 `json:"EventDateMs,omitempty"`
+	// The identifier for the event
+	EventType *string `json:"EventType,omitempty"`
+	// The SID of the object the event is most relevant to
+	ResourceSid *string `json:"ResourceSid,omitempty"`
+	// The type of object the event is most relevant to
+	ResourceType *string `json:"ResourceType,omitempty"`
+	// The URL of the resource the event is most relevant to
+	ResourceUrl *string `json:"ResourceUrl,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// Where the Event originated
+	Source *string `json:"Source,omitempty"`
+	// The IP from which the Event originated
+	SourceIpAddress *string `json:"SourceIpAddress,omitempty"`
+	// The absolute URL of the Event resource
+	Url *string `json:"Url,omitempty"`
+	// The SID of the Workspace that contains the Event
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

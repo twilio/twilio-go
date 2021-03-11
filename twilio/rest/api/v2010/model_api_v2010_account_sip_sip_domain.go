@@ -13,25 +13,46 @@ package openapi
 
 // ApiV2010AccountSipSipDomain struct for ApiV2010AccountSipSipDomain
 type ApiV2010AccountSipSipDomain struct {
-	AccountSid                *string                 `json:"AccountSid,omitempty"`
-	ApiVersion                *string                 `json:"ApiVersion,omitempty"`
-	AuthType                  *string                 `json:"AuthType,omitempty"`
-	ByocTrunkSid              *string                 `json:"ByocTrunkSid,omitempty"`
-	DateCreated               *string                 `json:"DateCreated,omitempty"`
-	DateUpdated               *string                 `json:"DateUpdated,omitempty"`
-	DomainName                *string                 `json:"DomainName,omitempty"`
-	EmergencyCallerSid        *string                 `json:"EmergencyCallerSid,omitempty"`
-	EmergencyCallingEnabled   *bool                   `json:"EmergencyCallingEnabled,omitempty"`
-	FriendlyName              *string                 `json:"FriendlyName,omitempty"`
-	Secure                    *bool                   `json:"Secure,omitempty"`
-	Sid                       *string                 `json:"Sid,omitempty"`
-	SipRegistration           *bool                   `json:"SipRegistration,omitempty"`
-	SubresourceUris           *map[string]interface{} `json:"SubresourceUris,omitempty"`
-	Uri                       *string                 `json:"Uri,omitempty"`
-	VoiceFallbackMethod       *HttpMethod             `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl          *string                 `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod               *HttpMethod             `json:"VoiceMethod,omitempty"`
-	VoiceStatusCallbackMethod *HttpMethod             `json:"VoiceStatusCallbackMethod,omitempty"`
-	VoiceStatusCallbackUrl    *string                 `json:"VoiceStatusCallbackUrl,omitempty"`
-	VoiceUrl                  *string                 `json:"VoiceUrl,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The API version used to process the call
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The types of authentication mapped to the domain
+	AuthType *string `json:"AuthType,omitempty"`
+	// The SID of the BYOC Trunk resource.
+	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// The unique address on Twilio to route SIP traffic
+	DomainName *string `json:"DomainName,omitempty"`
+	// Whether an emergency caller sid is configured for the domain.
+	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
+	// Whether emergency calling is enabled for the domain.
+	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether secure SIP is enabled for the domain
+	Secure *bool `json:"Secure,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// Whether SIP registration is allowed
+	SipRegistration *bool `json:"SipRegistration,omitempty"`
+	// A list mapping resources associated with the SIP Domain resource
+	SubresourceUris *map[string]interface{} `json:"SubresourceUris,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
+	// The HTTP method used with voice_fallback_url
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL we call when an error occurs while executing TwiML
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method to use with voice_url
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The HTTP method we use to call voice_status_callback_url
+	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
+	// The URL that we call with status updates
+	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
+	// The URL we call when receiving a call
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }

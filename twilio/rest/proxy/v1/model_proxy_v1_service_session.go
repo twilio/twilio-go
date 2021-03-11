@@ -17,20 +17,36 @@ import (
 
 // ProxyV1ServiceSession struct for ProxyV1ServiceSession
 type ProxyV1ServiceSession struct {
-	AccountSid          *string                 `json:"AccountSid,omitempty"`
-	ClosedReason        *string                 `json:"ClosedReason,omitempty"`
-	DateCreated         *time.Time              `json:"DateCreated,omitempty"`
-	DateEnded           *time.Time              `json:"DateEnded,omitempty"`
-	DateExpiry          *time.Time              `json:"DateExpiry,omitempty"`
-	DateLastInteraction *time.Time              `json:"DateLastInteraction,omitempty"`
-	DateStarted         *time.Time              `json:"DateStarted,omitempty"`
-	DateUpdated         *time.Time              `json:"DateUpdated,omitempty"`
-	Links               *map[string]interface{} `json:"Links,omitempty"`
-	Mode                *SessionMode            `json:"Mode,omitempty"`
-	ServiceSid          *string                 `json:"ServiceSid,omitempty"`
-	Sid                 *string                 `json:"Sid,omitempty"`
-	Status              *SessionStatus          `json:"Status,omitempty"`
-	Ttl                 *int32                  `json:"Ttl,omitempty"`
-	UniqueName          *string                 `json:"UniqueName,omitempty"`
-	Url                 *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The reason the Session ended
+	ClosedReason *string `json:"ClosedReason,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date when the Session ended
+	DateEnded *time.Time `json:"DateEnded,omitempty"`
+	// The ISO 8601 date when the Session should expire
+	DateExpiry *time.Time `json:"DateExpiry,omitempty"`
+	// The ISO 8601 date when the Session last had an interaction
+	DateLastInteraction *time.Time `json:"DateLastInteraction,omitempty"`
+	// The ISO 8601 date when the Session started
+	DateStarted *time.Time `json:"DateStarted,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The URLs of resources related to the Session
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The Mode of the Session
+	Mode *string `json:"Mode,omitempty"`
+	// The SID of the resource's parent Service
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the Session
+	Status *string `json:"Status,omitempty"`
+	// When the session will expire
+	Ttl *int32 `json:"Ttl,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the Session resource
+	Url *string `json:"Url,omitempty"`
 }

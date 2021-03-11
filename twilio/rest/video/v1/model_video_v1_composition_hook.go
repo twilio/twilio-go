@@ -17,19 +17,34 @@ import (
 
 // VideoV1CompositionHook struct for VideoV1CompositionHook
 type VideoV1CompositionHook struct {
-	AccountSid           *string                 `json:"AccountSid,omitempty"`
-	AudioSources         *[]string               `json:"AudioSources,omitempty"`
-	AudioSourcesExcluded *[]string               `json:"AudioSourcesExcluded,omitempty"`
-	DateCreated          *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated          *time.Time              `json:"DateUpdated,omitempty"`
-	Enabled              *bool                   `json:"Enabled,omitempty"`
-	Format               *CompositionHookFormat  `json:"Format,omitempty"`
-	FriendlyName         *string                 `json:"FriendlyName,omitempty"`
-	Resolution           *string                 `json:"Resolution,omitempty"`
-	Sid                  *string                 `json:"Sid,omitempty"`
-	StatusCallback       *string                 `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod *HttpMethod             `json:"StatusCallbackMethod,omitempty"`
-	Trim                 *bool                   `json:"Trim,omitempty"`
-	Url                  *string                 `json:"Url,omitempty"`
-	VideoLayout          *map[string]interface{} `json:"VideoLayout,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The array of track names to include in the compositions created by the composition hook
+	AudioSources *[]string `json:"AudioSources,omitempty"`
+	// The array of track names to exclude from the compositions created by the composition hook
+	AudioSourcesExcluded *[]string `json:"AudioSourcesExcluded,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Whether the CompositionHook is active
+	Enabled *bool `json:"Enabled,omitempty"`
+	// The container format of the media files used by the compositions created by the composition hook
+	Format *string `json:"Format,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The dimensions of the video image in pixels expressed as columns (width) and rows (height)
+	Resolution *string `json:"Resolution,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The URL to send status information to your application
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use to call status_callback
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// Whether intervals with no media are clipped
+	Trim *bool `json:"Trim,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
+	// A JSON object that describes the video layout of the Composition
+	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
 }

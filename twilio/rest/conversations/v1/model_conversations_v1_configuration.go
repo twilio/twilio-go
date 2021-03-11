@@ -13,11 +13,18 @@ package openapi
 
 // ConversationsV1Configuration struct for ConversationsV1Configuration
 type ConversationsV1Configuration struct {
-	AccountSid                 *string                 `json:"AccountSid,omitempty"`
-	DefaultChatServiceSid      *string                 `json:"DefaultChatServiceSid,omitempty"`
-	DefaultClosedTimer         *string                 `json:"DefaultClosedTimer,omitempty"`
-	DefaultInactiveTimer       *string                 `json:"DefaultInactiveTimer,omitempty"`
-	DefaultMessagingServiceSid *string                 `json:"DefaultMessagingServiceSid,omitempty"`
-	Links                      *map[string]interface{} `json:"Links,omitempty"`
-	Url                        *string                 `json:"Url,omitempty"`
+	// The SID of the Account responsible for this configuration.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the default Conversation Service that every new conversation is associated with.
+	DefaultChatServiceSid *string `json:"DefaultChatServiceSid,omitempty"`
+	// Default ISO8601 duration when conversation will be switched to `closed` state.
+	DefaultClosedTimer *string `json:"DefaultClosedTimer,omitempty"`
+	// Default ISO8601 duration when conversation will be switched to `inactive` state.
+	DefaultInactiveTimer *string `json:"DefaultInactiveTimer,omitempty"`
+	// The SID of the default Messaging Service that every new conversation is associated with.
+	DefaultMessagingServiceSid *string `json:"DefaultMessagingServiceSid,omitempty"`
+	// Absolute URLs to access the webhook and default service configurations.
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// An absolute URL for this global configuration.
+	Url *string `json:"Url,omitempty"`
 }

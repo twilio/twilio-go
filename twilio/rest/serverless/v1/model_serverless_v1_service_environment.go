@@ -17,15 +17,26 @@ import (
 
 // ServerlessV1ServiceEnvironment struct for ServerlessV1ServiceEnvironment
 type ServerlessV1ServiceEnvironment struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	BuildSid     *string                 `json:"BuildSid,omitempty"`
-	DateCreated  *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time              `json:"DateUpdated,omitempty"`
-	DomainName   *string                 `json:"DomainName,omitempty"`
-	DomainSuffix *string                 `json:"DomainSuffix,omitempty"`
-	Links        *map[string]interface{} `json:"Links,omitempty"`
-	ServiceSid   *string                 `json:"ServiceSid,omitempty"`
-	Sid          *string                 `json:"Sid,omitempty"`
-	UniqueName   *string                 `json:"UniqueName,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the Environment resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the build deployed in the environment
+	BuildSid *string `json:"BuildSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the Environment resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Environment resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The base domain name for all Functions and Assets deployed in the Environment
+	DomainName *string `json:"DomainName,omitempty"`
+	// A URL-friendly name that represents the environment
+	DomainSuffix *string `json:"DomainSuffix,omitempty"`
+	// The URLs of the Environment resource's nested resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The SID of the Service that the Environment resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the Environment resource
+	Sid *string `json:"Sid,omitempty"`
+	// A user-defined string that uniquely identifies the Environment resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the Environment resource
+	Url *string `json:"Url,omitempty"`
 }

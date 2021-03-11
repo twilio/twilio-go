@@ -81,12 +81,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [ChallengeChallengeReasons](docs/ChallengeChallengeReasons.md)
- - [ChallengeChallengeStatuses](docs/ChallengeChallengeStatuses.md)
- - [ChallengeFactorTypes](docs/ChallengeFactorTypes.md)
- - [FactorFactorStatuses](docs/FactorFactorStatuses.md)
- - [FactorFactorTypes](docs/FactorFactorTypes.md)
- - [FormFormTypes](docs/FormFormTypes.md)
  - [ListBucketResponse](docs/ListBucketResponse.md)
  - [ListChallengeResponse](docs/ListChallengeResponse.md)
  - [ListEntityResponse](docs/ListEntityResponse.md)
@@ -97,10 +91,6 @@ Class | Method | HTTP request | Description
  - [ListVerificationAttemptResponse](docs/ListVerificationAttemptResponse.md)
  - [ListVerificationAttemptResponseMeta](docs/ListVerificationAttemptResponseMeta.md)
  - [ListWebhookResponse](docs/ListWebhookResponse.md)
- - [VerificationAttemptChannels](docs/VerificationAttemptChannels.md)
- - [VerificationAttemptConversionStatus](docs/VerificationAttemptConversionStatus.md)
- - [VerificationChannel](docs/VerificationChannel.md)
- - [VerificationCheckChannel](docs/VerificationCheckChannel.md)
  - [VerifyV2Form](docs/VerifyV2Form.md)
  - [VerifyV2Service](docs/VerifyV2Service.md)
  - [VerifyV2ServiceAccessToken](docs/VerifyV2ServiceAccessToken.md)
@@ -114,8 +104,6 @@ Class | Method | HTTP request | Description
  - [VerifyV2ServiceVerificationCheck](docs/VerifyV2ServiceVerificationCheck.md)
  - [VerifyV2ServiceWebhook](docs/VerifyV2ServiceWebhook.md)
  - [VerifyV2VerificationAttempt](docs/VerifyV2VerificationAttempt.md)
- - [WebhookMethods](docs/WebhookMethods.md)
- - [WebhookStatus](docs/WebhookStatus.md)
 
 
 ## Documentation For Authorization

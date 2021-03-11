@@ -119,10 +119,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [ConfigurationWebhookMethod](docs/ConfigurationWebhookMethod.md)
- - [ConfigurationWebhookTarget](docs/ConfigurationWebhookTarget.md)
- - [ConversationMessageReceiptDeliveryStatus](docs/ConversationMessageReceiptDeliveryStatus.md)
- - [ConversationState](docs/ConversationState.md)
  - [ConversationsV1Configuration](docs/ConversationsV1Configuration.md)
  - [ConversationsV1ConfigurationConfigurationWebhook](docs/ConversationsV1ConfigurationConfigurationWebhook.md)
  - [ConversationsV1Conversation](docs/ConversationsV1Conversation.md)
@@ -144,7 +140,6 @@ Class | Method | HTTP request | Description
  - [ConversationsV1ServiceServiceRole](docs/ConversationsV1ServiceServiceRole.md)
  - [ConversationsV1ServiceServiceUser](docs/ConversationsV1ServiceServiceUser.md)
  - [ConversationsV1User](docs/ConversationsV1User.md)
- - [CredentialPushType](docs/CredentialPushType.md)
  - [ListConversationMessageReceiptResponse](docs/ListConversationMessageReceiptResponse.md)
  - [ListConversationMessageResponse](docs/ListConversationMessageResponse.md)
  - [ListConversationParticipantResponse](docs/ListConversationParticipantResponse.md)
@@ -163,11 +158,6 @@ Class | Method | HTTP request | Description
  - [ListServiceRoleResponse](docs/ListServiceRoleResponse.md)
  - [ListServiceUserResponse](docs/ListServiceUserResponse.md)
  - [ListUserResponse](docs/ListUserResponse.md)
- - [RoleRoleType](docs/RoleRoleType.md)
- - [ServiceBindingBindingType](docs/ServiceBindingBindingType.md)
- - [ServiceConversationMessageReceiptDeliveryStatus](docs/ServiceConversationMessageReceiptDeliveryStatus.md)
- - [ServiceConversationState](docs/ServiceConversationState.md)
- - [ServiceRoleRoleType](docs/ServiceRoleRoleType.md)
 
 
 ## Documentation For Authorization

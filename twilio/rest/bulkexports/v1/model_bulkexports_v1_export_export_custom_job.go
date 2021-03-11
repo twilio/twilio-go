@@ -13,13 +13,22 @@ package openapi
 
 // BulkexportsV1ExportExportCustomJob struct for BulkexportsV1ExportExportCustomJob
 type BulkexportsV1ExportExportCustomJob struct {
-	Details       *map[string]interface{} `json:"Details,omitempty"`
-	Email         *string                 `json:"Email,omitempty"`
-	EndDay        *string                 `json:"EndDay,omitempty"`
-	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
-	JobSid        *string                 `json:"JobSid,omitempty"`
-	ResourceType  *string                 `json:"ResourceType,omitempty"`
-	StartDay      *string                 `json:"StartDay,omitempty"`
-	WebhookMethod *string                 `json:"WebhookMethod,omitempty"`
-	WebhookUrl    *string                 `json:"WebhookUrl,omitempty"`
+	// The details of a job state which is an object that contains a status string, a day count integer, and list of days in the job
+	Details *map[string]interface{} `json:"Details,omitempty"`
+	// The optional email to send the completion notification to
+	Email *string `json:"Email,omitempty"`
+	// The end day for the custom export specified as a string in the format of yyyy-MM-dd. This will be the last day exported. For instance, to export a single day, choose the same day for start and end day. To export the first 4 days of July, you would set the start date to 2020-07-01 and the end date to 2020-07-04. The end date must be the UTC day before yesterday.
+	EndDay *string `json:"EndDay,omitempty"`
+	// The friendly name specified when creating the job
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The unique job_sid returned when the custom export was created. This can be used to look up the status of the job.
+	JobSid *string `json:"JobSid,omitempty"`
+	// The type of communication – Messages, Calls, Conferences, and Participants
+	ResourceType *string `json:"ResourceType,omitempty"`
+	// The start day for the custom export specified as a string in the format of yyyy-MM-dd
+	StartDay *string `json:"StartDay,omitempty"`
+	// This is the method used to call the webhook
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	// The optional webhook url called on completion
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }

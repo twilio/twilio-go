@@ -13,14 +13,24 @@ package openapi
 
 // TaskrouterV1WorkspaceWorkspaceRealTimeStatistics struct for TaskrouterV1WorkspaceWorkspaceRealTimeStatistics
 type TaskrouterV1WorkspaceWorkspaceRealTimeStatistics struct {
-	AccountSid            *string                   `json:"AccountSid,omitempty"`
-	ActivityStatistics    *[]map[string]interface{} `json:"ActivityStatistics,omitempty"`
-	LongestTaskWaitingAge *int32                    `json:"LongestTaskWaitingAge,omitempty"`
-	LongestTaskWaitingSid *string                   `json:"LongestTaskWaitingSid,omitempty"`
-	TasksByPriority       *map[string]interface{}   `json:"TasksByPriority,omitempty"`
-	TasksByStatus         *map[string]interface{}   `json:"TasksByStatus,omitempty"`
-	TotalTasks            *int32                    `json:"TotalTasks,omitempty"`
-	TotalWorkers          *int32                    `json:"TotalWorkers,omitempty"`
-	Url                   *string                   `json:"Url,omitempty"`
-	WorkspaceSid          *string                   `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The number of current Workers by Activity
+	ActivityStatistics *[]map[string]interface{} `json:"ActivityStatistics,omitempty"`
+	// The age of the longest waiting Task
+	LongestTaskWaitingAge *int32 `json:"LongestTaskWaitingAge,omitempty"`
+	// The SID of the longest waiting Task
+	LongestTaskWaitingSid *string `json:"LongestTaskWaitingSid,omitempty"`
+	// The number of Tasks by priority
+	TasksByPriority *map[string]interface{} `json:"TasksByPriority,omitempty"`
+	// The number of Tasks by their current status
+	TasksByStatus *map[string]interface{} `json:"TasksByStatus,omitempty"`
+	// The total number of Tasks
+	TotalTasks *int32 `json:"TotalTasks,omitempty"`
+	// The total number of Workers in the Workspace
+	TotalWorkers *int32 `json:"TotalWorkers,omitempty"`
+	// The absolute URL of the Workspace statistics resource
+	Url *string `json:"Url,omitempty"`
+	// The SID of the Workspace
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

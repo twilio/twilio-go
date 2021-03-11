@@ -17,11 +17,17 @@ import (
 
 // SupersimV1NetworkAccessProfile struct for SupersimV1NetworkAccessProfile
 type SupersimV1NetworkAccessProfile struct {
-	AccountSid  *string                 `json:"AccountSid,omitempty"`
-	DateCreated *time.Time              `json:"DateCreated,omitempty"`
+	// The SID of the Account that the Network Access Profile belongs to
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time              `json:"DateUpdated,omitempty"`
 	Links       *map[string]interface{} `json:"Links,omitempty"`
-	Sid         *string                 `json:"Sid,omitempty"`
-	UniqueName  *string                 `json:"UniqueName,omitempty"`
-	Url         *string                 `json:"Url,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

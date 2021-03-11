@@ -17,12 +17,20 @@ import (
 
 // NumbersV2RegulatoryComplianceEndUser struct for NumbersV2RegulatoryComplianceEndUser
 type NumbersV2RegulatoryComplianceEndUser struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
-	DateCreated  *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time              `json:"DateUpdated,omitempty"`
-	FriendlyName *string                 `json:"FriendlyName,omitempty"`
-	Sid          *string                 `json:"Sid,omitempty"`
-	Type         *EndUserType            `json:"Type,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The set of parameters that compose the End Users resource
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The type of end user of the Bundle resource
+	Type *string `json:"Type,omitempty"`
+	// The absolute URL of the End User resource
+	Url *string `json:"Url,omitempty"`
 }

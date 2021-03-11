@@ -17,13 +17,22 @@ import (
 
 // AutopilotV1AssistantTaskField struct for AutopilotV1AssistantTaskField
 type AutopilotV1AssistantTaskField struct {
-	AccountSid   *string    `json:"AccountSid,omitempty"`
-	AssistantSid *string    `json:"AssistantSid,omitempty"`
-	DateCreated  *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time `json:"DateUpdated,omitempty"`
-	FieldType    *string    `json:"FieldType,omitempty"`
-	Sid          *string    `json:"Sid,omitempty"`
-	TaskSid      *string    `json:"TaskSid,omitempty"`
-	UniqueName   *string    `json:"UniqueName,omitempty"`
-	Url          *string    `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Assistant that is the parent of the Task associated with the resource
+	AssistantSid *string `json:"AssistantSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The Field Type of the field
+	FieldType *string `json:"FieldType,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
+	TaskSid *string `json:"TaskSid,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the Field resource
+	Url *string `json:"Url,omitempty"`
 }

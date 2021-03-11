@@ -50,12 +50,10 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CredentialPushService](docs/CredentialPushService.md)
  - [ListBindingResponse](docs/ListBindingResponse.md)
  - [ListCredentialResponse](docs/ListCredentialResponse.md)
  - [ListCredentialResponseMeta](docs/ListCredentialResponseMeta.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
- - [NotificationPriority](docs/NotificationPriority.md)
  - [NotifyV1Credential](docs/NotifyV1Credential.md)
  - [NotifyV1Service](docs/NotifyV1Service.md)
  - [NotifyV1ServiceBinding](docs/NotifyV1ServiceBinding.md)

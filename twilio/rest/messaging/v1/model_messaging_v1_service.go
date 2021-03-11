@@ -17,24 +17,44 @@ import (
 
 // MessagingV1Service struct for MessagingV1Service
 type MessagingV1Service struct {
-	AccountSid            *string                    `json:"AccountSid,omitempty"`
-	AreaCodeGeomatch      *bool                      `json:"AreaCodeGeomatch,omitempty"`
-	DateCreated           *time.Time                 `json:"DateCreated,omitempty"`
-	DateUpdated           *time.Time                 `json:"DateUpdated,omitempty"`
-	FallbackMethod        *HttpMethod                `json:"FallbackMethod,omitempty"`
-	FallbackToLongCode    *bool                      `json:"FallbackToLongCode,omitempty"`
-	FallbackUrl           *string                    `json:"FallbackUrl,omitempty"`
-	FriendlyName          *string                    `json:"FriendlyName,omitempty"`
-	InboundMethod         *HttpMethod                `json:"InboundMethod,omitempty"`
-	InboundRequestUrl     *string                    `json:"InboundRequestUrl,omitempty"`
-	Links                 *map[string]interface{}    `json:"Links,omitempty"`
-	MmsConverter          *bool                      `json:"MmsConverter,omitempty"`
-	ScanMessageContent    *ServiceScanMessageContent `json:"ScanMessageContent,omitempty"`
-	Sid                   *string                    `json:"Sid,omitempty"`
-	SmartEncoding         *bool                      `json:"SmartEncoding,omitempty"`
-	StatusCallback        *string                    `json:"StatusCallback,omitempty"`
-	StickySender          *bool                      `json:"StickySender,omitempty"`
-	SynchronousValidation *bool                      `json:"SynchronousValidation,omitempty"`
-	Url                   *string                    `json:"Url,omitempty"`
-	ValidityPeriod        *int32                     `json:"ValidityPeriod,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// Whether to enable Area Code Geomatch on the Service Instance
+	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The HTTP method we use to call fallback_url
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	// Whether to enable Fallback to Long Code for messages sent through the Service instance
+	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
+	// The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The HTTP method we use to call inbound_request_url
+	InboundMethod *string `json:"InboundMethod,omitempty"`
+	// The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+	InboundRequestUrl *string `json:"InboundRequestUrl,omitempty"`
+	// The absolute URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// Whether to enable the MMS Converter for messages sent through the Service instance
+	MmsConverter *bool `json:"MmsConverter,omitempty"`
+	// Reserved
+	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// Whether to enable Encoding for messages sent through the Service instance
+	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
+	// The URL we call to pass status updates about message delivery
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// Whether to enable Sticky Sender on the Service instance
+	StickySender *bool `json:"StickySender,omitempty"`
+	// Reserved
+	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
+	// The absolute URL of the Service resource
+	Url *string `json:"Url,omitempty"`
+	// How long, in seconds, messages sent from the Service are valid
+	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
 }

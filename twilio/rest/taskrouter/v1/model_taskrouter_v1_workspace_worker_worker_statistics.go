@@ -13,9 +13,14 @@ package openapi
 
 // TaskrouterV1WorkspaceWorkerWorkerStatistics struct for TaskrouterV1WorkspaceWorkerWorkerStatistics
 type TaskrouterV1WorkspaceWorkerWorkerStatistics struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	Cumulative   *map[string]interface{} `json:"Cumulative,omitempty"`
-	Realtime     *map[string]interface{} `json:"Realtime,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
-	WorkspaceSid *string                 `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// An object that contains the cumulative statistics for the Worker
+	Cumulative *map[string]interface{} `json:"Cumulative,omitempty"`
+	// An object that contains the real-time statistics for the Worker
+	Realtime *map[string]interface{} `json:"Realtime,omitempty"`
+	// The absolute URL of the Worker statistics resource
+	Url *string `json:"Url,omitempty"`
+	// The SID of the Workspace that contains the Worker
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

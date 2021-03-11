@@ -17,16 +17,28 @@ import (
 
 // NumbersV2RegulatoryComplianceBundle struct for NumbersV2RegulatoryComplianceBundle
 type NumbersV2RegulatoryComplianceBundle struct {
-	AccountSid     *string                 `json:"AccountSid,omitempty"`
-	DateCreated    *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated    *time.Time              `json:"DateUpdated,omitempty"`
-	Email          *string                 `json:"Email,omitempty"`
-	FriendlyName   *string                 `json:"FriendlyName,omitempty"`
-	Links          *map[string]interface{} `json:"Links,omitempty"`
-	RegulationSid  *string                 `json:"RegulationSid,omitempty"`
-	Sid            *string                 `json:"Sid,omitempty"`
-	Status         *BundleStatus           `json:"Status,omitempty"`
-	StatusCallback *string                 `json:"StatusCallback,omitempty"`
-	Url            *string                 `json:"Url,omitempty"`
-	ValidUntil     *time.Time              `json:"ValidUntil,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The email address
+	Email *string `json:"Email,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The URLs of the Assigned Items of the Bundle resource
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The unique string of a regulation.
+	RegulationSid *string `json:"RegulationSid,omitempty"`
+	// The unique string that identifies the resource.
+	Sid *string `json:"Sid,omitempty"`
+	// The verification status of the Bundle resource
+	Status *string `json:"Status,omitempty"`
+	// The URL we call to inform your application of status changes.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The absolute URL of the Bundle resource
+	Url *string `json:"Url,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource will be valid until.
+	ValidUntil *time.Time `json:"ValidUntil,omitempty"`
 }

@@ -17,17 +17,30 @@ import (
 
 // ChatV1ServiceChannelMessage struct for ChatV1ServiceChannelMessage
 type ChatV1ServiceChannelMessage struct {
-	AccountSid  *string    `json:"AccountSid,omitempty"`
-	Attributes  *string    `json:"Attributes,omitempty"`
-	Body        *string    `json:"Body,omitempty"`
-	ChannelSid  *string    `json:"ChannelSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The JSON string that stores application-specific data
+	Attributes *string `json:"Attributes,omitempty"`
+	// The content of the message
+	Body *string `json:"Body,omitempty"`
+	// The unique ID of the Channel the Message resource belongs to
+	ChannelSid *string `json:"ChannelSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-	From        *string    `json:"From,omitempty"`
-	Index       *int32     `json:"Index,omitempty"`
-	ServiceSid  *string    `json:"ServiceSid,omitempty"`
-	Sid         *string    `json:"Sid,omitempty"`
-	To          *string    `json:"To,omitempty"`
-	Url         *string    `json:"Url,omitempty"`
-	WasEdited   *bool      `json:"WasEdited,omitempty"`
+	// The identity of the message's author
+	From *string `json:"From,omitempty"`
+	// The index of the message within the Channel
+	Index *int32 `json:"Index,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The SID of the Channel that the message was sent to
+	To *string `json:"To,omitempty"`
+	// The absolute URL of the Message resource
+	Url *string `json:"Url,omitempty"`
+	// Whether the message has been edited since  it was created
+	WasEdited *bool `json:"WasEdited,omitempty"`
 }

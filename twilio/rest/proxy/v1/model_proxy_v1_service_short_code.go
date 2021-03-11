@@ -17,14 +17,23 @@ import (
 
 // ProxyV1ServiceShortCode struct for ProxyV1ServiceShortCode
 type ProxyV1ServiceShortCode struct {
-	AccountSid   *string                  `json:"AccountSid,omitempty"`
-	Capabilities *PhoneNumberCapabilities `json:"Capabilities,omitempty"`
-	DateCreated  *time.Time               `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time               `json:"DateUpdated,omitempty"`
-	IsReserved   *bool                    `json:"IsReserved,omitempty"`
-	IsoCountry   *string                  `json:"IsoCountry,omitempty"`
-	ServiceSid   *string                  `json:"ServiceSid,omitempty"`
-	ShortCode    *string                  `json:"ShortCode,omitempty"`
-	Sid          *string                  `json:"Sid,omitempty"`
-	Url          *string                  `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid   *string                              `json:"AccountSid,omitempty"`
+	Capabilities *ProxyV1ServiceShortCodeCapabilities `json:"Capabilities,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Whether the short code should be reserved for manual assignment to participants only
+	IsReserved *bool `json:"IsReserved,omitempty"`
+	// The ISO Country Code
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	// The SID of the resource's parent Service
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The short code's number
+	ShortCode *string `json:"ShortCode,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the ShortCode resource
+	Url *string `json:"Url,omitempty"`
 }

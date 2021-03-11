@@ -89,9 +89,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [BindingBindingType](docs/BindingBindingType.md)
- - [ChannelChannelType](docs/ChannelChannelType.md)
- - [CredentialPushService](docs/CredentialPushService.md)
  - [IpMessagingV2Credential](docs/IpMessagingV2Credential.md)
  - [IpMessagingV2Service](docs/IpMessagingV2Service.md)
  - [IpMessagingV2ServiceBinding](docs/IpMessagingV2ServiceBinding.md)
@@ -117,10 +114,6 @@ Class | Method | HTTP request | Description
  - [ListUserBindingResponse](docs/ListUserBindingResponse.md)
  - [ListUserChannelResponse](docs/ListUserChannelResponse.md)
  - [ListUserResponse](docs/ListUserResponse.md)
- - [RoleRoleType](docs/RoleRoleType.md)
- - [UserBindingBindingType](docs/UserBindingBindingType.md)
- - [UserChannelChannelStatus](docs/UserChannelChannelStatus.md)
- - [UserChannelNotificationLevel](docs/UserChannelNotificationLevel.md)
 
 
 ## Documentation For Authorization

@@ -17,17 +17,30 @@ import (
 
 // SupersimV1Fleet struct for SupersimV1Fleet
 type SupersimV1Fleet struct {
-	AccountSid              *string            `json:"AccountSid,omitempty"`
-	CommandsEnabled         *bool              `json:"CommandsEnabled,omitempty"`
-	CommandsMethod          *HttpMethod        `json:"CommandsMethod,omitempty"`
-	CommandsUrl             *string            `json:"CommandsUrl,omitempty"`
-	DataEnabled             *bool              `json:"DataEnabled,omitempty"`
-	DataLimit               *int32             `json:"DataLimit,omitempty"`
-	DataMetering            *FleetDataMetering `json:"DataMetering,omitempty"`
-	DateCreated             *time.Time         `json:"DateCreated,omitempty"`
-	DateUpdated             *time.Time         `json:"DateUpdated,omitempty"`
-	NetworkAccessProfileSid *string            `json:"NetworkAccessProfileSid,omitempty"`
-	Sid                     *string            `json:"Sid,omitempty"`
-	UniqueName              *string            `json:"UniqueName,omitempty"`
-	Url                     *string            `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
+	CommandsEnabled *bool `json:"CommandsEnabled,omitempty"`
+	// A string representing the HTTP method to use when making a request to `commands_url`
+	CommandsMethod *string `json:"CommandsMethod,omitempty"`
+	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number
+	CommandsUrl *string `json:"CommandsUrl,omitempty"`
+	// Defines whether SIMs in the Fleet are capable of using data connectivity
+	DataEnabled *bool `json:"DataEnabled,omitempty"`
+	// The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
+	DataLimit *int32 `json:"DataLimit,omitempty"`
+	// The model by which a SIM is metered and billed
+	DataMetering *string `json:"DataMetering,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Network Access Profile of the Fleet
+	NetworkAccessProfileSid *string `json:"NetworkAccessProfileSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the Fleet resource
+	Url *string `json:"Url,omitempty"`
 }

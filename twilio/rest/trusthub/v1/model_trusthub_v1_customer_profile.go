@@ -17,16 +17,28 @@ import (
 
 // TrusthubV1CustomerProfile struct for TrusthubV1CustomerProfile
 type TrusthubV1CustomerProfile struct {
-	AccountSid     *string                 `json:"AccountSid,omitempty"`
-	DateCreated    *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated    *time.Time              `json:"DateUpdated,omitempty"`
-	Email          *string                 `json:"Email,omitempty"`
-	FriendlyName   *string                 `json:"FriendlyName,omitempty"`
-	Links          *map[string]interface{} `json:"Links,omitempty"`
-	PolicySid      *string                 `json:"PolicySid,omitempty"`
-	Sid            *string                 `json:"Sid,omitempty"`
-	Status         *CustomerProfileStatus  `json:"Status,omitempty"`
-	StatusCallback *string                 `json:"StatusCallback,omitempty"`
-	Url            *string                 `json:"Url,omitempty"`
-	ValidUntil     *time.Time              `json:"ValidUntil,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The email address
+	Email *string `json:"Email,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The URLs of the Assigned Items of the Customer-Profile resource
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The unique string of a policy.
+	PolicySid *string `json:"PolicySid,omitempty"`
+	// The unique string that identifies the resource.
+	Sid *string `json:"Sid,omitempty"`
+	// The verification status of the Customer-Profile resource
+	Status *string `json:"Status,omitempty"`
+	// The URL we call to inform your application of status changes.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The absolute URL of the Customer-Profile resource
+	Url *string `json:"Url,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource will be valid until.
+	ValidUntil *time.Time `json:"ValidUntil,omitempty"`
 }

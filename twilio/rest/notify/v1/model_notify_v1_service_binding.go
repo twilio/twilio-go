@@ -17,18 +17,32 @@ import (
 
 // NotifyV1ServiceBinding struct for NotifyV1ServiceBinding
 type NotifyV1ServiceBinding struct {
-	AccountSid                  *string                 `json:"AccountSid,omitempty"`
-	Address                     *string                 `json:"Address,omitempty"`
-	BindingType                 *string                 `json:"BindingType,omitempty"`
-	CredentialSid               *string                 `json:"CredentialSid,omitempty"`
-	DateCreated                 *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated                 *time.Time              `json:"DateUpdated,omitempty"`
-	Endpoint                    *string                 `json:"Endpoint,omitempty"`
-	Identity                    *string                 `json:"Identity,omitempty"`
-	Links                       *map[string]interface{} `json:"Links,omitempty"`
-	NotificationProtocolVersion *string                 `json:"NotificationProtocolVersion,omitempty"`
-	ServiceSid                  *string                 `json:"ServiceSid,omitempty"`
-	Sid                         *string                 `json:"Sid,omitempty"`
-	Tags                        *[]string               `json:"Tags,omitempty"`
-	Url                         *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The channel-specific address
+	Address *string `json:"Address,omitempty"`
+	// The type of the Binding
+	BindingType *string `json:"BindingType,omitempty"`
+	// The SID of the Credential resource to be used to send notifications to this Binding
+	CredentialSid *string `json:"CredentialSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Deprecated
+	Endpoint *string `json:"Endpoint,omitempty"`
+	// The `identity` value that identifies the new resource's User
+	Identity *string `json:"Identity,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The protocol version to use to send the notification
+	NotificationProtocolVersion *string `json:"NotificationProtocolVersion,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The list of tags associated with this Binding
+	Tags *[]string `json:"Tags,omitempty"`
+	// The absolute URL of the Binding resource
+	Url *string `json:"Url,omitempty"`
 }

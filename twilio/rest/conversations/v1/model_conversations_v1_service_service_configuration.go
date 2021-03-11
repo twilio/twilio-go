@@ -13,11 +13,18 @@ package openapi
 
 // ConversationsV1ServiceServiceConfiguration struct for ConversationsV1ServiceServiceConfiguration
 type ConversationsV1ServiceServiceConfiguration struct {
-	ChatServiceSid                    *string                 `json:"ChatServiceSid,omitempty"`
-	DefaultChatServiceRoleSid         *string                 `json:"DefaultChatServiceRoleSid,omitempty"`
-	DefaultConversationCreatorRoleSid *string                 `json:"DefaultConversationCreatorRoleSid,omitempty"`
-	DefaultConversationRoleSid        *string                 `json:"DefaultConversationRoleSid,omitempty"`
-	Links                             *map[string]interface{} `json:"Links,omitempty"`
-	ReachabilityEnabled               *bool                   `json:"ReachabilityEnabled,omitempty"`
-	Url                               *string                 `json:"Url,omitempty"`
+	// The unique string that identifies the resource
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	// The service role assigned to users when they are added to the service
+	DefaultChatServiceRoleSid *string `json:"DefaultChatServiceRoleSid,omitempty"`
+	// The role assigned to a conversation creator user when they join a new conversation
+	DefaultConversationCreatorRoleSid *string `json:"DefaultConversationCreatorRoleSid,omitempty"`
+	// The role assigned to users when they are added to a conversation
+	DefaultConversationRoleSid *string `json:"DefaultConversationRoleSid,omitempty"`
+	// Absolute URL to access the push notifications configuration of this service.
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// Whether the Reachability Indicator feature is enabled for this Conversations Service
+	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
+	// An absolute URL for this service configuration.
+	Url *string `json:"Url,omitempty"`
 }

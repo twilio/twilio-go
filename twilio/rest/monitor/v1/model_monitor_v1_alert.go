@@ -17,19 +17,34 @@ import (
 
 // MonitorV1Alert struct for MonitorV1Alert
 type MonitorV1Alert struct {
-	AccountSid    *string     `json:"AccountSid,omitempty"`
-	AlertText     *string     `json:"AlertText,omitempty"`
-	ApiVersion    *string     `json:"ApiVersion,omitempty"`
-	DateCreated   *time.Time  `json:"DateCreated,omitempty"`
-	DateGenerated *time.Time  `json:"DateGenerated,omitempty"`
-	DateUpdated   *time.Time  `json:"DateUpdated,omitempty"`
-	ErrorCode     *string     `json:"ErrorCode,omitempty"`
-	LogLevel      *string     `json:"LogLevel,omitempty"`
-	MoreInfo      *string     `json:"MoreInfo,omitempty"`
-	RequestMethod *HttpMethod `json:"RequestMethod,omitempty"`
-	RequestUrl    *string     `json:"RequestUrl,omitempty"`
-	ResourceSid   *string     `json:"ResourceSid,omitempty"`
-	ServiceSid    *string     `json:"ServiceSid,omitempty"`
-	Sid           *string     `json:"Sid,omitempty"`
-	Url           *string     `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The text of the alert
+	AlertText *string `json:"AlertText,omitempty"`
+	// The API version used when the alert was generated
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date and time when the alert was generated specified in ISO 8601 format
+	DateGenerated *time.Time `json:"DateGenerated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The error code for the condition that generated the alert
+	ErrorCode *string `json:"ErrorCode,omitempty"`
+	// The log level
+	LogLevel *string `json:"LogLevel,omitempty"`
+	// The URL of the page in our Error Dictionary with more information about the error condition
+	MoreInfo *string `json:"MoreInfo,omitempty"`
+	// The method used by the request that generated the alert
+	RequestMethod *string `json:"RequestMethod,omitempty"`
+	// The URL of the request that generated the alert
+	RequestUrl *string `json:"RequestUrl,omitempty"`
+	// The SID of the resource for which the alert was generated
+	ResourceSid *string `json:"ResourceSid,omitempty"`
+	// The SID of the service or resource that generated the alert
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Alert resource
+	Url *string `json:"Url,omitempty"`
 }

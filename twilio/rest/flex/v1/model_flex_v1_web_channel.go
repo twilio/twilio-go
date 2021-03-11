@@ -17,10 +17,16 @@ import (
 
 // FlexV1WebChannel struct for FlexV1WebChannel
 type FlexV1WebChannel struct {
-	AccountSid  *string    `json:"AccountSid,omitempty"`
+	// The SID of the Account that created the resource and owns this Workflow
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-	FlexFlowSid *string    `json:"FlexFlowSid,omitempty"`
-	Sid         *string    `json:"Sid,omitempty"`
-	Url         *string    `json:"Url,omitempty"`
+	// The SID of the Flex Flow
+	FlexFlowSid *string `json:"FlexFlowSid,omitempty"`
+	// The unique string that identifies the WebChannel resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the WebChannel resource
+	Url *string `json:"Url,omitempty"`
 }

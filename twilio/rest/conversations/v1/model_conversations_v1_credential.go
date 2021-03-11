@@ -17,12 +17,20 @@ import (
 
 // ConversationsV1Credential struct for ConversationsV1Credential
 type ConversationsV1Credential struct {
-	AccountSid   *string             `json:"AccountSid,omitempty"`
-	DateCreated  *time.Time          `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time          `json:"DateUpdated,omitempty"`
-	FriendlyName *string             `json:"FriendlyName,omitempty"`
-	Sandbox      *string             `json:"Sandbox,omitempty"`
-	Sid          *string             `json:"Sid,omitempty"`
-	Type         *CredentialPushType `json:"Type,omitempty"`
-	Url          *string             `json:"Url,omitempty"`
+	// The unique ID of the Account responsible for this credential.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The date that this resource was created.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date that this resource was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The human-readable name of this credential.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// [APN only] Whether to send the credential to sandbox APNs.
+	Sandbox *string `json:"Sandbox,omitempty"`
+	// A 34 character string that uniquely identifies this resource.
+	Sid *string `json:"Sid,omitempty"`
+	// The type of push-notification service the credential is for.
+	Type *string `json:"Type,omitempty"`
+	// An absolute URL for this credential.
+	Url *string `json:"Url,omitempty"`
 }

@@ -17,14 +17,24 @@ import (
 
 // SyncV1ServiceSyncStream struct for SyncV1ServiceSyncStream
 type SyncV1ServiceSyncStream struct {
-	AccountSid  *string                 `json:"AccountSid,omitempty"`
-	CreatedBy   *string                 `json:"CreatedBy,omitempty"`
-	DateCreated *time.Time              `json:"DateCreated,omitempty"`
-	DateExpires *time.Time              `json:"DateExpires,omitempty"`
-	DateUpdated *time.Time              `json:"DateUpdated,omitempty"`
-	Links       *map[string]interface{} `json:"Links,omitempty"`
-	ServiceSid  *string                 `json:"ServiceSid,omitempty"`
-	Sid         *string                 `json:"Sid,omitempty"`
-	UniqueName  *string                 `json:"UniqueName,omitempty"`
-	Url         *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The Identity of the Stream's creator
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Message Stream expires
+	DateExpires *time.Time `json:"DateExpires,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The URLs of the Stream's nested resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The SID of the Sync Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the Message Stream resource
+	Url *string `json:"Url,omitempty"`
 }

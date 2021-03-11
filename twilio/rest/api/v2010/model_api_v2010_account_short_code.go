@@ -13,16 +13,28 @@ package openapi
 
 // ApiV2010AccountShortCode struct for ApiV2010AccountShortCode
 type ApiV2010AccountShortCode struct {
-	AccountSid        *string     `json:"AccountSid,omitempty"`
-	ApiVersion        *string     `json:"ApiVersion,omitempty"`
-	DateCreated       *string     `json:"DateCreated,omitempty"`
-	DateUpdated       *string     `json:"DateUpdated,omitempty"`
-	FriendlyName      *string     `json:"FriendlyName,omitempty"`
-	ShortCode         *string     `json:"ShortCode,omitempty"`
-	Sid               *string     `json:"Sid,omitempty"`
-	SmsFallbackMethod *HttpMethod `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl    *string     `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod         *HttpMethod `json:"SmsMethod,omitempty"`
-	SmsUrl            *string     `json:"SmsUrl,omitempty"`
-	Uri               *string     `json:"Uri,omitempty"`
+	// The SID of the Account that created this resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The API version used to start a new TwiML session
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The RFC 2822 date and time in GMT that this resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that this resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// A string that you assigned to describe this resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The short code. e.g., 894546.
+	ShortCode *string `json:"ShortCode,omitempty"`
+	// The unique string that identifies this resource
+	Sid *string `json:"Sid,omitempty"`
+	// HTTP method we use to call the sms_fallback_url
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// URL Twilio will request if an error occurs in executing TwiML
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// HTTP method to use when requesting the sms url
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// URL we call when receiving an incoming SMS message to this short code
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URI of this resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
 }

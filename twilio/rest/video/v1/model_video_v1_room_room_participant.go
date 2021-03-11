@@ -17,16 +17,28 @@ import (
 
 // VideoV1RoomRoomParticipant struct for VideoV1RoomRoomParticipant
 type VideoV1RoomRoomParticipant struct {
-	AccountSid  *string                 `json:"AccountSid,omitempty"`
-	DateCreated *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated *time.Time              `json:"DateUpdated,omitempty"`
-	Duration    *int32                  `json:"Duration,omitempty"`
-	EndTime     *time.Time              `json:"EndTime,omitempty"`
-	Identity    *string                 `json:"Identity,omitempty"`
-	Links       *map[string]interface{} `json:"Links,omitempty"`
-	RoomSid     *string                 `json:"RoomSid,omitempty"`
-	Sid         *string                 `json:"Sid,omitempty"`
-	StartTime   *time.Time              `json:"StartTime,omitempty"`
-	Status      *RoomParticipantStatus  `json:"Status,omitempty"`
-	Url         *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Duration of time in seconds the participant was connected
+	Duration *int32 `json:"Duration,omitempty"`
+	// The time when the participant disconnected from the room in ISO 8601 format
+	EndTime *time.Time `json:"EndTime,omitempty"`
+	// The string that identifies the resource's User
+	Identity *string `json:"Identity,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The SID of the participant's room
+	RoomSid *string `json:"RoomSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The time of participant connected to the room in ISO 8601 format
+	StartTime *time.Time `json:"StartTime,omitempty"`
+	// The status of the Participant
+	Status *string `json:"Status,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

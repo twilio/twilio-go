@@ -17,15 +17,26 @@ import (
 
 // TaskrouterV1WorkspaceTaskTaskReservation struct for TaskrouterV1WorkspaceTaskTaskReservation
 type TaskrouterV1WorkspaceTaskTaskReservation struct {
-	AccountSid        *string                 `json:"AccountSid,omitempty"`
-	DateCreated       *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated       *time.Time              `json:"DateUpdated,omitempty"`
-	Links             *map[string]interface{} `json:"Links,omitempty"`
-	ReservationStatus *TaskReservationStatus  `json:"ReservationStatus,omitempty"`
-	Sid               *string                 `json:"Sid,omitempty"`
-	TaskSid           *string                 `json:"TaskSid,omitempty"`
-	Url               *string                 `json:"Url,omitempty"`
-	WorkerName        *string                 `json:"WorkerName,omitempty"`
-	WorkerSid         *string                 `json:"WorkerSid,omitempty"`
-	WorkspaceSid      *string                 `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The current status of the reservation
+	ReservationStatus *string `json:"ReservationStatus,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The SID of the reserved Task resource
+	TaskSid *string `json:"TaskSid,omitempty"`
+	// The absolute URL of the TaskReservation reservation
+	Url *string `json:"Url,omitempty"`
+	// The friendly_name of the Worker that is reserved
+	WorkerName *string `json:"WorkerName,omitempty"`
+	// The SID of the reserved Worker resource
+	WorkerSid *string `json:"WorkerSid,omitempty"`
+	// The SID of the Workspace that this task is contained within.
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

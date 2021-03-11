@@ -17,21 +17,21 @@ import (
 
 // InsightsV1VideoRoomSummaryVideoParticipantSummary struct for InsightsV1VideoRoomSummaryVideoParticipantSummary
 type InsightsV1VideoRoomSummaryVideoParticipantSummary struct {
-	AccountSid          *string                              `json:"AccountSid,omitempty"`
-	Codecs              *[]string                            `json:"Codecs,omitempty"`
-	DurationSec         *int32                               `json:"DurationSec,omitempty"`
-	EdgeLocation        *VideoParticipantSummaryEdgeLocation `json:"EdgeLocation,omitempty"`
-	EndReason           *string                              `json:"EndReason,omitempty"`
-	ErrorCode           *int32                               `json:"ErrorCode,omitempty"`
-	ErrorCodeUrl        *string                              `json:"ErrorCodeUrl,omitempty"`
-	JoinTime            *time.Time                           `json:"JoinTime,omitempty"`
-	LeaveTime           *time.Time                           `json:"LeaveTime,omitempty"`
-	MediaRegion         *VideoParticipantSummaryTwilioRealm  `json:"MediaRegion,omitempty"`
-	ParticipantIdentity *string                              `json:"ParticipantIdentity,omitempty"`
-	ParticipantSid      *string                              `json:"ParticipantSid,omitempty"`
-	Properties          *map[string]interface{}              `json:"Properties,omitempty"`
-	PublisherInfo       *map[string]interface{}              `json:"PublisherInfo,omitempty"`
-	RoomSid             *string                              `json:"RoomSid,omitempty"`
-	Status              *VideoParticipantSummaryRoomStatus   `json:"Status,omitempty"`
-	Url                 *string                              `json:"Url,omitempty"`
+	AccountSid          *string                 `json:"AccountSid,omitempty"`
+	Codecs              *[]string               `json:"Codecs,omitempty"`
+	DurationSec         *int32                  `json:"DurationSec,omitempty"`
+	EdgeLocation        *string                 `json:"EdgeLocation,omitempty"`
+	EndReason           *string                 `json:"EndReason,omitempty"`
+	ErrorCode           *int32                  `json:"ErrorCode,omitempty"`
+	ErrorCodeUrl        *string                 `json:"ErrorCodeUrl,omitempty"`
+	JoinTime            *time.Time              `json:"JoinTime,omitempty"`
+	LeaveTime           *time.Time              `json:"LeaveTime,omitempty"`
+	MediaRegion         *string                 `json:"MediaRegion,omitempty"`
+	ParticipantIdentity *string                 `json:"ParticipantIdentity,omitempty"`
+	ParticipantSid      *string                 `json:"ParticipantSid,omitempty"`
+	Properties          *map[string]interface{} `json:"Properties,omitempty"`
+	PublisherInfo       *map[string]interface{} `json:"PublisherInfo,omitempty"`
+	RoomSid             *string                 `json:"RoomSid,omitempty"`
+	Status              *string                 `json:"Status,omitempty"`
+	Url                 *string                 `json:"Url,omitempty"`
 }

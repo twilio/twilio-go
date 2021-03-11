@@ -17,16 +17,28 @@ import (
 
 // ConversationsV1User struct for ConversationsV1User
 type ConversationsV1User struct {
-	AccountSid     *string    `json:"AccountSid,omitempty"`
-	Attributes     *string    `json:"Attributes,omitempty"`
-	ChatServiceSid *string    `json:"ChatServiceSid,omitempty"`
-	DateCreated    *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated    *time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName   *string    `json:"FriendlyName,omitempty"`
-	Identity       *string    `json:"Identity,omitempty"`
-	IsNotifiable   *bool      `json:"IsNotifiable,omitempty"`
-	IsOnline       *bool      `json:"IsOnline,omitempty"`
-	RoleSid        *string    `json:"RoleSid,omitempty"`
-	Sid            *string    `json:"Sid,omitempty"`
-	Url            *string    `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The JSON Object string that stores application-specific data
+	Attributes *string `json:"Attributes,omitempty"`
+	// The SID of the Conversation Service that the resource is associated with
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The string that identifies the resource's User
+	Identity *string `json:"Identity,omitempty"`
+	// Whether the User has a potentially valid Push Notification registration for this Conversations Service
+	IsNotifiable *bool `json:"IsNotifiable,omitempty"`
+	// Whether the User is actively connected to this Conversations Service and online
+	IsOnline *bool `json:"IsOnline,omitempty"`
+	// The SID of a service-level Role assigned to the user
+	RoleSid *string `json:"RoleSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// An absolute URL for this user.
+	Url *string `json:"Url,omitempty"`
 }

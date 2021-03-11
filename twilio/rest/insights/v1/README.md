@@ -43,9 +43,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [EventLevel](docs/EventLevel.md)
- - [EventTwilioEdge](docs/EventTwilioEdge.md)
- - [HttpMethod](docs/HttpMethod.md)
  - [InsightsV1Call](docs/InsightsV1Call.md)
  - [InsightsV1CallEvent](docs/InsightsV1CallEvent.md)
  - [InsightsV1CallMetric](docs/InsightsV1CallMetric.md)
@@ -57,21 +54,6 @@ Class | Method | HTTP request | Description
  - [ListVideoParticipantSummaryResponse](docs/ListVideoParticipantSummaryResponse.md)
  - [ListVideoRoomSummaryResponse](docs/ListVideoRoomSummaryResponse.md)
  - [ListVideoRoomSummaryResponseMeta](docs/ListVideoRoomSummaryResponseMeta.md)
- - [MetricStreamDirection](docs/MetricStreamDirection.md)
- - [MetricTwilioEdge](docs/MetricTwilioEdge.md)
- - [SummaryCallState](docs/SummaryCallState.md)
- - [SummaryCallType](docs/SummaryCallType.md)
- - [SummaryProcessingState](docs/SummaryProcessingState.md)
- - [VideoParticipantSummaryEdgeLocation](docs/VideoParticipantSummaryEdgeLocation.md)
- - [VideoParticipantSummaryRoomStatus](docs/VideoParticipantSummaryRoomStatus.md)
- - [VideoParticipantSummaryTwilioRealm](docs/VideoParticipantSummaryTwilioRealm.md)
- - [VideoRoomSummaryCreatedMethod](docs/VideoRoomSummaryCreatedMethod.md)
- - [VideoRoomSummaryEdgeLocation](docs/VideoRoomSummaryEdgeLocation.md)
- - [VideoRoomSummaryEndReason](docs/VideoRoomSummaryEndReason.md)
- - [VideoRoomSummaryProcessingState](docs/VideoRoomSummaryProcessingState.md)
- - [VideoRoomSummaryRoomStatus](docs/VideoRoomSummaryRoomStatus.md)
- - [VideoRoomSummaryRoomType](docs/VideoRoomSummaryRoomType.md)
- - [VideoRoomSummaryTwilioRealm](docs/VideoRoomSummaryTwilioRealm.md)
 
 
 ## Documentation For Authorization

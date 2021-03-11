@@ -17,15 +17,26 @@ import (
 
 // SyncV1ServiceSyncMapSyncMapItem struct for SyncV1ServiceSyncMapSyncMapItem
 type SyncV1ServiceSyncMapSyncMapItem struct {
-	AccountSid  *string                 `json:"AccountSid,omitempty"`
-	CreatedBy   *string                 `json:"CreatedBy,omitempty"`
-	Data        *map[string]interface{} `json:"Data,omitempty"`
-	DateCreated *time.Time              `json:"DateCreated,omitempty"`
-	DateExpires *time.Time              `json:"DateExpires,omitempty"`
-	DateUpdated *time.Time              `json:"DateUpdated,omitempty"`
-	Key         *string                 `json:"Key,omitempty"`
-	MapSid      *string                 `json:"MapSid,omitempty"`
-	Revision    *string                 `json:"Revision,omitempty"`
-	ServiceSid  *string                 `json:"ServiceSid,omitempty"`
-	Url         *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The identity of the Map Item's creator
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	// An arbitrary, schema-less object that the Map Item stores
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Map Item expires
+	DateExpires *time.Time `json:"DateExpires,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The unique, user-defined key for the Map Item
+	Key *string `json:"Key,omitempty"`
+	// The SID of the Sync Map that contains the Map Item
+	MapSid *string `json:"MapSid,omitempty"`
+	// The current revision of the Map Item, represented as a string
+	Revision *string `json:"Revision,omitempty"`
+	// The SID of the Sync Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The absolute URL of the Map Item resource
+	Url *string `json:"Url,omitempty"`
 }

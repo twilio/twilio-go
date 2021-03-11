@@ -17,18 +17,32 @@ import (
 
 // ApiV2010AccountCallCallFeedbackSummary struct for ApiV2010AccountCallCallFeedbackSummary
 type ApiV2010AccountCallCallFeedbackSummary struct {
-	AccountSid                    *string                    `json:"AccountSid,omitempty"`
-	CallCount                     *int32                     `json:"CallCount,omitempty"`
-	CallFeedbackCount             *int32                     `json:"CallFeedbackCount,omitempty"`
-	DateCreated                   *string                    `json:"DateCreated,omitempty"`
-	DateUpdated                   *string                    `json:"DateUpdated,omitempty"`
-	EndDate                       *time.Time                 `json:"EndDate,omitempty"`
-	IncludeSubaccounts            *bool                      `json:"IncludeSubaccounts,omitempty"`
-	Issues                        *[]map[string]interface{}  `json:"Issues,omitempty"`
-	QualityScoreAverage           *float32                   `json:"QualityScoreAverage,omitempty"`
-	QualityScoreMedian            *float32                   `json:"QualityScoreMedian,omitempty"`
-	QualityScoreStandardDeviation *float32                   `json:"QualityScoreStandardDeviation,omitempty"`
-	Sid                           *string                    `json:"Sid,omitempty"`
-	StartDate                     *time.Time                 `json:"StartDate,omitempty"`
-	Status                        *CallFeedbackSummaryStatus `json:"Status,omitempty"`
+	// The unique sid that identifies this account
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The total number of calls
+	CallCount *int32 `json:"CallCount,omitempty"`
+	// The total number of calls with a feedback entry
+	CallFeedbackCount *int32 `json:"CallFeedbackCount,omitempty"`
+	// The date this resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The date this resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// The latest feedback entry date in the summary
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// Whether the feedback summary includes subaccounts
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// Issues experienced during the call
+	Issues *[]ApiV2010AccountCallCallFeedbackSummaryIssues `json:"Issues,omitempty"`
+	// The average QualityScore of the feedback entries
+	QualityScoreAverage *float32 `json:"QualityScoreAverage,omitempty"`
+	// The median QualityScore of the feedback entries
+	QualityScoreMedian *float32 `json:"QualityScoreMedian,omitempty"`
+	// The standard deviation of the quality scores
+	QualityScoreStandardDeviation *float32 `json:"QualityScoreStandardDeviation,omitempty"`
+	// A string that uniquely identifies this feedback entry
+	Sid *string `json:"Sid,omitempty"`
+	// The earliest feedback entry date in the summary
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// The status of the feedback summary
+	Status *string `json:"Status,omitempty"`
 }

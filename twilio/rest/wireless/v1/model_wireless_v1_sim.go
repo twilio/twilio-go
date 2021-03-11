@@ -17,28 +17,52 @@ import (
 
 // WirelessV1Sim struct for WirelessV1Sim
 type WirelessV1Sim struct {
-	AccountSid             *string                 `json:"AccountSid,omitempty"`
-	CommandsCallbackMethod *HttpMethod             `json:"CommandsCallbackMethod,omitempty"`
-	CommandsCallbackUrl    *string                 `json:"CommandsCallbackUrl,omitempty"`
-	DateCreated            *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated            *time.Time              `json:"DateUpdated,omitempty"`
-	EId                    *string                 `json:"EId,omitempty"`
-	FriendlyName           *string                 `json:"FriendlyName,omitempty"`
-	Iccid                  *string                 `json:"Iccid,omitempty"`
-	IpAddress              *string                 `json:"IpAddress,omitempty"`
-	Links                  *map[string]interface{} `json:"Links,omitempty"`
-	RatePlanSid            *string                 `json:"RatePlanSid,omitempty"`
-	ResetStatus            *SimResetStatus         `json:"ResetStatus,omitempty"`
-	Sid                    *string                 `json:"Sid,omitempty"`
-	SmsFallbackMethod      *HttpMethod             `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl         *string                 `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod              *HttpMethod             `json:"SmsMethod,omitempty"`
-	SmsUrl                 *string                 `json:"SmsUrl,omitempty"`
-	Status                 *SimStatus              `json:"Status,omitempty"`
-	UniqueName             *string                 `json:"UniqueName,omitempty"`
-	Url                    *string                 `json:"Url,omitempty"`
-	VoiceFallbackMethod    *HttpMethod             `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl       *string                 `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod            *HttpMethod             `json:"VoiceMethod,omitempty"`
-	VoiceUrl               *string                 `json:"VoiceUrl,omitempty"`
+	// The SID of the Account to which the Sim resource belongs
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The HTTP method we use to call commands_callback_url
+	CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
+	// The URL we call when the SIM originates a machine-to-machine Command
+	CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Sim resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Deprecated
+	EId *string `json:"EId,omitempty"`
+	// The string that you assigned to describe the Sim resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The ICCID associated with the SIM
+	Iccid *string `json:"Iccid,omitempty"`
+	// Deprecated
+	IpAddress *string `json:"IpAddress,omitempty"`
+	// The URLs of related subresources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The SID of the RatePlan resource to which the Sim resource is assigned.
+	RatePlanSid *string `json:"RatePlanSid,omitempty"`
+	// The connectivity reset status of the SIM
+	ResetStatus *string `json:"ResetStatus,omitempty"`
+	// The unique string that identifies the Sim resource
+	Sid *string `json:"Sid,omitempty"`
+	// The HTTP method we use to call sms_fallback_url
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method we use to call sms_url
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL we call when the SIM-connected device sends an SMS message that is not a Command
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The status of the Sim resource
+	Status *string `json:"Status,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
+	// The HTTP method we use to call voice_fallback_url
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method we use to call voice_url
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The URL we call when the SIM-connected device makes a voice call
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }

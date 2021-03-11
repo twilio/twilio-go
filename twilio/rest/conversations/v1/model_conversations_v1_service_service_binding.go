@@ -17,15 +17,26 @@ import (
 
 // ConversationsV1ServiceServiceBinding struct for ConversationsV1ServiceServiceBinding
 type ConversationsV1ServiceServiceBinding struct {
-	AccountSid     *string                    `json:"AccountSid,omitempty"`
-	BindingType    *ServiceBindingBindingType `json:"BindingType,omitempty"`
-	ChatServiceSid *string                    `json:"ChatServiceSid,omitempty"`
-	CredentialSid  *string                    `json:"CredentialSid,omitempty"`
-	DateCreated    *time.Time                 `json:"DateCreated,omitempty"`
-	DateUpdated    *time.Time                 `json:"DateUpdated,omitempty"`
-	Endpoint       *string                    `json:"Endpoint,omitempty"`
-	Identity       *string                    `json:"Identity,omitempty"`
-	MessageTypes   *[]string                  `json:"MessageTypes,omitempty"`
-	Sid            *string                    `json:"Sid,omitempty"`
-	Url            *string                    `json:"Url,omitempty"`
+	// The unique ID of the Account responsible for this binding.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The push technology to use for the binding.
+	BindingType *string `json:"BindingType,omitempty"`
+	// The SID of the Conversation Service that the resource is associated with.
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	// The SID of the Credential for the binding.
+	CredentialSid *string `json:"CredentialSid,omitempty"`
+	// The date that this resource was created.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date that this resource was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The unique endpoint identifier for the Binding.
+	Endpoint *string `json:"Endpoint,omitempty"`
+	// The identity of Conversation User associated with this binding.
+	Identity *string `json:"Identity,omitempty"`
+	// The Conversation message types the binding is subscribed to.
+	MessageTypes *[]string `json:"MessageTypes,omitempty"`
+	// A 34 character string that uniquely identifies this resource.
+	Sid *string `json:"Sid,omitempty"`
+	// An absolute URL for this binding.
+	Url *string `json:"Url,omitempty"`
 }

@@ -83,8 +83,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CustomerProfileEvaluationStatus](docs/CustomerProfileEvaluationStatus.md)
- - [CustomerProfileStatus](docs/CustomerProfileStatus.md)
  - [ListCustomerProfileChannelEndpointAssignmentResponse](docs/ListCustomerProfileChannelEndpointAssignmentResponse.md)
  - [ListCustomerProfileEntityAssignmentResponse](docs/ListCustomerProfileEntityAssignmentResponse.md)
  - [ListCustomerProfileEvaluationResponse](docs/ListCustomerProfileEvaluationResponse.md)
@@ -99,9 +97,6 @@ Class | Method | HTTP request | Description
  - [ListTrustProductEntityAssignmentResponse](docs/ListTrustProductEntityAssignmentResponse.md)
  - [ListTrustProductEvaluationResponse](docs/ListTrustProductEvaluationResponse.md)
  - [ListTrustProductResponse](docs/ListTrustProductResponse.md)
- - [SupportingDocumentStatus](docs/SupportingDocumentStatus.md)
- - [TrustProductEvaluationStatus](docs/TrustProductEvaluationStatus.md)
- - [TrustProductStatus](docs/TrustProductStatus.md)
  - [TrusthubV1CustomerProfile](docs/TrusthubV1CustomerProfile.md)
  - [TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment](docs/TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment.md)
  - [TrusthubV1CustomerProfileCustomerProfileEntityAssignment](docs/TrusthubV1CustomerProfileCustomerProfileEntityAssignment.md)

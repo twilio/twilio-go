@@ -17,14 +17,24 @@ import (
 
 // AutopilotV1AssistantTaskSample struct for AutopilotV1AssistantTaskSample
 type AutopilotV1AssistantTaskSample struct {
-	AccountSid    *string    `json:"AccountSid,omitempty"`
-	AssistantSid  *string    `json:"AssistantSid,omitempty"`
-	DateCreated   *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated   *time.Time `json:"DateUpdated,omitempty"`
-	Language      *string    `json:"Language,omitempty"`
-	Sid           *string    `json:"Sid,omitempty"`
-	SourceChannel *string    `json:"SourceChannel,omitempty"`
-	TaggedText    *string    `json:"TaggedText,omitempty"`
-	TaskSid       *string    `json:"TaskSid,omitempty"`
-	Url           *string    `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Assistant that is the parent of the Task associated with the resource
+	AssistantSid *string `json:"AssistantSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// An ISO language-country string that specifies the language used for the sample
+	Language *string `json:"Language,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The communication channel from which the sample was captured
+	SourceChannel *string `json:"SourceChannel,omitempty"`
+	// The text example of how end users might express the task
+	TaggedText *string `json:"TaggedText,omitempty"`
+	// The SID of the Task associated with the resource
+	TaskSid *string `json:"TaskSid,omitempty"`
+	// The absolute URL of the Sample resource
+	Url *string `json:"Url,omitempty"`
 }

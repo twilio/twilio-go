@@ -13,9 +13,14 @@ package openapi
 
 // NumbersV2RegulatoryComplianceSupportingDocumentType struct for NumbersV2RegulatoryComplianceSupportingDocumentType
 type NumbersV2RegulatoryComplianceSupportingDocumentType struct {
-	Fields       *[]map[string]interface{} `json:"Fields,omitempty"`
-	FriendlyName *string                   `json:"FriendlyName,omitempty"`
-	MachineName  *string                   `json:"MachineName,omitempty"`
-	Sid          *string                   `json:"Sid,omitempty"`
-	Url          *string                   `json:"Url,omitempty"`
+	// The required information for creating a Supporting Document
+	Fields *[]map[string]interface{} `json:"Fields,omitempty"`
+	// A human-readable description of the Supporting Document Type resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The machine-readable description of the Supporting Document Type resource
+	MachineName *string `json:"MachineName,omitempty"`
+	// The unique string that identifies the Supporting Document Type resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Supporting Document Type resource
+	Url *string `json:"Url,omitempty"`
 }

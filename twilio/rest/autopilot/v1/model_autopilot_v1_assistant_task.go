@@ -17,14 +17,24 @@ import (
 
 // AutopilotV1AssistantTask struct for AutopilotV1AssistantTask
 type AutopilotV1AssistantTask struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	ActionsUrl   *string                 `json:"ActionsUrl,omitempty"`
-	AssistantSid *string                 `json:"AssistantSid,omitempty"`
-	DateCreated  *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time              `json:"DateUpdated,omitempty"`
-	FriendlyName *string                 `json:"FriendlyName,omitempty"`
-	Links        *map[string]interface{} `json:"Links,omitempty"`
-	Sid          *string                 `json:"Sid,omitempty"`
-	UniqueName   *string                 `json:"UniqueName,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The URL from which the Assistant can fetch actions
+	ActionsUrl *string `json:"ActionsUrl,omitempty"`
+	// The SID of the Assistant that is the parent of the resource
+	AssistantSid *string `json:"AssistantSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// A list of the URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the Task resource
+	Url *string `json:"Url,omitempty"`
 }

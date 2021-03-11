@@ -17,17 +17,30 @@ import (
 
 // ProxyV1ServiceSessionParticipant struct for ProxyV1ServiceSessionParticipant
 type ProxyV1ServiceSessionParticipant struct {
-	AccountSid         *string                 `json:"AccountSid,omitempty"`
-	DateCreated        *time.Time              `json:"DateCreated,omitempty"`
-	DateDeleted        *time.Time              `json:"DateDeleted,omitempty"`
-	DateUpdated        *time.Time              `json:"DateUpdated,omitempty"`
-	FriendlyName       *string                 `json:"FriendlyName,omitempty"`
-	Identifier         *string                 `json:"Identifier,omitempty"`
-	Links              *map[string]interface{} `json:"Links,omitempty"`
-	ProxyIdentifier    *string                 `json:"ProxyIdentifier,omitempty"`
-	ProxyIdentifierSid *string                 `json:"ProxyIdentifierSid,omitempty"`
-	ServiceSid         *string                 `json:"ServiceSid,omitempty"`
-	SessionSid         *string                 `json:"SessionSid,omitempty"`
-	Sid                *string                 `json:"Sid,omitempty"`
-	Url                *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date the Participant was removed
+	DateDeleted *time.Time `json:"DateDeleted,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the participant
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The phone number of the Participant
+	Identifier *string `json:"Identifier,omitempty"`
+	// The URLs to resources related the participant
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The phone number or short code of the participant's partner
+	ProxyIdentifier *string `json:"ProxyIdentifier,omitempty"`
+	// The SID of the Proxy Identifier assigned to the Participant
+	ProxyIdentifierSid *string `json:"ProxyIdentifierSid,omitempty"`
+	// The SID of the resource's parent Service
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The SID of the resource's parent Session
+	SessionSid *string `json:"SessionSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Participant resource
+	Url *string `json:"Url,omitempty"`
 }

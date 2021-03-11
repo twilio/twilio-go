@@ -17,14 +17,24 @@ import (
 
 // StudioV2FlowExecution struct for StudioV2FlowExecution
 type StudioV2FlowExecution struct {
-	AccountSid            *string                 `json:"AccountSid,omitempty"`
-	ContactChannelAddress *string                 `json:"ContactChannelAddress,omitempty"`
-	Context               *map[string]interface{} `json:"Context,omitempty"`
-	DateCreated           *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated           *time.Time              `json:"DateUpdated,omitempty"`
-	FlowSid               *string                 `json:"FlowSid,omitempty"`
-	Links                 *map[string]interface{} `json:"Links,omitempty"`
-	Sid                   *string                 `json:"Sid,omitempty"`
-	Status                *ExecutionStatus        `json:"Status,omitempty"`
-	Url                   *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The phone number, SIP address or Client identifier that triggered the Execution
+	ContactChannelAddress *string `json:"ContactChannelAddress,omitempty"`
+	// The current state of the flow
+	Context *map[string]interface{} `json:"Context,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Flow
+	FlowSid *string `json:"FlowSid,omitempty"`
+	// Nested resource URLs
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the Execution
+	Status *string `json:"Status,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

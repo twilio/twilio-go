@@ -13,10 +13,16 @@ package openapi
 
 // StudioV1FlowExecutionExecutionStepExecutionStepContext struct for StudioV1FlowExecutionExecutionStepExecutionStepContext
 type StudioV1FlowExecutionExecutionStepExecutionStepContext struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	Context      *map[string]interface{} `json:"Context,omitempty"`
-	ExecutionSid *string                 `json:"ExecutionSid,omitempty"`
-	FlowSid      *string                 `json:"FlowSid,omitempty"`
-	StepSid      *string                 `json:"StepSid,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The current state of the flow
+	Context *map[string]interface{} `json:"Context,omitempty"`
+	// The SID of the Execution
+	ExecutionSid *string `json:"ExecutionSid,omitempty"`
+	// The SID of the Flow
+	FlowSid *string `json:"FlowSid,omitempty"`
+	// Step SID
+	StepSid *string `json:"StepSid,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

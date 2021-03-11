@@ -13,9 +13,14 @@ package openapi
 
 // WirelessV1SimUsageRecord struct for WirelessV1SimUsageRecord
 type WirelessV1SimUsageRecord struct {
-	AccountSid *string                 `json:"AccountSid,omitempty"`
-	Commands   *map[string]interface{} `json:"Commands,omitempty"`
-	Data       *map[string]interface{} `json:"Data,omitempty"`
-	Period     *map[string]interface{} `json:"Period,omitempty"`
-	SimSid     *string                 `json:"SimSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// An object that describes the SIM's usage of Commands during the specified period
+	Commands *map[string]interface{} `json:"Commands,omitempty"`
+	// An object that describes the SIM's data usage during the specified period
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// The time period for which the usage is reported
+	Period *map[string]interface{} `json:"Period,omitempty"`
+	// The SID of the Sim resource that this Usage Record is for
+	SimSid *string `json:"SimSid,omitempty"`
 }

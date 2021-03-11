@@ -17,25 +17,46 @@ import (
 
 // TaskrouterV1WorkspaceWorkspaceCumulativeStatistics struct for TaskrouterV1WorkspaceWorkspaceCumulativeStatistics
 type TaskrouterV1WorkspaceWorkspaceCumulativeStatistics struct {
-	AccountSid                *string                 `json:"AccountSid,omitempty"`
-	AvgTaskAcceptanceTime     *int32                  `json:"AvgTaskAcceptanceTime,omitempty"`
-	EndTime                   *time.Time              `json:"EndTime,omitempty"`
-	ReservationsAccepted      *int32                  `json:"ReservationsAccepted,omitempty"`
-	ReservationsCanceled      *int32                  `json:"ReservationsCanceled,omitempty"`
-	ReservationsCreated       *int32                  `json:"ReservationsCreated,omitempty"`
-	ReservationsRejected      *int32                  `json:"ReservationsRejected,omitempty"`
-	ReservationsRescinded     *int32                  `json:"ReservationsRescinded,omitempty"`
-	ReservationsTimedOut      *int32                  `json:"ReservationsTimedOut,omitempty"`
-	SplitByWaitTime           *map[string]interface{} `json:"SplitByWaitTime,omitempty"`
-	StartTime                 *time.Time              `json:"StartTime,omitempty"`
-	TasksCanceled             *int32                  `json:"TasksCanceled,omitempty"`
-	TasksCompleted            *int32                  `json:"TasksCompleted,omitempty"`
-	TasksCreated              *int32                  `json:"TasksCreated,omitempty"`
-	TasksDeleted              *int32                  `json:"TasksDeleted,omitempty"`
-	TasksMoved                *int32                  `json:"TasksMoved,omitempty"`
-	TasksTimedOutInWorkflow   *int32                  `json:"TasksTimedOutInWorkflow,omitempty"`
-	Url                       *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The average time in seconds between Task creation and acceptance
+	AvgTaskAcceptanceTime *int32 `json:"AvgTaskAcceptanceTime,omitempty"`
+	// The end of the interval during which these statistics were calculated
+	EndTime *time.Time `json:"EndTime,omitempty"`
+	// The total number of Reservations accepted by Workers
+	ReservationsAccepted *int32 `json:"ReservationsAccepted,omitempty"`
+	// The total number of Reservations that were canceled
+	ReservationsCanceled *int32 `json:"ReservationsCanceled,omitempty"`
+	// The total number of Reservations that were created for Workers
+	ReservationsCreated *int32 `json:"ReservationsCreated,omitempty"`
+	// The total number of Reservations that were rejected
+	ReservationsRejected *int32 `json:"ReservationsRejected,omitempty"`
+	// The total number of Reservations that were rescinded
+	ReservationsRescinded *int32 `json:"ReservationsRescinded,omitempty"`
+	// The total number of Reservations that were timed out
+	ReservationsTimedOut *int32 `json:"ReservationsTimedOut,omitempty"`
+	// A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
+	SplitByWaitTime *map[string]interface{} `json:"SplitByWaitTime,omitempty"`
+	// The beginning of the interval during which these statistics were calculated
+	StartTime *time.Time `json:"StartTime,omitempty"`
+	// The total number of Tasks that were canceled
+	TasksCanceled *int32 `json:"TasksCanceled,omitempty"`
+	// The total number of Tasks that were completed
+	TasksCompleted *int32 `json:"TasksCompleted,omitempty"`
+	// The total number of Tasks created
+	TasksCreated *int32 `json:"TasksCreated,omitempty"`
+	// The total number of Tasks that were deleted
+	TasksDeleted *int32 `json:"TasksDeleted,omitempty"`
+	// The total number of Tasks that were moved from one queue to another
+	TasksMoved *int32 `json:"TasksMoved,omitempty"`
+	// The total number of Tasks that were timed out of their Workflows
+	TasksTimedOutInWorkflow *int32 `json:"TasksTimedOutInWorkflow,omitempty"`
+	// The absolute URL of the Workspace statistics resource
+	Url *string `json:"Url,omitempty"`
+	// The wait duration statistics for Tasks that were accepted
 	WaitDurationUntilAccepted *map[string]interface{} `json:"WaitDurationUntilAccepted,omitempty"`
+	// The wait duration statistics for Tasks that were canceled
 	WaitDurationUntilCanceled *map[string]interface{} `json:"WaitDurationUntilCanceled,omitempty"`
-	WorkspaceSid              *string                 `json:"WorkspaceSid,omitempty"`
+	// The SID of the Workspace
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

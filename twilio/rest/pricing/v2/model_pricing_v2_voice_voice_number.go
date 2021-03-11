@@ -13,12 +13,19 @@ package openapi
 
 // PricingV2VoiceVoiceNumber struct for PricingV2VoiceVoiceNumber
 type PricingV2VoiceVoiceNumber struct {
-	Country            *string                   `json:"Country,omitempty"`
-	DestinationNumber  *string                   `json:"DestinationNumber,omitempty"`
-	InboundCallPrice   *InboundCallPrice         `json:"InboundCallPrice,omitempty"`
-	IsoCountry         *string                   `json:"IsoCountry,omitempty"`
-	OriginationNumber  *string                   `json:"OriginationNumber,omitempty"`
-	OutboundCallPrices *[]map[string]interface{} `json:"OutboundCallPrices,omitempty"`
-	PriceUnit          *string                   `json:"PriceUnit,omitempty"`
-	Url                *string                   `json:"Url,omitempty"`
+	// The name of the country
+	Country *string `json:"Country,omitempty"`
+	// The destination phone number, in E.164 format
+	DestinationNumber *string                                    `json:"DestinationNumber,omitempty"`
+	InboundCallPrice  *PricingV2VoiceVoiceNumberInboundCallPrice `json:"InboundCallPrice,omitempty"`
+	// The ISO country code
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	// The origination phone number, in E.164 format
+	OriginationNumber *string `json:"OriginationNumber,omitempty"`
+	// The list of OutboundCallPriceWithOrigin records
+	OutboundCallPrices *[]PricingV2VoiceVoiceNumberOutboundCallPrices `json:"OutboundCallPrices,omitempty"`
+	// The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
+	PriceUnit *string `json:"PriceUnit,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

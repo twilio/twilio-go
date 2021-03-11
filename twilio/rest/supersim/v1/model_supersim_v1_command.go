@@ -17,13 +17,22 @@ import (
 
 // SupersimV1Command struct for SupersimV1Command
 type SupersimV1Command struct {
-	AccountSid  *string           `json:"AccountSid,omitempty"`
-	Command     *string           `json:"Command,omitempty"`
-	DateCreated *time.Time        `json:"DateCreated,omitempty"`
-	DateUpdated *time.Time        `json:"DateUpdated,omitempty"`
-	Direction   *CommandDirection `json:"Direction,omitempty"`
-	Sid         *string           `json:"Sid,omitempty"`
-	SimSid      *string           `json:"SimSid,omitempty"`
-	Status      *CommandStatus    `json:"Status,omitempty"`
-	Url         *string           `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The message body of the command sent to or from the SIM
+	Command *string `json:"Command,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The direction of the Command
+	Direction *string `json:"Direction,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The SID of the SIM that this Command was sent to or from
+	SimSid *string `json:"SimSid,omitempty"`
+	// The status of the Command
+	Status *string `json:"Status,omitempty"`
+	// The absolute URL of the Command resource
+	Url *string `json:"Url,omitempty"`
 }

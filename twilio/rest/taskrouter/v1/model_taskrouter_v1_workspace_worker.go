@@ -17,17 +17,30 @@ import (
 
 // TaskrouterV1WorkspaceWorker struct for TaskrouterV1WorkspaceWorker
 type TaskrouterV1WorkspaceWorker struct {
-	AccountSid        *string                 `json:"AccountSid,omitempty"`
-	ActivityName      *string                 `json:"ActivityName,omitempty"`
-	ActivitySid       *string                 `json:"ActivitySid,omitempty"`
-	Attributes        *string                 `json:"Attributes,omitempty"`
-	Available         *bool                   `json:"Available,omitempty"`
-	DateCreated       *time.Time              `json:"DateCreated,omitempty"`
-	DateStatusChanged *time.Time              `json:"DateStatusChanged,omitempty"`
-	DateUpdated       *time.Time              `json:"DateUpdated,omitempty"`
-	FriendlyName      *string                 `json:"FriendlyName,omitempty"`
-	Links             *map[string]interface{} `json:"Links,omitempty"`
-	Sid               *string                 `json:"Sid,omitempty"`
-	Url               *string                 `json:"Url,omitempty"`
-	WorkspaceSid      *string                 `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The friendly_name of the Worker's current Activity
+	ActivityName *string `json:"ActivityName,omitempty"`
+	// The SID of the Worker's current Activity
+	ActivitySid *string `json:"ActivitySid,omitempty"`
+	// The JSON string that describes the Worker
+	Attributes *string `json:"Attributes,omitempty"`
+	// Whether the Worker is available to perform tasks
+	Available *bool `json:"Available,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date and time in GMT of the last change to the Worker's activity
+	DateStatusChanged *time.Time `json:"DateStatusChanged,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Worker resource
+	Url *string `json:"Url,omitempty"`
+	// The SID of the Workspace that contains the Worker
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

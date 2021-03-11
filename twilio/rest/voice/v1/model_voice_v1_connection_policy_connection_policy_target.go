@@ -17,15 +17,26 @@ import (
 
 // VoiceV1ConnectionPolicyConnectionPolicyTarget struct for VoiceV1ConnectionPolicyConnectionPolicyTarget
 type VoiceV1ConnectionPolicyConnectionPolicyTarget struct {
-	AccountSid          *string    `json:"AccountSid,omitempty"`
-	ConnectionPolicySid *string    `json:"ConnectionPolicySid,omitempty"`
-	DateCreated         *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated         *time.Time `json:"DateUpdated,omitempty"`
-	Enabled             *bool      `json:"Enabled,omitempty"`
-	FriendlyName        *string    `json:"FriendlyName,omitempty"`
-	Priority            *int32     `json:"Priority,omitempty"`
-	Sid                 *string    `json:"Sid,omitempty"`
-	Target              *string    `json:"Target,omitempty"`
-	Url                 *string    `json:"Url,omitempty"`
-	Weight              *int32     `json:"Weight,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Connection Policy that owns the Target
+	ConnectionPolicySid *string `json:"ConnectionPolicySid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Whether the target is enabled
+	Enabled *bool `json:"Enabled,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The relative importance of the target
+	Priority *int32 `json:"Priority,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The SIP address you want Twilio to route your calls to
+	Target *string `json:"Target,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
+	// The value that determines the relative load the Target should receive compared to others with the same priority
+	Weight *int32 `json:"Weight,omitempty"`
 }

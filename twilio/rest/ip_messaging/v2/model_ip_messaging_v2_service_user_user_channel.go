@@ -13,15 +13,15 @@ package openapi
 
 // IpMessagingV2ServiceUserUserChannel struct for IpMessagingV2ServiceUserUserChannel
 type IpMessagingV2ServiceUserUserChannel struct {
-	AccountSid               *string                       `json:"AccountSid,omitempty"`
-	ChannelSid               *string                       `json:"ChannelSid,omitempty"`
-	LastConsumedMessageIndex *int32                        `json:"LastConsumedMessageIndex,omitempty"`
-	Links                    *map[string]interface{}       `json:"Links,omitempty"`
-	MemberSid                *string                       `json:"MemberSid,omitempty"`
-	NotificationLevel        *UserChannelNotificationLevel `json:"NotificationLevel,omitempty"`
-	ServiceSid               *string                       `json:"ServiceSid,omitempty"`
-	Status                   *UserChannelChannelStatus     `json:"Status,omitempty"`
-	UnreadMessagesCount      *int32                        `json:"UnreadMessagesCount,omitempty"`
-	Url                      *string                       `json:"Url,omitempty"`
-	UserSid                  *string                       `json:"UserSid,omitempty"`
+	AccountSid               *string                 `json:"AccountSid,omitempty"`
+	ChannelSid               *string                 `json:"ChannelSid,omitempty"`
+	LastConsumedMessageIndex *int32                  `json:"LastConsumedMessageIndex,omitempty"`
+	Links                    *map[string]interface{} `json:"Links,omitempty"`
+	MemberSid                *string                 `json:"MemberSid,omitempty"`
+	NotificationLevel        *string                 `json:"NotificationLevel,omitempty"`
+	ServiceSid               *string                 `json:"ServiceSid,omitempty"`
+	Status                   *string                 `json:"Status,omitempty"`
+	UnreadMessagesCount      *int32                  `json:"UnreadMessagesCount,omitempty"`
+	Url                      *string                 `json:"Url,omitempty"`
+	UserSid                  *string                 `json:"UserSid,omitempty"`
 }

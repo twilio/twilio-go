@@ -17,18 +17,32 @@ import (
 
 // MonitorV1Event struct for MonitorV1Event
 type MonitorV1Event struct {
-	AccountSid      *string                 `json:"AccountSid,omitempty"`
-	ActorSid        *string                 `json:"ActorSid,omitempty"`
-	ActorType       *string                 `json:"ActorType,omitempty"`
-	Description     *string                 `json:"Description,omitempty"`
-	EventData       *map[string]interface{} `json:"EventData,omitempty"`
-	EventDate       *time.Time              `json:"EventDate,omitempty"`
-	EventType       *string                 `json:"EventType,omitempty"`
-	Links           *map[string]interface{} `json:"Links,omitempty"`
-	ResourceSid     *string                 `json:"ResourceSid,omitempty"`
-	ResourceType    *string                 `json:"ResourceType,omitempty"`
-	Sid             *string                 `json:"Sid,omitempty"`
-	Source          *string                 `json:"Source,omitempty"`
-	SourceIpAddress *string                 `json:"SourceIpAddress,omitempty"`
-	Url             *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the actor that caused the event, if available
+	ActorSid *string `json:"ActorSid,omitempty"`
+	// The type of actor that caused the event
+	ActorType *string `json:"ActorType,omitempty"`
+	// A description of the event
+	Description *string `json:"Description,omitempty"`
+	// A JSON string that represents an object with additional data about the event
+	EventData *map[string]interface{} `json:"EventData,omitempty"`
+	// The ISO 8601 date and time in GMT when the event was recorded
+	EventDate *time.Time `json:"EventDate,omitempty"`
+	// The event's type
+	EventType *string `json:"EventType,omitempty"`
+	// The absolute URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The SID of the resource that was affected
+	ResourceSid *string `json:"ResourceSid,omitempty"`
+	// The type of resource that was affected
+	ResourceType *string `json:"ResourceType,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The originating system or interface that caused the event
+	Source *string `json:"Source,omitempty"`
+	// The IP address of the source
+	SourceIpAddress *string `json:"SourceIpAddress,omitempty"`
+	// The absolute URL of the resource that was affected
+	Url *string `json:"Url,omitempty"`
 }

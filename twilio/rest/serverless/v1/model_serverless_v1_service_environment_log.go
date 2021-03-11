@@ -17,16 +17,28 @@ import (
 
 // ServerlessV1ServiceEnvironmentLog struct for ServerlessV1ServiceEnvironmentLog
 type ServerlessV1ServiceEnvironmentLog struct {
-	AccountSid     *string    `json:"AccountSid,omitempty"`
-	BuildSid       *string    `json:"BuildSid,omitempty"`
-	DateCreated    *time.Time `json:"DateCreated,omitempty"`
-	DeploymentSid  *string    `json:"DeploymentSid,omitempty"`
-	EnvironmentSid *string    `json:"EnvironmentSid,omitempty"`
-	FunctionSid    *string    `json:"FunctionSid,omitempty"`
-	Level          *LogLevel  `json:"Level,omitempty"`
-	Message        *string    `json:"Message,omitempty"`
-	RequestSid     *string    `json:"RequestSid,omitempty"`
-	ServiceSid     *string    `json:"ServiceSid,omitempty"`
-	Sid            *string    `json:"Sid,omitempty"`
-	Url            *string    `json:"Url,omitempty"`
+	// The SID of the Account that created the Log resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the build that corresponds to the log
+	BuildSid *string `json:"BuildSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the Log resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The SID of the deployment that corresponds to the log
+	DeploymentSid *string `json:"DeploymentSid,omitempty"`
+	// The SID of the environment in which the log occurred
+	EnvironmentSid *string `json:"EnvironmentSid,omitempty"`
+	// The SID of the function whose invocation produced the log
+	FunctionSid *string `json:"FunctionSid,omitempty"`
+	// The log level
+	Level *string `json:"Level,omitempty"`
+	// The log message
+	Message *string `json:"Message,omitempty"`
+	// The SID of the request associated with the log
+	RequestSid *string `json:"RequestSid,omitempty"`
+	// The SID of the Service that the Log resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the Log resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Log resource
+	Url *string `json:"Url,omitempty"`
 }

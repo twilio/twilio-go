@@ -59,17 +59,12 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [HttpMethod](docs/HttpMethod.md)
  - [ListCredentialListResponse](docs/ListCredentialListResponse.md)
  - [ListIpAccessControlListResponse](docs/ListIpAccessControlListResponse.md)
  - [ListOriginationUrlResponse](docs/ListOriginationUrlResponse.md)
  - [ListPhoneNumberResponse](docs/ListPhoneNumberResponse.md)
  - [ListTrunkResponse](docs/ListTrunkResponse.md)
  - [ListTrunkResponseMeta](docs/ListTrunkResponseMeta.md)
- - [PhoneNumberAddressRequirement](docs/PhoneNumberAddressRequirement.md)
- - [RecordingRecordingMode](docs/RecordingRecordingMode.md)
- - [RecordingRecordingTrim](docs/RecordingRecordingTrim.md)
- - [TrunkTransferSetting](docs/TrunkTransferSetting.md)
  - [TrunkingV1Trunk](docs/TrunkingV1Trunk.md)
  - [TrunkingV1TrunkCredentialList](docs/TrunkingV1TrunkCredentialList.md)
  - [TrunkingV1TrunkIpAccessControlList](docs/TrunkingV1TrunkIpAccessControlList.md)

@@ -51,11 +51,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CommandCommandMode](docs/CommandCommandMode.md)
- - [CommandDirection](docs/CommandDirection.md)
- - [CommandStatus](docs/CommandStatus.md)
- - [CommandTransport](docs/CommandTransport.md)
- - [HttpMethod](docs/HttpMethod.md)
  - [ListAccountUsageRecordResponse](docs/ListAccountUsageRecordResponse.md)
  - [ListCommandResponse](docs/ListCommandResponse.md)
  - [ListCommandResponseMeta](docs/ListCommandResponseMeta.md)
@@ -63,8 +58,6 @@ Class | Method | HTTP request | Description
  - [ListRatePlanResponse](docs/ListRatePlanResponse.md)
  - [ListSimResponse](docs/ListSimResponse.md)
  - [ListUsageRecordResponse](docs/ListUsageRecordResponse.md)
- - [SimResetStatus](docs/SimResetStatus.md)
- - [SimStatus](docs/SimStatus.md)
  - [WirelessV1AccountUsageRecord](docs/WirelessV1AccountUsageRecord.md)
  - [WirelessV1Command](docs/WirelessV1Command.md)
  - [WirelessV1RatePlan](docs/WirelessV1RatePlan.md)

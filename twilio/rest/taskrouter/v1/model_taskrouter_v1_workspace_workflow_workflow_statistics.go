@@ -13,10 +13,16 @@ package openapi
 
 // TaskrouterV1WorkspaceWorkflowWorkflowStatistics struct for TaskrouterV1WorkspaceWorkflowWorkflowStatistics
 type TaskrouterV1WorkspaceWorkflowWorkflowStatistics struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	Cumulative   *map[string]interface{} `json:"Cumulative,omitempty"`
-	Realtime     *map[string]interface{} `json:"Realtime,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
-	WorkflowSid  *string                 `json:"WorkflowSid,omitempty"`
-	WorkspaceSid *string                 `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// An object that contains the cumulative statistics for the Workflow
+	Cumulative *map[string]interface{} `json:"Cumulative,omitempty"`
+	// An object that contains the real-time statistics for the Workflow
+	Realtime *map[string]interface{} `json:"Realtime,omitempty"`
+	// The absolute URL of the Workflow statistics resource
+	Url *string `json:"Url,omitempty"`
+	// Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
+	WorkflowSid *string `json:"WorkflowSid,omitempty"`
+	// The SID of the Workspace that contains the Workflow
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

@@ -13,13 +13,22 @@ package openapi
 
 // ApiV2010AccountQueue struct for ApiV2010AccountQueue
 type ApiV2010AccountQueue struct {
-	AccountSid      *string `json:"AccountSid,omitempty"`
-	AverageWaitTime *int32  `json:"AverageWaitTime,omitempty"`
-	CurrentSize     *int32  `json:"CurrentSize,omitempty"`
-	DateCreated     *string `json:"DateCreated,omitempty"`
-	DateUpdated     *string `json:"DateUpdated,omitempty"`
-	FriendlyName    *string `json:"FriendlyName,omitempty"`
-	MaxSize         *int32  `json:"MaxSize,omitempty"`
-	Sid             *string `json:"Sid,omitempty"`
-	Uri             *string `json:"Uri,omitempty"`
+	// The SID of the Account that created this resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// Average wait time of members in the queue
+	AverageWaitTime *int32 `json:"AverageWaitTime,omitempty"`
+	// The number of calls currently in the queue.
+	CurrentSize *int32 `json:"CurrentSize,omitempty"`
+	// The RFC 2822 date and time in GMT that this resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that this resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// A string that you assigned to describe this resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The max number of calls allowed in the queue
+	MaxSize *int32 `json:"MaxSize,omitempty"`
+	// The unique string that identifies this resource
+	Sid *string `json:"Sid,omitempty"`
+	// The URI of this resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
 }

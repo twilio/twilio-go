@@ -13,18 +13,32 @@ package openapi
 
 // ApiV2010AccountConferenceParticipant struct for ApiV2010AccountConferenceParticipant
 type ApiV2010AccountConferenceParticipant struct {
-	AccountSid             *string            `json:"AccountSid,omitempty"`
-	CallSid                *string            `json:"CallSid,omitempty"`
-	CallSidToCoach         *string            `json:"CallSidToCoach,omitempty"`
-	Coaching               *bool              `json:"Coaching,omitempty"`
-	ConferenceSid          *string            `json:"ConferenceSid,omitempty"`
-	DateCreated            *string            `json:"DateCreated,omitempty"`
-	DateUpdated            *string            `json:"DateUpdated,omitempty"`
-	EndConferenceOnExit    *bool              `json:"EndConferenceOnExit,omitempty"`
-	Hold                   *bool              `json:"Hold,omitempty"`
-	Label                  *string            `json:"Label,omitempty"`
-	Muted                  *bool              `json:"Muted,omitempty"`
-	StartConferenceOnEnter *bool              `json:"StartConferenceOnEnter,omitempty"`
-	Status                 *ParticipantStatus `json:"Status,omitempty"`
-	Uri                    *string            `json:"Uri,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Call the resource is associated with
+	CallSid *string `json:"CallSid,omitempty"`
+	// The SID of the participant who is being `coached`
+	CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
+	// Indicates if the participant changed to coach
+	Coaching *bool `json:"Coaching,omitempty"`
+	// The SID of the conference the participant is in
+	ConferenceSid *string `json:"ConferenceSid,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// Whether the conference ends when the participant leaves
+	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
+	// Whether the participant is on hold
+	Hold *bool `json:"Hold,omitempty"`
+	// The label of this participant
+	Label *string `json:"Label,omitempty"`
+	// Whether the participant is muted
+	Muted *bool `json:"Muted,omitempty"`
+	// Whether the conference starts when the participant joins the conference
+	StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
+	// The status of the participant's call in a session
+	Status *string `json:"Status,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
 }

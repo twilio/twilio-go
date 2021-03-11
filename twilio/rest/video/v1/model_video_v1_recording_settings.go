@@ -13,12 +13,20 @@ package openapi
 
 // VideoV1RecordingSettings struct for VideoV1RecordingSettings
 type VideoV1RecordingSettings struct {
-	AccountSid        *string `json:"AccountSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the stored Credential resource
 	AwsCredentialsSid *string `json:"AwsCredentialsSid,omitempty"`
-	AwsS3Url          *string `json:"AwsS3Url,omitempty"`
-	AwsStorageEnabled *bool   `json:"AwsStorageEnabled,omitempty"`
-	EncryptionEnabled *bool   `json:"EncryptionEnabled,omitempty"`
-	EncryptionKeySid  *string `json:"EncryptionKeySid,omitempty"`
-	FriendlyName      *string `json:"FriendlyName,omitempty"`
-	Url               *string `json:"Url,omitempty"`
+	// The URL of the AWS S3 bucket where the recordings are stored
+	AwsS3Url *string `json:"AwsS3Url,omitempty"`
+	// Whether all recordings are written to the aws_s3_url
+	AwsStorageEnabled *bool `json:"AwsStorageEnabled,omitempty"`
+	// Whether all recordings are stored in an encrypted form
+	EncryptionEnabled *bool `json:"EncryptionEnabled,omitempty"`
+	// The SID of the Public Key resource used for encryption
+	EncryptionKeySid *string `json:"EncryptionKeySid,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

@@ -17,15 +17,26 @@ import (
 
 // StudioV1FlowEngagement struct for StudioV1FlowEngagement
 type StudioV1FlowEngagement struct {
-	AccountSid            *string                 `json:"AccountSid,omitempty"`
-	ContactChannelAddress *string                 `json:"ContactChannelAddress,omitempty"`
-	ContactSid            *string                 `json:"ContactSid,omitempty"`
-	Context               *map[string]interface{} `json:"Context,omitempty"`
-	DateCreated           *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated           *time.Time              `json:"DateUpdated,omitempty"`
-	FlowSid               *string                 `json:"FlowSid,omitempty"`
-	Links                 *map[string]interface{} `json:"Links,omitempty"`
-	Sid                   *string                 `json:"Sid,omitempty"`
-	Status                *EngagementStatus       `json:"Status,omitempty"`
-	Url                   *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The phone number, SIP address or Client identifier that triggered this Engagement
+	ContactChannelAddress *string `json:"ContactChannelAddress,omitempty"`
+	// The SID of the Contact
+	ContactSid *string `json:"ContactSid,omitempty"`
+	// The current state of the execution flow
+	Context *map[string]interface{} `json:"Context,omitempty"`
+	// The ISO 8601 date and time in GMT when the Engagement was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Engagement was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Flow
+	FlowSid *string `json:"FlowSid,omitempty"`
+	// The URLs of the Engagement's nested resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the Engagement
+	Status *string `json:"Status,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

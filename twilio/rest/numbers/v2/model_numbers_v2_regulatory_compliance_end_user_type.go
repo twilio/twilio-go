@@ -13,9 +13,14 @@ package openapi
 
 // NumbersV2RegulatoryComplianceEndUserType struct for NumbersV2RegulatoryComplianceEndUserType
 type NumbersV2RegulatoryComplianceEndUserType struct {
-	Fields       *[]map[string]interface{} `json:"Fields,omitempty"`
-	FriendlyName *string                   `json:"FriendlyName,omitempty"`
-	MachineName  *string                   `json:"MachineName,omitempty"`
-	Sid          *string                   `json:"Sid,omitempty"`
-	Url          *string                   `json:"Url,omitempty"`
+	// The required information for creating an End-User.
+	Fields *[]map[string]interface{} `json:"Fields,omitempty"`
+	// A human-readable description of the End-User Type resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// A machine-readable description of the End-User Type resource
+	MachineName *string `json:"MachineName,omitempty"`
+	// The unique string that identifies the End-User Type resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the End-User Type resource
+	Url *string `json:"Url,omitempty"`
 }

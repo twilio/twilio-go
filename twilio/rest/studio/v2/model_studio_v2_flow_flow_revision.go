@@ -17,16 +17,28 @@ import (
 
 // StudioV2FlowFlowRevision struct for StudioV2FlowFlowRevision
 type StudioV2FlowFlowRevision struct {
-	AccountSid    *string                   `json:"AccountSid,omitempty"`
-	CommitMessage *string                   `json:"CommitMessage,omitempty"`
-	DateCreated   *time.Time                `json:"DateCreated,omitempty"`
-	DateUpdated   *time.Time                `json:"DateUpdated,omitempty"`
-	Definition    *map[string]interface{}   `json:"Definition,omitempty"`
-	Errors        *[]map[string]interface{} `json:"Errors,omitempty"`
-	FriendlyName  *string                   `json:"FriendlyName,omitempty"`
-	Revision      *int32                    `json:"Revision,omitempty"`
-	Sid           *string                   `json:"Sid,omitempty"`
-	Status        *FlowRevisionStatus       `json:"Status,omitempty"`
-	Url           *string                   `json:"Url,omitempty"`
-	Valid         *bool                     `json:"Valid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// Description of change made in the revision
+	CommitMessage *string `json:"CommitMessage,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// JSON representation of flow definition
+	Definition *map[string]interface{} `json:"Definition,omitempty"`
+	// List of error in the flow definition
+	Errors *[]map[string]interface{} `json:"Errors,omitempty"`
+	// The string that you assigned to describe the Flow
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The latest revision number of the Flow's definition
+	Revision *int32 `json:"Revision,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the Flow
+	Status *string `json:"Status,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
+	// Boolean if the flow definition is valid
+	Valid *bool `json:"Valid,omitempty"`
 }

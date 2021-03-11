@@ -17,16 +17,28 @@ import (
 
 // SyncV1ServiceDocument struct for SyncV1ServiceDocument
 type SyncV1ServiceDocument struct {
-	AccountSid  *string                 `json:"AccountSid,omitempty"`
-	CreatedBy   *string                 `json:"CreatedBy,omitempty"`
-	Data        *map[string]interface{} `json:"Data,omitempty"`
-	DateCreated *time.Time              `json:"DateCreated,omitempty"`
-	DateExpires *time.Time              `json:"DateExpires,omitempty"`
-	DateUpdated *time.Time              `json:"DateUpdated,omitempty"`
-	Links       *map[string]interface{} `json:"Links,omitempty"`
-	Revision    *string                 `json:"Revision,omitempty"`
-	ServiceSid  *string                 `json:"ServiceSid,omitempty"`
-	Sid         *string                 `json:"Sid,omitempty"`
-	UniqueName  *string                 `json:"UniqueName,omitempty"`
-	Url         *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The identity of the Sync Document's creator
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	// An arbitrary, schema-less object that the Sync Document stores
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Sync Document expires
+	DateExpires *time.Time `json:"DateExpires,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The URLs of resources related to the Sync Document
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The current revision of the Sync Document, represented by a string identifier
+	Revision *string `json:"Revision,omitempty"`
+	// The SID of the Sync Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the Document resource
+	Url *string `json:"Url,omitempty"`
 }

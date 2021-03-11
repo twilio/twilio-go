@@ -13,7 +13,10 @@ package openapi
 
 // PricingV2Voice struct for PricingV2Voice
 type PricingV2Voice struct {
+	// The URLs of the related Countries and Numbers resources
 	Links *map[string]interface{} `json:"Links,omitempty"`
-	Name  *string                 `json:"Name,omitempty"`
-	Url   *string                 `json:"Url,omitempty"`
+	// The resource name
+	Name *string `json:"Name,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

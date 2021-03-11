@@ -17,18 +17,32 @@ import (
 
 // FlexV1FlexFlow struct for FlexV1FlexFlow
 type FlexV1FlexFlow struct {
-	AccountSid      *string                  `json:"AccountSid,omitempty"`
-	ChannelType     *FlexFlowChannelType     `json:"ChannelType,omitempty"`
-	ChatServiceSid  *string                  `json:"ChatServiceSid,omitempty"`
-	ContactIdentity *string                  `json:"ContactIdentity,omitempty"`
-	DateCreated     *time.Time               `json:"DateCreated,omitempty"`
-	DateUpdated     *time.Time               `json:"DateUpdated,omitempty"`
-	Enabled         *bool                    `json:"Enabled,omitempty"`
-	FriendlyName    *string                  `json:"FriendlyName,omitempty"`
-	Integration     *map[string]interface{}  `json:"Integration,omitempty"`
-	IntegrationType *FlexFlowIntegrationType `json:"IntegrationType,omitempty"`
-	JanitorEnabled  *bool                    `json:"JanitorEnabled,omitempty"`
-	LongLived       *bool                    `json:"LongLived,omitempty"`
-	Sid             *string                  `json:"Sid,omitempty"`
-	Url             *string                  `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The channel type
+	ChannelType *string `json:"ChannelType,omitempty"`
+	// The SID of the chat service
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	// The channel contact's Identity
+	ContactIdentity *string `json:"ContactIdentity,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Whether the Flex Flow is enabled
+	Enabled *bool `json:"Enabled,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An object that contains specific parameters for the integration
+	Integration *map[string]interface{} `json:"Integration,omitempty"`
+	// The integration type
+	IntegrationType *string `json:"IntegrationType,omitempty"`
+	// Remove active Proxy sessions if the corresponding Task is deleted.
+	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
+	// Re-use this chat channel for future interactions with a contact
+	LongLived *bool `json:"LongLived,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Flex Flow resource
+	Url *string `json:"Url,omitempty"`
 }

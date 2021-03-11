@@ -39,7 +39,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [HttpMethod](docs/HttpMethod.md)
  - [ListAlertResponse](docs/ListAlertResponse.md)
  - [ListAlertResponseMeta](docs/ListAlertResponseMeta.md)
  - [ListEventResponse](docs/ListEventResponse.md)

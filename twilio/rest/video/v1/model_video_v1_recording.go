@@ -17,19 +17,34 @@ import (
 
 // VideoV1Recording struct for VideoV1Recording
 type VideoV1Recording struct {
-	AccountSid      *string                 `json:"AccountSid,omitempty"`
-	Codec           *RecordingCodec         `json:"Codec,omitempty"`
-	ContainerFormat *RecordingFormat        `json:"ContainerFormat,omitempty"`
-	DateCreated     *time.Time              `json:"DateCreated,omitempty"`
-	Duration        *int32                  `json:"Duration,omitempty"`
-	GroupingSids    *map[string]interface{} `json:"GroupingSids,omitempty"`
-	Links           *map[string]interface{} `json:"Links,omitempty"`
-	Offset          *int32                  `json:"Offset,omitempty"`
-	Sid             *string                 `json:"Sid,omitempty"`
-	Size            *int32                  `json:"Size,omitempty"`
-	SourceSid       *string                 `json:"SourceSid,omitempty"`
-	Status          *RecordingStatus        `json:"Status,omitempty"`
-	TrackName       *string                 `json:"TrackName,omitempty"`
-	Type            *RecordingType          `json:"Type,omitempty"`
-	Url             *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The codec used to encode the track
+	Codec *string `json:"Codec,omitempty"`
+	// The file format for the recording
+	ContainerFormat *string `json:"ContainerFormat,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The duration of the recording in seconds
+	Duration *int32 `json:"Duration,omitempty"`
+	// A list of SIDs related to the recording
+	GroupingSids *map[string]interface{} `json:"GroupingSids,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started
+	Offset *int32 `json:"Offset,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The size of the recorded track, in bytes
+	Size *int32 `json:"Size,omitempty"`
+	// The SID of the recording source
+	SourceSid *string `json:"SourceSid,omitempty"`
+	// The status of the recording
+	Status *string `json:"Status,omitempty"`
+	// The name that was given to the source track of the recording
+	TrackName *string `json:"TrackName,omitempty"`
+	// The recording's media type
+	Type *string `json:"Type,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

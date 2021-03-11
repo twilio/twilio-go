@@ -13,10 +13,16 @@ package openapi
 
 // ApiV2010AccountQueueMember struct for ApiV2010AccountQueueMember
 type ApiV2010AccountQueueMember struct {
-	CallSid      *string `json:"CallSid,omitempty"`
+	// The SID of the Call the resource is associated with
+	CallSid *string `json:"CallSid,omitempty"`
+	// The date the member was enqueued
 	DateEnqueued *string `json:"DateEnqueued,omitempty"`
-	Position     *int32  `json:"Position,omitempty"`
-	QueueSid     *string `json:"QueueSid,omitempty"`
-	Uri          *string `json:"Uri,omitempty"`
-	WaitTime     *int32  `json:"WaitTime,omitempty"`
+	// This member's current position in the queue.
+	Position *int32 `json:"Position,omitempty"`
+	// The SID of the Queue the member is in
+	QueueSid *string `json:"QueueSid,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
+	// The number of seconds the member has been in the queue.
+	WaitTime *int32 `json:"WaitTime,omitempty"`
 }
