@@ -8,7 +8,7 @@ Name | Type | Notes
 **HighRiskSpecialNumbersEnabled** | Pointer to **bool** | 
 **HighRiskTollfraudNumbersEnabled** | Pointer to **bool** | 
 **IsoCode** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **LowRiskNumbersEnabled** | Pointer to **bool** | 
 **Name** | Pointer to **string** | 
 **Url** | Pointer to **string** | 

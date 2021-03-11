@@ -57,11 +57,6 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [BrandRegistrationsStatus](docs/BrandRegistrationsStatus.md)
- - [CreateAlphaSenderRequest](docs/CreateAlphaSenderRequest.md)
- - [CreateBrandRegistrationsRequest](docs/CreateBrandRegistrationsRequest.md)
- - [CreatePhoneNumberRequest](docs/CreatePhoneNumberRequest.md)
- - [CreateServiceRequest](docs/CreateServiceRequest.md)
- - [CreateShortCodeRequest](docs/CreateShortCodeRequest.md)
  - [HttpMethod](docs/HttpMethod.md)
  - [ListAlphaSenderResponse](docs/ListAlphaSenderResponse.md)
  - [ListBrandRegistrationsResponse](docs/ListBrandRegistrationsResponse.md)
@@ -76,7 +71,6 @@ Class | Method | HTTP request | Description
  - [MessagingV1ServicePhoneNumber](docs/MessagingV1ServicePhoneNumber.md)
  - [MessagingV1ServiceShortCode](docs/MessagingV1ServiceShortCode.md)
  - [ServiceScanMessageContent](docs/ServiceScanMessageContent.md)
- - [UpdateServiceRequest](docs/UpdateServiceRequest.md)
 
 
 ## Documentation For Authorization

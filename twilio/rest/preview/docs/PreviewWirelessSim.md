@@ -11,7 +11,7 @@ Name | Type | Notes
 **EId** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
 **Iccid** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **RatePlanSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **SmsFallbackMethod** | Pointer to [**HttpMethod**](http_method.md) | 

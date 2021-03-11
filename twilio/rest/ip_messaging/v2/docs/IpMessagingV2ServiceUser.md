@@ -12,7 +12,7 @@ Name | Type | Notes
 **IsNotifiable** | Pointer to **bool** | 
 **IsOnline** | Pointer to **bool** | 
 **JoinedChannelsCount** | Pointer to **int32** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **RoleSid** | Pointer to **string** | 
 **ServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

@@ -18,32 +18,31 @@ Method | HTTP request | Description
 
 ## CreateExportCustomJob
 
-> BulkexportsV1ExportExportCustomJob CreateExportCustomJob(ctx, ResourceType, optional)
+> BulkexportsV1ExportExportCustomJob CreateExportCustomJob(ctx, ResourceTypeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages or Calls, Conferences, and Participants | 
- **optional** | ***CreateExportCustomJobRequest** | optional parameters | nil if no parameters
+**ResourceType** | **string** | The type of communication – Messages or Calls, Conferences, and Participants | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateExportCustomJobRequest struct
- 
+Other parameters are passed through a pointer to a CreateExportCustomJobParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Email** | **String**| The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job&#39;s status. | 
-**EndDay** | **String**| The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
-**FriendlyName** | **String**| The friendly name specified when creating the job | 
-**StartDay** | **String**| The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
-**WebhookMethod** | **String**| This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
-**WebhookUrl** | **String**| The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. If you set neither webhook nor email, you will have to check your job&#39;s status manually. | 
+**Email** | **string** | The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job&#39;s status. | 
+**EndDay** | **string** | The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day. | 
+**FriendlyName** | **string** | The friendly name specified when creating the job | 
+**StartDay** | **string** | The start day for the custom export specified as a string in the format of yyyy-mm-dd | 
+**WebhookMethod** | **string** | This is the method used to call the webhook on completion of the job. If this is supplied, &#x60;WebhookUrl&#x60; must also be supplied. | 
+**WebhookUrl** | **string** | The optional webhook url called on completion of the job. If this is supplied, &#x60;WebhookMethod&#x60; must also be supplied. If you set neither webhook nor email, you will have to check your job&#39;s status manually. | 
 
 ### Return type
 
@@ -55,8 +54,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -69,13 +68,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**JobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
+**JobSid** | **string** | The unique string that that we created to identify the Bulk Export job | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteJobParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -97,20 +104,28 @@ Name | Type | Description  | Notes
 
 ## FetchDay
 
-> FetchDay(ctx, ResourceType, Day)
+> FetchDay(ctx, ResourceTypeDay)
 
 
 
 Fetch a specific Day.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
-**Day** | **string**| The ISO 8601 format date of the resources in the file, for a UTC day | 
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
+**Day** | **string** | The ISO 8601 format date of the resources in the file, for a UTC day | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchDayParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -123,7 +138,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -138,13 +153,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific Export.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchExportParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -157,7 +180,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -172,13 +195,21 @@ Name | Type | Description  | Notes
 
 Fetch a specific Export Configuration.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchExportConfigurationParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -191,7 +222,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -204,13 +235,21 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**JobSid** | **string**| The unique string that that we created to identify the Bulk Export job | 
+**JobSid** | **string** | The unique string that that we created to identify the Bulk Export job | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchJobParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -223,7 +262,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -232,29 +271,28 @@ Name | Type | Description  | Notes
 
 ## ListDay
 
-> ListDayResponse ListDay(ctx, ResourceType, optional)
+> ListDayResponse ListDay(ctx, ResourceTypeoptional)
 
 
 
 Retrieve a list of all Days for a resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***ListDayRequest** | optional parameters | nil if no parameters
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListDayRequest struct
- 
+Other parameters are passed through a pointer to a ListDayParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -267,7 +305,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -276,27 +314,26 @@ Name | Type | Description  | Notes
 
 ## ListExportCustomJob
 
-> ListExportCustomJobResponse ListExportCustomJob(ctx, ResourceType, optional)
+> ListExportCustomJobResponse ListExportCustomJob(ctx, ResourceTypeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***ListExportCustomJobRequest** | optional parameters | nil if no parameters
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListExportCustomJobRequest struct
- 
+Other parameters are passed through a pointer to a ListExportCustomJobParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -309,7 +346,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -318,31 +355,30 @@ Name | Type | Description  | Notes
 
 ## UpdateExportConfiguration
 
-> BulkexportsV1ExportConfiguration UpdateExportConfiguration(ctx, ResourceType, optional)
+> BulkexportsV1ExportConfiguration UpdateExportConfiguration(ctx, ResourceTypeoptional)
 
 
 
 Update a specific Export Configuration.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ResourceType** | **string**| The type of communication – Messages, Calls, Conferences, and Participants | 
- **optional** | ***UpdateExportConfigurationRequest** | optional parameters | nil if no parameters
+**ResourceType** | **string** | The type of communication – Messages, Calls, Conferences, and Participants | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateExportConfigurationRequest struct
- 
+Other parameters are passed through a pointer to a UpdateExportConfigurationParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Enabled** | **Bool**| If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
-**WebhookMethod** | **String**| Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
-**WebhookUrl** | **String**| Stores the URL destination for the method specified in webhook_method. | 
+**Enabled** | **bool** | If true, Twilio will automatically generate every day&#39;s file when the day is over. | 
+**WebhookMethod** | **string** | Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url | 
+**WebhookUrl** | **string** | Stores the URL destination for the method specified in webhook_method. | 
 
 ### Return type
 
@@ -354,8 +390,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

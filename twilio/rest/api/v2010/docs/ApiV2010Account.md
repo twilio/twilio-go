@@ -10,7 +10,7 @@ Name | Type | Notes
 **OwnerAccountSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **Status** | Pointer to [**AccountStatus**](account_status.md) | 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**SubresourceUris** | Pointer to **map[string]interface{}** | 
 **Type** | Pointer to [**AccountType**](account_type.md) | 
 **Uri** | Pointer to **string** | 
 

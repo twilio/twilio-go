@@ -29,31 +29,30 @@ Method | HTTP request | Description
 
 ## CreateEngagement
 
-> StudioV1FlowEngagement CreateEngagement(ctx, FlowSid, optional)
+> StudioV1FlowEngagement CreateEngagement(ctx, FlowSidoptional)
 
 
 
 Triggers a new Engagement for the Flow
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow. | 
- **optional** | ***CreateEngagementRequest** | optional parameters | nil if no parameters
+**FlowSid** | **string** | The SID of the Flow. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateEngagementRequest struct
- 
+Other parameters are passed through a pointer to a CreateEngagementParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**From** | **String**| The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable &#x60;{{flow.channel.address}}&#x60; | 
-**Parameters** | [**map[string]interface{}**](map[string]interface{}.md)| A JSON string we will add to your flow&#39;s context and that you can access as variables inside your flow. For example, if you pass in &#x60;Parameters&#x3D;{&#39;name&#39;:&#39;Zeke&#39;}&#x60; then inside a widget you can reference the variable &#x60;{{flow.data.name}}&#x60; which will return the string &#39;Zeke&#39;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string. | 
-**To** | **String**| The Contact phone number to start a Studio Flow Engagement, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
+**From** | **string** | The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable &#x60;{{flow.channel.address}}&#x60; | 
+**Parameters** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string we will add to your flow&#39;s context and that you can access as variables inside your flow. For example, if you pass in &#x60;Parameters&#x3D;{&#39;name&#39;:&#39;Zeke&#39;}&#x60; then inside a widget you can reference the variable &#x60;{{flow.data.name}}&#x60; which will return the string &#39;Zeke&#39;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string. | 
+**To** | **string** | The Contact phone number to start a Studio Flow Engagement, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
 
 ### Return type
 
@@ -65,8 +64,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -75,31 +74,30 @@ Name | Type | Description  | Notes
 
 ## CreateExecution
 
-> StudioV1FlowExecution CreateExecution(ctx, FlowSid, optional)
+> StudioV1FlowExecution CreateExecution(ctx, FlowSidoptional)
 
 
 
 Triggers a new Execution for the Flow
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Excecution&#39;s Flow. | 
- **optional** | ***CreateExecutionRequest** | optional parameters | nil if no parameters
+**FlowSid** | **string** | The SID of the Excecution&#39;s Flow. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateExecutionRequest struct
- 
+Other parameters are passed through a pointer to a CreateExecutionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**From** | **String**| The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;. | 
-**Parameters** | [**map[string]interface{}**](map[string]interface{}.md)| JSON data that will be added to the Flow&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. | 
-**To** | **String**| The Contact phone number to start a Studio Flow Execution, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
+**From** | **string** | The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;. | 
+**Parameters** | [**map[string]interface{}**](map[string]interface{}.md) | JSON data that will be added to the Flow&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string. | 
+**To** | **string** | The Contact phone number to start a Studio Flow Execution, available as variable &#x60;{{contact.channel.address}}&#x60;. | 
 
 ### Return type
 
@@ -111,8 +109,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -121,20 +119,28 @@ Name | Type | Description  | Notes
 
 ## DeleteEngagement
 
-> DeleteEngagement(ctx, FlowSid, Sid)
+> DeleteEngagement(ctx, FlowSidSid)
 
 
 
 Delete this Engagement and all Steps relating to it.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow to delete Engagements from. | 
-**Sid** | **string**| The SID of the Engagement resource to delete. | 
+**FlowSid** | **string** | The SID of the Flow to delete Engagements from. | 
+**Sid** | **string** | The SID of the Engagement resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteEngagementParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -156,20 +162,28 @@ Name | Type | Description  | Notes
 
 ## DeleteExecution
 
-> DeleteExecution(ctx, FlowSid, Sid)
+> DeleteExecution(ctx, FlowSidSid)
 
 
 
 Delete the Execution and all Steps relating to it.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Execution resources to delete. | 
-**Sid** | **string**| The SID of the Execution resource to delete. | 
+**FlowSid** | **string** | The SID of the Flow with the Execution resources to delete. | 
+**Sid** | **string** | The SID of the Execution resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteExecutionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -197,13 +211,21 @@ Name | Type | Description  | Notes
 
 Delete a specific Flow.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The SID of the Flow resource to delete. | 
+**Sid** | **string** | The SID of the Flow resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteFlowParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -225,20 +247,28 @@ Name | Type | Description  | Notes
 
 ## FetchEngagement
 
-> StudioV1FlowEngagement FetchEngagement(ctx, FlowSid, Sid)
+> StudioV1FlowEngagement FetchEngagement(ctx, FlowSidSid)
 
 
 
 Retrieve an Engagement
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow. | 
-**Sid** | **string**| The SID of the Engagement resource to fetch. | 
+**FlowSid** | **string** | The SID of the Flow. | 
+**Sid** | **string** | The SID of the Engagement resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchEngagementParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -251,7 +281,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -260,20 +290,28 @@ Name | Type | Description  | Notes
 
 ## FetchEngagementContext
 
-> StudioV1FlowEngagementEngagementContext FetchEngagementContext(ctx, FlowSid, EngagementSid)
+> StudioV1FlowEngagementEngagementContext FetchEngagementContext(ctx, FlowSidEngagementSid)
 
 
 
 Retrieve the most recent context for an Engagement.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow. | 
-**EngagementSid** | **string**| The SID of the Engagement. | 
+**FlowSid** | **string** | The SID of the Flow. | 
+**EngagementSid** | **string** | The SID of the Engagement. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchEngagementContextParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -286,7 +324,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -295,20 +333,28 @@ Name | Type | Description  | Notes
 
 ## FetchExecution
 
-> StudioV1FlowExecution FetchExecution(ctx, FlowSid, Sid)
+> StudioV1FlowExecution FetchExecution(ctx, FlowSidSid)
 
 
 
 Retrieve an Execution
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Execution resource to fetch | 
-**Sid** | **string**| The SID of the Execution resource to fetch. | 
+**FlowSid** | **string** | The SID of the Flow with the Execution resource to fetch | 
+**Sid** | **string** | The SID of the Execution resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchExecutionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -321,7 +367,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -330,20 +376,28 @@ Name | Type | Description  | Notes
 
 ## FetchExecutionContext
 
-> StudioV1FlowExecutionExecutionContext FetchExecutionContext(ctx, FlowSid, ExecutionSid)
+> StudioV1FlowExecutionExecutionContext FetchExecutionContext(ctx, FlowSidExecutionSid)
 
 
 
 Retrieve the most recent context for an Execution.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Execution context to fetch. | 
-**ExecutionSid** | **string**| The SID of the Execution context to fetch. | 
+**FlowSid** | **string** | The SID of the Flow with the Execution context to fetch. | 
+**ExecutionSid** | **string** | The SID of the Execution context to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchExecutionContextParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -356,7 +410,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -365,21 +419,29 @@ Name | Type | Description  | Notes
 
 ## FetchExecutionStep
 
-> StudioV1FlowExecutionExecutionStep FetchExecutionStep(ctx, FlowSid, ExecutionSid, Sid)
+> StudioV1FlowExecutionExecutionStep FetchExecutionStep(ctx, FlowSidExecutionSidSid)
 
 
 
 Retrieve a Step.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**ExecutionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
-**Sid** | **string**| The SID of the ExecutionStep resource to fetch. | 
+**FlowSid** | **string** | The SID of the Flow with the Step to fetch. | 
+**ExecutionSid** | **string** | The SID of the Execution resource with the Step to fetch. | 
+**Sid** | **string** | The SID of the ExecutionStep resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchExecutionStepParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -392,7 +454,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -401,21 +463,29 @@ Name | Type | Description  | Notes
 
 ## FetchExecutionStepContext
 
-> StudioV1FlowExecutionExecutionStepExecutionStepContext FetchExecutionStepContext(ctx, FlowSid, ExecutionSid, StepSid)
+> StudioV1FlowExecutionExecutionStepExecutionStepContext FetchExecutionStepContext(ctx, FlowSidExecutionSidStepSid)
 
 
 
 Retrieve the context for an Execution Step.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**ExecutionSid** | **string**| The SID of the Execution resource with the Step to fetch. | 
-**StepSid** | **string**| The SID of the Step to fetch. | 
+**FlowSid** | **string** | The SID of the Flow with the Step to fetch. | 
+**ExecutionSid** | **string** | The SID of the Execution resource with the Step to fetch. | 
+**StepSid** | **string** | The SID of the Step to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchExecutionStepContextParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -428,7 +498,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -443,13 +513,21 @@ Name | Type | Description  | Notes
 
 Retrieve a specific Flow.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The SID of the Flow resource to fetch. | 
+**Sid** | **string** | The SID of the Flow resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchFlowParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -462,7 +540,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -471,21 +549,29 @@ Name | Type | Description  | Notes
 
 ## FetchStep
 
-> StudioV1FlowEngagementStep FetchStep(ctx, FlowSid, EngagementSid, Sid)
+> StudioV1FlowEngagementStep FetchStep(ctx, FlowSidEngagementSidSid)
 
 
 
 Retrieve a Step.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**EngagementSid** | **string**| The SID of the Engagement with the Step to fetch. | 
-**Sid** | **string**| The SID of the Step resource to fetch. | 
+**FlowSid** | **string** | The SID of the Flow with the Step to fetch. | 
+**EngagementSid** | **string** | The SID of the Engagement with the Step to fetch. | 
+**Sid** | **string** | The SID of the Step resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchStepParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -498,7 +584,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -507,21 +593,29 @@ Name | Type | Description  | Notes
 
 ## FetchStepContext
 
-> StudioV1FlowEngagementStepStepContext FetchStepContext(ctx, FlowSid, EngagementSid, StepSid)
+> StudioV1FlowEngagementStepStepContext FetchStepContext(ctx, FlowSidEngagementSidStepSid)
 
 
 
 Retrieve the context for an Engagement Step.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Step to fetch. | 
-**EngagementSid** | **string**| The SID of the Engagement with the Step to fetch. | 
-**StepSid** | **string**| The SID of the Step to fetch | 
+**FlowSid** | **string** | The SID of the Flow with the Step to fetch. | 
+**EngagementSid** | **string** | The SID of the Engagement with the Step to fetch. | 
+**StepSid** | **string** | The SID of the Step to fetch | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchStepContextParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -534,7 +628,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -543,29 +637,28 @@ Name | Type | Description  | Notes
 
 ## ListEngagement
 
-> ListEngagementResponse ListEngagement(ctx, FlowSid, optional)
+> ListEngagementResponse ListEngagement(ctx, FlowSidoptional)
 
 
 
 Retrieve a list of all Engagements for the Flow.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow to read Engagements from. | 
- **optional** | ***ListEngagementRequest** | optional parameters | nil if no parameters
+**FlowSid** | **string** | The SID of the Flow to read Engagements from. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListEngagementRequest struct
- 
+Other parameters are passed through a pointer to a ListEngagementParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -578,7 +671,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -587,31 +680,30 @@ Name | Type | Description  | Notes
 
 ## ListExecution
 
-> ListExecutionResponse ListExecution(ctx, FlowSid, optional)
+> ListExecutionResponse ListExecution(ctx, FlowSidoptional)
 
 
 
 Retrieve a list of all Executions for the Flow.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Execution resources to read. | 
- **optional** | ***ListExecutionRequest** | optional parameters | nil if no parameters
+**FlowSid** | **string** | The SID of the Flow with the Execution resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListExecutionRequest struct
- 
+Other parameters are passed through a pointer to a ListExecutionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DateCreatedFrom** | **Time**| Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
-**DateCreatedTo** | **Time**| Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DateCreatedFrom** | **time.Time** | Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
+**DateCreatedTo** | **time.Time** | Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as &#x60;YYYY-MM-DDThh:mm:ss-hh:mm&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -624,7 +716,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -633,30 +725,29 @@ Name | Type | Description  | Notes
 
 ## ListExecutionStep
 
-> ListExecutionStepResponse ListExecutionStep(ctx, FlowSid, ExecutionSid, optional)
+> ListExecutionStepResponse ListExecutionStep(ctx, FlowSidExecutionSidoptional)
 
 
 
 Retrieve a list of all Steps for an Execution.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Steps to read. | 
-**ExecutionSid** | **string**| The SID of the Execution with the Steps to read. | 
- **optional** | ***ListExecutionStepRequest** | optional parameters | nil if no parameters
+**FlowSid** | **string** | The SID of the Flow with the Steps to read. | 
+**ExecutionSid** | **string** | The SID of the Execution with the Steps to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListExecutionStepRequest struct
- 
+Other parameters are passed through a pointer to a ListExecutionStepParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -669,7 +760,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -684,22 +775,18 @@ Name | Type | Description  | Notes
 
 Retrieve a list of all Flows.
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListFlowParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListFlowRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListFlowRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -712,7 +799,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -721,30 +808,29 @@ Name | Type | Description  | Notes
 
 ## ListStep
 
-> ListStepResponse ListStep(ctx, FlowSid, EngagementSid, optional)
+> ListStepResponse ListStep(ctx, FlowSidEngagementSidoptional)
 
 
 
 Retrieve a list of all Steps for an Engagement.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Step to read. | 
-**EngagementSid** | **string**| The SID of the Engagement with the Step to read. | 
- **optional** | ***ListStepRequest** | optional parameters | nil if no parameters
+**FlowSid** | **string** | The SID of the Flow with the Step to read. | 
+**EngagementSid** | **string** | The SID of the Engagement with the Step to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListStepRequest struct
- 
+Other parameters are passed through a pointer to a ListStepParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -757,7 +843,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -766,30 +852,29 @@ Name | Type | Description  | Notes
 
 ## UpdateExecution
 
-> StudioV1FlowExecution UpdateExecution(ctx, FlowSid, Sid, optional)
+> StudioV1FlowExecution UpdateExecution(ctx, FlowSidSidoptional)
 
 
 
 Update the status of an Execution to `ended`.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**FlowSid** | **string**| The SID of the Flow with the Execution resources to update. | 
-**Sid** | **string**| The SID of the Execution resource to update. | 
- **optional** | ***UpdateExecutionRequest** | optional parameters | nil if no parameters
+**FlowSid** | **string** | The SID of the Flow with the Execution resources to update. | 
+**Sid** | **string** | The SID of the Execution resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateExecutionRequest struct
- 
+Other parameters are passed through a pointer to a UpdateExecutionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Status** | **String**| The status of the Execution. Can only be &#x60;ended&#x60;. | 
+**Status** | **string** | The status of the Execution. Can only be &#x60;ended&#x60;. | 
 
 ### Return type
 
@@ -801,8 +886,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

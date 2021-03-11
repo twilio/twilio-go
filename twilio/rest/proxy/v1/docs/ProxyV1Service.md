@@ -11,7 +11,7 @@ Name | Type | Notes
 **DefaultTtl** | Pointer to **int32** | 
 **GeoMatchLevel** | Pointer to [**ServiceGeoMatchLevel**](service_geo_match_level.md) | 
 **InterceptCallbackUrl** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **NumberSelectionBehavior** | Pointer to [**ServiceNumberSelectionBehavior**](service_number_selection_behavior.md) | 
 **OutOfSessionCallbackUrl** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

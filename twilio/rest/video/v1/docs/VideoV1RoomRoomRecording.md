@@ -8,8 +8,8 @@ Name | Type | Notes
 **ContainerFormat** | Pointer to [**RoomRecordingFormat**](room_recording_format.md) | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **Duration** | Pointer to **int32** | 
-**GroupingSids** | Pointer to [**map[string]interface{}**](.md) | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**GroupingSids** | Pointer to **map[string]interface{}** | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Offset** | Pointer to **int32** | 
 **RoomSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

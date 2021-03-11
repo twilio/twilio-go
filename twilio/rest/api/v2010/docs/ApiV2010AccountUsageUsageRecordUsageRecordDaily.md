@@ -14,7 +14,7 @@ Name | Type | Notes
 **Price** | Pointer to **float32** | 
 **PriceUnit** | Pointer to **string** | 
 **StartDate** | Pointer to [**time.Time**](time.Time.md) | 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**SubresourceUris** | Pointer to **map[string]interface{}** | 
 **Uri** | Pointer to **string** | 
 **Usage** | Pointer to **string** | 
 **UsageUnit** | Pointer to **string** | 

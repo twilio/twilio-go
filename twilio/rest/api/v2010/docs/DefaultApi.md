@@ -207,22 +207,18 @@ Method | HTTP request | Description
 
 Create a new Twilio Subaccount from the account making the request
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateAccountParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateAccountRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateAccountRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A human readable description of the account to create, defaults to &#x60;SubAccount Created at {YYYY-MM-DD HH:MM meridian}&#x60; | 
+**FriendlyName** | **string** | A human readable description of the account to create, defaults to &#x60;SubAccount Created at {YYYY-MM-DD HH:MM meridian}&#x60; | 
 
 ### Return type
 
@@ -234,8 +230,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -244,35 +240,34 @@ Name | Type | Description  | Notes
 
 ## CreateAddress
 
-> ApiV2010AccountAddress CreateAddress(ctx, AccountSid, optional)
+> ApiV2010AccountAddress CreateAddress(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Address resource. | 
- **optional** | ***CreateAddressRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Address resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateAddressRequest struct
- 
+Other parameters are passed through a pointer to a CreateAddressParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AutoCorrectAddress** | **Bool**| Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide. | 
-**City** | **String**| The city of the new address. | 
-**CustomerName** | **String**| The name to associate with the new address. | 
-**EmergencyEnabled** | **Bool**| Whether to enable emergency calling on the new address. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**FriendlyName** | **String**| A descriptive string that you create to describe the new address. It can be up to 64 characters long. | 
-**IsoCountry** | **String**| The ISO country code of the new address. | 
-**PostalCode** | **String**| The postal code of the new address. | 
-**Region** | **String**| The state or region of the new address. | 
-**Street** | **String**| The number and street address of the new address. | 
+**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide. | 
+**City** | **string** | The city of the new address. | 
+**CustomerName** | **string** | The name to associate with the new address. | 
+**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the new address. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the new address. It can be up to 64 characters long. | 
+**IsoCountry** | **string** | The ISO country code of the new address. | 
+**PostalCode** | **string** | The postal code of the new address. | 
+**Region** | **string** | The state or region of the new address. | 
+**Street** | **string** | The number and street address of the new address. | 
 
 ### Return type
 
@@ -284,8 +279,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -294,43 +289,42 @@ Name | Type | Description  | Notes
 
 ## CreateApplication
 
-> ApiV2010AccountApplication CreateApplication(ctx, AccountSid, optional)
+> ApiV2010AccountApplication CreateApplication(ctx, AccountSidoptional)
 
 
 
 Create a new application within your account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateApplicationRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateApplicationRequest struct
- 
+Other parameters are passed through a pointer to a CreateApplicationParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ApiVersion** | **String**| The API version to use to start a new TwiML session. Can be: &#x60;2010-04-01&#x60; or &#x60;2008-08-01&#x60;. The default value is the account&#39;s default API version. | 
-**FriendlyName** | **String**| A descriptive string that you create to describe the new application. It can be up to 64 characters long. | 
-**MessageStatusCallback** | **String**| The URL we should call using a POST method to send message status information to your application. | 
-**SmsFallbackMethod** | **String**| The HTTP method we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**SmsFallbackUrl** | **String**| The URL that we should call when an error occurs while retrieving or executing the TwiML from &#x60;sms_url&#x60;. | 
-**SmsMethod** | **String**| The HTTP method we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**SmsStatusCallback** | **String**| The URL we should call using a POST method to send status information about SMS messages sent by the application. | 
-**SmsUrl** | **String**| The URL we should call when the phone number receives an incoming SMS message. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceCallerIdLookup** | **Bool**| Whether we should look up the caller&#39;s caller-ID name from the CNAM database (additional charges apply). Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**VoiceFallbackMethod** | **String**| The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceFallbackUrl** | **String**| The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
-**VoiceMethod** | **String**| The HTTP method we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceUrl** | **String**| The URL we should call when the phone number assigned to this application receives a call. | 
+**ApiVersion** | **string** | The API version to use to start a new TwiML session. Can be: &#x60;2010-04-01&#x60; or &#x60;2008-08-01&#x60;. The default value is the account&#39;s default API version. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the new application. It can be up to 64 characters long. | 
+**MessageStatusCallback** | **string** | The URL we should call using a POST method to send message status information to your application. | 
+**SmsFallbackMethod** | **string** | The HTTP method we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**SmsFallbackUrl** | **string** | The URL that we should call when an error occurs while retrieving or executing the TwiML from &#x60;sms_url&#x60;. | 
+**SmsMethod** | **string** | The HTTP method we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**SmsStatusCallback** | **string** | The URL we should call using a POST method to send status information about SMS messages sent by the application. | 
+**SmsUrl** | **string** | The URL we should call when the phone number receives an incoming SMS message. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceCallerIdLookup** | **bool** | Whether we should look up the caller&#39;s caller-ID name from the CNAM database (additional charges apply). Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**VoiceFallbackMethod** | **string** | The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
+**VoiceMethod** | **string** | The HTTP method we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceUrl** | **string** | The URL we should call when the phone number assigned to this application receives a call. | 
 
 ### Return type
 
@@ -342,8 +336,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -352,61 +346,60 @@ Name | Type | Description  | Notes
 
 ## CreateCall
 
-> ApiV2010AccountCall CreateCall(ctx, AccountSid, optional)
+> ApiV2010AccountCall CreateCall(ctx, AccountSidoptional)
 
 
 
 Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateCallRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateCallRequest struct
- 
+Other parameters are passed through a pointer to a CreateCallParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ApplicationSid** | **String**| The SID of the Application resource that will handle the call, if the call will be handled by an application. | 
-**AsyncAmd** | **String**| Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**AsyncAmdStatusCallback** | **String**| The URL that we should call using the &#x60;async_amd_status_callback_method&#x60; to notify customer application whether the call was answered by human, machine or fax. | 
-**AsyncAmdStatusCallbackMethod** | **String**| The HTTP method we should use when calling the &#x60;async_amd_status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
-**Byoc** | **String**| The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that &#x60;byoc&#x60; is only meaningful when &#x60;to&#x60; is a phone number; it will otherwise be ignored. (Beta) | 
-**CallReason** | **String**| The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party&#39;s phone. (Branded Calls Beta) | 
-**CallerId** | **String**| The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as &#x60;name@company.com&#x60;. | 
-**FallbackMethod** | **String**| The HTTP method that we should use to request the &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
-**FallbackUrl** | **String**| The URL that we call using the &#x60;fallback_method&#x60; if an error occurs when requesting or executing the TwiML at &#x60;url&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
-**From** | **String**| The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the &#x60;to&#x60; parameter is a phone number, &#x60;From&#x60; must also be a phone number. | 
-**MachineDetection** | **String**| Whether to detect if a human, answering machine, or fax has picked up the call. Can be: &#x60;Enable&#x60; or &#x60;DetectMessageEnd&#x60;. Use &#x60;Enable&#x60; if you would like us to return &#x60;AnsweredBy&#x60; as soon as the called party is identified. Use &#x60;DetectMessageEnd&#x60;, if you would like to leave a message on an answering machine. If &#x60;send_digits&#x60; is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection). | 
-**MachineDetectionSilenceTimeout** | **Int32**| The number of milliseconds of initial silence after which an &#x60;unknown&#x60; AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000. | 
-**MachineDetectionSpeechEndThreshold** | **Int32**| The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200. | 
-**MachineDetectionSpeechThreshold** | **Int32**| The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400. | 
-**MachineDetectionTimeout** | **Int32**| The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with &#x60;AnsweredBy&#x60; of &#x60;unknown&#x60;. The default timeout is 30 seconds. | 
-**Method** | **String**| The HTTP method we should use when calling the &#x60;url&#x60; parameter&#39;s value. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
-**Record** | **Bool**| Whether to record the call. Can be &#x60;true&#x60; to record the phone call, or &#x60;false&#x60; to not. The default is &#x60;false&#x60;. The &#x60;recording_url&#x60; is sent to the &#x60;status_callback&#x60; URL. | 
-**RecordingChannels** | **String**| The number of channels in the final recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60;. The default is &#x60;mono&#x60;. &#x60;mono&#x60; records both legs of the call in a single channel of the recording file. &#x60;dual&#x60; records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call. | 
-**RecordingStatusCallback** | **String**| The URL that we call when the recording is available to be accessed. | 
-**RecordingStatusCallbackEvent** | [**[]string**](string.md)| The recording status events that will trigger calls to the URL specified in &#x60;recording_status_callback&#x60;. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60; and &#x60;absent&#x60;. Defaults to &#x60;completed&#x60;. Separate  multiple values with a space. | 
-**RecordingStatusCallbackMethod** | **String**| The HTTP method we should use when calling the &#x60;recording_status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
-**RecordingTrack** | **String**| The audio track to record for the call. Can be: &#x60;inbound&#x60;, &#x60;outbound&#x60; or &#x60;both&#x60;. The default is &#x60;both&#x60;. &#x60;inbound&#x60; records the audio that is received by Twilio. &#x60;outbound&#x60; records the audio that is generated from Twilio. &#x60;both&#x60; records the audio that is received and generated by Twilio. | 
-**SendDigits** | **String**| A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (&#x60;0&#x60;-&#x60;9&#x60;), &#39;&#x60;#&#x60;&#39;, &#39;&#x60;*&#x60;&#39; and &#39;&#x60;w&#x60;&#39;, to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be &#x60;ww1234#&#x60;. Remember to URL-encode this string, since the &#39;&#x60;#&#x60;&#39; character has special meaning in a URL. If both &#x60;SendDigits&#x60; and &#x60;MachineDetection&#x60; parameters are provided, then &#x60;MachineDetection&#x60; will be ignored. | 
-**SipAuthPassword** | **String**| The password required to authenticate the user account specified in &#x60;sip_auth_username&#x60;. | 
-**SipAuthUsername** | **String**| The username used to authenticate the caller making a SIP call. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted). | 
-**StatusCallbackEvent** | [**[]string**](string.md)| The call progress events that we will send to the &#x60;status_callback&#x60; URL. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, and &#x60;completed&#x60;. If no event is specified, we send the &#x60;completed&#x60; status. If you want to receive multiple events, specify each one in a separate &#x60;status_callback_event&#x60; parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample&#x3D;code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version&#x3D;json). If an &#x60;application_sid&#x60; is present, this parameter is ignored. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use when calling the &#x60;status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
-**Timeout** | **Int32**| The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is &#x60;60&#x60; seconds and the maximum is &#x60;600&#x60; seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as &#x60;15&#x60; seconds, to hang up before reaching an answering machine or voicemail. | 
-**To** | **String**| The phone number, SIP address, or client identifier to call. | 
-**Trim** | **String**| Whether to trim any leading and trailing silence from the recording. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and the default is &#x60;trim-silence&#x60;. | 
-**Twiml** | **String**| TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both &#x60;twiml&#x60; and &#x60;url&#x60; are provided then &#x60;twiml&#x60; parameter will be ignored. | 
-**Url** | **String**| The absolute URL that returns the TwiML instructions for the call. We will call this URL using the &#x60;method&#x60; when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls). | 
+**ApplicationSid** | **string** | The SID of the Application resource that will handle the call, if the call will be handled by an application. | 
+**AsyncAmd** | **string** | Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**AsyncAmdStatusCallback** | **string** | The URL that we should call using the &#x60;async_amd_status_callback_method&#x60; to notify customer application whether the call was answered by human, machine or fax. | 
+**AsyncAmdStatusCallbackMethod** | **string** | The HTTP method we should use when calling the &#x60;async_amd_status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
+**Byoc** | **string** | The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that &#x60;byoc&#x60; is only meaningful when &#x60;to&#x60; is a phone number; it will otherwise be ignored. (Beta) | 
+**CallReason** | **string** | The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party&#39;s phone. (Branded Calls Beta) | 
+**CallerId** | **string** | The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as &#x60;name@company.com&#x60;. | 
+**FallbackMethod** | **string** | The HTTP method that we should use to request the &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
+**FallbackUrl** | **string** | The URL that we call using the &#x60;fallback_method&#x60; if an error occurs when requesting or executing the TwiML at &#x60;url&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
+**From** | **string** | The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the &#x60;to&#x60; parameter is a phone number, &#x60;From&#x60; must also be a phone number. | 
+**MachineDetection** | **string** | Whether to detect if a human, answering machine, or fax has picked up the call. Can be: &#x60;Enable&#x60; or &#x60;DetectMessageEnd&#x60;. Use &#x60;Enable&#x60; if you would like us to return &#x60;AnsweredBy&#x60; as soon as the called party is identified. Use &#x60;DetectMessageEnd&#x60;, if you would like to leave a message on an answering machine. If &#x60;send_digits&#x60; is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection). | 
+**MachineDetectionSilenceTimeout** | **int32** | The number of milliseconds of initial silence after which an &#x60;unknown&#x60; AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000. | 
+**MachineDetectionSpeechEndThreshold** | **int32** | The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200. | 
+**MachineDetectionSpeechThreshold** | **int32** | The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400. | 
+**MachineDetectionTimeout** | **int32** | The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with &#x60;AnsweredBy&#x60; of &#x60;unknown&#x60;. The default timeout is 30 seconds. | 
+**Method** | **string** | The HTTP method we should use when calling the &#x60;url&#x60; parameter&#39;s value. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
+**Record** | **bool** | Whether to record the call. Can be &#x60;true&#x60; to record the phone call, or &#x60;false&#x60; to not. The default is &#x60;false&#x60;. The &#x60;recording_url&#x60; is sent to the &#x60;status_callback&#x60; URL. | 
+**RecordingChannels** | **string** | The number of channels in the final recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60;. The default is &#x60;mono&#x60;. &#x60;mono&#x60; records both legs of the call in a single channel of the recording file. &#x60;dual&#x60; records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call. | 
+**RecordingStatusCallback** | **string** | The URL that we call when the recording is available to be accessed. | 
+**RecordingStatusCallbackEvent** | **[]string** | The recording status events that will trigger calls to the URL specified in &#x60;recording_status_callback&#x60;. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60; and &#x60;absent&#x60;. Defaults to &#x60;completed&#x60;. Separate  multiple values with a space. | 
+**RecordingStatusCallbackMethod** | **string** | The HTTP method we should use when calling the &#x60;recording_status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
+**RecordingTrack** | **string** | The audio track to record for the call. Can be: &#x60;inbound&#x60;, &#x60;outbound&#x60; or &#x60;both&#x60;. The default is &#x60;both&#x60;. &#x60;inbound&#x60; records the audio that is received by Twilio. &#x60;outbound&#x60; records the audio that is generated from Twilio. &#x60;both&#x60; records the audio that is received and generated by Twilio. | 
+**SendDigits** | **string** | A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (&#x60;0&#x60;-&#x60;9&#x60;), &#39;&#x60;#&#x60;&#39;, &#39;&#x60;*&#x60;&#39; and &#39;&#x60;w&#x60;&#39;, to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be &#x60;ww1234#&#x60;. Remember to URL-encode this string, since the &#39;&#x60;#&#x60;&#39; character has special meaning in a URL. If both &#x60;SendDigits&#x60; and &#x60;MachineDetection&#x60; parameters are provided, then &#x60;MachineDetection&#x60; will be ignored. | 
+**SipAuthPassword** | **string** | The password required to authenticate the user account specified in &#x60;sip_auth_username&#x60;. | 
+**SipAuthUsername** | **string** | The username used to authenticate the caller making a SIP call. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted). | 
+**StatusCallbackEvent** | **[]string** | The call progress events that we will send to the &#x60;status_callback&#x60; URL. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, and &#x60;completed&#x60;. If no event is specified, we send the &#x60;completed&#x60; status. If you want to receive multiple events, specify each one in a separate &#x60;status_callback_event&#x60; parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample&#x3D;code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version&#x3D;json). If an &#x60;application_sid&#x60; is present, this parameter is ignored. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use when calling the &#x60;status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
+**Timeout** | **int32** | The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is &#x60;60&#x60; seconds and the maximum is &#x60;600&#x60; seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as &#x60;15&#x60; seconds, to hang up before reaching an answering machine or voicemail. | 
+**To** | **string** | The phone number, SIP address, or client identifier to call. | 
+**Trim** | **string** | Whether to trim any leading and trailing silence from the recording. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and the default is &#x60;trim-silence&#x60;. | 
+**Twiml** | **string** | TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both &#x60;twiml&#x60; and &#x60;url&#x60; are provided then &#x60;twiml&#x60; parameter will be ignored. | 
+**Url** | **string** | The absolute URL that returns the TwiML instructions for the call. We will call this URL using the &#x60;method&#x60; when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls). | 
 
 ### Return type
 
@@ -418,8 +411,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -428,33 +421,32 @@ Name | Type | Description  | Notes
 
 ## CreateCallFeedbackSummary
 
-> ApiV2010AccountCallCallFeedbackSummary CreateCallFeedbackSummary(ctx, AccountSid, optional)
+> ApiV2010AccountCallCallFeedbackSummary CreateCallFeedbackSummary(ctx, AccountSidoptional)
 
 
 
 Create a FeedbackSummary resource for a call
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
- **optional** | ***CreateCallFeedbackSummaryRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateCallFeedbackSummaryRequest struct
- 
+Other parameters are passed through a pointer to a CreateCallFeedbackSummaryParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**EndDate** | **Time**| Only include feedback given on or before this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC. | 
-**IncludeSubaccounts** | **Bool**| Whether to also include Feedback resources from all subaccounts. &#x60;true&#x60; includes feedback from all subaccounts and &#x60;false&#x60;, the default, includes feedback from only the specified account. | 
-**StartDate** | **Time**| Only include feedback given on or after this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC. | 
-**StatusCallback** | **String**| The URL that we will request when the feedback summary is complete. | 
-**StatusCallbackMethod** | **String**| The HTTP method (&#x60;GET&#x60; or &#x60;POST&#x60;) we use to make the request to the &#x60;StatusCallback&#x60; URL. | 
+**EndDate** | **time.Time** | Only include feedback given on or before this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC. | 
+**IncludeSubaccounts** | **bool** | Whether to also include Feedback resources from all subaccounts. &#x60;true&#x60; includes feedback from all subaccounts and &#x60;false&#x60;, the default, includes feedback from only the specified account. | 
+**StartDate** | **time.Time** | Only include feedback given on or after this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC. | 
+**StatusCallback** | **string** | The URL that we will request when the feedback summary is complete. | 
+**StatusCallbackMethod** | **string** | The HTTP method (&#x60;GET&#x60; or &#x60;POST&#x60;) we use to make the request to the &#x60;StatusCallback&#x60; URL. | 
 
 ### Return type
 
@@ -466,8 +458,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -476,35 +468,34 @@ Name | Type | Description  | Notes
 
 ## CreateCallRecording
 
-> ApiV2010AccountCallCallRecording CreateCallRecording(ctx, AccountSid, CallSid, optional)
+> ApiV2010AccountCallCallRecording CreateCallRecording(ctx, AccountSidCallSidoptional)
 
 
 
 Create a recording for the call
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
-**CallSid** | **string**| The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) to associate the resource with. | 
- **optional** | ***CreateCallRecordingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
+**CallSid** | **string** | The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) to associate the resource with. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateCallRecordingRequest struct
- 
+Other parameters are passed through a pointer to a CreateCallRecordingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**RecordingChannels** | **String**| The number of channels used in the recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60; and the default is &#x60;mono&#x60;. &#x60;mono&#x60; records all parties of the call into one channel. &#x60;dual&#x60; records each party of a 2-party call into separate channels. | 
-**RecordingStatusCallback** | **String**| The URL we should call using the &#x60;recording_status_callback_method&#x60; on each recording event specified in  &#x60;recording_status_callback_event&#x60;. For more information, see [RecordingStatusCallback parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback). | 
-**RecordingStatusCallbackEvent** | [**[]string**](string.md)| The recording status events on which we should call the &#x60;recording_status_callback&#x60; URL. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60; and &#x60;absent&#x60; and the default is &#x60;completed&#x60;. Separate multiple event values with a space. | 
-**RecordingStatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
-**RecordingTrack** | **String**| The audio track to record for the call. Can be: &#x60;inbound&#x60;, &#x60;outbound&#x60; or &#x60;both&#x60;. The default is &#x60;both&#x60;. &#x60;inbound&#x60; records the audio that is received by Twilio. &#x60;outbound&#x60; records the audio that is generated from Twilio. &#x60;both&#x60; records the audio that is received and generated by Twilio. | 
-**Trim** | **String**| Whether to trim any leading and trailing silence in the recording. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and the default is &#x60;do-not-trim&#x60;. &#x60;trim-silence&#x60; trims the silence from the beginning and end of the recording and &#x60;do-not-trim&#x60; does not. | 
+**RecordingChannels** | **string** | The number of channels used in the recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60; and the default is &#x60;mono&#x60;. &#x60;mono&#x60; records all parties of the call into one channel. &#x60;dual&#x60; records each party of a 2-party call into separate channels. | 
+**RecordingStatusCallback** | **string** | The URL we should call using the &#x60;recording_status_callback_method&#x60; on each recording event specified in  &#x60;recording_status_callback_event&#x60;. For more information, see [RecordingStatusCallback parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback). | 
+**RecordingStatusCallbackEvent** | **[]string** | The recording status events on which we should call the &#x60;recording_status_callback&#x60; URL. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60; and &#x60;absent&#x60; and the default is &#x60;completed&#x60;. Separate multiple event values with a space. | 
+**RecordingStatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
+**RecordingTrack** | **string** | The audio track to record for the call. Can be: &#x60;inbound&#x60;, &#x60;outbound&#x60; or &#x60;both&#x60;. The default is &#x60;both&#x60;. &#x60;inbound&#x60; records the audio that is received by Twilio. &#x60;outbound&#x60; records the audio that is generated from Twilio. &#x60;both&#x60; records the audio that is received and generated by Twilio. | 
+**Trim** | **string** | Whether to trim any leading and trailing silence in the recording. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and the default is &#x60;do-not-trim&#x60;. &#x60;trim-silence&#x60; trims the silence from the beginning and end of the recording and &#x60;do-not-trim&#x60; does not. | 
 
 ### Return type
 
@@ -516,8 +507,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -526,52 +517,51 @@ Name | Type | Description  | Notes
 
 ## CreateIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumber CreateIncomingPhoneNumber(ctx, AccountSid, optional)
+> ApiV2010AccountIncomingPhoneNumber CreateIncomingPhoneNumber(ctx, AccountSidoptional)
 
 
 
 Purchase a phone-number for the account.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateIncomingPhoneNumberRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateIncomingPhoneNumberRequest struct
- 
+Other parameters are passed through a pointer to a CreateIncomingPhoneNumberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AddressSid** | **String**| The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. | 
-**ApiVersion** | **String**| The API version to use for incoming calls made to the new phone number. The default is &#x60;2010-04-01&#x60;. | 
-**AreaCode** | **String**| The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an &#x60;area_code&#x60; or a &#x60;phone_number&#x60;.** (US and Canada only). | 
-**BundleSid** | **String**| The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
-**EmergencyAddressSid** | **String**| The SID of the emergency address configuration to use for emergency calling from the new phone number. | 
-**EmergencyStatus** | **String**| The configuration status parameter that determines whether the new phone number is enabled for emergency calling. | 
-**FriendlyName** | **String**| A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the new phone number. | 
-**IdentitySid** | **String**| The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations. | 
-**PhoneNumber** | **String**| The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
-**SmsApplicationSid** | **String**| The SID of the application that should handle SMS messages sent to the new phone number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those set on the application. | 
-**SmsFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsFallbackUrl** | **String**| The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
-**SmsMethod** | **String**| The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsUrl** | **String**| The URL we should call when the new phone number receives an incoming SMS message. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**TrunkSid** | **String**| The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
-**VoiceApplicationSid** | **String**| The SID of the application we should use to handle calls to the new phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
-**VoiceCallerIdLookup** | **Bool**| Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
-**VoiceFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceFallbackUrl** | **String**| The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
-**VoiceMethod** | **String**| The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceReceiveMode** | **String**| The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
-**VoiceUrl** | **String**| The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
+**AddressSid** | **string** | The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. | 
+**ApiVersion** | **string** | The API version to use for incoming calls made to the new phone number. The default is &#x60;2010-04-01&#x60;. | 
+**AreaCode** | **string** | The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an &#x60;area_code&#x60; or a &#x60;phone_number&#x60;.** (US and Canada only). | 
+**BundleSid** | **string** | The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
+**EmergencyAddressSid** | **string** | The SID of the emergency address configuration to use for emergency calling from the new phone number. | 
+**EmergencyStatus** | **string** | The configuration status parameter that determines whether the new phone number is enabled for emergency calling. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the new phone number. | 
+**IdentitySid** | **string** | The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations. | 
+**PhoneNumber** | **string** | The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
+**SmsApplicationSid** | **string** | The SID of the application that should handle SMS messages sent to the new phone number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those set on the application. | 
+**SmsFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsFallbackUrl** | **string** | The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
+**SmsMethod** | **string** | The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsUrl** | **string** | The URL we should call when the new phone number receives an incoming SMS message. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**TrunkSid** | **string** | The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
+**VoiceApplicationSid** | **string** | The SID of the application we should use to handle calls to the new phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
+**VoiceCallerIdLookup** | **bool** | Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
+**VoiceFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
+**VoiceMethod** | **string** | The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceReceiveMode** | **string** | The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
+**VoiceUrl** | **string** | The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
 
 ### Return type
 
@@ -583,8 +573,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -593,30 +583,29 @@ Name | Type | Description  | Notes
 
 ## CreateIncomingPhoneNumberAssignedAddOn
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn CreateIncomingPhoneNumberAssignedAddOn(ctx, AccountSid, ResourceSid, optional)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn CreateIncomingPhoneNumberAssignedAddOn(ctx, AccountSidResourceSidoptional)
 
 
 
 Assign an Add-on installation to the Number specified.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
-**ResourceSid** | **string**| The SID of the Phone Number to assign the Add-on. | 
- **optional** | ***CreateIncomingPhoneNumberAssignedAddOnRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
+**ResourceSid** | **string** | The SID of the Phone Number to assign the Add-on. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateIncomingPhoneNumberAssignedAddOnRequest struct
- 
+Other parameters are passed through a pointer to a CreateIncomingPhoneNumberAssignedAddOnParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**InstalledAddOnSid** | **String**| The SID that identifies the Add-on installation. | 
+**InstalledAddOnSid** | **string** | The SID that identifies the Add-on installation. | 
 
 ### Return type
 
@@ -628,8 +617,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -638,49 +627,48 @@ Name | Type | Description  | Notes
 
 ## CreateIncomingPhoneNumberLocal
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal CreateIncomingPhoneNumberLocal(ctx, AccountSid, optional)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal CreateIncomingPhoneNumberLocal(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateIncomingPhoneNumberLocalRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateIncomingPhoneNumberLocalRequest struct
- 
+Other parameters are passed through a pointer to a CreateIncomingPhoneNumberLocalParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AddressSid** | **String**| The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. | 
-**ApiVersion** | **String**| The API version to use for incoming calls made to the new phone number. The default is &#x60;2010-04-01&#x60;. | 
-**BundleSid** | **String**| The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
-**EmergencyAddressSid** | **String**| The SID of the emergency address configuration to use for emergency calling from the new phone number. | 
-**EmergencyStatus** | **String**| The configuration status parameter that determines whether the new phone number is enabled for emergency calling. | 
-**FriendlyName** | **String**| A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number. | 
-**IdentitySid** | **String**| The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations. | 
-**PhoneNumber** | **String**| The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
-**SmsApplicationSid** | **String**| The SID of the application that should handle SMS messages sent to the new phone number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those set on the application. | 
-**SmsFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsFallbackUrl** | **String**| The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
-**SmsMethod** | **String**| The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsUrl** | **String**| The URL we should call when the new phone number receives an incoming SMS message. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**TrunkSid** | **String**| The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
-**VoiceApplicationSid** | **String**| The SID of the application we should use to handle calls to the new phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
-**VoiceCallerIdLookup** | **Bool**| Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
-**VoiceFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceFallbackUrl** | **String**| The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
-**VoiceMethod** | **String**| The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceReceiveMode** | **String**| The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
-**VoiceUrl** | **String**| The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
+**AddressSid** | **string** | The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. | 
+**ApiVersion** | **string** | The API version to use for incoming calls made to the new phone number. The default is &#x60;2010-04-01&#x60;. | 
+**BundleSid** | **string** | The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
+**EmergencyAddressSid** | **string** | The SID of the emergency address configuration to use for emergency calling from the new phone number. | 
+**EmergencyStatus** | **string** | The configuration status parameter that determines whether the new phone number is enabled for emergency calling. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number. | 
+**IdentitySid** | **string** | The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations. | 
+**PhoneNumber** | **string** | The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
+**SmsApplicationSid** | **string** | The SID of the application that should handle SMS messages sent to the new phone number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those set on the application. | 
+**SmsFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsFallbackUrl** | **string** | The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
+**SmsMethod** | **string** | The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsUrl** | **string** | The URL we should call when the new phone number receives an incoming SMS message. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**TrunkSid** | **string** | The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
+**VoiceApplicationSid** | **string** | The SID of the application we should use to handle calls to the new phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
+**VoiceCallerIdLookup** | **bool** | Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
+**VoiceFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
+**VoiceMethod** | **string** | The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceReceiveMode** | **string** | The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
+**VoiceUrl** | **string** | The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
 
 ### Return type
 
@@ -692,8 +680,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -702,49 +690,48 @@ Name | Type | Description  | Notes
 
 ## CreateIncomingPhoneNumberMobile
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile CreateIncomingPhoneNumberMobile(ctx, AccountSid, optional)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile CreateIncomingPhoneNumberMobile(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateIncomingPhoneNumberMobileRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateIncomingPhoneNumberMobileRequest struct
- 
+Other parameters are passed through a pointer to a CreateIncomingPhoneNumberMobileParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AddressSid** | **String**| The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. | 
-**ApiVersion** | **String**| The API version to use for incoming calls made to the new phone number. The default is &#x60;2010-04-01&#x60;. | 
-**BundleSid** | **String**| The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
-**EmergencyAddressSid** | **String**| The SID of the emergency address configuration to use for emergency calling from the new phone number. | 
-**EmergencyStatus** | **String**| The configuration status parameter that determines whether the new phone number is enabled for emergency calling. | 
-**FriendlyName** | **String**| A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, the is a formatted version of the phone number. | 
-**IdentitySid** | **String**| The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations. | 
-**PhoneNumber** | **String**| The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
-**SmsApplicationSid** | **String**| The SID of the application that should handle SMS messages sent to the new phone number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those of the application. | 
-**SmsFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsFallbackUrl** | **String**| The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
-**SmsMethod** | **String**| The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsUrl** | **String**| The URL we should call when the new phone number receives an incoming SMS message. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**TrunkSid** | **String**| The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
-**VoiceApplicationSid** | **String**| The SID of the application we should use to handle calls to the new phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
-**VoiceCallerIdLookup** | **Bool**| Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
-**VoiceFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceFallbackUrl** | **String**| The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
-**VoiceMethod** | **String**| The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceReceiveMode** | **String**| The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
-**VoiceUrl** | **String**| The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
+**AddressSid** | **string** | The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. | 
+**ApiVersion** | **string** | The API version to use for incoming calls made to the new phone number. The default is &#x60;2010-04-01&#x60;. | 
+**BundleSid** | **string** | The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
+**EmergencyAddressSid** | **string** | The SID of the emergency address configuration to use for emergency calling from the new phone number. | 
+**EmergencyStatus** | **string** | The configuration status parameter that determines whether the new phone number is enabled for emergency calling. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, the is a formatted version of the phone number. | 
+**IdentitySid** | **string** | The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations. | 
+**PhoneNumber** | **string** | The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
+**SmsApplicationSid** | **string** | The SID of the application that should handle SMS messages sent to the new phone number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those of the application. | 
+**SmsFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsFallbackUrl** | **string** | The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
+**SmsMethod** | **string** | The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsUrl** | **string** | The URL we should call when the new phone number receives an incoming SMS message. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**TrunkSid** | **string** | The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
+**VoiceApplicationSid** | **string** | The SID of the application we should use to handle calls to the new phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
+**VoiceCallerIdLookup** | **bool** | Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
+**VoiceFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
+**VoiceMethod** | **string** | The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceReceiveMode** | **string** | The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
+**VoiceUrl** | **string** | The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
 
 ### Return type
 
@@ -756,8 +743,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -766,49 +753,48 @@ Name | Type | Description  | Notes
 
 ## CreateIncomingPhoneNumberTollFree
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree CreateIncomingPhoneNumberTollFree(ctx, AccountSid, optional)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree CreateIncomingPhoneNumberTollFree(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateIncomingPhoneNumberTollFreeRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateIncomingPhoneNumberTollFreeRequest struct
- 
+Other parameters are passed through a pointer to a CreateIncomingPhoneNumberTollFreeParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AddressSid** | **String**| The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. | 
-**ApiVersion** | **String**| The API version to use for incoming calls made to the new phone number. The default is &#x60;2010-04-01&#x60;. | 
-**BundleSid** | **String**| The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
-**EmergencyAddressSid** | **String**| The SID of the emergency address configuration to use for emergency calling from the new phone number. | 
-**EmergencyStatus** | **String**| The configuration status parameter that determines whether the new phone number is enabled for emergency calling. | 
-**FriendlyName** | **String**| A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number. | 
-**IdentitySid** | **String**| The SID of the Identity resource that we should associate with the new phone number. Some regions require an Identity to meet local regulations. | 
-**PhoneNumber** | **String**| The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
-**SmsApplicationSid** | **String**| The SID of the application that should handle SMS messages sent to the new phone number. If an &#x60;sms_application_sid&#x60; is present, we ignore all &#x60;sms_*_url&#x60; values and use those of the application. | 
-**SmsFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsFallbackUrl** | **String**| The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
-**SmsMethod** | **String**| The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsUrl** | **String**| The URL we should call when the new phone number receives an incoming SMS message. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**TrunkSid** | **String**| The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
-**VoiceApplicationSid** | **String**| The SID of the application we should use to handle calls to the new phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
-**VoiceCallerIdLookup** | **Bool**| Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
-**VoiceFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceFallbackUrl** | **String**| The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
-**VoiceMethod** | **String**| The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceReceiveMode** | **String**| The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
-**VoiceUrl** | **String**| The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
+**AddressSid** | **string** | The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. | 
+**ApiVersion** | **string** | The API version to use for incoming calls made to the new phone number. The default is &#x60;2010-04-01&#x60;. | 
+**BundleSid** | **string** | The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
+**EmergencyAddressSid** | **string** | The SID of the emergency address configuration to use for emergency calling from the new phone number. | 
+**EmergencyStatus** | **string** | The configuration status parameter that determines whether the new phone number is enabled for emergency calling. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number. | 
+**IdentitySid** | **string** | The SID of the Identity resource that we should associate with the new phone number. Some regions require an Identity to meet local regulations. | 
+**PhoneNumber** | **string** | The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. | 
+**SmsApplicationSid** | **string** | The SID of the application that should handle SMS messages sent to the new phone number. If an &#x60;sms_application_sid&#x60; is present, we ignore all &#x60;sms_*_url&#x60; values and use those of the application. | 
+**SmsFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsFallbackUrl** | **string** | The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
+**SmsMethod** | **string** | The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsUrl** | **string** | The URL we should call when the new phone number receives an incoming SMS message. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**TrunkSid** | **string** | The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
+**VoiceApplicationSid** | **string** | The SID of the application we should use to handle calls to the new phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
+**VoiceCallerIdLookup** | **bool** | Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
+**VoiceFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
+**VoiceMethod** | **string** | The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceReceiveMode** | **string** | The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
+**VoiceUrl** | **string** | The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
 
 ### Return type
 
@@ -820,8 +806,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -830,44 +816,43 @@ Name | Type | Description  | Notes
 
 ## CreateMessage
 
-> ApiV2010AccountMessage CreateMessage(ctx, AccountSid, optional)
+> ApiV2010AccountMessage CreateMessage(ctx, AccountSidoptional)
 
 
 
 Send a message from the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateMessageRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateMessageRequest struct
- 
+Other parameters are passed through a pointer to a CreateMessageParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AddressRetention** | **String**| Determines if the address can be stored or obfuscated based on privacy settings | 
-**ApplicationSid** | **String**| The SID of the application that should receive message status. We POST a &#x60;message_sid&#x60; parameter and a &#x60;message_status&#x60; parameter with a value of &#x60;sent&#x60; or &#x60;failed&#x60; to the [application](https://www.twilio.com/docs/usage/api/applications)&#39;s &#x60;message_status_callback&#x60;. If a &#x60;status_callback&#x60; parameter is also passed, it will be ignored and the application&#39;s &#x60;message_status_callback&#x60; parameter will be used. | 
-**Attempt** | **Int32**| Total number of attempts made ( including this ) to send out the message regardless of the provider used | 
-**Body** | **String**| The text of the message you want to send. Can be up to 1,600 characters in length. | 
-**ContentRetention** | **String**| Determines if the message content can be stored or redacted based on privacy settings | 
-**ForceDelivery** | **Bool**| Reserved | 
-**From** | **String**| A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using &#x60;messaging_service_sid&#x60;, this parameter must be empty. | 
-**MaxPrice** | **Float32**| The maximum total price in US dollars that you will pay for the message to be delivered. Can be a decimal value that has up to 4 decimal places. All messages are queued for delivery and the message cost is checked before the message is sent. If the cost exceeds &#x60;max_price&#x60;, the message will fail and a status of &#x60;Failed&#x60; is sent to the status callback. If &#x60;MaxPrice&#x60; is not set, the message cost is not checked. | 
-**MediaUrl** | [**[]string**](string.md)| The URL of the media to send with the message. The media can be of type &#x60;gif&#x60;, &#x60;png&#x60;, and &#x60;jpeg&#x60; and will be formatted correctly on the recipient&#39;s device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF) and 500KB for [other types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted media. To send more than one image in the message body, provide multiple &#x60;media_url&#x60; parameters in the POST request. You can include up to 10 &#x60;media_url&#x60; parameters per message. You can send images in an SMS message in only the US and Canada. | 
-**MessagingServiceSid** | **String**| The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the &#x60;from&#x60; parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the &#x60;from&#x60; phone number for delivery. | 
-**PersistentAction** | [**[]string**](string.md)| Rich actions for Channels Messages. | 
-**ProvideFeedback** | **Bool**| Whether to confirm delivery of the message. Set this value to &#x60;true&#x60; if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the [Message Feedback API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This parameter is &#x60;false&#x60; by default. | 
-**SmartEncoded** | **Bool**| Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If specified, we POST these message status changes to the URL: &#x60;queued&#x60;, &#x60;failed&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, or &#x60;undelivered&#x60;. Twilio will POST its [standard request parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well as some additional parameters including &#x60;MessageSid&#x60;, &#x60;MessageStatus&#x60;, and &#x60;ErrorCode&#x60;. If you include this parameter with the &#x60;messaging_service_sid&#x60;, we use this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a valid hostname and underscores are not allowed. | 
-**To** | **String**| The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels. | 
-**ValidityPeriod** | **Int32**| How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds. | 
+**AddressRetention** | **string** | Determines if the address can be stored or obfuscated based on privacy settings | 
+**ApplicationSid** | **string** | The SID of the application that should receive message status. We POST a &#x60;message_sid&#x60; parameter and a &#x60;message_status&#x60; parameter with a value of &#x60;sent&#x60; or &#x60;failed&#x60; to the [application](https://www.twilio.com/docs/usage/api/applications)&#39;s &#x60;message_status_callback&#x60;. If a &#x60;status_callback&#x60; parameter is also passed, it will be ignored and the application&#39;s &#x60;message_status_callback&#x60; parameter will be used. | 
+**Attempt** | **int32** | Total number of attempts made ( including this ) to send out the message regardless of the provider used | 
+**Body** | **string** | The text of the message you want to send. Can be up to 1,600 characters in length. | 
+**ContentRetention** | **string** | Determines if the message content can be stored or redacted based on privacy settings | 
+**ForceDelivery** | **bool** | Reserved | 
+**From** | **string** | A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using &#x60;messaging_service_sid&#x60;, this parameter must be empty. | 
+**MaxPrice** | **float32** | The maximum total price in US dollars that you will pay for the message to be delivered. Can be a decimal value that has up to 4 decimal places. All messages are queued for delivery and the message cost is checked before the message is sent. If the cost exceeds &#x60;max_price&#x60;, the message will fail and a status of &#x60;Failed&#x60; is sent to the status callback. If &#x60;MaxPrice&#x60; is not set, the message cost is not checked. | 
+**MediaUrl** | **[]string** | The URL of the media to send with the message. The media can be of type &#x60;gif&#x60;, &#x60;png&#x60;, and &#x60;jpeg&#x60; and will be formatted correctly on the recipient&#39;s device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF) and 500KB for [other types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted media. To send more than one image in the message body, provide multiple &#x60;media_url&#x60; parameters in the POST request. You can include up to 10 &#x60;media_url&#x60; parameters per message. You can send images in an SMS message in only the US and Canada. | 
+**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the &#x60;from&#x60; parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the &#x60;from&#x60; phone number for delivery. | 
+**PersistentAction** | **[]string** | Rich actions for Channels Messages. | 
+**ProvideFeedback** | **bool** | Whether to confirm delivery of the message. Set this value to &#x60;true&#x60; if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the [Message Feedback API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This parameter is &#x60;false&#x60; by default. | 
+**SmartEncoded** | **bool** | Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If specified, we POST these message status changes to the URL: &#x60;queued&#x60;, &#x60;failed&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, or &#x60;undelivered&#x60;. Twilio will POST its [standard request parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well as some additional parameters including &#x60;MessageSid&#x60;, &#x60;MessageStatus&#x60;, and &#x60;ErrorCode&#x60;. If you include this parameter with the &#x60;messaging_service_sid&#x60;, we use this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a valid hostname and underscores are not allowed. | 
+**To** | **string** | The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels. | 
+**ValidityPeriod** | **int32** | How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds. | 
 
 ### Return type
 
@@ -879,8 +864,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -889,28 +874,27 @@ Name | Type | Description  | Notes
 
 ## CreateMessageFeedback
 
-> ApiV2010AccountMessageMessageFeedback CreateMessageFeedback(ctx, AccountSid, MessageSid, optional)
+> ApiV2010AccountMessageMessageFeedback CreateMessageFeedback(ctx, AccountSidMessageSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
-**MessageSid** | **string**| The SID of the Message resource for which the feedback was provided. | 
- **optional** | ***CreateMessageFeedbackRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
+**MessageSid** | **string** | The SID of the Message resource for which the feedback was provided. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateMessageFeedbackRequest struct
- 
+Other parameters are passed through a pointer to a CreateMessageFeedbackParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Outcome** | **String**| Whether the feedback has arrived. Can be: &#x60;unconfirmed&#x60; or &#x60;confirmed&#x60;. If &#x60;provide_feedback&#x60;&#x3D;&#x60;true&#x60; in [the initial HTTP POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is &#x60;unconfirmed&#x60;. After the message arrives, update the value to &#x60;confirmed&#x60;. | 
+**Outcome** | **string** | Whether the feedback has arrived. Can be: &#x60;unconfirmed&#x60; or &#x60;confirmed&#x60;. If &#x60;provide_feedback&#x60;&#x3D;&#x60;true&#x60; in [the initial HTTP POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is &#x60;unconfirmed&#x60;. After the message arrives, update the value to &#x60;confirmed&#x60;. | 
 
 ### Return type
 
@@ -922,8 +906,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -932,27 +916,26 @@ Name | Type | Description  | Notes
 
 ## CreateNewKey
 
-> ApiV2010AccountNewKey CreateNewKey(ctx, AccountSid, optional)
+> ApiV2010AccountNewKey CreateNewKey(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource. | 
- **optional** | ***CreateNewKeyRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateNewKeyRequest struct
- 
+Other parameters are passed through a pointer to a CreateNewKeyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -964,8 +947,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -974,29 +957,28 @@ Name | Type | Description  | Notes
 
 ## CreateNewSigningKey
 
-> ApiV2010AccountNewSigningKey CreateNewSigningKey(ctx, AccountSid, optional)
+> ApiV2010AccountNewSigningKey CreateNewSigningKey(ctx, AccountSidoptional)
 
 
 
 Create a new Signing Key for the account making the request.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource. | 
- **optional** | ***CreateNewSigningKeyRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateNewSigningKeyRequest struct
- 
+Other parameters are passed through a pointer to a CreateNewSigningKeyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -1008,8 +990,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1018,65 +1000,64 @@ Name | Type | Description  | Notes
 
 ## CreateParticipant
 
-> ApiV2010AccountConferenceParticipant CreateParticipant(ctx, AccountSid, ConferenceSid, optional)
+> ApiV2010AccountConferenceParticipant CreateParticipant(ctx, AccountSidConferenceSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
-**ConferenceSid** | **string**| The SID of the participant&#39;s conference. | 
- **optional** | ***CreateParticipantRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
+**ConferenceSid** | **string** | The SID of the participant&#39;s conference. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateParticipantRequest struct
- 
+Other parameters are passed through a pointer to a CreateParticipantParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Beep** | **String**| Whether to play a notification beep to the conference when the participant joins. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;onEnter&#x60;, or &#x60;onExit&#x60;. The default value is &#x60;true&#x60;. | 
-**Byoc** | **String**| The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that &#x60;byoc&#x60; is only meaningful when &#x60;to&#x60; is a phone number; it will otherwise be ignored. (Beta) | 
-**CallReason** | **String**| The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party&#39;s phone. (Branded Calls Beta) | 
-**CallSidToCoach** | **String**| The SID of the participant who is being &#x60;coached&#x60;. The participant being coached is the only participant who can hear the participant who is &#x60;coaching&#x60;. | 
-**CallerId** | **String**| The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted &#x60;client:name&#x60;. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the &#x60;to&#x60; parameter is a phone number, &#x60;callerId&#x60; must also be a phone number. If &#x60;to&#x60; is sip address, this value of &#x60;callerId&#x60; should be a username portion to be used to populate the From header that is passed to the SIP endpoint. | 
-**Coaching** | **Bool**| Whether the participant is coaching another call. Can be: &#x60;true&#x60; or &#x60;false&#x60;. If not present, defaults to &#x60;false&#x60; unless &#x60;call_sid_to_coach&#x60; is defined. If &#x60;true&#x60;, &#x60;call_sid_to_coach&#x60; must be defined. | 
-**ConferenceRecord** | **String**| Whether to record the conference the participant is joining. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;record-from-start&#x60;, and &#x60;do-not-record&#x60;. The default value is &#x60;false&#x60;. | 
-**ConferenceRecordingStatusCallback** | **String**| The URL we should call using the &#x60;conference_recording_status_callback_method&#x60; when the conference recording is available. | 
-**ConferenceRecordingStatusCallbackEvent** | [**[]string**](string.md)| The conference recording state changes that generate a call to &#x60;conference_recording_status_callback&#x60;. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60;, and &#x60;failed&#x60;. Separate multiple values with a space. The default value is &#x60;in-progress completed failed&#x60;. | 
-**ConferenceRecordingStatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;conference_recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**ConferenceStatusCallback** | **String**| The URL we should call using the &#x60;conference_status_callback_method&#x60; when the conference events in &#x60;conference_status_callback_event&#x60; occur. Only the value set by the first participant to join the conference is used. Subsequent &#x60;conference_status_callback&#x60; values are ignored. | 
-**ConferenceStatusCallbackEvent** | [**[]string**](string.md)| The conference state changes that should generate a call to &#x60;conference_status_callback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60;, &#x60;leave&#x60;, &#x60;mute&#x60;, &#x60;hold&#x60;, and &#x60;speaker&#x60;. Separate multiple values with a space. Defaults to &#x60;start end&#x60;. | 
-**ConferenceStatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;conference_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**ConferenceTrim** | **String**| Whether to trim leading and trailing silence from your recorded conference audio files. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and defaults to &#x60;trim-silence&#x60;. | 
-**EarlyMedia** | **Bool**| Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;true&#x60;. | 
-**EndConferenceOnExit** | **Bool**| Whether to end the conference when the participant leaves. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
-**From** | **String**| The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted &#x60;client:name&#x60;. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the &#x60;to&#x60; parameter is a phone number, &#x60;from&#x60; must also be a phone number. If &#x60;to&#x60; is sip address, this value of &#x60;from&#x60; should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint. | 
-**JitterBufferSize** | **String**| Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant&#39;s audio is mixed into the conference. Can be: &#x60;off&#x60;, &#x60;small&#x60;, &#x60;medium&#x60;, and &#x60;large&#x60;. Default to &#x60;large&#x60;. | 
-**Label** | **String**| A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant. | 
-**MaxParticipants** | **Int32**| The maximum number of participants in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;. | 
-**Muted** | **Bool**| Whether the agent is muted in the conference. Can be &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**Record** | **Bool**| Whether to record the participant and their conferences, including the time between conferences. Can be &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**RecordingChannels** | **String**| The recording channels for the final recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60; and the default is &#x60;mono&#x60;. | 
-**RecordingStatusCallback** | **String**| The URL that we should call using the &#x60;recording_status_callback_method&#x60; when the recording status changes. | 
-**RecordingStatusCallbackEvent** | [**[]string**](string.md)| The recording state changes that should generate a call to &#x60;recording_status_callback&#x60;. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60;, and &#x60;failed&#x60;. Separate multiple values with a space. The default value is &#x60;in-progress completed failed&#x60;. | 
-**RecordingStatusCallbackMethod** | **String**| The HTTP method we should use when we call &#x60;recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**RecordingTrack** | **String**| The audio track to record for the call. Can be: &#x60;inbound&#x60;, &#x60;outbound&#x60; or &#x60;both&#x60;. The default is &#x60;both&#x60;. &#x60;inbound&#x60; records the audio that is received by Twilio. &#x60;outbound&#x60; records the audio that is sent from Twilio. &#x60;both&#x60; records the audio that is received and sent by Twilio. | 
-**Region** | **String**| The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:&#x60;us1&#x60;, &#x60;ie1&#x60;, &#x60;de1&#x60;, &#x60;sg1&#x60;, &#x60;br1&#x60;, &#x60;au1&#x60;, or &#x60;jp1&#x60;. | 
-**SipAuthPassword** | **String**| The SIP password for authentication. | 
-**SipAuthUsername** | **String**| The SIP username used for authentication. | 
-**StartConferenceOnEnter** | **Bool**| Whether to start the conference when the participant joins, if it has not already started. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If &#x60;false&#x60; and the conference has not started, the participant is muted and hears background music until another participant starts the conference. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
-**StatusCallbackEvent** | [**[]string**](string.md)| The conference state changes that should generate a call to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, and &#x60;completed&#x60;. Separate multiple values with a space. The default value is &#x60;completed&#x60;. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; and &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**Timeout** | **Int32**| The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between &#x60;5&#x60; and &#x60;600&#x60;, inclusive. The default value is &#x60;60&#x60;. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds. | 
-**To** | **String**| The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as &#x60;sip:name@company.com&#x60;. Client identifiers are formatted &#x60;client:name&#x60;. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified. | 
-**WaitMethod** | **String**| The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file. | 
-**WaitUrl** | **String**| The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic). | 
+**Beep** | **string** | Whether to play a notification beep to the conference when the participant joins. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;onEnter&#x60;, or &#x60;onExit&#x60;. The default value is &#x60;true&#x60;. | 
+**Byoc** | **string** | The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that &#x60;byoc&#x60; is only meaningful when &#x60;to&#x60; is a phone number; it will otherwise be ignored. (Beta) | 
+**CallReason** | **string** | The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party&#39;s phone. (Branded Calls Beta) | 
+**CallSidToCoach** | **string** | The SID of the participant who is being &#x60;coached&#x60;. The participant being coached is the only participant who can hear the participant who is &#x60;coaching&#x60;. | 
+**CallerId** | **string** | The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted &#x60;client:name&#x60;. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the &#x60;to&#x60; parameter is a phone number, &#x60;callerId&#x60; must also be a phone number. If &#x60;to&#x60; is sip address, this value of &#x60;callerId&#x60; should be a username portion to be used to populate the From header that is passed to the SIP endpoint. | 
+**Coaching** | **bool** | Whether the participant is coaching another call. Can be: &#x60;true&#x60; or &#x60;false&#x60;. If not present, defaults to &#x60;false&#x60; unless &#x60;call_sid_to_coach&#x60; is defined. If &#x60;true&#x60;, &#x60;call_sid_to_coach&#x60; must be defined. | 
+**ConferenceRecord** | **string** | Whether to record the conference the participant is joining. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;record-from-start&#x60;, and &#x60;do-not-record&#x60;. The default value is &#x60;false&#x60;. | 
+**ConferenceRecordingStatusCallback** | **string** | The URL we should call using the &#x60;conference_recording_status_callback_method&#x60; when the conference recording is available. | 
+**ConferenceRecordingStatusCallbackEvent** | **[]string** | The conference recording state changes that generate a call to &#x60;conference_recording_status_callback&#x60;. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60;, and &#x60;failed&#x60;. Separate multiple values with a space. The default value is &#x60;in-progress completed failed&#x60;. | 
+**ConferenceRecordingStatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;conference_recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**ConferenceStatusCallback** | **string** | The URL we should call using the &#x60;conference_status_callback_method&#x60; when the conference events in &#x60;conference_status_callback_event&#x60; occur. Only the value set by the first participant to join the conference is used. Subsequent &#x60;conference_status_callback&#x60; values are ignored. | 
+**ConferenceStatusCallbackEvent** | **[]string** | The conference state changes that should generate a call to &#x60;conference_status_callback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60;, &#x60;leave&#x60;, &#x60;mute&#x60;, &#x60;hold&#x60;, and &#x60;speaker&#x60;. Separate multiple values with a space. Defaults to &#x60;start end&#x60;. | 
+**ConferenceStatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;conference_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**ConferenceTrim** | **string** | Whether to trim leading and trailing silence from your recorded conference audio files. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and defaults to &#x60;trim-silence&#x60;. | 
+**EarlyMedia** | **bool** | Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;true&#x60;. | 
+**EndConferenceOnExit** | **bool** | Whether to end the conference when the participant leaves. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
+**From** | **string** | The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted &#x60;client:name&#x60;. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the &#x60;to&#x60; parameter is a phone number, &#x60;from&#x60; must also be a phone number. If &#x60;to&#x60; is sip address, this value of &#x60;from&#x60; should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint. | 
+**JitterBufferSize** | **string** | Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant&#39;s audio is mixed into the conference. Can be: &#x60;off&#x60;, &#x60;small&#x60;, &#x60;medium&#x60;, and &#x60;large&#x60;. Default to &#x60;large&#x60;. | 
+**Label** | **string** | A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant. | 
+**MaxParticipants** | **int32** | The maximum number of participants in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;. | 
+**Muted** | **bool** | Whether the agent is muted in the conference. Can be &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**Record** | **bool** | Whether to record the participant and their conferences, including the time between conferences. Can be &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**RecordingChannels** | **string** | The recording channels for the final recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60; and the default is &#x60;mono&#x60;. | 
+**RecordingStatusCallback** | **string** | The URL that we should call using the &#x60;recording_status_callback_method&#x60; when the recording status changes. | 
+**RecordingStatusCallbackEvent** | **[]string** | The recording state changes that should generate a call to &#x60;recording_status_callback&#x60;. Can be: &#x60;in-progress&#x60;, &#x60;completed&#x60;, and &#x60;failed&#x60;. Separate multiple values with a space. The default value is &#x60;in-progress completed failed&#x60;. | 
+**RecordingStatusCallbackMethod** | **string** | The HTTP method we should use when we call &#x60;recording_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**RecordingTrack** | **string** | The audio track to record for the call. Can be: &#x60;inbound&#x60;, &#x60;outbound&#x60; or &#x60;both&#x60;. The default is &#x60;both&#x60;. &#x60;inbound&#x60; records the audio that is received by Twilio. &#x60;outbound&#x60; records the audio that is sent from Twilio. &#x60;both&#x60; records the audio that is received and sent by Twilio. | 
+**Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:&#x60;us1&#x60;, &#x60;ie1&#x60;, &#x60;de1&#x60;, &#x60;sg1&#x60;, &#x60;br1&#x60;, &#x60;au1&#x60;, or &#x60;jp1&#x60;. | 
+**SipAuthPassword** | **string** | The SIP password for authentication. | 
+**SipAuthUsername** | **string** | The SIP username used for authentication. | 
+**StartConferenceOnEnter** | **bool** | Whether to start the conference when the participant joins, if it has not already started. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If &#x60;false&#x60; and the conference has not started, the participant is muted and hears background music until another participant starts the conference. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
+**StatusCallbackEvent** | **[]string** | The conference state changes that should generate a call to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, and &#x60;completed&#x60;. Separate multiple values with a space. The default value is &#x60;completed&#x60;. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; and &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**Timeout** | **int32** | The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between &#x60;5&#x60; and &#x60;600&#x60;, inclusive. The default value is &#x60;60&#x60;. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds. | 
+**To** | **string** | The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as &#x60;sip:name@company.com&#x60;. Client identifiers are formatted &#x60;client:name&#x60;. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified. | 
+**WaitMethod** | **string** | The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file. | 
+**WaitUrl** | **string** | The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic). | 
 
 ### Return type
 
@@ -1088,8 +1069,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1098,45 +1079,44 @@ Name | Type | Description  | Notes
 
 ## CreatePayments
 
-> ApiV2010AccountCallPayments CreatePayments(ctx, AccountSid, CallSid, optional)
+> ApiV2010AccountCallPayments CreatePayments(ctx, AccountSidCallSidoptional)
 
 
 
 create an instance of payments. This will start a new payments session
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
-**CallSid** | **string**| The SID of the call that will create the resource. Call leg associated with this sid is expected to provide payment information thru DTMF. | 
- **optional** | ***CreatePaymentsRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
+**CallSid** | **string** | The SID of the call that will create the resource. Call leg associated with this sid is expected to provide payment information thru DTMF. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreatePaymentsRequest struct
- 
+Other parameters are passed through a pointer to a CreatePaymentsParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**BankAccountType** | **String**| Type of bank account if payment source is ACH. One of &#x60;consumer-checking&#x60;, &#x60;consumer-savings&#x60;, or &#x60;commercial-checking&#x60;. The default value is &#x60;consumer-checking&#x60;. | 
-**ChargeAmount** | **Float32**| A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with &#x60;currency&#x60; field. Leave blank or set to 0 to tokenize. | 
-**Currency** | **String**| The currency of the &#x60;charge_amount&#x60;, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is &#x60;USD&#x60; and all values allowed from the &lt;Pay&gt; Connector are accepted. | 
-**Description** | **String**| The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions. | 
-**IdempotencyKey** | **String**| A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated. | 
-**Input** | **String**| A list of inputs that should be accepted. Currently only &#x60;dtmf&#x60; is supported. All digits captured during a pay session are redacted from the logs. | 
-**MinPostalCodeLength** | **Int32**| A positive integer that is used to validate the length of the &#x60;PostalCode&#x60; inputted by the user. User must enter this many digits. | 
-**Parameter** | [**map[string]interface{}**](map[string]interface{}.md)| A single level JSON string that is required when accepting certain information specific only to ACH payments. The information that has to be included here depends on the &lt;Pay&gt; Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors). | 
-**PaymentConnector** | **String**| This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons. Learn more about [&lt;Pay&gt; Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is &#x60;Default&#x60;. | 
-**PaymentMethod** | **String**| Type of payment being captured. One of &#x60;credit-card&#x60; or &#x60;ach-debit&#x60;. The default value is &#x60;credit-card&#x60;. | 
-**PostalCode** | **Bool**| Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is &#x60;true&#x60;. | 
-**SecurityCode** | **Bool**| Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is &#x60;true&#x60;. | 
-**StatusCallback** | **String**| Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback) | 
-**Timeout** | **Int32**| The number of seconds that &lt;Pay&gt; should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is &#x60;5&#x60;, maximum is &#x60;600&#x60;. | 
-**TokenType** | **String**| Indicates whether the payment method should be tokenized as a &#x60;one-time&#x60; or &#x60;reusable&#x60; token. The default value is &#x60;reusable&#x60;. Do not enter a charge amount when tokenizing. If a charge amount is entered, the payment method will be charged and not tokenized. | 
-**ValidCardTypes** | **String**| Credit card types separated by space that Pay should accept. The default value is &#x60;visa mastercard amex&#x60; | 
+**BankAccountType** | **string** | Type of bank account if payment source is ACH. One of &#x60;consumer-checking&#x60;, &#x60;consumer-savings&#x60;, or &#x60;commercial-checking&#x60;. The default value is &#x60;consumer-checking&#x60;. | 
+**ChargeAmount** | **float32** | A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with &#x60;currency&#x60; field. Leave blank or set to 0 to tokenize. | 
+**Currency** | **string** | The currency of the &#x60;charge_amount&#x60;, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is &#x60;USD&#x60; and all values allowed from the &lt;Pay&gt; Connector are accepted. | 
+**Description** | **string** | The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions. | 
+**IdempotencyKey** | **string** | A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated. | 
+**Input** | **string** | A list of inputs that should be accepted. Currently only &#x60;dtmf&#x60; is supported. All digits captured during a pay session are redacted from the logs. | 
+**MinPostalCodeLength** | **int32** | A positive integer that is used to validate the length of the &#x60;PostalCode&#x60; inputted by the user. User must enter this many digits. | 
+**Parameter** | [**map[string]interface{}**](map[string]interface{}.md) | A single level JSON string that is required when accepting certain information specific only to ACH payments. The information that has to be included here depends on the &lt;Pay&gt; Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors). | 
+**PaymentConnector** | **string** | This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons. Learn more about [&lt;Pay&gt; Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is &#x60;Default&#x60;. | 
+**PaymentMethod** | **string** | Type of payment being captured. One of &#x60;credit-card&#x60; or &#x60;ach-debit&#x60;. The default value is &#x60;credit-card&#x60;. | 
+**PostalCode** | **bool** | Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is &#x60;true&#x60;. | 
+**SecurityCode** | **bool** | Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is &#x60;true&#x60;. | 
+**StatusCallback** | **string** | Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback) | 
+**Timeout** | **int32** | The number of seconds that &lt;Pay&gt; should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is &#x60;5&#x60;, maximum is &#x60;600&#x60;. | 
+**TokenType** | **string** | Indicates whether the payment method should be tokenized as a &#x60;one-time&#x60; or &#x60;reusable&#x60; token. The default value is &#x60;reusable&#x60;. Do not enter a charge amount when tokenizing. If a charge amount is entered, the payment method will be charged and not tokenized. | 
+**ValidCardTypes** | **string** | Credit card types separated by space that Pay should accept. The default value is &#x60;visa mastercard amex&#x60; | 
 
 ### Return type
 
@@ -1148,8 +1128,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1158,30 +1138,29 @@ Name | Type | Description  | Notes
 
 ## CreateQueue
 
-> ApiV2010AccountQueue CreateQueue(ctx, AccountSid, optional)
+> ApiV2010AccountQueue CreateQueue(ctx, AccountSidoptional)
 
 
 
 Create a queue
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateQueueRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateQueueRequest struct
- 
+Other parameters are passed through a pointer to a CreateQueueParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you created to describe this resource. It can be up to 64 characters long. | 
-**MaxSize** | **Int32**| The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe this resource. It can be up to 64 characters long. | 
+**MaxSize** | **int32** | The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000. | 
 
 ### Return type
 
@@ -1193,8 +1172,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1203,30 +1182,29 @@ Name | Type | Description  | Notes
 
 ## CreateSipAuthCallsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping CreateSipAuthCallsCredentialListMapping(ctx, AccountSid, DomainSid, optional)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping CreateSipAuthCallsCredentialListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Create a new credential list mapping resource
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
-**DomainSid** | **string**| The SID of the SIP domain that will contain the new resource. | 
- **optional** | ***CreateSipAuthCallsCredentialListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
+**DomainSid** | **string** | The SID of the SIP domain that will contain the new resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipAuthCallsCredentialListMappingRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipAuthCallsCredentialListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CredentialListSid** | **String**| The SID of the CredentialList resource to map to the SIP domain. | 
+**CredentialListSid** | **string** | The SID of the CredentialList resource to map to the SIP domain. | 
 
 ### Return type
 
@@ -1238,8 +1216,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1248,30 +1226,29 @@ Name | Type | Description  | Notes
 
 ## CreateSipAuthCallsIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping CreateSipAuthCallsIpAccessControlListMapping(ctx, AccountSid, DomainSid, optional)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping CreateSipAuthCallsIpAccessControlListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Create a new IP Access Control List mapping
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
-**DomainSid** | **string**| The SID of the SIP domain that will contain the new resource. | 
- **optional** | ***CreateSipAuthCallsIpAccessControlListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
+**DomainSid** | **string** | The SID of the SIP domain that will contain the new resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipAuthCallsIpAccessControlListMappingRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipAuthCallsIpAccessControlListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**IpAccessControlListSid** | **String**| The SID of the IpAccessControlList resource to map to the SIP domain. | 
+**IpAccessControlListSid** | **string** | The SID of the IpAccessControlList resource to map to the SIP domain. | 
 
 ### Return type
 
@@ -1283,8 +1260,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1293,30 +1270,29 @@ Name | Type | Description  | Notes
 
 ## CreateSipAuthRegistrationsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping CreateSipAuthRegistrationsCredentialListMapping(ctx, AccountSid, DomainSid, optional)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping CreateSipAuthRegistrationsCredentialListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Create a new credential list mapping resource
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
-**DomainSid** | **string**| The SID of the SIP domain that will contain the new resource. | 
- **optional** | ***CreateSipAuthRegistrationsCredentialListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
+**DomainSid** | **string** | The SID of the SIP domain that will contain the new resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipAuthRegistrationsCredentialListMappingRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipAuthRegistrationsCredentialListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CredentialListSid** | **String**| The SID of the CredentialList resource to map to the SIP domain. | 
+**CredentialListSid** | **string** | The SID of the CredentialList resource to map to the SIP domain. | 
 
 ### Return type
 
@@ -1328,8 +1304,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1338,31 +1314,30 @@ Name | Type | Description  | Notes
 
 ## CreateSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredential CreateSipCredential(ctx, AccountSid, CredentialListSid, optional)
+> ApiV2010AccountSipSipCredentialListSipCredential CreateSipCredential(ctx, AccountSidCredentialListSidoptional)
 
 
 
 Create a new credential resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**CredentialListSid** | **string**| The unique id that identifies the credential list to include the created credential. | 
- **optional** | ***CreateSipCredentialRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**CredentialListSid** | **string** | The unique id that identifies the credential list to include the created credential. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipCredentialRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipCredentialParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Password** | **String**| The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;) | 
-**Username** | **String**| The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio&#39;s challenge of the initial INVITE. It can be up to 32 characters long. | 
+**Password** | **string** | The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;) | 
+**Username** | **string** | The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio&#39;s challenge of the initial INVITE. It can be up to 32 characters long. | 
 
 ### Return type
 
@@ -1374,8 +1349,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1384,29 +1359,28 @@ Name | Type | Description  | Notes
 
 ## CreateSipCredentialList
 
-> ApiV2010AccountSipSipCredentialList CreateSipCredentialList(ctx, AccountSid, optional)
+> ApiV2010AccountSipSipCredentialList CreateSipCredentialList(ctx, AccountSidoptional)
 
 
 
 Create a Credential List
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
- **optional** | ***CreateSipCredentialListRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipCredentialListRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipCredentialListParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A human readable descriptive text that describes the CredentialList, up to 64 characters long. | 
+**FriendlyName** | **string** | A human readable descriptive text that describes the CredentialList, up to 64 characters long. | 
 
 ### Return type
 
@@ -1418,8 +1392,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1428,30 +1402,29 @@ Name | Type | Description  | Notes
 
 ## CreateSipCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipCredentialListMapping CreateSipCredentialListMapping(ctx, AccountSid, DomainSid, optional)
+> ApiV2010AccountSipSipDomainSipCredentialListMapping CreateSipCredentialListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Create a CredentialListMapping resource for an account.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**DomainSid** | **string**| A 34 character string that uniquely identifies the SIP Domain for which the CredentialList resource will be mapped. | 
- **optional** | ***CreateSipCredentialListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**DomainSid** | **string** | A 34 character string that uniquely identifies the SIP Domain for which the CredentialList resource will be mapped. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipCredentialListMappingRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipCredentialListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CredentialListSid** | **String**| A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain. | 
+**CredentialListSid** | **string** | A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain. | 
 
 ### Return type
 
@@ -1463,8 +1436,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1473,41 +1446,40 @@ Name | Type | Description  | Notes
 
 ## CreateSipDomain
 
-> ApiV2010AccountSipSipDomain CreateSipDomain(ctx, AccountSid, optional)
+> ApiV2010AccountSipSipDomain CreateSipDomain(ctx, AccountSidoptional)
 
 
 
 Create a new Domain
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateSipDomainRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipDomainRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipDomainParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ByocTrunkSid** | **String**| The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with. | 
-**DomainName** | **String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot; and must end with &#x60;sip.twilio.com&#x60;. | 
-**EmergencyCallerSid** | **String**| Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call. | 
-**EmergencyCallingEnabled** | **Bool**| Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses. | 
-**FriendlyName** | **String**| A descriptive string that you created to describe the resource. It can be up to 64 characters long. | 
-**Secure** | **Bool**| Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain. | 
-**SipRegistration** | **Bool**| Whether to allow SIP Endpoints to register with the domain to receive calls. Can be &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; allows SIP Endpoints to register with the domain to receive calls, &#x60;false&#x60; does not. | 
-**VoiceFallbackMethod** | **String**| The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceFallbackUrl** | **String**| The URL that we should call when an error occurs while retrieving or executing the TwiML from &#x60;voice_url&#x60;. | 
-**VoiceMethod** | **String**| The HTTP method we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceStatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;voice_status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceStatusCallbackUrl** | **String**| The URL that we should call to pass status parameters (such as call ended) to your application. | 
-**VoiceUrl** | **String**| The URL we should when the domain receives a call. | 
+**ByocTrunkSid** | **string** | The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with. | 
+**DomainName** | **string** | The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot; and must end with &#x60;sip.twilio.com&#x60;. | 
+**EmergencyCallerSid** | **string** | Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call. | 
+**EmergencyCallingEnabled** | **bool** | Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe the resource. It can be up to 64 characters long. | 
+**Secure** | **bool** | Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain. | 
+**SipRegistration** | **bool** | Whether to allow SIP Endpoints to register with the domain to receive calls. Can be &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; allows SIP Endpoints to register with the domain to receive calls, &#x60;false&#x60; does not. | 
+**VoiceFallbackMethod** | **string** | The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs while retrieving or executing the TwiML from &#x60;voice_url&#x60;. | 
+**VoiceMethod** | **string** | The HTTP method we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceStatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;voice_status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceStatusCallbackUrl** | **string** | The URL that we should call to pass status parameters (such as call ended) to your application. | 
+**VoiceUrl** | **string** | The URL we should when the domain receives a call. | 
 
 ### Return type
 
@@ -1519,8 +1491,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1529,29 +1501,28 @@ Name | Type | Description  | Notes
 
 ## CreateSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlList CreateSipIpAccessControlList(ctx, AccountSid, optional)
+> ApiV2010AccountSipSipIpAccessControlList CreateSipIpAccessControlList(ctx, AccountSidoptional)
 
 
 
 Create a new IpAccessControlList resource
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
- **optional** | ***CreateSipIpAccessControlListRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipIpAccessControlListRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipIpAccessControlListParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long. | 
+**FriendlyName** | **string** | A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long. | 
 
 ### Return type
 
@@ -1563,8 +1534,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1573,30 +1544,29 @@ Name | Type | Description  | Notes
 
 ## CreateSipIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping CreateSipIpAccessControlListMapping(ctx, AccountSid, DomainSid, optional)
+> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping CreateSipIpAccessControlListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Create a new IpAccessControlListMapping resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**DomainSid** | **string**| A 34 character string that uniquely identifies the SIP domain. | 
- **optional** | ***CreateSipIpAccessControlListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**DomainSid** | **string** | A 34 character string that uniquely identifies the SIP domain. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipIpAccessControlListMappingRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipIpAccessControlListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**IpAccessControlListSid** | **String**| The unique id of the IP access control list to map to the SIP domain. | 
+**IpAccessControlListSid** | **string** | The unique id of the IP access control list to map to the SIP domain. | 
 
 ### Return type
 
@@ -1608,8 +1578,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1618,32 +1588,31 @@ Name | Type | Description  | Notes
 
 ## CreateSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddress CreateSipIpAddress(ctx, AccountSid, IpAccessControlListSid, optional)
+> ApiV2010AccountSipSipIpAccessControlListSipIpAddress CreateSipIpAddress(ctx, AccountSidIpAccessControlListSidoptional)
 
 
 
 Create a new IpAddress resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**IpAccessControlListSid** | **string**| The IpAccessControlList Sid with which to associate the created IpAddress resource. | 
- **optional** | ***CreateSipIpAddressRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**IpAccessControlListSid** | **string** | The IpAccessControlList Sid with which to associate the created IpAddress resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateSipIpAddressRequest struct
- 
+Other parameters are passed through a pointer to a CreateSipIpAddressParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CidrPrefixLength** | **Int32**| An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used. | 
-**FriendlyName** | **String**| A human readable descriptive text for this resource, up to 64 characters long. | 
-**IpAddress** | **String**| An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today. | 
+**CidrPrefixLength** | **int32** | An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used. | 
+**FriendlyName** | **string** | A human readable descriptive text for this resource, up to 64 characters long. | 
+**IpAddress** | **string** | An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today. | 
 
 ### Return type
 
@@ -1655,8 +1624,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1665,29 +1634,28 @@ Name | Type | Description  | Notes
 
 ## CreateToken
 
-> ApiV2010AccountToken CreateToken(ctx, AccountSid, optional)
+> ApiV2010AccountToken CreateToken(ctx, AccountSidoptional)
 
 
 
 Create a new token for ICE servers
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateTokenRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateTokenRequest struct
- 
+Other parameters are passed through a pointer to a CreateTokenParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Ttl** | **Int32**| The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours). | 
+**Ttl** | **int32** | The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours). | 
 
 ### Return type
 
@@ -1699,8 +1667,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1709,35 +1677,34 @@ Name | Type | Description  | Notes
 
 ## CreateUsageTrigger
 
-> ApiV2010AccountUsageUsageTrigger CreateUsageTrigger(ctx, AccountSid, optional)
+> ApiV2010AccountUsageUsageTrigger CreateUsageTrigger(ctx, AccountSidoptional)
 
 
 
 Create a new UsageTrigger
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
- **optional** | ***CreateUsageTriggerRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateUsageTriggerRequest struct
- 
+Other parameters are passed through a pointer to a CreateUsageTriggerParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CallbackMethod** | **String**| The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
-**CallbackUrl** | **String**| The URL we should call using &#x60;callback_method&#x60; when the trigger fires. | 
-**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
-**Recurring** | **String**| The frequency of a recurring UsageTrigger.  Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; for recurring triggers or empty for non-recurring triggers. A trigger will only fire once during each period. Recurring times are in GMT. | 
-**TriggerBy** | **String**| The field in the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource that should fire the trigger.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).  The default is &#x60;usage&#x60;. | 
-**TriggerValue** | **String**| The usage value at which the trigger should fire.  For convenience, you can use an offset value such as &#x60;+30&#x60; to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a &#x60;+&#x60; as &#x60;%2B&#x60;. | 
-**UsageCategory** | **String**| The usage category that the trigger should watch.  Use one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) for this value. | 
+**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
+**CallbackUrl** | **string** | The URL we should call using &#x60;callback_method&#x60; when the trigger fires. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**Recurring** | **string** | The frequency of a recurring UsageTrigger.  Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; for recurring triggers or empty for non-recurring triggers. A trigger will only fire once during each period. Recurring times are in GMT. | 
+**TriggerBy** | **string** | The field in the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource that should fire the trigger.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).  The default is &#x60;usage&#x60;. | 
+**TriggerValue** | **string** | The usage value at which the trigger should fire.  For convenience, you can use an offset value such as &#x60;+30&#x60; to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a &#x60;+&#x60; as &#x60;%2B&#x60;. | 
+**UsageCategory** | **string** | The usage category that the trigger should watch.  Use one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) for this value. | 
 
 ### Return type
 
@@ -1749,8 +1716,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1759,32 +1726,31 @@ Name | Type | Description  | Notes
 
 ## CreateValidationRequest
 
-> ApiV2010AccountValidationRequest CreateValidationRequest(ctx, AccountSid, optional)
+> ApiV2010AccountValidationRequest CreateValidationRequest(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource. | 
- **optional** | ***CreateValidationRequestRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a CreateValidationRequestRequest struct
- 
+Other parameters are passed through a pointer to a CreateValidationRequestParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CallDelay** | **Int32**| The number of seconds to delay before initiating the verification call. Can be an integer between &#x60;0&#x60; and &#x60;60&#x60;, inclusive. The default is &#x60;0&#x60;. | 
-**Extension** | **String**| The digits to dial after connecting the verification call. | 
-**FriendlyName** | **String**| A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number. | 
-**PhoneNumber** | **String**| The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information about the verification process to your application. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;, and the default is &#x60;POST&#x60;. | 
+**CallDelay** | **int32** | The number of seconds to delay before initiating the verification call. Can be an integer between &#x60;0&#x60; and &#x60;60&#x60;, inclusive. The default is &#x60;0&#x60;. | 
+**Extension** | **string** | The digits to dial after connecting the verification call. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number. | 
+**PhoneNumber** | **string** | The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information about the verification process to your application. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;, and the default is &#x60;POST&#x60;. | 
 
 ### Return type
 
@@ -1796,8 +1762,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1806,18 +1772,26 @@ Name | Type | Description  | Notes
 
 ## DeleteAddress
 
-> DeleteAddress(ctx, AccountSid, Sid)
+> DeleteAddress(ctx, AccountSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Address resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Address resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteAddressParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1839,20 +1813,28 @@ Name | Type | Description  | Notes
 
 ## DeleteApplication
 
-> DeleteApplication(ctx, AccountSid, Sid)
+> DeleteApplication(ctx, AccountSidSid)
 
 
 
 Delete the application by the specified application sid
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Application resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Application resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteApplicationParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1874,20 +1856,28 @@ Name | Type | Description  | Notes
 
 ## DeleteCall
 
-> DeleteCall(ctx, AccountSid, Sid)
+> DeleteCall(ctx, AccountSidSid)
 
 
 
 Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to delete. | 
-**Sid** | **string**| The Twilio-provided Call SID that uniquely identifies the Call resource to delete | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to delete. | 
+**Sid** | **string** | The Twilio-provided Call SID that uniquely identifies the Call resource to delete | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteCallParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1909,20 +1899,28 @@ Name | Type | Description  | Notes
 
 ## DeleteCallFeedbackSummary
 
-> DeleteCallFeedbackSummary(ctx, AccountSid, Sid)
+> DeleteCallFeedbackSummary(ctx, AccountSidSid)
 
 
 
 Delete a FeedbackSummary resource from a call
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteCallFeedbackSummaryParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1944,21 +1942,29 @@ Name | Type | Description  | Notes
 
 ## DeleteCallRecording
 
-> DeleteCallRecording(ctx, AccountSid, CallSid, Sid)
+> DeleteCallRecording(ctx, AccountSidCallSidSid)
 
 
 
 Delete a recording from your account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Recording resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Recording resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteCallRecordingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -1980,21 +1986,29 @@ Name | Type | Description  | Notes
 
 ## DeleteConferenceRecording
 
-> DeleteConferenceRecording(ctx, AccountSid, ConferenceSid, Sid)
+> DeleteConferenceRecording(ctx, AccountSidConferenceSidSid)
 
 
 
 Delete a recording from your account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to delete. | 
-**ConferenceSid** | **string**| The Conference SID that identifies the conference associated with the recording to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Conference Recording resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to delete. | 
+**ConferenceSid** | **string** | The Conference SID that identifies the conference associated with the recording to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Conference Recording resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteConferenceRecordingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2016,20 +2030,28 @@ Name | Type | Description  | Notes
 
 ## DeleteConnectApp
 
-> DeleteConnectApp(ctx, AccountSid, Sid)
+> DeleteConnectApp(ctx, AccountSidSid)
 
 
 
 Delete an instance of a connect-app
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the ConnectApp resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the ConnectApp resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteConnectAppParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2051,20 +2073,28 @@ Name | Type | Description  | Notes
 
 ## DeleteIncomingPhoneNumber
 
-> DeleteIncomingPhoneNumber(ctx, AccountSid, Sid)
+> DeleteIncomingPhoneNumber(ctx, AccountSidSid)
 
 
 
 Delete a phone-numbers belonging to the account used to make the request.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteIncomingPhoneNumberParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2086,21 +2116,29 @@ Name | Type | Description  | Notes
 
 ## DeleteIncomingPhoneNumberAssignedAddOn
 
-> DeleteIncomingPhoneNumberAssignedAddOn(ctx, AccountSid, ResourceSid, Sid)
+> DeleteIncomingPhoneNumberAssignedAddOn(ctx, AccountSidResourceSidSid)
 
 
 
 Remove the assignment of an Add-on installation from the Number specified.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete. | 
-**ResourceSid** | **string**| The SID of the Phone Number to which the Add-on is assigned. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete. | 
+**ResourceSid** | **string** | The SID of the Phone Number to which the Add-on is assigned. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteIncomingPhoneNumberAssignedAddOnParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2122,18 +2160,26 @@ Name | Type | Description  | Notes
 
 ## DeleteKey
 
-> DeleteKey(ctx, AccountSid, Sid)
+> DeleteKey(ctx, AccountSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Key resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Key resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteKeyParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2155,21 +2201,29 @@ Name | Type | Description  | Notes
 
 ## DeleteMedia
 
-> DeleteMedia(ctx, AccountSid, MessageSid, Sid)
+> DeleteMedia(ctx, AccountSidMessageSidSid)
 
 
 
 Delete media from your account. Once delete, you will no longer be billed
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to delete. | 
-**MessageSid** | **string**| The SID of the Message resource that this Media resource belongs to. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Media resource to delete | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to delete. | 
+**MessageSid** | **string** | The SID of the Message resource that this Media resource belongs to. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Media resource to delete | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteMediaParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2191,20 +2245,28 @@ Name | Type | Description  | Notes
 
 ## DeleteMessage
 
-> DeleteMessage(ctx, AccountSid, Sid)
+> DeleteMessage(ctx, AccountSidSid)
 
 
 
 Deletes a message record from your account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Message resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteMessageParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2226,20 +2288,28 @@ Name | Type | Description  | Notes
 
 ## DeleteOutgoingCallerId
 
-> DeleteOutgoingCallerId(ctx, AccountSid, Sid)
+> DeleteOutgoingCallerId(ctx, AccountSidSid)
 
 
 
 Delete the caller-id specified from the account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteOutgoingCallerIdParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2261,21 +2331,29 @@ Name | Type | Description  | Notes
 
 ## DeleteParticipant
 
-> DeleteParticipant(ctx, AccountSid, ConferenceSid, CallSid)
+> DeleteParticipant(ctx, AccountSidConferenceSidCallSid)
 
 
 
 Kick a participant from a given conference
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to delete. | 
-**ConferenceSid** | **string**| The SID of the conference with the participants to delete. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to delete. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to delete. | 
+**ConferenceSid** | **string** | The SID of the conference with the participants to delete. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to delete. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteParticipantParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2297,20 +2375,28 @@ Name | Type | Description  | Notes
 
 ## DeleteQueue
 
-> DeleteQueue(ctx, AccountSid, Sid)
+> DeleteQueue(ctx, AccountSidSid)
 
 
 
 Remove an empty queue
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Queue resource to delete | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Queue resource to delete | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteQueueParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2332,20 +2418,28 @@ Name | Type | Description  | Notes
 
 ## DeleteRecording
 
-> DeleteRecording(ctx, AccountSid, Sid)
+> DeleteRecording(ctx, AccountSidSid)
 
 
 
 Delete a recording from your account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Recording resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Recording resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteRecordingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2367,21 +2461,29 @@ Name | Type | Description  | Notes
 
 ## DeleteRecordingAddOnResult
 
-> DeleteRecordingAddOnResult(ctx, AccountSid, ReferenceSid, Sid)
+> DeleteRecordingAddOnResult(ctx, AccountSidReferenceSidSid)
 
 
 
 Delete a result and purge all associated Payloads
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to delete. | 
-**ReferenceSid** | **string**| The SID of the recording to which the result to delete belongs. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to delete. | 
+**ReferenceSid** | **string** | The SID of the recording to which the result to delete belongs. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteRecordingAddOnResultParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2403,22 +2505,30 @@ Name | Type | Description  | Notes
 
 ## DeleteRecordingAddOnResultPayload
 
-> DeleteRecordingAddOnResultPayload(ctx, AccountSid, ReferenceSid, AddOnResultSid, Sid)
+> DeleteRecordingAddOnResultPayload(ctx, AccountSidReferenceSidAddOnResultSidSid)
 
 
 
 Delete a payload from the result along with all associated Data
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to delete. | 
-**ReferenceSid** | **string**| The SID of the recording to which the AddOnResult resource that contains the payloads to delete belongs. | 
-**AddOnResultSid** | **string**| The SID of the AddOnResult to which the payloads to delete belongs. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to delete. | 
+**ReferenceSid** | **string** | The SID of the recording to which the AddOnResult resource that contains the payloads to delete belongs. | 
+**AddOnResultSid** | **string** | The SID of the AddOnResult to which the payloads to delete belongs. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteRecordingAddOnResultPayloadParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2440,19 +2550,27 @@ Name | Type | Description  | Notes
 
 ## DeleteRecordingTranscription
 
-> DeleteRecordingTranscription(ctx, AccountSid, RecordingSid, Sid)
+> DeleteRecordingTranscription(ctx, AccountSidRecordingSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete. | 
-**RecordingSid** | **string**| The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Transcription resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete. | 
+**RecordingSid** | **string** | The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Transcription resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteRecordingTranscriptionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2474,18 +2592,26 @@ Name | Type | Description  | Notes
 
 ## DeleteSigningKey
 
-> DeleteSigningKey(ctx, AccountSid, Sid)
+> DeleteSigningKey(ctx, AccountSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**|  | 
-**Sid** | **string**|  | 
+**AccountSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSigningKeyParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2507,21 +2633,29 @@ Name | Type | Description  | Notes
 
 ## DeleteSipAuthCallsCredentialListMapping
 
-> DeleteSipAuthCallsCredentialListMapping(ctx, AccountSid, DomainSid, Sid)
+> DeleteSipAuthCallsCredentialListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Delete a credential list mapping from the requested domain
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete. | 
-**DomainSid** | **string**| The SID of the SIP domain that contains the resource to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete. | 
+**DomainSid** | **string** | The SID of the SIP domain that contains the resource to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipAuthCallsCredentialListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2543,21 +2677,29 @@ Name | Type | Description  | Notes
 
 ## DeleteSipAuthCallsIpAccessControlListMapping
 
-> DeleteSipAuthCallsIpAccessControlListMapping(ctx, AccountSid, DomainSid, Sid)
+> DeleteSipAuthCallsIpAccessControlListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Delete an IP Access Control List mapping from the requested domain
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to delete. | 
-**DomainSid** | **string**| The SID of the SIP domain that contains the resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to delete. | 
+**DomainSid** | **string** | The SID of the SIP domain that contains the resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipAuthCallsIpAccessControlListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2579,21 +2721,29 @@ Name | Type | Description  | Notes
 
 ## DeleteSipAuthRegistrationsCredentialListMapping
 
-> DeleteSipAuthRegistrationsCredentialListMapping(ctx, AccountSid, DomainSid, Sid)
+> DeleteSipAuthRegistrationsCredentialListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Delete a credential list mapping from the requested domain
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete. | 
-**DomainSid** | **string**| The SID of the SIP domain that contains the resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete. | 
+**DomainSid** | **string** | The SID of the SIP domain that contains the resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipAuthRegistrationsCredentialListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2615,21 +2765,29 @@ Name | Type | Description  | Notes
 
 ## DeleteSipCredential
 
-> DeleteSipCredential(ctx, AccountSid, CredentialListSid, Sid)
+> DeleteSipCredential(ctx, AccountSidCredentialListSidSid)
 
 
 
 Delete a credential resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**CredentialListSid** | **string**| The unique id that identifies the credential list that contains the desired credentials. | 
-**Sid** | **string**| The unique id that identifies the resource to delete. | 
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**CredentialListSid** | **string** | The unique id that identifies the credential list that contains the desired credentials. | 
+**Sid** | **string** | The unique id that identifies the resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipCredentialParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2651,20 +2809,28 @@ Name | Type | Description  | Notes
 
 ## DeleteSipCredentialList
 
-> DeleteSipCredentialList(ctx, AccountSid, Sid)
+> DeleteSipCredentialList(ctx, AccountSidSid)
 
 
 
 Delete a Credential List
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**Sid** | **string**| The credential list Sid that uniquely identifies this resource | 
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**Sid** | **string** | The credential list Sid that uniquely identifies this resource | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipCredentialListParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2686,21 +2852,29 @@ Name | Type | Description  | Notes
 
 ## DeleteSipCredentialListMapping
 
-> DeleteSipCredentialListMapping(ctx, AccountSid, DomainSid, Sid)
+> DeleteSipCredentialListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Delete a CredentialListMapping resource from an account.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**DomainSid** | **string**| A 34 character string that uniquely identifies the SIP Domain that includes the resource to delete. | 
-**Sid** | **string**| A 34 character string that uniquely identifies the resource to delete. | 
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**DomainSid** | **string** | A 34 character string that uniquely identifies the SIP Domain that includes the resource to delete. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipCredentialListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2722,20 +2896,28 @@ Name | Type | Description  | Notes
 
 ## DeleteSipDomain
 
-> DeleteSipDomain(ctx, AccountSid, Sid)
+> DeleteSipDomain(ctx, AccountSidSid)
 
 
 
 Delete an instance of a Domain
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the SipDomain resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the SipDomain resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipDomainParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2757,20 +2939,28 @@ Name | Type | Description  | Notes
 
 ## DeleteSipIpAccessControlList
 
-> DeleteSipIpAccessControlList(ctx, AccountSid, Sid)
+> DeleteSipIpAccessControlList(ctx, AccountSidSid)
 
 
 
 Delete an IpAccessControlList from the requested account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**Sid** | **string**| A 34 character string that uniquely identifies the resource to delete. | 
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipIpAccessControlListParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2792,21 +2982,29 @@ Name | Type | Description  | Notes
 
 ## DeleteSipIpAccessControlListMapping
 
-> DeleteSipIpAccessControlListMapping(ctx, AccountSid, DomainSid, Sid)
+> DeleteSipIpAccessControlListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Delete an IpAccessControlListMapping resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**DomainSid** | **string**| A 34 character string that uniquely identifies the SIP domain. | 
-**Sid** | **string**| A 34 character string that uniquely identifies the resource to delete. | 
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**DomainSid** | **string** | A 34 character string that uniquely identifies the SIP domain. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipIpAccessControlListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2828,21 +3026,29 @@ Name | Type | Description  | Notes
 
 ## DeleteSipIpAddress
 
-> DeleteSipIpAddress(ctx, AccountSid, IpAccessControlListSid, Sid)
+> DeleteSipIpAddress(ctx, AccountSidIpAccessControlListSidSid)
 
 
 
 Delete an IpAddress resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**IpAccessControlListSid** | **string**| The IpAccessControlList Sid that identifies the IpAddress resources to delete. | 
-**Sid** | **string**| A 34 character string that uniquely identifies the resource to delete. | 
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**IpAccessControlListSid** | **string** | The IpAccessControlList Sid that identifies the IpAddress resources to delete. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSipIpAddressParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2864,20 +3070,28 @@ Name | Type | Description  | Notes
 
 ## DeleteTranscription
 
-> DeleteTranscription(ctx, AccountSid, Sid)
+> DeleteTranscription(ctx, AccountSidSid)
 
 
 
 Delete a transcription from the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Transcription resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Transcription resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteTranscriptionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2899,18 +3113,26 @@ Name | Type | Description  | Notes
 
 ## DeleteUsageTrigger
 
-> DeleteUsageTrigger(ctx, AccountSid, Sid)
+> DeleteUsageTrigger(ctx, AccountSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to delete. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the UsageTrigger resource to delete. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the UsageTrigger resource to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteUsageTriggerParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2938,13 +3160,21 @@ Name | Type | Description  | Notes
 
 Fetch the account specified by the provided Account Sid
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The Account Sid that uniquely identifies the account to fetch | 
+**Sid** | **string** | The Account Sid that uniquely identifies the account to fetch | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAccountParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2957,7 +3187,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2966,18 +3196,26 @@ Name | Type | Description  | Notes
 
 ## FetchAddress
 
-> ApiV2010AccountAddress FetchAddress(ctx, AccountSid, Sid)
+> ApiV2010AccountAddress FetchAddress(ctx, AccountSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Address resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Address resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAddressParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -2990,7 +3228,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2999,20 +3237,28 @@ Name | Type | Description  | Notes
 
 ## FetchApplication
 
-> ApiV2010AccountApplication FetchApplication(ctx, AccountSid, Sid)
+> ApiV2010AccountApplication FetchApplication(ctx, AccountSidSid)
 
 
 
 Fetch the application specified by the provided sid
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Application resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Application resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchApplicationParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3025,7 +3271,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3034,20 +3280,28 @@ Name | Type | Description  | Notes
 
 ## FetchAuthorizedConnectApp
 
-> ApiV2010AccountAuthorizedConnectApp FetchAuthorizedConnectApp(ctx, AccountSid, ConnectAppSid)
+> ApiV2010AccountAuthorizedConnectApp FetchAuthorizedConnectApp(ctx, AccountSidConnectAppSid)
 
 
 
 Fetch an instance of an authorized-connect-app
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch. | 
-**ConnectAppSid** | **string**| The SID of the Connect App to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch. | 
+**ConnectAppSid** | **string** | The SID of the Connect App to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAuthorizedConnectAppParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3060,7 +3314,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3069,18 +3323,26 @@ Name | Type | Description  | Notes
 
 ## FetchAvailablePhoneNumberCountry
 
-> ApiV2010AccountAvailablePhoneNumberCountry FetchAvailablePhoneNumberCountry(ctx, AccountSid, CountryCode)
+> ApiV2010AccountAvailablePhoneNumberCountry FetchAvailablePhoneNumberCountry(ctx, AccountSidCountryCode)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource. | 
-**CountryCode** | **string**| The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource. | 
+**CountryCode** | **string** | The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAvailablePhoneNumberCountryParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3093,7 +3355,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3108,13 +3370,21 @@ Name | Type | Description  | Notes
 
 Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique SID identifier of the Account. | 
+**AccountSid** | **string** | The unique SID identifier of the Account. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchBalanceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3127,7 +3397,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3136,20 +3406,28 @@ Name | Type | Description  | Notes
 
 ## FetchCall
 
-> ApiV2010AccountCall FetchCall(ctx, AccountSid, Sid)
+> ApiV2010AccountCall FetchCall(ctx, AccountSidSid)
 
 
 
 Fetch the call specified by the provided Call SID
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to fetch. | 
-**Sid** | **string**| The SID of the Call resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to fetch. | 
+**Sid** | **string** | The SID of the Call resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCallParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3162,7 +3440,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3171,20 +3449,28 @@ Name | Type | Description  | Notes
 
 ## FetchCallFeedback
 
-> ApiV2010AccountCallCallFeedback FetchCallFeedback(ctx, AccountSid, CallSid)
+> ApiV2010AccountCallCallFeedback FetchCallFeedback(ctx, AccountSidCallSid)
 
 
 
 Fetch a Feedback resource from a call
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**CallSid** | **string**| The call sid that uniquely identifies the call | 
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**CallSid** | **string** | The call sid that uniquely identifies the call | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCallFeedbackParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3197,7 +3483,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3206,20 +3492,28 @@ Name | Type | Description  | Notes
 
 ## FetchCallFeedbackSummary
 
-> ApiV2010AccountCallCallFeedbackSummary FetchCallFeedbackSummary(ctx, AccountSid, Sid)
+> ApiV2010AccountCallCallFeedbackSummary FetchCallFeedbackSummary(ctx, AccountSidSid)
 
 
 
 Fetch a FeedbackSummary resource from a call
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**Sid** | **string**| A 34 character string that uniquely identifies this resource. | 
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this resource. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCallFeedbackSummaryParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3232,7 +3526,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3241,19 +3535,27 @@ Name | Type | Description  | Notes
 
 ## FetchCallNotification
 
-> ApiV2010AccountCallCallNotificationInstance FetchCallNotification(ctx, AccountSid, CallSid, Sid)
+> ApiV2010AccountCallCallNotificationInstance FetchCallNotification(ctx, AccountSidCallSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resource to fetch. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Call Notification resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resource to fetch. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Call Notification resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCallNotificationParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3266,7 +3568,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3275,21 +3577,29 @@ Name | Type | Description  | Notes
 
 ## FetchCallRecording
 
-> ApiV2010AccountCallCallRecording FetchCallRecording(ctx, AccountSid, CallSid, Sid)
+> ApiV2010AccountCallCallRecording FetchCallRecording(ctx, AccountSidCallSidSid)
 
 
 
 Fetch an instance of a recording for a call
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Recording resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Recording resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchCallRecordingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3302,7 +3612,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3311,20 +3621,28 @@ Name | Type | Description  | Notes
 
 ## FetchConference
 
-> ApiV2010AccountConference FetchConference(ctx, AccountSid, Sid)
+> ApiV2010AccountConference FetchConference(ctx, AccountSidSid)
 
 
 
 Fetch an instance of a conference
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Conference resource to fetch | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Conference resource to fetch | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchConferenceParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3337,7 +3655,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3346,21 +3664,29 @@ Name | Type | Description  | Notes
 
 ## FetchConferenceRecording
 
-> ApiV2010AccountConferenceConferenceRecording FetchConferenceRecording(ctx, AccountSid, ConferenceSid, Sid)
+> ApiV2010AccountConferenceConferenceRecording FetchConferenceRecording(ctx, AccountSidConferenceSidSid)
 
 
 
 Fetch an instance of a recording for a call
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to fetch. | 
-**ConferenceSid** | **string**| The Conference SID that identifies the conference associated with the recording to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Conference Recording resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to fetch. | 
+**ConferenceSid** | **string** | The Conference SID that identifies the conference associated with the recording to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Conference Recording resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchConferenceRecordingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3373,7 +3699,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3382,20 +3708,28 @@ Name | Type | Description  | Notes
 
 ## FetchConnectApp
 
-> ApiV2010AccountConnectApp FetchConnectApp(ctx, AccountSid, Sid)
+> ApiV2010AccountConnectApp FetchConnectApp(ctx, AccountSidSid)
 
 
 
 Fetch an instance of a connect-app
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the ConnectApp resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the ConnectApp resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchConnectAppParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3408,7 +3742,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3417,20 +3751,28 @@ Name | Type | Description  | Notes
 
 ## FetchIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumber FetchIncomingPhoneNumber(ctx, AccountSid, Sid)
+> ApiV2010AccountIncomingPhoneNumber FetchIncomingPhoneNumber(ctx, AccountSidSid)
 
 
 
 Fetch an incoming-phone-number belonging to the account used to make the request.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchIncomingPhoneNumberParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3443,7 +3785,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3452,21 +3794,29 @@ Name | Type | Description  | Notes
 
 ## FetchIncomingPhoneNumberAssignedAddOn
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn FetchIncomingPhoneNumberAssignedAddOn(ctx, AccountSid, ResourceSid, Sid)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn FetchIncomingPhoneNumberAssignedAddOn(ctx, AccountSidResourceSidSid)
 
 
 
 Fetch an instance of an Add-on installation currently assigned to this Number.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch. | 
-**ResourceSid** | **string**| The SID of the Phone Number to which the Add-on is assigned. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch. | 
+**ResourceSid** | **string** | The SID of the Phone Number to which the Add-on is assigned. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchIncomingPhoneNumberAssignedAddOnParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3479,7 +3829,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3488,22 +3838,30 @@ Name | Type | Description  | Notes
 
 ## FetchIncomingPhoneNumberAssignedAddOnExtension
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension FetchIncomingPhoneNumberAssignedAddOnExtension(ctx, AccountSid, ResourceSid, AssignedAddOnSid, Sid)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension FetchIncomingPhoneNumberAssignedAddOnExtension(ctx, AccountSidResourceSidAssignedAddOnSidSid)
 
 
 
 Fetch an instance of an Extension for the Assigned Add-on.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch. | 
-**ResourceSid** | **string**| The SID of the Phone Number to which the Add-on is assigned. | 
-**AssignedAddOnSid** | **string**| The SID that uniquely identifies the assigned Add-on installation. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch. | 
+**ResourceSid** | **string** | The SID of the Phone Number to which the Add-on is assigned. | 
+**AssignedAddOnSid** | **string** | The SID that uniquely identifies the assigned Add-on installation. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchIncomingPhoneNumberAssignedAddOnExtensionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3516,7 +3874,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3525,18 +3883,26 @@ Name | Type | Description  | Notes
 
 ## FetchKey
 
-> ApiV2010AccountKey FetchKey(ctx, AccountSid, Sid)
+> ApiV2010AccountKey FetchKey(ctx, AccountSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Key resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Key resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchKeyParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3549,7 +3915,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3558,21 +3924,29 @@ Name | Type | Description  | Notes
 
 ## FetchMedia
 
-> ApiV2010AccountMessageMedia FetchMedia(ctx, AccountSid, MessageSid, Sid)
+> ApiV2010AccountMessageMedia FetchMedia(ctx, AccountSidMessageSidSid)
 
 
 
 Fetch a single media instance belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch. | 
-**MessageSid** | **string**| The SID of the Message resource that this Media resource belongs to. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Media resource to fetch | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch. | 
+**MessageSid** | **string** | The SID of the Message resource that this Media resource belongs to. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Media resource to fetch | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchMediaParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3585,7 +3959,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3594,21 +3968,29 @@ Name | Type | Description  | Notes
 
 ## FetchMember
 
-> ApiV2010AccountQueueMember FetchMember(ctx, AccountSid, QueueSid, CallSid)
+> ApiV2010AccountQueueMember FetchMember(ctx, AccountSidQueueSidCallSid)
 
 
 
 Fetch a specific member from the queue
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to fetch. | 
-**QueueSid** | **string**| The SID of the Queue in which to find the members to fetch. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to fetch. | 
+**QueueSid** | **string** | The SID of the Queue in which to find the members to fetch. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchMemberParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3621,7 +4003,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3630,20 +4012,28 @@ Name | Type | Description  | Notes
 
 ## FetchMessage
 
-> ApiV2010AccountMessage FetchMessage(ctx, AccountSid, Sid)
+> ApiV2010AccountMessage FetchMessage(ctx, AccountSidSid)
 
 
 
 Fetch a message belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Message resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchMessageParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3656,7 +4046,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3665,20 +4055,28 @@ Name | Type | Description  | Notes
 
 ## FetchNotification
 
-> ApiV2010AccountNotificationInstance FetchNotification(ctx, AccountSid, Sid)
+> ApiV2010AccountNotificationInstance FetchNotification(ctx, AccountSidSid)
 
 
 
 Fetch a notification belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Notification resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Notification resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchNotificationParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3691,7 +4089,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3700,20 +4098,28 @@ Name | Type | Description  | Notes
 
 ## FetchOutgoingCallerId
 
-> ApiV2010AccountOutgoingCallerId FetchOutgoingCallerId(ctx, AccountSid, Sid)
+> ApiV2010AccountOutgoingCallerId FetchOutgoingCallerId(ctx, AccountSidSid)
 
 
 
 Fetch an outgoing-caller-id belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchOutgoingCallerIdParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3726,7 +4132,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3735,21 +4141,29 @@ Name | Type | Description  | Notes
 
 ## FetchParticipant
 
-> ApiV2010AccountConferenceParticipant FetchParticipant(ctx, AccountSid, ConferenceSid, CallSid)
+> ApiV2010AccountConferenceParticipant FetchParticipant(ctx, AccountSidConferenceSidCallSid)
 
 
 
 Fetch an instance of a participant
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource to fetch. | 
-**ConferenceSid** | **string**| The SID of the conference with the participant to fetch. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to fetch. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource to fetch. | 
+**ConferenceSid** | **string** | The SID of the conference with the participant to fetch. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to fetch. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchParticipantParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3762,7 +4176,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3771,20 +4185,28 @@ Name | Type | Description  | Notes
 
 ## FetchQueue
 
-> ApiV2010AccountQueue FetchQueue(ctx, AccountSid, Sid)
+> ApiV2010AccountQueue FetchQueue(ctx, AccountSidSid)
 
 
 
 Fetch an instance of a queue identified by the QueueSid
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Queue resource to fetch | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Queue resource to fetch | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchQueueParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3797,7 +4219,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3806,20 +4228,28 @@ Name | Type | Description  | Notes
 
 ## FetchRecording
 
-> ApiV2010AccountRecording FetchRecording(ctx, AccountSid, Sid)
+> ApiV2010AccountRecording FetchRecording(ctx, AccountSidSid)
 
 
 
 Fetch an instance of a recording
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Recording resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Recording resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchRecordingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3832,7 +4262,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3841,21 +4271,29 @@ Name | Type | Description  | Notes
 
 ## FetchRecordingAddOnResult
 
-> ApiV2010AccountRecordingRecordingAddOnResult FetchRecordingAddOnResult(ctx, AccountSid, ReferenceSid, Sid)
+> ApiV2010AccountRecordingRecordingAddOnResult FetchRecordingAddOnResult(ctx, AccountSidReferenceSidSid)
 
 
 
 Fetch an instance of an AddOnResult
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch. | 
-**ReferenceSid** | **string**| The SID of the recording to which the result to fetch belongs. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch. | 
+**ReferenceSid** | **string** | The SID of the recording to which the result to fetch belongs. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchRecordingAddOnResultParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3868,7 +4306,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3877,22 +4315,30 @@ Name | Type | Description  | Notes
 
 ## FetchRecordingAddOnResultPayload
 
-> ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload FetchRecordingAddOnResultPayload(ctx, AccountSid, ReferenceSid, AddOnResultSid, Sid)
+> ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload FetchRecordingAddOnResultPayload(ctx, AccountSidReferenceSidAddOnResultSidSid)
 
 
 
 Fetch an instance of a result payload
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch. | 
-**ReferenceSid** | **string**| The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs. | 
-**AddOnResultSid** | **string**| The SID of the AddOnResult to which the payload to fetch belongs. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch. | 
+**ReferenceSid** | **string** | The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs. | 
+**AddOnResultSid** | **string** | The SID of the AddOnResult to which the payload to fetch belongs. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchRecordingAddOnResultPayloadParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3905,7 +4351,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3914,19 +4360,27 @@ Name | Type | Description  | Notes
 
 ## FetchRecordingTranscription
 
-> ApiV2010AccountRecordingRecordingTranscription FetchRecordingTranscription(ctx, AccountSid, RecordingSid, Sid)
+> ApiV2010AccountRecordingRecordingTranscription FetchRecordingTranscription(ctx, AccountSidRecordingSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch. | 
-**RecordingSid** | **string**| The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Transcription resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch. | 
+**RecordingSid** | **string** | The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Transcription resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchRecordingTranscriptionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3939,7 +4393,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3948,20 +4402,28 @@ Name | Type | Description  | Notes
 
 ## FetchShortCode
 
-> ApiV2010AccountShortCode FetchShortCode(ctx, AccountSid, Sid)
+> ApiV2010AccountShortCode FetchShortCode(ctx, AccountSidSid)
 
 
 
 Fetch an instance of a short code
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the ShortCode resource to fetch | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the ShortCode resource to fetch | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchShortCodeParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -3974,7 +4436,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3983,18 +4445,26 @@ Name | Type | Description  | Notes
 
 ## FetchSigningKey
 
-> ApiV2010AccountSigningKey FetchSigningKey(ctx, AccountSid, Sid)
+> ApiV2010AccountSigningKey FetchSigningKey(ctx, AccountSidSid)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**|  | 
-**Sid** | **string**|  | 
+**AccountSid** | **string** |  | 
+**Sid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSigningKeyParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4007,7 +4477,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4016,21 +4486,29 @@ Name | Type | Description  | Notes
 
 ## FetchSipAuthCallsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping FetchSipAuthCallsCredentialListMapping(ctx, AccountSid, DomainSid, Sid)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping FetchSipAuthCallsCredentialListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Fetch a specific instance of a credential list mapping
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch. | 
-**DomainSid** | **string**| The SID of the SIP domain that contains the resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch. | 
+**DomainSid** | **string** | The SID of the SIP domain that contains the resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipAuthCallsCredentialListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4043,7 +4521,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4052,21 +4530,29 @@ Name | Type | Description  | Notes
 
 ## FetchSipAuthCallsIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping FetchSipAuthCallsIpAccessControlListMapping(ctx, AccountSid, DomainSid, Sid)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping FetchSipAuthCallsIpAccessControlListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Fetch a specific instance of an IP Access Control List mapping
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resource to fetch. | 
-**DomainSid** | **string**| The SID of the SIP domain that contains the resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resource to fetch. | 
+**DomainSid** | **string** | The SID of the SIP domain that contains the resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipAuthCallsIpAccessControlListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4079,7 +4565,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4088,21 +4574,29 @@ Name | Type | Description  | Notes
 
 ## FetchSipAuthRegistrationsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping FetchSipAuthRegistrationsCredentialListMapping(ctx, AccountSid, DomainSid, Sid)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping FetchSipAuthRegistrationsCredentialListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Fetch a specific instance of a credential list mapping
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch. | 
-**DomainSid** | **string**| The SID of the SIP domain that contains the resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch. | 
+**DomainSid** | **string** | The SID of the SIP domain that contains the resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipAuthRegistrationsCredentialListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4115,7 +4609,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4124,21 +4618,29 @@ Name | Type | Description  | Notes
 
 ## FetchSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredential FetchSipCredential(ctx, AccountSid, CredentialListSid, Sid)
+> ApiV2010AccountSipSipCredentialListSipCredential FetchSipCredential(ctx, AccountSidCredentialListSidSid)
 
 
 
 Fetch a single credential.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**CredentialListSid** | **string**| The unique id that identifies the credential list that contains the desired credential. | 
-**Sid** | **string**| The unique id that identifies the resource to fetch. | 
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**CredentialListSid** | **string** | The unique id that identifies the credential list that contains the desired credential. | 
+**Sid** | **string** | The unique id that identifies the resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipCredentialParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4151,7 +4653,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4160,20 +4662,28 @@ Name | Type | Description  | Notes
 
 ## FetchSipCredentialList
 
-> ApiV2010AccountSipSipCredentialList FetchSipCredentialList(ctx, AccountSid, Sid)
+> ApiV2010AccountSipSipCredentialList FetchSipCredentialList(ctx, AccountSidSid)
 
 
 
 Get a Credential List
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**Sid** | **string**| The credential list Sid that uniquely identifies this resource | 
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**Sid** | **string** | The credential list Sid that uniquely identifies this resource | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipCredentialListParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4186,7 +4696,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4195,21 +4705,29 @@ Name | Type | Description  | Notes
 
 ## FetchSipCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipCredentialListMapping FetchSipCredentialListMapping(ctx, AccountSid, DomainSid, Sid)
+> ApiV2010AccountSipSipDomainSipCredentialListMapping FetchSipCredentialListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Fetch a single CredentialListMapping resource from an account.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**DomainSid** | **string**| A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch. | 
-**Sid** | **string**| A 34 character string that uniquely identifies the resource to fetch. | 
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**DomainSid** | **string** | A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipCredentialListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4222,7 +4740,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4231,20 +4749,28 @@ Name | Type | Description  | Notes
 
 ## FetchSipDomain
 
-> ApiV2010AccountSipSipDomain FetchSipDomain(ctx, AccountSid, Sid)
+> ApiV2010AccountSipSipDomain FetchSipDomain(ctx, AccountSidSid)
 
 
 
 Fetch an instance of a Domain
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the SipDomain resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the SipDomain resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipDomainParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4257,7 +4783,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4266,20 +4792,28 @@ Name | Type | Description  | Notes
 
 ## FetchSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlList FetchSipIpAccessControlList(ctx, AccountSid, Sid)
+> ApiV2010AccountSipSipIpAccessControlList FetchSipIpAccessControlList(ctx, AccountSidSid)
 
 
 
 Fetch a specific instance of an IpAccessControlList
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**Sid** | **string**| A 34 character string that uniquely identifies the resource to fetch. | 
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipIpAccessControlListParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4292,7 +4826,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4301,21 +4835,29 @@ Name | Type | Description  | Notes
 
 ## FetchSipIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping FetchSipIpAccessControlListMapping(ctx, AccountSid, DomainSid, Sid)
+> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping FetchSipIpAccessControlListMapping(ctx, AccountSidDomainSidSid)
 
 
 
 Fetch an IpAccessControlListMapping resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**DomainSid** | **string**| A 34 character string that uniquely identifies the SIP domain. | 
-**Sid** | **string**| A 34 character string that uniquely identifies the resource to fetch. | 
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**DomainSid** | **string** | A 34 character string that uniquely identifies the SIP domain. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipIpAccessControlListMappingParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4328,7 +4870,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4337,21 +4879,29 @@ Name | Type | Description  | Notes
 
 ## FetchSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddress FetchSipIpAddress(ctx, AccountSid, IpAccessControlListSid, Sid)
+> ApiV2010AccountSipSipIpAccessControlListSipIpAddress FetchSipIpAddress(ctx, AccountSidIpAccessControlListSidSid)
 
 
 
 Read one IpAddress resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**IpAccessControlListSid** | **string**| The IpAccessControlList Sid that identifies the IpAddress resources to fetch. | 
-**Sid** | **string**| A 34 character string that uniquely identifies the IpAddress resource to fetch. | 
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**IpAccessControlListSid** | **string** | The IpAccessControlList Sid that identifies the IpAddress resources to fetch. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the IpAddress resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSipIpAddressParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4364,7 +4914,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4373,20 +4923,28 @@ Name | Type | Description  | Notes
 
 ## FetchTranscription
 
-> ApiV2010AccountTranscription FetchTranscription(ctx, AccountSid, Sid)
+> ApiV2010AccountTranscription FetchTranscription(ctx, AccountSidSid)
 
 
 
 Fetch an instance of a Transcription
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Transcription resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Transcription resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchTranscriptionParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4399,7 +4957,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4408,20 +4966,28 @@ Name | Type | Description  | Notes
 
 ## FetchUsageTrigger
 
-> ApiV2010AccountUsageUsageTrigger FetchUsageTrigger(ctx, AccountSid, Sid)
+> ApiV2010AccountUsageUsageTrigger FetchUsageTrigger(ctx, AccountSidSid)
 
 
 
 Fetch and instance of a usage-trigger
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resource to fetch. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the UsageTrigger resource to fetch. | 
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the UsageTrigger resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchUsageTriggerParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -4434,7 +5000,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4449,24 +5015,20 @@ Name | Type | Description  | Notes
 
 Retrieves a collection of Accounts belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListAccountParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListAccountRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListAccountRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| Only return the Account resources with friendly names that exactly match this name. | 
-**Status** | **String**| Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**FriendlyName** | **string** | Only return the Account resources with friendly names that exactly match this name. | 
+**Status** | **string** | Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4479,7 +5041,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4488,30 +5050,29 @@ Name | Type | Description  | Notes
 
 ## ListAddress
 
-> ListAddressResponse ListAddress(ctx, AccountSid, optional)
+> ListAddressResponse ListAddress(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read. | 
- **optional** | ***ListAddressRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAddressRequest struct
- 
+Other parameters are passed through a pointer to a ListAddressParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CustomerName** | **String**| The &#x60;customer_name&#x60; of the Address resources to read. | 
-**FriendlyName** | **String**| The string that identifies the Address resources to read. | 
-**IsoCountry** | **String**| The ISO country code of the Address resources to read. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**CustomerName** | **string** | The &#x60;customer_name&#x60; of the Address resources to read. | 
+**FriendlyName** | **string** | The string that identifies the Address resources to read. | 
+**IsoCountry** | **string** | The ISO country code of the Address resources to read. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4524,7 +5085,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4533,30 +5094,29 @@ Name | Type | Description  | Notes
 
 ## ListApplication
 
-> ListApplicationResponse ListApplication(ctx, AccountSid, optional)
+> ListApplicationResponse ListApplication(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of applications representing an application within the requesting account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to read. | 
- **optional** | ***ListApplicationRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListApplicationRequest struct
- 
+Other parameters are passed through a pointer to a ListApplicationParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| The string that identifies the Application resources to read. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**FriendlyName** | **string** | The string that identifies the Application resources to read. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4569,7 +5129,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4578,29 +5138,28 @@ Name | Type | Description  | Notes
 
 ## ListAuthorizedConnectApp
 
-> ListAuthorizedConnectAppResponse ListAuthorizedConnectApp(ctx, AccountSid, optional)
+> ListAuthorizedConnectAppResponse ListAuthorizedConnectApp(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of authorized-connect-apps belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resources to read. | 
- **optional** | ***ListAuthorizedConnectAppRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAuthorizedConnectAppRequest struct
- 
+Other parameters are passed through a pointer to a ListAuthorizedConnectAppParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4613,7 +5172,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4622,27 +5181,26 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberCountry
 
-> ListAvailablePhoneNumberCountryResponse ListAvailablePhoneNumberCountry(ctx, AccountSid, optional)
+> ListAvailablePhoneNumberCountryResponse ListAvailablePhoneNumberCountry(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources. | 
- **optional** | ***ListAvailablePhoneNumberCountryRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAvailablePhoneNumberCountryRequest struct
- 
+Other parameters are passed through a pointer to a ListAvailablePhoneNumberCountryParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4655,7 +5213,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4664,46 +5222,45 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberLocal
 
-> ListAvailablePhoneNumberLocalResponse ListAvailablePhoneNumberLocal(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberLocalResponse ListAvailablePhoneNumberLocal(ctx, AccountSidCountryCodeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
-**CountryCode** | **string**| The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
- **optional** | ***ListAvailablePhoneNumberLocalRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
+**CountryCode** | **string** | The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAvailablePhoneNumberLocalRequest struct
- 
+Other parameters are passed through a pointer to a ListAvailablePhoneNumberLocalParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AreaCode** | **Int32**| The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
-**Contains** | **String**| The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample&#x3D;code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample&#x3D;code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters. | 
-**SmsEnabled** | **Bool**| Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**MmsEnabled** | **Bool**| Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**VoiceEnabled** | **Bool**| Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**ExcludeAllAddressRequired** | **Bool**| Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeLocalAddressRequired** | **Bool**| Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeForeignAddressRequired** | **Bool**| Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**Beta** | **Bool**| Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**NearNumber** | **String**| Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
-**NearLatLong** | **String**| Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
-**Distance** | **Int32**| The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
-**InPostalCode** | **String**| Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
-**InRegion** | **String**| Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
-**InRateCenter** | **String**| Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
-**InLata** | **String**| Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
-**InLocality** | **String**| Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
-**FaxEnabled** | **Bool**| Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**AreaCode** | **int32** | The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
+**Contains** | **string** | The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample&#x3D;code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample&#x3D;code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters. | 
+**SmsEnabled** | **bool** | Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**MmsEnabled** | **bool** | Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**VoiceEnabled** | **bool** | Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**ExcludeAllAddressRequired** | **bool** | Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeLocalAddressRequired** | **bool** | Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeForeignAddressRequired** | **bool** | Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**Beta** | **bool** | Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**NearNumber** | **string** | Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
+**NearLatLong** | **string** | Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
+**Distance** | **int32** | The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
+**InPostalCode** | **string** | Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
+**InRegion** | **string** | Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
+**InRateCenter** | **string** | Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
+**InLata** | **string** | Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
+**InLocality** | **string** | Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
+**FaxEnabled** | **bool** | Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4716,7 +5273,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4725,46 +5282,45 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberMachineToMachine
 
-> ListAvailablePhoneNumberMachineToMachineResponse ListAvailablePhoneNumberMachineToMachine(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberMachineToMachineResponse ListAvailablePhoneNumberMachineToMachine(ctx, AccountSidCountryCodeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
-**CountryCode** | **string**| The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
- **optional** | ***ListAvailablePhoneNumberMachineToMachineRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
+**CountryCode** | **string** | The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAvailablePhoneNumberMachineToMachineRequest struct
- 
+Other parameters are passed through a pointer to a ListAvailablePhoneNumberMachineToMachineParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AreaCode** | **Int32**| The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
-**Contains** | **String**| The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
-**SmsEnabled** | **Bool**| Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**MmsEnabled** | **Bool**| Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**VoiceEnabled** | **Bool**| Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**ExcludeAllAddressRequired** | **Bool**| Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeLocalAddressRequired** | **Bool**| Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeForeignAddressRequired** | **Bool**| Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**Beta** | **Bool**| Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**NearNumber** | **String**| Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
-**NearLatLong** | **String**| Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
-**Distance** | **Int32**| The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
-**InPostalCode** | **String**| Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
-**InRegion** | **String**| Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
-**InRateCenter** | **String**| Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
-**InLata** | **String**| Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
-**InLocality** | **String**| Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
-**FaxEnabled** | **Bool**| Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**AreaCode** | **int32** | The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
+**Contains** | **string** | The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
+**SmsEnabled** | **bool** | Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**MmsEnabled** | **bool** | Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**VoiceEnabled** | **bool** | Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**ExcludeAllAddressRequired** | **bool** | Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeLocalAddressRequired** | **bool** | Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeForeignAddressRequired** | **bool** | Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**Beta** | **bool** | Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**NearNumber** | **string** | Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
+**NearLatLong** | **string** | Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
+**Distance** | **int32** | The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
+**InPostalCode** | **string** | Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
+**InRegion** | **string** | Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
+**InRateCenter** | **string** | Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
+**InLata** | **string** | Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
+**InLocality** | **string** | Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
+**FaxEnabled** | **bool** | Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4777,7 +5333,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4786,46 +5342,45 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberMobile
 
-> ListAvailablePhoneNumberMobileResponse ListAvailablePhoneNumberMobile(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberMobileResponse ListAvailablePhoneNumberMobile(ctx, AccountSidCountryCodeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
-**CountryCode** | **string**| The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
- **optional** | ***ListAvailablePhoneNumberMobileRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
+**CountryCode** | **string** | The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAvailablePhoneNumberMobileRequest struct
- 
+Other parameters are passed through a pointer to a ListAvailablePhoneNumberMobileParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AreaCode** | **Int32**| The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
-**Contains** | **String**| The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
-**SmsEnabled** | **Bool**| Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**MmsEnabled** | **Bool**| Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**VoiceEnabled** | **Bool**| Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**ExcludeAllAddressRequired** | **Bool**| Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeLocalAddressRequired** | **Bool**| Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeForeignAddressRequired** | **Bool**| Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**Beta** | **Bool**| Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**NearNumber** | **String**| Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
-**NearLatLong** | **String**| Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
-**Distance** | **Int32**| The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
-**InPostalCode** | **String**| Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
-**InRegion** | **String**| Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
-**InRateCenter** | **String**| Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
-**InLata** | **String**| Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
-**InLocality** | **String**| Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
-**FaxEnabled** | **Bool**| Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**AreaCode** | **int32** | The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
+**Contains** | **string** | The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
+**SmsEnabled** | **bool** | Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**MmsEnabled** | **bool** | Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**VoiceEnabled** | **bool** | Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**ExcludeAllAddressRequired** | **bool** | Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeLocalAddressRequired** | **bool** | Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeForeignAddressRequired** | **bool** | Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**Beta** | **bool** | Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**NearNumber** | **string** | Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
+**NearLatLong** | **string** | Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
+**Distance** | **int32** | The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
+**InPostalCode** | **string** | Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
+**InRegion** | **string** | Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
+**InRateCenter** | **string** | Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
+**InLata** | **string** | Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
+**InLocality** | **string** | Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
+**FaxEnabled** | **bool** | Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4838,7 +5393,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4847,46 +5402,45 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberNational
 
-> ListAvailablePhoneNumberNationalResponse ListAvailablePhoneNumberNational(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberNationalResponse ListAvailablePhoneNumberNational(ctx, AccountSidCountryCodeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
-**CountryCode** | **string**| The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
- **optional** | ***ListAvailablePhoneNumberNationalRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
+**CountryCode** | **string** | The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAvailablePhoneNumberNationalRequest struct
- 
+Other parameters are passed through a pointer to a ListAvailablePhoneNumberNationalParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AreaCode** | **Int32**| The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
-**Contains** | **String**| The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
-**SmsEnabled** | **Bool**| Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**MmsEnabled** | **Bool**| Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**VoiceEnabled** | **Bool**| Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**ExcludeAllAddressRequired** | **Bool**| Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeLocalAddressRequired** | **Bool**| Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeForeignAddressRequired** | **Bool**| Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**Beta** | **Bool**| Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**NearNumber** | **String**| Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
-**NearLatLong** | **String**| Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
-**Distance** | **Int32**| The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
-**InPostalCode** | **String**| Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
-**InRegion** | **String**| Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
-**InRateCenter** | **String**| Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
-**InLata** | **String**| Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
-**InLocality** | **String**| Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
-**FaxEnabled** | **Bool**| Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**AreaCode** | **int32** | The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
+**Contains** | **string** | The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
+**SmsEnabled** | **bool** | Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**MmsEnabled** | **bool** | Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**VoiceEnabled** | **bool** | Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**ExcludeAllAddressRequired** | **bool** | Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeLocalAddressRequired** | **bool** | Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeForeignAddressRequired** | **bool** | Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**Beta** | **bool** | Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**NearNumber** | **string** | Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
+**NearLatLong** | **string** | Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
+**Distance** | **int32** | The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
+**InPostalCode** | **string** | Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
+**InRegion** | **string** | Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
+**InRateCenter** | **string** | Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
+**InLata** | **string** | Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
+**InLocality** | **string** | Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
+**FaxEnabled** | **bool** | Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4899,7 +5453,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4908,46 +5462,45 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberSharedCost
 
-> ListAvailablePhoneNumberSharedCostResponse ListAvailablePhoneNumberSharedCost(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberSharedCostResponse ListAvailablePhoneNumberSharedCost(ctx, AccountSidCountryCodeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
-**CountryCode** | **string**| The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
- **optional** | ***ListAvailablePhoneNumberSharedCostRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
+**CountryCode** | **string** | The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAvailablePhoneNumberSharedCostRequest struct
- 
+Other parameters are passed through a pointer to a ListAvailablePhoneNumberSharedCostParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AreaCode** | **Int32**| The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
-**Contains** | **String**| The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
-**SmsEnabled** | **Bool**| Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**MmsEnabled** | **Bool**| Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**VoiceEnabled** | **Bool**| Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**ExcludeAllAddressRequired** | **Bool**| Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeLocalAddressRequired** | **Bool**| Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeForeignAddressRequired** | **Bool**| Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**Beta** | **Bool**| Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**NearNumber** | **String**| Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
-**NearLatLong** | **String**| Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
-**Distance** | **Int32**| The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
-**InPostalCode** | **String**| Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
-**InRegion** | **String**| Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
-**InRateCenter** | **String**| Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
-**InLata** | **String**| Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
-**InLocality** | **String**| Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
-**FaxEnabled** | **Bool**| Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**AreaCode** | **int32** | The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
+**Contains** | **string** | The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
+**SmsEnabled** | **bool** | Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**MmsEnabled** | **bool** | Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**VoiceEnabled** | **bool** | Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**ExcludeAllAddressRequired** | **bool** | Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeLocalAddressRequired** | **bool** | Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeForeignAddressRequired** | **bool** | Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**Beta** | **bool** | Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**NearNumber** | **string** | Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
+**NearLatLong** | **string** | Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
+**Distance** | **int32** | The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
+**InPostalCode** | **string** | Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
+**InRegion** | **string** | Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
+**InRateCenter** | **string** | Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
+**InLata** | **string** | Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
+**InLocality** | **string** | Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
+**FaxEnabled** | **bool** | Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -4960,7 +5513,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4969,46 +5522,45 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberTollFree
 
-> ListAvailablePhoneNumberTollFreeResponse ListAvailablePhoneNumberTollFree(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberTollFreeResponse ListAvailablePhoneNumberTollFree(ctx, AccountSidCountryCodeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
-**CountryCode** | **string**| The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
- **optional** | ***ListAvailablePhoneNumberTollFreeRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
+**CountryCode** | **string** | The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAvailablePhoneNumberTollFreeRequest struct
- 
+Other parameters are passed through a pointer to a ListAvailablePhoneNumberTollFreeParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AreaCode** | **Int32**| The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
-**Contains** | **String**| The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
-**SmsEnabled** | **Bool**| Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**MmsEnabled** | **Bool**| Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**VoiceEnabled** | **Bool**| Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**ExcludeAllAddressRequired** | **Bool**| Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeLocalAddressRequired** | **Bool**| Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeForeignAddressRequired** | **Bool**| Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**Beta** | **Bool**| Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**NearNumber** | **String**| Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
-**NearLatLong** | **String**| Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
-**Distance** | **Int32**| The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
-**InPostalCode** | **String**| Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
-**InRegion** | **String**| Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
-**InRateCenter** | **String**| Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
-**InLata** | **String**| Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
-**InLocality** | **String**| Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
-**FaxEnabled** | **Bool**| Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**AreaCode** | **int32** | The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
+**Contains** | **string** | The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
+**SmsEnabled** | **bool** | Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**MmsEnabled** | **bool** | Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**VoiceEnabled** | **bool** | Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**ExcludeAllAddressRequired** | **bool** | Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeLocalAddressRequired** | **bool** | Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeForeignAddressRequired** | **bool** | Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**Beta** | **bool** | Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**NearNumber** | **string** | Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
+**NearLatLong** | **string** | Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
+**Distance** | **int32** | The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
+**InPostalCode** | **string** | Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
+**InRegion** | **string** | Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
+**InRateCenter** | **string** | Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
+**InLata** | **string** | Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
+**InLocality** | **string** | Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
+**FaxEnabled** | **bool** | Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5021,7 +5573,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5030,46 +5582,45 @@ Name | Type | Description  | Notes
 
 ## ListAvailablePhoneNumberVoip
 
-> ListAvailablePhoneNumberVoipResponse ListAvailablePhoneNumberVoip(ctx, AccountSid, CountryCode, optional)
+> ListAvailablePhoneNumberVoipResponse ListAvailablePhoneNumberVoip(ctx, AccountSidCountryCodeoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
-**CountryCode** | **string**| The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
- **optional** | ***ListAvailablePhoneNumberVoipRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. | 
+**CountryCode** | **string** | The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListAvailablePhoneNumberVoipRequest struct
- 
+Other parameters are passed through a pointer to a ListAvailablePhoneNumberVoipParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AreaCode** | **Int32**| The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
-**Contains** | **String**| The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
-**SmsEnabled** | **Bool**| Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**MmsEnabled** | **Bool**| Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**VoiceEnabled** | **Bool**| Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**ExcludeAllAddressRequired** | **Bool**| Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeLocalAddressRequired** | **Bool**| Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**ExcludeForeignAddressRequired** | **Bool**| Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
-**Beta** | **Bool**| Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**NearNumber** | **String**| Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
-**NearLatLong** | **String**| Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
-**Distance** | **Int32**| The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
-**InPostalCode** | **String**| Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
-**InRegion** | **String**| Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
-**InRateCenter** | **String**| Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
-**InLata** | **String**| Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
-**InLocality** | **String**| Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
-**FaxEnabled** | **Bool**| Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**AreaCode** | **int32** | The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada. | 
+**Contains** | **string** | The pattern on which to match phone numbers. Valid characters are &#x60;*&#x60;, &#x60;0-9&#x60;, &#x60;a-z&#x60;, and &#x60;A-Z&#x60;. The &#x60;*&#x60; character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters. | 
+**SmsEnabled** | **bool** | Whether the phone numbers can receive text messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**MmsEnabled** | **bool** | Whether the phone numbers can receive MMS messages. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**VoiceEnabled** | **bool** | Whether the phone numbers can receive calls. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**ExcludeAllAddressRequired** | **bool** | Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeLocalAddressRequired** | **bool** | Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**ExcludeForeignAddressRequired** | **bool** | Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;. | 
+**Beta** | **bool** | Whether to read phone numbers that are new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**NearNumber** | **string** | Given a phone number, find a geographically close number within &#x60;distance&#x60; miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada. | 
+**NearLatLong** | **string** | Given a latitude/longitude pair &#x60;lat,long&#x60; find geographically close numbers within &#x60;distance&#x60; miles. Applies to only phone numbers in the US and Canada. | 
+**Distance** | **int32** | The search radius, in miles, for a &#x60;near_&#x60; query.  Can be up to &#x60;500&#x60; and the default is &#x60;25&#x60;. Applies to only phone numbers in the US and Canada. | 
+**InPostalCode** | **string** | Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada. | 
+**InRegion** | **string** | Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada. | 
+**InRateCenter** | **string** | Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires &#x60;in_lata&#x60; to be set as well. Applies to only phone numbers in the US and Canada. | 
+**InLata** | **string** | Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada. | 
+**InLocality** | **string** | Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number. | 
+**FaxEnabled** | **bool** | Whether the phone numbers can receive faxes. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5082,7 +5633,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5091,39 +5642,38 @@ Name | Type | Description  | Notes
 
 ## ListCall
 
-> ListCallResponse ListCall(ctx, AccountSid, optional)
+> ListCallResponse ListCall(ctx, AccountSidoptional)
 
 
 
 Retrieves a collection of calls made to and from your account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read. | 
- **optional** | ***ListCallRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListCallRequest struct
- 
+Other parameters are passed through a pointer to a ListCallParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**To** | **String**| Only show calls made to this phone number, SIP address, Client identifier or SIM SID. | 
-**From** | **String**| Only include calls from this phone number, SIP address, Client identifier or SIM SID. | 
-**ParentCallSid** | **String**| Only include calls spawned by calls with this SID. | 
-**Status** | **String**| The status of the calls to include. Can be: &#x60;queued&#x60;, &#x60;ringing&#x60;, &#x60;in-progress&#x60;, &#x60;canceled&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, &#x60;busy&#x60;, or &#x60;no-answer&#x60;. | 
-**StartTime** | **Time**| Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date. | 
-**StartTimeBefore** | **Time**| Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date. | 
-**StartTimeAfter** | **Time**| Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date. | 
-**EndTime** | **Time**| Only include calls that ended on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that ended on this date. You can also specify an inequality, such as &#x60;EndTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that ended on or before midnight of this date, and &#x60;EndTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that ended on or after midnight of this date. | 
-**EndTimeBefore** | **Time**| Only include calls that ended on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that ended on this date. You can also specify an inequality, such as &#x60;EndTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that ended on or before midnight of this date, and &#x60;EndTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that ended on or after midnight of this date. | 
-**EndTimeAfter** | **Time**| Only include calls that ended on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that ended on this date. You can also specify an inequality, such as &#x60;EndTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that ended on or before midnight of this date, and &#x60;EndTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that ended on or after midnight of this date. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**To** | **string** | Only show calls made to this phone number, SIP address, Client identifier or SIM SID. | 
+**From** | **string** | Only include calls from this phone number, SIP address, Client identifier or SIM SID. | 
+**ParentCallSid** | **string** | Only include calls spawned by calls with this SID. | 
+**Status** | **string** | The status of the calls to include. Can be: &#x60;queued&#x60;, &#x60;ringing&#x60;, &#x60;in-progress&#x60;, &#x60;canceled&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, &#x60;busy&#x60;, or &#x60;no-answer&#x60;. | 
+**StartTime** | **time.Time** | Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date. | 
+**StartTimeBefore** | **time.Time** | Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date. | 
+**StartTimeAfter** | **time.Time** | Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date. | 
+**EndTime** | **time.Time** | Only include calls that ended on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that ended on this date. You can also specify an inequality, such as &#x60;EndTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that ended on or before midnight of this date, and &#x60;EndTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that ended on or after midnight of this date. | 
+**EndTimeBefore** | **time.Time** | Only include calls that ended on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that ended on this date. You can also specify an inequality, such as &#x60;EndTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that ended on or before midnight of this date, and &#x60;EndTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that ended on or after midnight of this date. | 
+**EndTimeAfter** | **time.Time** | Only include calls that ended on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that ended on this date. You can also specify an inequality, such as &#x60;EndTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that ended on or before midnight of this date, and &#x60;EndTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that ended on or after midnight of this date. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5136,7 +5686,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5145,30 +5695,29 @@ Name | Type | Description  | Notes
 
 ## ListCallEvent
 
-> ListCallEventResponse ListCallEvent(ctx, AccountSid, CallSid, optional)
+> ListCallEventResponse ListCallEvent(ctx, AccountSidCallSidoptional)
 
 
 
 Retrieve a list of all events for a call.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique SID identifier of the Account. | 
-**CallSid** | **string**| The unique SID identifier of the Call. | 
- **optional** | ***ListCallEventRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique SID identifier of the Account. | 
+**CallSid** | **string** | The unique SID identifier of the Call. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListCallEventRequest struct
- 
+Other parameters are passed through a pointer to a ListCallEventParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5181,7 +5730,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5190,32 +5739,31 @@ Name | Type | Description  | Notes
 
 ## ListCallNotification
 
-> ListCallNotificationResponse ListCallNotification(ctx, AccountSid, CallSid, optional)
+> ListCallNotificationResponse ListCallNotification(ctx, AccountSidCallSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resources to read. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resources to read. | 
- **optional** | ***ListCallNotificationRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resources to read. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListCallNotificationRequest struct
- 
+Other parameters are passed through a pointer to a ListCallNotificationParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Log** | **Int32**| Only read notifications of the specified log level. Can be:  &#x60;0&#x60; to read only ERROR notifications or &#x60;1&#x60; to read only WARNING notifications. By default, all notifications are read. | 
-**MessageDate** | **Time**| Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
-**MessageDateBefore** | **Time**| Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
-**MessageDateAfter** | **Time**| Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Log** | **int32** | Only read notifications of the specified log level. Can be:  &#x60;0&#x60; to read only ERROR notifications or &#x60;1&#x60; to read only WARNING notifications. By default, all notifications are read. | 
+**MessageDate** | **time.Time** | Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
+**MessageDateBefore** | **time.Time** | Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
+**MessageDateAfter** | **time.Time** | Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5228,7 +5776,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5237,33 +5785,32 @@ Name | Type | Description  | Notes
 
 ## ListCallRecording
 
-> ListCallRecordingResponse ListCallRecording(ctx, AccountSid, CallSid, optional)
+> ListCallRecordingResponse ListCallRecording(ctx, AccountSidCallSidoptional)
 
 
 
 Retrieve a list of recordings belonging to the call used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read. | 
- **optional** | ***ListCallRecordingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListCallRecordingRequest struct
- 
+Other parameters are passed through a pointer to a ListCallRecordingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DateCreated** | **Time**| The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
-**DateCreatedBefore** | **Time**| The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
-**DateCreatedAfter** | **Time**| The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DateCreated** | **time.Time** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
+**DateCreatedBefore** | **time.Time** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
+**DateCreatedAfter** | **time.Time** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5276,7 +5823,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5285,37 +5832,36 @@ Name | Type | Description  | Notes
 
 ## ListConference
 
-> ListConferenceResponse ListConference(ctx, AccountSid, optional)
+> ListConferenceResponse ListConference(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of conferences belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read. | 
- **optional** | ***ListConferenceRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListConferenceRequest struct
- 
+Other parameters are passed through a pointer to a ListConferenceParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DateCreated** | **Time**| The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that started on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify  conferences that started on or after midnight on a date, use &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
-**DateCreatedBefore** | **Time**| The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that started on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify  conferences that started on or after midnight on a date, use &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
-**DateCreatedAfter** | **Time**| The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that started on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify  conferences that started on or after midnight on a date, use &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
-**DateUpdated** | **Time**| The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
-**DateUpdatedBefore** | **Time**| The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
-**DateUpdatedAfter** | **Time**| The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
-**FriendlyName** | **String**| The string that identifies the Conference resources to read. | 
-**Status** | **String**| The status of the resources to read. Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DateCreated** | **time.Time** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that started on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify  conferences that started on or after midnight on a date, use &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
+**DateCreatedBefore** | **time.Time** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that started on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify  conferences that started on or after midnight on a date, use &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
+**DateCreatedAfter** | **time.Time** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that started on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify  conferences that started on or after midnight on a date, use &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
+**DateUpdated** | **time.Time** | The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
+**DateUpdatedBefore** | **time.Time** | The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
+**DateUpdatedAfter** | **time.Time** | The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;. | 
+**FriendlyName** | **string** | The string that identifies the Conference resources to read. | 
+**Status** | **string** | The status of the resources to read. Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5328,7 +5874,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5337,33 +5883,32 @@ Name | Type | Description  | Notes
 
 ## ListConferenceRecording
 
-> ListConferenceRecordingResponse ListConferenceRecording(ctx, AccountSid, ConferenceSid, optional)
+> ListConferenceRecordingResponse ListConferenceRecording(ctx, AccountSidConferenceSidoptional)
 
 
 
 Retrieve a list of recordings belonging to the call used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to read. | 
-**ConferenceSid** | **string**| The Conference SID that identifies the conference associated with the recording to read. | 
- **optional** | ***ListConferenceRecordingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to read. | 
+**ConferenceSid** | **string** | The Conference SID that identifies the conference associated with the recording to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListConferenceRecordingRequest struct
- 
+Other parameters are passed through a pointer to a ListConferenceRecordingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DateCreated** | **Time**| The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
-**DateCreatedBefore** | **Time**| The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
-**DateCreatedAfter** | **Time**| The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DateCreated** | **time.Time** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
+**DateCreatedBefore** | **time.Time** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
+**DateCreatedAfter** | **time.Time** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5376,7 +5921,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5385,29 +5930,28 @@ Name | Type | Description  | Notes
 
 ## ListConnectApp
 
-> ListConnectAppResponse ListConnectApp(ctx, AccountSid, optional)
+> ListConnectAppResponse ListConnectApp(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of connect-apps belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to read. | 
- **optional** | ***ListConnectAppRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListConnectAppRequest struct
- 
+Other parameters are passed through a pointer to a ListConnectAppParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5420,7 +5964,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5429,28 +5973,27 @@ Name | Type | Description  | Notes
 
 ## ListDependentPhoneNumber
 
-> ListDependentPhoneNumberResponse ListDependentPhoneNumber(ctx, AccountSid, AddressSid, optional)
+> ListDependentPhoneNumberResponse ListDependentPhoneNumber(ctx, AccountSidAddressSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resources to read. | 
-**AddressSid** | **string**| The SID of the Address resource associated with the phone number. | 
- **optional** | ***ListDependentPhoneNumberRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resources to read. | 
+**AddressSid** | **string** | The SID of the Address resource associated with the phone number. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListDependentPhoneNumberRequest struct
- 
+Other parameters are passed through a pointer to a ListDependentPhoneNumberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5463,7 +6006,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5472,33 +6015,32 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumber
 
-> ListIncomingPhoneNumberResponse ListIncomingPhoneNumber(ctx, AccountSid, optional)
+> ListIncomingPhoneNumberResponse ListIncomingPhoneNumber(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to read. | 
- **optional** | ***ListIncomingPhoneNumberRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListIncomingPhoneNumberRequest struct
- 
+Other parameters are passed through a pointer to a ListIncomingPhoneNumberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Beta** | **Bool**| Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**FriendlyName** | **String**| A string that identifies the IncomingPhoneNumber resources to read. | 
-**PhoneNumber** | **String**| The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
-**Origin** | **String**| Whether to include phone numbers based on their origin. Can be: &#x60;twilio&#x60; or &#x60;hosted&#x60;. By default, phone numbers of all origin are included. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Beta** | **bool** | Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**FriendlyName** | **string** | A string that identifies the IncomingPhoneNumber resources to read. | 
+**PhoneNumber** | **string** | The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
+**Origin** | **string** | Whether to include phone numbers based on their origin. Can be: &#x60;twilio&#x60; or &#x60;hosted&#x60;. By default, phone numbers of all origin are included. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5511,7 +6053,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5520,30 +6062,29 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberAssignedAddOn
 
-> ListIncomingPhoneNumberAssignedAddOnResponse ListIncomingPhoneNumberAssignedAddOn(ctx, AccountSid, ResourceSid, optional)
+> ListIncomingPhoneNumberAssignedAddOnResponse ListIncomingPhoneNumberAssignedAddOn(ctx, AccountSidResourceSidoptional)
 
 
 
 Retrieve a list of Add-on installations currently assigned to this Number.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
-**ResourceSid** | **string**| The SID of the Phone Number to which the Add-on is assigned. | 
- **optional** | ***ListIncomingPhoneNumberAssignedAddOnRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
+**ResourceSid** | **string** | The SID of the Phone Number to which the Add-on is assigned. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListIncomingPhoneNumberAssignedAddOnRequest struct
- 
+Other parameters are passed through a pointer to a ListIncomingPhoneNumberAssignedAddOnParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5556,7 +6097,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5565,31 +6106,30 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberAssignedAddOnExtension
 
-> ListIncomingPhoneNumberAssignedAddOnExtensionResponse ListIncomingPhoneNumberAssignedAddOnExtension(ctx, AccountSid, ResourceSid, AssignedAddOnSid, optional)
+> ListIncomingPhoneNumberAssignedAddOnExtensionResponse ListIncomingPhoneNumberAssignedAddOnExtension(ctx, AccountSidResourceSidAssignedAddOnSidoptional)
 
 
 
 Retrieve a list of Extensions for the Assigned Add-on.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
-**ResourceSid** | **string**| The SID of the Phone Number to which the Add-on is assigned. | 
-**AssignedAddOnSid** | **string**| The SID that uniquely identifies the assigned Add-on installation. | 
- **optional** | ***ListIncomingPhoneNumberAssignedAddOnExtensionRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
+**ResourceSid** | **string** | The SID of the Phone Number to which the Add-on is assigned. | 
+**AssignedAddOnSid** | **string** | The SID that uniquely identifies the assigned Add-on installation. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListIncomingPhoneNumberAssignedAddOnExtensionRequest struct
- 
+Other parameters are passed through a pointer to a ListIncomingPhoneNumberAssignedAddOnExtensionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5602,7 +6142,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5611,31 +6151,30 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberLocal
 
-> ListIncomingPhoneNumberLocalResponse ListIncomingPhoneNumberLocal(ctx, AccountSid, optional)
+> ListIncomingPhoneNumberLocalResponse ListIncomingPhoneNumberLocal(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
- **optional** | ***ListIncomingPhoneNumberLocalRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListIncomingPhoneNumberLocalRequest struct
- 
+Other parameters are passed through a pointer to a ListIncomingPhoneNumberLocalParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Beta** | **Bool**| Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**FriendlyName** | **String**| A string that identifies the resources to read. | 
-**PhoneNumber** | **String**| The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
-**Origin** | **String**| Whether to include phone numbers based on their origin. Can be: &#x60;twilio&#x60; or &#x60;hosted&#x60;. By default, phone numbers of all origin are included. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Beta** | **bool** | Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**FriendlyName** | **string** | A string that identifies the resources to read. | 
+**PhoneNumber** | **string** | The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
+**Origin** | **string** | Whether to include phone numbers based on their origin. Can be: &#x60;twilio&#x60; or &#x60;hosted&#x60;. By default, phone numbers of all origin are included. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5648,7 +6187,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5657,31 +6196,30 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberMobile
 
-> ListIncomingPhoneNumberMobileResponse ListIncomingPhoneNumberMobile(ctx, AccountSid, optional)
+> ListIncomingPhoneNumberMobileResponse ListIncomingPhoneNumberMobile(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
- **optional** | ***ListIncomingPhoneNumberMobileRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListIncomingPhoneNumberMobileRequest struct
- 
+Other parameters are passed through a pointer to a ListIncomingPhoneNumberMobileParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Beta** | **Bool**| Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**FriendlyName** | **String**| A string that identifies the resources to read. | 
-**PhoneNumber** | **String**| The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
-**Origin** | **String**| Whether to include phone numbers based on their origin. Can be: &#x60;twilio&#x60; or &#x60;hosted&#x60;. By default, phone numbers of all origin are included. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Beta** | **bool** | Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**FriendlyName** | **string** | A string that identifies the resources to read. | 
+**PhoneNumber** | **string** | The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
+**Origin** | **string** | Whether to include phone numbers based on their origin. Can be: &#x60;twilio&#x60; or &#x60;hosted&#x60;. By default, phone numbers of all origin are included. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5694,7 +6232,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5703,31 +6241,30 @@ Name | Type | Description  | Notes
 
 ## ListIncomingPhoneNumberTollFree
 
-> ListIncomingPhoneNumberTollFreeResponse ListIncomingPhoneNumberTollFree(ctx, AccountSid, optional)
+> ListIncomingPhoneNumberTollFreeResponse ListIncomingPhoneNumberTollFree(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
- **optional** | ***ListIncomingPhoneNumberTollFreeRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListIncomingPhoneNumberTollFreeRequest struct
- 
+Other parameters are passed through a pointer to a ListIncomingPhoneNumberTollFreeParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Beta** | **Bool**| Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
-**FriendlyName** | **String**| A string that identifies the resources to read. | 
-**PhoneNumber** | **String**| The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
-**Origin** | **String**| Whether to include phone numbers based on their origin. Can be: &#x60;twilio&#x60; or &#x60;hosted&#x60;. By default, phone numbers of all origin are included. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Beta** | **bool** | Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. | 
+**FriendlyName** | **string** | A string that identifies the resources to read. | 
+**PhoneNumber** | **string** | The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
+**Origin** | **string** | Whether to include phone numbers based on their origin. Can be: &#x60;twilio&#x60; or &#x60;hosted&#x60;. By default, phone numbers of all origin are included. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5740,7 +6277,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5749,27 +6286,26 @@ Name | Type | Description  | Notes
 
 ## ListKey
 
-> ListKeyResponse ListKey(ctx, AccountSid, optional)
+> ListKeyResponse ListKey(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read. | 
- **optional** | ***ListKeyRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListKeyRequest struct
- 
+Other parameters are passed through a pointer to a ListKeyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5782,7 +6318,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5791,33 +6327,32 @@ Name | Type | Description  | Notes
 
 ## ListMedia
 
-> ListMediaResponse ListMedia(ctx, AccountSid, MessageSid, optional)
+> ListMediaResponse ListMedia(ctx, AccountSidMessageSidoptional)
 
 
 
 Retrieve a list of Media resources belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to read. | 
-**MessageSid** | **string**| The SID of the Message resource that this Media resource belongs to. | 
- **optional** | ***ListMediaRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to read. | 
+**MessageSid** | **string** | The SID of the Message resource that this Media resource belongs to. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListMediaRequest struct
- 
+Other parameters are passed through a pointer to a ListMediaParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DateCreated** | **Time**| Only include media that was created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read media that was created on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read media that was created on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read media that was created on or after midnight of this date. | 
-**DateCreatedBefore** | **Time**| Only include media that was created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read media that was created on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read media that was created on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read media that was created on or after midnight of this date. | 
-**DateCreatedAfter** | **Time**| Only include media that was created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read media that was created on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read media that was created on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read media that was created on or after midnight of this date. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DateCreated** | **time.Time** | Only include media that was created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read media that was created on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read media that was created on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read media that was created on or after midnight of this date. | 
+**DateCreatedBefore** | **time.Time** | Only include media that was created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read media that was created on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read media that was created on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read media that was created on or after midnight of this date. | 
+**DateCreatedAfter** | **time.Time** | Only include media that was created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read media that was created on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read media that was created on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read media that was created on or after midnight of this date. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5830,7 +6365,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5839,30 +6374,29 @@ Name | Type | Description  | Notes
 
 ## ListMember
 
-> ListMemberResponse ListMember(ctx, AccountSid, QueueSid, optional)
+> ListMemberResponse ListMember(ctx, AccountSidQueueSidoptional)
 
 
 
 Retrieve the members of the queue
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to read. | 
-**QueueSid** | **string**| The SID of the Queue in which to find the members | 
- **optional** | ***ListMemberRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to read. | 
+**QueueSid** | **string** | The SID of the Queue in which to find the members | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListMemberRequest struct
- 
+Other parameters are passed through a pointer to a ListMemberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5875,7 +6409,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5884,34 +6418,33 @@ Name | Type | Description  | Notes
 
 ## ListMessage
 
-> ListMessageResponse ListMessage(ctx, AccountSid, optional)
+> ListMessageResponse ListMessage(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of messages belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to read. | 
- **optional** | ***ListMessageRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListMessageRequest struct
- 
+Other parameters are passed through a pointer to a ListMessageParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**To** | **String**| Read messages sent to only this phone number. | 
-**From** | **String**| Read messages sent from only this phone number or alphanumeric sender ID. | 
-**DateSent** | **Time**| The date of the messages to show. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT to read only messages sent on this date. For example: &#x60;2009-07-06&#x60;. You can also specify an inequality, such as &#x60;DateSent&lt;&#x3D;YYYY-MM-DD&#x60;, to read messages sent on or before midnight on a date, and &#x60;DateSent&gt;&#x3D;YYYY-MM-DD&#x60; to read messages sent on or after midnight on a date. | 
-**DateSentBefore** | **Time**| The date of the messages to show. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT to read only messages sent on this date. For example: &#x60;2009-07-06&#x60;. You can also specify an inequality, such as &#x60;DateSent&lt;&#x3D;YYYY-MM-DD&#x60;, to read messages sent on or before midnight on a date, and &#x60;DateSent&gt;&#x3D;YYYY-MM-DD&#x60; to read messages sent on or after midnight on a date. | 
-**DateSentAfter** | **Time**| The date of the messages to show. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT to read only messages sent on this date. For example: &#x60;2009-07-06&#x60;. You can also specify an inequality, such as &#x60;DateSent&lt;&#x3D;YYYY-MM-DD&#x60;, to read messages sent on or before midnight on a date, and &#x60;DateSent&gt;&#x3D;YYYY-MM-DD&#x60; to read messages sent on or after midnight on a date. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**To** | **string** | Read messages sent to only this phone number. | 
+**From** | **string** | Read messages sent from only this phone number or alphanumeric sender ID. | 
+**DateSent** | **time.Time** | The date of the messages to show. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT to read only messages sent on this date. For example: &#x60;2009-07-06&#x60;. You can also specify an inequality, such as &#x60;DateSent&lt;&#x3D;YYYY-MM-DD&#x60;, to read messages sent on or before midnight on a date, and &#x60;DateSent&gt;&#x3D;YYYY-MM-DD&#x60; to read messages sent on or after midnight on a date. | 
+**DateSentBefore** | **time.Time** | The date of the messages to show. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT to read only messages sent on this date. For example: &#x60;2009-07-06&#x60;. You can also specify an inequality, such as &#x60;DateSent&lt;&#x3D;YYYY-MM-DD&#x60;, to read messages sent on or before midnight on a date, and &#x60;DateSent&gt;&#x3D;YYYY-MM-DD&#x60; to read messages sent on or after midnight on a date. | 
+**DateSentAfter** | **time.Time** | The date of the messages to show. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT to read only messages sent on this date. For example: &#x60;2009-07-06&#x60;. You can also specify an inequality, such as &#x60;DateSent&lt;&#x3D;YYYY-MM-DD&#x60;, to read messages sent on or before midnight on a date, and &#x60;DateSent&gt;&#x3D;YYYY-MM-DD&#x60; to read messages sent on or after midnight on a date. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5924,7 +6457,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5933,33 +6466,32 @@ Name | Type | Description  | Notes
 
 ## ListNotification
 
-> ListNotificationResponse ListNotification(ctx, AccountSid, optional)
+> ListNotificationResponse ListNotification(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of notifications belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resources to read. | 
- **optional** | ***ListNotificationRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListNotificationRequest struct
- 
+Other parameters are passed through a pointer to a ListNotificationParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Log** | **Int32**| Only read notifications of the specified log level. Can be:  &#x60;0&#x60; to read only ERROR notifications or &#x60;1&#x60; to read only WARNING notifications. By default, all notifications are read. | 
-**MessageDate** | **Time**| Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
-**MessageDateBefore** | **Time**| Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
-**MessageDateAfter** | **Time**| Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Log** | **int32** | Only read notifications of the specified log level. Can be:  &#x60;0&#x60; to read only ERROR notifications or &#x60;1&#x60; to read only WARNING notifications. By default, all notifications are read. | 
+**MessageDate** | **time.Time** | Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
+**MessageDateBefore** | **time.Time** | Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
+**MessageDateAfter** | **time.Time** | Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -5972,7 +6504,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5981,31 +6513,30 @@ Name | Type | Description  | Notes
 
 ## ListOutgoingCallerId
 
-> ListOutgoingCallerIdResponse ListOutgoingCallerId(ctx, AccountSid, optional)
+> ListOutgoingCallerIdResponse ListOutgoingCallerId(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of outgoing-caller-ids belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read. | 
- **optional** | ***ListOutgoingCallerIdRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListOutgoingCallerIdRequest struct
- 
+Other parameters are passed through a pointer to a ListOutgoingCallerIdParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PhoneNumber** | **String**| The phone number of the OutgoingCallerId resources to read. | 
-**FriendlyName** | **String**| The string that identifies the OutgoingCallerId resources to read. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PhoneNumber** | **string** | The phone number of the OutgoingCallerId resources to read. | 
+**FriendlyName** | **string** | The string that identifies the OutgoingCallerId resources to read. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6018,7 +6549,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6027,33 +6558,32 @@ Name | Type | Description  | Notes
 
 ## ListParticipant
 
-> ListParticipantResponse ListParticipant(ctx, AccountSid, ConferenceSid, optional)
+> ListParticipantResponse ListParticipant(ctx, AccountSidConferenceSidoptional)
 
 
 
 Retrieve a list of participants belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to read. | 
-**ConferenceSid** | **string**| The SID of the conference with the participants to read. | 
- **optional** | ***ListParticipantRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to read. | 
+**ConferenceSid** | **string** | The SID of the conference with the participants to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListParticipantRequest struct
- 
+Other parameters are passed through a pointer to a ListParticipantParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Muted** | **Bool**| Whether to return only participants that are muted. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**Hold** | **Bool**| Whether to return only participants that are on hold. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**Coaching** | **Bool**| Whether to return only participants who are coaching another call. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Muted** | **bool** | Whether to return only participants that are muted. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**Hold** | **bool** | Whether to return only participants that are on hold. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**Coaching** | **bool** | Whether to return only participants who are coaching another call. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6066,7 +6596,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6075,29 +6605,28 @@ Name | Type | Description  | Notes
 
 ## ListQueue
 
-> ListQueueResponse ListQueue(ctx, AccountSid, optional)
+> ListQueueResponse ListQueue(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of queues belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resources to read. | 
- **optional** | ***ListQueueRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListQueueRequest struct
- 
+Other parameters are passed through a pointer to a ListQueueParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6110,7 +6639,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6119,34 +6648,33 @@ Name | Type | Description  | Notes
 
 ## ListRecording
 
-> ListRecordingResponse ListRecording(ctx, AccountSid, optional)
+> ListRecordingResponse ListRecording(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of recordings belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read. | 
- **optional** | ***ListRecordingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListRecordingRequest struct
- 
+Other parameters are passed through a pointer to a ListRecordingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**DateCreated** | **Time**| Only include recordings that were created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read recordings that were created on this date. You can also specify an inequality, such as &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60;, to read recordings that were created on or before midnight of this date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; to read recordings that were created on or after midnight of this date. | 
-**DateCreatedBefore** | **Time**| Only include recordings that were created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read recordings that were created on this date. You can also specify an inequality, such as &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60;, to read recordings that were created on or before midnight of this date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; to read recordings that were created on or after midnight of this date. | 
-**DateCreatedAfter** | **Time**| Only include recordings that were created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read recordings that were created on this date. You can also specify an inequality, such as &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60;, to read recordings that were created on or before midnight of this date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; to read recordings that were created on or after midnight of this date. | 
-**CallSid** | **String**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read. | 
-**ConferenceSid** | **String**| The Conference SID that identifies the conference associated with the recording to read. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**DateCreated** | **time.Time** | Only include recordings that were created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read recordings that were created on this date. You can also specify an inequality, such as &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60;, to read recordings that were created on or before midnight of this date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; to read recordings that were created on or after midnight of this date. | 
+**DateCreatedBefore** | **time.Time** | Only include recordings that were created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read recordings that were created on this date. You can also specify an inequality, such as &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60;, to read recordings that were created on or before midnight of this date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; to read recordings that were created on or after midnight of this date. | 
+**DateCreatedAfter** | **time.Time** | Only include recordings that were created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read recordings that were created on this date. You can also specify an inequality, such as &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60;, to read recordings that were created on or before midnight of this date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; to read recordings that were created on or after midnight of this date. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read. | 
+**ConferenceSid** | **string** | The Conference SID that identifies the conference associated with the recording to read. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6159,7 +6687,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6168,30 +6696,29 @@ Name | Type | Description  | Notes
 
 ## ListRecordingAddOnResult
 
-> ListRecordingAddOnResultResponse ListRecordingAddOnResult(ctx, AccountSid, ReferenceSid, optional)
+> ListRecordingAddOnResultResponse ListRecordingAddOnResult(ctx, AccountSidReferenceSidoptional)
 
 
 
 Retrieve a list of results belonging to the recording
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to read. | 
-**ReferenceSid** | **string**| The SID of the recording to which the result to read belongs. | 
- **optional** | ***ListRecordingAddOnResultRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to read. | 
+**ReferenceSid** | **string** | The SID of the recording to which the result to read belongs. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListRecordingAddOnResultRequest struct
- 
+Other parameters are passed through a pointer to a ListRecordingAddOnResultParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6204,7 +6731,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6213,31 +6740,30 @@ Name | Type | Description  | Notes
 
 ## ListRecordingAddOnResultPayload
 
-> ListRecordingAddOnResultPayloadResponse ListRecordingAddOnResultPayload(ctx, AccountSid, ReferenceSid, AddOnResultSid, optional)
+> ListRecordingAddOnResultPayloadResponse ListRecordingAddOnResultPayload(ctx, AccountSidReferenceSidAddOnResultSidoptional)
 
 
 
 Retrieve a list of payloads belonging to the AddOnResult
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read. | 
-**ReferenceSid** | **string**| The SID of the recording to which the AddOnResult resource that contains the payloads to read belongs. | 
-**AddOnResultSid** | **string**| The SID of the AddOnResult to which the payloads to read belongs. | 
- **optional** | ***ListRecordingAddOnResultPayloadRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read. | 
+**ReferenceSid** | **string** | The SID of the recording to which the AddOnResult resource that contains the payloads to read belongs. | 
+**AddOnResultSid** | **string** | The SID of the AddOnResult to which the payloads to read belongs. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListRecordingAddOnResultPayloadRequest struct
- 
+Other parameters are passed through a pointer to a ListRecordingAddOnResultPayloadParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6250,7 +6776,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6259,28 +6785,27 @@ Name | Type | Description  | Notes
 
 ## ListRecordingTranscription
 
-> ListRecordingTranscriptionResponse ListRecordingTranscription(ctx, AccountSid, RecordingSid, optional)
+> ListRecordingTranscriptionResponse ListRecordingTranscription(ctx, AccountSidRecordingSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read. | 
-**RecordingSid** | **string**| The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcriptions to read. | 
- **optional** | ***ListRecordingTranscriptionRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read. | 
+**RecordingSid** | **string** | The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcriptions to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListRecordingTranscriptionRequest struct
- 
+Other parameters are passed through a pointer to a ListRecordingTranscriptionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6293,7 +6818,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6302,31 +6827,30 @@ Name | Type | Description  | Notes
 
 ## ListShortCode
 
-> ListShortCodeResponse ListShortCode(ctx, AccountSid, optional)
+> ListShortCodeResponse ListShortCode(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of short-codes belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read. | 
- **optional** | ***ListShortCodeRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListShortCodeRequest struct
- 
+Other parameters are passed through a pointer to a ListShortCodeParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| The string that identifies the ShortCode resources to read. | 
-**ShortCode** | **String**| Only show the ShortCode resources that match this pattern. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**FriendlyName** | **string** | The string that identifies the ShortCode resources to read. | 
+**ShortCode** | **string** | Only show the ShortCode resources that match this pattern. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6339,7 +6863,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6348,27 +6872,26 @@ Name | Type | Description  | Notes
 
 ## ListSigningKey
 
-> ListSigningKeyResponse ListSigningKey(ctx, AccountSid, optional)
+> ListSigningKeyResponse ListSigningKey(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**|  | 
- **optional** | ***ListSigningKeyRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSigningKeyRequest struct
- 
+Other parameters are passed through a pointer to a ListSigningKeyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6381,7 +6904,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6390,30 +6913,29 @@ Name | Type | Description  | Notes
 
 ## ListSipAuthCallsCredentialListMapping
 
-> ListSipAuthCallsCredentialListMappingResponse ListSipAuthCallsCredentialListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipAuthCallsCredentialListMappingResponse ListSipAuthCallsCredentialListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Retrieve a list of credential list mappings belonging to the domain used in the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read. | 
-**DomainSid** | **string**| The SID of the SIP domain that contains the resources to read. | 
- **optional** | ***ListSipAuthCallsCredentialListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read. | 
+**DomainSid** | **string** | The SID of the SIP domain that contains the resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipAuthCallsCredentialListMappingRequest struct
- 
+Other parameters are passed through a pointer to a ListSipAuthCallsCredentialListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6426,7 +6948,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6435,30 +6957,29 @@ Name | Type | Description  | Notes
 
 ## ListSipAuthCallsIpAccessControlListMapping
 
-> ListSipAuthCallsIpAccessControlListMappingResponse ListSipAuthCallsIpAccessControlListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipAuthCallsIpAccessControlListMappingResponse ListSipAuthCallsIpAccessControlListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Retrieve a list of IP Access Control List mappings belonging to the domain used in the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to read. | 
-**DomainSid** | **string**| The SID of the SIP domain that contains the resources to read. | 
- **optional** | ***ListSipAuthCallsIpAccessControlListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to read. | 
+**DomainSid** | **string** | The SID of the SIP domain that contains the resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipAuthCallsIpAccessControlListMappingRequest struct
- 
+Other parameters are passed through a pointer to a ListSipAuthCallsIpAccessControlListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6471,7 +6992,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6480,30 +7001,29 @@ Name | Type | Description  | Notes
 
 ## ListSipAuthRegistrationsCredentialListMapping
 
-> ListSipAuthRegistrationsCredentialListMappingResponse ListSipAuthRegistrationsCredentialListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipAuthRegistrationsCredentialListMappingResponse ListSipAuthRegistrationsCredentialListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Retrieve a list of credential list mappings belonging to the domain used in the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read. | 
-**DomainSid** | **string**| The SID of the SIP domain that contains the resources to read. | 
- **optional** | ***ListSipAuthRegistrationsCredentialListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read. | 
+**DomainSid** | **string** | The SID of the SIP domain that contains the resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipAuthRegistrationsCredentialListMappingRequest struct
- 
+Other parameters are passed through a pointer to a ListSipAuthRegistrationsCredentialListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6516,7 +7036,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6525,30 +7045,29 @@ Name | Type | Description  | Notes
 
 ## ListSipCredential
 
-> ListSipCredentialResponse ListSipCredential(ctx, AccountSid, CredentialListSid, optional)
+> ListSipCredentialResponse ListSipCredential(ctx, AccountSidCredentialListSidoptional)
 
 
 
 Retrieve a list of credentials.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**CredentialListSid** | **string**| The unique id that identifies the credential list that contains the desired credentials. | 
- **optional** | ***ListSipCredentialRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**CredentialListSid** | **string** | The unique id that identifies the credential list that contains the desired credentials. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipCredentialRequest struct
- 
+Other parameters are passed through a pointer to a ListSipCredentialParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6561,7 +7080,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6570,29 +7089,28 @@ Name | Type | Description  | Notes
 
 ## ListSipCredentialList
 
-> ListSipCredentialListResponse ListSipCredentialList(ctx, AccountSid, optional)
+> ListSipCredentialListResponse ListSipCredentialList(ctx, AccountSidoptional)
 
 
 
 Get All Credential Lists
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
- **optional** | ***ListSipCredentialListRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipCredentialListRequest struct
- 
+Other parameters are passed through a pointer to a ListSipCredentialListParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6605,7 +7123,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6614,30 +7132,29 @@ Name | Type | Description  | Notes
 
 ## ListSipCredentialListMapping
 
-> ListSipCredentialListMappingResponse ListSipCredentialListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipCredentialListMappingResponse ListSipCredentialListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Read multiple CredentialListMapping resources from an account.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**DomainSid** | **string**| A 34 character string that uniquely identifies the SIP Domain that includes the resource to read. | 
- **optional** | ***ListSipCredentialListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**DomainSid** | **string** | A 34 character string that uniquely identifies the SIP Domain that includes the resource to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipCredentialListMappingRequest struct
- 
+Other parameters are passed through a pointer to a ListSipCredentialListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6650,7 +7167,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6659,29 +7176,28 @@ Name | Type | Description  | Notes
 
 ## ListSipDomain
 
-> ListSipDomainResponse ListSipDomain(ctx, AccountSid, optional)
+> ListSipDomainResponse ListSipDomain(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of domains belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read. | 
- **optional** | ***ListSipDomainRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipDomainRequest struct
- 
+Other parameters are passed through a pointer to a ListSipDomainParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6694,7 +7210,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6703,29 +7219,28 @@ Name | Type | Description  | Notes
 
 ## ListSipIpAccessControlList
 
-> ListSipIpAccessControlListResponse ListSipIpAccessControlList(ctx, AccountSid, optional)
+> ListSipIpAccessControlListResponse ListSipIpAccessControlList(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of IpAccessControlLists that belong to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
- **optional** | ***ListSipIpAccessControlListRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipIpAccessControlListRequest struct
- 
+Other parameters are passed through a pointer to a ListSipIpAccessControlListParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6738,7 +7253,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6747,30 +7262,29 @@ Name | Type | Description  | Notes
 
 ## ListSipIpAccessControlListMapping
 
-> ListSipIpAccessControlListMappingResponse ListSipIpAccessControlListMapping(ctx, AccountSid, DomainSid, optional)
+> ListSipIpAccessControlListMappingResponse ListSipIpAccessControlListMapping(ctx, AccountSidDomainSidoptional)
 
 
 
 Retrieve a list of IpAccessControlListMapping resources.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**DomainSid** | **string**| A 34 character string that uniquely identifies the SIP domain. | 
- **optional** | ***ListSipIpAccessControlListMappingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**DomainSid** | **string** | A 34 character string that uniquely identifies the SIP domain. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipIpAccessControlListMappingRequest struct
- 
+Other parameters are passed through a pointer to a ListSipIpAccessControlListMappingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6783,7 +7297,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6792,30 +7306,29 @@ Name | Type | Description  | Notes
 
 ## ListSipIpAddress
 
-> ListSipIpAddressResponse ListSipIpAddress(ctx, AccountSid, IpAccessControlListSid, optional)
+> ListSipIpAddressResponse ListSipIpAddress(ctx, AccountSidIpAccessControlListSidoptional)
 
 
 
 Read multiple IpAddress resources.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**IpAccessControlListSid** | **string**| The IpAccessControlList Sid that identifies the IpAddress resources to read. | 
- **optional** | ***ListSipIpAddressRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**IpAccessControlListSid** | **string** | The IpAccessControlList Sid that identifies the IpAddress resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListSipIpAddressRequest struct
- 
+Other parameters are passed through a pointer to a ListSipIpAddressParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6828,7 +7341,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6837,29 +7350,28 @@ Name | Type | Description  | Notes
 
 ## ListTranscription
 
-> ListTranscriptionResponse ListTranscription(ctx, AccountSid, optional)
+> ListTranscriptionResponse ListTranscription(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of transcriptions belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read. | 
- **optional** | ***ListTranscriptionRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListTranscriptionRequest struct
- 
+Other parameters are passed through a pointer to a ListTranscriptionParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6872,7 +7384,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6881,33 +7393,32 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecord
 
-> ListUsageRecordResponse ListUsageRecord(ctx, AccountSid, optional)
+> ListUsageRecordResponse ListUsageRecord(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of usage-records belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
- **optional** | ***ListUsageRecordRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageRecordRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageRecordParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Category** | **String**| The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
-**StartDate** | **Time**| Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
-**EndDate** | **Time**| Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
-**IncludeSubaccounts** | **Bool**| Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
+**StartDate** | **time.Time** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
+**EndDate** | **time.Time** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
+**IncludeSubaccounts** | **bool** | Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6920,7 +7431,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6929,31 +7440,30 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordAllTime
 
-> ListUsageRecordAllTimeResponse ListUsageRecordAllTime(ctx, AccountSid, optional)
+> ListUsageRecordAllTimeResponse ListUsageRecordAllTime(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
- **optional** | ***ListUsageRecordAllTimeRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageRecordAllTimeRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageRecordAllTimeParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Category** | **String**| The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
-**StartDate** | **Time**| Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
-**EndDate** | **Time**| Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
-**IncludeSubaccounts** | **Bool**| Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
+**StartDate** | **time.Time** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
+**EndDate** | **time.Time** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
+**IncludeSubaccounts** | **bool** | Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -6966,7 +7476,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6975,31 +7485,30 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordDaily
 
-> ListUsageRecordDailyResponse ListUsageRecordDaily(ctx, AccountSid, optional)
+> ListUsageRecordDailyResponse ListUsageRecordDaily(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
- **optional** | ***ListUsageRecordDailyRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageRecordDailyRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageRecordDailyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Category** | **String**| The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
-**StartDate** | **Time**| Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
-**EndDate** | **Time**| Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
-**IncludeSubaccounts** | **Bool**| Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
+**StartDate** | **time.Time** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
+**EndDate** | **time.Time** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
+**IncludeSubaccounts** | **bool** | Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -7012,7 +7521,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7021,31 +7530,30 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordLastMonth
 
-> ListUsageRecordLastMonthResponse ListUsageRecordLastMonth(ctx, AccountSid, optional)
+> ListUsageRecordLastMonthResponse ListUsageRecordLastMonth(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
- **optional** | ***ListUsageRecordLastMonthRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageRecordLastMonthRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageRecordLastMonthParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Category** | **String**| The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
-**StartDate** | **Time**| Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
-**EndDate** | **Time**| Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
-**IncludeSubaccounts** | **Bool**| Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
+**StartDate** | **time.Time** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
+**EndDate** | **time.Time** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
+**IncludeSubaccounts** | **bool** | Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -7058,7 +7566,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7067,31 +7575,30 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordMonthly
 
-> ListUsageRecordMonthlyResponse ListUsageRecordMonthly(ctx, AccountSid, optional)
+> ListUsageRecordMonthlyResponse ListUsageRecordMonthly(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
- **optional** | ***ListUsageRecordMonthlyRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageRecordMonthlyRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageRecordMonthlyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Category** | **String**| The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
-**StartDate** | **Time**| Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
-**EndDate** | **Time**| Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
-**IncludeSubaccounts** | **Bool**| Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
+**StartDate** | **time.Time** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
+**EndDate** | **time.Time** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
+**IncludeSubaccounts** | **bool** | Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -7104,7 +7611,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7113,31 +7620,30 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordThisMonth
 
-> ListUsageRecordThisMonthResponse ListUsageRecordThisMonth(ctx, AccountSid, optional)
+> ListUsageRecordThisMonthResponse ListUsageRecordThisMonth(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
- **optional** | ***ListUsageRecordThisMonthRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageRecordThisMonthRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageRecordThisMonthParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Category** | **String**| The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
-**StartDate** | **Time**| Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
-**EndDate** | **Time**| Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
-**IncludeSubaccounts** | **Bool**| Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
+**StartDate** | **time.Time** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
+**EndDate** | **time.Time** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
+**IncludeSubaccounts** | **bool** | Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -7150,7 +7656,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7159,31 +7665,30 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordToday
 
-> ListUsageRecordTodayResponse ListUsageRecordToday(ctx, AccountSid, optional)
+> ListUsageRecordTodayResponse ListUsageRecordToday(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
- **optional** | ***ListUsageRecordTodayRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageRecordTodayRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageRecordTodayParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Category** | **String**| The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
-**StartDate** | **Time**| Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
-**EndDate** | **Time**| Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
-**IncludeSubaccounts** | **Bool**| Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
+**StartDate** | **time.Time** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
+**EndDate** | **time.Time** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
+**IncludeSubaccounts** | **bool** | Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -7196,7 +7701,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7205,31 +7710,30 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordYearly
 
-> ListUsageRecordYearlyResponse ListUsageRecordYearly(ctx, AccountSid, optional)
+> ListUsageRecordYearlyResponse ListUsageRecordYearly(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
- **optional** | ***ListUsageRecordYearlyRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageRecordYearlyRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageRecordYearlyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Category** | **String**| The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
-**StartDate** | **Time**| Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
-**EndDate** | **Time**| Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
-**IncludeSubaccounts** | **Bool**| Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
+**StartDate** | **time.Time** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
+**EndDate** | **time.Time** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
+**IncludeSubaccounts** | **bool** | Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -7242,7 +7746,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7251,31 +7755,30 @@ Name | Type | Description  | Notes
 
 ## ListUsageRecordYesterday
 
-> ListUsageRecordYesterdayResponse ListUsageRecordYesterday(ctx, AccountSid, optional)
+> ListUsageRecordYesterdayResponse ListUsageRecordYesterday(ctx, AccountSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
- **optional** | ***ListUsageRecordYesterdayRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageRecordYesterdayRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageRecordYesterdayParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Category** | **String**| The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
-**StartDate** | **Time**| Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
-**EndDate** | **Time**| Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
-**IncludeSubaccounts** | **Bool**| Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. | 
+**StartDate** | **time.Time** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;. You can also specify offsets from the current date, such as: &#x60;-30days&#x60;, which will set the start date to be 30 days before the current date. | 
+**EndDate** | **time.Time** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.  You can also specify offsets from the current date, such as: &#x60;+30days&#x60;, which will set the end date to 30 days from the current date. | 
+**IncludeSubaccounts** | **bool** | Whether to include usage from the master account and all its subaccounts. Can be: &#x60;true&#x60; (the default) to include usage from the master account and all subaccounts or &#x60;false&#x60; to retrieve usage from only the specified account. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -7288,7 +7791,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7297,32 +7800,31 @@ Name | Type | Description  | Notes
 
 ## ListUsageTrigger
 
-> ListUsageTriggerResponse ListUsageTrigger(ctx, AccountSid, optional)
+> ListUsageTriggerResponse ListUsageTrigger(ctx, AccountSidoptional)
 
 
 
 Retrieve a list of usage-triggers belonging to the account used to make the request
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read. | 
- **optional** | ***ListUsageTriggerRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ListUsageTriggerRequest struct
- 
+Other parameters are passed through a pointer to a ListUsageTriggerParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Recurring** | **String**| The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers. | 
-**TriggerBy** | **String**| The trigger field of the UsageTriggers to read.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). | 
-**UsageCategory** | **String**| The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). | 
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**Recurring** | **string** | The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers. | 
+**TriggerBy** | **string** | The trigger field of the UsageTriggers to read.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price). | 
+**UsageCategory** | **string** | The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -7335,7 +7837,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7344,30 +7846,29 @@ Name | Type | Description  | Notes
 
 ## UpdateAccount
 
-> ApiV2010Account UpdateAccount(ctx, Sid, optional)
+> ApiV2010Account UpdateAccount(ctx, Sidoptional)
 
 
 
 Modify the properties of a given Account
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string**| The Account Sid that uniquely identifies the account to update | 
- **optional** | ***UpdateAccountRequest** | optional parameters | nil if no parameters
+**Sid** | **string** | The Account Sid that uniquely identifies the account to update | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateAccountRequest struct
- 
+Other parameters are passed through a pointer to a UpdateAccountParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| Update the human-readable description of this Account | 
-**Status** | **String**| Alter the status of this account: use &#x60;closed&#x60; to irreversibly close this account, &#x60;suspended&#x60; to temporarily suspend it, or &#x60;active&#x60; to reactivate it. | 
+**FriendlyName** | **string** | Update the human-readable description of this Account | 
+**Status** | **string** | Alter the status of this account: use &#x60;closed&#x60; to irreversibly close this account, &#x60;suspended&#x60; to temporarily suspend it, or &#x60;active&#x60; to reactivate it. | 
 
 ### Return type
 
@@ -7379,8 +7880,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7389,35 +7890,34 @@ Name | Type | Description  | Notes
 
 ## UpdateAddress
 
-> ApiV2010AccountAddress UpdateAddress(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountAddress UpdateAddress(ctx, AccountSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Address resource to update. | 
- **optional** | ***UpdateAddressRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Address resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateAddressRequest struct
- 
+Other parameters are passed through a pointer to a UpdateAddressParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AutoCorrectAddress** | **Bool**| Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide. | 
-**City** | **String**| The city of the address. | 
-**CustomerName** | **String**| The name to associate with the address. | 
-**EmergencyEnabled** | **Bool**| Whether to enable emergency calling on the address. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**FriendlyName** | **String**| A descriptive string that you create to describe the address. It can be up to 64 characters long. | 
-**PostalCode** | **String**| The postal code of the address. | 
-**Region** | **String**| The state or region of the address. | 
-**Street** | **String**| The number and street address of the address. | 
+**AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide. | 
+**City** | **string** | The city of the address. | 
+**CustomerName** | **string** | The name to associate with the address. | 
+**EmergencyEnabled** | **bool** | Whether to enable emergency calling on the address. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the address. It can be up to 64 characters long. | 
+**PostalCode** | **string** | The postal code of the address. | 
+**Region** | **string** | The state or region of the address. | 
+**Street** | **string** | The number and street address of the address. | 
 
 ### Return type
 
@@ -7429,8 +7929,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7439,44 +7939,43 @@ Name | Type | Description  | Notes
 
 ## UpdateApplication
 
-> ApiV2010AccountApplication UpdateApplication(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountApplication UpdateApplication(ctx, AccountSidSidoptional)
 
 
 
 Updates the application's properties
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Application resource to update. | 
- **optional** | ***UpdateApplicationRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Application resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateApplicationRequest struct
- 
+Other parameters are passed through a pointer to a UpdateApplicationParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ApiVersion** | **String**| The API version to use to start a new TwiML session. Can be: &#x60;2010-04-01&#x60; or &#x60;2008-08-01&#x60;. The default value is your account&#39;s default API version. | 
-**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
-**MessageStatusCallback** | **String**| The URL we should call using a POST method to send message status information to your application. | 
-**SmsFallbackMethod** | **String**| The HTTP method we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**SmsFallbackUrl** | **String**| The URL that we should call when an error occurs while retrieving or executing the TwiML from &#x60;sms_url&#x60;. | 
-**SmsMethod** | **String**| The HTTP method we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**SmsStatusCallback** | **String**| Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility. | 
-**SmsUrl** | **String**| The URL we should call when the phone number receives an incoming SMS message. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceCallerIdLookup** | **Bool**| Whether we should look up the caller&#39;s caller-ID name from the CNAM database (additional charges apply). Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**VoiceFallbackMethod** | **String**| The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceFallbackUrl** | **String**| The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
-**VoiceMethod** | **String**| The HTTP method we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceUrl** | **String**| The URL we should call when the phone number assigned to this application receives a call. | 
+**ApiVersion** | **string** | The API version to use to start a new TwiML session. Can be: &#x60;2010-04-01&#x60; or &#x60;2008-08-01&#x60;. The default value is your account&#39;s default API version. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**MessageStatusCallback** | **string** | The URL we should call using a POST method to send message status information to your application. | 
+**SmsFallbackMethod** | **string** | The HTTP method we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**SmsFallbackUrl** | **string** | The URL that we should call when an error occurs while retrieving or executing the TwiML from &#x60;sms_url&#x60;. | 
+**SmsMethod** | **string** | The HTTP method we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**SmsStatusCallback** | **string** | Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility. | 
+**SmsUrl** | **string** | The URL we should call when the phone number receives an incoming SMS message. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceCallerIdLookup** | **bool** | Whether we should look up the caller&#39;s caller-ID name from the CNAM database (additional charges apply). Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**VoiceFallbackMethod** | **string** | The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
+**VoiceMethod** | **string** | The HTTP method we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceUrl** | **string** | The URL we should call when the phone number assigned to this application receives a call. | 
 
 ### Return type
 
@@ -7488,8 +7987,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7498,37 +7997,36 @@ Name | Type | Description  | Notes
 
 ## UpdateCall
 
-> ApiV2010AccountCall UpdateCall(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountCall UpdateCall(ctx, AccountSidSidoptional)
 
 
 
 Initiates a call redirect or terminates a call
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Call resource to update | 
- **optional** | ***UpdateCallRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Call resource to update | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateCallRequest struct
- 
+Other parameters are passed through a pointer to a UpdateCallParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FallbackMethod** | **String**| The HTTP method that we should use to request the &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
-**FallbackUrl** | **String**| The URL that we call using the &#x60;fallback_method&#x60; if an error occurs when requesting or executing the TwiML at &#x60;url&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
-**Method** | **String**| The HTTP method we should use when calling the &#x60;url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
-**Status** | **String**| The new status of the resource. Can be: &#x60;canceled&#x60; or &#x60;completed&#x60;. Specifying &#x60;canceled&#x60; will attempt to hang up calls that are queued or ringing; however, it will not affect calls already in progress. Specifying &#x60;completed&#x60; will attempt to hang up a call even if it&#39;s already in progress. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted). | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use when requesting the &#x60;status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
-**Twiml** | **String**| TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive | 
-**Url** | **String**| The absolute URL that returns the TwiML instructions for the call. We will call this URL using the &#x60;method&#x60; when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls). | 
+**FallbackMethod** | **string** | The HTTP method that we should use to request the &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
+**FallbackUrl** | **string** | The URL that we call using the &#x60;fallback_method&#x60; if an error occurs when requesting or executing the TwiML at &#x60;url&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
+**Method** | **string** | The HTTP method we should use when calling the &#x60;url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
+**Status** | **string** | The new status of the resource. Can be: &#x60;canceled&#x60; or &#x60;completed&#x60;. Specifying &#x60;canceled&#x60; will attempt to hang up calls that are queued or ringing; however, it will not affect calls already in progress. Specifying &#x60;completed&#x60; will attempt to hang up a call even if it&#39;s already in progress. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted). | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use when requesting the &#x60;status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. | 
+**Twiml** | **string** | TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive | 
+**Url** | **string** | The absolute URL that returns the TwiML instructions for the call. We will call this URL using the &#x60;method&#x60; when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls). | 
 
 ### Return type
 
@@ -7540,8 +8038,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7550,31 +8048,30 @@ Name | Type | Description  | Notes
 
 ## UpdateCallFeedback
 
-> ApiV2010AccountCallCallFeedback UpdateCallFeedback(ctx, AccountSid, CallSid, optional)
+> ApiV2010AccountCallCallFeedback UpdateCallFeedback(ctx, AccountSidCallSidoptional)
 
 
 
 Update a Feedback resource for a call
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**CallSid** | **string**| The call sid that uniquely identifies the call | 
- **optional** | ***UpdateCallFeedbackRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**CallSid** | **string** | The call sid that uniquely identifies the call | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateCallFeedbackRequest struct
- 
+Other parameters are passed through a pointer to a UpdateCallFeedbackParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Issue** | [**[]string**](string.md)| One or more issues experienced during the call. The issues can be: &#x60;imperfect-audio&#x60;, &#x60;dropped-call&#x60;, &#x60;incorrect-caller-id&#x60;, &#x60;post-dial-delay&#x60;, &#x60;digits-not-captured&#x60;, &#x60;audio-latency&#x60;, &#x60;unsolicited-call&#x60;, or &#x60;one-way-audio&#x60;. | 
-**QualityScore** | **Int32**| The call quality expressed as an integer from &#x60;1&#x60; to &#x60;5&#x60; where &#x60;1&#x60; represents very poor call quality and &#x60;5&#x60; represents a perfect call. | 
+**Issue** | **[]string** | One or more issues experienced during the call. The issues can be: &#x60;imperfect-audio&#x60;, &#x60;dropped-call&#x60;, &#x60;incorrect-caller-id&#x60;, &#x60;post-dial-delay&#x60;, &#x60;digits-not-captured&#x60;, &#x60;audio-latency&#x60;, &#x60;unsolicited-call&#x60;, or &#x60;one-way-audio&#x60;. | 
+**QualityScore** | **int32** | The call quality expressed as an integer from &#x60;1&#x60; to &#x60;5&#x60; where &#x60;1&#x60; represents very poor call quality and &#x60;5&#x60; represents a perfect call. | 
 
 ### Return type
 
@@ -7586,8 +8083,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7596,32 +8093,31 @@ Name | Type | Description  | Notes
 
 ## UpdateCallRecording
 
-> ApiV2010AccountCallCallRecording UpdateCallRecording(ctx, AccountSid, CallSid, Sid, optional)
+> ApiV2010AccountCallCallRecording UpdateCallRecording(ctx, AccountSidCallSidSidoptional)
 
 
 
 Changes the status of the recording to paused, stopped, or in-progress. Note: Pass `Twilio.CURRENT` instead of recording sid to reference current active recording.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Recording resource to update. | 
- **optional** | ***UpdateCallRecordingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Recording resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateCallRecordingRequest struct
- 
+Other parameters are passed through a pointer to a UpdateCallRecordingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PauseBehavior** | **String**| Whether to record during a pause. Can be: &#x60;skip&#x60; or &#x60;silence&#x60; and the default is &#x60;silence&#x60;. &#x60;skip&#x60; does not record during the pause period, while &#x60;silence&#x60; will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting &#x60;status&#x60; is set to &#x60;paused&#x60;. | 
-**Status** | **String**| The new status of the recording. Can be: &#x60;stopped&#x60;, &#x60;paused&#x60;, &#x60;in-progress&#x60;. | 
+**PauseBehavior** | **string** | Whether to record during a pause. Can be: &#x60;skip&#x60; or &#x60;silence&#x60; and the default is &#x60;silence&#x60;. &#x60;skip&#x60; does not record during the pause period, while &#x60;silence&#x60; will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting &#x60;status&#x60; is set to &#x60;paused&#x60;. | 
+**Status** | **string** | The new status of the recording. Can be: &#x60;stopped&#x60;, &#x60;paused&#x60;, &#x60;in-progress&#x60;. | 
 
 ### Return type
 
@@ -7633,8 +8129,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7643,30 +8139,29 @@ Name | Type | Description  | Notes
 
 ## UpdateConference
 
-> ApiV2010AccountConference UpdateConference(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountConference UpdateConference(ctx, AccountSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Conference resource to update | 
- **optional** | ***UpdateConferenceRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Conference resource to update | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateConferenceRequest struct
- 
+Other parameters are passed through a pointer to a UpdateConferenceParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AnnounceMethod** | **String**| The HTTP method used to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60; | 
-**AnnounceUrl** | **String**| The URL we should call to announce something into the conference. The URL can return an MP3, a WAV, or a TwiML document with &#x60;&lt;Play&gt;&#x60; or &#x60;&lt;Say&gt;&#x60;. | 
-**Status** | **String**| The new status of the resource. Can be:  Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;. Specifying &#x60;completed&#x60; will end the conference and hang up all participants | 
+**AnnounceMethod** | **string** | The HTTP method used to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60; | 
+**AnnounceUrl** | **string** | The URL we should call to announce something into the conference. The URL can return an MP3, a WAV, or a TwiML document with &#x60;&lt;Play&gt;&#x60; or &#x60;&lt;Say&gt;&#x60;. | 
+**Status** | **string** | The new status of the resource. Can be:  Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;. Specifying &#x60;completed&#x60; will end the conference and hang up all participants | 
 
 ### Return type
 
@@ -7678,8 +8173,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7688,32 +8183,31 @@ Name | Type | Description  | Notes
 
 ## UpdateConferenceRecording
 
-> ApiV2010AccountConferenceConferenceRecording UpdateConferenceRecording(ctx, AccountSid, ConferenceSid, Sid, optional)
+> ApiV2010AccountConferenceConferenceRecording UpdateConferenceRecording(ctx, AccountSidConferenceSidSidoptional)
 
 
 
 Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update. | 
-**ConferenceSid** | **string**| The Conference SID that identifies the conference associated with the recording to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use &#x60;Twilio.CURRENT&#x60; to reference the current active recording. | 
- **optional** | ***UpdateConferenceRecordingRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update. | 
+**ConferenceSid** | **string** | The Conference SID that identifies the conference associated with the recording to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use &#x60;Twilio.CURRENT&#x60; to reference the current active recording. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateConferenceRecordingRequest struct
- 
+Other parameters are passed through a pointer to a UpdateConferenceRecordingParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**PauseBehavior** | **String**| Whether to record during a pause. Can be: &#x60;skip&#x60; or &#x60;silence&#x60; and the default is &#x60;silence&#x60;. &#x60;skip&#x60; does not record during the pause period, while &#x60;silence&#x60; will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting &#x60;status&#x60; is set to &#x60;paused&#x60;. | 
-**Status** | **String**| The new status of the recording. Can be: &#x60;stopped&#x60;, &#x60;paused&#x60;, &#x60;in-progress&#x60;. | 
+**PauseBehavior** | **string** | Whether to record during a pause. Can be: &#x60;skip&#x60; or &#x60;silence&#x60; and the default is &#x60;silence&#x60;. &#x60;skip&#x60; does not record during the pause period, while &#x60;silence&#x60; will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting &#x60;status&#x60; is set to &#x60;paused&#x60;. | 
+**Status** | **string** | The new status of the recording. Can be: &#x60;stopped&#x60;, &#x60;paused&#x60;, &#x60;in-progress&#x60;. | 
 
 ### Return type
 
@@ -7725,8 +8219,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7735,37 +8229,36 @@ Name | Type | Description  | Notes
 
 ## UpdateConnectApp
 
-> ApiV2010AccountConnectApp UpdateConnectApp(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountConnectApp UpdateConnectApp(ctx, AccountSidSidoptional)
 
 
 
 Update a connect-app with the specified parameters
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the ConnectApp resource to update. | 
- **optional** | ***UpdateConnectAppRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the ConnectApp resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateConnectAppRequest struct
- 
+Other parameters are passed through a pointer to a UpdateConnectAppParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AuthorizeRedirectUrl** | **String**| The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App. | 
-**CompanyName** | **String**| The company name to set for the Connect App. | 
-**DeauthorizeCallbackMethod** | **String**| The HTTP method to use when calling &#x60;deauthorize_callback_url&#x60;. | 
-**DeauthorizeCallbackUrl** | **String**| The URL to call using the &#x60;deauthorize_callback_method&#x60; to de-authorize the Connect App. | 
-**Description** | **String**| A description of the Connect App. | 
-**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
-**HomepageUrl** | **String**| A public URL where users can obtain more information about this Connect App. | 
-**Permissions** | [**[]string**](string.md)| A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;. | 
+**AuthorizeRedirectUrl** | **string** | The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App. | 
+**CompanyName** | **string** | The company name to set for the Connect App. | 
+**DeauthorizeCallbackMethod** | **string** | The HTTP method to use when calling &#x60;deauthorize_callback_url&#x60;. | 
+**DeauthorizeCallbackUrl** | **string** | The URL to call using the &#x60;deauthorize_callback_method&#x60; to de-authorize the Connect App. | 
+**Description** | **string** | A description of the Connect App. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**HomepageUrl** | **string** | A public URL where users can obtain more information about this Connect App. | 
+**Permissions** | **[]string** | A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;. | 
 
 ### Return type
 
@@ -7777,8 +8270,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7787,52 +8280,51 @@ Name | Type | Description  | Notes
 
 ## UpdateIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumber UpdateIncomingPhoneNumber(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountIncomingPhoneNumber UpdateIncomingPhoneNumber(ctx, AccountSidSidoptional)
 
 
 
 Update an incoming-phone-number instance.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers). | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update. | 
- **optional** | ***UpdateIncomingPhoneNumberRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers). | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateIncomingPhoneNumberRequest struct
- 
+Other parameters are passed through a pointer to a UpdateIncomingPhoneNumberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AccountSid** | **String**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers). | 
-**AddressSid** | **String**| The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations. | 
-**ApiVersion** | **String**| The API version to use for incoming calls made to the phone number. The default is &#x60;2010-04-01&#x60;. | 
-**BundleSid** | **String**| The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
-**EmergencyAddressSid** | **String**| The SID of the emergency address configuration to use for emergency calling from this phone number. | 
-**EmergencyStatus** | **String**| The configuration status parameter that determines whether the phone number is enabled for emergency calling. | 
-**FriendlyName** | **String**| A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number. | 
-**IdentitySid** | **String**| The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations. | 
-**SmsApplicationSid** | **String**| The SID of the application that should handle SMS messages sent to the number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those set on the application. | 
-**SmsFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsFallbackUrl** | **String**| The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
-**SmsMethod** | **String**| The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**SmsUrl** | **String**| The URL we should call when the phone number receives an incoming SMS message. | 
-**StatusCallback** | **String**| The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
-**StatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**TrunkSid** | **String**| The SID of the Trunk we should use to handle phone calls to the phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
-**VoiceApplicationSid** | **String**| The SID of the application we should use to handle phone calls to the phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
-**VoiceCallerIdLookup** | **Bool**| Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
-**VoiceFallbackMethod** | **String**| The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceFallbackUrl** | **String**| The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
-**VoiceMethod** | **String**| The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**VoiceReceiveMode** | **String**| The configuration parameter for the phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
-**VoiceUrl** | **String**| The URL that we should call to answer a call to the phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
+**AccountSid2** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers). | 
+**AddressSid** | **string** | The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations. | 
+**ApiVersion** | **string** | The API version to use for incoming calls made to the phone number. The default is &#x60;2010-04-01&#x60;. | 
+**BundleSid** | **string** | The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. | 
+**EmergencyAddressSid** | **string** | The SID of the emergency address configuration to use for emergency calling from this phone number. | 
+**EmergencyStatus** | **string** | The configuration status parameter that determines whether the phone number is enabled for emergency calling. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number. | 
+**IdentitySid** | **string** | The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations. | 
+**SmsApplicationSid** | **string** | The SID of the application that should handle SMS messages sent to the number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those set on the application. | 
+**SmsFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsFallbackUrl** | **string** | The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;. | 
+**SmsMethod** | **string** | The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**SmsUrl** | **string** | The URL we should call when the phone number receives an incoming SMS message. | 
+**StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. | 
+**StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**TrunkSid** | **string** | The SID of the Trunk we should use to handle phone calls to the phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa. | 
+**VoiceApplicationSid** | **string** | The SID of the application we should use to handle phone calls to the phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa. | 
+**VoiceCallerIdLookup** | **bool** | Whether to lookup the caller&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
+**VoiceFallbackMethod** | **string** | The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;. | 
+**VoiceMethod** | **string** | The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**VoiceReceiveMode** | **string** | The configuration parameter for the phone number to receive incoming voice calls or faxes. Can be: &#x60;fax&#x60; or &#x60;voice&#x60; and defaults to &#x60;voice&#x60;. | 
+**VoiceUrl** | **string** | The URL that we should call to answer a call to the phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set. | 
 
 ### Return type
 
@@ -7844,8 +8336,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7854,28 +8346,27 @@ Name | Type | Description  | Notes
 
 ## UpdateKey
 
-> ApiV2010AccountKey UpdateKey(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountKey UpdateKey(ctx, AccountSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Key resource to update. | 
- **optional** | ***UpdateKeyRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Key resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateKeyRequest struct
- 
+Other parameters are passed through a pointer to a UpdateKeyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -7887,8 +8378,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7897,32 +8388,31 @@ Name | Type | Description  | Notes
 
 ## UpdateMember
 
-> ApiV2010AccountQueueMember UpdateMember(ctx, AccountSid, QueueSid, CallSid, optional)
+> ApiV2010AccountQueueMember UpdateMember(ctx, AccountSidQueueSidCallSidoptional)
 
 
 
 Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update. | 
-**QueueSid** | **string**| The SID of the Queue in which to find the members to update. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update. | 
- **optional** | ***UpdateMemberRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update. | 
+**QueueSid** | **string** | The SID of the Queue in which to find the members to update. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateMemberRequest struct
- 
+Other parameters are passed through a pointer to a UpdateMemberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Method** | **String**| How to pass the update request data. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. &#x60;POST&#x60; sends the data as encoded form data and &#x60;GET&#x60; sends the data as query parameters. | 
-**Url** | **String**| The absolute URL of the Queue resource. | 
+**Method** | **string** | How to pass the update request data. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. &#x60;POST&#x60; sends the data as encoded form data and &#x60;GET&#x60; sends the data as query parameters. | 
+**Url** | **string** | The absolute URL of the Queue resource. | 
 
 ### Return type
 
@@ -7934,8 +8424,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7944,30 +8434,29 @@ Name | Type | Description  | Notes
 
 ## UpdateMessage
 
-> ApiV2010AccountMessage UpdateMessage(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountMessage UpdateMessage(ctx, AccountSidSidoptional)
 
 
 
 To redact a message-body from a post-flight message record, post to the message instance resource with an empty body
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Message resource to update. | 
- **optional** | ***UpdateMessageRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Message resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateMessageRequest struct
- 
+Other parameters are passed through a pointer to a UpdateMessageParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Body** | **String**| The text of the message you want to send. Can be up to 1,600 characters long. | 
+**Body** | **string** | The text of the message you want to send. Can be up to 1,600 characters long. | 
 
 ### Return type
 
@@ -7979,8 +8468,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7989,30 +8478,29 @@ Name | Type | Description  | Notes
 
 ## UpdateOutgoingCallerId
 
-> ApiV2010AccountOutgoingCallerId UpdateOutgoingCallerId(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountOutgoingCallerId UpdateOutgoingCallerId(ctx, AccountSidSidoptional)
 
 
 
 Updates the caller-id
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update. | 
- **optional** | ***UpdateOutgoingCallerIdRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateOutgoingCallerIdRequest struct
- 
+Other parameters are passed through a pointer to a UpdateOutgoingCallerIdParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -8024,8 +8512,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8034,42 +8522,41 @@ Name | Type | Description  | Notes
 
 ## UpdateParticipant
 
-> ApiV2010AccountConferenceParticipant UpdateParticipant(ctx, AccountSid, ConferenceSid, CallSid, optional)
+> ApiV2010AccountConferenceParticipant UpdateParticipant(ctx, AccountSidConferenceSidCallSidoptional)
 
 
 
 Update the properties of the participant
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update. | 
-**ConferenceSid** | **string**| The SID of the conference with the participant to update. | 
-**CallSid** | **string**| The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. | 
- **optional** | ***UpdateParticipantRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update. | 
+**ConferenceSid** | **string** | The SID of the conference with the participant to update. | 
+**CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateParticipantRequest struct
- 
+Other parameters are passed through a pointer to a UpdateParticipantParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**AnnounceMethod** | **String**| The HTTP method we should use to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
-**AnnounceUrl** | **String**| The URL we call using the &#x60;announce_method&#x60; for an announcement to the participant. The URL must return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60; or &#x60;&lt;Say&gt;&#x60; commands. | 
-**BeepOnExit** | **Bool**| Whether to play a notification beep to the conference when the participant exits. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
-**CallSidToCoach** | **String**| The SID of the participant who is being &#x60;coached&#x60;. The participant being coached is the only participant who can hear the participant who is &#x60;coaching&#x60;. | 
-**Coaching** | **Bool**| Whether the participant is coaching another call. Can be: &#x60;true&#x60; or &#x60;false&#x60;. If not present, defaults to &#x60;false&#x60; unless &#x60;call_sid_to_coach&#x60; is defined. If &#x60;true&#x60;, &#x60;call_sid_to_coach&#x60; must be defined. | 
-**EndConferenceOnExit** | **Bool**| Whether to end the conference when the participant leaves. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
-**Hold** | **Bool**| Whether the participant should be on hold. Can be: &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; puts the participant on hold, and &#x60;false&#x60; lets them rejoin the conference. | 
-**HoldMethod** | **String**| The HTTP method we should use to call &#x60;hold_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;GET&#x60;. | 
-**HoldUrl** | **String**| The URL we call using the &#x60;hold_method&#x60; for  music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains the &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60; or &#x60;&lt;Redirect&gt;&#x60; commands. | 
-**Muted** | **Bool**| Whether the participant should be muted. Can be &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; will mute the participant, and &#x60;false&#x60; will un-mute them. Anything value other than &#x60;true&#x60; or &#x60;false&#x60; is interpreted as &#x60;false&#x60;. | 
-**WaitMethod** | **String**| The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file. | 
-**WaitUrl** | **String**| The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic). | 
+**AnnounceMethod** | **string** | The HTTP method we should use to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;. | 
+**AnnounceUrl** | **string** | The URL we call using the &#x60;announce_method&#x60; for an announcement to the participant. The URL must return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60; or &#x60;&lt;Say&gt;&#x60; commands. | 
+**BeepOnExit** | **bool** | Whether to play a notification beep to the conference when the participant exits. Can be: &#x60;true&#x60; or &#x60;false&#x60;. | 
+**CallSidToCoach** | **string** | The SID of the participant who is being &#x60;coached&#x60;. The participant being coached is the only participant who can hear the participant who is &#x60;coaching&#x60;. | 
+**Coaching** | **bool** | Whether the participant is coaching another call. Can be: &#x60;true&#x60; or &#x60;false&#x60;. If not present, defaults to &#x60;false&#x60; unless &#x60;call_sid_to_coach&#x60; is defined. If &#x60;true&#x60;, &#x60;call_sid_to_coach&#x60; must be defined. | 
+**EndConferenceOnExit** | **bool** | Whether to end the conference when the participant leaves. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;. | 
+**Hold** | **bool** | Whether the participant should be on hold. Can be: &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; puts the participant on hold, and &#x60;false&#x60; lets them rejoin the conference. | 
+**HoldMethod** | **string** | The HTTP method we should use to call &#x60;hold_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;GET&#x60;. | 
+**HoldUrl** | **string** | The URL we call using the &#x60;hold_method&#x60; for  music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains the &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60; or &#x60;&lt;Redirect&gt;&#x60; commands. | 
+**Muted** | **bool** | Whether the participant should be muted. Can be &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; will mute the participant, and &#x60;false&#x60; will un-mute them. Anything value other than &#x60;true&#x60; or &#x60;false&#x60; is interpreted as &#x60;false&#x60;. | 
+**WaitMethod** | **string** | The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file. | 
+**WaitUrl** | **string** | The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic). | 
 
 ### Return type
 
@@ -8081,8 +8568,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8091,34 +8578,33 @@ Name | Type | Description  | Notes
 
 ## UpdatePayments
 
-> ApiV2010AccountCallPayments UpdatePayments(ctx, AccountSid, CallSid, Sid, optional)
+> ApiV2010AccountCallPayments UpdatePayments(ctx, AccountSidCallSidSidoptional)
 
 
 
 update an instance of payments with different phases of payment flows.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource. | 
-**CallSid** | **string**| The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource. | 
-**Sid** | **string**| The SID of Payments session that needs to be updated. | 
- **optional** | ***UpdatePaymentsRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource. | 
+**CallSid** | **string** | The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource. | 
+**Sid** | **string** | The SID of Payments session that needs to be updated. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdatePaymentsRequest struct
- 
+Other parameters are passed through a pointer to a UpdatePaymentsParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Capture** | **String**| The piece of payment information that you wish the caller to enter. Must be one of &#x60;payment-card-number&#x60;, &#x60;expiration-date&#x60;, &#x60;security-code&#x60;, &#x60;postal-code&#x60;, &#x60;bank-routing-number&#x60;, or &#x60;bank-account-number&#x60;. | 
-**IdempotencyKey** | **String**| A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated. | 
-**Status** | **String**| Indicates whether the current payment session should be cancelled or completed. When &#x60;cancel&#x60; the payment session is cancelled. When &#x60;complete&#x60;, Twilio sends the payment information to the selected &lt;Pay&gt; connector for processing. | 
-**StatusCallback** | **String**| Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests. | 
+**Capture** | **string** | The piece of payment information that you wish the caller to enter. Must be one of &#x60;payment-card-number&#x60;, &#x60;expiration-date&#x60;, &#x60;security-code&#x60;, &#x60;postal-code&#x60;, &#x60;bank-routing-number&#x60;, or &#x60;bank-account-number&#x60;. | 
+**IdempotencyKey** | **string** | A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated. | 
+**Status** | **string** | Indicates whether the current payment session should be cancelled or completed. When &#x60;cancel&#x60; the payment session is cancelled. When &#x60;complete&#x60;, Twilio sends the payment information to the selected &lt;Pay&gt; connector for processing. | 
+**StatusCallback** | **string** | Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests. | 
 
 ### Return type
 
@@ -8130,8 +8616,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8140,31 +8626,30 @@ Name | Type | Description  | Notes
 
 ## UpdateQueue
 
-> ApiV2010AccountQueue UpdateQueue(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountQueue UpdateQueue(ctx, AccountSidSidoptional)
 
 
 
 Update the queue with the new parameters
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the Queue resource to update | 
- **optional** | ***UpdateQueueRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Queue resource to update | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateQueueRequest struct
- 
+Other parameters are passed through a pointer to a UpdateQueueParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A descriptive string that you created to describe this resource. It can be up to 64 characters long. | 
-**MaxSize** | **Int32**| The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe this resource. It can be up to 64 characters long. | 
+**MaxSize** | **int32** | The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000. | 
 
 ### Return type
 
@@ -8176,8 +8661,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8186,35 +8671,34 @@ Name | Type | Description  | Notes
 
 ## UpdateShortCode
 
-> ApiV2010AccountShortCode UpdateShortCode(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountShortCode UpdateShortCode(ctx, AccountSidSidoptional)
 
 
 
 Update a short code with the following parameters
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the ShortCode resource to update | 
- **optional** | ***UpdateShortCodeRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the ShortCode resource to update | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateShortCodeRequest struct
- 
+Other parameters are passed through a pointer to a UpdateShortCodeParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ApiVersion** | **String**| The API version to use to start a new TwiML session. Can be: &#x60;2010-04-01&#x60; or &#x60;2008-08-01&#x60;. | 
-**FriendlyName** | **String**| A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the &#x60;FriendlyName&#x60; is the short code. | 
-**SmsFallbackMethod** | **String**| The HTTP method that we should use to call the &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**SmsFallbackUrl** | **String**| The URL that we should call if an error occurs while retrieving or executing the TwiML from &#x60;sms_url&#x60;. | 
-**SmsMethod** | **String**| The HTTP method we should use when calling the &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**SmsUrl** | **String**| The URL we should call when receiving an incoming SMS message to this short code. | 
+**ApiVersion** | **string** | The API version to use to start a new TwiML session. Can be: &#x60;2010-04-01&#x60; or &#x60;2008-08-01&#x60;. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the &#x60;FriendlyName&#x60; is the short code. | 
+**SmsFallbackMethod** | **string** | The HTTP method that we should use to call the &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**SmsFallbackUrl** | **string** | The URL that we should call if an error occurs while retrieving or executing the TwiML from &#x60;sms_url&#x60;. | 
+**SmsMethod** | **string** | The HTTP method we should use when calling the &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**SmsUrl** | **string** | The URL we should call when receiving an incoming SMS message to this short code. | 
 
 ### Return type
 
@@ -8226,8 +8710,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8236,28 +8720,27 @@ Name | Type | Description  | Notes
 
 ## UpdateSigningKey
 
-> ApiV2010AccountSigningKey UpdateSigningKey(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountSigningKey UpdateSigningKey(ctx, AccountSidSidoptional)
 
 
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**|  | 
-**Sid** | **string**|  | 
- **optional** | ***UpdateSigningKeyRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** |  | 
+**Sid** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSigningKeyRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSigningKeyParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**|  | 
+**FriendlyName** | **string** |  | 
 
 ### Return type
 
@@ -8269,8 +8752,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8279,31 +8762,30 @@ Name | Type | Description  | Notes
 
 ## UpdateSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredential UpdateSipCredential(ctx, AccountSid, CredentialListSid, Sid, optional)
+> ApiV2010AccountSipSipCredentialListSipCredential UpdateSipCredential(ctx, AccountSidCredentialListSidSidoptional)
 
 
 
 Update a credential resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**CredentialListSid** | **string**| The unique id that identifies the credential list that includes this credential. | 
-**Sid** | **string**| The unique id that identifies the resource to update. | 
- **optional** | ***UpdateSipCredentialRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**CredentialListSid** | **string** | The unique id that identifies the credential list that includes this credential. | 
+**Sid** | **string** | The unique id that identifies the resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSipCredentialRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSipCredentialParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**Password** | **String**| The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;) | 
+**Password** | **string** | The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;) | 
 
 ### Return type
 
@@ -8315,8 +8797,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8325,30 +8807,29 @@ Name | Type | Description  | Notes
 
 ## UpdateSipCredentialList
 
-> ApiV2010AccountSipSipCredentialList UpdateSipCredentialList(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountSipSipCredentialList UpdateSipCredentialList(ctx, AccountSidSidoptional)
 
 
 
 Update a Credential List
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the Account that is responsible for this resource. | 
-**Sid** | **string**| The credential list Sid that uniquely identifies this resource | 
- **optional** | ***UpdateSipCredentialListRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the Account that is responsible for this resource. | 
+**Sid** | **string** | The credential list Sid that uniquely identifies this resource | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSipCredentialListRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSipCredentialListParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A human readable descriptive text for a CredentialList, up to 64 characters long. | 
+**FriendlyName** | **string** | A human readable descriptive text for a CredentialList, up to 64 characters long. | 
 
 ### Return type
 
@@ -8360,8 +8841,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8370,42 +8851,41 @@ Name | Type | Description  | Notes
 
 ## UpdateSipDomain
 
-> ApiV2010AccountSipSipDomain UpdateSipDomain(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountSipSipDomain UpdateSipDomain(ctx, AccountSidSidoptional)
 
 
 
 Update the attributes of a domain
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the SipDomain resource to update. | 
- **optional** | ***UpdateSipDomainRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the SipDomain resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSipDomainRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSipDomainParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ByocTrunkSid** | **String**| The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with. | 
-**DomainName** | **String**| The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot; and must end with &#x60;sip.twilio.com&#x60;. | 
-**EmergencyCallerSid** | **String**| Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call. | 
-**EmergencyCallingEnabled** | **Bool**| Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses. | 
-**FriendlyName** | **String**| A descriptive string that you created to describe the resource. It can be up to 64 characters long. | 
-**Secure** | **Bool**| Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain. | 
-**SipRegistration** | **Bool**| Whether to allow SIP Endpoints to register with the domain to receive calls. Can be &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; allows SIP Endpoints to register with the domain to receive calls, &#x60;false&#x60; does not. | 
-**VoiceFallbackMethod** | **String**| The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceFallbackUrl** | **String**| The URL that we should call when an error occurs while retrieving or executing the TwiML requested by &#x60;voice_url&#x60;. | 
-**VoiceMethod** | **String**| The HTTP method we should use to call &#x60;voice_url&#x60; | 
-**VoiceStatusCallbackMethod** | **String**| The HTTP method we should use to call &#x60;voice_status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
-**VoiceStatusCallbackUrl** | **String**| The URL that we should call to pass status parameters (such as call ended) to your application. | 
-**VoiceUrl** | **String**| The URL we should call when the domain receives a call. | 
+**ByocTrunkSid** | **string** | The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with. | 
+**DomainName** | **string** | The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\&quot;-\\\&quot; and must end with &#x60;sip.twilio.com&#x60;. | 
+**EmergencyCallerSid** | **string** | Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call. | 
+**EmergencyCallingEnabled** | **bool** | Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses. | 
+**FriendlyName** | **string** | A descriptive string that you created to describe the resource. It can be up to 64 characters long. | 
+**Secure** | **bool** | Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain. | 
+**SipRegistration** | **bool** | Whether to allow SIP Endpoints to register with the domain to receive calls. Can be &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; allows SIP Endpoints to register with the domain to receive calls, &#x60;false&#x60; does not. | 
+**VoiceFallbackMethod** | **string** | The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceFallbackUrl** | **string** | The URL that we should call when an error occurs while retrieving or executing the TwiML requested by &#x60;voice_url&#x60;. | 
+**VoiceMethod** | **string** | The HTTP method we should use to call &#x60;voice_url&#x60; | 
+**VoiceStatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;voice_status_callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. | 
+**VoiceStatusCallbackUrl** | **string** | The URL that we should call to pass status parameters (such as call ended) to your application. | 
+**VoiceUrl** | **string** | The URL we should call when the domain receives a call. | 
 
 ### Return type
 
@@ -8417,8 +8897,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8427,30 +8907,29 @@ Name | Type | Description  | Notes
 
 ## UpdateSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlList UpdateSipIpAccessControlList(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountSipSipIpAccessControlList UpdateSipIpAccessControlList(ctx, AccountSidSidoptional)
 
 
 
 Rename an IpAccessControlList
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**Sid** | **string**| A 34 character string that uniquely identifies the resource to udpate. | 
- **optional** | ***UpdateSipIpAccessControlListRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the resource to udpate. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSipIpAccessControlListRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSipIpAccessControlListParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**FriendlyName** | **String**| A human readable descriptive text, up to 64 characters long. | 
+**FriendlyName** | **string** | A human readable descriptive text, up to 64 characters long. | 
 
 ### Return type
 
@@ -8462,8 +8941,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8472,33 +8951,32 @@ Name | Type | Description  | Notes
 
 ## UpdateSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddress UpdateSipIpAddress(ctx, AccountSid, IpAccessControlListSid, Sid, optional)
+> ApiV2010AccountSipSipIpAccessControlListSipIpAddress UpdateSipIpAddress(ctx, AccountSidIpAccessControlListSidSidoptional)
 
 
 
 Update an IpAddress resource.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
-**IpAccessControlListSid** | **string**| The IpAccessControlList Sid that identifies the IpAddress resources to update. | 
-**Sid** | **string**| A 34 character string that identifies the IpAddress resource to update. | 
- **optional** | ***UpdateSipIpAddressRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. | 
+**IpAccessControlListSid** | **string** | The IpAccessControlList Sid that identifies the IpAddress resources to update. | 
+**Sid** | **string** | A 34 character string that identifies the IpAddress resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateSipIpAddressRequest struct
- 
+Other parameters are passed through a pointer to a UpdateSipIpAddressParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CidrPrefixLength** | **Int32**| An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used. | 
-**FriendlyName** | **String**| A human readable descriptive text for this resource, up to 64 characters long. | 
-**IpAddress** | **String**| An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today. | 
+**CidrPrefixLength** | **int32** | An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used. | 
+**FriendlyName** | **string** | A human readable descriptive text for this resource, up to 64 characters long. | 
+**IpAddress** | **string** | An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today. | 
 
 ### Return type
 
@@ -8510,8 +8988,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8520,32 +8998,31 @@ Name | Type | Description  | Notes
 
 ## UpdateUsageTrigger
 
-> ApiV2010AccountUsageUsageTrigger UpdateUsageTrigger(ctx, AccountSid, Sid, optional)
+> ApiV2010AccountUsageUsageTrigger UpdateUsageTrigger(ctx, AccountSidSidoptional)
 
 
 
 Update an instance of a usage trigger
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**AccountSid** | **string**| The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update. | 
-**Sid** | **string**| The Twilio-provided string that uniquely identifies the UsageTrigger resource to update. | 
- **optional** | ***UpdateUsageTriggerRequest** | optional parameters | nil if no parameters
+**AccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the UsageTrigger resource to update. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateUsageTriggerRequest struct
- 
+Other parameters are passed through a pointer to a UpdateUsageTriggerParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**CallbackMethod** | **String**| The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
-**CallbackUrl** | **String**| The URL we should call using &#x60;callback_method&#x60; when the trigger fires. | 
-**FriendlyName** | **String**| A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. | 
+**CallbackUrl** | **string** | The URL we should call using &#x60;callback_method&#x60; when the trigger fires. | 
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
 
 ### Return type
 
@@ -8557,8 +9034,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
-- **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

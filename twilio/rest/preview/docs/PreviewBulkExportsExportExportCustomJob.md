@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**Details** | Pointer to [**map[string]interface{}**](.md) | 
+**Details** | Pointer to **map[string]interface{}** | 
 **Email** | Pointer to **string** | 
 **EndDay** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 

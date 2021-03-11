@@ -4,7 +4,7 @@
 Name | Type | Notes
 ------------ | ------------- | -------------
 **AccountSid** | Pointer to **string** | 
-**Cumulative** | Pointer to [**map[string]interface{}**](.md) | 
+**Cumulative** | Pointer to **map[string]interface{}** | 
 **Url** | Pointer to **string** | 
 **WorkerSid** | Pointer to **string** | 
 **WorkspaceSid** | Pointer to **string** | 

@@ -4,12 +4,12 @@
 Name | Type | Notes
 ------------ | ------------- | -------------
 **AccountSid** | Pointer to **string** | 
-**Configuration** | Pointer to [**map[string]interface{}**](.md) | 
+**Configuration** | Pointer to **map[string]interface{}** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **Description** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Sid** | Pointer to **string** | 
 **UniqueName** | Pointer to **string** | 
 **Url** | Pointer to **string** | 

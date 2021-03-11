@@ -6,7 +6,7 @@ Name | Type | Notes
 **AccountSid** | Pointer to **string** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **FunctionSid** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Path** | Pointer to **string** | 
 **ServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

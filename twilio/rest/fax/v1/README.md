@@ -43,7 +43,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CreateFaxRequest](docs/CreateFaxRequest.md)
  - [FaxDirection](docs/FaxDirection.md)
  - [FaxQuality](docs/FaxQuality.md)
  - [FaxStatus](docs/FaxStatus.md)
@@ -52,7 +51,6 @@ Class | Method | HTTP request | Description
  - [ListFaxMediaResponse](docs/ListFaxMediaResponse.md)
  - [ListFaxResponse](docs/ListFaxResponse.md)
  - [ListFaxResponseMeta](docs/ListFaxResponseMeta.md)
- - [UpdateFaxRequest](docs/UpdateFaxRequest.md)
 
 
 ## Documentation For Authorization

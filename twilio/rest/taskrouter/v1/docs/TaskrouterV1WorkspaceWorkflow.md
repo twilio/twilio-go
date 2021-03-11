@@ -11,7 +11,7 @@ Name | Type | Notes
 **DocumentContentType** | Pointer to **string** | 
 **FallbackAssignmentCallbackUrl** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Sid** | Pointer to **string** | 
 **TaskReservationTimeout** | Pointer to **int32** | 
 **Url** | Pointer to **string** | 

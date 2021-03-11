@@ -10,8 +10,8 @@ Name | Type | Notes
 **LongestTaskWaitingAge** | Pointer to **int32** | 
 **LongestTaskWaitingSid** | Pointer to **string** | 
 **TaskQueueSid** | Pointer to **string** | 
-**TasksByPriority** | Pointer to [**map[string]interface{}**](.md) | 
-**TasksByStatus** | Pointer to [**map[string]interface{}**](.md) | 
+**TasksByPriority** | Pointer to **map[string]interface{}** | 
+**TasksByStatus** | Pointer to **map[string]interface{}** | 
 **TotalAvailableWorkers** | Pointer to **int32** | 
 **TotalEligibleWorkers** | Pointer to **int32** | 
 **TotalTasks** | Pointer to **int32** | 

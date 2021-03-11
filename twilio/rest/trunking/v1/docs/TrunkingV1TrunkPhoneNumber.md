@@ -7,11 +7,11 @@ Name | Type | Notes
 **AddressRequirements** | Pointer to [**PhoneNumberAddressRequirement**](phone_number_address_requirement.md) | 
 **ApiVersion** | Pointer to **string** | 
 **Beta** | Pointer to **bool** | 
-**Capabilities** | Pointer to [**map[string]interface{}**](.md) | 
+**Capabilities** | Pointer to **map[string]interface{}** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **PhoneNumber** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **SmsApplicationSid** | Pointer to **string** | 

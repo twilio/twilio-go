@@ -10,7 +10,7 @@ Name | Type | Notes
 **Attributes** | Pointer to **string** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Priority** | Pointer to **int32** | 
 **Reason** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

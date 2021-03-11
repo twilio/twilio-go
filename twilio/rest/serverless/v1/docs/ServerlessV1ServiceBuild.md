@@ -9,7 +9,7 @@ Name | Type | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **Dependencies** | Pointer to **[]map[string]interface{}** | 
 **FunctionVersions** | Pointer to **[]map[string]interface{}** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Runtime** | Pointer to [**BuildRuntime**](build_runtime.md) | 
 **ServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

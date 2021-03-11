@@ -8,7 +8,7 @@ Name | Type | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **Email** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **PolicySid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **Status** | Pointer to [**TrustProductStatus**](trust_product_status.md) | 

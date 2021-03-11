@@ -6,9 +6,9 @@ Name | Type | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **Description** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Sid** | Pointer to **string** | 
-**SinkConfiguration** | Pointer to [**map[string]interface{}**](.md) | 
+**SinkConfiguration** | Pointer to **map[string]interface{}** | 
 **SinkType** | Pointer to [**SinkSinkType**](sink_sink_type.md) | 
 **Status** | Pointer to [**SinkStatus**](sink_status.md) | 
 **Url** | Pointer to **string** | 

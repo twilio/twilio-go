@@ -52,9 +52,6 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [ConfigurationStatus](docs/ConfigurationStatus.md)
- - [CreateChannelRequest](docs/CreateChannelRequest.md)
- - [CreateFlexFlowRequest](docs/CreateFlexFlowRequest.md)
- - [CreateWebChannelRequest](docs/CreateWebChannelRequest.md)
  - [FlexFlowChannelType](docs/FlexFlowChannelType.md)
  - [FlexFlowIntegrationType](docs/FlexFlowIntegrationType.md)
  - [FlexV1Channel](docs/FlexV1Channel.md)
@@ -65,8 +62,6 @@ Class | Method | HTTP request | Description
  - [ListChannelResponseMeta](docs/ListChannelResponseMeta.md)
  - [ListFlexFlowResponse](docs/ListFlexFlowResponse.md)
  - [ListWebChannelResponse](docs/ListWebChannelResponse.md)
- - [UpdateFlexFlowRequest](docs/UpdateFlexFlowRequest.md)
- - [UpdateWebChannelRequest](docs/UpdateWebChannelRequest.md)
 
 
 ## Documentation For Authorization

@@ -76,14 +76,6 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [ChannelChannelType](docs/ChannelChannelType.md)
- - [CreateChannelRequest](docs/CreateChannelRequest.md)
- - [CreateCredentialRequest](docs/CreateCredentialRequest.md)
- - [CreateInviteRequest](docs/CreateInviteRequest.md)
- - [CreateMemberRequest](docs/CreateMemberRequest.md)
- - [CreateMessageRequest](docs/CreateMessageRequest.md)
- - [CreateRoleRequest](docs/CreateRoleRequest.md)
- - [CreateServiceRequest](docs/CreateServiceRequest.md)
- - [CreateUserRequest](docs/CreateUserRequest.md)
  - [CredentialPushService](docs/CredentialPushService.md)
  - [IpMessagingV1Credential](docs/IpMessagingV1Credential.md)
  - [IpMessagingV1Service](docs/IpMessagingV1Service.md)
@@ -105,13 +97,6 @@ Class | Method | HTTP request | Description
  - [ListUserChannelResponse](docs/ListUserChannelResponse.md)
  - [ListUserResponse](docs/ListUserResponse.md)
  - [RoleRoleType](docs/RoleRoleType.md)
- - [UpdateChannelRequest](docs/UpdateChannelRequest.md)
- - [UpdateCredentialRequest](docs/UpdateCredentialRequest.md)
- - [UpdateMemberRequest](docs/UpdateMemberRequest.md)
- - [UpdateMessageRequest](docs/UpdateMessageRequest.md)
- - [UpdateRoleRequest](docs/UpdateRoleRequest.md)
- - [UpdateServiceRequest](docs/UpdateServiceRequest.md)
- - [UpdateUserRequest](docs/UpdateUserRequest.md)
  - [UserChannelChannelStatus](docs/UserChannelChannelStatus.md)
 
 

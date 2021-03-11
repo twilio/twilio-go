@@ -8,7 +8,7 @@ Name | Type | Notes
 **Channel** | Pointer to [**VerificationChannel**](verification_channel.md) | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
-**Lookup** | Pointer to [**map[string]interface{}**](.md) | 
+**Lookup** | Pointer to **map[string]interface{}** | 
 **Payee** | Pointer to **string** | 
 **SendCodeAttempts** | Pointer to **[]map[string]interface{}** | 
 **ServiceSid** | Pointer to **string** | 

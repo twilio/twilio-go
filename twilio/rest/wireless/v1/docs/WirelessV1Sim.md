@@ -12,7 +12,7 @@ Name | Type | Notes
 **FriendlyName** | Pointer to **string** | 
 **Iccid** | Pointer to **string** | 
 **IpAddress** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **RatePlanSid** | Pointer to **string** | 
 **ResetStatus** | Pointer to [**SimResetStatus**](sim_reset_status.md) | 
 **Sid** | Pointer to **string** | 

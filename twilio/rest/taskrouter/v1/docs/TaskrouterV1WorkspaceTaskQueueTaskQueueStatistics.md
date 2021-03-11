@@ -4,8 +4,8 @@
 Name | Type | Notes
 ------------ | ------------- | -------------
 **AccountSid** | Pointer to **string** | 
-**Cumulative** | Pointer to [**map[string]interface{}**](.md) | 
-**Realtime** | Pointer to [**map[string]interface{}**](.md) | 
+**Cumulative** | Pointer to **map[string]interface{}** | 
+**Realtime** | Pointer to **map[string]interface{}** | 
 **TaskQueueSid** | Pointer to **string** | 
 **Url** | Pointer to **string** | 
 **WorkspaceSid** | Pointer to **string** | 

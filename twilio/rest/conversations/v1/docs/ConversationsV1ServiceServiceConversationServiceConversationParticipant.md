@@ -12,7 +12,7 @@ Name | Type | Notes
 **Identity** | Pointer to **string** | 
 **LastReadMessageIndex** | Pointer to **int32** | 
 **LastReadTimestamp** | Pointer to **string** | 
-**MessagingBinding** | Pointer to [**map[string]interface{}**](.md) | 
+**MessagingBinding** | Pointer to **map[string]interface{}** | 
 **RoleSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **Url** | Pointer to **string** | 

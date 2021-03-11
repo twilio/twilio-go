@@ -12,7 +12,7 @@ Name | Type | Notes
 **DateDeleted** | Pointer to [**time.Time**](time.Time.md) | 
 **Duration** | Pointer to **int32** | 
 **Format** | Pointer to [**CompositionFormat**](composition_format.md) | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Resolution** | Pointer to **string** | 
 **RoomSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
@@ -20,7 +20,7 @@ Name | Type | Notes
 **Status** | Pointer to [**CompositionStatus**](composition_status.md) | 
 **Trim** | Pointer to **bool** | 
 **Url** | Pointer to **string** | 
-**VideoLayout** | Pointer to [**map[string]interface{}**](.md) | 
+**VideoLayout** | Pointer to **map[string]interface{}** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

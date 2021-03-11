@@ -4,12 +4,12 @@
 Name | Type | Notes
 ------------ | ------------- | -------------
 **AccountSid** | Pointer to **string** | 
-**Context** | Pointer to [**map[string]interface{}**](.md) | 
+**Context** | Pointer to **map[string]interface{}** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **EngagementSid** | Pointer to **string** | 
 **FlowSid** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Name** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **TransitionedFrom** | Pointer to **string** | 

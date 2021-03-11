@@ -11,7 +11,7 @@ Name | Type | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **Enabled** | Pointer to **bool** | 
 **FriendlyName** | Pointer to **string** | 
-**Integration** | Pointer to [**map[string]interface{}**](.md) | 
+**Integration** | Pointer to **map[string]interface{}** | 
 **IntegrationType** | Pointer to [**FlexFlowIntegrationType**](flex_flow_integration_type.md) | 
 **JanitorEnabled** | Pointer to **bool** | 
 **LongLived** | Pointer to **bool** | 

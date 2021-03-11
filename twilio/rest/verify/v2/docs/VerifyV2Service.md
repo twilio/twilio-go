@@ -11,10 +11,10 @@ Name | Type | Notes
 **DoNotShareWarningEnabled** | Pointer to **bool** | 
 **DtmfInputRequired** | Pointer to **bool** | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **LookupEnabled** | Pointer to **bool** | 
 **Psd2Enabled** | Pointer to **bool** | 
-**Push** | Pointer to [**map[string]interface{}**](.md) | 
+**Push** | Pointer to **map[string]interface{}** | 
 **Sid** | Pointer to **string** | 
 **SkipSmsToLandlines** | Pointer to **bool** | 
 **TtsName** | Pointer to **string** | 

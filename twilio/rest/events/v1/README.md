@@ -52,9 +52,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CreateSinkRequest](docs/CreateSinkRequest.md)
- - [CreateSinkValidateRequest](docs/CreateSinkValidateRequest.md)
- - [CreateSubscriptionRequest](docs/CreateSubscriptionRequest.md)
  - [EventsV1EventType](docs/EventsV1EventType.md)
  - [EventsV1Schema](docs/EventsV1Schema.md)
  - [EventsV1SchemaVersion](docs/EventsV1SchemaVersion.md)
@@ -71,7 +68,6 @@ Class | Method | HTTP request | Description
  - [ListVersionResponseMeta](docs/ListVersionResponseMeta.md)
  - [SinkSinkType](docs/SinkSinkType.md)
  - [SinkStatus](docs/SinkStatus.md)
- - [UpdateSubscriptionRequest](docs/UpdateSubscriptionRequest.md)
 
 
 ## Documentation For Authorization

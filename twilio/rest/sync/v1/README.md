@@ -83,14 +83,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CreateDocumentRequest](docs/CreateDocumentRequest.md)
- - [CreateServiceRequest](docs/CreateServiceRequest.md)
- - [CreateStreamMessageRequest](docs/CreateStreamMessageRequest.md)
- - [CreateSyncListItemRequest](docs/CreateSyncListItemRequest.md)
- - [CreateSyncListRequest](docs/CreateSyncListRequest.md)
- - [CreateSyncMapItemRequest](docs/CreateSyncMapItemRequest.md)
- - [CreateSyncMapRequest](docs/CreateSyncMapRequest.md)
- - [CreateSyncStreamRequest](docs/CreateSyncStreamRequest.md)
  - [ListDocumentPermissionResponse](docs/ListDocumentPermissionResponse.md)
  - [ListDocumentResponse](docs/ListDocumentResponse.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
@@ -113,16 +105,6 @@ Class | Method | HTTP request | Description
  - [SyncV1ServiceSyncMapSyncMapPermission](docs/SyncV1ServiceSyncMapSyncMapPermission.md)
  - [SyncV1ServiceSyncStream](docs/SyncV1ServiceSyncStream.md)
  - [SyncV1ServiceSyncStreamStreamMessage](docs/SyncV1ServiceSyncStreamStreamMessage.md)
- - [UpdateDocumentPermissionRequest](docs/UpdateDocumentPermissionRequest.md)
- - [UpdateDocumentRequest](docs/UpdateDocumentRequest.md)
- - [UpdateServiceRequest](docs/UpdateServiceRequest.md)
- - [UpdateSyncListItemRequest](docs/UpdateSyncListItemRequest.md)
- - [UpdateSyncListPermissionRequest](docs/UpdateSyncListPermissionRequest.md)
- - [UpdateSyncListRequest](docs/UpdateSyncListRequest.md)
- - [UpdateSyncMapItemRequest](docs/UpdateSyncMapItemRequest.md)
- - [UpdateSyncMapPermissionRequest](docs/UpdateSyncMapPermissionRequest.md)
- - [UpdateSyncMapRequest](docs/UpdateSyncMapRequest.md)
- - [UpdateSyncStreamRequest](docs/UpdateSyncStreamRequest.md)
 
 
 ## Documentation For Authorization

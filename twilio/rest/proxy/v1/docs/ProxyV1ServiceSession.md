@@ -11,7 +11,7 @@ Name | Type | Notes
 **DateLastInteraction** | Pointer to [**time.Time**](time.Time.md) | 
 **DateStarted** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Mode** | Pointer to [**SessionMode**](session_mode.md) | 
 **ServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

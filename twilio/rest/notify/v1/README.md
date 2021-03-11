@@ -50,10 +50,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CreateBindingRequest](docs/CreateBindingRequest.md)
- - [CreateCredentialRequest](docs/CreateCredentialRequest.md)
- - [CreateNotificationRequest](docs/CreateNotificationRequest.md)
- - [CreateServiceRequest](docs/CreateServiceRequest.md)
  - [CredentialPushService](docs/CredentialPushService.md)
  - [ListBindingResponse](docs/ListBindingResponse.md)
  - [ListCredentialResponse](docs/ListCredentialResponse.md)
@@ -64,8 +60,6 @@ Class | Method | HTTP request | Description
  - [NotifyV1Service](docs/NotifyV1Service.md)
  - [NotifyV1ServiceBinding](docs/NotifyV1ServiceBinding.md)
  - [NotifyV1ServiceNotification](docs/NotifyV1ServiceNotification.md)
- - [UpdateCredentialRequest](docs/UpdateCredentialRequest.md)
- - [UpdateServiceRequest](docs/UpdateServiceRequest.md)
 
 
 ## Documentation For Authorization

@@ -18,13 +18,21 @@ Method | HTTP request | Description
 
 Fetch a specific Country.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**IsoCountry** | **string**| The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch. | 
+**IsoCountry** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchVoiceCountryParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 ### Return type
 
@@ -37,7 +45,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -46,29 +54,28 @@ Name | Type | Description  | Notes
 
 ## FetchVoiceNumber
 
-> PricingV2VoiceVoiceNumber FetchVoiceNumber(ctx, DestinationNumber, optional)
+> PricingV2VoiceVoiceNumber FetchVoiceNumber(ctx, DestinationNumberoptional)
 
 
 
 Fetch pricing information for a specific destination and, optionally, origination phone number.
 
-### Required Parameters
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**DestinationNumber** | **string**| The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
- **optional** | ***FetchVoiceNumberRequest** | optional parameters | nil if no parameters
+**DestinationNumber** | **string** | The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a FetchVoiceNumberRequest struct
- 
+Other parameters are passed through a pointer to a FetchVoiceNumberParams struct
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**OriginationNumber** | **String**| The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
+**OriginationNumber** | **string** | The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. | 
 
 ### Return type
 
@@ -81,7 +88,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -94,22 +101,18 @@ Name | Type | Description  | Notes
 
 
 
-### Required Parameters
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListVoiceCountryParams struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListVoiceCountryRequest** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a ListVoiceCountryRequest struct
- 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **Int32**| How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type
 
@@ -122,7 +125,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

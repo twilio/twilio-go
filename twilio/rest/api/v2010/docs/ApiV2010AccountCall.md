@@ -25,7 +25,7 @@ Name | Type | Notes
 **Sid** | Pointer to **string** | 
 **StartTime** | Pointer to **string** | 
 **Status** | Pointer to [**CallStatus**](call_status.md) | 
-**SubresourceUris** | Pointer to [**map[string]interface{}**](.md) | 
+**SubresourceUris** | Pointer to **map[string]interface{}** | 
 **To** | Pointer to **string** | 
 **ToFormatted** | Pointer to **string** | 
 **TrunkSid** | Pointer to **string** | 

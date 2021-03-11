@@ -78,13 +78,6 @@ Class | Method | HTTP request | Description
  - [BuildRuntime](docs/BuildRuntime.md)
  - [BuildStatus](docs/BuildStatus.md)
  - [BuildStatusStatus](docs/BuildStatusStatus.md)
- - [CreateAssetRequest](docs/CreateAssetRequest.md)
- - [CreateBuildRequest](docs/CreateBuildRequest.md)
- - [CreateDeploymentRequest](docs/CreateDeploymentRequest.md)
- - [CreateEnvironmentRequest](docs/CreateEnvironmentRequest.md)
- - [CreateFunctionRequest](docs/CreateFunctionRequest.md)
- - [CreateServiceRequest](docs/CreateServiceRequest.md)
- - [CreateVariableRequest](docs/CreateVariableRequest.md)
  - [FunctionVersionVisibility](docs/FunctionVersionVisibility.md)
  - [ListAssetResponse](docs/ListAssetResponse.md)
  - [ListAssetVersionResponse](docs/ListAssetVersionResponse.md)
@@ -110,10 +103,6 @@ Class | Method | HTTP request | Description
  - [ServerlessV1ServiceFunction](docs/ServerlessV1ServiceFunction.md)
  - [ServerlessV1ServiceFunctionFunctionVersion](docs/ServerlessV1ServiceFunctionFunctionVersion.md)
  - [ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent](docs/ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent.md)
- - [UpdateAssetRequest](docs/UpdateAssetRequest.md)
- - [UpdateFunctionRequest](docs/UpdateFunctionRequest.md)
- - [UpdateServiceRequest](docs/UpdateServiceRequest.md)
- - [UpdateVariableRequest](docs/UpdateVariableRequest.md)
 
 
 ## Documentation For Authorization

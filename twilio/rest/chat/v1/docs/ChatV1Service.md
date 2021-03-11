@@ -11,9 +11,9 @@ Name | Type | Notes
 **DefaultChannelRoleSid** | Pointer to **string** | 
 **DefaultServiceRoleSid** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
-**Limits** | Pointer to [**map[string]interface{}**](.md) | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
-**Notifications** | Pointer to [**map[string]interface{}**](.md) | 
+**Limits** | Pointer to **map[string]interface{}** | 
+**Links** | Pointer to **map[string]interface{}** | 
+**Notifications** | Pointer to **map[string]interface{}** | 
 **PostWebhookUrl** | Pointer to **string** | 
 **PreWebhookUrl** | Pointer to **string** | 
 **ReachabilityEnabled** | Pointer to **bool** | 
@@ -23,7 +23,7 @@ Name | Type | Notes
 **Url** | Pointer to **string** | 
 **WebhookFilters** | Pointer to **[]string** | 
 **WebhookMethod** | Pointer to **string** | 
-**Webhooks** | Pointer to [**map[string]interface{}**](.md) | 
+**Webhooks** | Pointer to **map[string]interface{}** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

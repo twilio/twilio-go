@@ -13,7 +13,7 @@ Name | Type | Notes
 **FriendlyName** | Pointer to **string** | 
 **InboundMethod** | Pointer to [**HttpMethod**](http_method.md) | 
 **InboundRequestUrl** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **MmsConverter** | Pointer to **bool** | 
 **ScanMessageContent** | Pointer to [**ServiceScanMessageContent**](service_scan_message_content.md) | 
 **Sid** | Pointer to **string** | 

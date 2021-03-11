@@ -7,7 +7,7 @@ Name | Type | Notes
 **FriendlyName** | Pointer to **string** | 
 **IsoCountry** | Pointer to **string** | 
 **NumberType** | Pointer to **string** | 
-**Requirements** | Pointer to [**map[string]interface{}**](.md) | 
+**Requirements** | Pointer to **map[string]interface{}** | 
 **Sid** | Pointer to **string** | 
 **Url** | Pointer to **string** | 
 

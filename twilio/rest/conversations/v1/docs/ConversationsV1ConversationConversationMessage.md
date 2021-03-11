@@ -10,9 +10,9 @@ Name | Type | Notes
 **ConversationSid** | Pointer to **string** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
-**Delivery** | Pointer to [**map[string]interface{}**](.md) | 
+**Delivery** | Pointer to **map[string]interface{}** | 
 **Index** | Pointer to **int32** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Media** | Pointer to **[]map[string]interface{}** | 
 **ParticipantSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 

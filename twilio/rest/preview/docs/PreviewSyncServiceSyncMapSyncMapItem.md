@@ -5,7 +5,7 @@ Name | Type | Notes
 ------------ | ------------- | -------------
 **AccountSid** | Pointer to **string** | 
 **CreatedBy** | Pointer to **string** | 
-**Data** | Pointer to [**map[string]interface{}**](.md) | 
+**Data** | Pointer to **map[string]interface{}** | 
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **Key** | Pointer to **string** | 

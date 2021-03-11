@@ -6,7 +6,7 @@ Name | Type | Notes
 **AccountSid** | Pointer to **string** | 
 **BrandSid** | Pointer to **string** | 
 **BusinessSid** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **Sid** | Pointer to **string** | 
 **Url** | Pointer to **string** | 
 

@@ -11,10 +11,10 @@ Name | Type | Notes
 **DefaultChannelRoleSid** | Pointer to **string** | 
 **DefaultServiceRoleSid** | Pointer to **string** | 
 **FriendlyName** | Pointer to **string** | 
-**Limits** | Pointer to [**map[string]interface{}**](.md) | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
-**Media** | Pointer to [**map[string]interface{}**](.md) | 
-**Notifications** | Pointer to [**map[string]interface{}**](.md) | 
+**Limits** | Pointer to **map[string]interface{}** | 
+**Links** | Pointer to **map[string]interface{}** | 
+**Media** | Pointer to **map[string]interface{}** | 
+**Notifications** | Pointer to **map[string]interface{}** | 
 **PostWebhookRetryCount** | Pointer to **int32** | 
 **PostWebhookUrl** | Pointer to **string** | 
 **PreWebhookRetryCount** | Pointer to **int32** | 

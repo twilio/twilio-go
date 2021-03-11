@@ -17,7 +17,7 @@ Name | Type | Notes
 **StatusCallbackMethod** | Pointer to [**HttpMethod**](http_method.md) | 
 **Trim** | Pointer to **bool** | 
 **Url** | Pointer to **string** | 
-**VideoLayout** | Pointer to [**map[string]interface{}**](.md) | 
+**VideoLayout** | Pointer to **map[string]interface{}** | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

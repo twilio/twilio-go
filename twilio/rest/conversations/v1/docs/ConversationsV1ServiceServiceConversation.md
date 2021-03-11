@@ -9,11 +9,11 @@ Name | Type | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | 
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | 
 **FriendlyName** | Pointer to **string** | 
-**Links** | Pointer to [**map[string]interface{}**](.md) | 
+**Links** | Pointer to **map[string]interface{}** | 
 **MessagingServiceSid** | Pointer to **string** | 
 **Sid** | Pointer to **string** | 
 **State** | Pointer to [**ServiceConversationState**](service_conversation_state.md) | 
-**Timers** | Pointer to [**map[string]interface{}**](.md) | 
+**Timers** | Pointer to **map[string]interface{}** | 
 **UniqueName** | Pointer to **string** | 
 **Url** | Pointer to **string** | 
 

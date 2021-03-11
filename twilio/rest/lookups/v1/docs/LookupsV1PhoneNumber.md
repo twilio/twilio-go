@@ -3,9 +3,9 @@
 ## Properties
 Name | Type | Notes
 ------------ | ------------- | -------------
-**AddOns** | Pointer to [**map[string]interface{}**](.md) | 
-**CallerName** | Pointer to [**map[string]interface{}**](.md) | 
-**Carrier** | Pointer to [**map[string]interface{}**](.md) | 
+**AddOns** | Pointer to **map[string]interface{}** | 
+**CallerName** | Pointer to **map[string]interface{}** | 
+**Carrier** | Pointer to **map[string]interface{}** | 
 **CountryCode** | Pointer to **string** | 
 **NationalFormat** | Pointer to **string** | 
 **PhoneNumber** | Pointer to **string** | 
