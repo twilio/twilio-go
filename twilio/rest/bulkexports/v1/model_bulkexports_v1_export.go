@@ -13,7 +13,10 @@ package openapi
 
 // BulkexportsV1Export struct for BulkexportsV1Export
 type BulkexportsV1Export struct {
-	Links        *map[string]interface{} `json:"Links,omitempty"`
-	ResourceType *string                 `json:"ResourceType,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
+	// Nested resource URLs.
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The type of communication – Messages, Calls, Conferences, and Participants
+	ResourceType *string `json:"ResourceType,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"Url,omitempty"`
 }

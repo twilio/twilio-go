@@ -17,16 +17,27 @@ import (
 
 // ProxyV1ServicePhoneNumber struct for ProxyV1ServicePhoneNumber
 type ProxyV1ServicePhoneNumber struct {
-	AccountSid   *string                  `json:"AccountSid,omitempty"`
-	Capabilities *PhoneNumberCapabilities `json:"Capabilities,omitempty"`
-	DateCreated  *time.Time               `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time               `json:"DateUpdated,omitempty"`
-	FriendlyName *string                  `json:"FriendlyName,omitempty"`
-	InUse        *int32                   `json:"InUse,omitempty"`
-	IsReserved   *bool                    `json:"IsReserved,omitempty"`
-	IsoCountry   *string                  `json:"IsoCountry,omitempty"`
-	PhoneNumber  *string                  `json:"PhoneNumber,omitempty"`
-	ServiceSid   *string                  `json:"ServiceSid,omitempty"`
-	Sid          *string                  `json:"Sid,omitempty"`
-	Url          *string                  `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid   *string                                `json:"AccountSid,omitempty"`
+	Capabilities *ProxyV1ServicePhoneNumberCapabilities `json:"Capabilities,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The number of open session assigned to the number.
+	InUse *int32 `json:"InUse,omitempty"`
+	// Reserve the phone number for manual assignment to participants only
+	IsReserved *bool `json:"IsReserved,omitempty"`
+	// The ISO Country Code
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	// The phone number in E.164 format
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The SID of the PhoneNumber resource's parent Service resource
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the PhoneNumber resource
+	Url *string `json:"Url,omitempty"`
 }

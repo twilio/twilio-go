@@ -17,22 +17,40 @@ import (
 
 // FaxV1Fax struct for FaxV1Fax
 type FaxV1Fax struct {
-	AccountSid  *string                 `json:"AccountSid,omitempty"`
-	ApiVersion  *string                 `json:"ApiVersion,omitempty"`
-	DateCreated *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated *time.Time              `json:"DateUpdated,omitempty"`
-	Direction   *FaxDirection           `json:"Direction,omitempty"`
-	Duration    *int32                  `json:"Duration,omitempty"`
-	From        *string                 `json:"From,omitempty"`
-	Links       *map[string]interface{} `json:"Links,omitempty"`
-	MediaSid    *string                 `json:"MediaSid,omitempty"`
-	MediaUrl    *string                 `json:"MediaUrl,omitempty"`
-	NumPages    *int32                  `json:"NumPages,omitempty"`
-	Price       *float32                `json:"Price,omitempty"`
-	PriceUnit   *string                 `json:"PriceUnit,omitempty"`
-	Quality     *FaxQuality             `json:"Quality,omitempty"`
-	Sid         *string                 `json:"Sid,omitempty"`
-	Status      *FaxStatus              `json:"Status,omitempty"`
-	To          *string                 `json:"To,omitempty"`
-	Url         *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The API version used to transmit the fax
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The ISO 8601 formatted date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 formatted date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The direction of the fax
+	Direction *string `json:"Direction,omitempty"`
+	// The time it took to transmit the fax
+	Duration *int32 `json:"Duration,omitempty"`
+	// The number the fax was sent from
+	From *string `json:"From,omitempty"`
+	// The URLs of the fax's related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The SID of the FaxMedia resource that is associated with the Fax
+	MediaSid *string `json:"MediaSid,omitempty"`
+	// The Twilio-hosted URL that can be used to download fax media
+	MediaUrl *string `json:"MediaUrl,omitempty"`
+	// The number of pages contained in the fax document
+	NumPages *int32 `json:"NumPages,omitempty"`
+	// The fax transmission price
+	Price *float32 `json:"Price,omitempty"`
+	// The ISO 4217 currency used for billing
+	PriceUnit *string `json:"PriceUnit,omitempty"`
+	// The quality of the fax
+	Quality *string `json:"Quality,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the fax
+	Status *string `json:"Status,omitempty"`
+	// The phone number that received the fax
+	To *string `json:"To,omitempty"`
+	// The absolute URL of the fax resource
+	Url *string `json:"Url,omitempty"`
 }

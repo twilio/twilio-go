@@ -17,16 +17,28 @@ import (
 
 // ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt struct for ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt
 type ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt struct {
-	AccountSid        *string                                          `json:"AccountSid,omitempty"`
-	ChannelMessageSid *string                                          `json:"ChannelMessageSid,omitempty"`
-	ChatServiceSid    *string                                          `json:"ChatServiceSid,omitempty"`
-	ConversationSid   *string                                          `json:"ConversationSid,omitempty"`
-	DateCreated       *time.Time                                       `json:"DateCreated,omitempty"`
-	DateUpdated       *time.Time                                       `json:"DateUpdated,omitempty"`
-	ErrorCode         *int32                                           `json:"ErrorCode,omitempty"`
-	MessageSid        *string                                          `json:"MessageSid,omitempty"`
-	ParticipantSid    *string                                          `json:"ParticipantSid,omitempty"`
-	Sid               *string                                          `json:"Sid,omitempty"`
-	Status            *ServiceConversationMessageReceiptDeliveryStatus `json:"Status,omitempty"`
-	Url               *string                                          `json:"Url,omitempty"`
+	// The unique ID of the Account responsible for this participant.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// A messaging channel-specific identifier for the message delivered to participant
+	ChannelMessageSid *string `json:"ChannelMessageSid,omitempty"`
+	// The SID of the Conversation Service that the resource is associated with.
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	// The unique ID of the Conversation for this message.
+	ConversationSid *string `json:"ConversationSid,omitempty"`
+	// The date that this resource was created.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date that this resource was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
+	ErrorCode *int32 `json:"ErrorCode,omitempty"`
+	// The SID of the message the delivery receipt belongs to
+	MessageSid *string `json:"MessageSid,omitempty"`
+	// The unique ID of the participant the delivery receipt belongs to.
+	ParticipantSid *string `json:"ParticipantSid,omitempty"`
+	// A 34 character string that uniquely identifies this resource.
+	Sid *string `json:"Sid,omitempty"`
+	// The message delivery status
+	Status *string `json:"Status,omitempty"`
+	// An absolute URL for this delivery receipt.
+	Url *string `json:"Url,omitempty"`
 }

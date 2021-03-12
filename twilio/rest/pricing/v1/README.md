@@ -42,22 +42,25 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [InboundCallPrice](docs/InboundCallPrice.md)
  - [ListMessagingCountryResponse](docs/ListMessagingCountryResponse.md)
  - [ListMessagingCountryResponseMeta](docs/ListMessagingCountryResponseMeta.md)
  - [ListPhoneNumberCountryResponse](docs/ListPhoneNumberCountryResponse.md)
  - [ListVoiceCountryResponse](docs/ListVoiceCountryResponse.md)
- - [OutboundCallPrice](docs/OutboundCallPrice.md)
  - [PricingV1Messaging](docs/PricingV1Messaging.md)
  - [PricingV1MessagingMessagingCountry](docs/PricingV1MessagingMessagingCountry.md)
  - [PricingV1MessagingMessagingCountryInstance](docs/PricingV1MessagingMessagingCountryInstance.md)
+ - [PricingV1MessagingMessagingCountryInstanceInboundSmsPrices](docs/PricingV1MessagingMessagingCountryInstanceInboundSmsPrices.md)
+ - [PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices](docs/PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices.md)
  - [PricingV1PhoneNumber](docs/PricingV1PhoneNumber.md)
  - [PricingV1PhoneNumberPhoneNumberCountry](docs/PricingV1PhoneNumberPhoneNumberCountry.md)
  - [PricingV1PhoneNumberPhoneNumberCountryInstance](docs/PricingV1PhoneNumberPhoneNumberCountryInstance.md)
  - [PricingV1Voice](docs/PricingV1Voice.md)
  - [PricingV1VoiceVoiceCountry](docs/PricingV1VoiceVoiceCountry.md)
  - [PricingV1VoiceVoiceCountryInstance](docs/PricingV1VoiceVoiceCountryInstance.md)
+ - [PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices](docs/PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices.md)
  - [PricingV1VoiceVoiceNumber](docs/PricingV1VoiceVoiceNumber.md)
+ - [PricingV1VoiceVoiceNumberInboundCallPrice](docs/PricingV1VoiceVoiceNumberInboundCallPrice.md)
+ - [PricingV1VoiceVoiceNumberOutboundCallPrice](docs/PricingV1VoiceVoiceNumberOutboundCallPrice.md)
 
 
 ## Documentation For Authorization

@@ -17,11 +17,18 @@ import (
 
 // FaxV1FaxFaxMedia struct for FaxV1FaxFaxMedia
 type FaxV1FaxFaxMedia struct {
-	AccountSid  *string    `json:"AccountSid,omitempty"`
-	ContentType *string    `json:"ContentType,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The content type of the stored fax media
+	ContentType *string `json:"ContentType,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-	FaxSid      *string    `json:"FaxSid,omitempty"`
-	Sid         *string    `json:"Sid,omitempty"`
-	Url         *string    `json:"Url,omitempty"`
+	// The SID of the fax the FaxMedia resource is associated with
+	FaxSid *string `json:"FaxSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the FaxMedia resource
+	Url *string `json:"Url,omitempty"`
 }

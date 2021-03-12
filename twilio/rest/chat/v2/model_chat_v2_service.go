@@ -17,27 +17,50 @@ import (
 
 // ChatV2Service struct for ChatV2Service
 type ChatV2Service struct {
-	AccountSid                   *string                 `json:"AccountSid,omitempty"`
-	ConsumptionReportInterval    *int32                  `json:"ConsumptionReportInterval,omitempty"`
-	DateCreated                  *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated                  *time.Time              `json:"DateUpdated,omitempty"`
-	DefaultChannelCreatorRoleSid *string                 `json:"DefaultChannelCreatorRoleSid,omitempty"`
-	DefaultChannelRoleSid        *string                 `json:"DefaultChannelRoleSid,omitempty"`
-	DefaultServiceRoleSid        *string                 `json:"DefaultServiceRoleSid,omitempty"`
-	FriendlyName                 *string                 `json:"FriendlyName,omitempty"`
-	Limits                       *map[string]interface{} `json:"Limits,omitempty"`
-	Links                        *map[string]interface{} `json:"Links,omitempty"`
-	Media                        *map[string]interface{} `json:"Media,omitempty"`
-	Notifications                *map[string]interface{} `json:"Notifications,omitempty"`
-	PostWebhookRetryCount        *int32                  `json:"PostWebhookRetryCount,omitempty"`
-	PostWebhookUrl               *string                 `json:"PostWebhookUrl,omitempty"`
-	PreWebhookRetryCount         *int32                  `json:"PreWebhookRetryCount,omitempty"`
-	PreWebhookUrl                *string                 `json:"PreWebhookUrl,omitempty"`
-	ReachabilityEnabled          *bool                   `json:"ReachabilityEnabled,omitempty"`
-	ReadStatusEnabled            *bool                   `json:"ReadStatusEnabled,omitempty"`
-	Sid                          *string                 `json:"Sid,omitempty"`
-	TypingIndicatorTimeout       *int32                  `json:"TypingIndicatorTimeout,omitempty"`
-	Url                          *string                 `json:"Url,omitempty"`
-	WebhookFilters               *[]string               `json:"WebhookFilters,omitempty"`
-	WebhookMethod                *string                 `json:"WebhookMethod,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// DEPRECATED
+	ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The channel role assigned to a channel creator when they join a new channel
+	DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
+	// The channel role assigned to users when they are added to a channel
+	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
+	// The service role assigned to users when they are added to the service
+	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An object that describes the limits of the service instance
+	Limits *map[string]interface{} `json:"Limits,omitempty"`
+	// The absolute URLs of the Service's Channels, Roles, and Users
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The properties of the media that the service supports
+	Media *map[string]interface{} `json:"Media,omitempty"`
+	// The notification configuration for the Service instance
+	Notifications *map[string]interface{} `json:"Notifications,omitempty"`
+	// The number of times calls to the `post_webhook_url` will be retried
+	PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
+	// The URL for post-event webhooks
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
+	// Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses
+	PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
+	// The webhook URL for pre-event webhooks
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	// Whether the Reachability Indicator feature is enabled for this Service instance
+	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
+	// Whether the Message Consumption Horizon feature is enabled
+	ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// How long in seconds to wait before assuming the user is no longer typing
+	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
+	// The absolute URL of the Service resource
+	Url *string `json:"Url,omitempty"`
+	// The list of webhook events that are enabled for this Service instance
+	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
+	// The HTTP method  to use for both PRE and POST webhooks
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 }

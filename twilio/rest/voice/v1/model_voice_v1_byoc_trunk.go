@@ -17,19 +17,34 @@ import (
 
 // VoiceV1ByocTrunk struct for VoiceV1ByocTrunk
 type VoiceV1ByocTrunk struct {
-	AccountSid           *string     `json:"AccountSid,omitempty"`
-	CnamLookupEnabled    *bool       `json:"CnamLookupEnabled,omitempty"`
-	ConnectionPolicySid  *string     `json:"ConnectionPolicySid,omitempty"`
-	DateCreated          *time.Time  `json:"DateCreated,omitempty"`
-	DateUpdated          *time.Time  `json:"DateUpdated,omitempty"`
-	FriendlyName         *string     `json:"FriendlyName,omitempty"`
-	FromDomainSid        *string     `json:"FromDomainSid,omitempty"`
-	Sid                  *string     `json:"Sid,omitempty"`
-	StatusCallbackMethod *HttpMethod `json:"StatusCallbackMethod,omitempty"`
-	StatusCallbackUrl    *string     `json:"StatusCallbackUrl,omitempty"`
-	Url                  *string     `json:"Url,omitempty"`
-	VoiceFallbackMethod  *HttpMethod `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl     *string     `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod          *HttpMethod `json:"VoiceMethod,omitempty"`
-	VoiceUrl             *string     `json:"VoiceUrl,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// Whether Caller ID Name (CNAM) lookup is enabled for the trunk
+	CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
+	// Origination Connection Policy (to your Carrier)
+	ConnectionPolicySid *string `json:"ConnectionPolicySid,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID of the SIP Domain that should be used in the `From` header of originating calls
+	FromDomainSid *string `json:"FromDomainSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The HTTP method we use to call status_callback_url
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The URL that we call with status updates
+	StatusCallbackUrl *string `json:"StatusCallbackUrl,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
+	// The HTTP method used with voice_fallback_url
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL we call when an error occurs while executing TwiML
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method to use with voice_url
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The URL we call when receiving a call
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }

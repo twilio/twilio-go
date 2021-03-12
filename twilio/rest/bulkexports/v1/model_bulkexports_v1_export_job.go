@@ -13,14 +13,23 @@ package openapi
 
 // BulkexportsV1ExportJob struct for BulkexportsV1ExportJob
 type BulkexportsV1ExportJob struct {
-	Details       *map[string]interface{} `json:"Details,omitempty"`
-	Email         *string                 `json:"Email,omitempty"`
-	EndDay        *string                 `json:"EndDay,omitempty"`
-	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
-	JobSid        *string                 `json:"JobSid,omitempty"`
-	ResourceType  *string                 `json:"ResourceType,omitempty"`
-	StartDay      *string                 `json:"StartDay,omitempty"`
-	Url           *string                 `json:"Url,omitempty"`
-	WebhookMethod *string                 `json:"WebhookMethod,omitempty"`
-	WebhookUrl    *string                 `json:"WebhookUrl,omitempty"`
+	// This is a list of the completed, pending, or errored dates within the export time range, with one entry for each status with more than one day in that status
+	Details *map[string]interface{} `json:"Details,omitempty"`
+	// The optional email to send the completion notification to
+	Email *string `json:"Email,omitempty"`
+	// The end time for the export specified when creating the job
+	EndDay *string `json:"EndDay,omitempty"`
+	// The friendly name specified when creating the job
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The job_sid returned when the export was created
+	JobSid *string `json:"JobSid,omitempty"`
+	// The type of communication – Messages, Calls, Conferences, and Participants
+	ResourceType *string `json:"ResourceType,omitempty"`
+	// The start time for the export specified when creating the job
+	StartDay *string `json:"StartDay,omitempty"`
+	Url      *string `json:"Url,omitempty"`
+	// This is the method used to call the webhook
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	// The optional webhook url called on completion
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }

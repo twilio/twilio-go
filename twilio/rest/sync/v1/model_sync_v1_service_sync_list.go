@@ -17,15 +17,26 @@ import (
 
 // SyncV1ServiceSyncList struct for SyncV1ServiceSyncList
 type SyncV1ServiceSyncList struct {
-	AccountSid  *string                 `json:"AccountSid,omitempty"`
-	CreatedBy   *string                 `json:"CreatedBy,omitempty"`
-	DateCreated *time.Time              `json:"DateCreated,omitempty"`
-	DateExpires *time.Time              `json:"DateExpires,omitempty"`
-	DateUpdated *time.Time              `json:"DateUpdated,omitempty"`
-	Links       *map[string]interface{} `json:"Links,omitempty"`
-	Revision    *string                 `json:"Revision,omitempty"`
-	ServiceSid  *string                 `json:"ServiceSid,omitempty"`
-	Sid         *string                 `json:"Sid,omitempty"`
-	UniqueName  *string                 `json:"UniqueName,omitempty"`
-	Url         *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The identity of the Sync List's creator
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Sync List expires
+	DateExpires *time.Time `json:"DateExpires,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The URLs of the Sync List's nested resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The current revision of the Sync List, represented as a string
+	Revision *string `json:"Revision,omitempty"`
+	// The SID of the Sync Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the Sync List resource
+	Url *string `json:"Url,omitempty"`
 }

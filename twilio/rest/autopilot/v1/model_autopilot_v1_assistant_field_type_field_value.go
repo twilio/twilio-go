@@ -17,14 +17,24 @@ import (
 
 // AutopilotV1AssistantFieldTypeFieldValue struct for AutopilotV1AssistantFieldTypeFieldValue
 type AutopilotV1AssistantFieldTypeFieldValue struct {
-	AccountSid   *string    `json:"AccountSid,omitempty"`
-	AssistantSid *string    `json:"AssistantSid,omitempty"`
-	DateCreated  *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time `json:"DateUpdated,omitempty"`
-	FieldTypeSid *string    `json:"FieldTypeSid,omitempty"`
-	Language     *string    `json:"Language,omitempty"`
-	Sid          *string    `json:"Sid,omitempty"`
-	SynonymOf    *string    `json:"SynonymOf,omitempty"`
-	Url          *string    `json:"Url,omitempty"`
-	Value        *string    `json:"Value,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Assistant that is the parent of the FieldType associated with the resource
+	AssistantSid *string `json:"AssistantSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Field Type associated with the Field Value
+	FieldTypeSid *string `json:"FieldTypeSid,omitempty"`
+	// The ISO language-country tag that identifies the language of the value
+	Language *string `json:"Language,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The word for which the field value is a synonym of
+	SynonymOf *string `json:"SynonymOf,omitempty"`
+	// The absolute URL of the FieldValue resource
+	Url *string `json:"Url,omitempty"`
+	// The Field Value data
+	Value *string `json:"Value,omitempty"`
 }

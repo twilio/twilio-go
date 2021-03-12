@@ -17,15 +17,26 @@ import (
 
 // TrunkingV1TrunkOriginationUrl struct for TrunkingV1TrunkOriginationUrl
 type TrunkingV1TrunkOriginationUrl struct {
-	AccountSid   *string    `json:"AccountSid,omitempty"`
-	DateCreated  *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time `json:"DateUpdated,omitempty"`
-	Enabled      *bool      `json:"Enabled,omitempty"`
-	FriendlyName *string    `json:"FriendlyName,omitempty"`
-	Priority     *int32     `json:"Priority,omitempty"`
-	Sid          *string    `json:"Sid,omitempty"`
-	SipUrl       *string    `json:"SipUrl,omitempty"`
-	TrunkSid     *string    `json:"TrunkSid,omitempty"`
-	Url          *string    `json:"Url,omitempty"`
-	Weight       *int32     `json:"Weight,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Whether the URL is enabled
+	Enabled *bool `json:"Enabled,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The relative importance of the URI
+	Priority *int32 `json:"Priority,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The SIP address you want Twilio to route your Origination calls to
+	SipUrl *string `json:"SipUrl,omitempty"`
+	// The SID of the Trunk that owns the Origination URL
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
+	// The value that determines the relative load the URI should receive compared to others with the same priority
+	Weight *int32 `json:"Weight,omitempty"`
 }

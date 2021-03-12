@@ -17,18 +17,32 @@ import (
 
 // ChatV1ServiceChannel struct for ChatV1ServiceChannel
 type ChatV1ServiceChannel struct {
-	AccountSid    *string                 `json:"AccountSid,omitempty"`
-	Attributes    *string                 `json:"Attributes,omitempty"`
-	CreatedBy     *string                 `json:"CreatedBy,omitempty"`
-	DateCreated   *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated   *time.Time              `json:"DateUpdated,omitempty"`
-	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
-	Links         *map[string]interface{} `json:"Links,omitempty"`
-	MembersCount  *int32                  `json:"MembersCount,omitempty"`
-	MessagesCount *int32                  `json:"MessagesCount,omitempty"`
-	ServiceSid    *string                 `json:"ServiceSid,omitempty"`
-	Sid           *string                 `json:"Sid,omitempty"`
-	Type          *ChannelChannelType     `json:"Type,omitempty"`
-	UniqueName    *string                 `json:"UniqueName,omitempty"`
-	Url           *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The JSON string that stores application-specific data
+	Attributes *string `json:"Attributes,omitempty"`
+	// The identity of the User that created the channel
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The number of Members in the Channel
+	MembersCount *int32 `json:"MembersCount,omitempty"`
+	// The number of Messages in the Channel
+	MessagesCount *int32 `json:"MessagesCount,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The visibility of the channel. Can be: `public` or `private`
+	Type *string `json:"Type,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the Channel resource
+	Url *string `json:"Url,omitempty"`
 }

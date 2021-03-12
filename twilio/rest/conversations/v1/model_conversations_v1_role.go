@@ -17,13 +17,22 @@ import (
 
 // ConversationsV1Role struct for ConversationsV1Role
 type ConversationsV1Role struct {
-	AccountSid     *string       `json:"AccountSid,omitempty"`
-	ChatServiceSid *string       `json:"ChatServiceSid,omitempty"`
-	DateCreated    *time.Time    `json:"DateCreated,omitempty"`
-	DateUpdated    *time.Time    `json:"DateUpdated,omitempty"`
-	FriendlyName   *string       `json:"FriendlyName,omitempty"`
-	Permissions    *[]string     `json:"Permissions,omitempty"`
-	Sid            *string       `json:"Sid,omitempty"`
-	Type           *RoleRoleType `json:"Type,omitempty"`
-	Url            *string       `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Conversation Service that the resource is associated with
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An array of the permissions the role has been granted
+	Permissions *[]string `json:"Permissions,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The type of role
+	Type *string `json:"Type,omitempty"`
+	// An absolute URL for this user role.
+	Url *string `json:"Url,omitempty"`
 }

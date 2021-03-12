@@ -63,9 +63,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [BundleStatus](docs/BundleStatus.md)
- - [EndUserType](docs/EndUserType.md)
- - [EvaluationStatus](docs/EvaluationStatus.md)
  - [ListBundleResponse](docs/ListBundleResponse.md)
  - [ListBundleResponseMeta](docs/ListBundleResponseMeta.md)
  - [ListEndUserResponse](docs/ListEndUserResponse.md)
@@ -83,8 +80,6 @@ Class | Method | HTTP request | Description
  - [NumbersV2RegulatoryComplianceRegulation](docs/NumbersV2RegulatoryComplianceRegulation.md)
  - [NumbersV2RegulatoryComplianceSupportingDocument](docs/NumbersV2RegulatoryComplianceSupportingDocument.md)
  - [NumbersV2RegulatoryComplianceSupportingDocumentType](docs/NumbersV2RegulatoryComplianceSupportingDocumentType.md)
- - [RegulationEndUserType](docs/RegulationEndUserType.md)
- - [SupportingDocumentStatus](docs/SupportingDocumentStatus.md)
 
 
 ## Documentation For Authorization

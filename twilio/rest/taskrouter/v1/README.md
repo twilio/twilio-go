@@ -108,9 +108,6 @@ Class | Method | HTTP request | Description
  - [ListWorkflowResponse](docs/ListWorkflowResponse.md)
  - [ListWorkspaceResponse](docs/ListWorkspaceResponse.md)
  - [ListWorkspaceResponseMeta](docs/ListWorkspaceResponseMeta.md)
- - [TaskQueueTaskOrder](docs/TaskQueueTaskOrder.md)
- - [TaskReservationStatus](docs/TaskReservationStatus.md)
- - [TaskStatus](docs/TaskStatus.md)
  - [TaskrouterV1Workspace](docs/TaskrouterV1Workspace.md)
  - [TaskrouterV1WorkspaceActivity](docs/TaskrouterV1WorkspaceActivity.md)
  - [TaskrouterV1WorkspaceEvent](docs/TaskrouterV1WorkspaceEvent.md)
@@ -136,8 +133,6 @@ Class | Method | HTTP request | Description
  - [TaskrouterV1WorkspaceWorkspaceCumulativeStatistics](docs/TaskrouterV1WorkspaceWorkspaceCumulativeStatistics.md)
  - [TaskrouterV1WorkspaceWorkspaceRealTimeStatistics](docs/TaskrouterV1WorkspaceWorkspaceRealTimeStatistics.md)
  - [TaskrouterV1WorkspaceWorkspaceStatistics](docs/TaskrouterV1WorkspaceWorkspaceStatistics.md)
- - [WorkerReservationStatus](docs/WorkerReservationStatus.md)
- - [WorkspaceQueueOrder](docs/WorkspaceQueueOrder.md)
 
 
 ## Documentation For Authorization

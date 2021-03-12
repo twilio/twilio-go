@@ -13,24 +13,44 @@ package openapi
 
 // ApiV2010AccountMessage struct for ApiV2010AccountMessage
 type ApiV2010AccountMessage struct {
-	AccountSid          *string                 `json:"AccountSid,omitempty"`
-	ApiVersion          *string                 `json:"ApiVersion,omitempty"`
-	Body                *string                 `json:"Body,omitempty"`
-	DateCreated         *string                 `json:"DateCreated,omitempty"`
-	DateSent            *string                 `json:"DateSent,omitempty"`
-	DateUpdated         *string                 `json:"DateUpdated,omitempty"`
-	Direction           *MessageDirection       `json:"Direction,omitempty"`
-	ErrorCode           *int32                  `json:"ErrorCode,omitempty"`
-	ErrorMessage        *string                 `json:"ErrorMessage,omitempty"`
-	From                *string                 `json:"From,omitempty"`
-	MessagingServiceSid *string                 `json:"MessagingServiceSid,omitempty"`
-	NumMedia            *string                 `json:"NumMedia,omitempty"`
-	NumSegments         *string                 `json:"NumSegments,omitempty"`
-	Price               *string                 `json:"Price,omitempty"`
-	PriceUnit           *string                 `json:"PriceUnit,omitempty"`
-	Sid                 *string                 `json:"Sid,omitempty"`
-	Status              *MessageStatus          `json:"Status,omitempty"`
-	SubresourceUris     *map[string]interface{} `json:"SubresourceUris,omitempty"`
-	To                  *string                 `json:"To,omitempty"`
-	Uri                 *string                 `json:"Uri,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The API version used to process the message
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The message text
+	Body *string `json:"Body,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the message was sent
+	DateSent *string `json:"DateSent,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// The direction of the message
+	Direction *string `json:"Direction,omitempty"`
+	// The error code associated with the message
+	ErrorCode *int32 `json:"ErrorCode,omitempty"`
+	// The description of the error_code
+	ErrorMessage *string `json:"ErrorMessage,omitempty"`
+	// The phone number that initiated the message
+	From *string `json:"From,omitempty"`
+	// The SID of the Messaging Service used with the message.
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	// The number of media files associated with the message
+	NumMedia *string `json:"NumMedia,omitempty"`
+	// The number of messages used to deliver the message body
+	NumSegments *string `json:"NumSegments,omitempty"`
+	// The amount billed for the message
+	Price *string `json:"Price,omitempty"`
+	// The currency in which price is measured
+	PriceUnit *string `json:"PriceUnit,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the message
+	Status *string `json:"Status,omitempty"`
+	// A list of related resources identified by their relative URIs
+	SubresourceUris *map[string]interface{} `json:"SubresourceUris,omitempty"`
+	// The phone number that received the message
+	To *string `json:"To,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
 }

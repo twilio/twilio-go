@@ -17,13 +17,22 @@ import (
 
 // VideoV1RoomRoomParticipantRoomParticipantPublishedTrack struct for VideoV1RoomRoomParticipantRoomParticipantPublishedTrack
 type VideoV1RoomRoomParticipantRoomParticipantPublishedTrack struct {
-	DateCreated    *time.Time                         `json:"DateCreated,omitempty"`
-	DateUpdated    *time.Time                         `json:"DateUpdated,omitempty"`
-	Enabled        *bool                              `json:"Enabled,omitempty"`
-	Kind           *RoomParticipantPublishedTrackKind `json:"Kind,omitempty"`
-	Name           *string                            `json:"Name,omitempty"`
-	ParticipantSid *string                            `json:"ParticipantSid,omitempty"`
-	RoomSid        *string                            `json:"RoomSid,omitempty"`
-	Sid            *string                            `json:"Sid,omitempty"`
-	Url            *string                            `json:"Url,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Whether the track is enabled
+	Enabled *bool `json:"Enabled,omitempty"`
+	// The track type
+	Kind *string `json:"Kind,omitempty"`
+	// The track name
+	Name *string `json:"Name,omitempty"`
+	// The SID of the Participant resource with the published track
+	ParticipantSid *string `json:"ParticipantSid,omitempty"`
+	// The SID of the Room resource where the track is published
+	RoomSid *string `json:"RoomSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

@@ -20,8 +20,8 @@ type InsightsV1CallSummary struct {
 	AccountSid      *string                 `json:"AccountSid,omitempty"`
 	Attributes      *map[string]interface{} `json:"Attributes,omitempty"`
 	CallSid         *string                 `json:"CallSid,omitempty"`
-	CallState       *SummaryCallState       `json:"CallState,omitempty"`
-	CallType        *SummaryCallType        `json:"CallType,omitempty"`
+	CallState       *string                 `json:"CallState,omitempty"`
+	CallType        *string                 `json:"CallType,omitempty"`
 	CarrierEdge     *map[string]interface{} `json:"CarrierEdge,omitempty"`
 	ClientEdge      *map[string]interface{} `json:"ClientEdge,omitempty"`
 	ConnectDuration *int32                  `json:"ConnectDuration,omitempty"`
@@ -29,7 +29,7 @@ type InsightsV1CallSummary struct {
 	Duration        *int32                  `json:"Duration,omitempty"`
 	EndTime         *time.Time              `json:"EndTime,omitempty"`
 	From            *map[string]interface{} `json:"From,omitempty"`
-	ProcessingState *SummaryProcessingState `json:"ProcessingState,omitempty"`
+	ProcessingState *string                 `json:"ProcessingState,omitempty"`
 	Properties      *map[string]interface{} `json:"Properties,omitempty"`
 	SdkEdge         *map[string]interface{} `json:"SdkEdge,omitempty"`
 	SipEdge         *map[string]interface{} `json:"SipEdge,omitempty"`

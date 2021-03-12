@@ -13,14 +13,24 @@ package openapi
 
 // ApiV2010AccountAuthorizedConnectApp struct for ApiV2010AccountAuthorizedConnectApp
 type ApiV2010AccountAuthorizedConnectApp struct {
-	AccountSid             *string   `json:"AccountSid,omitempty"`
-	ConnectAppCompanyName  *string   `json:"ConnectAppCompanyName,omitempty"`
-	ConnectAppDescription  *string   `json:"ConnectAppDescription,omitempty"`
-	ConnectAppFriendlyName *string   `json:"ConnectAppFriendlyName,omitempty"`
-	ConnectAppHomepageUrl  *string   `json:"ConnectAppHomepageUrl,omitempty"`
-	ConnectAppSid          *string   `json:"ConnectAppSid,omitempty"`
-	DateCreated            *string   `json:"DateCreated,omitempty"`
-	DateUpdated            *string   `json:"DateUpdated,omitempty"`
-	Permissions            *[]string `json:"Permissions,omitempty"`
-	Uri                    *string   `json:"Uri,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The company name set for the Connect App
+	ConnectAppCompanyName *string `json:"ConnectAppCompanyName,omitempty"`
+	// A detailed description of the app
+	ConnectAppDescription *string `json:"ConnectAppDescription,omitempty"`
+	// The name of the Connect App
+	ConnectAppFriendlyName *string `json:"ConnectAppFriendlyName,omitempty"`
+	// The public URL for the Connect App
+	ConnectAppHomepageUrl *string `json:"ConnectAppHomepageUrl,omitempty"`
+	// The SID that we assigned to the Connect App
+	ConnectAppSid *string `json:"ConnectAppSid,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// Permissions authorized to the app
+	Permissions *[]string `json:"Permissions,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
 }

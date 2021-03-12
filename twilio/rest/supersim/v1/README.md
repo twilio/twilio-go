@@ -56,10 +56,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CommandDirection](docs/CommandDirection.md)
- - [CommandStatus](docs/CommandStatus.md)
- - [FleetDataMetering](docs/FleetDataMetering.md)
- - [HttpMethod](docs/HttpMethod.md)
  - [ListCommandResponse](docs/ListCommandResponse.md)
  - [ListCommandResponseMeta](docs/ListCommandResponseMeta.md)
  - [ListFleetResponse](docs/ListFleetResponse.md)
@@ -68,7 +64,6 @@ Class | Method | HTTP request | Description
  - [ListNetworkResponse](docs/ListNetworkResponse.md)
  - [ListSimResponse](docs/ListSimResponse.md)
  - [ListUsageRecordResponse](docs/ListUsageRecordResponse.md)
- - [SimStatus](docs/SimStatus.md)
  - [SupersimV1Command](docs/SupersimV1Command.md)
  - [SupersimV1Fleet](docs/SupersimV1Fleet.md)
  - [SupersimV1Network](docs/SupersimV1Network.md)

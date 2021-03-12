@@ -17,14 +17,24 @@ import (
 
 // TrusthubV1SupportingDocument struct for TrusthubV1SupportingDocument
 type TrusthubV1SupportingDocument struct {
-	AccountSid   *string                   `json:"AccountSid,omitempty"`
-	Attributes   *map[string]interface{}   `json:"Attributes,omitempty"`
-	DateCreated  *time.Time                `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time                `json:"DateUpdated,omitempty"`
-	FriendlyName *string                   `json:"FriendlyName,omitempty"`
-	MimeType     *string                   `json:"MimeType,omitempty"`
-	Sid          *string                   `json:"Sid,omitempty"`
-	Status       *SupportingDocumentStatus `json:"Status,omitempty"`
-	Type         *string                   `json:"Type,omitempty"`
-	Url          *string                   `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The set of parameters that compose the Supporting Documents resource
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The image type of the file
+	MimeType *string `json:"MimeType,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The verification status of the Supporting Document resource
+	Status *string `json:"Status,omitempty"`
+	// The type of the Supporting Document
+	Type *string `json:"Type,omitempty"`
+	// The absolute URL of the Supporting Document resource
+	Url *string `json:"Url,omitempty"`
 }

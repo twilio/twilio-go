@@ -17,12 +17,18 @@ import (
 
 // TrusthubV1TrustProductTrustProductEvaluation struct for TrusthubV1TrustProductTrustProductEvaluation
 type TrusthubV1TrustProductTrustProductEvaluation struct {
-	AccountSid      *string                       `json:"AccountSid,omitempty"`
-	DateCreated     *time.Time                    `json:"DateCreated,omitempty"`
-	PolicySid       *string                       `json:"PolicySid,omitempty"`
-	Results         *[]map[string]interface{}     `json:"Results,omitempty"`
-	Sid             *string                       `json:"Sid,omitempty"`
-	Status          *TrustProductEvaluationStatus `json:"Status,omitempty"`
-	TrustProductSid *string                       `json:"TrustProductSid,omitempty"`
-	Url             *string                       `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid  *string    `json:"AccountSid,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The unique string of a policy
+	PolicySid *string `json:"PolicySid,omitempty"`
+	// The results of the Evaluation resource
+	Results *[]map[string]interface{} `json:"Results,omitempty"`
+	// The unique string that identifies the Evaluation resource
+	Sid *string `json:"Sid,omitempty"`
+	// The compliance status of the Evaluation resource
+	Status *string `json:"Status,omitempty"`
+	// The unique string that identifies the resource
+	TrustProductSid *string `json:"TrustProductSid,omitempty"`
+	Url             *string `json:"Url,omitempty"`
 }

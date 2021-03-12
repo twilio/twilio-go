@@ -17,13 +17,22 @@ import (
 
 // MessagingV1ServicePhoneNumber struct for MessagingV1ServicePhoneNumber
 type MessagingV1ServicePhoneNumber struct {
-	AccountSid   *string    `json:"AccountSid,omitempty"`
-	Capabilities *[]string  `json:"Capabilities,omitempty"`
-	CountryCode  *string    `json:"CountryCode,omitempty"`
-	DateCreated  *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time `json:"DateUpdated,omitempty"`
-	PhoneNumber  *string    `json:"PhoneNumber,omitempty"`
-	ServiceSid   *string    `json:"ServiceSid,omitempty"`
-	Sid          *string    `json:"Sid,omitempty"`
-	Url          *string    `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// An array of values that describe whether the number can receive calls or messages
+	Capabilities *[]string `json:"Capabilities,omitempty"`
+	// The 2-character ISO Country Code of the number
+	CountryCode *string `json:"CountryCode,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The phone number in E.164 format
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the PhoneNumber resource
+	Url *string `json:"Url,omitempty"`
 }

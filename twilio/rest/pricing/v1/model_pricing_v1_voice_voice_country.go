@@ -13,7 +13,10 @@ package openapi
 
 // PricingV1VoiceVoiceCountry struct for PricingV1VoiceVoiceCountry
 type PricingV1VoiceVoiceCountry struct {
-	Country    *string `json:"Country,omitempty"`
+	// The name of the country
+	Country *string `json:"Country,omitempty"`
+	// The ISO country code
 	IsoCountry *string `json:"IsoCountry,omitempty"`
-	Url        *string `json:"Url,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

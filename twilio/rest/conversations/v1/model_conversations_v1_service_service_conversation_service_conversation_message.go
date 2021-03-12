@@ -17,19 +17,34 @@ import (
 
 // ConversationsV1ServiceServiceConversationServiceConversationMessage struct for ConversationsV1ServiceServiceConversationServiceConversationMessage
 type ConversationsV1ServiceServiceConversationServiceConversationMessage struct {
-	AccountSid      *string                   `json:"AccountSid,omitempty"`
-	Attributes      *string                   `json:"Attributes,omitempty"`
-	Author          *string                   `json:"Author,omitempty"`
-	Body            *string                   `json:"Body,omitempty"`
-	ChatServiceSid  *string                   `json:"ChatServiceSid,omitempty"`
-	ConversationSid *string                   `json:"ConversationSid,omitempty"`
-	DateCreated     *time.Time                `json:"DateCreated,omitempty"`
-	DateUpdated     *time.Time                `json:"DateUpdated,omitempty"`
-	Delivery        *map[string]interface{}   `json:"Delivery,omitempty"`
-	Index           *int32                    `json:"Index,omitempty"`
-	Links           *map[string]interface{}   `json:"Links,omitempty"`
-	Media           *[]map[string]interface{} `json:"Media,omitempty"`
-	ParticipantSid  *string                   `json:"ParticipantSid,omitempty"`
-	Sid             *string                   `json:"Sid,omitempty"`
-	Url             *string                   `json:"Url,omitempty"`
+	// The unique ID of the Account responsible for this message.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// A string metadata field you can use to store any data you wish.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The channel specific identifier of the message's author.
+	Author *string `json:"Author,omitempty"`
+	// The content of the message.
+	Body *string `json:"Body,omitempty"`
+	// The SID of the Conversation Service that the resource is associated with.
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	// The unique ID of the Conversation for this message.
+	ConversationSid *string `json:"ConversationSid,omitempty"`
+	// The date that this resource was created.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date that this resource was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// An object that contains the summary of delivery statuses for the message to non-chat participants.
+	Delivery *map[string]interface{} `json:"Delivery,omitempty"`
+	// The index of the message within the Conversation.
+	Index *int32 `json:"Index,omitempty"`
+	// Absolute URL to access the receipts of this message.
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// An array of objects that describe the Message's media if attached, otherwise, null.
+	Media *[]map[string]interface{} `json:"Media,omitempty"`
+	// The unique ID of messages's author participant.
+	ParticipantSid *string `json:"ParticipantSid,omitempty"`
+	// A 34 character string that uniquely identifies this resource.
+	Sid *string `json:"Sid,omitempty"`
+	// An absolute URL for this message.
+	Url *string `json:"Url,omitempty"`
 }

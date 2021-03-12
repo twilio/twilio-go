@@ -17,12 +17,20 @@ import (
 
 // MessagingV1ServiceAlphaSender struct for MessagingV1ServiceAlphaSender
 type MessagingV1ServiceAlphaSender struct {
-	AccountSid   *string    `json:"AccountSid,omitempty"`
-	AlphaSender  *string    `json:"AlphaSender,omitempty"`
-	Capabilities *[]string  `json:"Capabilities,omitempty"`
-	DateCreated  *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time `json:"DateUpdated,omitempty"`
-	ServiceSid   *string    `json:"ServiceSid,omitempty"`
-	Sid          *string    `json:"Sid,omitempty"`
-	Url          *string    `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The Alphanumeric Sender ID string
+	AlphaSender *string `json:"AlphaSender,omitempty"`
+	// An array of values that describe whether the number can receive calls or messages
+	Capabilities *[]string `json:"Capabilities,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the AlphaSender resource
+	Url *string `json:"Url,omitempty"`
 }

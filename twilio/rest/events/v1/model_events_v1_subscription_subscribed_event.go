@@ -13,9 +13,14 @@ package openapi
 
 // EventsV1SubscriptionSubscribedEvent struct for EventsV1SubscriptionSubscribedEvent
 type EventsV1SubscriptionSubscribedEvent struct {
-	AccountSid      *string `json:"AccountSid,omitempty"`
+	// Account SID.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// Subscription SID.
 	SubscriptionSid *string `json:"SubscriptionSid,omitempty"`
-	Type            *string `json:"Type,omitempty"`
-	Url             *string `json:"Url,omitempty"`
-	Version         *int32  `json:"Version,omitempty"`
+	// Type of event being subscribed to.
+	Type *string `json:"Type,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"Url,omitempty"`
+	// The schema version that the subscription should use.
+	Version *int32 `json:"Version,omitempty"`
 }

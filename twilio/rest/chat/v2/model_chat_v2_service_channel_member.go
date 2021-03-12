@@ -17,16 +17,28 @@ import (
 
 // ChatV2ServiceChannelMember struct for ChatV2ServiceChannelMember
 type ChatV2ServiceChannelMember struct {
-	AccountSid               *string    `json:"AccountSid,omitempty"`
-	Attributes               *string    `json:"Attributes,omitempty"`
-	ChannelSid               *string    `json:"ChannelSid,omitempty"`
-	DateCreated              *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated              *time.Time `json:"DateUpdated,omitempty"`
-	Identity                 *string    `json:"Identity,omitempty"`
-	LastConsumedMessageIndex *int32     `json:"LastConsumedMessageIndex,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The JSON string that stores application-specific data
+	Attributes *string `json:"Attributes,omitempty"`
+	// The SID of the Channel for the member
+	ChannelSid *string `json:"ChannelSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that identifies the resource's User
+	Identity *string `json:"Identity,omitempty"`
+	// The index of the last Message that the Member has read within the Channel
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	// The ISO 8601 based timestamp string that represents the datetime of the last Message read event for the Member within the Channel
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-	RoleSid                  *string    `json:"RoleSid,omitempty"`
-	ServiceSid               *string    `json:"ServiceSid,omitempty"`
-	Sid                      *string    `json:"Sid,omitempty"`
-	Url                      *string    `json:"Url,omitempty"`
+	// The SID of the Role assigned to the member
+	RoleSid *string `json:"RoleSid,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Member resource
+	Url *string `json:"Url,omitempty"`
 }

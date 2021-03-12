@@ -75,8 +75,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [ChannelChannelType](docs/ChannelChannelType.md)
- - [CredentialPushService](docs/CredentialPushService.md)
  - [IpMessagingV1Credential](docs/IpMessagingV1Credential.md)
  - [IpMessagingV1Service](docs/IpMessagingV1Service.md)
  - [IpMessagingV1ServiceChannel](docs/IpMessagingV1ServiceChannel.md)
@@ -96,8 +94,6 @@ Class | Method | HTTP request | Description
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [ListUserChannelResponse](docs/ListUserChannelResponse.md)
  - [ListUserResponse](docs/ListUserResponse.md)
- - [RoleRoleType](docs/RoleRoleType.md)
- - [UserChannelChannelStatus](docs/UserChannelChannelStatus.md)
 
 
 ## Documentation For Authorization

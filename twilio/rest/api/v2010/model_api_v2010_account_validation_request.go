@@ -13,9 +13,14 @@ package openapi
 
 // ApiV2010AccountValidationRequest struct for ApiV2010AccountValidationRequest
 type ApiV2010AccountValidationRequest struct {
-	AccountSid     *string `json:"AccountSid,omitempty"`
-	CallSid        *string `json:"CallSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	PhoneNumber    *string `json:"PhoneNumber,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Call the resource is associated with
+	CallSid *string `json:"CallSid,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The phone number to verify in E.164 format
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The 6 digit validation code that someone must enter to validate the Caller ID  when `phone_number` is called
 	ValidationCode *string `json:"ValidationCode,omitempty"`
 }

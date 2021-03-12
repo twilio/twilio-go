@@ -18,7 +18,7 @@ import (
 // IpMessagingV2ServiceBinding struct for IpMessagingV2ServiceBinding
 type IpMessagingV2ServiceBinding struct {
 	AccountSid    *string                 `json:"AccountSid,omitempty"`
-	BindingType   *BindingBindingType     `json:"BindingType,omitempty"`
+	BindingType   *string                 `json:"BindingType,omitempty"`
 	CredentialSid *string                 `json:"CredentialSid,omitempty"`
 	DateCreated   *time.Time              `json:"DateCreated,omitempty"`
 	DateUpdated   *time.Time              `json:"DateUpdated,omitempty"`

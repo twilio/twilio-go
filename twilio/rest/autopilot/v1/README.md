@@ -112,7 +112,6 @@ Class | Method | HTTP request | Description
  - [ListSampleResponse](docs/ListSampleResponse.md)
  - [ListTaskResponse](docs/ListTaskResponse.md)
  - [ListWebhookResponse](docs/ListWebhookResponse.md)
- - [ModelBuildStatus](docs/ModelBuildStatus.md)
 
 
 ## Documentation For Authorization

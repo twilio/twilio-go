@@ -13,14 +13,24 @@ package openapi
 
 // ApiV2010AccountRecordingRecordingAddOnResult struct for ApiV2010AccountRecordingRecordingAddOnResult
 type ApiV2010AccountRecordingRecordingAddOnResult struct {
-	AccountSid            *string                     `json:"AccountSid,omitempty"`
-	AddOnConfigurationSid *string                     `json:"AddOnConfigurationSid,omitempty"`
-	AddOnSid              *string                     `json:"AddOnSid,omitempty"`
-	DateCompleted         *string                     `json:"DateCompleted,omitempty"`
-	DateCreated           *string                     `json:"DateCreated,omitempty"`
-	DateUpdated           *string                     `json:"DateUpdated,omitempty"`
-	ReferenceSid          *string                     `json:"ReferenceSid,omitempty"`
-	Sid                   *string                     `json:"Sid,omitempty"`
-	Status                *RecordingAddOnResultStatus `json:"Status,omitempty"`
-	SubresourceUris       *map[string]interface{}     `json:"SubresourceUris,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Add-on configuration
+	AddOnConfigurationSid *string `json:"AddOnConfigurationSid,omitempty"`
+	// The SID of the Add-on to which the result belongs
+	AddOnSid *string `json:"AddOnSid,omitempty"`
+	// The date and time in GMT that the result was completed
+	DateCompleted *string `json:"DateCompleted,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// The SID of the recording to which the AddOnResult resource belongs
+	ReferenceSid *string `json:"ReferenceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the result
+	Status *string `json:"Status,omitempty"`
+	// A list of related resources identified by their relative URIs
+	SubresourceUris *map[string]interface{} `json:"SubresourceUris,omitempty"`
 }

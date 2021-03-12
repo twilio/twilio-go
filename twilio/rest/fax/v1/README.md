@@ -43,9 +43,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [FaxDirection](docs/FaxDirection.md)
- - [FaxQuality](docs/FaxQuality.md)
- - [FaxStatus](docs/FaxStatus.md)
  - [FaxV1Fax](docs/FaxV1Fax.md)
  - [FaxV1FaxFaxMedia](docs/FaxV1FaxFaxMedia.md)
  - [ListFaxMediaResponse](docs/ListFaxMediaResponse.md)

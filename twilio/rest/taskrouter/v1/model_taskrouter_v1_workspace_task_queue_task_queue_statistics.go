@@ -13,10 +13,16 @@ package openapi
 
 // TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics struct for TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics
 type TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	Cumulative   *map[string]interface{} `json:"Cumulative,omitempty"`
-	Realtime     *map[string]interface{} `json:"Realtime,omitempty"`
-	TaskQueueSid *string                 `json:"TaskQueueSid,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
-	WorkspaceSid *string                 `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// An object that contains the cumulative statistics for the TaskQueue
+	Cumulative *map[string]interface{} `json:"Cumulative,omitempty"`
+	// An object that contains the real-time statistics for the TaskQueue
+	Realtime *map[string]interface{} `json:"Realtime,omitempty"`
+	// The SID of the TaskQueue from which these statistics were calculated
+	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
+	// The absolute URL of the TaskQueue statistics resource
+	Url *string `json:"Url,omitempty"`
+	// The SID of the Workspace that contains the TaskQueue
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

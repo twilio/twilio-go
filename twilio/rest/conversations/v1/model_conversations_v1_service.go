@@ -17,11 +17,18 @@ import (
 
 // ConversationsV1Service struct for ConversationsV1Service
 type ConversationsV1Service struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	DateCreated  *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time              `json:"DateUpdated,omitempty"`
-	FriendlyName *string                 `json:"FriendlyName,omitempty"`
-	Links        *map[string]interface{} `json:"Links,omitempty"`
-	Sid          *string                 `json:"Sid,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
+	// The unique ID of the Account responsible for this service.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The date that this resource was created.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date that this resource was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The human-readable name of this service.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Absolute URLs to access the conversations, users, roles, bindings and configuration of this service.
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// A 34 character string that uniquely identifies this resource.
+	Sid *string `json:"Sid,omitempty"`
+	// An absolute URL for this service.
+	Url *string `json:"Url,omitempty"`
 }

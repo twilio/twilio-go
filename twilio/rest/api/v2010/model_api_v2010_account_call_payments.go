@@ -13,10 +13,16 @@ package openapi
 
 // ApiV2010AccountCallPayments struct for ApiV2010AccountCallPayments
 type ApiV2010AccountCallPayments struct {
-	AccountSid  *string `json:"AccountSid,omitempty"`
-	CallSid     *string `json:"CallSid,omitempty"`
+	// The SID of the Account that created the Payments resource.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Call the resource is associated with.
+	CallSid *string `json:"CallSid,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
 	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
 	DateUpdated *string `json:"DateUpdated,omitempty"`
-	Sid         *string `json:"Sid,omitempty"`
-	Uri         *string `json:"Uri,omitempty"`
+	// The SID of the Payments resource.
+	Sid *string `json:"Sid,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
 }

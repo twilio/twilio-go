@@ -17,12 +17,20 @@ import (
 
 // VoiceV1IpRecord struct for VoiceV1IpRecord
 type VoiceV1IpRecord struct {
-	AccountSid       *string    `json:"AccountSid,omitempty"`
-	CidrPrefixLength *int32     `json:"CidrPrefixLength,omitempty"`
-	DateCreated      *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated      *time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName     *string    `json:"FriendlyName,omitempty"`
-	IpAddress        *string    `json:"IpAddress,omitempty"`
-	Sid              *string    `json:"Sid,omitempty"`
-	Url              *string    `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
+	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An IP address in dotted decimal notation, IPv4 only.
+	IpAddress *string `json:"IpAddress,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

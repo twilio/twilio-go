@@ -17,12 +17,20 @@ import (
 
 // ServerlessV1ServiceAsset struct for ServerlessV1ServiceAsset
 type ServerlessV1ServiceAsset struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	DateCreated  *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time              `json:"DateUpdated,omitempty"`
-	FriendlyName *string                 `json:"FriendlyName,omitempty"`
-	Links        *map[string]interface{} `json:"Links,omitempty"`
-	ServiceSid   *string                 `json:"ServiceSid,omitempty"`
-	Sid          *string                 `json:"Sid,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the Asset resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the Asset resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Asset resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the Asset resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The URLs of the Asset resource's nested resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The SID of the Service that the Asset resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the Asset resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Asset resource
+	Url *string `json:"Url,omitempty"`
 }

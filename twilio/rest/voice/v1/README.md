@@ -66,7 +66,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [HttpMethod](docs/HttpMethod.md)
  - [ListByocTrunkResponse](docs/ListByocTrunkResponse.md)
  - [ListByocTrunkResponseMeta](docs/ListByocTrunkResponseMeta.md)
  - [ListConnectionPolicyResponse](docs/ListConnectionPolicyResponse.md)

@@ -17,43 +17,82 @@ import (
 
 // FlexV1Configuration struct for FlexV1Configuration
 type FlexV1Configuration struct {
-	AccountSid                   *string                   `json:"AccountSid,omitempty"`
-	Attributes                   *map[string]interface{}   `json:"Attributes,omitempty"`
-	CallRecordingEnabled         *bool                     `json:"CallRecordingEnabled,omitempty"`
-	CallRecordingWebhookUrl      *string                   `json:"CallRecordingWebhookUrl,omitempty"`
-	ChatServiceInstanceSid       *string                   `json:"ChatServiceInstanceSid,omitempty"`
-	CrmAttributes                *map[string]interface{}   `json:"CrmAttributes,omitempty"`
-	CrmCallbackUrl               *string                   `json:"CrmCallbackUrl,omitempty"`
-	CrmEnabled                   *bool                     `json:"CrmEnabled,omitempty"`
-	CrmFallbackUrl               *string                   `json:"CrmFallbackUrl,omitempty"`
-	CrmType                      *string                   `json:"CrmType,omitempty"`
-	DateCreated                  *time.Time                `json:"DateCreated,omitempty"`
-	DateUpdated                  *time.Time                `json:"DateUpdated,omitempty"`
-	FlexServiceInstanceSid       *string                   `json:"FlexServiceInstanceSid,omitempty"`
-	Integrations                 *[]map[string]interface{} `json:"Integrations,omitempty"`
-	Markdown                     *map[string]interface{}   `json:"Markdown,omitempty"`
-	MessagingServiceInstanceSid  *string                   `json:"MessagingServiceInstanceSid,omitempty"`
-	Notifications                *map[string]interface{}   `json:"Notifications,omitempty"`
-	OutboundCallFlows            *map[string]interface{}   `json:"OutboundCallFlows,omitempty"`
-	PluginServiceAttributes      *map[string]interface{}   `json:"PluginServiceAttributes,omitempty"`
-	PluginServiceEnabled         *bool                     `json:"PluginServiceEnabled,omitempty"`
-	PublicAttributes             *map[string]interface{}   `json:"PublicAttributes,omitempty"`
-	QueueStatsConfiguration      *map[string]interface{}   `json:"QueueStatsConfiguration,omitempty"`
-	RuntimeDomain                *string                   `json:"RuntimeDomain,omitempty"`
-	ServerlessServiceSids        *[]string                 `json:"ServerlessServiceSids,omitempty"`
-	ServiceVersion               *string                   `json:"ServiceVersion,omitempty"`
-	Status                       *ConfigurationStatus      `json:"Status,omitempty"`
-	TaskrouterOfflineActivitySid *string                   `json:"TaskrouterOfflineActivitySid,omitempty"`
-	TaskrouterSkills             *[]map[string]interface{} `json:"TaskrouterSkills,omitempty"`
-	TaskrouterTargetTaskqueueSid *string                   `json:"TaskrouterTargetTaskqueueSid,omitempty"`
-	TaskrouterTargetWorkflowSid  *string                   `json:"TaskrouterTargetWorkflowSid,omitempty"`
-	TaskrouterTaskqueues         *[]map[string]interface{} `json:"TaskrouterTaskqueues,omitempty"`
-	TaskrouterWorkerAttributes   *map[string]interface{}   `json:"TaskrouterWorkerAttributes,omitempty"`
-	TaskrouterWorkerChannels     *map[string]interface{}   `json:"TaskrouterWorkerChannels,omitempty"`
-	TaskrouterWorkspaceSid       *string                   `json:"TaskrouterWorkspaceSid,omitempty"`
-	UiAttributes                 *map[string]interface{}   `json:"UiAttributes,omitempty"`
-	UiDependencies               *map[string]interface{}   `json:"UiDependencies,omitempty"`
-	UiLanguage                   *string                   `json:"UiLanguage,omitempty"`
-	UiVersion                    *string                   `json:"UiVersion,omitempty"`
-	Url                          *string                   `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// An object that contains application-specific data
+	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	// Whether call recording is enabled
+	CallRecordingEnabled *bool `json:"CallRecordingEnabled,omitempty"`
+	// The call recording webhook URL
+	CallRecordingWebhookUrl *string `json:"CallRecordingWebhookUrl,omitempty"`
+	// The SID of the chat service this user belongs to
+	ChatServiceInstanceSid *string `json:"ChatServiceInstanceSid,omitempty"`
+	// An object that contains the CRM attributes
+	CrmAttributes *map[string]interface{} `json:"CrmAttributes,omitempty"`
+	// The CRM Callback URL
+	CrmCallbackUrl *string `json:"CrmCallbackUrl,omitempty"`
+	// Whether CRM is present for Flex
+	CrmEnabled *bool `json:"CrmEnabled,omitempty"`
+	// The CRM Fallback URL
+	CrmFallbackUrl *string `json:"CrmFallbackUrl,omitempty"`
+	// The CRM Type
+	CrmType *string `json:"CrmType,omitempty"`
+	// The ISO 8601 date and time in GMT when the Configuration resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Configuration resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Flex service instance
+	FlexServiceInstanceSid *string `json:"FlexServiceInstanceSid,omitempty"`
+	// A list of objects that contain the configurations for the Integrations supported in this configuration
+	Integrations *[]map[string]interface{} `json:"Integrations,omitempty"`
+	// Configurable parameters for Markdown
+	Markdown *map[string]interface{} `json:"Markdown,omitempty"`
+	// The SID of the Messaging service instance
+	MessagingServiceInstanceSid *string `json:"MessagingServiceInstanceSid,omitempty"`
+	// Configurable parameters for Notifications
+	Notifications *map[string]interface{} `json:"Notifications,omitempty"`
+	// The list of outbound call flows
+	OutboundCallFlows *map[string]interface{} `json:"OutboundCallFlows,omitempty"`
+	// The plugin service attributes
+	PluginServiceAttributes *map[string]interface{} `json:"PluginServiceAttributes,omitempty"`
+	// Whether the plugin service enabled
+	PluginServiceEnabled *bool `json:"PluginServiceEnabled,omitempty"`
+	// The list of public attributes
+	PublicAttributes *map[string]interface{} `json:"PublicAttributes,omitempty"`
+	// Configurable parameters for Queues Statistics
+	QueueStatsConfiguration *map[string]interface{} `json:"QueueStatsConfiguration,omitempty"`
+	// The URL where the Flex instance is hosted
+	RuntimeDomain *string `json:"RuntimeDomain,omitempty"`
+	// The list of serverless service SIDs
+	ServerlessServiceSids *[]string `json:"ServerlessServiceSids,omitempty"`
+	// The Flex Service version
+	ServiceVersion *string `json:"ServiceVersion,omitempty"`
+	// The status of the Flex onboarding
+	Status *string `json:"Status,omitempty"`
+	// The TaskRouter SID of the offline activity
+	TaskrouterOfflineActivitySid *string `json:"TaskrouterOfflineActivitySid,omitempty"`
+	// The Skill description for TaskRouter workers
+	TaskrouterSkills *[]map[string]interface{} `json:"TaskrouterSkills,omitempty"`
+	// The SID of the TaskRouter Target TaskQueue
+	TaskrouterTargetTaskqueueSid *string `json:"TaskrouterTargetTaskqueueSid,omitempty"`
+	// The SID of the TaskRouter target Workflow
+	TaskrouterTargetWorkflowSid *string `json:"TaskrouterTargetWorkflowSid,omitempty"`
+	// The list of TaskRouter TaskQueues
+	TaskrouterTaskqueues *[]map[string]interface{} `json:"TaskrouterTaskqueues,omitempty"`
+	// The TaskRouter Worker attributes
+	TaskrouterWorkerAttributes *map[string]interface{} `json:"TaskrouterWorkerAttributes,omitempty"`
+	// The TaskRouter default channel capacities and availability for workers
+	TaskrouterWorkerChannels *map[string]interface{} `json:"TaskrouterWorkerChannels,omitempty"`
+	// The SID of the TaskRouter Workspace
+	TaskrouterWorkspaceSid *string `json:"TaskrouterWorkspaceSid,omitempty"`
+	// The object that describes Flex UI characteristics and settings
+	UiAttributes *map[string]interface{} `json:"UiAttributes,omitempty"`
+	// The object that defines the NPM packages and versions to be used in Hosted Flex
+	UiDependencies *map[string]interface{} `json:"UiDependencies,omitempty"`
+	// The primary language of the Flex UI
+	UiLanguage *string `json:"UiLanguage,omitempty"`
+	// The Pinned UI version
+	UiVersion *string `json:"UiVersion,omitempty"`
+	// The absolute URL of the Configuration resource
+	Url *string `json:"Url,omitempty"`
 }

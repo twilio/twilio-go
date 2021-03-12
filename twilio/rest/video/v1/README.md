@@ -69,10 +69,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CompositionFormat](docs/CompositionFormat.md)
- - [CompositionHookFormat](docs/CompositionHookFormat.md)
- - [CompositionStatus](docs/CompositionStatus.md)
- - [HttpMethod](docs/HttpMethod.md)
  - [ListCompositionHookResponse](docs/ListCompositionHookResponse.md)
  - [ListCompositionHookResponseMeta](docs/ListCompositionHookResponseMeta.md)
  - [ListCompositionResponse](docs/ListCompositionResponse.md)
@@ -82,19 +78,6 @@ Class | Method | HTTP request | Description
  - [ListRoomParticipantSubscribedTrackResponse](docs/ListRoomParticipantSubscribedTrackResponse.md)
  - [ListRoomRecordingResponse](docs/ListRoomRecordingResponse.md)
  - [ListRoomResponse](docs/ListRoomResponse.md)
- - [RecordingCodec](docs/RecordingCodec.md)
- - [RecordingFormat](docs/RecordingFormat.md)
- - [RecordingStatus](docs/RecordingStatus.md)
- - [RecordingType](docs/RecordingType.md)
- - [RoomParticipantPublishedTrackKind](docs/RoomParticipantPublishedTrackKind.md)
- - [RoomParticipantStatus](docs/RoomParticipantStatus.md)
- - [RoomParticipantSubscribedTrackKind](docs/RoomParticipantSubscribedTrackKind.md)
- - [RoomRecordingCodec](docs/RoomRecordingCodec.md)
- - [RoomRecordingFormat](docs/RoomRecordingFormat.md)
- - [RoomRecordingStatus](docs/RoomRecordingStatus.md)
- - [RoomRecordingType](docs/RoomRecordingType.md)
- - [RoomRoomStatus](docs/RoomRoomStatus.md)
- - [RoomRoomType](docs/RoomRoomType.md)
  - [VideoV1Composition](docs/VideoV1Composition.md)
  - [VideoV1CompositionHook](docs/VideoV1CompositionHook.md)
  - [VideoV1CompositionSettings](docs/VideoV1CompositionSettings.md)
@@ -107,6 +90,7 @@ Class | Method | HTTP request | Description
  - [VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack](docs/VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack.md)
  - [VideoV1RoomRoomRecording](docs/VideoV1RoomRoomRecording.md)
  - [VideoV1RoomRoomRecordingRule](docs/VideoV1RoomRoomRecordingRule.md)
+ - [VideoV1RoomRoomRecordingRuleRules](docs/VideoV1RoomRoomRecordingRuleRules.md)
 
 
 ## Documentation For Authorization

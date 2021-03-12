@@ -17,9 +17,9 @@ type InsightsV1CallEvent struct {
 	CallSid     *string                 `json:"CallSid,omitempty"`
 	CarrierEdge *map[string]interface{} `json:"CarrierEdge,omitempty"`
 	ClientEdge  *map[string]interface{} `json:"ClientEdge,omitempty"`
-	Edge        *EventTwilioEdge        `json:"Edge,omitempty"`
+	Edge        *string                 `json:"Edge,omitempty"`
 	Group       *string                 `json:"Group,omitempty"`
-	Level       *EventLevel             `json:"Level,omitempty"`
+	Level       *string                 `json:"Level,omitempty"`
 	Name        *string                 `json:"Name,omitempty"`
 	SdkEdge     *map[string]interface{} `json:"SdkEdge,omitempty"`
 	SipEdge     *map[string]interface{} `json:"SipEdge,omitempty"`

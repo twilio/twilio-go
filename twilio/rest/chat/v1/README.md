@@ -75,7 +75,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [ChannelChannelType](docs/ChannelChannelType.md)
  - [ChatV1Credential](docs/ChatV1Credential.md)
  - [ChatV1Service](docs/ChatV1Service.md)
  - [ChatV1ServiceChannel](docs/ChatV1ServiceChannel.md)
@@ -85,7 +84,6 @@ Class | Method | HTTP request | Description
  - [ChatV1ServiceRole](docs/ChatV1ServiceRole.md)
  - [ChatV1ServiceUser](docs/ChatV1ServiceUser.md)
  - [ChatV1ServiceUserUserChannel](docs/ChatV1ServiceUserUserChannel.md)
- - [CredentialPushService](docs/CredentialPushService.md)
  - [ListChannelResponse](docs/ListChannelResponse.md)
  - [ListCredentialResponse](docs/ListCredentialResponse.md)
  - [ListCredentialResponseMeta](docs/ListCredentialResponseMeta.md)
@@ -96,8 +94,6 @@ Class | Method | HTTP request | Description
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [ListUserChannelResponse](docs/ListUserChannelResponse.md)
  - [ListUserResponse](docs/ListUserResponse.md)
- - [RoleRoleType](docs/RoleRoleType.md)
- - [UserChannelChannelStatus](docs/UserChannelChannelStatus.md)
 
 
 ## Documentation For Authorization

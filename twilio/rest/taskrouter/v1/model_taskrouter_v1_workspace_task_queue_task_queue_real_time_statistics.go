@@ -13,18 +13,32 @@ package openapi
 
 // TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics struct for TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics
 type TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics struct {
-	AccountSid                    *string                   `json:"AccountSid,omitempty"`
-	ActivityStatistics            *[]map[string]interface{} `json:"ActivityStatistics,omitempty"`
-	LongestRelativeTaskAgeInQueue *int32                    `json:"LongestRelativeTaskAgeInQueue,omitempty"`
-	LongestRelativeTaskSidInQueue *string                   `json:"LongestRelativeTaskSidInQueue,omitempty"`
-	LongestTaskWaitingAge         *int32                    `json:"LongestTaskWaitingAge,omitempty"`
-	LongestTaskWaitingSid         *string                   `json:"LongestTaskWaitingSid,omitempty"`
-	TaskQueueSid                  *string                   `json:"TaskQueueSid,omitempty"`
-	TasksByPriority               *map[string]interface{}   `json:"TasksByPriority,omitempty"`
-	TasksByStatus                 *map[string]interface{}   `json:"TasksByStatus,omitempty"`
-	TotalAvailableWorkers         *int32                    `json:"TotalAvailableWorkers,omitempty"`
-	TotalEligibleWorkers          *int32                    `json:"TotalEligibleWorkers,omitempty"`
-	TotalTasks                    *int32                    `json:"TotalTasks,omitempty"`
-	Url                           *string                   `json:"Url,omitempty"`
-	WorkspaceSid                  *string                   `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The number of current Workers by Activity
+	ActivityStatistics *[]map[string]interface{} `json:"ActivityStatistics,omitempty"`
+	// The relative age in the TaskQueue for the longest waiting Task.
+	LongestRelativeTaskAgeInQueue *int32 `json:"LongestRelativeTaskAgeInQueue,omitempty"`
+	// The SID of the Task waiting in the TaskQueue the longest.
+	LongestRelativeTaskSidInQueue *string `json:"LongestRelativeTaskSidInQueue,omitempty"`
+	// The age of the longest waiting Task
+	LongestTaskWaitingAge *int32 `json:"LongestTaskWaitingAge,omitempty"`
+	// The SID of the longest waiting Task
+	LongestTaskWaitingSid *string `json:"LongestTaskWaitingSid,omitempty"`
+	// The SID of the TaskQueue from which these statistics were calculated
+	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
+	// The number of Tasks by priority
+	TasksByPriority *map[string]interface{} `json:"TasksByPriority,omitempty"`
+	// The number of Tasks by their current status
+	TasksByStatus *map[string]interface{} `json:"TasksByStatus,omitempty"`
+	// The total number of Workers available for Tasks in the TaskQueue
+	TotalAvailableWorkers *int32 `json:"TotalAvailableWorkers,omitempty"`
+	// The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state
+	TotalEligibleWorkers *int32 `json:"TotalEligibleWorkers,omitempty"`
+	// The total number of Tasks
+	TotalTasks *int32 `json:"TotalTasks,omitempty"`
+	// The absolute URL of the TaskQueue statistics resource
+	Url *string `json:"Url,omitempty"`
+	// The SID of the Workspace that contains the TaskQueue
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

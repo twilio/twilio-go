@@ -13,11 +13,18 @@ package openapi
 
 // ApiV2010AccountToken struct for ApiV2010AccountToken
 type ApiV2010AccountToken struct {
-	AccountSid  *string                   `json:"AccountSid,omitempty"`
-	DateCreated *string                   `json:"DateCreated,omitempty"`
-	DateUpdated *string                   `json:"DateUpdated,omitempty"`
-	IceServers  *[]map[string]interface{} `json:"IceServers,omitempty"`
-	Password    *string                   `json:"Password,omitempty"`
-	Ttl         *string                   `json:"Ttl,omitempty"`
-	Username    *string                   `json:"Username,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// An array representing the ephemeral credentials
+	IceServers *[]ApiV2010AccountTokenIceServers `json:"IceServers,omitempty"`
+	// The temporary password used for authenticating
+	Password *string `json:"Password,omitempty"`
+	// The duration in seconds the credentials are valid
+	Ttl *string `json:"Ttl,omitempty"`
+	// The temporary username that uniquely identifies a Token
+	Username *string `json:"Username,omitempty"`
 }

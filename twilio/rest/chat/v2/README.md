@@ -89,8 +89,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [BindingBindingType](docs/BindingBindingType.md)
- - [ChannelChannelType](docs/ChannelChannelType.md)
  - [ChatV2Credential](docs/ChatV2Credential.md)
  - [ChatV2Service](docs/ChatV2Service.md)
  - [ChatV2ServiceBinding](docs/ChatV2ServiceBinding.md)
@@ -103,7 +101,6 @@ Class | Method | HTTP request | Description
  - [ChatV2ServiceUser](docs/ChatV2ServiceUser.md)
  - [ChatV2ServiceUserUserBinding](docs/ChatV2ServiceUserUserBinding.md)
  - [ChatV2ServiceUserUserChannel](docs/ChatV2ServiceUserUserChannel.md)
- - [CredentialPushService](docs/CredentialPushService.md)
  - [ListBindingResponse](docs/ListBindingResponse.md)
  - [ListChannelResponse](docs/ListChannelResponse.md)
  - [ListChannelWebhookResponse](docs/ListChannelWebhookResponse.md)
@@ -117,10 +114,6 @@ Class | Method | HTTP request | Description
  - [ListUserBindingResponse](docs/ListUserBindingResponse.md)
  - [ListUserChannelResponse](docs/ListUserChannelResponse.md)
  - [ListUserResponse](docs/ListUserResponse.md)
- - [RoleRoleType](docs/RoleRoleType.md)
- - [UserBindingBindingType](docs/UserBindingBindingType.md)
- - [UserChannelChannelStatus](docs/UserChannelChannelStatus.md)
- - [UserChannelNotificationLevel](docs/UserChannelNotificationLevel.md)
 
 
 ## Documentation For Authorization

@@ -17,12 +17,20 @@ import (
 
 // FlexV1Channel struct for FlexV1Channel
 type FlexV1Channel struct {
-	AccountSid  *string    `json:"AccountSid,omitempty"`
+	// The SID of the Account that created the resource and owns this Workflow
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the Flex chat channel was created
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Flex chat channel was last updated
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-	FlexFlowSid *string    `json:"FlexFlowSid,omitempty"`
-	Sid         *string    `json:"Sid,omitempty"`
-	TaskSid     *string    `json:"TaskSid,omitempty"`
-	Url         *string    `json:"Url,omitempty"`
-	UserSid     *string    `json:"UserSid,omitempty"`
+	// The SID of the Flex Flow
+	FlexFlowSid *string `json:"FlexFlowSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The SID of the TaskRouter Task
+	TaskSid *string `json:"TaskSid,omitempty"`
+	// The absolute URL of the Flex chat channel resource
+	Url *string `json:"Url,omitempty"`
+	// The SID of the chat user
+	UserSid *string `json:"UserSid,omitempty"`
 }

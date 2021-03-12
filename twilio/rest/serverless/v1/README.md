@@ -74,11 +74,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [AssetVersionVisibility](docs/AssetVersionVisibility.md)
- - [BuildRuntime](docs/BuildRuntime.md)
- - [BuildStatus](docs/BuildStatus.md)
- - [BuildStatusStatus](docs/BuildStatusStatus.md)
- - [FunctionVersionVisibility](docs/FunctionVersionVisibility.md)
  - [ListAssetResponse](docs/ListAssetResponse.md)
  - [ListAssetVersionResponse](docs/ListAssetVersionResponse.md)
  - [ListBuildResponse](docs/ListBuildResponse.md)
@@ -90,7 +85,6 @@ Class | Method | HTTP request | Description
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [ListServiceResponseMeta](docs/ListServiceResponseMeta.md)
  - [ListVariableResponse](docs/ListVariableResponse.md)
- - [LogLevel](docs/LogLevel.md)
  - [ServerlessV1Service](docs/ServerlessV1Service.md)
  - [ServerlessV1ServiceAsset](docs/ServerlessV1ServiceAsset.md)
  - [ServerlessV1ServiceAssetAssetVersion](docs/ServerlessV1ServiceAssetAssetVersion.md)

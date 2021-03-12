@@ -13,8 +13,12 @@ package openapi
 
 // ApiV2010AccountKey struct for ApiV2010AccountKey
 type ApiV2010AccountKey struct {
-	DateCreated  *string `json:"DateCreated,omitempty"`
-	DateUpdated  *string `json:"DateUpdated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Sid          *string `json:"Sid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
 }

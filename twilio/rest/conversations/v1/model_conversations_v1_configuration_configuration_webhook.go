@@ -13,11 +13,18 @@ package openapi
 
 // ConversationsV1ConfigurationConfigurationWebhook struct for ConversationsV1ConfigurationConfigurationWebhook
 type ConversationsV1ConfigurationConfigurationWebhook struct {
-	AccountSid     *string                     `json:"AccountSid,omitempty"`
-	Filters        *[]string                   `json:"Filters,omitempty"`
-	Method         *ConfigurationWebhookMethod `json:"Method,omitempty"`
-	PostWebhookUrl *string                     `json:"PostWebhookUrl,omitempty"`
-	PreWebhookUrl  *string                     `json:"PreWebhookUrl,omitempty"`
-	Target         *ConfigurationWebhookTarget `json:"Target,omitempty"`
-	Url            *string                     `json:"Url,omitempty"`
+	// The unique ID of the Account responsible for this conversation.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The list of webhook event triggers that are enabled for this Service.
+	Filters *[]string `json:"Filters,omitempty"`
+	// The HTTP method to be used when sending a webhook request.
+	Method *string `json:"Method,omitempty"`
+	// The absolute url the post-event webhook request should be sent to.
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
+	// The absolute url the pre-event webhook request should be sent to.
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	// The routing target of the webhook.
+	Target *string `json:"Target,omitempty"`
+	// An absolute URL for this webhook.
+	Url *string `json:"Url,omitempty"`
 }

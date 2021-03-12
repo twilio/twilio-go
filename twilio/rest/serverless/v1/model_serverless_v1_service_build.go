@@ -17,16 +17,27 @@ import (
 
 // ServerlessV1ServiceBuild struct for ServerlessV1ServiceBuild
 type ServerlessV1ServiceBuild struct {
-	AccountSid       *string                   `json:"AccountSid,omitempty"`
-	AssetVersions    *[]map[string]interface{} `json:"AssetVersions,omitempty"`
-	DateCreated      *time.Time                `json:"DateCreated,omitempty"`
-	DateUpdated      *time.Time                `json:"DateUpdated,omitempty"`
-	Dependencies     *[]map[string]interface{} `json:"Dependencies,omitempty"`
+	// The SID of the Account that created the Build resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The list of Asset Version resource SIDs that are included in the Build
+	AssetVersions *[]map[string]interface{} `json:"AssetVersions,omitempty"`
+	// The ISO 8601 date and time in GMT when the Build resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Build resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// A list of objects that describe the Dependencies included in the Build
+	Dependencies *[]map[string]interface{} `json:"Dependencies,omitempty"`
+	// The list of Function Version resource SIDs that are included in the Build
 	FunctionVersions *[]map[string]interface{} `json:"FunctionVersions,omitempty"`
 	Links            *map[string]interface{}   `json:"Links,omitempty"`
-	Runtime          *BuildRuntime             `json:"Runtime,omitempty"`
-	ServiceSid       *string                   `json:"ServiceSid,omitempty"`
-	Sid              *string                   `json:"Sid,omitempty"`
-	Status           *BuildStatus              `json:"Status,omitempty"`
-	Url              *string                   `json:"Url,omitempty"`
+	// The Runtime version that will be used to run the Build.
+	Runtime *string `json:"Runtime,omitempty"`
+	// The SID of the Service that the Build resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the Build resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the Build
+	Status *string `json:"Status,omitempty"`
+	// The absolute URL of the Build resource
+	Url *string `json:"Url,omitempty"`
 }

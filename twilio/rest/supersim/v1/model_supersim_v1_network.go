@@ -13,9 +13,14 @@ package openapi
 
 // SupersimV1Network struct for SupersimV1Network
 type SupersimV1Network struct {
-	FriendlyName *string                   `json:"FriendlyName,omitempty"`
-	Identifiers  *[]map[string]interface{} `json:"Identifiers,omitempty"`
-	IsoCountry   *string                   `json:"IsoCountry,omitempty"`
-	Sid          *string                   `json:"Sid,omitempty"`
-	Url          *string                   `json:"Url,omitempty"`
+	// A human readable identifier of this resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The MCC/MNCs included in the Network resource
+	Identifiers *[]map[string]interface{} `json:"Identifiers,omitempty"`
+	// The ISO country code of the Network resource
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Network resource
+	Url *string `json:"Url,omitempty"`
 }

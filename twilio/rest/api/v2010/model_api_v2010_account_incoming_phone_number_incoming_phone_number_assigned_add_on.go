@@ -13,15 +13,26 @@ package openapi
 
 // ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn struct for ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
 type ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn struct {
-	AccountSid      *string                 `json:"AccountSid,omitempty"`
-	Configuration   *map[string]interface{} `json:"Configuration,omitempty"`
-	DateCreated     *string                 `json:"DateCreated,omitempty"`
-	DateUpdated     *string                 `json:"DateUpdated,omitempty"`
-	Description     *string                 `json:"Description,omitempty"`
-	FriendlyName    *string                 `json:"FriendlyName,omitempty"`
-	ResourceSid     *string                 `json:"ResourceSid,omitempty"`
-	Sid             *string                 `json:"Sid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// A JSON string that represents the current configuration
+	Configuration *map[string]interface{} `json:"Configuration,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// A short description of the Add-on functionality
+	Description *string `json:"Description,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID of the Phone Number that installed this Add-on
+	ResourceSid *string `json:"ResourceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// A list of related resources identified by their relative URIs
 	SubresourceUris *map[string]interface{} `json:"SubresourceUris,omitempty"`
-	UniqueName      *string                 `json:"UniqueName,omitempty"`
-	Uri             *string                 `json:"Uri,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
 }

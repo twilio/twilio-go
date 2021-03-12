@@ -17,20 +17,36 @@ import (
 
 // VerifyV2ServiceEntityChallenge struct for VerifyV2ServiceEntityChallenge
 type VerifyV2ServiceEntityChallenge struct {
-	AccountSid      *string                     `json:"AccountSid,omitempty"`
-	DateCreated     *time.Time                  `json:"DateCreated,omitempty"`
-	DateResponded   *time.Time                  `json:"DateResponded,omitempty"`
-	DateUpdated     *time.Time                  `json:"DateUpdated,omitempty"`
-	Details         *map[string]interface{}     `json:"Details,omitempty"`
-	EntitySid       *string                     `json:"EntitySid,omitempty"`
-	ExpirationDate  *time.Time                  `json:"ExpirationDate,omitempty"`
-	FactorSid       *string                     `json:"FactorSid,omitempty"`
-	FactorType      *ChallengeFactorTypes       `json:"FactorType,omitempty"`
-	HiddenDetails   *map[string]interface{}     `json:"HiddenDetails,omitempty"`
-	Identity        *string                     `json:"Identity,omitempty"`
-	RespondedReason *ChallengeChallengeReasons  `json:"RespondedReason,omitempty"`
-	ServiceSid      *string                     `json:"ServiceSid,omitempty"`
-	Sid             *string                     `json:"Sid,omitempty"`
-	Status          *ChallengeChallengeStatuses `json:"Status,omitempty"`
-	Url             *string                     `json:"Url,omitempty"`
+	// Account Sid.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The date this Challenge was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date this Challenge was responded
+	DateResponded *time.Time `json:"DateResponded,omitempty"`
+	// The date this Challenge was updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Details about the Challenge.
+	Details *map[string]interface{} `json:"Details,omitempty"`
+	// Entity Sid.
+	EntitySid *string `json:"EntitySid,omitempty"`
+	// The date-time when this Challenge expires
+	ExpirationDate *time.Time `json:"ExpirationDate,omitempty"`
+	// Factor Sid.
+	FactorSid *string `json:"FactorSid,omitempty"`
+	// The Factor Type of this Challenge
+	FactorType *string `json:"FactorType,omitempty"`
+	// Hidden details about the Challenge
+	HiddenDetails *map[string]interface{} `json:"HiddenDetails,omitempty"`
+	// Unique external identifier of the Entity
+	Identity *string `json:"Identity,omitempty"`
+	// The Reason of this Challenge `status`
+	RespondedReason *string `json:"RespondedReason,omitempty"`
+	// Service Sid.
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// A string that uniquely identifies this Challenge.
+	Sid *string `json:"Sid,omitempty"`
+	// The Status of this Challenge
+	Status *string `json:"Status,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"Url,omitempty"`
 }

@@ -13,15 +13,26 @@ package openapi
 
 // ApiV2010AccountConnectApp struct for ApiV2010AccountConnectApp
 type ApiV2010AccountConnectApp struct {
-	AccountSid                *string     `json:"AccountSid,omitempty"`
-	AuthorizeRedirectUrl      *string     `json:"AuthorizeRedirectUrl,omitempty"`
-	CompanyName               *string     `json:"CompanyName,omitempty"`
-	DeauthorizeCallbackMethod *HttpMethod `json:"DeauthorizeCallbackMethod,omitempty"`
-	DeauthorizeCallbackUrl    *string     `json:"DeauthorizeCallbackUrl,omitempty"`
-	Description               *string     `json:"Description,omitempty"`
-	FriendlyName              *string     `json:"FriendlyName,omitempty"`
-	HomepageUrl               *string     `json:"HomepageUrl,omitempty"`
-	Permissions               *[]string   `json:"Permissions,omitempty"`
-	Sid                       *string     `json:"Sid,omitempty"`
-	Uri                       *string     `json:"Uri,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The URL to redirect the user to after authorization
+	AuthorizeRedirectUrl *string `json:"AuthorizeRedirectUrl,omitempty"`
+	// The company name set for the Connect App
+	CompanyName *string `json:"CompanyName,omitempty"`
+	// The HTTP method we use to call deauthorize_callback_url
+	DeauthorizeCallbackMethod *string `json:"DeauthorizeCallbackMethod,omitempty"`
+	// The URL we call to de-authorize the Connect App
+	DeauthorizeCallbackUrl *string `json:"DeauthorizeCallbackUrl,omitempty"`
+	// The description of the Connect App
+	Description *string `json:"Description,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The URL users can obtain more information
+	HomepageUrl *string `json:"HomepageUrl,omitempty"`
+	// The set of permissions that your ConnectApp requests
+	Permissions *[]string `json:"Permissions,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
 }

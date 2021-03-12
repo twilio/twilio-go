@@ -13,20 +13,36 @@ package openapi
 
 // ApiV2010AccountUsageUsageTrigger struct for ApiV2010AccountUsageUsageTrigger
 type ApiV2010AccountUsageUsageTrigger struct {
-	AccountSid     *string                    `json:"AccountSid,omitempty"`
-	ApiVersion     *string                    `json:"ApiVersion,omitempty"`
-	CallbackMethod *HttpMethod                `json:"CallbackMethod,omitempty"`
-	CallbackUrl    *string                    `json:"CallbackUrl,omitempty"`
-	CurrentValue   *string                    `json:"CurrentValue,omitempty"`
-	DateCreated    *string                    `json:"DateCreated,omitempty"`
-	DateFired      *string                    `json:"DateFired,omitempty"`
-	DateUpdated    *string                    `json:"DateUpdated,omitempty"`
-	FriendlyName   *string                    `json:"FriendlyName,omitempty"`
-	Recurring      *UsageTriggerRecurring     `json:"Recurring,omitempty"`
-	Sid            *string                    `json:"Sid,omitempty"`
-	TriggerBy      *UsageTriggerTriggerField  `json:"TriggerBy,omitempty"`
-	TriggerValue   *string                    `json:"TriggerValue,omitempty"`
-	Uri            *string                    `json:"Uri,omitempty"`
-	UsageCategory  *UsageTriggerUsageCategory `json:"UsageCategory,omitempty"`
-	UsageRecordUri *string                    `json:"UsageRecordUri,omitempty"`
+	// The SID of the Account that this trigger monitors
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The API version used to create the resource
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The HTTP method we use to call callback_url
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	// he URL we call when the trigger fires
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// The current value of the field the trigger is watching
+	CurrentValue *string `json:"CurrentValue,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the trigger was last fired
+	DateFired *string `json:"DateFired,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the trigger
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The frequency of a recurring UsageTrigger
+	Recurring *string `json:"Recurring,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The field in the UsageRecord resource that fires the trigger
+	TriggerBy *string `json:"TriggerBy,omitempty"`
+	// The value at which the trigger will fire
+	TriggerValue *string `json:"TriggerValue,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
+	// The usage category the trigger watches
+	UsageCategory *string `json:"UsageCategory,omitempty"`
+	// The URI of the UsageRecord resource this trigger watches
+	UsageRecordUri *string `json:"UsageRecordUri,omitempty"`
 }

@@ -17,25 +17,46 @@ import (
 
 // TaskrouterV1WorkspaceTask struct for TaskrouterV1WorkspaceTask
 type TaskrouterV1WorkspaceTask struct {
-	AccountSid            *string                 `json:"AccountSid,omitempty"`
-	Addons                *string                 `json:"Addons,omitempty"`
-	Age                   *int32                  `json:"Age,omitempty"`
-	AssignmentStatus      *TaskStatus             `json:"AssignmentStatus,omitempty"`
-	Attributes            *string                 `json:"Attributes,omitempty"`
-	DateCreated           *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated           *time.Time              `json:"DateUpdated,omitempty"`
-	Links                 *map[string]interface{} `json:"Links,omitempty"`
-	Priority              *int32                  `json:"Priority,omitempty"`
-	Reason                *string                 `json:"Reason,omitempty"`
-	Sid                   *string                 `json:"Sid,omitempty"`
-	TaskChannelSid        *string                 `json:"TaskChannelSid,omitempty"`
-	TaskChannelUniqueName *string                 `json:"TaskChannelUniqueName,omitempty"`
-	TaskQueueEnteredDate  *time.Time              `json:"TaskQueueEnteredDate,omitempty"`
-	TaskQueueFriendlyName *string                 `json:"TaskQueueFriendlyName,omitempty"`
-	TaskQueueSid          *string                 `json:"TaskQueueSid,omitempty"`
-	Timeout               *int32                  `json:"Timeout,omitempty"`
-	Url                   *string                 `json:"Url,omitempty"`
-	WorkflowFriendlyName  *string                 `json:"WorkflowFriendlyName,omitempty"`
-	WorkflowSid           *string                 `json:"WorkflowSid,omitempty"`
-	WorkspaceSid          *string                 `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// An object that contains the addon data for all installed addons
+	Addons *string `json:"Addons,omitempty"`
+	// The number of seconds since the Task was created
+	Age *int32 `json:"Age,omitempty"`
+	// The current status of the Task's assignment
+	AssignmentStatus *string `json:"AssignmentStatus,omitempty"`
+	// The JSON string with custom attributes of the work
+	Attributes *string `json:"Attributes,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// Retrieve the list of all Tasks in the Workspace with the specified priority
+	Priority *int32 `json:"Priority,omitempty"`
+	// The reason the Task was canceled or completed
+	Reason *string `json:"Reason,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The SID of the TaskChannel
+	TaskChannelSid *string `json:"TaskChannelSid,omitempty"`
+	// The unique name of the TaskChannel
+	TaskChannelUniqueName *string `json:"TaskChannelUniqueName,omitempty"`
+	// The ISO 8601 date and time in GMT when the Task entered the TaskQueue.
+	TaskQueueEnteredDate *time.Time `json:"TaskQueueEnteredDate,omitempty"`
+	// The friendly name of the TaskQueue
+	TaskQueueFriendlyName *string `json:"TaskQueueFriendlyName,omitempty"`
+	// The SID of the TaskQueue
+	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
+	// The amount of time in seconds that the Task can live before being assigned
+	Timeout *int32 `json:"Timeout,omitempty"`
+	// The absolute URL of the Task resource
+	Url *string `json:"Url,omitempty"`
+	// The friendly name of the Workflow that is controlling the Task
+	WorkflowFriendlyName *string `json:"WorkflowFriendlyName,omitempty"`
+	// The SID of the Workflow that is controlling the Task
+	WorkflowSid *string `json:"WorkflowSid,omitempty"`
+	// The SID of the Workspace that contains the Task
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

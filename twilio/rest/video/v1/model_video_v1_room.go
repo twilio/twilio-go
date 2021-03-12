@@ -17,23 +17,42 @@ import (
 
 // VideoV1Room struct for VideoV1Room
 type VideoV1Room struct {
-	AccountSid                   *string                 `json:"AccountSid,omitempty"`
-	DateCreated                  *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated                  *time.Time              `json:"DateUpdated,omitempty"`
-	Duration                     *int32                  `json:"Duration,omitempty"`
-	EnableTurn                   *bool                   `json:"EnableTurn,omitempty"`
-	EndTime                      *time.Time              `json:"EndTime,omitempty"`
-	Links                        *map[string]interface{} `json:"Links,omitempty"`
-	MaxConcurrentPublishedTracks *int32                  `json:"MaxConcurrentPublishedTracks,omitempty"`
-	MaxParticipants              *int32                  `json:"MaxParticipants,omitempty"`
-	MediaRegion                  *string                 `json:"MediaRegion,omitempty"`
-	RecordParticipantsOnConnect  *bool                   `json:"RecordParticipantsOnConnect,omitempty"`
-	Sid                          *string                 `json:"Sid,omitempty"`
-	Status                       *RoomRoomStatus         `json:"Status,omitempty"`
-	StatusCallback               *string                 `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod         *HttpMethod             `json:"StatusCallbackMethod,omitempty"`
-	Type                         *RoomRoomType           `json:"Type,omitempty"`
-	UniqueName                   *string                 `json:"UniqueName,omitempty"`
-	Url                          *string                 `json:"Url,omitempty"`
-	VideoCodecs                  *[]string               `json:"VideoCodecs,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The duration of the room in seconds
+	Duration *int32 `json:"Duration,omitempty"`
+	// Enable Twilio's Network Traversal TURN service
+	EnableTurn *bool `json:"EnableTurn,omitempty"`
+	// The UTC end time of the room in UTC ISO 8601 format
+	EndTime *time.Time `json:"EndTime,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The maximum number of published tracks allowed in the room at the same time
+	MaxConcurrentPublishedTracks *int32 `json:"MaxConcurrentPublishedTracks,omitempty"`
+	// The maximum number of concurrent Participants allowed in the room
+	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	// The region for the media server in Group Rooms
+	MediaRegion *string `json:"MediaRegion,omitempty"`
+	// Whether to start recording when Participants connect
+	RecordParticipantsOnConnect *bool `json:"RecordParticipantsOnConnect,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the room
+	Status *string `json:"Status,omitempty"`
+	// The URL to send status information to your application
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we use to call status_callback
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The type of room
+	Type *string `json:"Type,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
+	// An array of the video codecs that are supported when publishing a track in the room
+	VideoCodecs *[]string `json:"VideoCodecs,omitempty"`
 }

@@ -17,8 +17,12 @@ import (
 
 // VideoV1RoomRoomRecordingRule struct for VideoV1RoomRoomRecordingRule
 type VideoV1RoomRoomRecordingRule struct {
-	DateCreated *time.Time                `json:"DateCreated,omitempty"`
-	DateUpdated *time.Time                `json:"DateUpdated,omitempty"`
-	RoomSid     *string                   `json:"RoomSid,omitempty"`
-	Rules       *[]map[string]interface{} `json:"Rules,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Room resource for the Recording Rules
+	RoomSid *string `json:"RoomSid,omitempty"`
+	// A collection of recording Rules that describe how to include or exclude matching tracks for recording
+	Rules *[]VideoV1RoomRoomRecordingRuleRules `json:"Rules,omitempty"`
 }

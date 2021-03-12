@@ -13,24 +13,44 @@ package openapi
 
 // ApiV2010AccountApplication struct for ApiV2010AccountApplication
 type ApiV2010AccountApplication struct {
-	AccountSid            *string     `json:"AccountSid,omitempty"`
-	ApiVersion            *string     `json:"ApiVersion,omitempty"`
-	DateCreated           *string     `json:"DateCreated,omitempty"`
-	DateUpdated           *string     `json:"DateUpdated,omitempty"`
-	FriendlyName          *string     `json:"FriendlyName,omitempty"`
-	MessageStatusCallback *string     `json:"MessageStatusCallback,omitempty"`
-	Sid                   *string     `json:"Sid,omitempty"`
-	SmsFallbackMethod     *HttpMethod `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl        *string     `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod             *HttpMethod `json:"SmsMethod,omitempty"`
-	SmsStatusCallback     *string     `json:"SmsStatusCallback,omitempty"`
-	SmsUrl                *string     `json:"SmsUrl,omitempty"`
-	StatusCallback        *string     `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod  *HttpMethod `json:"StatusCallbackMethod,omitempty"`
-	Uri                   *string     `json:"Uri,omitempty"`
-	VoiceCallerIdLookup   *bool       `json:"VoiceCallerIdLookup,omitempty"`
-	VoiceFallbackMethod   *HttpMethod `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl      *string     `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod           *HttpMethod `json:"VoiceMethod,omitempty"`
-	VoiceUrl              *string     `json:"VoiceUrl,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The API version used to start a new TwiML session
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The URL to send message status information to your application
+	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The HTTP method used with sms_fallback_url
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL that we call when an error occurs while retrieving or executing the TwiML
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method to use with sms_url
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL to send status information to your application
+	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
+	// The URL we call when the phone number receives an incoming SMS message
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URL to send status information to your application
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we use to call status_callback
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"Uri,omitempty"`
+	// Whether to lookup the caller's name
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	// The HTTP method used with voice_fallback_url
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL we call when a TwiML error occurs
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method used with the voice_url
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The URL we call when the phone number receives a call
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }

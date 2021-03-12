@@ -13,7 +13,10 @@ package openapi
 
 // StudioV2FlowTestUser struct for StudioV2FlowTestUser
 type StudioV2FlowTestUser struct {
-	Sid       *string   `json:"Sid,omitempty"`
+	// Unique identifier of the flow.
+	Sid *string `json:"Sid,omitempty"`
+	// List of test user identities that can test draft versions of the flow.
 	TestUsers *[]string `json:"TestUsers,omitempty"`
-	Url       *string   `json:"Url,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"Url,omitempty"`
 }

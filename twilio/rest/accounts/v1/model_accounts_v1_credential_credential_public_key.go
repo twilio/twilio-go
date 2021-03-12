@@ -17,10 +17,16 @@ import (
 
 // AccountsV1CredentialCredentialPublicKey struct for AccountsV1CredentialCredentialPublicKey
 type AccountsV1CredentialCredentialPublicKey struct {
-	AccountSid   *string    `json:"AccountSid,omitempty"`
-	DateCreated  *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName *string    `json:"FriendlyName,omitempty"`
-	Sid          *string    `json:"Sid,omitempty"`
-	Url          *string    `json:"Url,omitempty"`
+	// The SID of the Account that created the Credential that the PublicKey resource belongs to
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The URI for this resource, relative to `https://accounts.twilio.com`
+	Url *string `json:"Url,omitempty"`
 }

@@ -17,12 +17,20 @@ import (
 
 // VerifyV2ServiceEntity struct for VerifyV2ServiceEntity
 type VerifyV2ServiceEntity struct {
-	AccountSid  *string                 `json:"AccountSid,omitempty"`
-	DateCreated *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated *time.Time              `json:"DateUpdated,omitempty"`
-	Identity    *string                 `json:"Identity,omitempty"`
-	Links       *map[string]interface{} `json:"Links,omitempty"`
-	ServiceSid  *string                 `json:"ServiceSid,omitempty"`
-	Sid         *string                 `json:"Sid,omitempty"`
-	Url         *string                 `json:"Url,omitempty"`
+	// Account Sid.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The date this Entity was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date this Entity was updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Unique external identifier of the Entity
+	Identity *string `json:"Identity,omitempty"`
+	// Nested resource URLs.
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// Service Sid.
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// A string that uniquely identifies this Entity.
+	Sid *string `json:"Sid,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"Url,omitempty"`
 }

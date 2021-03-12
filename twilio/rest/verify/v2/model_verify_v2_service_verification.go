@@ -17,18 +17,32 @@ import (
 
 // VerifyV2ServiceVerification struct for VerifyV2ServiceVerification
 type VerifyV2ServiceVerification struct {
-	AccountSid       *string                   `json:"AccountSid,omitempty"`
-	Amount           *string                   `json:"Amount,omitempty"`
-	Channel          *VerificationChannel      `json:"Channel,omitempty"`
-	DateCreated      *time.Time                `json:"DateCreated,omitempty"`
-	DateUpdated      *time.Time                `json:"DateUpdated,omitempty"`
-	Lookup           *map[string]interface{}   `json:"Lookup,omitempty"`
-	Payee            *string                   `json:"Payee,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The amount of the associated PSD2 compliant transaction.
+	Amount *string `json:"Amount,omitempty"`
+	// The verification method used.
+	Channel *string `json:"Channel,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// Information about the phone number being verified
+	Lookup *map[string]interface{} `json:"Lookup,omitempty"`
+	// The payee of the associated PSD2 compliant transaction
+	Payee *string `json:"Payee,omitempty"`
+	// An array of verification attempt objects.
 	SendCodeAttempts *[]map[string]interface{} `json:"SendCodeAttempts,omitempty"`
-	ServiceSid       *string                   `json:"ServiceSid,omitempty"`
-	Sid              *string                   `json:"Sid,omitempty"`
-	Status           *string                   `json:"Status,omitempty"`
-	To               *string                   `json:"To,omitempty"`
-	Url              *string                   `json:"Url,omitempty"`
-	Valid            *bool                     `json:"Valid,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The status of the verification resource
+	Status *string `json:"Status,omitempty"`
+	// The phone number or email being verified
+	To *string `json:"To,omitempty"`
+	// The absolute URL of the Verification resource
+	Url *string `json:"Url,omitempty"`
+	// Whether the verification was successful
+	Valid *bool `json:"Valid,omitempty"`
 }

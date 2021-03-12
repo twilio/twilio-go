@@ -13,10 +13,16 @@ package openapi
 
 // AutopilotV1AssistantTaskTaskStatistics struct for AutopilotV1AssistantTaskTaskStatistics
 type AutopilotV1AssistantTaskTaskStatistics struct {
-	AccountSid   *string `json:"AccountSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Assistant that is the parent of the Task associated with the resource
 	AssistantSid *string `json:"AssistantSid,omitempty"`
-	FieldsCount  *int32  `json:"FieldsCount,omitempty"`
-	SamplesCount *int32  `json:"SamplesCount,omitempty"`
-	TaskSid      *string `json:"TaskSid,omitempty"`
-	Url          *string `json:"Url,omitempty"`
+	// The total number of Fields associated with the Task
+	FieldsCount *int32 `json:"FieldsCount,omitempty"`
+	// The total number of Samples associated with the Task
+	SamplesCount *int32 `json:"SamplesCount,omitempty"`
+	// The SID of the Task for which the statistics were collected
+	TaskSid *string `json:"TaskSid,omitempty"`
+	// The absolute URL of the TaskStatistics resource
+	Url *string `json:"Url,omitempty"`
 }

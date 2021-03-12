@@ -17,16 +17,28 @@ import (
 
 // TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics struct for TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics
 type TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics struct {
-	AccountSid            *string                   `json:"AccountSid,omitempty"`
-	ActivityDurations     *[]map[string]interface{} `json:"ActivityDurations,omitempty"`
-	EndTime               *time.Time                `json:"EndTime,omitempty"`
-	ReservationsAccepted  *int32                    `json:"ReservationsAccepted,omitempty"`
-	ReservationsCanceled  *int32                    `json:"ReservationsCanceled,omitempty"`
-	ReservationsCreated   *int32                    `json:"ReservationsCreated,omitempty"`
-	ReservationsRejected  *int32                    `json:"ReservationsRejected,omitempty"`
-	ReservationsRescinded *int32                    `json:"ReservationsRescinded,omitempty"`
-	ReservationsTimedOut  *int32                    `json:"ReservationsTimedOut,omitempty"`
-	StartTime             *time.Time                `json:"StartTime,omitempty"`
-	Url                   *string                   `json:"Url,omitempty"`
-	WorkspaceSid          *string                   `json:"WorkspaceSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The minimum, average, maximum, and total time that Workers spent in each Activity
+	ActivityDurations *[]map[string]interface{} `json:"ActivityDurations,omitempty"`
+	// The end of the interval during which these statistics were calculated
+	EndTime *time.Time `json:"EndTime,omitempty"`
+	// The total number of Reservations that were accepted
+	ReservationsAccepted *int32 `json:"ReservationsAccepted,omitempty"`
+	// The total number of Reservations that were canceled
+	ReservationsCanceled *int32 `json:"ReservationsCanceled,omitempty"`
+	// The total number of Reservations that were created
+	ReservationsCreated *int32 `json:"ReservationsCreated,omitempty"`
+	// The total number of Reservations that were rejected
+	ReservationsRejected *int32 `json:"ReservationsRejected,omitempty"`
+	// The total number of Reservations that were rescinded
+	ReservationsRescinded *int32 `json:"ReservationsRescinded,omitempty"`
+	// The total number of Reservations that were timed out
+	ReservationsTimedOut *int32 `json:"ReservationsTimedOut,omitempty"`
+	// The beginning of the interval during which these statistics were calculated
+	StartTime *time.Time `json:"StartTime,omitempty"`
+	// The absolute URL of the Workers statistics resource
+	Url *string `json:"Url,omitempty"`
+	// The SID of the Workspace that contains the Workers
+	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
 }

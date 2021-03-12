@@ -28,7 +28,7 @@ type IpMessagingV1ServiceChannel struct {
 	MessagesCount *int32                  `json:"MessagesCount,omitempty"`
 	ServiceSid    *string                 `json:"ServiceSid,omitempty"`
 	Sid           *string                 `json:"Sid,omitempty"`
-	Type          *ChannelChannelType     `json:"Type,omitempty"`
+	Type          *string                 `json:"Type,omitempty"`
 	UniqueName    *string                 `json:"UniqueName,omitempty"`
 	Url           *string                 `json:"Url,omitempty"`
 }

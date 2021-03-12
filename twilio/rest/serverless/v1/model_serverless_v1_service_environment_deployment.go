@@ -17,12 +17,20 @@ import (
 
 // ServerlessV1ServiceEnvironmentDeployment struct for ServerlessV1ServiceEnvironmentDeployment
 type ServerlessV1ServiceEnvironmentDeployment struct {
-	AccountSid     *string    `json:"AccountSid,omitempty"`
-	BuildSid       *string    `json:"BuildSid,omitempty"`
-	DateCreated    *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated    *time.Time `json:"DateUpdated,omitempty"`
-	EnvironmentSid *string    `json:"EnvironmentSid,omitempty"`
-	ServiceSid     *string    `json:"ServiceSid,omitempty"`
-	Sid            *string    `json:"Sid,omitempty"`
-	Url            *string    `json:"Url,omitempty"`
+	// The SID of the Account that created the Deployment resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Build for the deployment
+	BuildSid *string `json:"BuildSid,omitempty"`
+	// The ISO 8601 date and time in GMT when the Deployment resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the Deployment resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Environment for the Deployment
+	EnvironmentSid *string `json:"EnvironmentSid,omitempty"`
+	// The SID of the Service that the Deployment resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the Deployment resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Deployment resource
+	Url *string `json:"Url,omitempty"`
 }

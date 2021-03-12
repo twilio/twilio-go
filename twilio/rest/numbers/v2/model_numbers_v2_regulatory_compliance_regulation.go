@@ -13,11 +13,18 @@ package openapi
 
 // NumbersV2RegulatoryComplianceRegulation struct for NumbersV2RegulatoryComplianceRegulation
 type NumbersV2RegulatoryComplianceRegulation struct {
-	EndUserType  *RegulationEndUserType  `json:"EndUserType,omitempty"`
-	FriendlyName *string                 `json:"FriendlyName,omitempty"`
-	IsoCountry   *string                 `json:"IsoCountry,omitempty"`
-	NumberType   *string                 `json:"NumberType,omitempty"`
+	// The type of End User of the Regulation resource
+	EndUserType *string `json:"EndUserType,omitempty"`
+	// A human-readable description of the Regulation resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The ISO country code of the phone number's country
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	// The type of phone number restricted by the regulatory requirement
+	NumberType *string `json:"NumberType,omitempty"`
+	// The sid of a regulation object that dictates requirements
 	Requirements *map[string]interface{} `json:"Requirements,omitempty"`
-	Sid          *string                 `json:"Sid,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
+	// The unique string that identifies the Regulation resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Regulation resource
+	Url *string `json:"Url,omitempty"`
 }

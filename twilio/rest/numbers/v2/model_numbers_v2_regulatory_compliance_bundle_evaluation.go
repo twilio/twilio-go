@@ -17,12 +17,18 @@ import (
 
 // NumbersV2RegulatoryComplianceBundleEvaluation struct for NumbersV2RegulatoryComplianceBundleEvaluation
 type NumbersV2RegulatoryComplianceBundleEvaluation struct {
-	AccountSid    *string                   `json:"AccountSid,omitempty"`
-	BundleSid     *string                   `json:"BundleSid,omitempty"`
-	DateCreated   *time.Time                `json:"DateCreated,omitempty"`
-	RegulationSid *string                   `json:"RegulationSid,omitempty"`
-	Results       *[]map[string]interface{} `json:"Results,omitempty"`
-	Sid           *string                   `json:"Sid,omitempty"`
-	Status        *EvaluationStatus         `json:"Status,omitempty"`
-	Url           *string                   `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The unique string that identifies the resource
+	BundleSid   *string    `json:"BundleSid,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The unique string of a regulation
+	RegulationSid *string `json:"RegulationSid,omitempty"`
+	// The results of the Evaluation resource
+	Results *[]map[string]interface{} `json:"Results,omitempty"`
+	// The unique string that identifies the Evaluation resource
+	Sid *string `json:"Sid,omitempty"`
+	// The compliance status of the Evaluation resource
+	Status *string `json:"Status,omitempty"`
+	Url    *string `json:"Url,omitempty"`
 }

@@ -17,13 +17,22 @@ import (
 
 // ChatV2ServiceChannelChannelWebhook struct for ChatV2ServiceChannelChannelWebhook
 type ChatV2ServiceChannelChannelWebhook struct {
-	AccountSid    *string                 `json:"AccountSid,omitempty"`
-	ChannelSid    *string                 `json:"ChannelSid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Channel the Channel Webhook resource belongs to
+	ChannelSid *string `json:"ChannelSid,omitempty"`
+	// The JSON string that describes the configuration object for the channel webhook
 	Configuration *map[string]interface{} `json:"Configuration,omitempty"`
-	DateCreated   *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated   *time.Time              `json:"DateUpdated,omitempty"`
-	ServiceSid    *string                 `json:"ServiceSid,omitempty"`
-	Sid           *string                 `json:"Sid,omitempty"`
-	Type          *string                 `json:"Type,omitempty"`
-	Url           *string                 `json:"Url,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Service that the Channel Webhook resource is associated with
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The type of webhook
+	Type *string `json:"Type,omitempty"`
+	// The absolute URL of the Channel Webhook resource
+	Url *string `json:"Url,omitempty"`
 }

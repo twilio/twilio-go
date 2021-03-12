@@ -17,12 +17,20 @@ import (
 
 // ChatV1Credential struct for ChatV1Credential
 type ChatV1Credential struct {
-	AccountSid   *string                `json:"AccountSid,omitempty"`
-	DateCreated  *time.Time             `json:"DateCreated,omitempty"`
-	DateUpdated  *time.Time             `json:"DateUpdated,omitempty"`
-	FriendlyName *string                `json:"FriendlyName,omitempty"`
-	Sandbox      *string                `json:"Sandbox,omitempty"`
-	Sid          *string                `json:"Sid,omitempty"`
-	Type         *CredentialPushService `json:"Type,omitempty"`
-	Url          *string                `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// [APN only] Whether to send the credential to sandbox APNs
+	Sandbox *string `json:"Sandbox,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The type of push-notification service the credential is for
+	Type *string `json:"Type,omitempty"`
+	// The absolute URL of the Credential resource
+	Url *string `json:"Url,omitempty"`
 }

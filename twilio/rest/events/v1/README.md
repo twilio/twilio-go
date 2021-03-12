@@ -66,8 +66,6 @@ Class | Method | HTTP request | Description
  - [ListSubscriptionResponse](docs/ListSubscriptionResponse.md)
  - [ListVersionResponse](docs/ListVersionResponse.md)
  - [ListVersionResponseMeta](docs/ListVersionResponseMeta.md)
- - [SinkSinkType](docs/SinkSinkType.md)
- - [SinkStatus](docs/SinkStatus.md)
 
 
 ## Documentation For Authorization

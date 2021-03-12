@@ -13,9 +13,14 @@ package openapi
 
 // AutopilotV1AssistantDialogue struct for AutopilotV1AssistantDialogue
 type AutopilotV1AssistantDialogue struct {
-	AccountSid   *string                 `json:"AccountSid,omitempty"`
-	AssistantSid *string                 `json:"AssistantSid,omitempty"`
-	Data         *map[string]interface{} `json:"Data,omitempty"`
-	Sid          *string                 `json:"Sid,omitempty"`
-	Url          *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Assistant that is the parent of the resource
+	AssistantSid *string `json:"AssistantSid,omitempty"`
+	// The JSON string that describes the dialogue session object
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The absolute URL of the Dialogue resource
+	Url *string `json:"Url,omitempty"`
 }

@@ -17,16 +17,28 @@ import (
 
 // StudioV1FlowExecutionExecutionStep struct for StudioV1FlowExecutionExecutionStep
 type StudioV1FlowExecutionExecutionStep struct {
-	AccountSid       *string                 `json:"AccountSid,omitempty"`
-	Context          *map[string]interface{} `json:"Context,omitempty"`
-	DateCreated      *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated      *time.Time              `json:"DateUpdated,omitempty"`
-	ExecutionSid     *string                 `json:"ExecutionSid,omitempty"`
-	FlowSid          *string                 `json:"FlowSid,omitempty"`
-	Links            *map[string]interface{} `json:"Links,omitempty"`
-	Name             *string                 `json:"Name,omitempty"`
-	Sid              *string                 `json:"Sid,omitempty"`
-	TransitionedFrom *string                 `json:"TransitionedFrom,omitempty"`
-	TransitionedTo   *string                 `json:"TransitionedTo,omitempty"`
-	Url              *string                 `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The current state of the flow
+	Context *map[string]interface{} `json:"Context,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the Execution
+	ExecutionSid *string `json:"ExecutionSid,omitempty"`
+	// The SID of the Flow
+	FlowSid *string `json:"FlowSid,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// The event that caused the Flow to transition to the Step
+	Name *string `json:"Name,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The Widget that preceded the Widget for the Step
+	TransitionedFrom *string `json:"TransitionedFrom,omitempty"`
+	// The Widget that will follow the Widget for the Step
+	TransitionedTo *string `json:"TransitionedTo,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"Url,omitempty"`
 }

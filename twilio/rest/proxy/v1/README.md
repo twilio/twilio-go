@@ -65,8 +65,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [InteractionResourceStatus](docs/InteractionResourceStatus.md)
- - [InteractionType](docs/InteractionType.md)
  - [ListInteractionResponse](docs/ListInteractionResponse.md)
  - [ListMessageInteractionResponse](docs/ListMessageInteractionResponse.md)
  - [ListParticipantResponse](docs/ListParticipantResponse.md)
@@ -75,20 +73,15 @@ Class | Method | HTTP request | Description
  - [ListServiceResponseMeta](docs/ListServiceResponseMeta.md)
  - [ListSessionResponse](docs/ListSessionResponse.md)
  - [ListShortCodeResponse](docs/ListShortCodeResponse.md)
- - [MessageInteractionResourceStatus](docs/MessageInteractionResourceStatus.md)
- - [MessageInteractionType](docs/MessageInteractionType.md)
- - [PhoneNumberCapabilities](docs/PhoneNumberCapabilities.md)
  - [ProxyV1Service](docs/ProxyV1Service.md)
  - [ProxyV1ServicePhoneNumber](docs/ProxyV1ServicePhoneNumber.md)
+ - [ProxyV1ServicePhoneNumberCapabilities](docs/ProxyV1ServicePhoneNumberCapabilities.md)
  - [ProxyV1ServiceSession](docs/ProxyV1ServiceSession.md)
  - [ProxyV1ServiceSessionInteraction](docs/ProxyV1ServiceSessionInteraction.md)
  - [ProxyV1ServiceSessionParticipant](docs/ProxyV1ServiceSessionParticipant.md)
  - [ProxyV1ServiceSessionParticipantMessageInteraction](docs/ProxyV1ServiceSessionParticipantMessageInteraction.md)
  - [ProxyV1ServiceShortCode](docs/ProxyV1ServiceShortCode.md)
- - [ServiceGeoMatchLevel](docs/ServiceGeoMatchLevel.md)
- - [ServiceNumberSelectionBehavior](docs/ServiceNumberSelectionBehavior.md)
- - [SessionMode](docs/SessionMode.md)
- - [SessionStatus](docs/SessionStatus.md)
+ - [ProxyV1ServiceShortCodeCapabilities](docs/ProxyV1ServiceShortCodeCapabilities.md)
 
 
 ## Documentation For Authorization

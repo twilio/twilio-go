@@ -17,23 +17,42 @@ import (
 
 // ProxyV1ServiceSessionInteraction struct for ProxyV1ServiceSessionInteraction
 type ProxyV1ServiceSessionInteraction struct {
-	AccountSid             *string                    `json:"AccountSid,omitempty"`
-	Data                   *string                    `json:"Data,omitempty"`
-	DateCreated            *time.Time                 `json:"DateCreated,omitempty"`
-	DateUpdated            *time.Time                 `json:"DateUpdated,omitempty"`
-	InboundParticipantSid  *string                    `json:"InboundParticipantSid,omitempty"`
-	InboundResourceSid     *string                    `json:"InboundResourceSid,omitempty"`
-	InboundResourceStatus  *InteractionResourceStatus `json:"InboundResourceStatus,omitempty"`
-	InboundResourceType    *string                    `json:"InboundResourceType,omitempty"`
-	InboundResourceUrl     *string                    `json:"InboundResourceUrl,omitempty"`
-	OutboundParticipantSid *string                    `json:"OutboundParticipantSid,omitempty"`
-	OutboundResourceSid    *string                    `json:"OutboundResourceSid,omitempty"`
-	OutboundResourceStatus *InteractionResourceStatus `json:"OutboundResourceStatus,omitempty"`
-	OutboundResourceType   *string                    `json:"OutboundResourceType,omitempty"`
-	OutboundResourceUrl    *string                    `json:"OutboundResourceUrl,omitempty"`
-	ServiceSid             *string                    `json:"ServiceSid,omitempty"`
-	SessionSid             *string                    `json:"SessionSid,omitempty"`
-	Sid                    *string                    `json:"Sid,omitempty"`
-	Type                   *InteractionType           `json:"Type,omitempty"`
-	Url                    *string                    `json:"Url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// A JSON string that includes the message body of message interactions
+	Data *string `json:"Data,omitempty"`
+	// The ISO 8601 date and time in GMT when the Interaction was created
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The SID of the inbound Participant resource
+	InboundParticipantSid *string `json:"InboundParticipantSid,omitempty"`
+	// The SID of the inbound resource
+	InboundResourceSid *string `json:"InboundResourceSid,omitempty"`
+	// The inbound resource status of the Interaction
+	InboundResourceStatus *string `json:"InboundResourceStatus,omitempty"`
+	// The inbound resource type
+	InboundResourceType *string `json:"InboundResourceType,omitempty"`
+	// The URL of the Twilio inbound resource
+	InboundResourceUrl *string `json:"InboundResourceUrl,omitempty"`
+	// The SID of the outbound Participant
+	OutboundParticipantSid *string `json:"OutboundParticipantSid,omitempty"`
+	// The SID of the outbound resource
+	OutboundResourceSid *string `json:"OutboundResourceSid,omitempty"`
+	// The outbound resource status of the Interaction
+	OutboundResourceStatus *string `json:"OutboundResourceStatus,omitempty"`
+	// The outbound resource type
+	OutboundResourceType *string `json:"OutboundResourceType,omitempty"`
+	// The URL of the Twilio outbound resource
+	OutboundResourceUrl *string `json:"OutboundResourceUrl,omitempty"`
+	// The SID of the resource's parent Service
+	ServiceSid *string `json:"ServiceSid,omitempty"`
+	// The SID of the resource's parent Session
+	SessionSid *string `json:"SessionSid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"Sid,omitempty"`
+	// The Type of the Interaction
+	Type *string `json:"Type,omitempty"`
+	// The absolute URL of the Interaction resource
+	Url *string `json:"Url,omitempty"`
 }

@@ -13,12 +13,20 @@ package openapi
 
 // SyncV1ServiceSyncMapSyncMapPermission struct for SyncV1ServiceSyncMapSyncMapPermission
 type SyncV1ServiceSyncMapSyncMapPermission struct {
+	// The SID of the Account that created the resource
 	AccountSid *string `json:"AccountSid,omitempty"`
-	Identity   *string `json:"Identity,omitempty"`
-	Manage     *bool   `json:"Manage,omitempty"`
-	MapSid     *string `json:"MapSid,omitempty"`
-	Read       *bool   `json:"Read,omitempty"`
+	// The identity of the user to whom the Sync Document Permission applies
+	Identity *string `json:"Identity,omitempty"`
+	// Manage access
+	Manage *bool `json:"Manage,omitempty"`
+	// Sync Map SID
+	MapSid *string `json:"MapSid,omitempty"`
+	// Read access
+	Read *bool `json:"Read,omitempty"`
+	// The SID of the Sync Service that the resource is associated with
 	ServiceSid *string `json:"ServiceSid,omitempty"`
-	Url        *string `json:"Url,omitempty"`
-	Write      *bool   `json:"Write,omitempty"`
+	// The absolute URL of the Sync Map Permission resource
+	Url *string `json:"Url,omitempty"`
+	// Write access
+	Write *bool `json:"Write,omitempty"`
 }
