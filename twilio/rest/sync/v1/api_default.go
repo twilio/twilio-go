@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.10.0
+ * API version: 1.11.0
  * Contact: support@twilio.com
  */
 
@@ -44,7 +44,7 @@ type CreateDocumentParams struct {
 * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Document resource in.
 * @param optional nil or *CreateDocumentParams - Optional Parameters:
 * @param "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-* @param "Ttl" (int32) - How long, in seconds, before the Sync Document expires and is deleted (the Sync Document's time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Sync Document does not expire. The Sync Document will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "Ttl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
 * @param "UniqueName" (string) - An application-defined string that uniquely identifies the Sync Document
 * @return SyncV1ServiceDocument
  */
@@ -210,7 +210,7 @@ type CreateSyncListParams struct {
 * CreateSyncList Method for CreateSyncList
 * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Sync List in.
 * @param optional nil or *CreateSyncListParams - Optional Parameters:
-* @param "CollectionTtl" (int32) - How long, in seconds, before the Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
 * @param "Ttl" (int32) - Alias for collection_ttl. If both are provided, this value is ignored.
 * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
 * @return SyncV1ServiceSyncList
@@ -260,9 +260,9 @@ type CreateSyncListItemParams struct {
 * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new List Item in.
 * @param ListSid The SID of the Sync List to add the new List Item to. Can be the Sync List resource's `sid` or its `unique_name`.
 * @param optional nil or *CreateSyncListItemParams - Optional Parameters:
-* @param "CollectionTtl" (int32) - How long, in seconds, before the List Item's parent Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the parent Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
 * @param "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-* @param "ItemTtl" (int32) - How long, in seconds, before the List Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the List Item does not expire. The List Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "ItemTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
 * @param "Ttl" (int32) - An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 * @return SyncV1ServiceSyncListSyncListItem
  */
@@ -319,7 +319,7 @@ type CreateSyncMapParams struct {
 * CreateSyncMap Method for CreateSyncMap
 * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Sync Map in.
 * @param optional nil or *CreateSyncMapParams - Optional Parameters:
-* @param "CollectionTtl" (int32) - How long, in seconds, before the Sync Map expires (time-to-live) and is deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Sync Map does not expire. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
 * @param "Ttl" (int32) - An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
 * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
 * @return SyncV1ServiceSyncMap
@@ -370,9 +370,9 @@ type CreateSyncMapItemParams struct {
 * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Map Item in.
 * @param MapSid The SID of the Sync Map to add the new Map Item to. Can be the Sync Map resource's `sid` or its `unique_name`.
 * @param optional nil or *CreateSyncMapItemParams - Optional Parameters:
-* @param "CollectionTtl" (int32) - How long, in seconds, before the Map Item's parent Sync Map expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the parent Sync Map does not expire. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
 * @param "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-* @param "ItemTtl" (int32) - How long, in seconds, before the Map Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Map Item does not expire.  The Map Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "ItemTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
 * @param "Key" (string) - The unique, user-defined key for the Map Item. Can be up to 320 characters long.
 * @param "Ttl" (int32) - An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 * @return SyncV1ServiceSyncMapSyncMapItem
@@ -433,7 +433,7 @@ type CreateSyncStreamParams struct {
 * Create a new Stream.
 * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream in.
 * @param optional nil or *CreateSyncStreamParams - Optional Parameters:
-* @param "Ttl" (int32) - How long, in seconds, before the Stream expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Stream does not expire. The Stream will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "Ttl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
 * @return SyncV1ServiceSyncStream
  */
@@ -1468,7 +1468,7 @@ type UpdateDocumentParams struct {
 * @param optional nil or *UpdateDocumentParams - Optional Parameters:
 * @param "IfMatch" (string) - The If-Match HTTP request header
 * @param "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-* @param "Ttl" (int32) - How long, in seconds, before the Sync Document expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Document resource does not expire. The Document resource will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "Ttl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
 * @return SyncV1ServiceDocument
  */
 func (c *DefaultApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1ServiceDocument, error) {
@@ -1643,7 +1643,7 @@ type UpdateSyncListParams struct {
 * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update.
 * @param Sid The SID of the Sync List resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
 * @param optional nil or *UpdateSyncListParams - Optional Parameters:
-* @param "CollectionTtl" (int32) - How long, in seconds, before the Sync List expires (time-to-live) and is deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
 * @param "Ttl" (int32) - An alias for `collection_ttl`. If both are provided, this value is ignored.
 * @return SyncV1ServiceSyncList
  */
@@ -1693,9 +1693,9 @@ type UpdateSyncListItemParams struct {
 * @param Index The index of the Sync List Item resource to update.
 * @param optional nil or *UpdateSyncListItemParams - Optional Parameters:
 * @param "IfMatch" (string) - If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-* @param "CollectionTtl" (int32) - How long, in seconds, before the List Item's parent Sync List expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the parent Sync List does not expire. The Sync List will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
 * @param "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-* @param "ItemTtl" (int32) - How long, in seconds, before the List Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the List Item does not expire. The List Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "ItemTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
 * @param "Ttl" (int32) - An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 * @return SyncV1ServiceSyncListSyncListItem
  */
@@ -1810,7 +1810,7 @@ type UpdateSyncMapParams struct {
 * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to update.
 * @param Sid The SID of the Sync Map resource to update. Can be the Sync Map's `sid` or its `unique_name`.
 * @param optional nil or *UpdateSyncMapParams - Optional Parameters:
-* @param "CollectionTtl" (int32) - How long, in seconds, before the Sync Map expires (time-to-live) and is deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Sync Map does not expire. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
 * @param "Ttl" (int32) - An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
 * @return SyncV1ServiceSyncMap
  */
@@ -1860,9 +1860,9 @@ type UpdateSyncMapItemParams struct {
 * @param Key The `key` value of the Sync Map Item resource to update.
 * @param optional nil or *UpdateSyncMapItemParams - Optional Parameters:
 * @param "IfMatch" (string) - If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-* @param "CollectionTtl" (int32) - How long, in seconds, before the Map Item's parent Sync Map expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the parent Sync Map does not expire. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request. The Sync Map will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 * @param "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-* @param "ItemTtl" (int32) - How long, in seconds, before the Map Item expires (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Map Item does not expire. The Map Item will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "ItemTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
 * @param "Ttl" (int32) - An alias for `item_ttl`. If both parameters are provided, this value is ignored.
 * @return SyncV1ServiceSyncMapSyncMapItem
  */
@@ -1977,7 +1977,7 @@ type UpdateSyncStreamParams struct {
 * @param ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to update.
 * @param Sid The SID of the Stream resource to update.
 * @param optional nil or *UpdateSyncStreamParams - Optional Parameters:
-* @param "Ttl" (int32) - How long, in seconds, before the Stream expires and is deleted (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default value is `0`, which means the Stream does not expire. The Stream will be deleted automatically after it expires, but there can be a delay between the expiration time and the resources's deletion.
+* @param "Ttl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 * @return SyncV1ServiceSyncStream
  */
 func (c *DefaultApiService) UpdateSyncStream(ServiceSid string, Sid string, params *UpdateSyncStreamParams) (*SyncV1ServiceSyncStream, error) {

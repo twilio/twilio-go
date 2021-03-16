@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.10.0
+ * API version: 1.11.0
  * Contact: support@twilio.com
  */
 
@@ -100,8 +100,9 @@ func (c *DefaultApiService) FetchSummary(CallSid string, params *FetchSummaryPar
 
 /*
 * FetchVideoParticipantSummary Method for FetchVideoParticipantSummary
-* @param RoomSid
-* @param ParticipantSid
+* Get Video Log Analyzer data for a Room Participant.
+* @param RoomSid The SID of the Room resource.
+* @param ParticipantSid The SID of the Participant resource.
 * @return InsightsV1VideoRoomSummaryVideoParticipantSummary
  */
 func (c *DefaultApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid string) (*InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
@@ -129,7 +130,8 @@ func (c *DefaultApiService) FetchVideoParticipantSummary(RoomSid string, Partici
 
 /*
 * FetchVideoRoomSummary Method for FetchVideoRoomSummary
-* @param RoomSid
+* Get Video Log Analyzer data for a Room.
+* @param RoomSid The SID of the Room resource.
 * @return InsightsV1VideoRoomSummary
  */
 func (c *DefaultApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1VideoRoomSummary, error) {
@@ -252,7 +254,8 @@ type ListVideoParticipantSummaryParams struct {
 
 /*
 * ListVideoParticipantSummary Method for ListVideoParticipantSummary
-* @param RoomSid
+* Get a list of room participants.
+* @param RoomSid The SID of the Room resource.
 * @param optional nil or *ListVideoParticipantSummaryParams - Optional Parameters:
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListVideoParticipantSummaryResponse
@@ -295,12 +298,13 @@ type ListVideoRoomSummaryParams struct {
 
 /*
 * ListVideoRoomSummary Method for ListVideoRoomSummary
+* Get a list of Programmable Video Rooms.
 * @param optional nil or *ListVideoRoomSummaryParams - Optional Parameters:
-* @param "RoomType" ([]string) -
-* @param "Codec" ([]string) -
-* @param "RoomName" (string) -
-* @param "CreatedAfter" (time.Time) -
-* @param "CreatedBefore" (time.Time) -
+* @param "RoomType" ([]string) - Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+* @param "Codec" ([]string) - Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+* @param "RoomName" (string) - Room friendly name.
+* @param "CreatedAfter" (time.Time) - Only read rooms that started on or after this ISO 8601 timestamp.
+* @param "CreatedBefore" (time.Time) - Only read rooms that started before this ISO 8601 timestamp.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListVideoRoomSummaryResponse
  */

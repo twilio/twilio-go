@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.10.0
+ * API version: 1.11.0
  * Contact: support@twilio.com
  */
 
@@ -121,7 +121,7 @@ type CreateSinkValidateParams struct {
 /*
 * CreateSinkValidate Method for CreateSinkValidate
 * Validate that a test event for a Sink was received.
-* @param Sid
+* @param Sid A 34 character string that uniquely identifies the Sink being validated.
 * @param optional nil or *CreateSinkValidateParams - Optional Parameters:
 * @param "TestId" (string) - A 34 character string that uniquely identifies the test event for a Sink being validated.
 * @return EventsV1SinkSinkValidate

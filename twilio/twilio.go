@@ -23,7 +23,6 @@ import (
 	MonitorV1 "github.com/twilio/twilio-go/twilio/rest/monitor/v1"
 	NotifyV1 "github.com/twilio/twilio-go/twilio/rest/notify/v1"
 	NumbersV2 "github.com/twilio/twilio-go/twilio/rest/numbers/v2"
-	Preview "github.com/twilio/twilio-go/twilio/rest/preview"
 	PricingV1 "github.com/twilio/twilio-go/twilio/rest/pricing/v1"
 	PricingV2 "github.com/twilio/twilio-go/twilio/rest/pricing/v2"
 	ProxyV1 "github.com/twilio/twilio-go/twilio/rest/proxy/v1"
@@ -45,6 +44,7 @@ import (
 type Twilio struct {
 	*client.Credentials
 	*client.Client
+	defaultbaseURL  *string
 	common          service
 	AccountsV1      *AccountsV1.DefaultApiService
 	ApiV2010        *ApiV2010.DefaultApiService
@@ -64,7 +64,6 @@ type Twilio struct {
 	MonitorV1       *MonitorV1.DefaultApiService
 	NotifyV1        *NotifyV1.DefaultApiService
 	NumbersV2       *NumbersV2.DefaultApiService
-	Preview         *Preview.DefaultApiService
 	PricingV1       *PricingV1.DefaultApiService
 	PricingV2       *PricingV2.DefaultApiService
 	ProxyV1         *ProxyV1.DefaultApiService
@@ -130,7 +129,6 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	c.MonitorV1 = MonitorV1.NewDefaultApiService(c.Client)
 	c.NotifyV1 = NotifyV1.NewDefaultApiService(c.Client)
 	c.NumbersV2 = NumbersV2.NewDefaultApiService(c.Client)
-	c.Preview = Preview.NewDefaultApiService(c.Client)
 	c.PricingV1 = PricingV1.NewDefaultApiService(c.Client)
 	c.PricingV2 = PricingV2.NewDefaultApiService(c.Client)
 	c.ProxyV1 = ProxyV1.NewDefaultApiService(c.Client)

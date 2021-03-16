@@ -121,7 +121,7 @@ Validate that a test event for a Sink was received.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** |  | 
+**Sid** | **string** | A 34 character string that uniquely identifies the Sink being validated. | 
 
 ### Other Parameters
 

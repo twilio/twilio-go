@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.10.0
+ * API version: 1.11.0
  * Contact: support@twilio.com
  */
 
@@ -17,30 +17,56 @@ import (
 
 // InsightsV1VideoRoomSummary struct for InsightsV1VideoRoomSummary
 type InsightsV1VideoRoomSummary struct {
-	AccountSid                  *string                 `json:"AccountSid,omitempty"`
-	Codecs                      *[]string               `json:"Codecs,omitempty"`
-	ConcurrentParticipants      *int32                  `json:"ConcurrentParticipants,omitempty"`
-	CreateTime                  *time.Time              `json:"CreateTime,omitempty"`
-	CreatedMethod               *string                 `json:"CreatedMethod,omitempty"`
-	DurationSec                 *int32                  `json:"DurationSec,omitempty"`
-	EdgeLocation                *string                 `json:"EdgeLocation,omitempty"`
-	EndReason                   *string                 `json:"EndReason,omitempty"`
-	EndTime                     *time.Time              `json:"EndTime,omitempty"`
-	Links                       *map[string]interface{} `json:"Links,omitempty"`
-	MaxConcurrentParticipants   *int32                  `json:"MaxConcurrentParticipants,omitempty"`
-	MaxParticipants             *int32                  `json:"MaxParticipants,omitempty"`
-	MediaRegion                 *string                 `json:"MediaRegion,omitempty"`
-	ProcessingState             *string                 `json:"ProcessingState,omitempty"`
-	RecordingEnabled            *bool                   `json:"RecordingEnabled,omitempty"`
-	RoomName                    *string                 `json:"RoomName,omitempty"`
-	RoomSid                     *string                 `json:"RoomSid,omitempty"`
-	RoomStatus                  *string                 `json:"RoomStatus,omitempty"`
-	RoomType                    *string                 `json:"RoomType,omitempty"`
-	StatusCallback              *string                 `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod        *string                 `json:"StatusCallbackMethod,omitempty"`
-	TotalParticipantDurationSec *int32                  `json:"TotalParticipantDurationSec,omitempty"`
-	TotalRecordingDurationSec   *int32                  `json:"TotalRecordingDurationSec,omitempty"`
-	UniqueParticipantIdentities *int32                  `json:"UniqueParticipantIdentities,omitempty"`
-	UniqueParticipants          *int32                  `json:"UniqueParticipants,omitempty"`
-	Url                         *string                 `json:"Url,omitempty"`
+	// Account SID associated with this room.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// Codecs used by participants in the room.
+	Codecs *[]string `json:"Codecs,omitempty"`
+	// Actual number of concurrent participants.
+	ConcurrentParticipants *int32 `json:"ConcurrentParticipants,omitempty"`
+	// Creation time of the room.
+	CreateTime *time.Time `json:"CreateTime,omitempty"`
+	// How the room was created.
+	CreatedMethod *string `json:"CreatedMethod,omitempty"`
+	// Total room duration from create time to end time.
+	DurationSec *int32 `json:"DurationSec,omitempty"`
+	// Edge location of Twilio media servers for the room.
+	EdgeLocation *string `json:"EdgeLocation,omitempty"`
+	// Reason the room ended.
+	EndReason *string `json:"EndReason,omitempty"`
+	// End time for the room.
+	EndTime *time.Time `json:"EndTime,omitempty"`
+	// Room subresources.
+	Links *map[string]interface{} `json:"Links,omitempty"`
+	// Maximum number of participants allowed in the room at the same time allowed by the application settings.
+	MaxConcurrentParticipants *int32 `json:"MaxConcurrentParticipants,omitempty"`
+	// Max number of total participants allowed by the application settings.
+	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	// Region of Twilio media servers for the room.
+	MediaRegion *string `json:"MediaRegion,omitempty"`
+	// Video Log Analyzer resource state. Will be either `in-progress` or `complete`.
+	ProcessingState *string `json:"ProcessingState,omitempty"`
+	// Boolean indicating if recording is enabled for the room.
+	RecordingEnabled *bool `json:"RecordingEnabled,omitempty"`
+	// room friendly name.
+	RoomName *string `json:"RoomName,omitempty"`
+	// Unique identifier for the room.
+	RoomSid *string `json:"RoomSid,omitempty"`
+	// Status of the room.
+	RoomStatus *string `json:"RoomStatus,omitempty"`
+	// Type of room.
+	RoomType *string `json:"RoomType,omitempty"`
+	// Webhook provided for status callbacks.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// HTTP method provided for status callback URL.
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// Combined amount of participant time in the room.
+	TotalParticipantDurationSec *int32 `json:"TotalParticipantDurationSec,omitempty"`
+	// Combined amount of recorded seconds for participants in the room.
+	TotalRecordingDurationSec *int32 `json:"TotalRecordingDurationSec,omitempty"`
+	// Unique number of participant identities.
+	UniqueParticipantIdentities *int32 `json:"UniqueParticipantIdentities,omitempty"`
+	// Number of participants. May include duplicate identities for participants who left and rejoined.
+	UniqueParticipants *int32 `json:"UniqueParticipants,omitempty"`
+	// URL for the room resource.
+	Url *string `json:"Url,omitempty"`
 }

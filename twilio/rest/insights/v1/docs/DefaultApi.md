@@ -102,14 +102,16 @@ Name | Type | Description  | Notes
 
 
 
+Get Video Log Analyzer data for a Room Participant.
+
 ### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**RoomSid** | **string** |  | 
-**ParticipantSid** | **string** |  | 
+**RoomSid** | **string** | The SID of the Room resource. | 
+**ParticipantSid** | **string** | The SID of the Participant resource. | 
 
 ### Other Parameters
 
@@ -143,13 +145,15 @@ Name | Type | Description  | Notes
 
 
 
+Get Video Log Analyzer data for a Room.
+
 ### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**RoomSid** | **string** |  | 
+**RoomSid** | **string** | The SID of the Room resource. | 
 
 ### Other Parameters
 
@@ -268,13 +272,15 @@ Name | Type | Description  | Notes
 
 
 
+Get a list of room participants.
+
 ### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**RoomSid** | **string** |  | 
+**RoomSid** | **string** | The SID of the Room resource. | 
 
 ### Other Parameters
 
@@ -309,6 +315,8 @@ Name | Type | Description  | Notes
 
 
 
+Get a list of Programmable Video Rooms.
+
 ### Path Parameters
 
 This endpoint does not need any path parameter.
@@ -320,11 +328,11 @@ Other parameters are passed through a pointer to a ListVideoRoomSummaryParams st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**RoomType** | **[]string** |  | 
-**Codec** | **[]string** |  | 
-**RoomName** | **string** |  | 
-**CreatedAfter** | **time.Time** |  | 
-**CreatedBefore** | **time.Time** |  | 
+**RoomType** | **[]string** | Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;. | 
+**Codec** | **[]string** | Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;. | 
+**RoomName** | **string** | Room friendly name. | 
+**CreatedAfter** | **time.Time** | Only read rooms that started on or after this ISO 8601 timestamp. | 
+**CreatedBefore** | **time.Time** | Only read rooms that started before this ISO 8601 timestamp. | 
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
 
 ### Return type

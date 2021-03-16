@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.10.0
+ * API version: 1.11.0
  * Contact: support@twilio.com
  */
 
@@ -27,7 +27,7 @@ type ProxyV1ServiceSessionParticipant struct {
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	// The string that you assigned to describe the participant
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The phone number of the Participant
+	// The phone number or channel identifier of the Participant
 	Identifier *string `json:"Identifier,omitempty"`
 	// The URLs to resources related the participant
 	Links *map[string]interface{} `json:"Links,omitempty"`
