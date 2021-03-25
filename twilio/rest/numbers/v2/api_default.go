@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.11.0
+ * API version: 1.12.0
  * Contact: support@twilio.com
  */
 
@@ -154,7 +154,8 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Numbers
 
 /*
 * CreateEvaluation Method for CreateEvaluation
-* @param BundleSid
+* Creates an evaluation for a bundle
+* @param BundleSid The unique string that identifies the Bundle resource.
 * @return NumbersV2RegulatoryComplianceBundleEvaluation
  */
 func (c *DefaultApiService) CreateEvaluation(BundleSid string) (*NumbersV2RegulatoryComplianceBundleEvaluation, error) {
@@ -733,7 +734,7 @@ type ListEvaluationParams struct {
 /*
 * ListEvaluation Method for ListEvaluation
 * Retrieve a list of Evaluations associated to the Bundle resource.
-* @param BundleSid
+* @param BundleSid The unique string that identifies the Bundle resource.
 * @param optional nil or *ListEvaluationParams - Optional Parameters:
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListEvaluationResponse

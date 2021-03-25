@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.11.0
+ * API version: 1.12.0
  * Contact: support@twilio.com
  */
 
@@ -326,15 +326,16 @@ func (c *DefaultApiService) CreateRecordingSettings(params *CreateRecordingSetti
 
 // CreateRoomParams Optional parameters for the method 'CreateRoom'
 type CreateRoomParams struct {
-	EnableTurn                  *bool     `json:"EnableTurn,omitempty"`
-	MaxParticipants             *int32    `json:"MaxParticipants,omitempty"`
-	MediaRegion                 *string   `json:"MediaRegion,omitempty"`
-	RecordParticipantsOnConnect *bool     `json:"RecordParticipantsOnConnect,omitempty"`
-	StatusCallback              *string   `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod        *string   `json:"StatusCallbackMethod,omitempty"`
-	Type                        *string   `json:"Type,omitempty"`
-	UniqueName                  *string   `json:"UniqueName,omitempty"`
-	VideoCodecs                 *[]string `json:"VideoCodecs,omitempty"`
+	EnableTurn                  *bool                   `json:"EnableTurn,omitempty"`
+	MaxParticipants             *int32                  `json:"MaxParticipants,omitempty"`
+	MediaRegion                 *string                 `json:"MediaRegion,omitempty"`
+	RecordParticipantsOnConnect *bool                   `json:"RecordParticipantsOnConnect,omitempty"`
+	RecordingRules              *map[string]interface{} `json:"RecordingRules,omitempty"`
+	StatusCallback              *string                 `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod        *string                 `json:"StatusCallbackMethod,omitempty"`
+	Type                        *string                 `json:"Type,omitempty"`
+	UniqueName                  *string                 `json:"UniqueName,omitempty"`
+	VideoCodecs                 *[]string               `json:"VideoCodecs,omitempty"`
 }
 
 /*
@@ -344,6 +345,7 @@ type CreateRoomParams struct {
 * @param "MaxParticipants" (int32) - The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
 * @param "MediaRegion" (string) - The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
 * @param "RecordParticipantsOnConnect" (bool) - Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+* @param "RecordingRules" (map[string]interface{}) - A collection of Recording Rules that describe how to include or exclude matching tracks for recording
 * @param "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
 * @param "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
 * @param "Type" (string) - The type of room. Can be: `go`, `peer-to-peer`, `group-small`, or `group`. The default value is `group`.
@@ -368,6 +370,15 @@ func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, 
 	}
 	if params != nil && params.RecordParticipantsOnConnect != nil {
 		data.Set("RecordParticipantsOnConnect", fmt.Sprint(*params.RecordParticipantsOnConnect))
+	}
+	if params != nil && params.RecordingRules != nil {
+		v, err := json.Marshal(params.RecordingRules)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("RecordingRules", fmt.Sprint(v))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)

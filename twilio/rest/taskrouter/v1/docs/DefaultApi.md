@@ -2285,6 +2285,7 @@ Other parameters are passed through a pointer to a UpdateTaskParams struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+**IfMatch** | **string** | The If-Match HTTP request header | 
 **AssignmentStatus** | **string** | The new status of the task. Can be: &#x60;canceled&#x60;, to cancel a Task that is currently &#x60;pending&#x60; or &#x60;reserved&#x60;; &#x60;wrapping&#x60;, to move the Task to wrapup state; or &#x60;completed&#x60;, to move a Task to the completed state. | 
 **Attributes** | **string** | The JSON string that describes the custom attributes of the task. | 
 **Priority** | **int32** | The Task&#39;s new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647). | 

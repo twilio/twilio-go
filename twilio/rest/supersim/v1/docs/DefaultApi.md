@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**CreateFleet**](DefaultApi.md#CreateFleet) | **Post** /v1/Fleets | 
 [**CreateNetworkAccessProfile**](DefaultApi.md#CreateNetworkAccessProfile) | **Post** /v1/NetworkAccessProfiles | 
 [**CreateNetworkAccessProfileNetwork**](DefaultApi.md#CreateNetworkAccessProfileNetwork) | **Post** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | 
+[**CreateSmsCommand**](DefaultApi.md#CreateSmsCommand) | **Post** /v1/SmsCommands | 
 [**DeleteNetworkAccessProfileNetwork**](DefaultApi.md#DeleteNetworkAccessProfileNetwork) | **Delete** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | 
 [**FetchCommand**](DefaultApi.md#FetchCommand) | **Get** /v1/Commands/{Sid} | 
 [**FetchFleet**](DefaultApi.md#FetchFleet) | **Get** /v1/Fleets/{Sid} | 
@@ -15,12 +16,14 @@ Method | HTTP request | Description
 [**FetchNetworkAccessProfile**](DefaultApi.md#FetchNetworkAccessProfile) | **Get** /v1/NetworkAccessProfiles/{Sid} | 
 [**FetchNetworkAccessProfileNetwork**](DefaultApi.md#FetchNetworkAccessProfileNetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | 
 [**FetchSim**](DefaultApi.md#FetchSim) | **Get** /v1/Sims/{Sid} | 
+[**FetchSmsCommand**](DefaultApi.md#FetchSmsCommand) | **Get** /v1/SmsCommands/{Sid} | 
 [**ListCommand**](DefaultApi.md#ListCommand) | **Get** /v1/Commands | 
 [**ListFleet**](DefaultApi.md#ListFleet) | **Get** /v1/Fleets | 
 [**ListNetwork**](DefaultApi.md#ListNetwork) | **Get** /v1/Networks | 
 [**ListNetworkAccessProfile**](DefaultApi.md#ListNetworkAccessProfile) | **Get** /v1/NetworkAccessProfiles | 
 [**ListNetworkAccessProfileNetwork**](DefaultApi.md#ListNetworkAccessProfileNetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | 
 [**ListSim**](DefaultApi.md#ListSim) | **Get** /v1/Sims | 
+[**ListSmsCommand**](DefaultApi.md#ListSmsCommand) | **Get** /v1/SmsCommands | 
 [**ListUsageRecord**](DefaultApi.md#ListUsageRecord) | **Get** /v1/UsageRecords | 
 [**UpdateFleet**](DefaultApi.md#UpdateFleet) | **Post** /v1/Fleets/{Sid} | 
 [**UpdateNetworkAccessProfile**](DefaultApi.md#UpdateNetworkAccessProfile) | **Post** /v1/NetworkAccessProfiles/{Sid} | 
@@ -95,6 +98,9 @@ Name | Type | Description  | Notes
 **DataEnabled** | **bool** | Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to &#x60;true&#x60;. | 
 **DataLimit** | **int32** | The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000). | 
 **NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet&#39;s SIMs can connect to. | 
+**SmsCommandsEnabled** | **bool** | Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to &#x60;true&#x60;. | 
+**SmsCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to &#x60;sms_commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;. | 
+**SmsCommandsUrl** | **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. | 
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource&#39;s &#x60;sid&#x60; in the URL to address the resource. | 
 
 ### Return type
@@ -183,6 +189,48 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork**](SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateSmsCommand
+
+> SupersimV1SmsCommand CreateSmsCommand(ctx, optional)
+
+
+
+Send SMS Command to a Sim.
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateSmsCommandParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is POST. | 
+**CallbackUrl** | **string** | The URL we should call using the &#x60;callback_method&#x60; after we have sent the command. | 
+**Payload** | **string** | The message body of the SMS Command. | 
+**Sim** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the SMS Command to. | 
+
+### Return type
+
+[**SupersimV1SmsCommand**](SupersimV1SmsCommand.md)
 
 ### Authorization
 
@@ -494,6 +542,48 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## FetchSmsCommand
+
+> SupersimV1SmsCommand FetchSmsCommand(ctx, Sid)
+
+
+
+Fetch SMS Command instance from your account.
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string** | The SID of the SMS Command resource to fetch. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSmsCommandParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Return type
+
+[**SupersimV1SmsCommand**](SupersimV1SmsCommand.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListCommand
 
 > ListCommandResponse ListCommand(ctx, optional)
@@ -742,6 +832,48 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListSmsCommand
+
+> ListSmsCommandResponse ListSmsCommand(ctx, optional)
+
+
+
+Retrieve a list of SMS Commands from your account.
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListSmsCommandParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**Sim** | **string** | The SID or unique name of the Sim that SMS Command was sent to or from. | 
+**Status** | **string** | The status of the SMS Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each. | 
+**Direction** | **string** | The direction of the SMS Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;. | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+
+### Return type
+
+[**ListSmsCommandResponse**](ListSmsCommandResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListUsageRecord
 
 > ListUsageRecordResponse ListUsageRecord(ctx, optional)
@@ -815,6 +947,8 @@ Name | Type | Description  | Notes
 **CommandsMethod** | **string** | A string representing the HTTP method to use when making a request to &#x60;commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;. | 
 **CommandsUrl** | **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. | 
 **NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet&#39;s SIMs can connect to. | 
+**SmsCommandsMethod** | **string** | A string representing the HTTP method to use when making a request to &#x60;sms_commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;. | 
+**SmsCommandsUrl** | **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored. | 
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the resource&#39;s &#x60;sid&#x60; in the URL to address the resource. | 
 
 ### Return type

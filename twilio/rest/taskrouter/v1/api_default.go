@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.11.0
+ * API version: 1.12.0
  * Contact: support@twilio.com
  */
 
@@ -2294,6 +2294,7 @@ func (c *DefaultApiService) UpdateActivity(WorkspaceSid string, Sid string, para
 
 // UpdateTaskParams Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
+	IfMatch          *string `json:"If-Match,omitempty"`
 	AssignmentStatus *string `json:"AssignmentStatus,omitempty"`
 	Attributes       *string `json:"Attributes,omitempty"`
 	Priority         *int32  `json:"Priority,omitempty"`
@@ -2306,6 +2307,7 @@ type UpdateTaskParams struct {
 * @param WorkspaceSid The SID of the Workspace with the Task to update.
 * @param Sid The SID of the Task resource to update.
 * @param optional nil or *UpdateTaskParams - Optional Parameters:
+* @param "IfMatch" (string) - The If-Match HTTP request header
 * @param "AssignmentStatus" (string) - The new status of the task. Can be: `canceled`, to cancel a Task that is currently `pending` or `reserved`; `wrapping`, to move the Task to wrapup state; or `completed`, to move a Task to the completed state.
 * @param "Attributes" (string) - The JSON string that describes the custom attributes of the task.
 * @param "Priority" (int32) - The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
@@ -2319,7 +2321,7 @@ func (c *DefaultApiService) UpdateTask(WorkspaceSid string, Sid string, params *
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AssignmentStatus != nil {
 		data.Set("AssignmentStatus", *params.AssignmentStatus)
@@ -2335,6 +2337,10 @@ func (c *DefaultApiService) UpdateTask(WorkspaceSid string, Sid string, params *
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["IfMatch"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
