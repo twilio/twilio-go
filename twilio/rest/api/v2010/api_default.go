@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.11.0
+ * API version: 1.12.0
  * Contact: support@twilio.com
  */
 
@@ -265,6 +265,7 @@ type CreateCallParams struct {
 	AsyncAmdStatusCallbackMethod       *string   `json:"AsyncAmdStatusCallbackMethod,omitempty"`
 	Byoc                               *string   `json:"Byoc,omitempty"`
 	CallReason                         *string   `json:"CallReason,omitempty"`
+	CallToken                          *string   `json:"CallToken,omitempty"`
 	CallerId                           *string   `json:"CallerId,omitempty"`
 	FallbackMethod                     *string   `json:"FallbackMethod,omitempty"`
 	FallbackUrl                        *string   `json:"FallbackUrl,omitempty"`
@@ -287,6 +288,7 @@ type CreateCallParams struct {
 	StatusCallback                     *string   `json:"StatusCallback,omitempty"`
 	StatusCallbackEvent                *[]string `json:"StatusCallbackEvent,omitempty"`
 	StatusCallbackMethod               *string   `json:"StatusCallbackMethod,omitempty"`
+	TimeLimit                          *int32    `json:"TimeLimit,omitempty"`
 	Timeout                            *int32    `json:"Timeout,omitempty"`
 	To                                 *string   `json:"To,omitempty"`
 	Trim                               *string   `json:"Trim,omitempty"`
@@ -305,6 +307,7 @@ type CreateCallParams struct {
 * @param "AsyncAmdStatusCallbackMethod" (string) - The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 * @param "Byoc" (string) - The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
 * @param "CallReason" (string) - The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
+* @param "CallToken" (string) - A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. this field should be populated by the incoming call's call_token to make this outgoing call as a forwarded call of incoming call. A forwarded call should bear the same caller-id of incoming call.
 * @param "CallerId" (string) - The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
 * @param "FallbackMethod" (string) - The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 * @param "FallbackUrl" (string) - The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
@@ -327,6 +330,7 @@ type CreateCallParams struct {
 * @param "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
 * @param "StatusCallbackEvent" ([]string) - The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored.
 * @param "StatusCallbackMethod" (string) - The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+* @param "TimeLimit" (int32) - The maximum duration of the call in seconds. Constraints depend on account and configuration.
 * @param "Timeout" (int32) - The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
 * @param "To" (string) - The phone number, SIP address, or client identifier to call.
 * @param "Trim" (string) - Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
@@ -358,6 +362,9 @@ func (c *DefaultApiService) CreateCall(AccountSid string, params *CreateCallPara
 	}
 	if params != nil && params.CallReason != nil {
 		data.Set("CallReason", *params.CallReason)
+	}
+	if params != nil && params.CallToken != nil {
+		data.Set("CallToken", *params.CallToken)
 	}
 	if params != nil && params.CallerId != nil {
 		data.Set("CallerId", *params.CallerId)
@@ -424,6 +431,9 @@ func (c *DefaultApiService) CreateCall(AccountSid string, params *CreateCallPara
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
 	}
 	if params != nil && params.Timeout != nil {
 		data.Set("Timeout", fmt.Sprint(*params.Timeout))

@@ -7,12 +7,15 @@ Method | HTTP request | Description
 [**CreateSink**](DefaultApi.md#CreateSink) | **Post** /v1/Sinks | 
 [**CreateSinkTest**](DefaultApi.md#CreateSinkTest) | **Post** /v1/Sinks/{Sid}/Test | 
 [**CreateSinkValidate**](DefaultApi.md#CreateSinkValidate) | **Post** /v1/Sinks/{Sid}/Validate | 
+[**CreateSubscribedEvent**](DefaultApi.md#CreateSubscribedEvent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
 [**CreateSubscription**](DefaultApi.md#CreateSubscription) | **Post** /v1/Subscriptions | 
 [**DeleteSink**](DefaultApi.md#DeleteSink) | **Delete** /v1/Sinks/{Sid} | 
+[**DeleteSubscribedEvent**](DefaultApi.md#DeleteSubscribedEvent) | **Delete** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
 [**DeleteSubscription**](DefaultApi.md#DeleteSubscription) | **Delete** /v1/Subscriptions/{Sid} | 
 [**FetchEventType**](DefaultApi.md#FetchEventType) | **Get** /v1/Types/{Type} | 
 [**FetchSchema**](DefaultApi.md#FetchSchema) | **Get** /v1/Schemas/{Id} | 
 [**FetchSink**](DefaultApi.md#FetchSink) | **Get** /v1/Sinks/{Sid} | 
+[**FetchSubscribedEvent**](DefaultApi.md#FetchSubscribedEvent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
 [**FetchSubscription**](DefaultApi.md#FetchSubscription) | **Get** /v1/Subscriptions/{Sid} | 
 [**FetchVersion**](DefaultApi.md#FetchVersion) | **Get** /v1/Schemas/{Id}/Versions/{SchemaVersion} | 
 [**ListEventType**](DefaultApi.md#ListEventType) | **Get** /v1/Types | 
@@ -20,6 +23,7 @@ Method | HTTP request | Description
 [**ListSubscribedEvent**](DefaultApi.md#ListSubscribedEvent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
 [**ListSubscription**](DefaultApi.md#ListSubscription) | **Get** /v1/Subscriptions | 
 [**ListVersion**](DefaultApi.md#ListVersion) | **Get** /v1/Schemas/{Id}/Versions | 
+[**UpdateSubscribedEvent**](DefaultApi.md#UpdateSubscribedEvent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
 [**UpdateSubscription**](DefaultApi.md#UpdateSubscription) | **Post** /v1/Subscriptions/{Sid} | 
 
 
@@ -150,6 +154,50 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## CreateSubscribedEvent
+
+> EventsV1SubscriptionSubscribedEvent CreateSubscribedEvent(ctx, SubscriptionSidoptional)
+
+
+
+Create a new Subscribed Event type for the subscription
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateSubscribedEventParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**Type** | **string** | Type of event being subscribed to. | 
+**Version** | **int32** | The schema version that the subscription should use. | 
+
+### Return type
+
+[**EventsV1SubscriptionSubscribedEvent**](EventsV1SubscriptionSubscribedEvent.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## CreateSubscription
 
 > EventsV1Subscription CreateSubscription(ctx, optional)
@@ -210,6 +258,49 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSinkParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteSubscribedEvent
+
+> DeleteSubscribedEvent(ctx, SubscriptionSidType)
+
+
+
+Remove an event type from a subscription.
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
+**Type** | **string** | Type of event being subscribed to. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSubscribedEventParams struct
 
 
 Name | Type | Description  | Notes
@@ -386,6 +477,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**EventsV1Sink**](EventsV1Sink.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchSubscribedEvent
+
+> EventsV1SubscriptionSubscribedEvent FetchSubscribedEvent(ctx, SubscriptionSidType)
+
+
+
+Read an Event for a Subscription.
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
+**Type** | **string** | Type of event being subscribed to. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSubscribedEventParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Return type
+
+[**EventsV1SubscriptionSubscribedEvent**](EventsV1SubscriptionSubscribedEvent.md)
 
 ### Authorization
 
@@ -683,6 +817,50 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateSubscribedEvent
+
+> EventsV1SubscriptionSubscribedEvent UpdateSubscribedEvent(ctx, SubscriptionSidTypeoptional)
+
+
+
+Update an Event for a Subscription.
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
+**Type** | **string** | Type of event being subscribed to. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateSubscribedEventParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**Version** | **int32** | The schema version that the subscription should use. | 
+
+### Return type
+
+[**EventsV1SubscriptionSubscribedEvent**](EventsV1SubscriptionSubscribedEvent.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded, 
 - **Accept**: application/json, 
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

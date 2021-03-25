@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.11.0
+ * API version: 1.12.0
  * Contact: support@twilio.com
  */
 
@@ -19,8 +19,12 @@ type BulkexportsV1ExportExportCustomJob struct {
 	Email *string `json:"Email,omitempty"`
 	// The end day for the custom export specified as a string in the format of yyyy-MM-dd. This will be the last day exported. For instance, to export a single day, choose the same day for start and end day. To export the first 4 days of July, you would set the start date to 2020-07-01 and the end date to 2020-07-04. The end date must be the UTC day before yesterday.
 	EndDay *string `json:"EndDay,omitempty"`
+	// this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
+	EstimatedCompletionTime *string `json:"EstimatedCompletionTime,omitempty"`
 	// The friendly name specified when creating the job
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
+	JobQueuePosition *string `json:"JobQueuePosition,omitempty"`
 	// The unique job_sid returned when the custom export was created. This can be used to look up the status of the job.
 	JobSid *string `json:"JobSid,omitempty"`
 	// The type of communication – Messages, Calls, Conferences, and Participants

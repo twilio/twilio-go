@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.11.0
+ * API version: 1.12.0
  * Contact: support@twilio.com
  */
 
@@ -152,6 +152,50 @@ func (c *DefaultApiService) CreateSinkValidate(Sid string, params *CreateSinkVal
 	return ps, err
 }
 
+// CreateSubscribedEventParams Optional parameters for the method 'CreateSubscribedEvent'
+type CreateSubscribedEventParams struct {
+	Type    *string `json:"Type,omitempty"`
+	Version *int32  `json:"Version,omitempty"`
+}
+
+/*
+* CreateSubscribedEvent Method for CreateSubscribedEvent
+* Create a new Subscribed Event type for the subscription
+* @param SubscriptionSid The unique SID identifier of the Subscription.
+* @param optional nil or *CreateSubscribedEventParams - Optional Parameters:
+* @param "Type" (string) - Type of event being subscribed to.
+* @param "Version" (int32) - The schema version that the subscription should use.
+* @return EventsV1SubscriptionSubscribedEvent
+ */
+func (c *DefaultApiService) CreateSubscribedEvent(SubscriptionSid string, params *CreateSubscribedEventParams) (*EventsV1SubscriptionSubscribedEvent, error) {
+	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
+	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
+	if params != nil && params.Version != nil {
+		data.Set("Version", fmt.Sprint(*params.Version))
+	}
+
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1SubscriptionSubscribedEvent{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 // CreateSubscriptionParams Optional parameters for the method 'CreateSubscription'
 type CreateSubscriptionParams struct {
 	Description *string                   `json:"Description,omitempty"`
@@ -213,6 +257,30 @@ func (c *DefaultApiService) CreateSubscription(params *CreateSubscriptionParams)
 func (c *DefaultApiService) DeleteSink(Sid string) error {
 	path := "/v1/Sinks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	return nil
+}
+
+/*
+* DeleteSubscribedEvent Method for DeleteSubscribedEvent
+* Remove an event type from a subscription.
+* @param SubscriptionSid The unique SID identifier of the Subscription.
+* @param Type Type of event being subscribed to.
+ */
+func (c *DefaultApiService) DeleteSubscribedEvent(SubscriptionSid string, Type string) error {
+	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
+	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
+	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
 	headers := 0
@@ -326,6 +394,36 @@ func (c *DefaultApiService) FetchSink(Sid string) (*EventsV1Sink, error) {
 	defer resp.Body.Close()
 
 	ps := &EventsV1Sink{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+/*
+* FetchSubscribedEvent Method for FetchSubscribedEvent
+* Read an Event for a Subscription.
+* @param SubscriptionSid The unique SID identifier of the Subscription.
+* @param Type Type of event being subscribed to.
+* @return EventsV1SubscriptionSubscribedEvent
+ */
+func (c *DefaultApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (*EventsV1SubscriptionSubscribedEvent, error) {
+	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
+	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
+	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1SubscriptionSubscribedEvent{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -578,6 +676,47 @@ func (c *DefaultApiService) ListVersion(Id string, params *ListVersionParams) (*
 	defer resp.Body.Close()
 
 	ps := &ListVersionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// UpdateSubscribedEventParams Optional parameters for the method 'UpdateSubscribedEvent'
+type UpdateSubscribedEventParams struct {
+	Version *int32 `json:"Version,omitempty"`
+}
+
+/*
+* UpdateSubscribedEvent Method for UpdateSubscribedEvent
+* Update an Event for a Subscription.
+* @param SubscriptionSid The unique SID identifier of the Subscription.
+* @param Type Type of event being subscribed to.
+* @param optional nil or *UpdateSubscribedEventParams - Optional Parameters:
+* @param "Version" (int32) - The schema version that the subscription should use.
+* @return EventsV1SubscriptionSubscribedEvent
+ */
+func (c *DefaultApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, params *UpdateSubscribedEventParams) (*EventsV1SubscriptionSubscribedEvent, error) {
+	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
+	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
+	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	if params != nil && params.Version != nil {
+		data.Set("Version", fmt.Sprint(*params.Version))
+	}
+
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1SubscriptionSubscribedEvent{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

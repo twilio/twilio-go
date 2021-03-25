@@ -127,13 +127,15 @@ Name | Type | Description  | Notes
 
 
 
+Creates an evaluation for a bundle
+
 ### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**BundleSid** | **string** |  | 
+**BundleSid** | **string** | The unique string that identifies the Bundle resource. | 
 
 ### Other Parameters
 
@@ -888,7 +890,7 @@ Retrieve a list of Evaluations associated to the Bundle resource.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**BundleSid** | **string** |  | 
+**BundleSid** | **string** | The unique string that identifies the Bundle resource. | 
 
 ### Other Parameters
 

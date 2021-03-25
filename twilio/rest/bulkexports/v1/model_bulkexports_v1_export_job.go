@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.11.0
+ * API version: 1.12.0
  * Contact: support@twilio.com
  */
 
@@ -19,8 +19,12 @@ type BulkexportsV1ExportJob struct {
 	Email *string `json:"Email,omitempty"`
 	// The end time for the export specified when creating the job
 	EndDay *string `json:"EndDay,omitempty"`
+	// this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
+	EstimatedCompletionTime *string `json:"EstimatedCompletionTime,omitempty"`
 	// The friendly name specified when creating the job
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
+	JobQueuePosition *string `json:"JobQueuePosition,omitempty"`
 	// The job_sid returned when the export was created
 	JobSid *string `json:"JobSid,omitempty"`
 	// The type of communication – Messages, Calls, Conferences, and Participants

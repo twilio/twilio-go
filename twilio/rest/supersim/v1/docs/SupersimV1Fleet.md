@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **NetworkAccessProfileSid** | Pointer to **string** | The SID of the Network Access Profile of the Fleet |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
+**SmsCommandsEnabled** | Pointer to **bool** | Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands |
+**SmsCommandsMethod** | Pointer to **string** | A string representing the HTTP method to use when making a request to `sms_commands_url` |
+**SmsCommandsUrl** | Pointer to **string** | The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource |
 **Url** | Pointer to **string** | The absolute URL of the Fleet resource |
 

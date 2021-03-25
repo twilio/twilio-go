@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.11.0
+ * API version: 1.12.0
  * Contact: support@twilio.com
  */
 
@@ -93,6 +93,9 @@ type CreateFleetParams struct {
 	DataEnabled          *bool   `json:"DataEnabled,omitempty"`
 	DataLimit            *int32  `json:"DataLimit,omitempty"`
 	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
+	SmsCommandsEnabled   *bool   `json:"SmsCommandsEnabled,omitempty"`
+	SmsCommandsMethod    *string `json:"SmsCommandsMethod,omitempty"`
+	SmsCommandsUrl       *string `json:"SmsCommandsUrl,omitempty"`
 	UniqueName           *string `json:"UniqueName,omitempty"`
 }
 
@@ -106,6 +109,9 @@ type CreateFleetParams struct {
 * @param "DataEnabled" (bool) - Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
 * @param "DataLimit" (int32) - The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 * @param "NetworkAccessProfile" (string) - The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+* @param "SmsCommandsEnabled" (bool) - Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+* @param "SmsCommandsMethod" (string) - A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+* @param "SmsCommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
 * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 * @return SupersimV1Fleet
  */
@@ -132,6 +138,15 @@ func (c *DefaultApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1F
 	}
 	if params != nil && params.NetworkAccessProfile != nil {
 		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	}
+	if params != nil && params.SmsCommandsEnabled != nil {
+		data.Set("SmsCommandsEnabled", fmt.Sprint(*params.SmsCommandsEnabled))
+	}
+	if params != nil && params.SmsCommandsMethod != nil {
+		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
+	}
+	if params != nil && params.SmsCommandsUrl != nil {
+		data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -226,6 +241,58 @@ func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfi
 	defer resp.Body.Close()
 
 	ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// CreateSmsCommandParams Optional parameters for the method 'CreateSmsCommand'
+type CreateSmsCommandParams struct {
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	CallbackUrl    *string `json:"CallbackUrl,omitempty"`
+	Payload        *string `json:"Payload,omitempty"`
+	Sim            *string `json:"Sim,omitempty"`
+}
+
+/*
+* CreateSmsCommand Method for CreateSmsCommand
+* Send SMS Command to a Sim.
+* @param optional nil or *CreateSmsCommandParams - Optional Parameters:
+* @param "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+* @param "CallbackUrl" (string) - The URL we should call using the `callback_method` after we have sent the command.
+* @param "Payload" (string) - The message body of the SMS Command.
+* @param "Sim" (string) - The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the SMS Command to.
+* @return SupersimV1SmsCommand
+ */
+func (c *DefaultApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*SupersimV1SmsCommand, error) {
+	path := "/v1/SmsCommands"
+
+	data := url.Values{}
+	headers := 0
+
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.Payload != nil {
+		data.Set("Payload", *params.Payload)
+	}
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1SmsCommand{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -420,6 +487,34 @@ func (c *DefaultApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
 	defer resp.Body.Close()
 
 	ps := &SupersimV1Sim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+/*
+* FetchSmsCommand Method for FetchSmsCommand
+* Fetch SMS Command instance from your account.
+* @param Sid The SID of the SMS Command resource to fetch.
+* @return SupersimV1SmsCommand
+ */
+func (c *DefaultApiService) FetchSmsCommand(Sid string) (*SupersimV1SmsCommand, error) {
+	path := "/v1/SmsCommands/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1SmsCommand{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -701,6 +796,58 @@ func (c *DefaultApiService) ListSim(params *ListSimParams) (*ListSimResponse, er
 	return ps, err
 }
 
+// ListSmsCommandParams Optional parameters for the method 'ListSmsCommand'
+type ListSmsCommandParams struct {
+	Sim       *string `json:"Sim,omitempty"`
+	Status    *string `json:"Status,omitempty"`
+	Direction *string `json:"Direction,omitempty"`
+	PageSize  *int32  `json:"PageSize,omitempty"`
+}
+
+/*
+* ListSmsCommand Method for ListSmsCommand
+* Retrieve a list of SMS Commands from your account.
+* @param optional nil or *ListSmsCommandParams - Optional Parameters:
+* @param "Sim" (string) - The SID or unique name of the Sim that SMS Command was sent to or from.
+* @param "Status" (string) - The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
+* @param "Direction" (string) - The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+* @return ListSmsCommandResponse
+ */
+func (c *DefaultApiService) ListSmsCommand(params *ListSmsCommandParams) (*ListSmsCommandResponse, error) {
+	path := "/v1/SmsCommands"
+
+	data := url.Values{}
+	headers := 0
+
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Direction != nil {
+		data.Set("Direction", *params.Direction)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSmsCommandResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 // ListUsageRecordParams Optional parameters for the method 'ListUsageRecord'
 type ListUsageRecordParams struct {
 	Sim         *string    `json:"Sim,omitempty"`
@@ -783,6 +930,8 @@ type UpdateFleetParams struct {
 	CommandsMethod       *string `json:"CommandsMethod,omitempty"`
 	CommandsUrl          *string `json:"CommandsUrl,omitempty"`
 	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
+	SmsCommandsMethod    *string `json:"SmsCommandsMethod,omitempty"`
+	SmsCommandsUrl       *string `json:"SmsCommandsUrl,omitempty"`
 	UniqueName           *string `json:"UniqueName,omitempty"`
 }
 
@@ -794,6 +943,8 @@ type UpdateFleetParams struct {
 * @param "CommandsMethod" (string) - A string representing the HTTP method to use when making a request to `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
 * @param "CommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
 * @param "NetworkAccessProfile" (string) - The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+* @param "SmsCommandsMethod" (string) - A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+* @param "SmsCommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
 * @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 * @return SupersimV1Fleet
  */
@@ -812,6 +963,12 @@ func (c *DefaultApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (
 	}
 	if params != nil && params.NetworkAccessProfile != nil {
 		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	}
+	if params != nil && params.SmsCommandsMethod != nil {
+		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
+	}
+	if params != nil && params.SmsCommandsUrl != nil {
+		data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)

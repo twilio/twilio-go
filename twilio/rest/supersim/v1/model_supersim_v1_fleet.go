@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.11.0
+ * API version: 1.12.0
  * Contact: support@twilio.com
  */
 
@@ -39,6 +39,12 @@ type SupersimV1Fleet struct {
 	NetworkAccessProfileSid *string `json:"NetworkAccessProfileSid,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"Sid,omitempty"`
+	// Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
+	SmsCommandsEnabled *bool `json:"SmsCommandsEnabled,omitempty"`
+	// A string representing the HTTP method to use when making a request to `sms_commands_url`
+	SmsCommandsMethod *string `json:"SmsCommandsMethod,omitempty"`
+	// The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
+	SmsCommandsUrl *string `json:"SmsCommandsUrl,omitempty"`
 	// An application-defined string that uniquely identifies the resource
 	UniqueName *string `json:"UniqueName,omitempty"`
 	// The absolute URL of the Fleet resource
