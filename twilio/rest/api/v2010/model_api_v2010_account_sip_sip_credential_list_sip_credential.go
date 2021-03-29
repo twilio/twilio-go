@@ -14,17 +14,17 @@ package openapi
 // ApiV2010AccountSipSipCredentialListSipCredential struct for ApiV2010AccountSipSipCredentialListSipCredential
 type ApiV2010AccountSipSipCredentialListSipCredential struct {
 	// The unique id of the Account that is responsible for this resource.
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The unique id that identifies the credential list that includes this credential
-	CredentialListSid *string `json:"CredentialListSid,omitempty"`
+	CredentialListSid *string `json:"credential_list_sid,omitempty"`
 	// The date that this resource was created, given as GMT in RFC 2822 format.
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *string `json:"date_created,omitempty"`
 	// The date that this resource was last updated, given as GMT in RFC 2822 format.
-	DateUpdated *string `json:"DateUpdated,omitempty"`
+	DateUpdated *string `json:"date_updated,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The URI for this resource, relative to https://api.twilio.com
-	Uri *string `json:"Uri,omitempty"`
+	Uri *string `json:"uri,omitempty"`
 	// The username for this credential.
-	Username *string `json:"Username,omitempty"`
+	Username *string `json:"username,omitempty"`
 }

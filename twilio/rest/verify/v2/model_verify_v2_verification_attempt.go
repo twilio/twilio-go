@@ -18,19 +18,19 @@ import (
 // VerifyV2VerificationAttempt struct for VerifyV2VerificationAttempt
 type VerifyV2VerificationAttempt struct {
 	// Account Sid
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// Channel used for the attempt
-	Channel *string `json:"Channel,omitempty"`
+	Channel *string `json:"channel,omitempty"`
 	// Object with the channel information for an attempt
-	ChannelData *map[string]interface{} `json:"ChannelData,omitempty"`
+	ChannelData *map[string]interface{} `json:"channel_data,omitempty"`
 	// Status of a conversion
-	ConversionStatus *string `json:"ConversionStatus,omitempty"`
+	ConversionStatus *string `json:"conversion_status,omitempty"`
 	// The date this Attempt was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date this Attempt was updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
-	ServiceSid  *string    `json:"ServiceSid,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	ServiceSid  *string    `json:"service_sid,omitempty"`
 	// A string that uniquely identifies this Verification Attempt
-	Sid *string `json:"Sid,omitempty"`
-	Url *string `json:"Url,omitempty"`
+	Sid *string `json:"sid,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

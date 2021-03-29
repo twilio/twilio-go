@@ -13,6 +13,6 @@ package openapi
 
 // ListWebhookResponse struct for ListWebhookResponse
 type ListWebhookResponse struct {
-	Meta     ListVerificationAttemptResponseMeta `json:"Meta,omitempty"`
-	Webhooks []VerifyV2ServiceWebhook            `json:"Webhooks,omitempty"`
+	Meta     ListVerificationAttemptResponseMeta `json:"meta,omitempty"`
+	Webhooks []VerifyV2ServiceWebhook            `json:"webhooks,omitempty"`
 }

@@ -13,7 +13,7 @@ package openapi
 
 // ApiV2010AccountCallCallFeedbackSummaryIssues struct for ApiV2010AccountCallCallFeedbackSummaryIssues
 type ApiV2010AccountCallCallFeedbackSummaryIssues struct {
-	Count                  float32 `json:"Count,omitempty"`
-	Description            string  `json:"Description,omitempty"`
-	PercentageOfTotalCalls string  `json:"PercentageOfTotalCalls,omitempty"`
+	Count                  float32 `json:"count,omitempty"`
+	Description            string  `json:"description,omitempty"`
+	PercentageOfTotalCalls string  `json:"percentage_of_total_calls,omitempty"`
 }

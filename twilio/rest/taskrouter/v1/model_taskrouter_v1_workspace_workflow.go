@@ -18,29 +18,29 @@ import (
 // TaskrouterV1WorkspaceWorkflow struct for TaskrouterV1WorkspaceWorkflow
 type TaskrouterV1WorkspaceWorkflow struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The URL that we call when a task managed by the Workflow is assigned to a Worker
-	AssignmentCallbackUrl *string `json:"AssignmentCallbackUrl,omitempty"`
+	AssignmentCallbackUrl *string `json:"assignment_callback_url,omitempty"`
 	// A JSON string that contains the Workflow's configuration
-	Configuration *string `json:"Configuration,omitempty"`
+	Configuration *string `json:"configuration,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The MIME type of the document
-	DocumentContentType *string `json:"DocumentContentType,omitempty"`
+	DocumentContentType *string `json:"document_content_type,omitempty"`
 	// The URL that we call when a call to the `assignment_callback_url` fails
-	FallbackAssignmentCallbackUrl *string `json:"FallbackAssignmentCallbackUrl,omitempty"`
+	FallbackAssignmentCallbackUrl *string `json:"fallback_assignment_callback_url,omitempty"`
 	// The string that you assigned to describe the Workflow resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The URLs of related resources
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
-	TaskReservationTimeout *int32 `json:"TaskReservationTimeout,omitempty"`
+	TaskReservationTimeout *int32 `json:"task_reservation_timeout,omitempty"`
 	// The absolute URL of the Workflow resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the Workflow
-	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
+	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

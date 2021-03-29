@@ -13,6 +13,6 @@ package openapi
 
 // ListNetworkResponse struct for ListNetworkResponse
 type ListNetworkResponse struct {
-	Meta     ListCommandResponseMeta `json:"Meta,omitempty"`
-	Networks []SupersimV1Network     `json:"Networks,omitempty"`
+	Meta     ListCommandResponseMeta `json:"meta,omitempty"`
+	Networks []SupersimV1Network     `json:"networks,omitempty"`
 }

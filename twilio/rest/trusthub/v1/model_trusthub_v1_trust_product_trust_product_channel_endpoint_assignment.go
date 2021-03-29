@@ -18,17 +18,17 @@ import (
 // TrusthubV1TrustProductTrustProductChannelEndpointAssignment struct for TrusthubV1TrustProductTrustProductChannelEndpointAssignment
 type TrusthubV1TrustProductTrustProductChannelEndpointAssignment struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The sid of an channel endpoint
-	ChannelEndpointSid *string `json:"ChannelEndpointSid,omitempty"`
+	ChannelEndpointSid *string `json:"channel_endpoint_sid,omitempty"`
 	// The type of channel endpoint
-	ChannelEndpointType *string `json:"ChannelEndpointType,omitempty"`
+	ChannelEndpointType *string `json:"channel_endpoint_type,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The unique string that identifies the CustomerProfile resource.
-	TrustProductSid *string `json:"TrustProductSid,omitempty"`
+	TrustProductSid *string `json:"trust_product_sid,omitempty"`
 	// The absolute URL of the Identity resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

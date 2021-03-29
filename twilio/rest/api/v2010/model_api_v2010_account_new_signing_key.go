@@ -14,13 +14,13 @@ package openapi
 // ApiV2010AccountNewSigningKey struct for ApiV2010AccountNewSigningKey
 type ApiV2010AccountNewSigningKey struct {
 	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *string `json:"DateUpdated,omitempty"`
+	DateUpdated *string `json:"date_updated,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The secret your application uses to sign Access Tokens and to authenticate to the REST API.
-	Secret *string `json:"Secret,omitempty"`
+	Secret *string `json:"secret,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 }

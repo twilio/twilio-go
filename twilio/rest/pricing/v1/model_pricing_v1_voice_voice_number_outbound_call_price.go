@@ -13,6 +13,6 @@ package openapi
 
 // PricingV1VoiceVoiceNumberOutboundCallPrice The OutboundCallPrice record
 type PricingV1VoiceVoiceNumberOutboundCallPrice struct {
-	BasePrice    float32 `json:"BasePrice,omitempty"`
-	CurrentPrice float32 `json:"CurrentPrice,omitempty"`
+	BasePrice    float32 `json:"base_price,omitempty"`
+	CurrentPrice float32 `json:"current_price,omitempty"`
 }

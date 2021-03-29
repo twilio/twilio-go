@@ -18,39 +18,39 @@ import (
 // VideoV1Composition struct for VideoV1Composition
 type VideoV1Composition struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The array of track names to include in the composition
-	AudioSources *[]string `json:"AudioSources,omitempty"`
+	AudioSources *[]string `json:"audio_sources,omitempty"`
 	// The array of track names to exclude from the composition
-	AudioSourcesExcluded *[]string `json:"AudioSourcesExcluded,omitempty"`
+	AudioSourcesExcluded *[]string `json:"audio_sources_excluded,omitempty"`
 	// The average bit rate of the composition's media
-	Bitrate *int32 `json:"Bitrate,omitempty"`
+	Bitrate *int32 `json:"bitrate,omitempty"`
 	// Date when the media processing task finished
-	DateCompleted *time.Time `json:"DateCompleted,omitempty"`
+	DateCompleted *time.Time `json:"date_completed,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the composition generated media was deleted
-	DateDeleted *time.Time `json:"DateDeleted,omitempty"`
+	DateDeleted *time.Time `json:"date_deleted,omitempty"`
 	// The duration of the composition's media file in seconds
-	Duration *int32 `json:"Duration,omitempty"`
+	Duration *int32 `json:"duration,omitempty"`
 	// The container format of the composition's media files as specified in the POST request that created the Composition resource
-	Format *string `json:"Format,omitempty"`
+	Format *string `json:"format,omitempty"`
 	// The URL of the media file associated with the composition
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The dimensions of the video image in pixels expressed as columns (width) and rows (height)
-	Resolution *string `json:"Resolution,omitempty"`
+	Resolution *string `json:"resolution,omitempty"`
 	// The SID of the Group Room that generated the audio and video tracks used in the composition
-	RoomSid *string `json:"RoomSid,omitempty"`
+	RoomSid *string `json:"room_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The size of the composed media file in bytes
-	Size *int32 `json:"Size,omitempty"`
+	Size *int32 `json:"size,omitempty"`
 	// The status of the composition
-	Status *string `json:"Status,omitempty"`
+	Status *string `json:"status,omitempty"`
 	// Whether to remove intervals with no media
-	Trim *bool `json:"Trim,omitempty"`
+	Trim *bool `json:"trim,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// An object that describes the video layout of the composition
-	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
+	VideoLayout *map[string]interface{} `json:"video_layout,omitempty"`
 }

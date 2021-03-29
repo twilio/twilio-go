@@ -14,7 +14,7 @@ package openapi
 // TrunkingV1TrunkRecording struct for TrunkingV1TrunkRecording
 type TrunkingV1TrunkRecording struct {
 	// The recording mode for the trunk.
-	Mode *string `json:"Mode,omitempty"`
+	Mode *string `json:"mode,omitempty"`
 	// The recording trim setting for the trunk.
-	Trim *string `json:"Trim,omitempty"`
+	Trim *string `json:"trim,omitempty"`
 }

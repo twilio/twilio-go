@@ -14,66 +14,66 @@ package openapi
 // ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree struct for ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree
 type ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// Whether the phone number requires an Address registered with Twilio.
-	AddressRequirements *string `json:"AddressRequirements,omitempty"`
+	AddressRequirements *string `json:"address_requirements,omitempty"`
 	// The SID of the Address resource associated with the phone number
-	AddressSid *string `json:"AddressSid,omitempty"`
+	AddressSid *string `json:"address_sid,omitempty"`
 	// The API version used to start a new TwiML session
-	ApiVersion *string `json:"ApiVersion,omitempty"`
+	ApiVersion *string `json:"api_version,omitempty"`
 	// Whether the phone number is new to the Twilio platform
-	Beta *bool `json:"Beta,omitempty"`
+	Beta *bool `json:"beta,omitempty"`
 	// The SID of the Bundle resource associated with number
-	BundleSid    *string                                         `json:"BundleSid,omitempty"`
-	Capabilities *ApiV2010AccountIncomingPhoneNumberCapabilities `json:"Capabilities,omitempty"`
+	BundleSid    *string                                         `json:"bundle_sid,omitempty"`
+	Capabilities *ApiV2010AccountIncomingPhoneNumberCapabilities `json:"capabilities,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *string `json:"DateUpdated,omitempty"`
+	DateUpdated *string `json:"date_updated,omitempty"`
 	// The emergency address configuration to use for emergency calling
-	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	EmergencyAddressSid *string `json:"emergency_address_sid,omitempty"`
 	// Whether the phone number is enabled for emergency calling
-	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	EmergencyStatus *string `json:"emergency_status,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The SID of the Identity resource associated with number
-	IdentitySid *string `json:"IdentitySid,omitempty"`
+	IdentitySid *string `json:"identity_sid,omitempty"`
 	// The phone number's origin. Can be twilio or hosted.
-	Origin *string `json:"Origin,omitempty"`
+	Origin *string `json:"origin,omitempty"`
 	// The phone number in E.164 format
-	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	PhoneNumber *string `json:"phone_number,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The SID of the application that handles SMS messages sent to the phone number
-	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	SmsApplicationSid *string `json:"sms_application_sid,omitempty"`
 	// The HTTP method used with sms_fallback_url
-	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	SmsFallbackMethod *string `json:"sms_fallback_method,omitempty"`
 	// The URL that we call when an error occurs while retrieving or executing the TwiML
-	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	SmsFallbackUrl *string `json:"sms_fallback_url,omitempty"`
 	// The HTTP method to use with sms_url
-	SmsMethod *string `json:"SmsMethod,omitempty"`
+	SmsMethod *string `json:"sms_method,omitempty"`
 	// The URL we call when the phone number receives an incoming SMS message
-	SmsUrl *string `json:"SmsUrl,omitempty"`
-	Status *string `json:"Status,omitempty"`
+	SmsUrl *string `json:"sms_url,omitempty"`
+	Status *string `json:"status,omitempty"`
 	// The URL to send status information to your application
-	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallback *string `json:"status_callback,omitempty"`
 	// The HTTP method we use to call status_callback
-	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
 	// The SID of the Trunk that handles calls to the phone number
-	TrunkSid *string `json:"TrunkSid,omitempty"`
+	TrunkSid *string `json:"trunk_sid,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
-	Uri *string `json:"Uri,omitempty"`
+	Uri *string `json:"uri,omitempty"`
 	// The SID of the application that handles calls to the phone number
-	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	VoiceApplicationSid *string `json:"voice_application_sid,omitempty"`
 	// Whether to lookup the caller's name
-	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	VoiceCallerIdLookup *bool `json:"voice_caller_id_lookup,omitempty"`
 	// The HTTP method used with voice_fallback_url
-	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	VoiceFallbackMethod *string `json:"voice_fallback_method,omitempty"`
 	// The URL we call when an error occurs in TwiML
-	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	VoiceFallbackUrl *string `json:"voice_fallback_url,omitempty"`
 	// The HTTP method used with the voice_url
-	VoiceMethod      *string `json:"VoiceMethod,omitempty"`
-	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	VoiceMethod      *string `json:"voice_method,omitempty"`
+	VoiceReceiveMode *string `json:"voice_receive_mode,omitempty"`
 	// The URL we call when the phone number receives a call
-	VoiceUrl *string `json:"VoiceUrl,omitempty"`
+	VoiceUrl *string `json:"voice_url,omitempty"`
 }

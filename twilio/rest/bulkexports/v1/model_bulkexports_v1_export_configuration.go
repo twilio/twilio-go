@@ -14,13 +14,13 @@ package openapi
 // BulkexportsV1ExportConfiguration struct for BulkexportsV1ExportConfiguration
 type BulkexportsV1ExportConfiguration struct {
 	// Whether files are automatically generated
-	Enabled *bool `json:"Enabled,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
 	// The type of communication – Messages, Calls, Conferences, and Participants
-	ResourceType *string `json:"ResourceType,omitempty"`
+	ResourceType *string `json:"resource_type,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// Whether to GET or POST to the webhook url
-	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	WebhookMethod *string `json:"webhook_method,omitempty"`
 	// URL targeted at export
-	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	WebhookUrl *string `json:"webhook_url,omitempty"`
 }

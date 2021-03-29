@@ -13,6 +13,6 @@ package openapi
 
 // ListMemberResponse struct for ListMemberResponse
 type ListMemberResponse struct {
-	Members []ChatV1ServiceChannelMember `json:"Members,omitempty"`
-	Meta    ListCredentialResponseMeta   `json:"Meta,omitempty"`
+	Members []ChatV1ServiceChannelMember `json:"members,omitempty"`
+	Meta    ListCredentialResponseMeta   `json:"meta,omitempty"`
 }

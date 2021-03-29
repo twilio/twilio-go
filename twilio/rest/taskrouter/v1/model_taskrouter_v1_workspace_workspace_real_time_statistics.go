@@ -14,23 +14,23 @@ package openapi
 // TaskrouterV1WorkspaceWorkspaceRealTimeStatistics struct for TaskrouterV1WorkspaceWorkspaceRealTimeStatistics
 type TaskrouterV1WorkspaceWorkspaceRealTimeStatistics struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The number of current Workers by Activity
-	ActivityStatistics *[]map[string]interface{} `json:"ActivityStatistics,omitempty"`
+	ActivityStatistics *[]map[string]interface{} `json:"activity_statistics,omitempty"`
 	// The age of the longest waiting Task
-	LongestTaskWaitingAge *int32 `json:"LongestTaskWaitingAge,omitempty"`
+	LongestTaskWaitingAge *int32 `json:"longest_task_waiting_age,omitempty"`
 	// The SID of the longest waiting Task
-	LongestTaskWaitingSid *string `json:"LongestTaskWaitingSid,omitempty"`
+	LongestTaskWaitingSid *string `json:"longest_task_waiting_sid,omitempty"`
 	// The number of Tasks by priority
-	TasksByPriority *map[string]interface{} `json:"TasksByPriority,omitempty"`
+	TasksByPriority *map[string]interface{} `json:"tasks_by_priority,omitempty"`
 	// The number of Tasks by their current status
-	TasksByStatus *map[string]interface{} `json:"TasksByStatus,omitempty"`
+	TasksByStatus *map[string]interface{} `json:"tasks_by_status,omitempty"`
 	// The total number of Tasks
-	TotalTasks *int32 `json:"TotalTasks,omitempty"`
+	TotalTasks *int32 `json:"total_tasks,omitempty"`
 	// The total number of Workers in the Workspace
-	TotalWorkers *int32 `json:"TotalWorkers,omitempty"`
+	TotalWorkers *int32 `json:"total_workers,omitempty"`
 	// The absolute URL of the Workspace statistics resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace
-	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
+	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

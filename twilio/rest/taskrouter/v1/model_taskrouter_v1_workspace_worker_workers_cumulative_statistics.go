@@ -18,27 +18,27 @@ import (
 // TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics struct for TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics
 type TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The minimum, average, maximum, and total time that Workers spent in each Activity
-	ActivityDurations *[]map[string]interface{} `json:"ActivityDurations,omitempty"`
+	ActivityDurations *[]map[string]interface{} `json:"activity_durations,omitempty"`
 	// The end of the interval during which these statistics were calculated
-	EndTime *time.Time `json:"EndTime,omitempty"`
+	EndTime *time.Time `json:"end_time,omitempty"`
 	// The total number of Reservations that were accepted
-	ReservationsAccepted *int32 `json:"ReservationsAccepted,omitempty"`
+	ReservationsAccepted *int32 `json:"reservations_accepted,omitempty"`
 	// The total number of Reservations that were canceled
-	ReservationsCanceled *int32 `json:"ReservationsCanceled,omitempty"`
+	ReservationsCanceled *int32 `json:"reservations_canceled,omitempty"`
 	// The total number of Reservations that were created
-	ReservationsCreated *int32 `json:"ReservationsCreated,omitempty"`
+	ReservationsCreated *int32 `json:"reservations_created,omitempty"`
 	// The total number of Reservations that were rejected
-	ReservationsRejected *int32 `json:"ReservationsRejected,omitempty"`
+	ReservationsRejected *int32 `json:"reservations_rejected,omitempty"`
 	// The total number of Reservations that were rescinded
-	ReservationsRescinded *int32 `json:"ReservationsRescinded,omitempty"`
+	ReservationsRescinded *int32 `json:"reservations_rescinded,omitempty"`
 	// The total number of Reservations that were timed out
-	ReservationsTimedOut *int32 `json:"ReservationsTimedOut,omitempty"`
+	ReservationsTimedOut *int32 `json:"reservations_timed_out,omitempty"`
 	// The beginning of the interval during which these statistics were calculated
-	StartTime *time.Time `json:"StartTime,omitempty"`
+	StartTime *time.Time `json:"start_time,omitempty"`
 	// The absolute URL of the Workers statistics resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the Workers
-	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
+	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

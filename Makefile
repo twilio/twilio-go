@@ -14,7 +14,7 @@ govet: goimports
 	go vet ./...
 
 golint: govet
-	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.37.0
+	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.39.0
 	golangci-lint run
 
 githooks:

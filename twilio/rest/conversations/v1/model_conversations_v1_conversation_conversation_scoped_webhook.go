@@ -18,19 +18,19 @@ import (
 // ConversationsV1ConversationConversationScopedWebhook struct for ConversationsV1ConversationConversationScopedWebhook
 type ConversationsV1ConversationConversationScopedWebhook struct {
 	// The unique ID of the Account responsible for this conversation.
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The configuration of this webhook.
-	Configuration *map[string]interface{} `json:"Configuration,omitempty"`
+	Configuration *map[string]interface{} `json:"configuration,omitempty"`
 	// The unique ID of the Conversation for this webhook.
-	ConversationSid *string `json:"ConversationSid,omitempty"`
+	ConversationSid *string `json:"conversation_sid,omitempty"`
 	// The date that this resource was created.
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date that this resource was last updated.
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The target of this webhook.
-	Target *string `json:"Target,omitempty"`
+	Target *string `json:"target,omitempty"`
 	// An absolute URL for this webhook.
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

@@ -17,20 +17,20 @@ import (
 
 // IpMessagingV2ServiceChannelMessage struct for IpMessagingV2ServiceChannelMessage
 type IpMessagingV2ServiceChannelMessage struct {
-	AccountSid    *string                 `json:"AccountSid,omitempty"`
-	Attributes    *string                 `json:"Attributes,omitempty"`
-	Body          *string                 `json:"Body,omitempty"`
-	ChannelSid    *string                 `json:"ChannelSid,omitempty"`
-	DateCreated   *time.Time              `json:"DateCreated,omitempty"`
-	DateUpdated   *time.Time              `json:"DateUpdated,omitempty"`
-	From          *string                 `json:"From,omitempty"`
-	Index         *int32                  `json:"Index,omitempty"`
-	LastUpdatedBy *string                 `json:"LastUpdatedBy,omitempty"`
-	Media         *map[string]interface{} `json:"Media,omitempty"`
-	ServiceSid    *string                 `json:"ServiceSid,omitempty"`
-	Sid           *string                 `json:"Sid,omitempty"`
-	To            *string                 `json:"To,omitempty"`
-	Type          *string                 `json:"Type,omitempty"`
-	Url           *string                 `json:"Url,omitempty"`
-	WasEdited     *bool                   `json:"WasEdited,omitempty"`
+	AccountSid    *string                 `json:"account_sid,omitempty"`
+	Attributes    *string                 `json:"attributes,omitempty"`
+	Body          *string                 `json:"body,omitempty"`
+	ChannelSid    *string                 `json:"channel_sid,omitempty"`
+	DateCreated   *time.Time              `json:"date_created,omitempty"`
+	DateUpdated   *time.Time              `json:"date_updated,omitempty"`
+	From          *string                 `json:"from,omitempty"`
+	Index         *int32                  `json:"index,omitempty"`
+	LastUpdatedBy *string                 `json:"last_updated_by,omitempty"`
+	Media         *map[string]interface{} `json:"media,omitempty"`
+	ServiceSid    *string                 `json:"service_sid,omitempty"`
+	Sid           *string                 `json:"sid,omitempty"`
+	To            *string                 `json:"to,omitempty"`
+	Type          *string                 `json:"type,omitempty"`
+	Url           *string                 `json:"url,omitempty"`
+	WasEdited     *bool                   `json:"was_edited,omitempty"`
 }

@@ -18,55 +18,55 @@ import (
 // InsightsV1VideoRoomSummary struct for InsightsV1VideoRoomSummary
 type InsightsV1VideoRoomSummary struct {
 	// Account SID associated with this room.
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// Codecs used by participants in the room.
-	Codecs *[]string `json:"Codecs,omitempty"`
+	Codecs *[]string `json:"codecs,omitempty"`
 	// Actual number of concurrent participants.
-	ConcurrentParticipants *int32 `json:"ConcurrentParticipants,omitempty"`
+	ConcurrentParticipants *int32 `json:"concurrent_participants,omitempty"`
 	// Creation time of the room.
-	CreateTime *time.Time `json:"CreateTime,omitempty"`
+	CreateTime *time.Time `json:"create_time,omitempty"`
 	// How the room was created.
-	CreatedMethod *string `json:"CreatedMethod,omitempty"`
+	CreatedMethod *string `json:"created_method,omitempty"`
 	// Total room duration from create time to end time.
-	DurationSec *int32 `json:"DurationSec,omitempty"`
+	DurationSec *int32 `json:"duration_sec,omitempty"`
 	// Edge location of Twilio media servers for the room.
-	EdgeLocation *string `json:"EdgeLocation,omitempty"`
+	EdgeLocation *string `json:"edge_location,omitempty"`
 	// Reason the room ended.
-	EndReason *string `json:"EndReason,omitempty"`
+	EndReason *string `json:"end_reason,omitempty"`
 	// End time for the room.
-	EndTime *time.Time `json:"EndTime,omitempty"`
+	EndTime *time.Time `json:"end_time,omitempty"`
 	// Room subresources.
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// Maximum number of participants allowed in the room at the same time allowed by the application settings.
-	MaxConcurrentParticipants *int32 `json:"MaxConcurrentParticipants,omitempty"`
+	MaxConcurrentParticipants *int32 `json:"max_concurrent_participants,omitempty"`
 	// Max number of total participants allowed by the application settings.
-	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	MaxParticipants *int32 `json:"max_participants,omitempty"`
 	// Region of Twilio media servers for the room.
-	MediaRegion *string `json:"MediaRegion,omitempty"`
+	MediaRegion *string `json:"media_region,omitempty"`
 	// Video Log Analyzer resource state. Will be either `in-progress` or `complete`.
-	ProcessingState *string `json:"ProcessingState,omitempty"`
+	ProcessingState *string `json:"processing_state,omitempty"`
 	// Boolean indicating if recording is enabled for the room.
-	RecordingEnabled *bool `json:"RecordingEnabled,omitempty"`
+	RecordingEnabled *bool `json:"recording_enabled,omitempty"`
 	// room friendly name.
-	RoomName *string `json:"RoomName,omitempty"`
+	RoomName *string `json:"room_name,omitempty"`
 	// Unique identifier for the room.
-	RoomSid *string `json:"RoomSid,omitempty"`
+	RoomSid *string `json:"room_sid,omitempty"`
 	// Status of the room.
-	RoomStatus *string `json:"RoomStatus,omitempty"`
+	RoomStatus *string `json:"room_status,omitempty"`
 	// Type of room.
-	RoomType *string `json:"RoomType,omitempty"`
+	RoomType *string `json:"room_type,omitempty"`
 	// Webhook provided for status callbacks.
-	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallback *string `json:"status_callback,omitempty"`
 	// HTTP method provided for status callback URL.
-	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
 	// Combined amount of participant time in the room.
-	TotalParticipantDurationSec *int32 `json:"TotalParticipantDurationSec,omitempty"`
+	TotalParticipantDurationSec *int32 `json:"total_participant_duration_sec,omitempty"`
 	// Combined amount of recorded seconds for participants in the room.
-	TotalRecordingDurationSec *int32 `json:"TotalRecordingDurationSec,omitempty"`
+	TotalRecordingDurationSec *int32 `json:"total_recording_duration_sec,omitempty"`
 	// Unique number of participant identities.
-	UniqueParticipantIdentities *int32 `json:"UniqueParticipantIdentities,omitempty"`
+	UniqueParticipantIdentities *int32 `json:"unique_participant_identities,omitempty"`
 	// Number of participants. May include duplicate identities for participants who left and rejoined.
-	UniqueParticipants *int32 `json:"UniqueParticipants,omitempty"`
+	UniqueParticipants *int32 `json:"unique_participants,omitempty"`
 	// URL for the room resource.
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

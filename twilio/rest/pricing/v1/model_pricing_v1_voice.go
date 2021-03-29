@@ -13,7 +13,7 @@ package openapi
 
 // PricingV1Voice struct for PricingV1Voice
 type PricingV1Voice struct {
-	Links *map[string]interface{} `json:"Links,omitempty"`
-	Name  *string                 `json:"Name,omitempty"`
-	Url   *string                 `json:"Url,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
+	Name  *string                 `json:"name,omitempty"`
+	Url   *string                 `json:"url,omitempty"`
 }

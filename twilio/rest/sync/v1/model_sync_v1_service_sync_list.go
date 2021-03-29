@@ -18,25 +18,25 @@ import (
 // SyncV1ServiceSyncList struct for SyncV1ServiceSyncList
 type SyncV1ServiceSyncList struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The identity of the Sync List's creator
-	CreatedBy *string `json:"CreatedBy,omitempty"`
+	CreatedBy *string `json:"created_by,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the Sync List expires
-	DateExpires *time.Time `json:"DateExpires,omitempty"`
+	DateExpires *time.Time `json:"date_expires,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The URLs of the Sync List's nested resources
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The current revision of the Sync List, represented as a string
-	Revision *string `json:"Revision,omitempty"`
+	Revision *string `json:"revision,omitempty"`
 	// The SID of the Sync Service that the resource is associated with
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// An application-defined string that uniquely identifies the resource
-	UniqueName *string `json:"UniqueName,omitempty"`
+	UniqueName *string `json:"unique_name,omitempty"`
 	// The absolute URL of the Sync List resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

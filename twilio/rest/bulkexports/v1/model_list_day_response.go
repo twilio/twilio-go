@@ -13,6 +13,6 @@ package openapi
 
 // ListDayResponse struct for ListDayResponse
 type ListDayResponse struct {
-	Days []BulkexportsV1ExportDay `json:"Days,omitempty"`
-	Meta ListDayResponseMeta      `json:"Meta,omitempty"`
+	Days []BulkexportsV1ExportDay `json:"days,omitempty"`
+	Meta ListDayResponseMeta      `json:"meta,omitempty"`
 }

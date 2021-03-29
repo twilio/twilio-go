@@ -11,6 +11,20 @@ import (
 	"time"
 )
 
+func NewClient(accountSid string, authToken string) *twilio.Client {
+	creds := &twilio.Credentials{
+		AccountSID: accountSid,
+		AuthToken:  authToken,
+	}
+	c := &twilio.Client{
+		Credentials: creds,
+		HTTPClient:  http.DefaultClient,
+		BaseURL:     "twilio.com",
+	}
+
+	return c
+}
+
 func TestClient_SendRequestError(t *testing.T) {
 	errorResponse := `{
 	"status": 400,
@@ -25,7 +39,7 @@ func TestClient_SendRequestError(t *testing.T) {
 		}))
 	defer mockServer.Close()
 
-	client := twilio.NewClient("user", "pass")
+	client := NewClient("user", "pass")
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil)
 	twilioError := err.(*error.TwilioRestError)
 	assert.Nil(t, resp)
@@ -53,7 +67,7 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 		}))
 	defer mockServer.Close()
 
-	client := twilio.NewClient("user", "pass")
+	client := NewClient("user", "pass")
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil)
 	twilioError := err.(*error.TwilioRestError)
 	details := make(map[string]interface{})
@@ -74,7 +88,7 @@ func TestClient_SendRequestWithRedirect(t *testing.T) {
 		}))
 	defer mockServer.Close()
 
-	client := twilio.NewClient("user", "pass")
+	client := NewClient("user", "pass")
 	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil)
 	assert.Equal(t, 307, resp.StatusCode)
 }
@@ -96,7 +110,7 @@ func TestClient_SetTimeoutTimesOut(t *testing.T) {
 		}))
 	defer mockServer.Close()
 
-	client := twilio.NewClient("user", "pass")
+	client := NewClient("user", "pass")
 	client.SetTimeout(10 * time.Microsecond)
 	_, err := client.SendRequest("get", mockServer.URL, nil, nil)
 	assert.Error(t, err)
@@ -119,7 +133,7 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 		}))
 	defer mockServer.Close()
 
-	client := twilio.NewClient("user", "pass")
+	client := NewClient("user", "pass")
 	client.SetTimeout(10 * time.Second)
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil)
 	assert.NoError(t, err)

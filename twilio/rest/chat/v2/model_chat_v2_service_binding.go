@@ -18,27 +18,27 @@ import (
 // ChatV2ServiceBinding struct for ChatV2ServiceBinding
 type ChatV2ServiceBinding struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The push technology to use for the binding
-	BindingType *string `json:"BindingType,omitempty"`
+	BindingType *string `json:"binding_type,omitempty"`
 	// The SID of the Credential for the binding
-	CredentialSid *string `json:"CredentialSid,omitempty"`
+	CredentialSid *string `json:"credential_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The unique endpoint identifier for the Binding
-	Endpoint *string `json:"Endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitempty"`
 	// The string that identifies the resource's User
-	Identity *string `json:"Identity,omitempty"`
+	Identity *string `json:"identity,omitempty"`
 	// The absolute URLs of the Binding's User
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The Programmable Chat message types the binding is subscribed to
-	MessageTypes *[]string `json:"MessageTypes,omitempty"`
+	MessageTypes *[]string `json:"message_types,omitempty"`
 	// The SID of the Service that the Binding resource is associated with
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Binding resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

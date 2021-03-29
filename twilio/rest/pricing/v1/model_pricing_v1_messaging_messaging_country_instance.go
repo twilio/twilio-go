@@ -14,15 +14,15 @@ package openapi
 // PricingV1MessagingMessagingCountryInstance struct for PricingV1MessagingMessagingCountryInstance
 type PricingV1MessagingMessagingCountryInstance struct {
 	// The name of the country
-	Country *string `json:"Country,omitempty"`
+	Country *string `json:"country,omitempty"`
 	// The list of InboundPrice records
-	InboundSmsPrices *[]PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"InboundSmsPrices,omitempty"`
+	InboundSmsPrices *[]PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"inbound_sms_prices,omitempty"`
 	// The ISO country code
-	IsoCountry *string `json:"IsoCountry,omitempty"`
+	IsoCountry *string `json:"iso_country,omitempty"`
 	// The list of OutboundSMSPrice records
-	OutboundSmsPrices *[]PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices `json:"OutboundSmsPrices,omitempty"`
+	OutboundSmsPrices *[]PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices `json:"outbound_sms_prices,omitempty"`
 	// The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
-	PriceUnit *string `json:"PriceUnit,omitempty"`
+	PriceUnit *string `json:"price_unit,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

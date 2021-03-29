@@ -13,6 +13,6 @@ package openapi
 
 // ListLogResponse struct for ListLogResponse
 type ListLogResponse struct {
-	Logs []ServerlessV1ServiceEnvironmentLog `json:"Logs,omitempty"`
-	Meta ListServiceResponseMeta             `json:"Meta,omitempty"`
+	Logs []ServerlessV1ServiceEnvironmentLog `json:"logs,omitempty"`
+	Meta ListServiceResponseMeta             `json:"meta,omitempty"`
 }

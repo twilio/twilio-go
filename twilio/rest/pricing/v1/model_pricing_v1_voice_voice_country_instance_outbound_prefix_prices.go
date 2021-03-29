@@ -13,8 +13,8 @@ package openapi
 
 // PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices struct for PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices
 type PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices struct {
-	BasePrice    float32  `json:"BasePrice,omitempty"`
-	CurrentPrice float32  `json:"CurrentPrice,omitempty"`
-	FriendlyName string   `json:"FriendlyName,omitempty"`
-	Prefixes     []string `json:"Prefixes,omitempty"`
+	BasePrice    float32  `json:"base_price,omitempty"`
+	CurrentPrice float32  `json:"current_price,omitempty"`
+	FriendlyName string   `json:"friendly_name,omitempty"`
+	Prefixes     []string `json:"prefixes,omitempty"`
 }

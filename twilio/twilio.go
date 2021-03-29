@@ -44,7 +44,6 @@ import (
 type Twilio struct {
 	*client.Credentials
 	*client.Client
-	defaultbaseURL  *string
 	common          service
 	AccountsV1      *AccountsV1.DefaultApiService
 	ApiV2010        *ApiV2010.DefaultApiService

@@ -13,6 +13,6 @@ package openapi
 
 // ListAlertResponse struct for ListAlertResponse
 type ListAlertResponse struct {
-	Alerts []MonitorV1Alert      `json:"Alerts,omitempty"`
-	Meta   ListAlertResponseMeta `json:"Meta,omitempty"`
+	Alerts []MonitorV1Alert      `json:"alerts,omitempty"`
+	Meta   ListAlertResponseMeta `json:"meta,omitempty"`
 }

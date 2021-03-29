@@ -18,29 +18,29 @@ import (
 // TaskrouterV1WorkspaceWorker struct for TaskrouterV1WorkspaceWorker
 type TaskrouterV1WorkspaceWorker struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The friendly_name of the Worker's current Activity
-	ActivityName *string `json:"ActivityName,omitempty"`
+	ActivityName *string `json:"activity_name,omitempty"`
 	// The SID of the Worker's current Activity
-	ActivitySid *string `json:"ActivitySid,omitempty"`
+	ActivitySid *string `json:"activity_sid,omitempty"`
 	// The JSON string that describes the Worker
-	Attributes *string `json:"Attributes,omitempty"`
+	Attributes *string `json:"attributes,omitempty"`
 	// Whether the Worker is available to perform tasks
-	Available *bool `json:"Available,omitempty"`
+	Available *bool `json:"available,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT of the last change to the Worker's activity
-	DateStatusChanged *time.Time `json:"DateStatusChanged,omitempty"`
+	DateStatusChanged *time.Time `json:"date_status_changed,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The URLs of related resources
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Worker resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the Worker
-	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
+	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

@@ -18,23 +18,23 @@ import (
 // AutopilotV1AssistantFieldTypeFieldValue struct for AutopilotV1AssistantFieldTypeFieldValue
 type AutopilotV1AssistantFieldTypeFieldValue struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the Assistant that is the parent of the FieldType associated with the resource
-	AssistantSid *string `json:"AssistantSid,omitempty"`
+	AssistantSid *string `json:"assistant_sid,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The SID of the Field Type associated with the Field Value
-	FieldTypeSid *string `json:"FieldTypeSid,omitempty"`
+	FieldTypeSid *string `json:"field_type_sid,omitempty"`
 	// The ISO language-country tag that identifies the language of the value
-	Language *string `json:"Language,omitempty"`
+	Language *string `json:"language,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The word for which the field value is a synonym of
-	SynonymOf *string `json:"SynonymOf,omitempty"`
+	SynonymOf *string `json:"synonym_of,omitempty"`
 	// The absolute URL of the FieldValue resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// The Field Value data
-	Value *string `json:"Value,omitempty"`
+	Value *string `json:"value,omitempty"`
 }

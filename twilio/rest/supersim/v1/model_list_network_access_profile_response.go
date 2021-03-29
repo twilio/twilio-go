@@ -13,6 +13,6 @@ package openapi
 
 // ListNetworkAccessProfileResponse struct for ListNetworkAccessProfileResponse
 type ListNetworkAccessProfileResponse struct {
-	Meta                  ListCommandResponseMeta          `json:"Meta,omitempty"`
-	NetworkAccessProfiles []SupersimV1NetworkAccessProfile `json:"NetworkAccessProfiles,omitempty"`
+	Meta                  ListCommandResponseMeta          `json:"meta,omitempty"`
+	NetworkAccessProfiles []SupersimV1NetworkAccessProfile `json:"network_access_profiles,omitempty"`
 }

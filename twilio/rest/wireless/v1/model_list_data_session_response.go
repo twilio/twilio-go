@@ -13,6 +13,6 @@ package openapi
 
 // ListDataSessionResponse struct for ListDataSessionResponse
 type ListDataSessionResponse struct {
-	DataSessions []WirelessV1SimDataSession `json:"DataSessions,omitempty"`
-	Meta         ListCommandResponseMeta    `json:"Meta,omitempty"`
+	DataSessions []WirelessV1SimDataSession `json:"data_sessions,omitempty"`
+	Meta         ListCommandResponseMeta    `json:"meta,omitempty"`
 }

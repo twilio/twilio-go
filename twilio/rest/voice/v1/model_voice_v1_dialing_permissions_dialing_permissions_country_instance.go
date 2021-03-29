@@ -14,21 +14,21 @@ package openapi
 // VoiceV1DialingPermissionsDialingPermissionsCountryInstance struct for VoiceV1DialingPermissionsDialingPermissionsCountryInstance
 type VoiceV1DialingPermissionsDialingPermissionsCountryInstance struct {
 	// The name of the continent in which the country is located
-	Continent *string `json:"Continent,omitempty"`
+	Continent *string `json:"continent,omitempty"`
 	// The E.164 assigned country codes(s)
-	CountryCodes *[]string `json:"CountryCodes,omitempty"`
+	CountryCodes *[]string `json:"country_codes,omitempty"`
 	// Whether dialing to high-risk special services numbers is enabled
-	HighRiskSpecialNumbersEnabled *bool `json:"HighRiskSpecialNumbersEnabled,omitempty"`
+	HighRiskSpecialNumbersEnabled *bool `json:"high_risk_special_numbers_enabled,omitempty"`
 	// Whether dialing to high-risk toll fraud numbers is enabled, else `false`
-	HighRiskTollfraudNumbersEnabled *bool `json:"HighRiskTollfraudNumbersEnabled,omitempty"`
+	HighRiskTollfraudNumbersEnabled *bool `json:"high_risk_tollfraud_numbers_enabled,omitempty"`
 	// The ISO country code
-	IsoCode *string `json:"IsoCode,omitempty"`
+	IsoCode *string `json:"iso_code,omitempty"`
 	// A list of URLs related to this resource
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// Whether dialing to low-risk numbers is enabled
-	LowRiskNumbersEnabled *bool `json:"LowRiskNumbersEnabled,omitempty"`
+	LowRiskNumbersEnabled *bool `json:"low_risk_numbers_enabled,omitempty"`
 	// The name of the country
-	Name *string `json:"Name,omitempty"`
+	Name *string `json:"name,omitempty"`
 	// The absolute URL of this resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

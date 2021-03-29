@@ -13,6 +13,6 @@ package openapi
 
 // ListSupportingDocumentResponse struct for ListSupportingDocumentResponse
 type ListSupportingDocumentResponse struct {
-	Meta    ListCustomerProfileResponseMeta `json:"Meta,omitempty"`
-	Results []TrusthubV1SupportingDocument  `json:"Results,omitempty"`
+	Meta    ListCustomerProfileResponseMeta `json:"meta,omitempty"`
+	Results []TrusthubV1SupportingDocument  `json:"results,omitempty"`
 }

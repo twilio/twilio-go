@@ -18,33 +18,33 @@ import (
 // TaskrouterV1WorkspaceTaskQueue struct for TaskrouterV1WorkspaceTaskQueue
 type TaskrouterV1WorkspaceTaskQueue struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The name of the Activity to assign Workers when a task is assigned for them
-	AssignmentActivityName *string `json:"AssignmentActivityName,omitempty"`
+	AssignmentActivityName *string `json:"assignment_activity_name,omitempty"`
 	// The SID of the Activity to assign Workers when a task is assigned for them
-	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
+	AssignmentActivitySid *string `json:"assignment_activity_sid,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The URLs of related resources
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The maximum number of Workers to reserve
-	MaxReservedWorkers *int32 `json:"MaxReservedWorkers,omitempty"`
+	MaxReservedWorkers *int32 `json:"max_reserved_workers,omitempty"`
 	// The name of the Activity to assign Workers once a task is reserved for them
-	ReservationActivityName *string `json:"ReservationActivityName,omitempty"`
+	ReservationActivityName *string `json:"reservation_activity_name,omitempty"`
 	// The SID of the Activity to assign Workers once a task is reserved for them
-	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
+	ReservationActivitySid *string `json:"reservation_activity_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
-	TargetWorkers *string `json:"TargetWorkers,omitempty"`
+	TargetWorkers *string `json:"target_workers,omitempty"`
 	// How Tasks will be assigned to Workers
-	TaskOrder *string `json:"TaskOrder,omitempty"`
+	TaskOrder *string `json:"task_order,omitempty"`
 	// The absolute URL of the TaskQueue resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the TaskQueue
-	WorkspaceSid *string `json:"WorkspaceSid,omitempty"`
+	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

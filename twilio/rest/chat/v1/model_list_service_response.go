@@ -13,6 +13,6 @@ package openapi
 
 // ListServiceResponse struct for ListServiceResponse
 type ListServiceResponse struct {
-	Meta     ListCredentialResponseMeta `json:"Meta,omitempty"`
-	Services []ChatV1Service            `json:"Services,omitempty"`
+	Meta     ListCredentialResponseMeta `json:"meta,omitempty"`
+	Services []ChatV1Service            `json:"services,omitempty"`
 }

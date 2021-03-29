@@ -13,6 +13,6 @@ package openapi
 
 // ListExportCustomJobResponse struct for ListExportCustomJobResponse
 type ListExportCustomJobResponse struct {
-	Jobs []BulkexportsV1ExportExportCustomJob `json:"Jobs,omitempty"`
-	Meta ListDayResponseMeta                  `json:"Meta,omitempty"`
+	Jobs []BulkexportsV1ExportExportCustomJob `json:"jobs,omitempty"`
+	Meta ListDayResponseMeta                  `json:"meta,omitempty"`
 }

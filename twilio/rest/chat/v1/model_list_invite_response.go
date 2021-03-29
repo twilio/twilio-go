@@ -13,6 +13,6 @@ package openapi
 
 // ListInviteResponse struct for ListInviteResponse
 type ListInviteResponse struct {
-	Invites []ChatV1ServiceChannelInvite `json:"Invites,omitempty"`
-	Meta    ListCredentialResponseMeta   `json:"Meta,omitempty"`
+	Invites []ChatV1ServiceChannelInvite `json:"invites,omitempty"`
+	Meta    ListCredentialResponseMeta   `json:"meta,omitempty"`
 }

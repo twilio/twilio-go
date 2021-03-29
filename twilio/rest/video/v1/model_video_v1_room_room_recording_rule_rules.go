@@ -13,9 +13,9 @@ package openapi
 
 // VideoV1RoomRoomRecordingRuleRules struct for VideoV1RoomRoomRecordingRuleRules
 type VideoV1RoomRoomRecordingRuleRules struct {
-	All       bool   `json:"All,omitempty"`
-	Kind      string `json:"Kind,omitempty"`
-	Publisher string `json:"Publisher,omitempty"`
-	Track     string `json:"Track,omitempty"`
-	Type      string `json:"Type,omitempty"`
+	All       bool   `json:"all,omitempty"`
+	Kind      string `json:"kind,omitempty"`
+	Publisher string `json:"publisher,omitempty"`
+	Track     string `json:"track,omitempty"`
+	Type      string `json:"type,omitempty"`
 }

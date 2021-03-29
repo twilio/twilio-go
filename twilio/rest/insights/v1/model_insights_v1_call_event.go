@@ -13,15 +13,15 @@ package openapi
 
 // InsightsV1CallEvent struct for InsightsV1CallEvent
 type InsightsV1CallEvent struct {
-	AccountSid  *string                 `json:"AccountSid,omitempty"`
-	CallSid     *string                 `json:"CallSid,omitempty"`
-	CarrierEdge *map[string]interface{} `json:"CarrierEdge,omitempty"`
-	ClientEdge  *map[string]interface{} `json:"ClientEdge,omitempty"`
-	Edge        *string                 `json:"Edge,omitempty"`
-	Group       *string                 `json:"Group,omitempty"`
-	Level       *string                 `json:"Level,omitempty"`
-	Name        *string                 `json:"Name,omitempty"`
-	SdkEdge     *map[string]interface{} `json:"SdkEdge,omitempty"`
-	SipEdge     *map[string]interface{} `json:"SipEdge,omitempty"`
-	Timestamp   *string                 `json:"Timestamp,omitempty"`
+	AccountSid  *string                 `json:"account_sid,omitempty"`
+	CallSid     *string                 `json:"call_sid,omitempty"`
+	CarrierEdge *map[string]interface{} `json:"carrier_edge,omitempty"`
+	ClientEdge  *map[string]interface{} `json:"client_edge,omitempty"`
+	Edge        *string                 `json:"edge,omitempty"`
+	Group       *string                 `json:"group,omitempty"`
+	Level       *string                 `json:"level,omitempty"`
+	Name        *string                 `json:"name,omitempty"`
+	SdkEdge     *map[string]interface{} `json:"sdk_edge,omitempty"`
+	SipEdge     *map[string]interface{} `json:"sip_edge,omitempty"`
+	Timestamp   *string                 `json:"timestamp,omitempty"`
 }

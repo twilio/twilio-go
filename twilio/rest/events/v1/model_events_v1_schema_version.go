@@ -18,12 +18,12 @@ import (
 // EventsV1SchemaVersion struct for EventsV1SchemaVersion
 type EventsV1SchemaVersion struct {
 	// The date the schema version was created.
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The unique identifier of the schema.
-	Id  *string `json:"Id,omitempty"`
-	Raw *string `json:"Raw,omitempty"`
+	Id  *string `json:"id,omitempty"`
+	Raw *string `json:"raw,omitempty"`
 	// The version of this schema.
-	SchemaVersion *int32 `json:"SchemaVersion,omitempty"`
+	SchemaVersion *int32 `json:"schema_version,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

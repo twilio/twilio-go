@@ -13,6 +13,6 @@ package openapi
 
 // ListSupportingDocumentTypeResponse struct for ListSupportingDocumentTypeResponse
 type ListSupportingDocumentTypeResponse struct {
-	Meta                    ListCustomerProfileResponseMeta    `json:"Meta,omitempty"`
-	SupportingDocumentTypes []TrusthubV1SupportingDocumentType `json:"SupportingDocumentTypes,omitempty"`
+	Meta                    ListCustomerProfileResponseMeta    `json:"meta,omitempty"`
+	SupportingDocumentTypes []TrusthubV1SupportingDocumentType `json:"supporting_document_types,omitempty"`
 }

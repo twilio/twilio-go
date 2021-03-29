@@ -13,8 +13,8 @@ package openapi
 
 // ApiV2010AccountTokenIceServers struct for ApiV2010AccountTokenIceServers
 type ApiV2010AccountTokenIceServers struct {
-	Credential string `json:"Credential,omitempty"`
-	Url        string `json:"Url,omitempty"`
-	Urls       string `json:"Urls,omitempty"`
-	Username   string `json:"Username,omitempty"`
+	Credential string `json:"credential,omitempty"`
+	Url        string `json:"url,omitempty"`
+	Urls       string `json:"urls,omitempty"`
+	Username   string `json:"username,omitempty"`
 }

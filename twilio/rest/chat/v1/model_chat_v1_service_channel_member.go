@@ -18,25 +18,25 @@ import (
 // ChatV1ServiceChannelMember struct for ChatV1ServiceChannelMember
 type ChatV1ServiceChannelMember struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The unique ID of the Channel for the member
-	ChannelSid *string `json:"ChannelSid,omitempty"`
+	ChannelSid *string `json:"channel_sid,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The string that identifies the resource's User
-	Identity *string `json:"Identity,omitempty"`
+	Identity *string `json:"identity,omitempty"`
 	// The index of the last Message that the Member has read within the Channel
-	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumedMessageIndex *int32 `json:"last_consumed_message_index,omitempty"`
 	// The ISO 8601 based timestamp string that represents the date-time of the last Message read event for the Member within the Channel
-	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
+	LastConsumptionTimestamp *time.Time `json:"last_consumption_timestamp,omitempty"`
 	// The SID of the Role assigned to the member
-	RoleSid *string `json:"RoleSid,omitempty"`
+	RoleSid *string `json:"role_sid,omitempty"`
 	// The SID of the Service that the resource is associated with
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Member resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

@@ -18,21 +18,21 @@ import (
 // MessagingV1ServiceShortCode struct for MessagingV1ServiceShortCode
 type MessagingV1ServiceShortCode struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// An array of values that describe whether the number can receive calls or messages
-	Capabilities *[]string `json:"Capabilities,omitempty"`
+	Capabilities *[]string `json:"capabilities,omitempty"`
 	// The 2-character ISO Country Code of the number
-	CountryCode *string `json:"CountryCode,omitempty"`
+	CountryCode *string `json:"country_code,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The SID of the Service that the resource is associated with
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The E.164 format of the short code
-	ShortCode *string `json:"ShortCode,omitempty"`
+	ShortCode *string `json:"short_code,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the ShortCode resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
