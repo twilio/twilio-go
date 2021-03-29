@@ -18,13 +18,13 @@ import (
 // VideoV1RoomRoomParticipantRoomParticipantSubscribeRule struct for VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 type VideoV1RoomRoomParticipantRoomParticipantSubscribeRule struct {
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The SID of the Participant resource for the Subscribe Rules
-	ParticipantSid *string `json:"ParticipantSid,omitempty"`
+	ParticipantSid *string `json:"participant_sid,omitempty"`
 	// The SID of the Room resource for the Subscribe Rules
-	RoomSid *string `json:"RoomSid,omitempty"`
+	RoomSid *string `json:"room_sid,omitempty"`
 	// A collection of Subscribe Rules that describe how to include or exclude matching tracks
-	Rules *[]map[string]interface{} `json:"Rules,omitempty"`
+	Rules *[]map[string]interface{} `json:"rules,omitempty"`
 }

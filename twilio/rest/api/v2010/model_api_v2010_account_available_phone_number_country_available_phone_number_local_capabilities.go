@@ -13,8 +13,8 @@ package openapi
 
 // ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities Whether a phone number can receive calls or messages
 type ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities struct {
-	Fax   bool `json:"Fax,omitempty"`
-	Mms   bool `json:"Mms,omitempty"`
-	Sms   bool `json:"Sms,omitempty"`
-	Voice bool `json:"Voice,omitempty"`
+	Fax   bool `json:"fax,omitempty"`
+	Mms   bool `json:"mms,omitempty"`
+	Sms   bool `json:"sms,omitempty"`
+	Voice bool `json:"voice,omitempty"`
 }

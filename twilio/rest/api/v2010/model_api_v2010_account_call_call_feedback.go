@@ -14,15 +14,15 @@ package openapi
 // ApiV2010AccountCallCallFeedback struct for ApiV2010AccountCallCallFeedback
 type ApiV2010AccountCallCallFeedback struct {
 	// The unique sid that identifies this account
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The date this resource was created
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *string `json:"date_created,omitempty"`
 	// The date this resource was last updated
-	DateUpdated *string `json:"DateUpdated,omitempty"`
+	DateUpdated *string `json:"date_updated,omitempty"`
 	// Issues experienced during the call
-	Issues *[]string `json:"Issues,omitempty"`
+	Issues *[]string `json:"issues,omitempty"`
 	// 1 to 5 quality score
-	QualityScore *int32 `json:"QualityScore,omitempty"`
+	QualityScore *int32 `json:"quality_score,omitempty"`
 	// A string that uniquely identifies this feedback resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 }

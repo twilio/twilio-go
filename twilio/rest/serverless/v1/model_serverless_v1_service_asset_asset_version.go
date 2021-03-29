@@ -18,19 +18,19 @@ import (
 // ServerlessV1ServiceAssetAssetVersion struct for ServerlessV1ServiceAssetAssetVersion
 type ServerlessV1ServiceAssetAssetVersion struct {
 	// The SID of the Account that created the Asset Version resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the Asset resource that is the parent of the Asset Version
-	AssetSid *string `json:"AssetSid,omitempty"`
+	AssetSid *string `json:"asset_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the Asset Version resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The URL-friendly string by which the Asset Version can be referenced
-	Path *string `json:"Path,omitempty"`
+	Path *string `json:"path,omitempty"`
 	// The SID of the Service that the Asset Version resource is associated with
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the Asset Version resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Asset Version resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// The access control that determines how the Asset Version can be accessed
-	Visibility *string `json:"Visibility,omitempty"`
+	Visibility *string `json:"visibility,omitempty"`
 }

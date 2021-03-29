@@ -18,22 +18,22 @@ import (
 // ProxyV1ServiceShortCode struct for ProxyV1ServiceShortCode
 type ProxyV1ServiceShortCode struct {
 	// The SID of the Account that created the resource
-	AccountSid   *string                              `json:"AccountSid,omitempty"`
-	Capabilities *ProxyV1ServiceShortCodeCapabilities `json:"Capabilities,omitempty"`
+	AccountSid   *string                              `json:"account_sid,omitempty"`
+	Capabilities *ProxyV1ServiceShortCodeCapabilities `json:"capabilities,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// Whether the short code should be reserved for manual assignment to participants only
-	IsReserved *bool `json:"IsReserved,omitempty"`
+	IsReserved *bool `json:"is_reserved,omitempty"`
 	// The ISO Country Code
-	IsoCountry *string `json:"IsoCountry,omitempty"`
+	IsoCountry *string `json:"iso_country,omitempty"`
 	// The SID of the resource's parent Service
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The short code's number
-	ShortCode *string `json:"ShortCode,omitempty"`
+	ShortCode *string `json:"short_code,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the ShortCode resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

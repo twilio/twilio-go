@@ -13,6 +13,6 @@ package openapi
 
 // ListEnvironmentResponse struct for ListEnvironmentResponse
 type ListEnvironmentResponse struct {
-	Environments []ServerlessV1ServiceEnvironment `json:"Environments,omitempty"`
-	Meta         ListServiceResponseMeta          `json:"Meta,omitempty"`
+	Environments []ServerlessV1ServiceEnvironment `json:"environments,omitempty"`
+	Meta         ListServiceResponseMeta          `json:"meta,omitempty"`
 }

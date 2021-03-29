@@ -18,35 +18,35 @@ import (
 // TrunkingV1Trunk struct for TrunkingV1Trunk
 type TrunkingV1Trunk struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The types of authentication mapped to the domain
-	AuthType *string `json:"AuthType,omitempty"`
+	AuthType *string `json:"auth_type,omitempty"`
 	// Reserved
-	AuthTypeSet *[]string `json:"AuthTypeSet,omitempty"`
+	AuthTypeSet *[]string `json:"auth_type_set,omitempty"`
 	// Whether Caller ID Name (CNAM) lookup is enabled for the trunk
-	CnamLookupEnabled *bool `json:"CnamLookupEnabled,omitempty"`
+	CnamLookupEnabled *bool `json:"cnam_lookup_enabled,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The HTTP method we use to call the disaster_recovery_url
-	DisasterRecoveryMethod *string `json:"DisasterRecoveryMethod,omitempty"`
+	DisasterRecoveryMethod *string `json:"disaster_recovery_method,omitempty"`
 	// The HTTP URL that we call if an error occurs while sending SIP traffic towards your configured Origination URL
-	DisasterRecoveryUrl *string `json:"DisasterRecoveryUrl,omitempty"`
+	DisasterRecoveryUrl *string `json:"disaster_recovery_url,omitempty"`
 	// The unique address you reserve on Twilio to which you route your SIP traffic
-	DomainName *string `json:"DomainName,omitempty"`
+	DomainName *string `json:"domain_name,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The URLs of related resources
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The recording settings for the trunk
-	Recording *map[string]interface{} `json:"Recording,omitempty"`
+	Recording *map[string]interface{} `json:"recording,omitempty"`
 	// Whether Secure Trunking is enabled for the trunk
-	Secure *bool `json:"Secure,omitempty"`
+	Secure *bool `json:"secure,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The call transfer settings for the trunk
-	TransferMode *string `json:"TransferMode,omitempty"`
+	TransferMode *string `json:"transfer_mode,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

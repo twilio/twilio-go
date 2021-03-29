@@ -18,27 +18,27 @@ import (
 // VerifyV2ServiceEntityFactor struct for VerifyV2ServiceEntityFactor
 type VerifyV2ServiceEntityFactor struct {
 	// Account Sid.
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// Configurations for a `factor_type`.
-	Config *map[string]interface{} `json:"Config,omitempty"`
+	Config *map[string]interface{} `json:"config,omitempty"`
 	// The date this Factor was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date this Factor was updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// Entity Sid.
-	EntitySid *string `json:"EntitySid,omitempty"`
+	EntitySid *string `json:"entity_sid,omitempty"`
 	// The Type of this Factor
-	FactorType *string `json:"FactorType,omitempty"`
+	FactorType *string `json:"factor_type,omitempty"`
 	// A human readable description of this resource.
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// Unique external identifier of the Entity
-	Identity *string `json:"Identity,omitempty"`
+	Identity *string `json:"identity,omitempty"`
 	// Service Sid.
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// A string that uniquely identifies this Factor.
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The Status of this Factor
-	Status *string `json:"Status,omitempty"`
+	Status *string `json:"status,omitempty"`
 	// The URL of this resource.
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

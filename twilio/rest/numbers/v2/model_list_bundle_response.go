@@ -13,6 +13,6 @@ package openapi
 
 // ListBundleResponse struct for ListBundleResponse
 type ListBundleResponse struct {
-	Meta    ListBundleResponseMeta                `json:"Meta,omitempty"`
-	Results []NumbersV2RegulatoryComplianceBundle `json:"Results,omitempty"`
+	Meta    ListBundleResponseMeta                `json:"meta,omitempty"`
+	Results []NumbersV2RegulatoryComplianceBundle `json:"results,omitempty"`
 }

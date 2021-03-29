@@ -14,25 +14,25 @@ package openapi
 // ChatV2ServiceUserUserChannel struct for ChatV2ServiceUserUserChannel
 type ChatV2ServiceUserUserChannel struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the Channel the resource belongs to
-	ChannelSid *string `json:"ChannelSid,omitempty"`
+	ChannelSid *string `json:"channel_sid,omitempty"`
 	// The index of the last Message in the Channel the Member has read
-	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumedMessageIndex *int32 `json:"last_consumed_message_index,omitempty"`
 	// Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The SID of the User as a Member in the Channel
-	MemberSid *string `json:"MemberSid,omitempty"`
+	MemberSid *string `json:"member_sid,omitempty"`
 	// The push notification level of the User for the Channel
-	NotificationLevel *string `json:"NotificationLevel,omitempty"`
+	NotificationLevel *string `json:"notification_level,omitempty"`
 	// The SID of the Service that the resource is associated with
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The status of the User on the Channel
-	Status *string `json:"Status,omitempty"`
+	Status *string `json:"status,omitempty"`
 	// The number of unread Messages in the Channel for the User
-	UnreadMessagesCount *int32 `json:"UnreadMessagesCount,omitempty"`
+	UnreadMessagesCount *int32 `json:"unread_messages_count,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// The SID of the User the User Channel belongs to
-	UserSid *string `json:"UserSid,omitempty"`
+	UserSid *string `json:"user_sid,omitempty"`
 }

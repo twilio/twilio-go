@@ -14,15 +14,15 @@ package openapi
 // ApiV2010AccountMessageMessageFeedback struct for ApiV2010AccountMessageMessageFeedback
 type ApiV2010AccountMessageMessageFeedback struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *string `json:"DateUpdated,omitempty"`
+	DateUpdated *string `json:"date_updated,omitempty"`
 	// The SID of the Message resource for which the feedback was provided
-	MessageSid *string `json:"MessageSid,omitempty"`
+	MessageSid *string `json:"message_sid,omitempty"`
 	// Whether the feedback has arrived
-	Outcome *string `json:"Outcome,omitempty"`
+	Outcome *string `json:"outcome,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
-	Uri *string `json:"Uri,omitempty"`
+	Uri *string `json:"uri,omitempty"`
 }

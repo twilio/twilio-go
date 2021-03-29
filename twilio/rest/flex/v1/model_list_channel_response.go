@@ -13,6 +13,6 @@ package openapi
 
 // ListChannelResponse struct for ListChannelResponse
 type ListChannelResponse struct {
-	FlexChatChannels []FlexV1Channel         `json:"FlexChatChannels,omitempty"`
-	Meta             ListChannelResponseMeta `json:"Meta,omitempty"`
+	FlexChatChannels []FlexV1Channel         `json:"flex_chat_channels,omitempty"`
+	Meta             ListChannelResponseMeta `json:"meta,omitempty"`
 }

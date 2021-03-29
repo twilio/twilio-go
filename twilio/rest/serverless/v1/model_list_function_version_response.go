@@ -13,6 +13,6 @@ package openapi
 
 // ListFunctionVersionResponse struct for ListFunctionVersionResponse
 type ListFunctionVersionResponse struct {
-	FunctionVersions []ServerlessV1ServiceFunctionFunctionVersion `json:"FunctionVersions,omitempty"`
-	Meta             ListServiceResponseMeta                      `json:"Meta,omitempty"`
+	FunctionVersions []ServerlessV1ServiceFunctionFunctionVersion `json:"function_versions,omitempty"`
+	Meta             ListServiceResponseMeta                      `json:"meta,omitempty"`
 }

@@ -13,6 +13,6 @@ package openapi
 
 // ListTaskReservationResponse struct for ListTaskReservationResponse
 type ListTaskReservationResponse struct {
-	Meta         ListWorkspaceResponseMeta                  `json:"Meta,omitempty"`
-	Reservations []TaskrouterV1WorkspaceTaskTaskReservation `json:"Reservations,omitempty"`
+	Meta         ListWorkspaceResponseMeta                  `json:"meta,omitempty"`
+	Reservations []TaskrouterV1WorkspaceTaskTaskReservation `json:"reservations,omitempty"`
 }

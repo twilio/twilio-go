@@ -13,6 +13,6 @@ package openapi
 
 // ListServiceConversationScopedWebhookResponse struct for ListServiceConversationScopedWebhookResponse
 type ListServiceConversationScopedWebhookResponse struct {
-	Meta     ListConversationResponseMeta                                                `json:"Meta,omitempty"`
-	Webhooks []ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook `json:"Webhooks,omitempty"`
+	Meta     ListConversationResponseMeta                                                `json:"meta,omitempty"`
+	Webhooks []ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook `json:"webhooks,omitempty"`
 }

@@ -13,6 +13,6 @@ package openapi
 
 // ListVoiceCountryResponse struct for ListVoiceCountryResponse
 type ListVoiceCountryResponse struct {
-	Countries []PricingV1VoiceVoiceCountry     `json:"Countries,omitempty"`
-	Meta      ListMessagingCountryResponseMeta `json:"Meta,omitempty"`
+	Countries []PricingV1VoiceVoiceCountry     `json:"countries,omitempty"`
+	Meta      ListMessagingCountryResponseMeta `json:"meta,omitempty"`
 }

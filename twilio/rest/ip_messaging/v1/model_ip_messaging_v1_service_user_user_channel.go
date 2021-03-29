@@ -13,12 +13,12 @@ package openapi
 
 // IpMessagingV1ServiceUserUserChannel struct for IpMessagingV1ServiceUserUserChannel
 type IpMessagingV1ServiceUserUserChannel struct {
-	AccountSid               *string                 `json:"AccountSid,omitempty"`
-	ChannelSid               *string                 `json:"ChannelSid,omitempty"`
-	LastConsumedMessageIndex *int32                  `json:"LastConsumedMessageIndex,omitempty"`
-	Links                    *map[string]interface{} `json:"Links,omitempty"`
-	MemberSid                *string                 `json:"MemberSid,omitempty"`
-	ServiceSid               *string                 `json:"ServiceSid,omitempty"`
-	Status                   *string                 `json:"Status,omitempty"`
-	UnreadMessagesCount      *int32                  `json:"UnreadMessagesCount,omitempty"`
+	AccountSid               *string                 `json:"account_sid,omitempty"`
+	ChannelSid               *string                 `json:"channel_sid,omitempty"`
+	LastConsumedMessageIndex *int32                  `json:"last_consumed_message_index,omitempty"`
+	Links                    *map[string]interface{} `json:"links,omitempty"`
+	MemberSid                *string                 `json:"member_sid,omitempty"`
+	ServiceSid               *string                 `json:"service_sid,omitempty"`
+	Status                   *string                 `json:"status,omitempty"`
+	UnreadMessagesCount      *int32                  `json:"unread_messages_count,omitempty"`
 }

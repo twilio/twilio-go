@@ -13,6 +13,6 @@ package openapi
 
 // ListConversationResponse struct for ListConversationResponse
 type ListConversationResponse struct {
-	Conversations []ConversationsV1Conversation `json:"Conversations,omitempty"`
-	Meta          ListConversationResponseMeta  `json:"Meta,omitempty"`
+	Conversations []ConversationsV1Conversation `json:"conversations,omitempty"`
+	Meta          ListConversationResponseMeta  `json:"meta,omitempty"`
 }

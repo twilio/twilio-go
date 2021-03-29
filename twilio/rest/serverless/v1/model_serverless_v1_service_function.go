@@ -18,19 +18,19 @@ import (
 // ServerlessV1ServiceFunction struct for ServerlessV1ServiceFunction
 type ServerlessV1ServiceFunction struct {
 	// The SID of the Account that created the Function resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the Function resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the Function resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The string that you assigned to describe the Function resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The URLs of nested resources of the Function resource
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The SID of the Service that the Function resource is associated with
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the Function resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Function resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

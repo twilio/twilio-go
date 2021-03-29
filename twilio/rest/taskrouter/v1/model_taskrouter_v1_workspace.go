@@ -18,33 +18,33 @@ import (
 // TaskrouterV1Workspace struct for TaskrouterV1Workspace
 type TaskrouterV1Workspace struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The name of the default activity
-	DefaultActivityName *string `json:"DefaultActivityName,omitempty"`
+	DefaultActivityName *string `json:"default_activity_name,omitempty"`
 	// The SID of the Activity that will be used when new Workers are created in the Workspace
-	DefaultActivitySid *string `json:"DefaultActivitySid,omitempty"`
+	DefaultActivitySid *string `json:"default_activity_sid,omitempty"`
 	// The URL we call when an event occurs
-	EventCallbackUrl *string `json:"EventCallbackUrl,omitempty"`
+	EventCallbackUrl *string `json:"event_callback_url,omitempty"`
 	// The list of Workspace events for which to call event_callback_url
-	EventsFilter *string `json:"EventsFilter,omitempty"`
+	EventsFilter *string `json:"events_filter,omitempty"`
 	// The string that you assigned to describe the Workspace resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The URLs of related resources
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// Whether multi-tasking is enabled
-	MultiTaskEnabled *bool `json:"MultiTaskEnabled,omitempty"`
+	MultiTaskEnabled *bool `json:"multi_task_enabled,omitempty"`
 	// The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues
-	PrioritizeQueueOrder *string `json:"PrioritizeQueueOrder,omitempty"`
+	PrioritizeQueueOrder *string `json:"prioritize_queue_order,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The name of the timeout activity
-	TimeoutActivityName *string `json:"TimeoutActivityName,omitempty"`
+	TimeoutActivityName *string `json:"timeout_activity_name,omitempty"`
 	// The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response
-	TimeoutActivitySid *string `json:"TimeoutActivitySid,omitempty"`
+	TimeoutActivitySid *string `json:"timeout_activity_sid,omitempty"`
 	// The absolute URL of the Workspace resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

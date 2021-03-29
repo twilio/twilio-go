@@ -18,33 +18,33 @@ import (
 // ConversationsV1ServiceServiceConversationServiceConversationMessage struct for ConversationsV1ServiceServiceConversationServiceConversationMessage
 type ConversationsV1ServiceServiceConversationServiceConversationMessage struct {
 	// The unique ID of the Account responsible for this message.
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// A string metadata field you can use to store any data you wish.
-	Attributes *string `json:"Attributes,omitempty"`
+	Attributes *string `json:"attributes,omitempty"`
 	// The channel specific identifier of the message's author.
-	Author *string `json:"Author,omitempty"`
+	Author *string `json:"author,omitempty"`
 	// The content of the message.
-	Body *string `json:"Body,omitempty"`
+	Body *string `json:"body,omitempty"`
 	// The SID of the Conversation Service that the resource is associated with.
-	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
 	// The unique ID of the Conversation for this message.
-	ConversationSid *string `json:"ConversationSid,omitempty"`
+	ConversationSid *string `json:"conversation_sid,omitempty"`
 	// The date that this resource was created.
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date that this resource was last updated.
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// An object that contains the summary of delivery statuses for the message to non-chat participants.
-	Delivery *map[string]interface{} `json:"Delivery,omitempty"`
+	Delivery *map[string]interface{} `json:"delivery,omitempty"`
 	// The index of the message within the Conversation.
-	Index *int32 `json:"Index,omitempty"`
+	Index *int32 `json:"index,omitempty"`
 	// Absolute URL to access the receipts of this message.
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// An array of objects that describe the Message's media if attached, otherwise, null.
-	Media *[]map[string]interface{} `json:"Media,omitempty"`
+	Media *[]map[string]interface{} `json:"media,omitempty"`
 	// The unique ID of messages's author participant.
-	ParticipantSid *string `json:"ParticipantSid,omitempty"`
+	ParticipantSid *string `json:"participant_sid,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// An absolute URL for this message.
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

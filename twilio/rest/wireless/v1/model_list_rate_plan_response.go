@@ -13,6 +13,6 @@ package openapi
 
 // ListRatePlanResponse struct for ListRatePlanResponse
 type ListRatePlanResponse struct {
-	Meta      ListCommandResponseMeta `json:"Meta,omitempty"`
-	RatePlans []WirelessV1RatePlan    `json:"RatePlans,omitempty"`
+	Meta      ListCommandResponseMeta `json:"meta,omitempty"`
+	RatePlans []WirelessV1RatePlan    `json:"rate_plans,omitempty"`
 }

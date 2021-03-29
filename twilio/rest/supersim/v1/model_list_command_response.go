@@ -13,6 +13,6 @@ package openapi
 
 // ListCommandResponse struct for ListCommandResponse
 type ListCommandResponse struct {
-	Commands []SupersimV1Command     `json:"Commands,omitempty"`
-	Meta     ListCommandResponseMeta `json:"Meta,omitempty"`
+	Commands []SupersimV1Command     `json:"commands,omitempty"`
+	Meta     ListCommandResponseMeta `json:"meta,omitempty"`
 }

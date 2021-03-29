@@ -13,6 +13,6 @@ package openapi
 
 // ListSyncMapResponse struct for ListSyncMapResponse
 type ListSyncMapResponse struct {
-	Maps []SyncV1ServiceSyncMap  `json:"Maps,omitempty"`
-	Meta ListServiceResponseMeta `json:"Meta,omitempty"`
+	Maps []SyncV1ServiceSyncMap  `json:"maps,omitempty"`
+	Meta ListServiceResponseMeta `json:"meta,omitempty"`
 }

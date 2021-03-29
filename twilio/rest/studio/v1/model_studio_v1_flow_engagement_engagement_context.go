@@ -14,13 +14,13 @@ package openapi
 // StudioV1FlowEngagementEngagementContext struct for StudioV1FlowEngagementEngagementContext
 type StudioV1FlowEngagementEngagementContext struct {
 	// Account SID
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// Flow state
-	Context *map[string]interface{} `json:"Context,omitempty"`
+	Context *map[string]interface{} `json:"context,omitempty"`
 	// Engagement SID
-	EngagementSid *string `json:"EngagementSid,omitempty"`
+	EngagementSid *string `json:"engagement_sid,omitempty"`
 	// Flow SID
-	FlowSid *string `json:"FlowSid,omitempty"`
+	FlowSid *string `json:"flow_sid,omitempty"`
 	// The URL of the resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

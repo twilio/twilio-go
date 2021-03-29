@@ -14,15 +14,15 @@ package openapi
 // SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork struct for SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
 type SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork struct {
 	// A human readable identifier of this resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The MCC/MNCs included in the resource
-	Identifiers *[]map[string]interface{} `json:"Identifiers,omitempty"`
+	Identifiers *[]map[string]interface{} `json:"identifiers,omitempty"`
 	// The ISO country code of the Network resource
-	IsoCountry *string `json:"IsoCountry,omitempty"`
+	IsoCountry *string `json:"iso_country,omitempty"`
 	// The unique string that identifies the Network Access Profile resource
-	NetworkAccessProfileSid *string `json:"NetworkAccessProfileSid,omitempty"`
+	NetworkAccessProfileSid *string `json:"network_access_profile_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

@@ -14,5 +14,5 @@ package openapi
 // StudioV2FlowValidate struct for StudioV2FlowValidate
 type StudioV2FlowValidate struct {
 	// Boolean if the flow definition is valid
-	Valid *bool `json:"Valid,omitempty"`
+	Valid *bool `json:"valid,omitempty"`
 }

@@ -14,13 +14,13 @@ package openapi
 // ApiV2010AccountAvailablePhoneNumberCountry struct for ApiV2010AccountAvailablePhoneNumberCountry
 type ApiV2010AccountAvailablePhoneNumberCountry struct {
 	// Whether all phone numbers available in the country are new to the Twilio platform.
-	Beta *bool `json:"Beta,omitempty"`
+	Beta *bool `json:"beta,omitempty"`
 	// The name of the country
-	Country *string `json:"Country,omitempty"`
+	Country *string `json:"country,omitempty"`
 	// The ISO-3166-1 country code of the country.
-	CountryCode *string `json:"CountryCode,omitempty"`
+	CountryCode *string `json:"country_code,omitempty"`
 	// A list of related resources identified by their relative URIs
-	SubresourceUris *map[string]interface{} `json:"SubresourceUris,omitempty"`
+	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 	// The URI of the Country resource, relative to `https://api.twilio.com`
-	Uri *string `json:"Uri,omitempty"`
+	Uri *string `json:"uri,omitempty"`
 }

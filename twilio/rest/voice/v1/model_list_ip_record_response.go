@@ -13,6 +13,6 @@ package openapi
 
 // ListIpRecordResponse struct for ListIpRecordResponse
 type ListIpRecordResponse struct {
-	IpRecords []VoiceV1IpRecord         `json:"IpRecords,omitempty"`
-	Meta      ListByocTrunkResponseMeta `json:"Meta,omitempty"`
+	IpRecords []VoiceV1IpRecord         `json:"ip_records,omitempty"`
+	Meta      ListByocTrunkResponseMeta `json:"meta,omitempty"`
 }

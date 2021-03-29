@@ -13,6 +13,6 @@ package openapi
 
 // ListSourceIpMappingResponse struct for ListSourceIpMappingResponse
 type ListSourceIpMappingResponse struct {
-	Meta             ListByocTrunkResponseMeta `json:"Meta,omitempty"`
-	SourceIpMappings []VoiceV1SourceIpMapping  `json:"SourceIpMappings,omitempty"`
+	Meta             ListByocTrunkResponseMeta `json:"meta,omitempty"`
+	SourceIpMappings []VoiceV1SourceIpMapping  `json:"source_ip_mappings,omitempty"`
 }

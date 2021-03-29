@@ -13,6 +13,6 @@ package openapi
 
 // ListTaskChannelResponse struct for ListTaskChannelResponse
 type ListTaskChannelResponse struct {
-	Channels []TaskrouterV1WorkspaceTaskChannel `json:"Channels,omitempty"`
-	Meta     ListWorkspaceResponseMeta          `json:"Meta,omitempty"`
+	Channels []TaskrouterV1WorkspaceTaskChannel `json:"channels,omitempty"`
+	Meta     ListWorkspaceResponseMeta          `json:"meta,omitempty"`
 }

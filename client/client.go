@@ -37,16 +37,6 @@ func defaultHTTPClient() *http.Client {
 	}
 }
 
-// NewClient initializes a new Client with the given credentials
-func NewClient(accountSid string, authToken string) *Client {
-	c := &Client{
-		HTTPClient: defaultHTTPClient(),
-	}
-	creds := &Credentials{AccountSID: accountSid, AuthToken: authToken}
-	c.Credentials = creds
-	return c
-}
-
 func (c *Client) basicAuth() (string, string) {
 	return c.Credentials.AccountSID, c.Credentials.AuthToken
 }
@@ -62,7 +52,7 @@ const (
 	escapee   = '\\'
 )
 
-func doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
+func (c *Client) doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
 	if client == nil {
 		client = defaultHTTPClient()
 	}
@@ -117,7 +107,7 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	}
 
-	return doWithErr(req, c.HTTPClient)
+	return c.doWithErr(req, c.HTTPClient)
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL

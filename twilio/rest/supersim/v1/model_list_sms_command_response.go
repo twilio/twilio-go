@@ -13,6 +13,6 @@ package openapi
 
 // ListSmsCommandResponse struct for ListSmsCommandResponse
 type ListSmsCommandResponse struct {
-	Meta        ListCommandResponseMeta `json:"Meta,omitempty"`
-	SmsCommands []SupersimV1SmsCommand  `json:"SmsCommands,omitempty"`
+	Meta        ListCommandResponseMeta `json:"meta,omitempty"`
+	SmsCommands []SupersimV1SmsCommand  `json:"sms_commands,omitempty"`
 }

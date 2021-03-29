@@ -13,8 +13,8 @@ package openapi
 
 // ProxyV1ServicePhoneNumberCapabilities The capabilities of the phone number
 type ProxyV1ServicePhoneNumberCapabilities struct {
-	Fax   bool `json:"Fax,omitempty"`
-	Mms   bool `json:"Mms,omitempty"`
-	Sms   bool `json:"Sms,omitempty"`
-	Voice bool `json:"Voice,omitempty"`
+	Fax   bool `json:"fax,omitempty"`
+	Mms   bool `json:"mms,omitempty"`
+	Sms   bool `json:"sms,omitempty"`
+	Voice bool `json:"voice,omitempty"`
 }

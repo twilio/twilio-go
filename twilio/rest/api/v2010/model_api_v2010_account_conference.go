@@ -14,27 +14,27 @@ package openapi
 // ApiV2010AccountConference struct for ApiV2010AccountConference
 type ApiV2010AccountConference struct {
 	// The SID of the Account that created this resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The API version used to create this conference
-	ApiVersion *string `json:"ApiVersion,omitempty"`
+	ApiVersion *string `json:"api_version,omitempty"`
 	// The call SID that caused the conference to end
-	CallSidEndingConference *string `json:"CallSidEndingConference,omitempty"`
+	CallSidEndingConference *string `json:"call_sid_ending_conference,omitempty"`
 	// The RFC 2822 date and time in GMT that this resource was created
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that this resource was last updated
-	DateUpdated *string `json:"DateUpdated,omitempty"`
+	DateUpdated *string `json:"date_updated,omitempty"`
 	// A string that you assigned to describe this conference room
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The reason why a conference ended.
-	ReasonConferenceEnded *string `json:"ReasonConferenceEnded,omitempty"`
+	ReasonConferenceEnded *string `json:"reason_conference_ended,omitempty"`
 	// A string that represents the Twilio Region where the conference was mixed
-	Region *string `json:"Region,omitempty"`
+	Region *string `json:"region,omitempty"`
 	// The unique string that identifies this resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The status of this conference
-	Status *string `json:"Status,omitempty"`
+	Status *string `json:"status,omitempty"`
 	// A list of related resources identified by their relative URIs
-	SubresourceUris *map[string]interface{} `json:"SubresourceUris,omitempty"`
+	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 	// The URI of this resource, relative to `https://api.twilio.com`
-	Uri *string `json:"Uri,omitempty"`
+	Uri *string `json:"uri,omitempty"`
 }

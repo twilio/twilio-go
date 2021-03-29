@@ -18,25 +18,25 @@ import (
 // ConversationsV1ServiceServiceBinding struct for ConversationsV1ServiceServiceBinding
 type ConversationsV1ServiceServiceBinding struct {
 	// The unique ID of the Account responsible for this binding.
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The push technology to use for the binding.
-	BindingType *string `json:"BindingType,omitempty"`
+	BindingType *string `json:"binding_type,omitempty"`
 	// The SID of the Conversation Service that the resource is associated with.
-	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
 	// The SID of the Credential for the binding.
-	CredentialSid *string `json:"CredentialSid,omitempty"`
+	CredentialSid *string `json:"credential_sid,omitempty"`
 	// The date that this resource was created.
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date that this resource was last updated.
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The unique endpoint identifier for the Binding.
-	Endpoint *string `json:"Endpoint,omitempty"`
+	Endpoint *string `json:"endpoint,omitempty"`
 	// The identity of Conversation User associated with this binding.
-	Identity *string `json:"Identity,omitempty"`
+	Identity *string `json:"identity,omitempty"`
 	// The Conversation message types the binding is subscribed to.
-	MessageTypes *[]string `json:"MessageTypes,omitempty"`
+	MessageTypes *[]string `json:"message_types,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// An absolute URL for this binding.
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

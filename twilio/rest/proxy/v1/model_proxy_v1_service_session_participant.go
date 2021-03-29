@@ -18,29 +18,29 @@ import (
 // ProxyV1ServiceSessionParticipant struct for ProxyV1ServiceSessionParticipant
 type ProxyV1ServiceSessionParticipant struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date the Participant was removed
-	DateDeleted *time.Time `json:"DateDeleted,omitempty"`
+	DateDeleted *time.Time `json:"date_deleted,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The string that you assigned to describe the participant
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The phone number or channel identifier of the Participant
-	Identifier *string `json:"Identifier,omitempty"`
+	Identifier *string `json:"identifier,omitempty"`
 	// The URLs to resources related the participant
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The phone number or short code of the participant's partner
-	ProxyIdentifier *string `json:"ProxyIdentifier,omitempty"`
+	ProxyIdentifier *string `json:"proxy_identifier,omitempty"`
 	// The SID of the Proxy Identifier assigned to the Participant
-	ProxyIdentifierSid *string `json:"ProxyIdentifierSid,omitempty"`
+	ProxyIdentifierSid *string `json:"proxy_identifier_sid,omitempty"`
 	// The SID of the resource's parent Service
-	ServiceSid *string `json:"ServiceSid,omitempty"`
+	ServiceSid *string `json:"service_sid,omitempty"`
 	// The SID of the resource's parent Session
-	SessionSid *string `json:"SessionSid,omitempty"`
+	SessionSid *string `json:"session_sid,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Participant resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

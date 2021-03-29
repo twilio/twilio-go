@@ -13,6 +13,6 @@ package openapi
 
 // ListParticipantResponse struct for ListParticipantResponse
 type ListParticipantResponse struct {
-	Meta         ListServiceResponseMeta            `json:"Meta,omitempty"`
-	Participants []ProxyV1ServiceSessionParticipant `json:"Participants,omitempty"`
+	Meta         ListServiceResponseMeta            `json:"meta,omitempty"`
+	Participants []ProxyV1ServiceSessionParticipant `json:"participants,omitempty"`
 }

@@ -13,6 +13,6 @@ package openapi
 
 // ListWorkflowResponse struct for ListWorkflowResponse
 type ListWorkflowResponse struct {
-	Meta      ListWorkspaceResponseMeta       `json:"Meta,omitempty"`
-	Workflows []TaskrouterV1WorkspaceWorkflow `json:"Workflows,omitempty"`
+	Meta      ListWorkspaceResponseMeta       `json:"meta,omitempty"`
+	Workflows []TaskrouterV1WorkspaceWorkflow `json:"workflows,omitempty"`
 }

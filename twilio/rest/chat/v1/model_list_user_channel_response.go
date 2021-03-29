@@ -13,6 +13,6 @@ package openapi
 
 // ListUserChannelResponse struct for ListUserChannelResponse
 type ListUserChannelResponse struct {
-	Channels []ChatV1ServiceUserUserChannel `json:"Channels,omitempty"`
-	Meta     ListCredentialResponseMeta     `json:"Meta,omitempty"`
+	Channels []ChatV1ServiceUserUserChannel `json:"channels,omitempty"`
+	Meta     ListCredentialResponseMeta     `json:"meta,omitempty"`
 }

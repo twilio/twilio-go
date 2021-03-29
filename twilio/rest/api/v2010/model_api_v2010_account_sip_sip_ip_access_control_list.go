@@ -14,17 +14,17 @@ package openapi
 // ApiV2010AccountSipSipIpAccessControlList struct for ApiV2010AccountSipSipIpAccessControlList
 type ApiV2010AccountSipSipIpAccessControlList struct {
 	// The unique sid that identifies this account
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The date this resource was created
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *string `json:"date_created,omitempty"`
 	// The date this resource was last updated
-	DateUpdated *string `json:"DateUpdated,omitempty"`
+	DateUpdated *string `json:"date_updated,omitempty"`
 	// A human readable description of this resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// A string that uniquely identifies this resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// The IP addresses associated with this resource.
-	SubresourceUris *map[string]interface{} `json:"SubresourceUris,omitempty"`
+	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 	// The URI for this resource
-	Uri *string `json:"Uri,omitempty"`
+	Uri *string `json:"uri,omitempty"`
 }

@@ -13,6 +13,6 @@ package openapi
 
 // ListEngagementResponse struct for ListEngagementResponse
 type ListEngagementResponse struct {
-	Engagements []StudioV1FlowEngagement `json:"Engagements,omitempty"`
-	Meta        ListFlowResponseMeta     `json:"Meta,omitempty"`
+	Engagements []StudioV1FlowEngagement `json:"engagements,omitempty"`
+	Meta        ListFlowResponseMeta     `json:"meta,omitempty"`
 }

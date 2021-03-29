@@ -14,13 +14,13 @@ package openapi
 // StudioV2FlowExecutionExecutionContext struct for StudioV2FlowExecutionExecutionContext
 type StudioV2FlowExecutionExecutionContext struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// The current state of the flow
-	Context *map[string]interface{} `json:"Context,omitempty"`
+	Context *map[string]interface{} `json:"context,omitempty"`
 	// The SID of the Execution
-	ExecutionSid *string `json:"ExecutionSid,omitempty"`
+	ExecutionSid *string `json:"execution_sid,omitempty"`
 	// The SID of the Flow
-	FlowSid *string `json:"FlowSid,omitempty"`
+	FlowSid *string `json:"flow_sid,omitempty"`
 	// The absolute URL of the resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 }

@@ -13,6 +13,6 @@ package openapi
 
 // ListBrandRegistrationsResponse struct for ListBrandRegistrationsResponse
 type ListBrandRegistrationsResponse struct {
-	Data []MessagingV1BrandRegistrations `json:"Data,omitempty"`
-	Meta ListServiceResponseMeta         `json:"Meta,omitempty"`
+	Data []MessagingV1BrandRegistrations `json:"data,omitempty"`
+	Meta ListServiceResponseMeta         `json:"meta,omitempty"`
 }

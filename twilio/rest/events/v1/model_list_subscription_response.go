@@ -13,6 +13,6 @@ package openapi
 
 // ListSubscriptionResponse struct for ListSubscriptionResponse
 type ListSubscriptionResponse struct {
-	Meta          ListVersionResponseMeta `json:"Meta,omitempty"`
-	Subscriptions []EventsV1Subscription  `json:"Subscriptions,omitempty"`
+	Meta          ListVersionResponseMeta `json:"meta,omitempty"`
+	Subscriptions []EventsV1Subscription  `json:"subscriptions,omitempty"`
 }

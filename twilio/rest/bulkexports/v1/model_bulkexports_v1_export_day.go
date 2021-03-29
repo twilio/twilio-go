@@ -14,13 +14,13 @@ package openapi
 // BulkexportsV1ExportDay struct for BulkexportsV1ExportDay
 type BulkexportsV1ExportDay struct {
 	// The date when resource is created
-	CreateDate *string `json:"CreateDate,omitempty"`
+	CreateDate *string `json:"create_date,omitempty"`
 	// The date of the data in the file
-	Day *string `json:"Day,omitempty"`
+	Day *string `json:"day,omitempty"`
 	// The friendly name specified when creating the job
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The type of communication – Messages, Calls, Conferences, and Participants
-	ResourceType *string `json:"ResourceType,omitempty"`
+	ResourceType *string `json:"resource_type,omitempty"`
 	// Size of the file in bytes
-	Size *int32 `json:"Size,omitempty"`
+	Size *int32 `json:"size,omitempty"`
 }

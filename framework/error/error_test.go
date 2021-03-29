@@ -17,11 +17,11 @@ func TestTwilioRestError_Error(t *testing.T) {
 	details := make(map[string]interface{})
 	details["foo"] = "bar"
 	err := &error.TwilioRestError{
-		Code: errorCode,
-		Details: details,
-		Message: errorMessage,
+		Code:     errorCode,
+		Details:  details,
+		Message:  errorMessage,
 		MoreInfo: errorMoreInfo,
-		Status: errorStatus,
+		Status:   errorStatus,
 	}
 	expected := "Status: 400 - ApiError 20001: Bad request ({\"foo\":\"bar\"}) More info: https://www.twilio.com/docs/errors/20001"
 	assert.Equal(t, expected, err.Error())

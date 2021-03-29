@@ -13,6 +13,6 @@ package openapi
 
 // ListWorkerChannelResponse struct for ListWorkerChannelResponse
 type ListWorkerChannelResponse struct {
-	Channels []TaskrouterV1WorkspaceWorkerWorkerChannel `json:"Channels,omitempty"`
-	Meta     ListWorkspaceResponseMeta                  `json:"Meta,omitempty"`
+	Channels []TaskrouterV1WorkspaceWorkerWorkerChannel `json:"channels,omitempty"`
+	Meta     ListWorkspaceResponseMeta                  `json:"meta,omitempty"`
 }

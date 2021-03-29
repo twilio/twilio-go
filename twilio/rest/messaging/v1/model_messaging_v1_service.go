@@ -18,43 +18,43 @@ import (
 // MessagingV1Service struct for MessagingV1Service
 type MessagingV1Service struct {
 	// The SID of the Account that created the resource
-	AccountSid *string `json:"AccountSid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
 	// Whether to enable Area Code Geomatch on the Service Instance
-	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
+	AreaCodeGeomatch *bool `json:"area_code_geomatch,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The HTTP method we use to call fallback_url
-	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	FallbackMethod *string `json:"fallback_method,omitempty"`
 	// Whether to enable Fallback to Long Code for messages sent through the Service instance
-	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
+	FallbackToLongCode *bool `json:"fallback_to_long_code,omitempty"`
 	// The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
-	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	FallbackUrl *string `json:"fallback_url,omitempty"`
 	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"FriendlyName,omitempty"`
+	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The HTTP method we use to call inbound_request_url
-	InboundMethod *string `json:"InboundMethod,omitempty"`
+	InboundMethod *string `json:"inbound_method,omitempty"`
 	// The URL we call using inbound_method when a message is received by any phone number or short code in the Service
-	InboundRequestUrl *string `json:"InboundRequestUrl,omitempty"`
+	InboundRequestUrl *string `json:"inbound_request_url,omitempty"`
 	// The absolute URLs of related resources
-	Links *map[string]interface{} `json:"Links,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// Whether to enable the MMS Converter for messages sent through the Service instance
-	MmsConverter *bool `json:"MmsConverter,omitempty"`
+	MmsConverter *bool `json:"mms_converter,omitempty"`
 	// Reserved
-	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
+	ScanMessageContent *string `json:"scan_message_content,omitempty"`
 	// The unique string that identifies the resource
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"sid,omitempty"`
 	// Whether to enable Encoding for messages sent through the Service instance
-	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
+	SmartEncoding *bool `json:"smart_encoding,omitempty"`
 	// The URL we call to pass status updates about message delivery
-	StatusCallback *string `json:"StatusCallback,omitempty"`
+	StatusCallback *string `json:"status_callback,omitempty"`
 	// Whether to enable Sticky Sender on the Service instance
-	StickySender *bool `json:"StickySender,omitempty"`
+	StickySender *bool `json:"sticky_sender,omitempty"`
 	// Reserved
-	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
+	SynchronousValidation *bool `json:"synchronous_validation,omitempty"`
 	// The absolute URL of the Service resource
-	Url *string `json:"Url,omitempty"`
+	Url *string `json:"url,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid
-	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
+	ValidityPeriod *int32 `json:"validity_period,omitempty"`
 }
