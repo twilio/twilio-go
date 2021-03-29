@@ -52,7 +52,9 @@ const (
 	escapee   = '\\'
 )
 
-func (c *Client) doWithErr(req *http.Request, client *http.Client) (*http.Response, error) {
+func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
+	client := c.HTTPClient
+
 	if client == nil {
 		client = defaultHTTPClient()
 	}
@@ -107,7 +109,7 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	}
 
-	return c.doWithErr(req, c.HTTPClient)
+	return c.doWithErr(req)
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
