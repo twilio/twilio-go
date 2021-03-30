@@ -6,5 +6,5 @@ contact_links:
     url: https://stackoverflow.com/questions/tagged/twilio-go+or+twilio+go
     about: Ask questions on Stack Overflow
   - name: Documentation
-    url: https://www.twilio.com/docs/libraries/reference/twilio-go
+    url: https://github.com/twilio/twilio-go#getting-started
     about: View Reference Documentation
