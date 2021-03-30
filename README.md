@@ -74,7 +74,7 @@ import (
 func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
+	phoneNumber := "AVAILABLE_TWILIO_PHONE_NUMBER"
 
 	client := twilio.NewClient(accountSid, authToken)
 
@@ -86,7 +86,7 @@ func main() {
 		fmt.Println(err.Error())
 		err = nil
 	} else {
-		fmt.Println(resp)
+		fmt.Println("Phone Number Status: " + *resp.Status)
 	}
 }
 ```
@@ -122,8 +122,9 @@ func main() {
 		fmt.Println(err.Error())
 		err = nil
 	} else {
-		fmt.Println(resp)
-	}
+		fmt.Println( "Message Status: " + *resp.Status)
+		fmt.Println( "Message Sid: " + *resp.Sid)
+    }
 }
 ```
 
@@ -158,7 +159,9 @@ func main() {
 		fmt.Println(err.Error())
 		err = nil
 	} else {
-		fmt.Println(resp)
+		fmt.Println("Call Status: " + *resp.Status)
+		fmt.Println("Call Sid: " + *resp.Sid)
+		fmt.Println("Call Direction: " + *resp.Direction)
 	}
 }
 ```
@@ -189,7 +192,6 @@ func main() {
         twilioError := err.(*error.TwilioRestError)
         fmt.Println(twilioError.Error())
     }
-    fmt.Println(resp)
 }
 ```
 
