@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.12.0
+ * API version: 1.13.0
  * Contact: support@twilio.com
  */
 
@@ -235,8 +235,52 @@ func (c *DefaultApiService) CreateEntity(ServiceSid string, params *CreateEntity
 	return ps, err
 }
 
-// CreateFactorParams Optional parameters for the method 'CreateFactor'
-type CreateFactorParams struct {
+// CreateMessagingConfigurationParams Optional parameters for the method 'CreateMessagingConfiguration'
+type CreateMessagingConfigurationParams struct {
+	Country             *string `json:"Country,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+}
+
+/*
+* CreateMessagingConfiguration Method for CreateMessagingConfiguration
+* Create a new MessagingConfiguration for a service.
+* @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
+* @param optional nil or *CreateMessagingConfigurationParams - Optional Parameters:
+* @param "Country" (string) - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+* @param "MessagingServiceSid" (string) - The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+* @return VerifyV2ServiceMessagingConfiguration
+ */
+func (c *DefaultApiService) CreateMessagingConfiguration(ServiceSid string, params *CreateMessagingConfigurationParams) (*VerifyV2ServiceMessagingConfiguration, error) {
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	if params != nil && params.Country != nil {
+		data.Set("Country", *params.Country)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2ServiceMessagingConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// CreateNewFactorParams Optional parameters for the method 'CreateNewFactor'
+type CreateNewFactorParams struct {
 	BindingAlg                 *string `json:"Binding.Alg,omitempty"`
 	BindingPublicKey           *string `json:"Binding.PublicKey,omitempty"`
 	BindingSecret              *string `json:"Binding.Secret,omitempty"`
@@ -253,11 +297,11 @@ type CreateFactorParams struct {
 }
 
 /*
-* CreateFactor Method for CreateFactor
+* CreateNewFactor Method for CreateNewFactor
 * Create a new Factor for the Entity
 * @param ServiceSid The unique SID identifier of the Service.
 * @param Identity Customer unique identity for the Entity owner of the Factor. This value must be between 8 and 64 characters long.
-* @param optional nil or *CreateFactorParams - Optional Parameters:
+* @param optional nil or *CreateNewFactorParams - Optional Parameters:
 * @param "BindingAlg" (string) - The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`
 * @param "BindingPublicKey" (string) - The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64
 * @param "BindingSecret" (string) - The shared secret for TOTP factors encoded in Base32
@@ -271,9 +315,9 @@ type CreateFactorParams struct {
 * @param "ConfigTimeStep" (int32) - Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
 * @param "FactorType" (string) - The Type of this Factor. Currently only `push` is supported
 * @param "FriendlyName" (string) - The friendly name of this Factor. It can be up to 64 characters.
-* @return VerifyV2ServiceEntityFactor
+* @return VerifyV2ServiceEntityNewFactor
  */
-func (c *DefaultApiService) CreateFactor(ServiceSid string, Identity string, params *CreateFactorParams) (*VerifyV2ServiceEntityFactor, error) {
+func (c *DefaultApiService) CreateNewFactor(ServiceSid string, Identity string, params *CreateNewFactorParams) (*VerifyV2ServiceEntityNewFactor, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -328,51 +372,7 @@ func (c *DefaultApiService) CreateFactor(ServiceSid string, Identity string, par
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntityFactor{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
-}
-
-// CreateMessagingConfigurationParams Optional parameters for the method 'CreateMessagingConfiguration'
-type CreateMessagingConfigurationParams struct {
-	Country             *string `json:"Country,omitempty"`
-	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
-}
-
-/*
-* CreateMessagingConfiguration Method for CreateMessagingConfiguration
-* Create a new MessagingConfiguration for a service.
-* @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
-* @param optional nil or *CreateMessagingConfigurationParams - Optional Parameters:
-* @param "Country" (string) - The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-* @param "MessagingServiceSid" (string) - The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
-* @return VerifyV2ServiceMessagingConfiguration
- */
-func (c *DefaultApiService) CreateMessagingConfiguration(ServiceSid string, params *CreateMessagingConfigurationParams) (*VerifyV2ServiceMessagingConfiguration, error) {
-	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-
-	data := url.Values{}
-	headers := 0
-
-	if params != nil && params.Country != nil {
-		data.Set("Country", *params.Country)
-	}
-	if params != nil && params.MessagingServiceSid != nil {
-		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
-	}
-
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &VerifyV2ServiceMessagingConfiguration{}
+	ps := &VerifyV2ServiceEntityNewFactor{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

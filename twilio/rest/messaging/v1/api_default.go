@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.12.0
+ * API version: 1.13.0
  * Contact: support@twilio.com
  */
 
@@ -105,6 +105,47 @@ func (c *DefaultApiService) CreateBrandRegistrations(params *CreateBrandRegistra
 	defer resp.Body.Close()
 
 	ps := &MessagingV1BrandRegistrations{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// CreateExternalCampaignParams Optional parameters for the method 'CreateExternalCampaign'
+type CreateExternalCampaignParams struct {
+	CampaignId          *string `json:"CampaignId,omitempty"`
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+}
+
+/*
+* CreateExternalCampaign Method for CreateExternalCampaign
+* @param optional nil or *CreateExternalCampaignParams - Optional Parameters:
+* @param "CampaignId" (string) - ID of the preregistered campaign.
+* @param "MessagingServiceSid" (string) - The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+* @return MessagingV1ExternalCampaign
+ */
+func (c *DefaultApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
+	path := "/v1/Services/PreregisteredUsa2p"
+
+	data := url.Values{}
+	headers := 0
+
+	if params != nil && params.CampaignId != nil {
+		data.Set("CampaignId", *params.CampaignId)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1ExternalCampaign{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -289,6 +330,69 @@ func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateSho
 	return ps, err
 }
 
+// CreateUsAppToPersonParams Optional parameters for the method 'CreateUsAppToPerson'
+type CreateUsAppToPersonParams struct {
+	BrandRegistrationSid *string   `json:"BrandRegistrationSid,omitempty"`
+	Description          *string   `json:"Description,omitempty"`
+	HasEmbeddedLinks     *bool     `json:"HasEmbeddedLinks,omitempty"`
+	HasEmbeddedPhone     *bool     `json:"HasEmbeddedPhone,omitempty"`
+	MessageSamples       *[]string `json:"MessageSamples,omitempty"`
+	UsAppToPersonUsecase *string   `json:"UsAppToPersonUsecase,omitempty"`
+}
+
+/*
+* CreateUsAppToPerson Method for CreateUsAppToPerson
+* @param MessagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to create the resources from.
+* @param optional nil or *CreateUsAppToPersonParams - Optional Parameters:
+* @param "BrandRegistrationSid" (string) - A2P Brand Registration SID
+* @param "Description" (string) - A short description of what this SMS campaign does.
+* @param "HasEmbeddedLinks" (bool) - Indicates that this SMS campaign will send messages that contain links.
+* @param "HasEmbeddedPhone" (bool) - Indicates that this SMS campaign will send messages that contain phone numbers.
+* @param "MessageSamples" ([]string) - Message samples, up to 5 sample messages, <=1024 chars each.
+* @param "UsAppToPersonUsecase" (string) - A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
+* @return MessagingV1ServiceUsAppToPerson
+ */
+func (c *DefaultApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1ServiceUsAppToPerson, error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	if params != nil && params.BrandRegistrationSid != nil {
+		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.HasEmbeddedLinks != nil {
+		data.Set("HasEmbeddedLinks", fmt.Sprint(*params.HasEmbeddedLinks))
+	}
+	if params != nil && params.HasEmbeddedPhone != nil {
+		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
+	}
+	if params != nil && params.MessageSamples != nil {
+		data.Set("MessageSamples", strings.Join(*params.MessageSamples, ","))
+	}
+	if params != nil && params.UsAppToPersonUsecase != nil {
+		data.Set("UsAppToPersonUsecase", *params.UsAppToPersonUsecase)
+	}
+
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1ServiceUsAppToPerson{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
 /*
 * DeleteAlphaSender Method for DeleteAlphaSender
 * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
@@ -365,6 +469,27 @@ func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) error
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	return nil
+}
+
+/*
+* DeleteUsAppToPerson Method for DeleteUsAppToPerson
+* @param MessagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to delete the resource from.
+ */
+func (c *DefaultApiService) DeleteUsAppToPerson(MessagingServiceSid string) error {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
 	headers := 0
@@ -544,6 +669,85 @@ func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*Mess
 	defer resp.Body.Close()
 
 	ps := &MessagingV1ServiceShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+/*
+* FetchUsAppToPerson Method for FetchUsAppToPerson
+* @param MessagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
+* @return MessagingV1ServiceUsAppToPerson
+ */
+func (c *DefaultApiService) FetchUsAppToPerson(MessagingServiceSid string) (*MessagingV1ServiceUsAppToPerson, error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1ServiceUsAppToPerson{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+/*
+* FetchUsAppToPersonUsecase Method for FetchUsAppToPersonUsecase
+* @param MessagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
+* @return MessagingV1ServiceUsAppToPersonUsecase
+ */
+func (c *DefaultApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string) (*MessagingV1ServiceUsAppToPersonUsecase, error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := 0
+
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1ServiceUsAppToPersonUsecase{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+/*
+* FetchUsecase Method for FetchUsecase
+* @return MessagingV1Usecase
+ */
+func (c *DefaultApiService) FetchUsecase() (*MessagingV1Usecase, error) {
+	path := "/v1/Services/Usecases"
+
+	data := url.Values{}
+	headers := 0
+
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1Usecase{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

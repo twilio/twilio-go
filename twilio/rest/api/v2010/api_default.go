@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.12.0
+ * API version: 1.13.0
  * Contact: support@twilio.com
  */
 
@@ -288,7 +288,6 @@ type CreateCallParams struct {
 	StatusCallback                     *string   `json:"StatusCallback,omitempty"`
 	StatusCallbackEvent                *[]string `json:"StatusCallbackEvent,omitempty"`
 	StatusCallbackMethod               *string   `json:"StatusCallbackMethod,omitempty"`
-	TimeLimit                          *int32    `json:"TimeLimit,omitempty"`
 	Timeout                            *int32    `json:"Timeout,omitempty"`
 	To                                 *string   `json:"To,omitempty"`
 	Trim                               *string   `json:"Trim,omitempty"`
@@ -330,7 +329,6 @@ type CreateCallParams struct {
 * @param "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
 * @param "StatusCallbackEvent" ([]string) - The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored.
 * @param "StatusCallbackMethod" (string) - The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-* @param "TimeLimit" (int32) - The maximum duration of the call in seconds. Constraints depend on account and configuration.
 * @param "Timeout" (int32) - The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
 * @param "To" (string) - The phone number, SIP address, or client identifier to call.
 * @param "Trim" (string) - Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
@@ -431,9 +429,6 @@ func (c *DefaultApiService) CreateCall(AccountSid string, params *CreateCallPara
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
-	}
-	if params != nil && params.TimeLimit != nil {
-		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
 	}
 	if params != nil && params.Timeout != nil {
 		data.Set("Timeout", fmt.Sprint(*params.Timeout))
@@ -1519,7 +1514,7 @@ type CreateParticipantParams struct {
 * @param "ConferenceRecordingStatusCallbackEvent" ([]string) - The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, and `failed`. Separate multiple values with a space. The default value is `in-progress completed failed`.
 * @param "ConferenceRecordingStatusCallbackMethod" (string) - The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 * @param "ConferenceStatusCallback" (string) - The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
-* @param "ConferenceStatusCallbackEvent" ([]string) - The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, and `speaker`. Separate multiple values with a space. Defaults to `start end`.
+* @param "ConferenceStatusCallbackEvent" ([]string) - The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
 * @param "ConferenceStatusCallbackMethod" (string) - The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 * @param "ConferenceTrim" (string) - Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
 * @param "EarlyMedia" (bool) - Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.

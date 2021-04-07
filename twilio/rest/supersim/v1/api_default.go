@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.12.0
+ * API version: 1.13.0
  * Contact: support@twilio.com
  */
 
@@ -241,6 +241,48 @@ func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfi
 	defer resp.Body.Close()
 
 	ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// CreateSimParams Optional parameters for the method 'CreateSim'
+type CreateSimParams struct {
+	Iccid            *string `json:"Iccid,omitempty"`
+	RegistrationCode *string `json:"RegistrationCode,omitempty"`
+}
+
+/*
+* CreateSim Method for CreateSim
+* Register a Super SIM to your Account
+* @param optional nil or *CreateSimParams - Optional Parameters:
+* @param "Iccid" (string) - The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
+* @param "RegistrationCode" (string) - The 10 digit code required to claim the Super SIM for your Account.
+* @return SupersimV1Sim
+ */
+func (c *DefaultApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, error) {
+	path := "/v1/Sims"
+
+	data := url.Values{}
+	headers := 0
+
+	if params != nil && params.Iccid != nil {
+		data.Set("Iccid", *params.Iccid)
+	}
+	if params != nil && params.RegistrationCode != nil {
+		data.Set("RegistrationCode", *params.RegistrationCode)
+	}
+
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1Sim{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

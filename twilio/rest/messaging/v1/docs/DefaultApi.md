@@ -6,19 +6,25 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAlphaSender**](DefaultApi.md#CreateAlphaSender) | **Post** /v1/Services/{ServiceSid}/AlphaSenders | 
 [**CreateBrandRegistrations**](DefaultApi.md#CreateBrandRegistrations) | **Post** /v1/a2p/BrandRegistrations | 
+[**CreateExternalCampaign**](DefaultApi.md#CreateExternalCampaign) | **Post** /v1/Services/PreregisteredUsa2p | 
 [**CreatePhoneNumber**](DefaultApi.md#CreatePhoneNumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
 [**CreateService**](DefaultApi.md#CreateService) | **Post** /v1/Services | 
 [**CreateShortCode**](DefaultApi.md#CreateShortCode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | 
+[**CreateUsAppToPerson**](DefaultApi.md#CreateUsAppToPerson) | **Post** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
 [**DeleteAlphaSender**](DefaultApi.md#DeleteAlphaSender) | **Delete** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
 [**DeletePhoneNumber**](DefaultApi.md#DeletePhoneNumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
 [**DeleteService**](DefaultApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | 
 [**DeleteShortCode**](DefaultApi.md#DeleteShortCode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
+[**DeleteUsAppToPerson**](DefaultApi.md#DeleteUsAppToPerson) | **Delete** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
 [**FetchAlphaSender**](DefaultApi.md#FetchAlphaSender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
 [**FetchBrandRegistrations**](DefaultApi.md#FetchBrandRegistrations) | **Get** /v1/a2p/BrandRegistrations/{Sid} | 
 [**FetchDeactivation**](DefaultApi.md#FetchDeactivation) | **Get** /v1/Deactivations | 
 [**FetchPhoneNumber**](DefaultApi.md#FetchPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
 [**FetchService**](DefaultApi.md#FetchService) | **Get** /v1/Services/{Sid} | 
 [**FetchShortCode**](DefaultApi.md#FetchShortCode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
+[**FetchUsAppToPerson**](DefaultApi.md#FetchUsAppToPerson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
+[**FetchUsAppToPersonUsecase**](DefaultApi.md#FetchUsAppToPersonUsecase) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases | 
+[**FetchUsecase**](DefaultApi.md#FetchUsecase) | **Get** /v1/Services/Usecases | 
 [**ListAlphaSender**](DefaultApi.md#ListAlphaSender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders | 
 [**ListBrandRegistrations**](DefaultApi.md#ListBrandRegistrations) | **Get** /v1/a2p/BrandRegistrations | 
 [**ListPhoneNumber**](DefaultApi.md#ListPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | 
@@ -92,6 +98,44 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MessagingV1BrandRegistrations**](MessagingV1BrandRegistrations.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateExternalCampaign
+
+> MessagingV1ExternalCampaign CreateExternalCampaign(ctx, optional)
+
+
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateExternalCampaignParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**CampaignId** | **string** | ID of the preregistered campaign. | 
+**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with. | 
+
+### Return type
+
+[**MessagingV1ExternalCampaign**](MessagingV1ExternalCampaign.md)
 
 ### Authorization
 
@@ -224,6 +268,52 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MessagingV1ServiceShortCode**](MessagingV1ServiceShortCode.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateUsAppToPerson
+
+> MessagingV1ServiceUsAppToPerson CreateUsAppToPerson(ctx, MessagingServiceSidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to create the resources from. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateUsAppToPersonParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**BrandRegistrationSid** | **string** | A2P Brand Registration SID | 
+**Description** | **string** | A short description of what this SMS campaign does. | 
+**HasEmbeddedLinks** | **bool** | Indicates that this SMS campaign will send messages that contain links. | 
+**HasEmbeddedPhone** | **bool** | Indicates that this SMS campaign will send messages that contain phone numbers. | 
+**MessageSamples** | **[]string** | Message samples, up to 5 sample messages, &lt;&#x3D;1024 chars each. | 
+**UsAppToPersonUsecase** | **string** | A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..] | 
+
+### Return type
+
+[**MessagingV1ServiceUsAppToPerson**](MessagingV1ServiceUsAppToPerson.md)
 
 ### Authorization
 
@@ -379,6 +469,46 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteShortCodeParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteUsAppToPerson
+
+> DeleteUsAppToPerson(ctx, MessagingServiceSid)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to delete the resource from. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteUsAppToPersonParams struct
 
 
 Name | Type | Description  | Notes
@@ -629,6 +759,119 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MessagingV1ServiceShortCode**](MessagingV1ServiceShortCode.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchUsAppToPerson
+
+> MessagingV1ServiceUsAppToPerson FetchUsAppToPerson(ctx, MessagingServiceSid)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchUsAppToPersonParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Return type
+
+[**MessagingV1ServiceUsAppToPerson**](MessagingV1ServiceUsAppToPerson.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchUsAppToPersonUsecase
+
+> MessagingV1ServiceUsAppToPersonUsecase FetchUsAppToPersonUsecase(ctx, MessagingServiceSid)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchUsAppToPersonUsecaseParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Return type
+
+[**MessagingV1ServiceUsAppToPersonUsecase**](MessagingV1ServiceUsAppToPersonUsecase.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchUsecase
+
+> MessagingV1Usecase FetchUsecase(ctx, )
+
+
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchUsecaseParams struct
+
+
+### Return type
+
+[**MessagingV1Usecase**](MessagingV1Usecase.md)
 
 ### Authorization
 

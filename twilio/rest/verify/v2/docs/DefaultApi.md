@@ -8,8 +8,8 @@ Method | HTTP request | Description
 [**CreateBucket**](DefaultApi.md#CreateBucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
 [**CreateChallenge**](DefaultApi.md#CreateChallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | 
 [**CreateEntity**](DefaultApi.md#CreateEntity) | **Post** /v2/Services/{ServiceSid}/Entities | 
-[**CreateFactor**](DefaultApi.md#CreateFactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
 [**CreateMessagingConfiguration**](DefaultApi.md#CreateMessagingConfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations | 
+[**CreateNewFactor**](DefaultApi.md#CreateNewFactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
 [**CreateRateLimit**](DefaultApi.md#CreateRateLimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | 
 [**CreateService**](DefaultApi.md#CreateService) | **Post** /v2/Services | 
 [**CreateVerification**](DefaultApi.md#CreateVerification) | **Post** /v2/Services/{ServiceSid}/Verifications | 
@@ -233,62 +233,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CreateFactor
-
-> VerifyV2ServiceEntityFactor CreateFactor(ctx, ServiceSidIdentityoptional)
-
-
-
-Create a new Factor for the Entity
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The unique SID identifier of the Service. | 
-**Identity** | **string** | Customer unique identity for the Entity owner of the Factor. This value must be between 8 and 64 characters long. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a CreateFactorParams struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**BindingAlg** | **string** | The algorithm used when &#x60;factor_type&#x60; is &#x60;push&#x60;. Algorithm supported: &#x60;ES256&#x60; | 
-**BindingPublicKey** | **string** | The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64 | 
-**BindingSecret** | **string** | The shared secret for TOTP factors encoded in Base32 | 
-**ConfigAlg** | **string** | The algorithm used to derive the TOTP codes. Can be &#x60;sha1&#x60;, &#x60;sha256&#x60; or &#x60;sha512&#x60;. Defaults to &#x60;sha1&#x60; | 
-**ConfigAppId** | **string** | The ID that uniquely identifies your app in the Google or Apple store, such as &#x60;com.example.myapp&#x60;. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, it can be up to 100 characters long. | 
-**ConfigCodeLength** | **int32** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6 | 
-**ConfigNotificationPlatform** | **string** | The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60; or &#x60;fcm&#x60;. Required when &#x60;factor_type&#x60; is &#x60;push&#x60; | 
-**ConfigNotificationToken** | **string** | For APN, the device token. For FCM the registration token. It used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long. | 
-**ConfigSdkVersion** | **string** | The Verify Push SDK version used to configure the factor | 
-**ConfigSkew** | **int32** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1 | 
-**ConfigTimeStep** | **int32** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds | 
-**FactorType** | **string** | The Type of this Factor. Currently only &#x60;push&#x60; is supported | 
-**FriendlyName** | **string** | The friendly name of this Factor. It can be up to 64 characters. | 
-
-### Return type
-
-[**VerifyV2ServiceEntityFactor**](VerifyV2ServiceEntityFactor.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## CreateMessagingConfiguration
 
 > VerifyV2ServiceMessagingConfiguration CreateMessagingConfiguration(ctx, ServiceSidoptional)
@@ -318,6 +262,62 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**VerifyV2ServiceMessagingConfiguration**](VerifyV2ServiceMessagingConfiguration.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateNewFactor
+
+> VerifyV2ServiceEntityNewFactor CreateNewFactor(ctx, ServiceSidIdentityoptional)
+
+
+
+Create a new Factor for the Entity
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The unique SID identifier of the Service. | 
+**Identity** | **string** | Customer unique identity for the Entity owner of the Factor. This value must be between 8 and 64 characters long. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateNewFactorParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**BindingAlg** | **string** | The algorithm used when &#x60;factor_type&#x60; is &#x60;push&#x60;. Algorithm supported: &#x60;ES256&#x60; | 
+**BindingPublicKey** | **string** | The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64 | 
+**BindingSecret** | **string** | The shared secret for TOTP factors encoded in Base32 | 
+**ConfigAlg** | **string** | The algorithm used to derive the TOTP codes. Can be &#x60;sha1&#x60;, &#x60;sha256&#x60; or &#x60;sha512&#x60;. Defaults to &#x60;sha1&#x60; | 
+**ConfigAppId** | **string** | The ID that uniquely identifies your app in the Google or Apple store, such as &#x60;com.example.myapp&#x60;. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, it can be up to 100 characters long. | 
+**ConfigCodeLength** | **int32** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6 | 
+**ConfigNotificationPlatform** | **string** | The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60; or &#x60;fcm&#x60;. Required when &#x60;factor_type&#x60; is &#x60;push&#x60; | 
+**ConfigNotificationToken** | **string** | For APN, the device token. For FCM the registration token. It used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long. | 
+**ConfigSdkVersion** | **string** | The Verify Push SDK version used to configure the factor | 
+**ConfigSkew** | **int32** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1 | 
+**ConfigTimeStep** | **int32** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds | 
+**FactorType** | **string** | The Type of this Factor. Currently only &#x60;push&#x60; is supported | 
+**FriendlyName** | **string** | The friendly name of this Factor. It can be up to 64 characters. | 
+
+### Return type
+
+[**VerifyV2ServiceEntityNewFactor**](VerifyV2ServiceEntityNewFactor.md)
 
 ### Authorization
 

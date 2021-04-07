@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**CreateFleet**](DefaultApi.md#CreateFleet) | **Post** /v1/Fleets | 
 [**CreateNetworkAccessProfile**](DefaultApi.md#CreateNetworkAccessProfile) | **Post** /v1/NetworkAccessProfiles | 
 [**CreateNetworkAccessProfileNetwork**](DefaultApi.md#CreateNetworkAccessProfileNetwork) | **Post** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | 
+[**CreateSim**](DefaultApi.md#CreateSim) | **Post** /v1/Sims | 
 [**CreateSmsCommand**](DefaultApi.md#CreateSmsCommand) | **Post** /v1/SmsCommands | 
 [**DeleteNetworkAccessProfileNetwork**](DefaultApi.md#DeleteNetworkAccessProfileNetwork) | **Delete** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | 
 [**FetchCommand**](DefaultApi.md#FetchCommand) | **Get** /v1/Commands/{Sid} | 
@@ -189,6 +190,46 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork**](SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateSim
+
+> SupersimV1Sim CreateSim(ctx, optional)
+
+
+
+Register a Super SIM to your Account
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateSimParams struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**Iccid** | **string** | The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account. | 
+**RegistrationCode** | **string** | The 10 digit code required to claim the Super SIM for your Account. | 
+
+### Return type
+
+[**SupersimV1Sim**](SupersimV1Sim.md)
 
 ### Authorization
 
