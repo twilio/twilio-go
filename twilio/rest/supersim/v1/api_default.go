@@ -55,7 +55,7 @@ func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*Supersi
 	path := "/v1/Commands"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
@@ -119,7 +119,7 @@ func (c *DefaultApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1F
 	path := "/v1/Fleets"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CommandsEnabled != nil {
 		data.Set("CommandsEnabled", fmt.Sprint(*params.CommandsEnabled))
@@ -185,7 +185,7 @@ func (c *DefaultApiService) CreateNetworkAccessProfile(params *CreateNetworkAcce
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Networks != nil {
 		data.Set("Networks", strings.Join(*params.Networks, ","))
@@ -227,7 +227,7 @@ func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfi
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Network != nil {
 		data.Set("Network", *params.Network)
@@ -266,7 +266,7 @@ func (c *DefaultApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, 
 	path := "/v1/Sims"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Iccid != nil {
 		data.Set("Iccid", *params.Iccid)
@@ -312,7 +312,7 @@ func (c *DefaultApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*S
 	path := "/v1/SmsCommands"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
@@ -354,7 +354,7 @@ func (c *DefaultApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfi
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -377,7 +377,7 @@ func (c *DefaultApiService) FetchCommand(Sid string) (*SupersimV1Command, error)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -405,7 +405,7 @@ func (c *DefaultApiService) FetchFleet(Sid string) (*SupersimV1Fleet, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -433,7 +433,7 @@ func (c *DefaultApiService) FetchNetwork(Sid string) (*SupersimV1Network, error)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -461,7 +461,7 @@ func (c *DefaultApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1Ne
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -491,7 +491,7 @@ func (c *DefaultApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfil
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -519,7 +519,7 @@ func (c *DefaultApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -547,7 +547,7 @@ func (c *DefaultApiService) FetchSmsCommand(Sid string) (*SupersimV1SmsCommand, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -586,7 +586,7 @@ func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*ListCommand
 	path := "/v1/Commands"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
@@ -634,7 +634,7 @@ func (c *DefaultApiService) ListFleet(params *ListFleetParams) (*ListFleetRespon
 	path := "/v1/Fleets"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.NetworkAccessProfile != nil {
 		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
@@ -680,7 +680,7 @@ func (c *DefaultApiService) ListNetwork(params *ListNetworkParams) (*ListNetwork
 	path := "/v1/Networks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.IsoCountry != nil {
 		data.Set("IsoCountry", *params.IsoCountry)
@@ -726,7 +726,7 @@ func (c *DefaultApiService) ListNetworkAccessProfile(params *ListNetworkAccessPr
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -765,7 +765,7 @@ func (c *DefaultApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfile
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -808,7 +808,7 @@ func (c *DefaultApiService) ListSim(params *ListSimParams) (*ListSimResponse, er
 	path := "/v1/Sims"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -860,7 +860,7 @@ func (c *DefaultApiService) ListSmsCommand(params *ListSmsCommandParams) (*ListS
 	path := "/v1/SmsCommands"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
@@ -922,7 +922,7 @@ func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*Lis
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
@@ -943,10 +943,10 @@ func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*Lis
 		data.Set("Granularity", *params.Granularity)
 	}
 	if params != nil && params.StartTime != nil {
-		data.Set("StartTime", fmt.Sprint(*params.StartTime))
+		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTime != nil {
-		data.Set("EndTime", fmt.Sprint(*params.EndTime))
+		data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -995,7 +995,7 @@ func (c *DefaultApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CommandsMethod != nil {
 		data.Set("CommandsMethod", *params.CommandsMethod)
@@ -1049,7 +1049,7 @@ func (c *DefaultApiService) UpdateNetworkAccessProfile(Sid string, params *Updat
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -1098,7 +1098,7 @@ func (c *DefaultApiService) UpdateSim(Sid string, params *UpdateSimParams) (*Sup
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AccountSid != nil {
 		data.Set("AccountSid", *params.AccountSid)

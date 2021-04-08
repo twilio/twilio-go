@@ -54,7 +54,7 @@ func (c *DefaultApiService) CreateCustomerProfile(params *CreateCustomerProfileP
 	path := "/v1/CustomerProfiles"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Email != nil {
 		data.Set("Email", *params.Email)
@@ -104,7 +104,7 @@ func (c *DefaultApiService) CreateCustomerProfileChannelEndpointAssignment(Custo
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChannelEndpointSid != nil {
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
@@ -146,7 +146,7 @@ func (c *DefaultApiService) CreateCustomerProfileEntityAssignment(CustomerProfil
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ObjectSid != nil {
 		data.Set("ObjectSid", *params.ObjectSid)
@@ -185,7 +185,7 @@ func (c *DefaultApiService) CreateCustomerProfileEvaluation(CustomerProfileSid s
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PolicySid != nil {
 		data.Set("PolicySid", *params.PolicySid)
@@ -226,7 +226,7 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Trusthu
 	path := "/v1/EndUsers"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
@@ -235,7 +235,7 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Trusthu
 			return nil, err
 		}
 
-		data.Set("Attributes", fmt.Sprint(v))
+		data.Set("Attributes", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -279,7 +279,7 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 	path := "/v1/SupportingDocuments"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
@@ -288,7 +288,7 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 			return nil, err
 		}
 
-		data.Set("Attributes", fmt.Sprint(v))
+		data.Set("Attributes", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -334,7 +334,7 @@ func (c *DefaultApiService) CreateTrustProduct(params *CreateTrustProductParams)
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Email != nil {
 		data.Set("Email", *params.Email)
@@ -384,7 +384,7 @@ func (c *DefaultApiService) CreateTrustProductChannelEndpointAssignment(TrustPro
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChannelEndpointSid != nil {
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
@@ -426,7 +426,7 @@ func (c *DefaultApiService) CreateTrustProductEntityAssignment(TrustProductSid s
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ObjectSid != nil {
 		data.Set("ObjectSid", *params.ObjectSid)
@@ -465,7 +465,7 @@ func (c *DefaultApiService) CreateTrustProductEvaluation(TrustProductSid string,
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PolicySid != nil {
 		data.Set("PolicySid", *params.PolicySid)
@@ -496,7 +496,7 @@ func (c *DefaultApiService) DeleteCustomerProfile(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -520,7 +520,7 @@ func (c *DefaultApiService) DeleteCustomerProfileChannelEndpointAssignment(Custo
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -544,7 +544,7 @@ func (c *DefaultApiService) DeleteCustomerProfileEntityAssignment(CustomerProfil
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -566,7 +566,7 @@ func (c *DefaultApiService) DeleteEndUser(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -588,7 +588,7 @@ func (c *DefaultApiService) DeleteSupportingDocument(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -610,7 +610,7 @@ func (c *DefaultApiService) DeleteTrustProduct(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -634,7 +634,7 @@ func (c *DefaultApiService) DeleteTrustProductChannelEndpointAssignment(TrustPro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -658,7 +658,7 @@ func (c *DefaultApiService) DeleteTrustProductEntityAssignment(TrustProductSid s
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -681,7 +681,7 @@ func (c *DefaultApiService) FetchCustomerProfile(Sid string) (*TrusthubV1Custome
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -711,7 +711,7 @@ func (c *DefaultApiService) FetchCustomerProfileChannelEndpointAssignment(Custom
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -741,7 +741,7 @@ func (c *DefaultApiService) FetchCustomerProfileEntityAssignment(CustomerProfile
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -771,7 +771,7 @@ func (c *DefaultApiService) FetchCustomerProfileEvaluation(CustomerProfileSid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -799,7 +799,7 @@ func (c *DefaultApiService) FetchEndUser(Sid string) (*TrusthubV1EndUser, error)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -827,7 +827,7 @@ func (c *DefaultApiService) FetchEndUserType(Sid string) (*TrusthubV1EndUserType
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -855,7 +855,7 @@ func (c *DefaultApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -883,7 +883,7 @@ func (c *DefaultApiService) FetchSupportingDocument(Sid string) (*TrusthubV1Supp
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -911,7 +911,7 @@ func (c *DefaultApiService) FetchSupportingDocumentType(Sid string) (*TrusthubV1
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -939,7 +939,7 @@ func (c *DefaultApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProdu
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -969,7 +969,7 @@ func (c *DefaultApiService) FetchTrustProductChannelEndpointAssignment(TrustProd
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -999,7 +999,7 @@ func (c *DefaultApiService) FetchTrustProductEntityAssignment(TrustProductSid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1029,7 +1029,7 @@ func (c *DefaultApiService) FetchTrustProductEvaluation(TrustProductSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1068,7 +1068,7 @@ func (c *DefaultApiService) ListCustomerProfile(params *ListCustomerProfileParam
 	path := "/v1/CustomerProfiles"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -1120,7 +1120,7 @@ func (c *DefaultApiService) ListCustomerProfileChannelEndpointAssignment(Custome
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChannelEndpointSid != nil {
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
@@ -1165,7 +1165,7 @@ func (c *DefaultApiService) ListCustomerProfileEntityAssignment(CustomerProfileS
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1204,7 +1204,7 @@ func (c *DefaultApiService) ListCustomerProfileEvaluation(CustomerProfileSid str
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1241,7 +1241,7 @@ func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUser
 	path := "/v1/EndUsers"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1278,7 +1278,7 @@ func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*Lis
 	path := "/v1/EndUserTypes"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1315,7 +1315,7 @@ func (c *DefaultApiService) ListPolicies(params *ListPoliciesParams) (*ListPolic
 	path := "/v1/Policies"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1352,7 +1352,7 @@ func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumen
 	path := "/v1/SupportingDocuments"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1389,7 +1389,7 @@ func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDoc
 	path := "/v1/SupportingDocumentTypes"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1432,7 +1432,7 @@ func (c *DefaultApiService) ListTrustProduct(params *ListTrustProductParams) (*L
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -1484,7 +1484,7 @@ func (c *DefaultApiService) ListTrustProductChannelEndpointAssignment(TrustProdu
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChannelEndpointSid != nil {
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
@@ -1529,7 +1529,7 @@ func (c *DefaultApiService) ListTrustProductEntityAssignment(TrustProductSid str
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1568,7 +1568,7 @@ func (c *DefaultApiService) ListTrustProductEvaluation(TrustProductSid string, p
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1613,7 +1613,7 @@ func (c *DefaultApiService) UpdateCustomerProfile(Sid string, params *UpdateCust
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Email != nil {
 		data.Set("Email", *params.Email)
@@ -1663,7 +1663,7 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
@@ -1672,7 +1672,7 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 			return nil, err
 		}
 
-		data.Set("Attributes", fmt.Sprint(v))
+		data.Set("Attributes", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1713,7 +1713,7 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
@@ -1722,7 +1722,7 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 			return nil, err
 		}
 
-		data.Set("Attributes", fmt.Sprint(v))
+		data.Set("Attributes", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1767,7 +1767,7 @@ func (c *DefaultApiService) UpdateTrustProduct(Sid string, params *UpdateTrustPr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Email != nil {
 		data.Set("Email", *params.Email)

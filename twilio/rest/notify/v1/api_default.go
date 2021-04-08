@@ -16,7 +16,6 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
-	"time"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
@@ -62,7 +61,7 @@ func (c *DefaultApiService) CreateBinding(ServiceSid string, params *CreateBindi
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Address != nil {
 		data.Set("Address", *params.Address)
@@ -128,7 +127,7 @@ func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*N
 	path := "/v1/Credentials"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiKey != nil {
 		data.Set("ApiKey", *params.ApiKey)
@@ -218,7 +217,7 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Action != nil {
 		data.Set("Action", *params.Action)
@@ -230,7 +229,7 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Alexa", fmt.Sprint(v))
+		data.Set("Alexa", string(v))
 	}
 	if params != nil && params.Apn != nil {
 		v, err := json.Marshal(params.Apn)
@@ -239,7 +238,7 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Apn", fmt.Sprint(v))
+		data.Set("Apn", string(v))
 	}
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
@@ -251,7 +250,7 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Data", fmt.Sprint(v))
+		data.Set("Data", string(v))
 	}
 	if params != nil && params.DeliveryCallbackUrl != nil {
 		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
@@ -263,7 +262,7 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("FacebookMessenger", fmt.Sprint(v))
+		data.Set("FacebookMessenger", string(v))
 	}
 	if params != nil && params.Fcm != nil {
 		v, err := json.Marshal(params.Fcm)
@@ -272,7 +271,7 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Fcm", fmt.Sprint(v))
+		data.Set("Fcm", string(v))
 	}
 	if params != nil && params.Gcm != nil {
 		v, err := json.Marshal(params.Gcm)
@@ -281,7 +280,7 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Gcm", fmt.Sprint(v))
+		data.Set("Gcm", string(v))
 	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", strings.Join(*params.Identity, ","))
@@ -299,7 +298,7 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("Sms", fmt.Sprint(v))
+		data.Set("Sms", string(v))
 	}
 	if params != nil && params.Sound != nil {
 		data.Set("Sound", *params.Sound)
@@ -373,7 +372,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*NotifyV
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AlexaSkillId != nil {
 		data.Set("AlexaSkillId", *params.AlexaSkillId)
@@ -444,7 +443,7 @@ func (c *DefaultApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -465,7 +464,7 @@ func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -486,7 +485,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -510,7 +509,7 @@ func (c *DefaultApiService) FetchBinding(ServiceSid string, Sid string) (*Notify
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -537,7 +536,7 @@ func (c *DefaultApiService) FetchCredential(Sid string) (*NotifyV1Credential, er
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -564,7 +563,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*NotifyV1Service, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -583,19 +582,19 @@ func (c *DefaultApiService) FetchService(Sid string) (*NotifyV1Service, error) {
 
 // ListBindingParams Optional parameters for the method 'ListBinding'
 type ListBindingParams struct {
-	StartDate *time.Time `json:"StartDate,omitempty"`
-	EndDate   *time.Time `json:"EndDate,omitempty"`
-	Identity  *[]string  `json:"Identity,omitempty"`
-	Tag       *[]string  `json:"Tag,omitempty"`
-	PageSize  *int32     `json:"PageSize,omitempty"`
+	StartDate *string   `json:"StartDate,omitempty"`
+	EndDate   *string   `json:"EndDate,omitempty"`
+	Identity  *[]string `json:"Identity,omitempty"`
+	Tag       *[]string `json:"Tag,omitempty"`
+	PageSize  *int32    `json:"PageSize,omitempty"`
 }
 
 /*
 * ListBinding Method for ListBinding
 * @param ServiceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to read the resource from.
 * @param optional nil or *ListBindingParams - Optional Parameters:
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
 * @param "Identity" ([]string) - The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
 * @param "Tag" ([]string) - Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -606,7 +605,7 @@ func (c *DefaultApiService) ListBinding(ServiceSid string, params *ListBindingPa
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.StartDate != nil {
 		data.Set("StartDate", fmt.Sprint(*params.StartDate))
@@ -654,7 +653,7 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 	path := "/v1/Credentials"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -692,7 +691,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -743,7 +742,7 @@ func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentia
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiKey != nil {
 		data.Set("ApiKey", *params.ApiKey)
@@ -822,7 +821,7 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AlexaSkillId != nil {
 		data.Set("AlexaSkillId", *params.AlexaSkillId)

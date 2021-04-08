@@ -73,10 +73,10 @@ func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChann
 		data.Set("CreatedBy", *params.CreatedBy)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -138,7 +138,7 @@ func (c *DefaultApiService) CreateChannelWebhook(ServiceSid string, ChannelSid s
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
 		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
@@ -204,7 +204,7 @@ func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*C
 	path := "/v2/Credentials"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiKey != nil {
 		data.Set("ApiKey", *params.ApiKey)
@@ -264,7 +264,7 @@ func (c *DefaultApiService) CreateInvite(ServiceSid string, ChannelSid string, p
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
@@ -327,10 +327,10 @@ func (c *DefaultApiService) CreateMember(ServiceSid string, ChannelSid string, p
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
@@ -339,7 +339,7 @@ func (c *DefaultApiService) CreateMember(ServiceSid string, ChannelSid string, p
 		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
 	}
 	if params != nil && params.LastConsumptionTimestamp != nil {
-		data.Set("LastConsumptionTimestamp", fmt.Sprint(*params.LastConsumptionTimestamp))
+		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
 	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
@@ -406,10 +406,10 @@ func (c *DefaultApiService) CreateMessage(ServiceSid string, ChannelSid string, 
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
@@ -461,7 +461,7 @@ func (c *DefaultApiService) CreateRole(ServiceSid string, params *CreateRolePara
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -503,7 +503,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ChatV2S
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -594,7 +594,7 @@ func (c *DefaultApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -653,7 +653,7 @@ func (c *DefaultApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid s
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -674,7 +674,7 @@ func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -699,7 +699,7 @@ func (c *DefaultApiService) DeleteInvite(ServiceSid string, ChannelSid string, S
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -794,7 +794,7 @@ func (c *DefaultApiService) DeleteRole(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -815,7 +815,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -838,7 +838,7 @@ func (c *DefaultApiService) DeleteUser(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -863,7 +863,7 @@ func (c *DefaultApiService) DeleteUserBinding(ServiceSid string, UserSid string,
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -889,7 +889,7 @@ func (c *DefaultApiService) DeleteUserChannel(ServiceSid string, UserSid string,
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -913,7 +913,7 @@ func (c *DefaultApiService) FetchBinding(ServiceSid string, Sid string) (*ChatV2
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -942,7 +942,7 @@ func (c *DefaultApiService) FetchChannel(ServiceSid string, Sid string) (*ChatV2
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -973,7 +973,7 @@ func (c *DefaultApiService) FetchChannelWebhook(ServiceSid string, ChannelSid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1000,7 +1000,7 @@ func (c *DefaultApiService) FetchCredential(Sid string) (*ChatV2Credential, erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1031,7 +1031,7 @@ func (c *DefaultApiService) FetchInvite(ServiceSid string, ChannelSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1062,7 +1062,7 @@ func (c *DefaultApiService) FetchMember(ServiceSid string, ChannelSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1093,7 +1093,7 @@ func (c *DefaultApiService) FetchMessage(ServiceSid string, ChannelSid string, S
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1122,7 +1122,7 @@ func (c *DefaultApiService) FetchRole(ServiceSid string, Sid string) (*ChatV2Ser
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1149,7 +1149,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*ChatV2Service, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1178,7 +1178,7 @@ func (c *DefaultApiService) FetchUser(ServiceSid string, Sid string) (*ChatV2Ser
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1209,7 +1209,7 @@ func (c *DefaultApiService) FetchUserBinding(ServiceSid string, UserSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1240,7 +1240,7 @@ func (c *DefaultApiService) FetchUserChannel(ServiceSid string, UserSid string, 
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1278,7 +1278,7 @@ func (c *DefaultApiService) ListBinding(ServiceSid string, params *ListBindingPa
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.BindingType != nil {
 		data.Set("BindingType", strings.Join(*params.BindingType, ","))
@@ -1324,7 +1324,7 @@ func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelPa
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Type != nil {
 		data.Set("Type", strings.Join(*params.Type, ","))
@@ -1367,7 +1367,7 @@ func (c *DefaultApiService) ListChannelWebhook(ServiceSid string, ChannelSid str
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1403,7 +1403,7 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 	path := "/v2/Credentials"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1445,7 +1445,7 @@ func (c *DefaultApiService) ListInvite(ServiceSid string, ChannelSid string, par
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", strings.Join(*params.Identity, ","))
@@ -1490,7 +1490,7 @@ func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, par
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", strings.Join(*params.Identity, ","))
@@ -1535,7 +1535,7 @@ func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, pa
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Order != nil {
 		data.Set("Order", *params.Order)
@@ -1576,7 +1576,7 @@ func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1612,7 +1612,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1650,7 +1650,7 @@ func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1692,7 +1692,7 @@ func (c *DefaultApiService) ListUserBinding(ServiceSid string, UserSid string, p
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.BindingType != nil {
 		data.Set("BindingType", strings.Join(*params.BindingType, ","))
@@ -1736,7 +1736,7 @@ func (c *DefaultApiService) ListUserChannel(ServiceSid string, UserSid string, p
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1797,10 +1797,10 @@ func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params 
 		data.Set("CreatedBy", *params.CreatedBy)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1859,7 +1859,7 @@ func (c *DefaultApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid s
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
 		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
@@ -1922,7 +1922,7 @@ func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentia
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiKey != nil {
 		data.Set("ApiKey", *params.ApiKey)
@@ -1997,16 +1997,16 @@ func (c *DefaultApiService) UpdateMember(ServiceSid string, ChannelSid string, S
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.LastConsumedMessageIndex != nil {
 		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
 	}
 	if params != nil && params.LastConsumptionTimestamp != nil {
-		data.Set("LastConsumptionTimestamp", fmt.Sprint(*params.LastConsumptionTimestamp))
+		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
 	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
@@ -2073,10 +2073,10 @@ func (c *DefaultApiService) UpdateMessage(ServiceSid string, ChannelSid string, 
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
@@ -2123,7 +2123,7 @@ func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *Up
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Permission != nil {
 		data.Set("Permission", strings.Join(*params.Permission, ","))
@@ -2221,7 +2221,7 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ConsumptionReportInterval != nil {
 		data.Set("ConsumptionReportInterval", fmt.Sprint(*params.ConsumptionReportInterval))
@@ -2413,13 +2413,13 @@ func (c *DefaultApiService) UpdateUserChannel(ServiceSid string, UserSid string,
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.LastConsumedMessageIndex != nil {
 		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
 	}
 	if params != nil && params.LastConsumptionTimestamp != nil {
-		data.Set("LastConsumptionTimestamp", fmt.Sprint(*params.LastConsumptionTimestamp))
+		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
 	}
 	if params != nil && params.NotificationLevel != nil {
 		data.Set("NotificationLevel", *params.NotificationLevel)

@@ -61,7 +61,7 @@ func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*Wireles
 	path := "/v1/Commands"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
@@ -135,7 +135,7 @@ func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*Wirel
 	path := "/v1/RatePlans"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DataEnabled != nil {
 		data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled))
@@ -196,7 +196,7 @@ func (c *DefaultApiService) DeleteCommand(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -217,7 +217,7 @@ func (c *DefaultApiService) DeleteRatePlan(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -239,7 +239,7 @@ func (c *DefaultApiService) DeleteSim(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -262,7 +262,7 @@ func (c *DefaultApiService) FetchCommand(Sid string) (*WirelessV1Command, error)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -289,7 +289,7 @@ func (c *DefaultApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -317,7 +317,7 @@ func (c *DefaultApiService) FetchSim(Sid string) (*WirelessV1Sim, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -355,13 +355,13 @@ func (c *DefaultApiService) ListAccountUsageRecord(params *ListAccountUsageRecor
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.End != nil {
-		data.Set("End", fmt.Sprint(*params.End))
+		data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
 	}
 	if params != nil && params.Start != nil {
-		data.Set("Start", fmt.Sprint(*params.Start))
+		data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
 	}
 	if params != nil && params.Granularity != nil {
 		data.Set("Granularity", *params.Granularity)
@@ -409,7 +409,7 @@ func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*ListCommand
 	path := "/v1/Commands"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
@@ -459,7 +459,7 @@ func (c *DefaultApiService) ListDataSession(SimSid string, params *ListDataSessi
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -495,7 +495,7 @@ func (c *DefaultApiService) ListRatePlan(params *ListRatePlanParams) (*ListRateP
 	path := "/v1/RatePlans"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -542,7 +542,7 @@ func (c *DefaultApiService) ListSim(params *ListSimParams) (*ListSimResponse, er
 	path := "/v1/Sims"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -601,13 +601,13 @@ func (c *DefaultApiService) ListUsageRecord(SimSid string, params *ListUsageReco
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.End != nil {
-		data.Set("End", fmt.Sprint(*params.End))
+		data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
 	}
 	if params != nil && params.Start != nil {
-		data.Set("Start", fmt.Sprint(*params.Start))
+		data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
 	}
 	if params != nil && params.Granularity != nil {
 		data.Set("Granularity", *params.Granularity)
@@ -650,7 +650,7 @@ func (c *DefaultApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanPar
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -726,7 +726,7 @@ func (c *DefaultApiService) UpdateSim(Sid string, params *UpdateSimParams) (*Wir
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AccountSid != nil {
 		data.Set("AccountSid", *params.AccountSid)

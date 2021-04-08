@@ -52,7 +52,7 @@ func (c *DefaultApiService) CreateActivity(WorkspaceSid string, params *CreateAc
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Available != nil {
 		data.Set("Available", fmt.Sprint(*params.Available))
@@ -101,7 +101,7 @@ func (c *DefaultApiService) CreateTask(WorkspaceSid string, params *CreateTaskPa
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
@@ -155,7 +155,7 @@ func (c *DefaultApiService) CreateTaskChannel(WorkspaceSid string, params *Creat
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChannelOptimizedRouting != nil {
 		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
@@ -209,7 +209,7 @@ func (c *DefaultApiService) CreateTaskQueue(WorkspaceSid string, params *CreateT
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AssignmentActivitySid != nil {
 		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
@@ -266,7 +266,7 @@ func (c *DefaultApiService) CreateWorker(WorkspaceSid string, params *CreateWork
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ActivitySid != nil {
 		data.Set("ActivitySid", *params.ActivitySid)
@@ -318,7 +318,7 @@ func (c *DefaultApiService) CreateWorkflow(WorkspaceSid string, params *CreateWo
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AssignmentCallbackUrl != nil {
 		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
@@ -376,7 +376,7 @@ func (c *DefaultApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Tas
 	path := "/v1/Workspaces"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EventCallbackUrl != nil {
 		data.Set("EventCallbackUrl", *params.EventCallbackUrl)
@@ -423,7 +423,7 @@ func (c *DefaultApiService) DeleteActivity(WorkspaceSid string, Sid string) erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -446,7 +446,7 @@ func (c *DefaultApiService) DeleteTask(WorkspaceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -469,7 +469,7 @@ func (c *DefaultApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) e
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -492,7 +492,7 @@ func (c *DefaultApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -515,7 +515,7 @@ func (c *DefaultApiService) DeleteWorker(WorkspaceSid string, Sid string) error 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -538,7 +538,7 @@ func (c *DefaultApiService) DeleteWorkflow(WorkspaceSid string, Sid string) erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -559,7 +559,7 @@ func (c *DefaultApiService) DeleteWorkspace(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -583,7 +583,7 @@ func (c *DefaultApiService) FetchActivity(WorkspaceSid string, Sid string) (*Tas
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -612,7 +612,7 @@ func (c *DefaultApiService) FetchEvent(WorkspaceSid string, Sid string) (*Taskro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -641,7 +641,7 @@ func (c *DefaultApiService) FetchTask(WorkspaceSid string, Sid string) (*Taskrou
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -670,7 +670,7 @@ func (c *DefaultApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -699,7 +699,7 @@ func (c *DefaultApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Ta
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -743,16 +743,16 @@ func (c *DefaultApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid stri
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -795,7 +795,7 @@ func (c *DefaultApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -843,16 +843,16 @@ func (c *DefaultApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQu
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -890,7 +890,7 @@ func (c *DefaultApiService) FetchTaskReservation(WorkspaceSid string, TaskSid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -919,7 +919,7 @@ func (c *DefaultApiService) FetchWorker(WorkspaceSid string, Sid string) (*Taskr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -950,7 +950,7 @@ func (c *DefaultApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -992,16 +992,16 @@ func (c *DefaultApiService) FetchWorkerInstanceStatistics(WorkspaceSid string, W
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1036,7 +1036,7 @@ func (c *DefaultApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSi
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1082,16 +1082,16 @@ func (c *DefaultApiService) FetchWorkerStatistics(WorkspaceSid string, params *F
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskQueueSid != nil {
 		data.Set("TaskQueueSid", *params.TaskQueueSid)
@@ -1144,16 +1144,16 @@ func (c *DefaultApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1191,7 +1191,7 @@ func (c *DefaultApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1224,7 +1224,7 @@ func (c *DefaultApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*Tas
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1268,16 +1268,16 @@ func (c *DefaultApiService) FetchWorkflowCumulativeStatistics(WorkspaceSid strin
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1320,7 +1320,7 @@ func (c *DefaultApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string,
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1368,16 +1368,16 @@ func (c *DefaultApiService) FetchWorkflowStatistics(WorkspaceSid string, Workflo
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1411,7 +1411,7 @@ func (c *DefaultApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1453,16 +1453,16 @@ func (c *DefaultApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid stri
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1503,7 +1503,7 @@ func (c *DefaultApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1549,16 +1549,16 @@ func (c *DefaultApiService) FetchWorkspaceStatistics(WorkspaceSid string, params
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1603,7 +1603,7 @@ func (c *DefaultApiService) ListActivity(WorkspaceSid string, params *ListActivi
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1669,10 +1669,10 @@ func (c *DefaultApiService) ListEvent(WorkspaceSid string, params *ListEventPara
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EventType != nil {
 		data.Set("EventType", *params.EventType)
@@ -1684,7 +1684,7 @@ func (c *DefaultApiService) ListEvent(WorkspaceSid string, params *ListEventPara
 		data.Set("ReservationSid", *params.ReservationSid)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskQueueSid != nil {
 		data.Set("TaskQueueSid", *params.TaskQueueSid)
@@ -1758,7 +1758,7 @@ func (c *DefaultApiService) ListTask(WorkspaceSid string, params *ListTaskParams
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Priority != nil {
 		data.Set("Priority", fmt.Sprint(*params.Priority))
@@ -1823,7 +1823,7 @@ func (c *DefaultApiService) ListTaskChannel(WorkspaceSid string, params *ListTas
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1867,7 +1867,7 @@ func (c *DefaultApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQ
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1926,10 +1926,10 @@ func (c *DefaultApiService) ListTaskQueuesStatistics(WorkspaceSid string, params
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1938,7 +1938,7 @@ func (c *DefaultApiService) ListTaskQueuesStatistics(WorkspaceSid string, params
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
@@ -1986,7 +1986,7 @@ func (c *DefaultApiService) ListTaskReservation(WorkspaceSid string, TaskSid str
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ReservationStatus != nil {
 		data.Set("ReservationStatus", *params.ReservationStatus)
@@ -2041,7 +2041,7 @@ func (c *DefaultApiService) ListWorker(WorkspaceSid string, params *ListWorkerPa
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ActivityName != nil {
 		data.Set("ActivityName", *params.ActivityName)
@@ -2102,7 +2102,7 @@ func (c *DefaultApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid str
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2144,7 +2144,7 @@ func (c *DefaultApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ReservationStatus != nil {
 		data.Set("ReservationStatus", *params.ReservationStatus)
@@ -2187,7 +2187,7 @@ func (c *DefaultApiService) ListWorkflow(WorkspaceSid string, params *ListWorkfl
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -2228,7 +2228,7 @@ func (c *DefaultApiService) ListWorkspace(params *ListWorkspaceParams) (*ListWor
 	path := "/v1/Workspaces"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -2271,7 +2271,7 @@ func (c *DefaultApiService) UpdateActivity(WorkspaceSid string, Sid string, para
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -2379,7 +2379,7 @@ func (c *DefaultApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, p
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChannelOptimizedRouting != nil {
 		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
@@ -2432,7 +2432,7 @@ func (c *DefaultApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, par
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AssignmentActivitySid != nil {
 		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
@@ -2593,7 +2593,7 @@ func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid s
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Beep != nil {
 		data.Set("Beep", *params.Beep)
@@ -2795,7 +2795,7 @@ func (c *DefaultApiService) UpdateWorker(WorkspaceSid string, Sid string, params
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ActivitySid != nil {
 		data.Set("ActivitySid", *params.ActivitySid)
@@ -2848,7 +2848,7 @@ func (c *DefaultApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid s
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Available != nil {
 		data.Set("Available", fmt.Sprint(*params.Available))
@@ -2993,7 +2993,7 @@ func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerS
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Beep != nil {
 		data.Set("Beep", *params.Beep)
@@ -3193,7 +3193,7 @@ func (c *DefaultApiService) UpdateWorkflow(WorkspaceSid string, Sid string, para
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AssignmentCallbackUrl != nil {
 		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
@@ -3258,7 +3258,7 @@ func (c *DefaultApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceP
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DefaultActivitySid != nil {
 		data.Set("DefaultActivitySid", *params.DefaultActivitySid)

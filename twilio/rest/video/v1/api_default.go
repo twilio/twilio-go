@@ -64,7 +64,7 @@ func (c *DefaultApiService) CreateComposition(params *CreateCompositionParams) (
 	path := "/v1/Compositions"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AudioSources != nil {
 		data.Set("AudioSources", strings.Join(*params.AudioSources, ","))
@@ -97,7 +97,7 @@ func (c *DefaultApiService) CreateComposition(params *CreateCompositionParams) (
 			return nil, err
 		}
 
-		data.Set("VideoLayout", fmt.Sprint(v))
+		data.Set("VideoLayout", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -148,7 +148,7 @@ func (c *DefaultApiService) CreateCompositionHook(params *CreateCompositionHookP
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AudioSources != nil {
 		data.Set("AudioSources", strings.Join(*params.AudioSources, ","))
@@ -184,7 +184,7 @@ func (c *DefaultApiService) CreateCompositionHook(params *CreateCompositionHookP
 			return nil, err
 		}
 
-		data.Set("VideoLayout", fmt.Sprint(v))
+		data.Set("VideoLayout", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -227,7 +227,7 @@ func (c *DefaultApiService) CreateCompositionSettings(params *CreateCompositionS
 	path := "/v1/CompositionSettings/Default"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AwsCredentialsSid != nil {
 		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
@@ -288,7 +288,7 @@ func (c *DefaultApiService) CreateRecordingSettings(params *CreateRecordingSetti
 	path := "/v1/RecordingSettings/Default"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AwsCredentialsSid != nil {
 		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
@@ -357,7 +357,7 @@ func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, 
 	path := "/v1/Rooms"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EnableTurn != nil {
 		data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
@@ -378,7 +378,7 @@ func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, 
 			return nil, err
 		}
 
-		data.Set("RecordingRules", fmt.Sprint(v))
+		data.Set("RecordingRules", string(v))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -421,7 +421,7 @@ func (c *DefaultApiService) DeleteComposition(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -443,7 +443,7 @@ func (c *DefaultApiService) DeleteCompositionHook(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -465,7 +465,7 @@ func (c *DefaultApiService) DeleteRecording(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -488,7 +488,7 @@ func (c *DefaultApiService) DeleteRoomRecording(RoomSid string, Sid string) erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -511,7 +511,7 @@ func (c *DefaultApiService) FetchComposition(Sid string) (*VideoV1Composition, e
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -539,7 +539,7 @@ func (c *DefaultApiService) FetchCompositionHook(Sid string) (*VideoV1Compositio
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -564,7 +564,7 @@ func (c *DefaultApiService) FetchCompositionSettings() (*VideoV1CompositionSetti
 	path := "/v1/CompositionSettings/Default"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -592,7 +592,7 @@ func (c *DefaultApiService) FetchRecording(Sid string) (*VideoV1Recording, error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -617,7 +617,7 @@ func (c *DefaultApiService) FetchRecordingSettings() (*VideoV1RecordingSettings,
 	path := "/v1/RecordingSettings/Default"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -644,7 +644,7 @@ func (c *DefaultApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -673,7 +673,7 @@ func (c *DefaultApiService) FetchRoomParticipant(RoomSid string, Sid string) (*V
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -705,7 +705,7 @@ func (c *DefaultApiService) FetchRoomParticipantPublishedTrack(RoomSid string, P
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -735,7 +735,7 @@ func (c *DefaultApiService) FetchRoomParticipantSubscribeRule(RoomSid string, Pa
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -767,7 +767,7 @@ func (c *DefaultApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -796,7 +796,7 @@ func (c *DefaultApiService) FetchRoomRecording(RoomSid string, Sid string) (*Vid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -824,7 +824,7 @@ func (c *DefaultApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1Room
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -865,16 +865,16 @@ func (c *DefaultApiService) ListComposition(params *ListCompositionParams) (*Lis
 	path := "/v1/Compositions"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.RoomSid != nil {
 		data.Set("RoomSid", *params.RoomSid)
@@ -922,16 +922,16 @@ func (c *DefaultApiService) ListCompositionHook(params *ListCompositionHookParam
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -983,7 +983,7 @@ func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRec
 	path := "/v1/Recordings"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -995,10 +995,10 @@ func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRec
 		data.Set("GroupingSid", strings.Join(*params.GroupingSid, ","))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.MediaType != nil {
 		data.Set("MediaType", *params.MediaType)
@@ -1045,7 +1045,7 @@ func (c *DefaultApiService) ListRoom(params *ListRoomParams) (*ListRoomResponse,
 	path := "/v1/Rooms"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -1054,10 +1054,10 @@ func (c *DefaultApiService) ListRoom(params *ListRoomParams) (*ListRoomResponse,
 		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1103,7 +1103,7 @@ func (c *DefaultApiService) ListRoomParticipant(RoomSid string, params *ListRoom
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -1112,10 +1112,10 @@ func (c *DefaultApiService) ListRoomParticipant(RoomSid string, params *ListRoom
 		data.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1156,7 +1156,7 @@ func (c *DefaultApiService) ListRoomParticipantPublishedTrack(RoomSid string, Pa
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1197,7 +1197,7 @@ func (c *DefaultApiService) ListRoomParticipantSubscribedTrack(RoomSid string, P
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1243,7 +1243,7 @@ func (c *DefaultApiService) ListRoomRecording(RoomSid string, params *ListRoomRe
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -1252,10 +1252,10 @@ func (c *DefaultApiService) ListRoomRecording(RoomSid string, params *ListRoomRe
 		data.Set("SourceSid", *params.SourceSid)
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1311,7 +1311,7 @@ func (c *DefaultApiService) UpdateCompositionHook(Sid string, params *UpdateComp
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AudioSources != nil {
 		data.Set("AudioSources", strings.Join(*params.AudioSources, ","))
@@ -1347,7 +1347,7 @@ func (c *DefaultApiService) UpdateCompositionHook(Sid string, params *UpdateComp
 			return nil, err
 		}
 
-		data.Set("VideoLayout", fmt.Sprint(v))
+		data.Set("VideoLayout", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -1382,7 +1382,7 @@ func (c *DefaultApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*V
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -1422,7 +1422,7 @@ func (c *DefaultApiService) UpdateRoomParticipant(RoomSid string, Sid string, pa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -1463,7 +1463,7 @@ func (c *DefaultApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, P
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Rules != nil {
 		v, err := json.Marshal(params.Rules)
@@ -1472,7 +1472,7 @@ func (c *DefaultApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, P
 			return nil, err
 		}
 
-		data.Set("Rules", fmt.Sprint(v))
+		data.Set("Rules", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -1508,7 +1508,7 @@ func (c *DefaultApiService) UpdateRoomRecordingRule(RoomSid string, params *Upda
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Rules != nil {
 		v, err := json.Marshal(params.Rules)
@@ -1517,7 +1517,7 @@ func (c *DefaultApiService) UpdateRoomRecordingRule(RoomSid string, params *Upda
 			return nil, err
 		}
 
-		data.Set("Rules", fmt.Sprint(v))
+		data.Set("Rules", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)

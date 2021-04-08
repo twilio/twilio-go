@@ -55,7 +55,7 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
@@ -67,7 +67,7 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 			return nil, err
 		}
 
-		data.Set("Parameters", fmt.Sprint(v))
+		data.Set("Parameters", string(v))
 	}
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
@@ -110,7 +110,7 @@ func (c *DefaultApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow,
 	path := "/v2/Flows"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CommitMessage != nil {
 		data.Set("CommitMessage", *params.CommitMessage)
@@ -122,7 +122,7 @@ func (c *DefaultApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow,
 			return nil, err
 		}
 
-		data.Set("Definition", fmt.Sprint(v))
+		data.Set("Definition", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -158,7 +158,7 @@ func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -180,7 +180,7 @@ func (c *DefaultApiService) DeleteFlow(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -205,7 +205,7 @@ func (c *DefaultApiService) FetchExecution(FlowSid string, Sid string) (*StudioV
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -235,7 +235,7 @@ func (c *DefaultApiService) FetchExecutionContext(FlowSid string, ExecutionSid s
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -267,7 +267,7 @@ func (c *DefaultApiService) FetchExecutionStep(FlowSid string, ExecutionSid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -299,7 +299,7 @@ func (c *DefaultApiService) FetchExecutionStepContext(FlowSid string, ExecutionS
 	path = strings.Replace(path, "{"+"StepSid"+"}", StepSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -327,7 +327,7 @@ func (c *DefaultApiService) FetchFlow(Sid string) (*StudioV2Flow, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -357,7 +357,7 @@ func (c *DefaultApiService) FetchFlowRevision(Sid string, Revision string) (*Stu
 	path = strings.Replace(path, "{"+"Revision"+"}", Revision, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -385,7 +385,7 @@ func (c *DefaultApiService) FetchTestUser(Sid string) (*StudioV2FlowTestUser, er
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -424,13 +424,13 @@ func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionP
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreatedFrom != nil {
-		data.Set("DateCreatedFrom", fmt.Sprint(*params.DateCreatedFrom))
+		data.Set("DateCreatedFrom", fmt.Sprint((*params.DateCreatedFrom).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedTo != nil {
-		data.Set("DateCreatedTo", fmt.Sprint(*params.DateCreatedTo))
+		data.Set("DateCreatedTo", fmt.Sprint((*params.DateCreatedTo).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -471,7 +471,7 @@ func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid strin
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -508,7 +508,7 @@ func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse,
 	path := "/v2/Flows"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -547,7 +547,7 @@ func (c *DefaultApiService) ListFlowRevision(Sid string, params *ListFlowRevisio
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -588,7 +588,7 @@ func (c *DefaultApiService) UpdateExecution(FlowSid string, Sid string, params *
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -633,7 +633,7 @@ func (c *DefaultApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*S
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CommitMessage != nil {
 		data.Set("CommitMessage", *params.CommitMessage)
@@ -645,7 +645,7 @@ func (c *DefaultApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*S
 			return nil, err
 		}
 
-		data.Set("Definition", fmt.Sprint(v))
+		data.Set("Definition", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -691,7 +691,7 @@ func (c *DefaultApiService) UpdateFlowValidate(params *UpdateFlowValidateParams)
 	path := "/v2/Flows/Validate"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CommitMessage != nil {
 		data.Set("CommitMessage", *params.CommitMessage)
@@ -703,7 +703,7 @@ func (c *DefaultApiService) UpdateFlowValidate(params *UpdateFlowValidateParams)
 			return nil, err
 		}
 
-		data.Set("Definition", fmt.Sprint(v))
+		data.Set("Definition", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -745,7 +745,7 @@ func (c *DefaultApiService) UpdateTestUser(Sid string, params *UpdateTestUserPar
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.TestUsers != nil {
 		data.Set("TestUsers", strings.Join(*params.TestUsers, ","))

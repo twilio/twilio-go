@@ -10,10 +10,10 @@ Name | Type | Description | Notes
 **Count** | Pointer to **string** | The number of usage events |
 **CountUnit** | Pointer to **string** | The units in which count is measured |
 **Description** | Pointer to **string** | A plain-language description of the usage category |
-**EndDate** | Pointer to [**time.Time**](time.Time.md) | The last date for which usage is included in the UsageRecord |
+**EndDate** | Pointer to **string** | The last date for which usage is included in the UsageRecord |
 **Price** | Pointer to **float32** | The total price of the usage |
 **PriceUnit** | Pointer to **string** | The currency in which `price` is measured |
-**StartDate** | Pointer to [**time.Time**](time.Time.md) | The first date for which usage is included in this UsageRecord |
+**StartDate** | Pointer to **string** | The first date for which usage is included in this UsageRecord |
 **SubresourceUris** | Pointer to **map[string]interface{}** | A list of related resources identified by their relative URIs |
 **Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com` |
 **Usage** | Pointer to **string** | The amount of usage |

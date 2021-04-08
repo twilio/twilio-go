@@ -57,7 +57,7 @@ func (c *DefaultApiService) CreateMessageInteraction(ServiceSid string, SessionS
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
@@ -109,7 +109,7 @@ func (c *DefaultApiService) CreateParticipant(ServiceSid string, SessionSid stri
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FailOnParticipantConflict != nil {
 		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
@@ -164,7 +164,7 @@ func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreateP
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.IsReserved != nil {
 		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
@@ -221,7 +221,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ProxyV1
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
@@ -293,10 +293,10 @@ func (c *DefaultApiService) CreateSession(ServiceSid string, params *CreateSessi
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DateExpiry != nil {
-		data.Set("DateExpiry", fmt.Sprint(*params.DateExpiry))
+		data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
 	}
 	if params != nil && params.FailOnParticipantConflict != nil {
 		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
@@ -311,7 +311,7 @@ func (c *DefaultApiService) CreateSession(ServiceSid string, params *CreateSessi
 			return nil, err
 		}
 
-		data.Set("Participants", fmt.Sprint(v))
+		data.Set("Participants", string(v))
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -356,7 +356,7 @@ func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateSho
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Sid != nil {
 		data.Set("Sid", *params.Sid)
@@ -391,7 +391,7 @@ func (c *DefaultApiService) DeleteInteraction(ServiceSid string, SessionSid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -417,7 +417,7 @@ func (c *DefaultApiService) DeleteParticipant(ServiceSid string, SessionSid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -441,7 +441,7 @@ func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -463,7 +463,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -487,7 +487,7 @@ func (c *DefaultApiService) DeleteSession(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -511,7 +511,7 @@ func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -538,7 +538,7 @@ func (c *DefaultApiService) FetchInteraction(ServiceSid string, SessionSid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -571,7 +571,7 @@ func (c *DefaultApiService) FetchMessageInteraction(ServiceSid string, SessionSi
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -603,7 +603,7 @@ func (c *DefaultApiService) FetchParticipant(ServiceSid string, SessionSid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -633,7 +633,7 @@ func (c *DefaultApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*Pr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -661,7 +661,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*ProxyV1Service, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -691,7 +691,7 @@ func (c *DefaultApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -721,7 +721,7 @@ func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*Prox
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -758,7 +758,7 @@ func (c *DefaultApiService) ListInteraction(ServiceSid string, SessionSid string
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -800,7 +800,7 @@ func (c *DefaultApiService) ListMessageInteraction(ServiceSid string, SessionSid
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -841,7 +841,7 @@ func (c *DefaultApiService) ListParticipant(ServiceSid string, SessionSid string
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -880,7 +880,7 @@ func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhone
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -917,7 +917,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -956,7 +956,7 @@ func (c *DefaultApiService) ListSession(ServiceSid string, params *ListSessionPa
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -995,7 +995,7 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1036,7 +1036,7 @@ func (c *DefaultApiService) UpdatePhoneNumber(ServiceSid string, Sid string, par
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.IsReserved != nil {
 		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
@@ -1089,7 +1089,7 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
@@ -1157,10 +1157,10 @@ func (c *DefaultApiService) UpdateSession(ServiceSid string, Sid string, params 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DateExpiry != nil {
-		data.Set("DateExpiry", fmt.Sprint(*params.DateExpiry))
+		data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
 	}
 	if params != nil && params.FailOnParticipantConflict != nil {
 		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
@@ -1207,7 +1207,7 @@ func (c *DefaultApiService) UpdateShortCode(ServiceSid string, Sid string, param
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.IsReserved != nil {
 		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))

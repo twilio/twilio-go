@@ -52,7 +52,7 @@ func (c *DefaultApiService) CreateCredentialAws(params *CreateCredentialAwsParam
 	path := "/v1/Credentials/AWS"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AccountSid != nil {
 		data.Set("AccountSid", *params.AccountSid)
@@ -99,7 +99,7 @@ func (c *DefaultApiService) CreateCredentialPublicKey(params *CreateCredentialPu
 	path := "/v1/Credentials/PublicKeys"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AccountSid != nil {
 		data.Set("AccountSid", *params.AccountSid)
@@ -135,7 +135,7 @@ func (c *DefaultApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuth
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -162,7 +162,7 @@ func (c *DefaultApiService) DeleteCredentialAws(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -184,7 +184,7 @@ func (c *DefaultApiService) DeleteCredentialPublicKey(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -204,7 +204,7 @@ func (c *DefaultApiService) DeleteSecondaryAuthToken() error {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -227,7 +227,7 @@ func (c *DefaultApiService) FetchCredentialAws(Sid string) (*AccountsV1Credentia
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -255,7 +255,7 @@ func (c *DefaultApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1Cre
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -288,7 +288,7 @@ func (c *DefaultApiService) ListCredentialAws(params *ListCredentialAwsParams) (
 	path := "/v1/Credentials/AWS"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -325,7 +325,7 @@ func (c *DefaultApiService) ListCredentialPublicKey(params *ListCredentialPublic
 	path := "/v1/Credentials/PublicKeys"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -355,7 +355,7 @@ func (c *DefaultApiService) UpdateAuthTokenPromotion() (*AccountsV1AuthTokenProm
 	path := "/v1/AuthTokens/Promote"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -390,7 +390,7 @@ func (c *DefaultApiService) UpdateCredentialAws(Sid string, params *UpdateCreden
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -429,7 +429,7 @@ func (c *DefaultApiService) UpdateCredentialPublicKey(Sid string, params *Update
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

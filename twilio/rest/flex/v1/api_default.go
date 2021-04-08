@@ -65,7 +65,7 @@ func (c *DefaultApiService) CreateChannel(params *CreateChannelParams) (*FlexV1C
 	path := "/v1/Channels"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChatFriendlyName != nil {
 		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
@@ -160,7 +160,7 @@ func (c *DefaultApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChannelType != nil {
 		data.Set("ChannelType", *params.ChannelType)
@@ -254,7 +254,7 @@ func (c *DefaultApiService) CreateWebChannel(params *CreateWebChannelParams) (*F
 	path := "/v1/WebChannels"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChatFriendlyName != nil {
 		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
@@ -299,7 +299,7 @@ func (c *DefaultApiService) DeleteChannel(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -320,7 +320,7 @@ func (c *DefaultApiService) DeleteFlexFlow(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -341,7 +341,7 @@ func (c *DefaultApiService) DeleteWebChannel(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -363,7 +363,7 @@ func (c *DefaultApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -395,7 +395,7 @@ func (c *DefaultApiService) FetchConfiguration(params *FetchConfigurationParams)
 	path := "/v1/Configuration"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.UiVersion != nil {
 		data.Set("UiVersion", *params.UiVersion)
@@ -426,7 +426,7 @@ func (c *DefaultApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -453,7 +453,7 @@ func (c *DefaultApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -485,7 +485,7 @@ func (c *DefaultApiService) ListChannel(params *ListChannelParams) (*ListChannel
 	path := "/v1/Channels"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -523,7 +523,7 @@ func (c *DefaultApiService) ListFlexFlow(params *ListFlexFlowParams) (*ListFlexF
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -562,7 +562,7 @@ func (c *DefaultApiService) ListWebChannel(params *ListWebChannelParams) (*ListW
 	path := "/v1/WebChannels"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -591,7 +591,7 @@ func (c *DefaultApiService) UpdateConfiguration() (*FlexV1Configuration, error) 
 	path := "/v1/Configuration"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -657,7 +657,7 @@ func (c *DefaultApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowPar
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChannelType != nil {
 		data.Set("ChannelType", *params.ChannelType)
@@ -745,7 +745,7 @@ func (c *DefaultApiService) UpdateWebChannel(Sid string, params *UpdateWebChanne
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ChatStatus != nil {
 		data.Set("ChatStatus", *params.ChatStatus)

@@ -37,11 +37,11 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateCredentialAwsParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request. | 
-**Credentials** | **string** | A string that contains the AWS access credentials in the format &#x60;&lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;&#x60;. For example, &#x60;AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#x60; | 
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
+**Credentials** | **string** | A string that contains the AWS access credentials in the format &#x60;&lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;&#x60;. For example, &#x60;AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#x60;
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
 ### Return type
 
@@ -78,11 +78,11 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateCredentialPublicKeyParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request | 
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
-**PublicKey** | **string** | A URL encoded representation of the public key. For example, &#x60;-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----&#x60; | 
+Name | Type | Description
+------------- | ------------- | -------------
+**AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+**PublicKey** | **string** | A URL encoded representation of the public key. For example, &#x60;-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----&#x60;
 
 ### Return type
 
@@ -148,18 +148,18 @@ Delete a Credential from your account
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The Twilio-provided string that uniquely identifies the AWS resource to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the AWS resource to delete.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCredentialAwsParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -190,18 +190,18 @@ Delete a Credential from your account
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The Twilio-provided string that uniquely identifies the PublicKey resource to delete. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the PublicKey resource to delete.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCredentialPublicKeyParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -267,18 +267,18 @@ Fetch the AWS credentials specified by the provided Credential Sid
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The Twilio-provided string that uniquely identifies the AWS resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the AWS resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCredentialAwsParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -309,18 +309,18 @@ Fetch the public key specified by the provided Credential Sid
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The Twilio-provided string that uniquely identifies the PublicKey resource to fetch. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the PublicKey resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCredentialPublicKeyParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -357,9 +357,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListCredentialAwsParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -396,9 +396,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListCredentialPublicKeyParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -464,19 +464,19 @@ Modify the properties of a given Account
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The Twilio-provided string that uniquely identifies the AWS resource to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the AWS resource to update.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateCredentialAwsParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
 ### Return type
 
@@ -507,19 +507,19 @@ Modify the properties of a given Account
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The Twilio-provided string that uniquely identifies the PublicKey resource to update. | 
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the PublicKey resource to update.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateCredentialPublicKeyParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
 ### Return type
 
