@@ -79,7 +79,8 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c Client) SendRequest(method string, rawURL string, queryParams interface{}, formData url.Values, headers map[string]interface{}) (*http.Response, error) {
+func (c Client) SendRequest(method string, rawURL string, queryParams interface{}, formData url.Values,
+	headers map[string]interface{}) (*http.Response, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
 		return nil, err
@@ -115,7 +116,6 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 	}
 
 	return c.doWithErr(req)
-
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
