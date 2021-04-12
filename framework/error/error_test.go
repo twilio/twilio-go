@@ -2,10 +2,11 @@ package error_test
 
 import (
 	"encoding/json"
-	assert "github.com/stretchr/testify/require"
-	"github.com/twilio/twilio-go/framework/error"
 	"strings"
 	"testing"
+
+	assert "github.com/stretchr/testify/require"
+	"github.com/twilio/twilio-go/framework/error"
 )
 
 const errorCode = 20001

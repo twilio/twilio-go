@@ -7,11 +7,13 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/pkg/errors"
+	"github.com/twilio/twilio-go/config"
 	twilioError "github.com/twilio/twilio-go/framework/error"
 )
 
@@ -87,6 +89,7 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 	}
 
 	valueReader := &strings.Reader{}
+	goVersion := runtime.Version()
 
 	if queryParams != nil {
 		v, _ := EncodeToStringWith(queryParams, delimiter, escapee, keepZeros)
@@ -106,6 +109,13 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 	}
 
 	req.SetBasicAuth(c.basicAuth())
+
+	// go1.16 -> v1.16
+	goVersion = strings.Replace(goVersion, "go", "v", -1)
+
+	// E.g. "User-Agent": "twilio-go/1.0.0 (Go v1.16)"
+	userAgent := fmt.Sprint("twilio-go/", config.LibraryVersion, " (Go ", goVersion, ")")
+	req.Header.Add("User-Agent", userAgent)
 
 	if method == http.MethodPost {
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
