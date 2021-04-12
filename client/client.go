@@ -110,11 +110,8 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 
 	req.SetBasicAuth(c.basicAuth())
 
-	// go1.16 -> v1.16
-	goVersion = strings.Replace(goVersion, "go", "v", -1)
-
-	// E.g. "User-Agent": "twilio-go/1.0.0 (Go v1.16)"
-	userAgent := fmt.Sprint("twilio-go/", config.LibraryVersion, " (Go ", goVersion, ")")
+	// E.g. "User-Agent": "twilio-go/1.0.0 (go1.16)"
+	userAgent := fmt.Sprint("twilio-go/", config.LibraryVersion, " (", goVersion, ")")
 	req.Header.Add("User-Agent", userAgent)
 
 	if method == http.MethodPost {
