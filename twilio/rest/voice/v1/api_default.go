@@ -65,7 +65,7 @@ func (c *DefaultApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*Voi
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CnamLookupEnabled != nil {
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
@@ -128,7 +128,7 @@ func (c *DefaultApiService) CreateConnectionPolicy(params *CreateConnectionPolic
 	path := "/v1/ConnectionPolicies"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -174,7 +174,7 @@ func (c *DefaultApiService) CreateConnectionPolicyTarget(ConnectionPolicySid str
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
@@ -223,7 +223,7 @@ func (c *DefaultApiService) CreateDialingPermissionsCountryBulkUpdate(params *Cr
 	path := "/v1/DialingPermissions/BulkCountryUpdates"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.UpdateRequest != nil {
 		data.Set("UpdateRequest", *params.UpdateRequest)
@@ -263,7 +263,7 @@ func (c *DefaultApiService) CreateIpRecord(params *CreateIpRecordParams) (*Voice
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CidrPrefixLength != nil {
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
@@ -307,7 +307,7 @@ func (c *DefaultApiService) CreateSourceIpMapping(params *CreateSourceIpMappingP
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.IpRecordSid != nil {
 		data.Set("IpRecordSid", *params.IpRecordSid)
@@ -340,7 +340,7 @@ func (c *DefaultApiService) DeleteByocTrunk(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -361,7 +361,7 @@ func (c *DefaultApiService) DeleteConnectionPolicy(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -384,7 +384,7 @@ func (c *DefaultApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -405,7 +405,7 @@ func (c *DefaultApiService) DeleteIpRecord(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -426,7 +426,7 @@ func (c *DefaultApiService) DeleteSourceIpMapping(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -448,7 +448,7 @@ func (c *DefaultApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -475,7 +475,7 @@ func (c *DefaultApiService) FetchConnectionPolicy(Sid string) (*VoiceV1Connectio
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -504,7 +504,7 @@ func (c *DefaultApiService) FetchConnectionPolicyTarget(ConnectionPolicySid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -532,7 +532,7 @@ func (c *DefaultApiService) FetchDialingPermissionsCountry(IsoCode string) (*Voi
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -558,7 +558,7 @@ func (c *DefaultApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPe
 	path := "/v1/Settings"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -585,7 +585,7 @@ func (c *DefaultApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -612,7 +612,7 @@ func (c *DefaultApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -644,7 +644,7 @@ func (c *DefaultApiService) ListByocTrunk(params *ListByocTrunkParams) (*ListByo
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -680,7 +680,7 @@ func (c *DefaultApiService) ListConnectionPolicy(params *ListConnectionPolicyPar
 	path := "/v1/ConnectionPolicies"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -718,7 +718,7 @@ func (c *DefaultApiService) ListConnectionPolicyTarget(ConnectionPolicySid strin
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -767,7 +767,7 @@ func (c *DefaultApiService) ListDialingPermissionsCountry(params *ListDialingPer
 	path := "/v1/DialingPermissions/Countries"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.IsoCode != nil {
 		data.Set("IsoCode", *params.IsoCode)
@@ -824,7 +824,7 @@ func (c *DefaultApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, pa
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -860,7 +860,7 @@ func (c *DefaultApiService) ListIpRecord(params *ListIpRecordParams) (*ListIpRec
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -896,7 +896,7 @@ func (c *DefaultApiService) ListSourceIpMapping(params *ListSourceIpMappingParam
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -952,7 +952,7 @@ func (c *DefaultApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkP
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CnamLookupEnabled != nil {
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
@@ -1017,7 +1017,7 @@ func (c *DefaultApiService) UpdateConnectionPolicy(Sid string, params *UpdateCon
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1065,7 +1065,7 @@ func (c *DefaultApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
@@ -1114,7 +1114,7 @@ func (c *DefaultApiService) UpdateDialingPermissionsSettings(params *UpdateDiali
 	path := "/v1/Settings"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DialingPermissionsInheritance != nil {
 		data.Set("DialingPermissionsInheritance", fmt.Sprint(*params.DialingPermissionsInheritance))
@@ -1152,7 +1152,7 @@ func (c *DefaultApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordPar
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1190,7 +1190,7 @@ func (c *DefaultApiService) UpdateSourceIpMapping(Sid string, params *UpdateSour
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.SipDomainSid != nil {
 		data.Set("SipDomainSid", *params.SipDomainSid)

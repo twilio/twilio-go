@@ -59,7 +59,7 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Aut
 	path := "/v1/Assistants"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackEvents != nil {
 		data.Set("CallbackEvents", *params.CallbackEvents)
@@ -74,7 +74,7 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Aut
 			return nil, err
 		}
 
-		data.Set("Defaults", fmt.Sprint(v))
+		data.Set("Defaults", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -89,7 +89,7 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Aut
 			return nil, err
 		}
 
-		data.Set("StyleSheet", fmt.Sprint(v))
+		data.Set("StyleSheet", string(v))
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -131,7 +131,7 @@ func (c *DefaultApiService) CreateField(AssistantSid string, TaskSid string, par
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FieldType != nil {
 		data.Set("FieldType", *params.FieldType)
@@ -174,7 +174,7 @@ func (c *DefaultApiService) CreateFieldType(AssistantSid string, params *CreateF
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -221,7 +221,7 @@ func (c *DefaultApiService) CreateFieldValue(AssistantSid string, FieldTypeSid s
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
@@ -267,7 +267,7 @@ func (c *DefaultApiService) CreateModelBuild(AssistantSid string, params *Create
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -314,7 +314,7 @@ func (c *DefaultApiService) CreateQuery(AssistantSid string, params *CreateQuery
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
@@ -367,7 +367,7 @@ func (c *DefaultApiService) CreateSample(AssistantSid string, TaskSid string, pa
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
@@ -417,7 +417,7 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Actions != nil {
 		v, err := json.Marshal(params.Actions)
@@ -426,7 +426,7 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 			return nil, err
 		}
 
-		data.Set("Actions", fmt.Sprint(v))
+		data.Set("Actions", string(v))
 	}
 	if params != nil && params.ActionsUrl != nil {
 		data.Set("ActionsUrl", *params.ActionsUrl)
@@ -476,7 +476,7 @@ func (c *DefaultApiService) CreateWebhook(AssistantSid string, params *CreateWeb
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Events != nil {
 		data.Set("Events", *params.Events)
@@ -515,7 +515,7 @@ func (c *DefaultApiService) DeleteAssistant(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -540,7 +540,7 @@ func (c *DefaultApiService) DeleteField(AssistantSid string, TaskSid string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -563,7 +563,7 @@ func (c *DefaultApiService) DeleteFieldType(AssistantSid string, Sid string) err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -588,7 +588,7 @@ func (c *DefaultApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid s
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -611,7 +611,7 @@ func (c *DefaultApiService) DeleteModelBuild(AssistantSid string, Sid string) er
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -634,7 +634,7 @@ func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -659,7 +659,7 @@ func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -682,7 +682,7 @@ func (c *DefaultApiService) DeleteTask(AssistantSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -705,7 +705,7 @@ func (c *DefaultApiService) DeleteWebhook(AssistantSid string, Sid string) error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -727,7 +727,7 @@ func (c *DefaultApiService) FetchAssistant(Sid string) (*AutopilotV1Assistant, e
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -754,7 +754,7 @@ func (c *DefaultApiService) FetchDefaults(AssistantSid string) (*AutopilotV1Assi
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -783,7 +783,7 @@ func (c *DefaultApiService) FetchDialogue(AssistantSid string, Sid string) (*Aut
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -814,7 +814,7 @@ func (c *DefaultApiService) FetchField(AssistantSid string, TaskSid string, Sid 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -843,7 +843,7 @@ func (c *DefaultApiService) FetchFieldType(AssistantSid string, Sid string) (*Au
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -874,7 +874,7 @@ func (c *DefaultApiService) FetchFieldValue(AssistantSid string, FieldTypeSid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -903,7 +903,7 @@ func (c *DefaultApiService) FetchModelBuild(AssistantSid string, Sid string) (*A
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -932,7 +932,7 @@ func (c *DefaultApiService) FetchQuery(AssistantSid string, Sid string) (*Autopi
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -963,7 +963,7 @@ func (c *DefaultApiService) FetchSample(AssistantSid string, TaskSid string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -991,7 +991,7 @@ func (c *DefaultApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1As
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1020,7 +1020,7 @@ func (c *DefaultApiService) FetchTask(AssistantSid string, Sid string) (*Autopil
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1050,7 +1050,7 @@ func (c *DefaultApiService) FetchTaskActions(AssistantSid string, TaskSid string
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1079,7 +1079,7 @@ func (c *DefaultApiService) FetchTaskStatistics(AssistantSid string, TaskSid str
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1108,7 +1108,7 @@ func (c *DefaultApiService) FetchWebhook(AssistantSid string, Sid string) (*Auto
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1140,7 +1140,7 @@ func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAss
 	path := "/v1/Assistants"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1180,7 +1180,7 @@ func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, param
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1218,7 +1218,7 @@ func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListField
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1260,7 +1260,7 @@ func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid str
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
@@ -1301,7 +1301,7 @@ func (c *DefaultApiService) ListModelBuild(AssistantSid string, params *ListMode
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1347,7 +1347,7 @@ func (c *DefaultApiService) ListQuery(AssistantSid string, params *ListQueryPara
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
@@ -1401,7 +1401,7 @@ func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, para
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
@@ -1442,7 +1442,7 @@ func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1480,7 +1480,7 @@ func (c *DefaultApiService) ListWebhook(AssistantSid string, params *ListWebhook
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1532,7 +1532,7 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackEvents != nil {
 		data.Set("CallbackEvents", *params.CallbackEvents)
@@ -1547,7 +1547,7 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 			return nil, err
 		}
 
-		data.Set("Defaults", fmt.Sprint(v))
+		data.Set("Defaults", string(v))
 	}
 	if params != nil && params.DevelopmentStage != nil {
 		data.Set("DevelopmentStage", *params.DevelopmentStage)
@@ -1565,7 +1565,7 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 			return nil, err
 		}
 
-		data.Set("StyleSheet", fmt.Sprint(v))
+		data.Set("StyleSheet", string(v))
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -1603,7 +1603,7 @@ func (c *DefaultApiService) UpdateDefaults(AssistantSid string, params *UpdateDe
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Defaults != nil {
 		v, err := json.Marshal(params.Defaults)
@@ -1612,7 +1612,7 @@ func (c *DefaultApiService) UpdateDefaults(AssistantSid string, params *UpdateDe
 			return nil, err
 		}
 
-		data.Set("Defaults", fmt.Sprint(v))
+		data.Set("Defaults", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -1651,7 +1651,7 @@ func (c *DefaultApiService) UpdateFieldType(AssistantSid string, Sid string, par
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1694,7 +1694,7 @@ func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, pa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -1736,7 +1736,7 @@ func (c *DefaultApiService) UpdateQuery(AssistantSid string, Sid string, params 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.SampleSid != nil {
 		data.Set("SampleSid", *params.SampleSid)
@@ -1775,7 +1775,7 @@ func (c *DefaultApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistan
 	path := "/v1/Assistants/Restore"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Assistant != nil {
 		data.Set("Assistant", *params.Assistant)
@@ -1821,7 +1821,7 @@ func (c *DefaultApiService) UpdateSample(AssistantSid string, TaskSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
@@ -1866,7 +1866,7 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.StyleSheet != nil {
 		v, err := json.Marshal(params.StyleSheet)
@@ -1875,7 +1875,7 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 			return nil, err
 		}
 
-		data.Set("StyleSheet", fmt.Sprint(v))
+		data.Set("StyleSheet", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -1918,7 +1918,7 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Actions != nil {
 		v, err := json.Marshal(params.Actions)
@@ -1927,7 +1927,7 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 			return nil, err
 		}
 
-		data.Set("Actions", fmt.Sprint(v))
+		data.Set("Actions", string(v))
 	}
 	if params != nil && params.ActionsUrl != nil {
 		data.Set("ActionsUrl", *params.ActionsUrl)
@@ -1974,7 +1974,7 @@ func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid strin
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Actions != nil {
 		v, err := json.Marshal(params.Actions)
@@ -1983,7 +1983,7 @@ func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid strin
 			return nil, err
 		}
 
-		data.Set("Actions", fmt.Sprint(v))
+		data.Set("Actions", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -2026,7 +2026,7 @@ func (c *DefaultApiService) UpdateWebhook(AssistantSid string, Sid string, param
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Events != nil {
 		data.Set("Events", *params.Events)

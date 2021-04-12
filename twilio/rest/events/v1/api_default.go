@@ -52,7 +52,7 @@ func (c *DefaultApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink,
 	path := "/v1/Sinks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
@@ -64,7 +64,7 @@ func (c *DefaultApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink,
 			return nil, err
 		}
 
-		data.Set("SinkConfiguration", fmt.Sprint(v))
+		data.Set("SinkConfiguration", string(v))
 	}
 	if params != nil && params.SinkType != nil {
 		data.Set("SinkType", *params.SinkType)
@@ -96,7 +96,7 @@ func (c *DefaultApiService) CreateSinkTest(Sid string) (*EventsV1SinkSinkTest, e
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -131,7 +131,7 @@ func (c *DefaultApiService) CreateSinkValidate(Sid string, params *CreateSinkVal
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.TestId != nil {
 		data.Set("TestId", *params.TestId)
@@ -172,7 +172,7 @@ func (c *DefaultApiService) CreateSubscribedEvent(SubscriptionSid string, params
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
@@ -216,7 +216,7 @@ func (c *DefaultApiService) CreateSubscription(params *CreateSubscriptionParams)
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
@@ -231,7 +231,7 @@ func (c *DefaultApiService) CreateSubscription(params *CreateSubscriptionParams)
 			return nil, err
 		}
 
-		data.Set("Types", fmt.Sprint(v))
+		data.Set("Types", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -259,7 +259,7 @@ func (c *DefaultApiService) DeleteSink(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -283,7 +283,7 @@ func (c *DefaultApiService) DeleteSubscribedEvent(SubscriptionSid string, Type s
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -305,7 +305,7 @@ func (c *DefaultApiService) DeleteSubscription(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -328,7 +328,7 @@ func (c *DefaultApiService) FetchEventType(Type string) (*EventsV1EventType, err
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -356,7 +356,7 @@ func (c *DefaultApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -384,7 +384,7 @@ func (c *DefaultApiService) FetchSink(Sid string) (*EventsV1Sink, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -414,7 +414,7 @@ func (c *DefaultApiService) FetchSubscribedEvent(SubscriptionSid string, Type st
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -442,7 +442,7 @@ func (c *DefaultApiService) FetchSubscription(Sid string) (*EventsV1Subscription
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -472,7 +472,7 @@ func (c *DefaultApiService) FetchVersion(Id string, SchemaVersion int32) (*Event
 	path = strings.Replace(path, "{"+"SchemaVersion"+"}", fmt.Sprint(SchemaVersion), -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -505,7 +505,7 @@ func (c *DefaultApiService) ListEventType(params *ListEventTypeParams) (*ListEve
 	path := "/v1/Types"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -542,7 +542,7 @@ func (c *DefaultApiService) ListSink(params *ListSinkParams) (*ListSinkResponse,
 	path := "/v1/Sinks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -581,7 +581,7 @@ func (c *DefaultApiService) ListSubscribedEvent(SubscriptionSid string, params *
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -620,7 +620,7 @@ func (c *DefaultApiService) ListSubscription(params *ListSubscriptionParams) (*L
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.SinkSid != nil {
 		data.Set("SinkSid", *params.SinkSid)
@@ -662,7 +662,7 @@ func (c *DefaultApiService) ListVersion(Id string, params *ListVersionParams) (*
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -703,7 +703,7 @@ func (c *DefaultApiService) UpdateSubscribedEvent(SubscriptionSid string, Type s
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Version != nil {
 		data.Set("Version", fmt.Sprint(*params.Version))
@@ -744,7 +744,7 @@ func (c *DefaultApiService) UpdateSubscription(Sid string, params *UpdateSubscri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)

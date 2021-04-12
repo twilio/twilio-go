@@ -13,7 +13,6 @@ package openapi
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/url"
 	"strings"
 
@@ -55,7 +54,7 @@ func (c *DefaultApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPh
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CountryCode != nil {
 		data.Set("CountryCode", *params.CountryCode)
@@ -73,7 +72,7 @@ func (c *DefaultApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPh
 			return nil, err
 		}
 
-		data.Set("AddOnsData", fmt.Sprint(v))
+		data.Set("AddOnsData", string(v))
 	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)

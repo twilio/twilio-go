@@ -53,7 +53,7 @@ func (c *DefaultApiService) CreateAccessToken(ServiceSid string, params *CreateA
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FactorType != nil {
 		data.Set("FactorType", *params.FactorType)
@@ -99,7 +99,7 @@ func (c *DefaultApiService) CreateBucket(ServiceSid string, RateLimitSid string,
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Interval != nil {
 		data.Set("Interval", fmt.Sprint(*params.Interval))
@@ -151,7 +151,7 @@ func (c *DefaultApiService) CreateChallenge(ServiceSid string, Identity string, 
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DetailsFields != nil {
 		v, err := json.Marshal(params.DetailsFields)
@@ -160,13 +160,13 @@ func (c *DefaultApiService) CreateChallenge(ServiceSid string, Identity string, 
 			return nil, err
 		}
 
-		data.Set("DetailsFields", fmt.Sprint(v))
+		data.Set("DetailsFields", string(v))
 	}
 	if params != nil && params.DetailsMessage != nil {
 		data.Set("DetailsMessage", *params.DetailsMessage)
 	}
 	if params != nil && params.ExpirationDate != nil {
-		data.Set("ExpirationDate", fmt.Sprint(*params.ExpirationDate))
+		data.Set("ExpirationDate", fmt.Sprint((*params.ExpirationDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.FactorSid != nil {
 		data.Set("FactorSid", *params.FactorSid)
@@ -178,7 +178,7 @@ func (c *DefaultApiService) CreateChallenge(ServiceSid string, Identity string, 
 			return nil, err
 		}
 
-		data.Set("HiddenDetails", fmt.Sprint(v))
+		data.Set("HiddenDetails", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -214,7 +214,7 @@ func (c *DefaultApiService) CreateEntity(ServiceSid string, params *CreateEntity
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
@@ -255,7 +255,7 @@ func (c *DefaultApiService) CreateMessagingConfiguration(ServiceSid string, para
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Country != nil {
 		data.Set("Country", *params.Country)
@@ -323,7 +323,7 @@ func (c *DefaultApiService) CreateNewFactor(ServiceSid string, Identity string, 
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.BindingAlg != nil {
 		data.Set("BindingAlg", *params.BindingAlg)
@@ -400,7 +400,7 @@ func (c *DefaultApiService) CreateRateLimit(ServiceSid string, params *CreateRat
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
@@ -462,7 +462,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*VerifyV
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CodeLength != nil {
 		data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
@@ -556,7 +556,7 @@ func (c *DefaultApiService) CreateVerification(ServiceSid string, params *Create
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Amount != nil {
 		data.Set("Amount", *params.Amount)
@@ -574,7 +574,7 @@ func (c *DefaultApiService) CreateVerification(ServiceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("ChannelConfiguration", fmt.Sprint(v))
+		data.Set("ChannelConfiguration", string(v))
 	}
 	if params != nil && params.CustomCode != nil {
 		data.Set("CustomCode", *params.CustomCode)
@@ -598,7 +598,7 @@ func (c *DefaultApiService) CreateVerification(ServiceSid string, params *Create
 			return nil, err
 		}
 
-		data.Set("RateLimits", fmt.Sprint(v))
+		data.Set("RateLimits", string(v))
 	}
 	if params != nil && params.SendDigits != nil {
 		data.Set("SendDigits", *params.SendDigits)
@@ -648,7 +648,7 @@ func (c *DefaultApiService) CreateVerificationCheck(ServiceSid string, params *C
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Amount != nil {
 		data.Set("Amount", *params.Amount)
@@ -705,7 +705,7 @@ func (c *DefaultApiService) CreateWebhook(ServiceSid string, params *CreateWebho
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EventTypes != nil {
 		data.Set("EventTypes", strings.Join(*params.EventTypes, ","))
@@ -749,7 +749,7 @@ func (c *DefaultApiService) DeleteBucket(ServiceSid string, RateLimitSid string,
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -773,7 +773,7 @@ func (c *DefaultApiService) DeleteEntity(ServiceSid string, Identity string) err
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -799,7 +799,7 @@ func (c *DefaultApiService) DeleteFactor(ServiceSid string, Identity string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -823,7 +823,7 @@ func (c *DefaultApiService) DeleteMessagingConfiguration(ServiceSid string, Coun
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -847,7 +847,7 @@ func (c *DefaultApiService) DeleteRateLimit(ServiceSid string, Sid string) error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -869,7 +869,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -893,7 +893,7 @@ func (c *DefaultApiService) DeleteWebhook(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -920,7 +920,7 @@ func (c *DefaultApiService) FetchBucket(ServiceSid string, RateLimitSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -952,7 +952,7 @@ func (c *DefaultApiService) FetchChallenge(ServiceSid string, Identity string, S
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -982,7 +982,7 @@ func (c *DefaultApiService) FetchEntity(ServiceSid string, Identity string) (*Ve
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1014,7 +1014,7 @@ func (c *DefaultApiService) FetchFactor(ServiceSid string, Identity string, Sid 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1042,7 +1042,7 @@ func (c *DefaultApiService) FetchForm(FormType string) (*VerifyV2Form, error) {
 	path = strings.Replace(path, "{"+"FormType"+"}", FormType, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1072,7 +1072,7 @@ func (c *DefaultApiService) FetchMessagingConfiguration(ServiceSid string, Count
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1102,7 +1102,7 @@ func (c *DefaultApiService) FetchRateLimit(ServiceSid string, Sid string) (*Veri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1130,7 +1130,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*VerifyV2Service, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1160,7 +1160,7 @@ func (c *DefaultApiService) FetchVerification(ServiceSid string, Sid string) (*V
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1188,7 +1188,7 @@ func (c *DefaultApiService) FetchVerificationAttempt(Sid string) (*VerifyV2Verif
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1218,7 +1218,7 @@ func (c *DefaultApiService) FetchWebhook(ServiceSid string, Sid string) (*Verify
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1255,7 +1255,7 @@ func (c *DefaultApiService) ListBucket(ServiceSid string, RateLimitSid string, p
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1300,7 +1300,7 @@ func (c *DefaultApiService) ListChallenge(ServiceSid string, Identity string, pa
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FactorSid != nil {
 		data.Set("FactorSid", *params.FactorSid)
@@ -1345,7 +1345,7 @@ func (c *DefaultApiService) ListEntity(ServiceSid string, params *ListEntityPara
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1386,7 +1386,7 @@ func (c *DefaultApiService) ListFactor(ServiceSid string, Identity string, param
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1425,7 +1425,7 @@ func (c *DefaultApiService) ListMessagingConfiguration(ServiceSid string, params
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1464,7 +1464,7 @@ func (c *DefaultApiService) ListRateLimit(ServiceSid string, params *ListRateLim
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1501,7 +1501,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1544,13 +1544,13 @@ func (c *DefaultApiService) ListVerificationAttempt(params *ListVerificationAtte
 	path := "/v2/Attempts"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.ChannelDataTo != nil {
 		data.Set("ChannelDataTo", *params.ChannelDataTo)
@@ -1592,7 +1592,7 @@ func (c *DefaultApiService) ListWebhook(ServiceSid string, params *ListWebhookPa
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1637,7 +1637,7 @@ func (c *DefaultApiService) UpdateBucket(ServiceSid string, RateLimitSid string,
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Interval != nil {
 		data.Set("Interval", fmt.Sprint(*params.Interval))
@@ -1683,7 +1683,7 @@ func (c *DefaultApiService) UpdateChallenge(ServiceSid string, Identity string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AuthPayload != nil {
 		data.Set("AuthPayload", *params.AuthPayload)
@@ -1740,7 +1740,7 @@ func (c *DefaultApiService) UpdateFactor(ServiceSid string, Identity string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AuthPayload != nil {
 		data.Set("AuthPayload", *params.AuthPayload)
@@ -1802,7 +1802,7 @@ func (c *DefaultApiService) UpdateMessagingConfiguration(ServiceSid string, Coun
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.MessagingServiceSid != nil {
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
@@ -1843,7 +1843,7 @@ func (c *DefaultApiService) UpdateRateLimit(ServiceSid string, Sid string, param
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
@@ -1904,7 +1904,7 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CodeLength != nil {
 		data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
@@ -1978,7 +1978,7 @@ func (c *DefaultApiService) UpdateVerification(ServiceSid string, Sid string, pa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -2024,7 +2024,7 @@ func (c *DefaultApiService) UpdateWebhook(ServiceSid string, Sid string, params 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EventTypes != nil {
 		data.Set("EventTypes", strings.Join(*params.EventTypes, ","))

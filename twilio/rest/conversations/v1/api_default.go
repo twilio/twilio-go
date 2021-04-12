@@ -73,10 +73,10 @@ func (c *DefaultApiService) CreateConversation(params *CreateConversationParams)
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -158,10 +158,10 @@ func (c *DefaultApiService) CreateConversationMessage(ConversationSid string, pa
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.MediaSid != nil {
 		data.Set("MediaSid", *params.MediaSid)
@@ -226,10 +226,10 @@ func (c *DefaultApiService) CreateConversationParticipant(ConversationSid string
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
@@ -296,7 +296,7 @@ func (c *DefaultApiService) CreateConversationScopedWebhook(ConversationSid stri
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
 		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
@@ -363,7 +363,7 @@ func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*C
 	path := "/v1/Credentials"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiKey != nil {
 		data.Set("ApiKey", *params.ApiKey)
@@ -422,7 +422,7 @@ func (c *DefaultApiService) CreateRole(params *CreateRoleParams) (*Conversations
 	path := "/v1/Roles"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -465,7 +465,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*Convers
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -528,10 +528,10 @@ func (c *DefaultApiService) CreateServiceConversation(ChatServiceSid string, par
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -615,10 +615,10 @@ func (c *DefaultApiService) CreateServiceConversationMessage(ChatServiceSid stri
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.MediaSid != nil {
 		data.Set("MediaSid", *params.MediaSid)
@@ -685,10 +685,10 @@ func (c *DefaultApiService) CreateServiceConversationParticipant(ChatServiceSid 
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
@@ -757,7 +757,7 @@ func (c *DefaultApiService) CreateServiceConversationScopedWebhook(ChatServiceSi
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
 		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
@@ -818,7 +818,7 @@ func (c *DefaultApiService) CreateServiceRole(ChatServiceSid string, params *Cre
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1078,7 +1078,7 @@ func (c *DefaultApiService) DeleteConversationScopedWebhook(ConversationSid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1100,7 +1100,7 @@ func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1122,7 +1122,7 @@ func (c *DefaultApiService) DeleteRole(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1144,7 +1144,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1168,7 +1168,7 @@ func (c *DefaultApiService) DeleteServiceBinding(ChatServiceSid string, Sid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1303,7 +1303,7 @@ func (c *DefaultApiService) DeleteServiceConversationScopedWebhook(ChatServiceSi
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1327,7 +1327,7 @@ func (c *DefaultApiService) DeleteServiceRole(ChatServiceSid string, Sid string)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1416,7 +1416,7 @@ func (c *DefaultApiService) FetchConfiguration() (*ConversationsV1Configuration,
 	path := "/v1/Configuration"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1441,7 +1441,7 @@ func (c *DefaultApiService) FetchConfigurationWebhook() (*ConversationsV1Configu
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1469,7 +1469,7 @@ func (c *DefaultApiService) FetchConversation(Sid string) (*ConversationsV1Conve
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1499,7 +1499,7 @@ func (c *DefaultApiService) FetchConversationMessage(ConversationSid string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1531,7 +1531,7 @@ func (c *DefaultApiService) FetchConversationMessageReceipt(ConversationSid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1561,7 +1561,7 @@ func (c *DefaultApiService) FetchConversationParticipant(ConversationSid string,
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1591,7 +1591,7 @@ func (c *DefaultApiService) FetchConversationScopedWebhook(ConversationSid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1619,7 +1619,7 @@ func (c *DefaultApiService) FetchCredential(Sid string) (*ConversationsV1Credent
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1647,7 +1647,7 @@ func (c *DefaultApiService) FetchRole(Sid string) (*ConversationsV1Role, error) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1675,7 +1675,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*ConversationsV1Service, e
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1705,7 +1705,7 @@ func (c *DefaultApiService) FetchServiceBinding(ChatServiceSid string, Sid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1733,7 +1733,7 @@ func (c *DefaultApiService) FetchServiceConfiguration(ChatServiceSid string) (*C
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1763,7 +1763,7 @@ func (c *DefaultApiService) FetchServiceConversation(ChatServiceSid string, Sid 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1795,7 +1795,7 @@ func (c *DefaultApiService) FetchServiceConversationMessage(ChatServiceSid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1829,7 +1829,7 @@ func (c *DefaultApiService) FetchServiceConversationMessageReceipt(ChatServiceSi
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1861,7 +1861,7 @@ func (c *DefaultApiService) FetchServiceConversationParticipant(ChatServiceSid s
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1893,7 +1893,7 @@ func (c *DefaultApiService) FetchServiceConversationScopedWebhook(ChatServiceSid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1921,7 +1921,7 @@ func (c *DefaultApiService) FetchServiceNotification(ChatServiceSid string) (*Co
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1951,7 +1951,7 @@ func (c *DefaultApiService) FetchServiceRole(ChatServiceSid string, Sid string) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1981,7 +1981,7 @@ func (c *DefaultApiService) FetchServiceUser(ChatServiceSid string, Sid string) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2009,7 +2009,7 @@ func (c *DefaultApiService) FetchUser(Sid string) (*ConversationsV1User, error) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2042,7 +2042,7 @@ func (c *DefaultApiService) ListConversation(params *ListConversationParams) (*L
 	path := "/v1/Conversations"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2081,7 +2081,7 @@ func (c *DefaultApiService) ListConversationMessage(ConversationSid string, para
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2122,7 +2122,7 @@ func (c *DefaultApiService) ListConversationMessageReceipt(ConversationSid strin
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2161,7 +2161,7 @@ func (c *DefaultApiService) ListConversationParticipant(ConversationSid string, 
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2200,7 +2200,7 @@ func (c *DefaultApiService) ListConversationScopedWebhook(ConversationSid string
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2237,7 +2237,7 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 	path := "/v1/Credentials"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2274,7 +2274,7 @@ func (c *DefaultApiService) ListRole(params *ListRoleParams) (*ListRoleResponse,
 	path := "/v1/Roles"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2311,7 +2311,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2354,7 +2354,7 @@ func (c *DefaultApiService) ListServiceBinding(ChatServiceSid string, params *Li
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.BindingType != nil {
 		data.Set("BindingType", strings.Join(*params.BindingType, ","))
@@ -2399,7 +2399,7 @@ func (c *DefaultApiService) ListServiceConversation(ChatServiceSid string, param
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2440,7 +2440,7 @@ func (c *DefaultApiService) ListServiceConversationMessage(ChatServiceSid string
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2483,7 +2483,7 @@ func (c *DefaultApiService) ListServiceConversationMessageReceipt(ChatServiceSid
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2524,7 +2524,7 @@ func (c *DefaultApiService) ListServiceConversationParticipant(ChatServiceSid st
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2565,7 +2565,7 @@ func (c *DefaultApiService) ListServiceConversationScopedWebhook(ChatServiceSid 
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2604,7 +2604,7 @@ func (c *DefaultApiService) ListServiceRole(ChatServiceSid string, params *ListS
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2643,7 +2643,7 @@ func (c *DefaultApiService) ListServiceUser(ChatServiceSid string, params *ListS
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2680,7 +2680,7 @@ func (c *DefaultApiService) ListUser(params *ListUserParams) (*ListUserResponse,
 	path := "/v1/Users"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2723,7 +2723,7 @@ func (c *DefaultApiService) UpdateConfiguration(params *UpdateConfigurationParam
 	path := "/v1/Configuration"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DefaultChatServiceSid != nil {
 		data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
@@ -2776,7 +2776,7 @@ func (c *DefaultApiService) UpdateConfigurationWebhook(params *UpdateConfigurati
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Filters != nil {
 		data.Set("Filters", strings.Join(*params.Filters, ","))
@@ -2851,10 +2851,10 @@ func (c *DefaultApiService) UpdateConversation(Sid string, params *UpdateConvers
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -2936,10 +2936,10 @@ func (c *DefaultApiService) UpdateConversationMessage(ConversationSid string, Si
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -3005,10 +3005,10 @@ func (c *DefaultApiService) UpdateConversationParticipant(ConversationSid string
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
@@ -3076,7 +3076,7 @@ func (c *DefaultApiService) UpdateConversationScopedWebhook(ConversationSid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
 		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
@@ -3139,7 +3139,7 @@ func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentia
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiKey != nil {
 		data.Set("ApiKey", *params.ApiKey)
@@ -3196,7 +3196,7 @@ func (c *DefaultApiService) UpdateRole(Sid string, params *UpdateRoleParams) (*C
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Permission != nil {
 		data.Set("Permission", strings.Join(*params.Permission, ","))
@@ -3241,7 +3241,7 @@ func (c *DefaultApiService) UpdateServiceConfiguration(ChatServiceSid string, pa
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DefaultChatServiceRoleSid != nil {
 		data.Set("DefaultChatServiceRoleSid", *params.DefaultChatServiceRoleSid)
@@ -3315,10 +3315,10 @@ func (c *DefaultApiService) UpdateServiceConversation(ChatServiceSid string, Sid
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -3402,10 +3402,10 @@ func (c *DefaultApiService) UpdateServiceConversationMessage(ChatServiceSid stri
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
@@ -3473,10 +3473,10 @@ func (c *DefaultApiService) UpdateServiceConversationParticipant(ChatServiceSid 
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
@@ -3546,7 +3546,7 @@ func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(ChatServiceSi
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
 		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
@@ -3617,7 +3617,7 @@ func (c *DefaultApiService) UpdateServiceNotification(ChatServiceSid string, par
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AddedToConversationEnabled != nil {
 		data.Set("AddedToConversationEnabled", fmt.Sprint(*params.AddedToConversationEnabled))
@@ -3688,7 +3688,7 @@ func (c *DefaultApiService) UpdateServiceRole(ChatServiceSid string, Sid string,
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Permission != nil {
 		data.Set("Permission", strings.Join(*params.Permission, ","))

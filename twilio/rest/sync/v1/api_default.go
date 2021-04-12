@@ -53,7 +53,7 @@ func (c *DefaultApiService) CreateDocument(ServiceSid string, params *CreateDocu
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)
@@ -62,7 +62,7 @@ func (c *DefaultApiService) CreateDocument(ServiceSid string, params *CreateDocu
 			return nil, err
 		}
 
-		data.Set("Data", fmt.Sprint(v))
+		data.Set("Data", string(v))
 	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
@@ -113,7 +113,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*SyncV1S
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AclEnabled != nil {
 		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
@@ -172,7 +172,7 @@ func (c *DefaultApiService) CreateStreamMessage(ServiceSid string, StreamSid str
 	path = strings.Replace(path, "{"+"StreamSid"+"}", StreamSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)
@@ -181,7 +181,7 @@ func (c *DefaultApiService) CreateStreamMessage(ServiceSid string, StreamSid str
 			return nil, err
 		}
 
-		data.Set("Data", fmt.Sprint(v))
+		data.Set("Data", string(v))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -220,7 +220,7 @@ func (c *DefaultApiService) CreateSyncList(ServiceSid string, params *CreateSync
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
@@ -272,7 +272,7 @@ func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
@@ -284,7 +284,7 @@ func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string
 			return nil, err
 		}
 
-		data.Set("Data", fmt.Sprint(v))
+		data.Set("Data", string(v))
 	}
 	if params != nil && params.ItemTtl != nil {
 		data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
@@ -329,7 +329,7 @@ func (c *DefaultApiService) CreateSyncMap(ServiceSid string, params *CreateSyncM
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
@@ -383,7 +383,7 @@ func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, 
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
@@ -395,7 +395,7 @@ func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, 
 			return nil, err
 		}
 
-		data.Set("Data", fmt.Sprint(v))
+		data.Set("Data", string(v))
 	}
 	if params != nil && params.ItemTtl != nil {
 		data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
@@ -442,7 +442,7 @@ func (c *DefaultApiService) CreateSyncStream(ServiceSid string, params *CreateSy
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
@@ -477,7 +477,7 @@ func (c *DefaultApiService) DeleteDocument(ServiceSid string, Sid string) error 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -503,7 +503,7 @@ func (c *DefaultApiService) DeleteDocumentPermission(ServiceSid string, Document
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -524,7 +524,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -547,7 +547,7 @@ func (c *DefaultApiService) DeleteSyncList(ServiceSid string, Sid string) error 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -609,7 +609,7 @@ func (c *DefaultApiService) DeleteSyncListPermission(ServiceSid string, ListSid 
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -632,7 +632,7 @@ func (c *DefaultApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -694,7 +694,7 @@ func (c *DefaultApiService) DeleteSyncMapPermission(ServiceSid string, MapSid st
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -718,7 +718,7 @@ func (c *DefaultApiService) DeleteSyncStream(ServiceSid string, Sid string) erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -742,7 +742,7 @@ func (c *DefaultApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -774,7 +774,7 @@ func (c *DefaultApiService) FetchDocumentPermission(ServiceSid string, DocumentS
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -801,7 +801,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*SyncV1Service, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -830,7 +830,7 @@ func (c *DefaultApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -861,7 +861,7 @@ func (c *DefaultApiService) FetchSyncListItem(ServiceSid string, ListSid string,
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -893,7 +893,7 @@ func (c *DefaultApiService) FetchSyncListPermission(ServiceSid string, ListSid s
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -922,7 +922,7 @@ func (c *DefaultApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -953,7 +953,7 @@ func (c *DefaultApiService) FetchSyncMapItem(ServiceSid string, MapSid string, K
 	path = strings.Replace(path, "{"+"Key"+"}", Key, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -985,7 +985,7 @@ func (c *DefaultApiService) FetchSyncMapPermission(ServiceSid string, MapSid str
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1015,7 +1015,7 @@ func (c *DefaultApiService) FetchSyncStream(ServiceSid string, Sid string) (*Syn
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -1049,7 +1049,7 @@ func (c *DefaultApiService) ListDocument(ServiceSid string, params *ListDocument
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1090,7 +1090,7 @@ func (c *DefaultApiService) ListDocumentPermission(ServiceSid string, DocumentSi
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1126,7 +1126,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1164,7 +1164,7 @@ func (c *DefaultApiService) ListSyncList(ServiceSid string, params *ListSyncList
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1210,7 +1210,7 @@ func (c *DefaultApiService) ListSyncListItem(ServiceSid string, ListSid string, 
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Order != nil {
 		data.Set("Order", *params.Order)
@@ -1260,7 +1260,7 @@ func (c *DefaultApiService) ListSyncListPermission(ServiceSid string, ListSid st
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1298,7 +1298,7 @@ func (c *DefaultApiService) ListSyncMap(ServiceSid string, params *ListSyncMapPa
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1344,7 +1344,7 @@ func (c *DefaultApiService) ListSyncMapItem(ServiceSid string, MapSid string, pa
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Order != nil {
 		data.Set("Order", *params.Order)
@@ -1394,7 +1394,7 @@ func (c *DefaultApiService) ListSyncMapPermission(ServiceSid string, MapSid stri
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1433,7 +1433,7 @@ func (c *DefaultApiService) ListSyncStream(ServiceSid string, params *ListSyncSt
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1486,7 +1486,7 @@ func (c *DefaultApiService) UpdateDocument(ServiceSid string, Sid string, params
 			return nil, err
 		}
 
-		data.Set("Data", fmt.Sprint(v))
+		data.Set("Data", string(v))
 	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
@@ -1537,7 +1537,7 @@ func (c *DefaultApiService) UpdateDocumentPermission(ServiceSid string, Document
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Manage != nil {
 		data.Set("Manage", fmt.Sprint(*params.Manage))
@@ -1593,7 +1593,7 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AclEnabled != nil {
 		data.Set("AclEnabled", fmt.Sprint(*params.AclEnabled))
@@ -1653,7 +1653,7 @@ func (c *DefaultApiService) UpdateSyncList(ServiceSid string, Sid string, params
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
@@ -1718,7 +1718,7 @@ func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string
 			return nil, err
 		}
 
-		data.Set("Data", fmt.Sprint(v))
+		data.Set("Data", string(v))
 	}
 	if params != nil && params.ItemTtl != nil {
 		data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
@@ -1772,7 +1772,7 @@ func (c *DefaultApiService) UpdateSyncListPermission(ServiceSid string, ListSid 
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Manage != nil {
 		data.Set("Manage", fmt.Sprint(*params.Manage))
@@ -1820,7 +1820,7 @@ func (c *DefaultApiService) UpdateSyncMap(ServiceSid string, Sid string, params 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
@@ -1885,7 +1885,7 @@ func (c *DefaultApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, 
 			return nil, err
 		}
 
-		data.Set("Data", fmt.Sprint(v))
+		data.Set("Data", string(v))
 	}
 	if params != nil && params.ItemTtl != nil {
 		data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
@@ -1939,7 +1939,7 @@ func (c *DefaultApiService) UpdateSyncMapPermission(ServiceSid string, MapSid st
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Manage != nil {
 		data.Set("Manage", fmt.Sprint(*params.Manage))
@@ -1986,7 +1986,7 @@ func (c *DefaultApiService) UpdateSyncStream(ServiceSid string, Sid string, para
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))

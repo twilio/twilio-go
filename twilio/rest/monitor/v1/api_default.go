@@ -43,7 +43,7 @@ func (c *DefaultApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -70,7 +70,7 @@ func (c *DefaultApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -108,16 +108,16 @@ func (c *DefaultApiService) ListAlert(params *ListAlertParams) (*ListAlertRespon
 	path := "/v1/Alerts"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.LogLevel != nil {
 		data.Set("LogLevel", *params.LogLevel)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -166,7 +166,7 @@ func (c *DefaultApiService) ListEvent(params *ListEventParams) (*ListEventRespon
 	path := "/v1/Events"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ActorSid != nil {
 		data.Set("ActorSid", *params.ActorSid)
@@ -181,10 +181,10 @@ func (c *DefaultApiService) ListEvent(params *ListEventParams) (*ListEventRespon
 		data.Set("SourceIpAddress", *params.SourceIpAddress)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

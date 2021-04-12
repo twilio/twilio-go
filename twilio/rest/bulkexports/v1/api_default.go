@@ -59,7 +59,7 @@ func (c *DefaultApiService) CreateExportCustomJob(ResourceType string, params *C
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Email != nil {
 		data.Set("Email", *params.Email)
@@ -104,7 +104,7 @@ func (c *DefaultApiService) DeleteJob(JobSid string) error {
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -128,7 +128,7 @@ func (c *DefaultApiService) FetchDay(ResourceType string, Day string) error {
 	path = strings.Replace(path, "{"+"Day"+"}", Day, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -151,7 +151,7 @@ func (c *DefaultApiService) FetchExport(ResourceType string) (*BulkexportsV1Expo
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -179,7 +179,7 @@ func (c *DefaultApiService) FetchExportConfiguration(ResourceType string) (*Bulk
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -206,7 +206,7 @@ func (c *DefaultApiService) FetchJob(JobSid string) (*BulkexportsV1ExportJob, er
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -241,7 +241,7 @@ func (c *DefaultApiService) ListDay(ResourceType string, params *ListDayParams) 
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -279,7 +279,7 @@ func (c *DefaultApiService) ListExportCustomJob(ResourceType string, params *Lis
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -322,7 +322,7 @@ func (c *DefaultApiService) UpdateExportConfiguration(ResourceType string, param
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))

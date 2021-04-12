@@ -23,18 +23,18 @@ Method | HTTP request | Description
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**IsoCountry** | **string** | The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch. | 
+**IsoCountry** | **string** | The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchMessagingCountryParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -63,18 +63,18 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**IsoCountry** | **string** | The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch. | 
+**IsoCountry** | **string** | The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchPhoneNumberCountryParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -103,18 +103,18 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**IsoCountry** | **string** | The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch. | 
+**IsoCountry** | **string** | The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchVoiceCountryParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -143,18 +143,18 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Number** | **string** | The phone number to fetch. | 
+**Number** | **string** | The phone number to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchVoiceNumberParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -189,9 +189,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListMessagingCountryParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -226,9 +226,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListPhoneNumberCountryParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -263,9 +263,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListVoiceCountryParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 

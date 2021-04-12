@@ -70,26 +70,26 @@ Method | HTTP request | Description
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
+**ServiceSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateChannelParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
-**Attributes** | **string** |  | 
-**CreatedBy** | **string** |  | 
-**DateCreated** | **time.Time** |  | 
-**DateUpdated** | **time.Time** |  | 
-**FriendlyName** | **string** |  | 
-**Type** | **string** |  | 
-**UniqueName** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**Attributes** | **string** | 
+**CreatedBy** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**FriendlyName** | **string** | 
+**Type** | **string** | 
+**UniqueName** | **string** | 
 
 ### Return type
 
@@ -118,26 +118,26 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateChannelWebhookParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ConfigurationFilters** | **[]string** |  | 
-**ConfigurationFlowSid** | **string** |  | 
-**ConfigurationMethod** | **string** |  | 
-**ConfigurationRetryCount** | **int32** |  | 
-**ConfigurationTriggers** | **[]string** |  | 
-**ConfigurationUrl** | **string** |  | 
-**Type** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ConfigurationFilters** | **[]string** | 
+**ConfigurationFlowSid** | **string** | 
+**ConfigurationMethod** | **string** | 
+**ConfigurationRetryCount** | **int32** | 
+**ConfigurationTriggers** | **[]string** | 
+**ConfigurationUrl** | **string** | 
+**Type** | **string** | 
 
 ### Return type
 
@@ -172,15 +172,15 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateCredentialParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ApiKey** | **string** |  | 
-**Certificate** | **string** |  | 
-**FriendlyName** | **string** |  | 
-**PrivateKey** | **string** |  | 
-**Sandbox** | **bool** |  | 
-**Secret** | **string** |  | 
-**Type** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ApiKey** | **string** | 
+**Certificate** | **string** | 
+**FriendlyName** | **string** | 
+**PrivateKey** | **string** | 
+**Sandbox** | **bool** | 
+**Secret** | **string** | 
+**Type** | **string** | 
 
 ### Return type
 
@@ -209,21 +209,21 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateInviteParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Identity** | **string** |  | 
-**RoleSid** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Identity** | **string** | 
+**RoleSid** | **string** | 
 
 ### Return type
 
@@ -252,27 +252,27 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateMemberParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
-**Attributes** | **string** |  | 
-**DateCreated** | **time.Time** |  | 
-**DateUpdated** | **time.Time** |  | 
-**Identity** | **string** |  | 
-**LastConsumedMessageIndex** | **int32** |  | 
-**LastConsumptionTimestamp** | **time.Time** |  | 
-**RoleSid** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**Attributes** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**Identity** | **string** | 
+**LastConsumedMessageIndex** | **int32** | 
+**LastConsumptionTimestamp** | **time.Time** | 
+**RoleSid** | **string** | 
 
 ### Return type
 
@@ -301,27 +301,27 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateMessageParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
-**Attributes** | **string** |  | 
-**Body** | **string** |  | 
-**DateCreated** | **time.Time** |  | 
-**DateUpdated** | **time.Time** |  | 
-**From** | **string** |  | 
-**LastUpdatedBy** | **string** |  | 
-**MediaSid** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**Attributes** | **string** | 
+**Body** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**From** | **string** | 
+**LastUpdatedBy** | **string** | 
+**MediaSid** | **string** | 
 
 ### Return type
 
@@ -350,21 +350,21 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
+**ServiceSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateRoleParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** |  | 
-**Permission** | **[]string** |  | 
-**Type** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | 
+**Permission** | **[]string** | 
+**Type** | **string** | 
 
 ### Return type
 
@@ -399,9 +399,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | 
 
 ### Return type
 
@@ -430,23 +430,23 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
+**ServiceSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
-**Attributes** | **string** |  | 
-**FriendlyName** | **string** |  | 
-**Identity** | **string** |  | 
-**RoleSid** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**Attributes** | **string** | 
+**FriendlyName** | **string** | 
+**Identity** | **string** | 
+**RoleSid** | **string** | 
 
 ### Return type
 
@@ -475,19 +475,19 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteBindingParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -516,20 +516,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteChannelParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -558,20 +558,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteChannelWebhookParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -600,18 +600,18 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** |  | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCredentialParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -640,20 +640,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteInviteParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -682,21 +682,21 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteMemberParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -725,21 +725,21 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteMessageParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -768,19 +768,19 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteRoleParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -809,18 +809,18 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** |  | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -849,19 +849,19 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -890,20 +890,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**UserSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**UserSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteUserBindingParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -932,20 +932,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**UserSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**UserSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteUserChannelParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -974,19 +974,19 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchBindingParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1015,19 +1015,19 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchChannelParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1056,20 +1056,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchChannelWebhookParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1098,18 +1098,18 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** |  | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCredentialParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1138,20 +1138,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchInviteParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1180,20 +1180,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchMemberParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1222,20 +1222,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchMessageParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1264,19 +1264,19 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchRoleParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1305,18 +1305,18 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** |  | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1345,19 +1345,19 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1386,20 +1386,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**UserSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**UserSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchUserBindingParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1428,20 +1428,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**UserSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**UserSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchUserChannelParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1470,21 +1470,21 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
+**ServiceSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListBindingParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**BindingType** | **[]string** |  | 
-**Identity** | **[]string** |  | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**BindingType** | **[]string** | 
+**Identity** | **[]string** | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1513,20 +1513,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
+**ServiceSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListChannelParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Type** | **[]string** |  | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Type** | **[]string** | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1555,20 +1555,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListChannelWebhookParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1603,9 +1603,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListCredentialParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1634,21 +1634,21 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListInviteParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Identity** | **[]string** |  | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Identity** | **[]string** | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1677,21 +1677,21 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListMemberParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Identity** | **[]string** |  | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Identity** | **[]string** | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1720,21 +1720,21 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListMessageParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Order** | **string** |  | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Order** | **string** | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1763,19 +1763,19 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
+**ServiceSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListRoleParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1810,9 +1810,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1841,19 +1841,19 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
+**ServiceSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1882,21 +1882,21 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**UserSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**UserSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListUserBindingParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**BindingType** | **[]string** |  | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**BindingType** | **[]string** | 
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1925,20 +1925,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**UserSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**UserSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListUserChannelParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1967,26 +1967,26 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateChannelParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
-**Attributes** | **string** |  | 
-**CreatedBy** | **string** |  | 
-**DateCreated** | **time.Time** |  | 
-**DateUpdated** | **time.Time** |  | 
-**FriendlyName** | **string** |  | 
-**UniqueName** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**Attributes** | **string** | 
+**CreatedBy** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**FriendlyName** | **string** | 
+**UniqueName** | **string** | 
 
 ### Return type
 
@@ -2015,26 +2015,26 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateChannelWebhookParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ConfigurationFilters** | **[]string** |  | 
-**ConfigurationFlowSid** | **string** |  | 
-**ConfigurationMethod** | **string** |  | 
-**ConfigurationRetryCount** | **int32** |  | 
-**ConfigurationTriggers** | **[]string** |  | 
-**ConfigurationUrl** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ConfigurationFilters** | **[]string** | 
+**ConfigurationFlowSid** | **string** | 
+**ConfigurationMethod** | **string** | 
+**ConfigurationRetryCount** | **int32** | 
+**ConfigurationTriggers** | **[]string** | 
+**ConfigurationUrl** | **string** | 
 
 ### Return type
 
@@ -2063,24 +2063,24 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** |  | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateCredentialParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ApiKey** | **string** |  | 
-**Certificate** | **string** |  | 
-**FriendlyName** | **string** |  | 
-**PrivateKey** | **string** |  | 
-**Sandbox** | **bool** |  | 
-**Secret** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ApiKey** | **string** | 
+**Certificate** | **string** | 
+**FriendlyName** | **string** | 
+**PrivateKey** | **string** | 
+**Sandbox** | **bool** | 
+**Secret** | **string** | 
 
 ### Return type
 
@@ -2109,27 +2109,27 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateMemberParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
-**Attributes** | **string** |  | 
-**DateCreated** | **time.Time** |  | 
-**DateUpdated** | **time.Time** |  | 
-**LastConsumedMessageIndex** | **int32** |  | 
-**LastConsumptionTimestamp** | **time.Time** |  | 
-**RoleSid** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**Attributes** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**LastConsumedMessageIndex** | **int32** | 
+**LastConsumptionTimestamp** | **time.Time** | 
+**RoleSid** | **string** | 
 
 ### Return type
 
@@ -2158,27 +2158,27 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**ChannelSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateMessageParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
-**Attributes** | **string** |  | 
-**Body** | **string** |  | 
-**DateCreated** | **time.Time** |  | 
-**DateUpdated** | **time.Time** |  | 
-**From** | **string** |  | 
-**LastUpdatedBy** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**Attributes** | **string** | 
+**Body** | **string** | 
+**DateCreated** | **time.Time** | 
+**DateUpdated** | **time.Time** | 
+**From** | **string** | 
+**LastUpdatedBy** | **string** | 
 
 ### Return type
 
@@ -2207,20 +2207,20 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateRoleParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Permission** | **[]string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Permission** | **[]string** | 
 
 ### Return type
 
@@ -2249,49 +2249,49 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** |  | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ConsumptionReportInterval** | **int32** |  | 
-**DefaultChannelCreatorRoleSid** | **string** |  | 
-**DefaultChannelRoleSid** | **string** |  | 
-**DefaultServiceRoleSid** | **string** |  | 
-**FriendlyName** | **string** |  | 
-**LimitsChannelMembers** | **int32** |  | 
-**LimitsUserChannels** | **int32** |  | 
-**MediaCompatibilityMessage** | **string** |  | 
-**NotificationsAddedToChannelEnabled** | **bool** |  | 
-**NotificationsAddedToChannelSound** | **string** |  | 
-**NotificationsAddedToChannelTemplate** | **string** |  | 
-**NotificationsInvitedToChannelEnabled** | **bool** |  | 
-**NotificationsInvitedToChannelSound** | **string** |  | 
-**NotificationsInvitedToChannelTemplate** | **string** |  | 
-**NotificationsLogEnabled** | **bool** |  | 
-**NotificationsNewMessageBadgeCountEnabled** | **bool** |  | 
-**NotificationsNewMessageEnabled** | **bool** |  | 
-**NotificationsNewMessageSound** | **string** |  | 
-**NotificationsNewMessageTemplate** | **string** |  | 
-**NotificationsRemovedFromChannelEnabled** | **bool** |  | 
-**NotificationsRemovedFromChannelSound** | **string** |  | 
-**NotificationsRemovedFromChannelTemplate** | **string** |  | 
-**PostWebhookRetryCount** | **int32** |  | 
-**PostWebhookUrl** | **string** |  | 
-**PreWebhookRetryCount** | **int32** |  | 
-**PreWebhookUrl** | **string** |  | 
-**ReachabilityEnabled** | **bool** |  | 
-**ReadStatusEnabled** | **bool** |  | 
-**TypingIndicatorTimeout** | **int32** |  | 
-**WebhookFilters** | **[]string** |  | 
-**WebhookMethod** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ConsumptionReportInterval** | **int32** | 
+**DefaultChannelCreatorRoleSid** | **string** | 
+**DefaultChannelRoleSid** | **string** | 
+**DefaultServiceRoleSid** | **string** | 
+**FriendlyName** | **string** | 
+**LimitsChannelMembers** | **int32** | 
+**LimitsUserChannels** | **int32** | 
+**MediaCompatibilityMessage** | **string** | 
+**NotificationsAddedToChannelEnabled** | **bool** | 
+**NotificationsAddedToChannelSound** | **string** | 
+**NotificationsAddedToChannelTemplate** | **string** | 
+**NotificationsInvitedToChannelEnabled** | **bool** | 
+**NotificationsInvitedToChannelSound** | **string** | 
+**NotificationsInvitedToChannelTemplate** | **string** | 
+**NotificationsLogEnabled** | **bool** | 
+**NotificationsNewMessageBadgeCountEnabled** | **bool** | 
+**NotificationsNewMessageEnabled** | **bool** | 
+**NotificationsNewMessageSound** | **string** | 
+**NotificationsNewMessageTemplate** | **string** | 
+**NotificationsRemovedFromChannelEnabled** | **bool** | 
+**NotificationsRemovedFromChannelSound** | **string** | 
+**NotificationsRemovedFromChannelTemplate** | **string** | 
+**PostWebhookRetryCount** | **int32** | 
+**PostWebhookUrl** | **string** | 
+**PreWebhookRetryCount** | **int32** | 
+**PreWebhookUrl** | **string** | 
+**ReachabilityEnabled** | **bool** | 
+**ReadStatusEnabled** | **bool** | 
+**TypingIndicatorTimeout** | **int32** | 
+**WebhookFilters** | **[]string** | 
+**WebhookMethod** | **string** | 
 
 ### Return type
 
@@ -2320,23 +2320,23 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**Sid** | **string** |  | 
+**ServiceSid** | **string** | 
+**Sid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header | 
-**Attributes** | **string** |  | 
-**FriendlyName** | **string** |  | 
-**RoleSid** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**Attributes** | **string** | 
+**FriendlyName** | **string** | 
+**RoleSid** | **string** | 
 
 ### Return type
 
@@ -2365,23 +2365,23 @@ Name | Type | Description  | Notes
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** |  | 
-**UserSid** | **string** |  | 
-**ChannelSid** | **string** |  | 
+**ServiceSid** | **string** | 
+**UserSid** | **string** | 
+**ChannelSid** | **string** | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateUserChannelParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**LastConsumedMessageIndex** | **int32** |  | 
-**LastConsumptionTimestamp** | **time.Time** |  | 
-**NotificationLevel** | **string** |  | 
+Name | Type | Description
+------------- | ------------- | -------------
+**LastConsumedMessageIndex** | **int32** | 
+**LastConsumptionTimestamp** | **time.Time** | 
+**NotificationLevel** | **string** | 
 
 ### Return type
 

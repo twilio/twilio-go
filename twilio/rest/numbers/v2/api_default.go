@@ -60,7 +60,7 @@ func (c *DefaultApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Email != nil {
 		data.Set("Email", *params.Email)
@@ -119,7 +119,7 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Numbers
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
@@ -128,7 +128,7 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Numbers
 			return nil, err
 		}
 
-		data.Set("Attributes", fmt.Sprint(v))
+		data.Set("Attributes", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -163,7 +163,7 @@ func (c *DefaultApiService) CreateEvaluation(BundleSid string) (*NumbersV2Regula
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -198,7 +198,7 @@ func (c *DefaultApiService) CreateItemAssignment(BundleSid string, params *Creat
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ObjectSid != nil {
 		data.Set("ObjectSid", *params.ObjectSid)
@@ -239,7 +239,7 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
@@ -248,7 +248,7 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 			return nil, err
 		}
 
-		data.Set("Attributes", fmt.Sprint(v))
+		data.Set("Attributes", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -282,7 +282,7 @@ func (c *DefaultApiService) DeleteBundle(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -304,7 +304,7 @@ func (c *DefaultApiService) DeleteEndUser(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -328,7 +328,7 @@ func (c *DefaultApiService) DeleteItemAssignment(BundleSid string, Sid string) e
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -350,7 +350,7 @@ func (c *DefaultApiService) DeleteSupportingDocument(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -373,7 +373,7 @@ func (c *DefaultApiService) FetchBundle(Sid string) (*NumbersV2RegulatoryComplia
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -401,7 +401,7 @@ func (c *DefaultApiService) FetchEndUser(Sid string) (*NumbersV2RegulatoryCompli
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -429,7 +429,7 @@ func (c *DefaultApiService) FetchEndUserType(Sid string) (*NumbersV2RegulatoryCo
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -459,7 +459,7 @@ func (c *DefaultApiService) FetchEvaluation(BundleSid string, Sid string) (*Numb
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -489,7 +489,7 @@ func (c *DefaultApiService) FetchItemAssignment(BundleSid string, Sid string) (*
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -517,7 +517,7 @@ func (c *DefaultApiService) FetchRegulation(Sid string) (*NumbersV2RegulatoryCom
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -545,7 +545,7 @@ func (c *DefaultApiService) FetchSupportingDocument(Sid string) (*NumbersV2Regul
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -573,7 +573,7 @@ func (c *DefaultApiService) FetchSupportingDocumentType(Sid string) (*NumbersV2R
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -616,7 +616,7 @@ func (c *DefaultApiService) ListBundle(params *ListBundleParams) (*ListBundleRes
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -668,7 +668,7 @@ func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUser
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -705,7 +705,7 @@ func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*Lis
 	path := "/v2/RegulatoryCompliance/EndUserTypes"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -744,7 +744,7 @@ func (c *DefaultApiService) ListEvaluation(BundleSid string, params *ListEvaluat
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -783,7 +783,7 @@ func (c *DefaultApiService) ListItemAssignment(BundleSid string, params *ListIte
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -826,7 +826,7 @@ func (c *DefaultApiService) ListRegulation(params *ListRegulationParams) (*ListR
 	path := "/v2/RegulatoryCompliance/Regulations"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EndUserType != nil {
 		data.Set("EndUserType", *params.EndUserType)
@@ -872,7 +872,7 @@ func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumen
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -909,7 +909,7 @@ func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDoc
 	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -954,7 +954,7 @@ func (c *DefaultApiService) UpdateBundle(Sid string, params *UpdateBundleParams)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Email != nil {
 		data.Set("Email", *params.Email)
@@ -1004,7 +1004,7 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
@@ -1013,7 +1013,7 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 			return nil, err
 		}
 
-		data.Set("Attributes", fmt.Sprint(v))
+		data.Set("Attributes", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1054,7 +1054,7 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
@@ -1063,7 +1063,7 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 			return nil, err
 		}
 
-		data.Set("Attributes", fmt.Sprint(v))
+		data.Set("Attributes", string(v))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

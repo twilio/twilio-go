@@ -65,7 +65,7 @@ func (c *DefaultApiService) CreateFax(params *CreateFaxParams) (*FaxV1Fax, error
 	path := "/v1/Faxes"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
@@ -120,7 +120,7 @@ func (c *DefaultApiService) DeleteFax(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -144,7 +144,7 @@ func (c *DefaultApiService) DeleteFaxMedia(FaxSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -167,7 +167,7 @@ func (c *DefaultApiService) FetchFax(Sid string) (*FaxV1Fax, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -197,7 +197,7 @@ func (c *DefaultApiService) FetchFaxMedia(FaxSid string, Sid string) (*FaxV1FaxF
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -238,7 +238,7 @@ func (c *DefaultApiService) ListFax(params *ListFaxParams) (*ListFaxResponse, er
 	path := "/v1/Faxes"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
@@ -247,10 +247,10 @@ func (c *DefaultApiService) ListFax(params *ListFaxParams) (*ListFaxResponse, er
 		data.Set("To", *params.To)
 	}
 	if params != nil && params.DateCreatedOnOrBefore != nil {
-		data.Set("DateCreatedOnOrBefore", fmt.Sprint(*params.DateCreatedOnOrBefore))
+		data.Set("DateCreatedOnOrBefore", fmt.Sprint((*params.DateCreatedOnOrBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -289,7 +289,7 @@ func (c *DefaultApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaPara
 	path = strings.Replace(path, "{"+"FaxSid"+"}", FaxSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -328,7 +328,7 @@ func (c *DefaultApiService) UpdateFax(Sid string, params *UpdateFaxParams) (*Fax
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)

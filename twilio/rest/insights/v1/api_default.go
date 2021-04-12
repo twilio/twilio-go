@@ -43,7 +43,7 @@ func (c *DefaultApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -77,7 +77,7 @@ func (c *DefaultApiService) FetchSummary(CallSid string, params *FetchSummaryPar
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ProcessingState != nil {
 		data.Set("ProcessingState", *params.ProcessingState)
@@ -111,7 +111,7 @@ func (c *DefaultApiService) FetchVideoParticipantSummary(RoomSid string, Partici
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -139,7 +139,7 @@ func (c *DefaultApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1Vi
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -175,7 +175,7 @@ func (c *DefaultApiService) ListEvent(CallSid string, params *ListEventParams) (
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Edge != nil {
 		data.Set("Edge", *params.Edge)
@@ -220,7 +220,7 @@ func (c *DefaultApiService) ListMetric(CallSid string, params *ListMetricParams)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Edge != nil {
 		data.Set("Edge", *params.Edge)
@@ -265,7 +265,7 @@ func (c *DefaultApiService) ListVideoParticipantSummary(RoomSid string, params *
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -312,7 +312,7 @@ func (c *DefaultApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryPar
 	path := "/v1/Video/Rooms"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.RoomType != nil {
 		data.Set("RoomType", strings.Join(*params.RoomType, ","))
@@ -324,10 +324,10 @@ func (c *DefaultApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryPar
 		data.Set("RoomName", *params.RoomName)
 	}
 	if params != nil && params.CreatedAfter != nil {
-		data.Set("CreatedAfter", fmt.Sprint(*params.CreatedAfter))
+		data.Set("CreatedAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.CreatedBefore != nil {
-		data.Set("CreatedBefore", fmt.Sprint(*params.CreatedBefore))
+		data.Set("CreatedBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

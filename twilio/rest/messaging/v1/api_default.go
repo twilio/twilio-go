@@ -16,7 +16,6 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
-	"time"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
@@ -50,7 +49,7 @@ func (c *DefaultApiService) CreateAlphaSender(ServiceSid string, params *CreateA
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AlphaSender != nil {
 		data.Set("AlphaSender", *params.AlphaSender)
@@ -88,7 +87,7 @@ func (c *DefaultApiService) CreateBrandRegistrations(params *CreateBrandRegistra
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.A2pProfileBundleSid != nil {
 		data.Set("A2pProfileBundleSid", *params.A2pProfileBundleSid)
@@ -129,7 +128,7 @@ func (c *DefaultApiService) CreateExternalCampaign(params *CreateExternalCampaig
 	path := "/v1/Services/PreregisteredUsa2p"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CampaignId != nil {
 		data.Set("CampaignId", *params.CampaignId)
@@ -170,7 +169,7 @@ func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreateP
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PhoneNumberSid != nil {
 		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
@@ -232,7 +231,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*Messagi
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCodeGeomatch != nil {
 		data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))
@@ -309,7 +308,7 @@ func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateSho
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ShortCodeSid != nil {
 		data.Set("ShortCodeSid", *params.ShortCodeSid)
@@ -357,7 +356,7 @@ func (c *DefaultApiService) CreateUsAppToPerson(MessagingServiceSid string, para
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.BrandRegistrationSid != nil {
 		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
@@ -404,7 +403,7 @@ func (c *DefaultApiService) DeleteAlphaSender(ServiceSid string, Sid string) err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -427,7 +426,7 @@ func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -448,7 +447,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -471,7 +470,7 @@ func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -492,7 +491,7 @@ func (c *DefaultApiService) DeleteUsAppToPerson(MessagingServiceSid string) erro
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -516,7 +515,7 @@ func (c *DefaultApiService) FetchAlphaSender(ServiceSid string, Sid string) (*Me
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -543,7 +542,7 @@ func (c *DefaultApiService) FetchBrandRegistrations(Sid string) (*MessagingV1Bra
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -562,20 +561,20 @@ func (c *DefaultApiService) FetchBrandRegistrations(Sid string) (*MessagingV1Bra
 
 // FetchDeactivationParams Optional parameters for the method 'FetchDeactivation'
 type FetchDeactivationParams struct {
-	Date *time.Time `json:"Date,omitempty"`
+	Date *string `json:"Date,omitempty"`
 }
 
 /*
 * FetchDeactivation Method for FetchDeactivation
 * Fetch a list of all United States numbers that have been deactivated on a specific date.
 * @param optional nil or *FetchDeactivationParams - Optional Parameters:
-* @param "Date" (time.Time) - The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+* @param "Date" (string) - The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
  */
 func (c *DefaultApiService) FetchDeactivation(params *FetchDeactivationParams) error {
 	path := "/v1/Deactivations"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Date != nil {
 		data.Set("Date", fmt.Sprint(*params.Date))
@@ -603,7 +602,7 @@ func (c *DefaultApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*Me
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -630,7 +629,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*MessagingV1Service, error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -659,7 +658,7 @@ func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*Mess
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -686,7 +685,7 @@ func (c *DefaultApiService) FetchUsAppToPerson(MessagingServiceSid string) (*Mes
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -713,7 +712,7 @@ func (c *DefaultApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -738,7 +737,7 @@ func (c *DefaultApiService) FetchUsecase() (*MessagingV1Usecase, error) {
 	path := "/v1/Services/Usecases"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -772,7 +771,7 @@ func (c *DefaultApiService) ListAlphaSender(ServiceSid string, params *ListAlpha
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -808,7 +807,7 @@ func (c *DefaultApiService) ListBrandRegistrations(params *ListBrandRegistration
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -846,7 +845,7 @@ func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhone
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -882,7 +881,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -920,7 +919,7 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -984,7 +983,7 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCodeGeomatch != nil {
 		data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))

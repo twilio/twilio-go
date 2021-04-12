@@ -43,7 +43,7 @@ func (c *DefaultApiService) FetchVoiceCountry(IsoCountry string) (*PricingV2Voic
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -78,7 +78,7 @@ func (c *DefaultApiService) FetchVoiceNumber(DestinationNumber string, params *F
 	path = strings.Replace(path, "{"+"DestinationNumber"+"}", DestinationNumber, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.OriginationNumber != nil {
 		data.Set("OriginationNumber", *params.OriginationNumber)
@@ -114,7 +114,7 @@ func (c *DefaultApiService) ListVoiceCountry(params *ListVoiceCountryParams) (*L
 	path := "/v2/Voice/Countries"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

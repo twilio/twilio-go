@@ -57,19 +57,19 @@ Create a new Asset resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to create the Asset resource under. | 
+**ServiceSid** | **string** | The SID of the Service to create the Asset resource under.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateAssetParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
 ### Return type
 
@@ -100,22 +100,22 @@ Create a new Build resource. At least one function version or asset version is r
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to create the Build resource under. | 
+**ServiceSid** | **string** | The SID of the Service to create the Build resource under.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateBuildParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**AssetVersions** | **[]string** | The list of Asset Version resource SIDs to include in the Build. | 
-**Dependencies** | **string** | A list of objects that describe the Dependencies included in the Build. Each object contains the &#x60;name&#x60; and &#x60;version&#x60; of the dependency. | 
-**FunctionVersions** | **[]string** | The list of the Function Version resource SIDs to include in the Build. | 
-**Runtime** | **string** | The Runtime version that will be used to run the Build resource when it is deployed. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**AssetVersions** | **[]string** | The list of Asset Version resource SIDs to include in the Build.
+**Dependencies** | **string** | A list of objects that describe the Dependencies included in the Build. Each object contains the &#x60;name&#x60; and &#x60;version&#x60; of the dependency.
+**FunctionVersions** | **[]string** | The list of the Function Version resource SIDs to include in the Build.
+**Runtime** | **string** | The Runtime version that will be used to run the Build resource when it is deployed.
 
 ### Return type
 
@@ -146,20 +146,20 @@ Create a new Deployment.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to create the Deployment resource under. | 
-**EnvironmentSid** | **string** | The SID of the Environment for the Deployment. | 
+**ServiceSid** | **string** | The SID of the Service to create the Deployment resource under.
+**EnvironmentSid** | **string** | The SID of the Environment for the Deployment.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateDeploymentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**BuildSid** | **string** | The SID of the Build for the Deployment. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**BuildSid** | **string** | The SID of the Build for the Deployment.
 
 ### Return type
 
@@ -190,20 +190,20 @@ Create a new environment.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to create the Environment resource under. | 
+**ServiceSid** | **string** | The SID of the Service to create the Environment resource under.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateEnvironmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**DomainSuffix** | **string** | A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters. | 
-**UniqueName** | **string** | A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**DomainSuffix** | **string** | A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
+**UniqueName** | **string** | A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
 
 ### Return type
 
@@ -234,19 +234,19 @@ Create a new Function resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to create the Function resource under. | 
+**ServiceSid** | **string** | The SID of the Service to create the Function resource under.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateFunctionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
 
 ### Return type
 
@@ -283,12 +283,12 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
-**IncludeCredentials** | **bool** | Whether to inject Account credentials into a function invocation context. The default value is &#x60;true&#x60;. | 
-**UiEditable** | **bool** | Whether the Service&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
-**UniqueName** | **string** | A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+**IncludeCredentials** | **bool** | Whether to inject Account credentials into a function invocation context. The default value is &#x60;true&#x60;.
+**UiEditable** | **bool** | Whether the Service&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;.
+**UniqueName** | **string** | A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique.
 
 ### Return type
 
@@ -319,21 +319,21 @@ Create a new Variable.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to create the Variable resource under. | 
-**EnvironmentSid** | **string** | The SID of the Environment in which the Variable resource exists. | 
+**ServiceSid** | **string** | The SID of the Service to create the Variable resource under.
+**EnvironmentSid** | **string** | The SID of the Environment in which the Variable resource exists.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateVariableParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Key** | **string** | A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
-**Value** | **string** | A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Key** | **string** | A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
+**Value** | **string** | A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
 
 ### Return type
 
@@ -364,19 +364,19 @@ Delete an Asset resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to delete the Asset resource from. | 
-**Sid** | **string** | The SID that identifies the Asset resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Asset resource from.
+**Sid** | **string** | The SID that identifies the Asset resource to delete.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteAssetParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -407,19 +407,19 @@ Delete a Build resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to delete the Build resource from. | 
-**Sid** | **string** | The SID of the Build resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Build resource from.
+**Sid** | **string** | The SID of the Build resource to delete.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteBuildParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -450,19 +450,19 @@ Delete a specific environment.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to delete the Environment resource from. | 
-**Sid** | **string** | The SID of the Environment resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Environment resource from.
+**Sid** | **string** | The SID of the Environment resource to delete.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteEnvironmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -493,19 +493,19 @@ Delete a Function resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to delete the Function resource from. | 
-**Sid** | **string** | The SID of the Function resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Function resource from.
+**Sid** | **string** | The SID of the Function resource to delete.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteFunctionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -536,18 +536,18 @@ Delete a Service resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to delete. | 
+**Sid** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to delete.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -578,20 +578,20 @@ Delete a specific Variable.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to delete the Variable resource from. | 
-**EnvironmentSid** | **string** | The SID of the Environment with the Variables to delete. | 
-**Sid** | **string** | The SID of the Variable resource to delete. | 
+**ServiceSid** | **string** | The SID of the Service to delete the Variable resource from.
+**EnvironmentSid** | **string** | The SID of the Environment with the Variables to delete.
+**Sid** | **string** | The SID of the Variable resource to delete.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteVariableParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -622,19 +622,19 @@ Retrieve a specific Asset resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Asset resource from. | 
-**Sid** | **string** | The SID that identifies the Asset resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Asset resource from.
+**Sid** | **string** | The SID that identifies the Asset resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchAssetParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -665,20 +665,20 @@ Retrieve a specific Asset Version.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Asset Version resource from. | 
-**AssetSid** | **string** | The SID of the Asset resource that is the parent of the Asset Version resource to fetch. | 
-**Sid** | **string** | The SID of the Asset Version resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Asset Version resource from.
+**AssetSid** | **string** | The SID of the Asset resource that is the parent of the Asset Version resource to fetch.
+**Sid** | **string** | The SID of the Asset Version resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchAssetVersionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -709,19 +709,19 @@ Retrieve a specific Build resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Build resource from. | 
-**Sid** | **string** | The SID of the Build resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Build resource from.
+**Sid** | **string** | The SID of the Build resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchBuildParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -752,19 +752,19 @@ Retrieve a specific Build resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Build resource from. | 
-**Sid** | **string** | The SID of the Build resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Build resource from.
+**Sid** | **string** | The SID of the Build resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchBuildStatusParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -795,20 +795,20 @@ Retrieve a specific Deployment.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Deployment resource from. | 
-**EnvironmentSid** | **string** | The SID of the Environment used by the Deployment to fetch. | 
-**Sid** | **string** | The SID that identifies the Deployment resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Deployment resource from.
+**EnvironmentSid** | **string** | The SID of the Environment used by the Deployment to fetch.
+**Sid** | **string** | The SID that identifies the Deployment resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchDeploymentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -839,19 +839,19 @@ Retrieve a specific environment.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Environment resource from. | 
-**Sid** | **string** | The SID of the Environment resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Environment resource from.
+**Sid** | **string** | The SID of the Environment resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchEnvironmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -882,19 +882,19 @@ Retrieve a specific Function resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Function resource from. | 
-**Sid** | **string** | The SID of the Function resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Function resource from.
+**Sid** | **string** | The SID of the Function resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchFunctionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -925,20 +925,20 @@ Retrieve a specific Function Version resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Function Version resource from. | 
-**FunctionSid** | **string** | The SID of the function that is the parent of the Function Version resource to fetch. | 
-**Sid** | **string** | The SID of the Function Version resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Function Version resource from.
+**FunctionSid** | **string** | The SID of the function that is the parent of the Function Version resource to fetch.
+**Sid** | **string** | The SID of the Function Version resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchFunctionVersionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -969,20 +969,20 @@ Retrieve a the content of a specific Function Version resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Function Version content from. | 
-**FunctionSid** | **string** | The SID of the Function that is the parent of the Function Version content to fetch. | 
-**Sid** | **string** | The SID of the Function Version content to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Function Version content from.
+**FunctionSid** | **string** | The SID of the Function that is the parent of the Function Version content to fetch.
+**Sid** | **string** | The SID of the Function Version content to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchFunctionVersionContentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1013,20 +1013,20 @@ Retrieve a specific log.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Log resource from. | 
-**EnvironmentSid** | **string** | The SID of the environment with the Log resource to fetch. | 
-**Sid** | **string** | The SID of the Log resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Log resource from.
+**EnvironmentSid** | **string** | The SID of the environment with the Log resource to fetch.
+**Sid** | **string** | The SID of the Log resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchLogParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1057,18 +1057,18 @@ Retrieve a specific Service resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to fetch. | 
+**Sid** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1099,20 +1099,20 @@ Retrieve a specific Variable.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to fetch the Variable resource from. | 
-**EnvironmentSid** | **string** | The SID of the Environment with the Variable resource to fetch. | 
-**Sid** | **string** | The SID of the Variable resource to fetch. | 
+**ServiceSid** | **string** | The SID of the Service to fetch the Variable resource from.
+**EnvironmentSid** | **string** | The SID of the Environment with the Variable resource to fetch.
+**Sid** | **string** | The SID of the Variable resource to fetch.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchVariableParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1143,19 +1143,19 @@ Retrieve a list of all Assets.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to read the Asset resources from. | 
+**ServiceSid** | **string** | The SID of the Service to read the Asset resources from.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAssetParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1186,20 +1186,20 @@ Retrieve a list of all Asset Versions.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to read the Asset Version resource from. | 
-**AssetSid** | **string** | The SID of the Asset resource that is the parent of the Asset Version resources to read. | 
+**ServiceSid** | **string** | The SID of the Service to read the Asset Version resource from.
+**AssetSid** | **string** | The SID of the Asset resource that is the parent of the Asset Version resources to read.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAssetVersionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1230,19 +1230,19 @@ Retrieve a list of all Builds.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to read the Build resources from. | 
+**ServiceSid** | **string** | The SID of the Service to read the Build resources from.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListBuildParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1273,20 +1273,20 @@ Retrieve a list of all Deployments.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to read the Deployment resources from. | 
-**EnvironmentSid** | **string** | The SID of the Environment used by the Deployment resources to read. | 
+**ServiceSid** | **string** | The SID of the Service to read the Deployment resources from.
+**EnvironmentSid** | **string** | The SID of the Environment used by the Deployment resources to read.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListDeploymentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1317,19 +1317,19 @@ Retrieve a list of all environments.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to read the Environment resources from. | 
+**ServiceSid** | **string** | The SID of the Service to read the Environment resources from.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListEnvironmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1360,19 +1360,19 @@ Retrieve a list of all Functions.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to read the Function resources from. | 
+**ServiceSid** | **string** | The SID of the Service to read the Function resources from.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListFunctionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1403,20 +1403,20 @@ Retrieve a list of all Function Version resources.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to read the Function Version resources from. | 
-**FunctionSid** | **string** | The SID of the function that is the parent of the Function Version resources to read. | 
+**ServiceSid** | **string** | The SID of the Service to read the Function Version resources from.
+**FunctionSid** | **string** | The SID of the function that is the parent of the Function Version resources to read.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListFunctionVersionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1447,23 +1447,23 @@ Retrieve a list of all logs.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to read the Log resource from. | 
-**EnvironmentSid** | **string** | The SID of the environment with the Log resources to read. | 
+**ServiceSid** | **string** | The SID of the Service to read the Log resource from.
+**EnvironmentSid** | **string** | The SID of the environment with the Log resources to read.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListLogParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FunctionSid** | **string** | The SID of the function whose invocation produced the Log resources to read. | 
-**StartDate** | **time.Time** | The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time. | 
-**EndDate** | **time.Time** | The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time. | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FunctionSid** | **string** | The SID of the function whose invocation produced the Log resources to read.
+**StartDate** | **time.Time** | The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
+**EndDate** | **time.Time** | The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1500,9 +1500,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1533,20 +1533,20 @@ Retrieve a list of all Variables.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to read the Variable resources from. | 
-**EnvironmentSid** | **string** | The SID of the Environment with the Variable resources to read. | 
+**ServiceSid** | **string** | The SID of the Service to read the Variable resources from.
+**EnvironmentSid** | **string** | The SID of the Environment with the Variable resources to read.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListVariableParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1577,20 +1577,20 @@ Update a specific Asset resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to update the Asset resource from. | 
-**Sid** | **string** | The SID that identifies the Asset resource to update. | 
+**ServiceSid** | **string** | The SID of the Service to update the Asset resource from.
+**Sid** | **string** | The SID that identifies the Asset resource to update.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateAssetParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
 ### Return type
 
@@ -1621,20 +1621,20 @@ Update a specific Function resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to update the Function resource from. | 
-**Sid** | **string** | The SID of the Function resource to update. | 
+**ServiceSid** | **string** | The SID of the Service to update the Function resource from.
+**Sid** | **string** | The SID of the Function resource to update.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateFunctionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
 
 ### Return type
 
@@ -1665,21 +1665,21 @@ Update a specific Service resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to update. | 
+**Sid** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the Service resource to update.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters. | 
-**IncludeCredentials** | **bool** | Whether to inject Account credentials into a function invocation context. | 
-**UiEditable** | **bool** | Whether the Service resource&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**FriendlyName** | **string** | A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+**IncludeCredentials** | **bool** | Whether to inject Account credentials into a function invocation context.
+**UiEditable** | **bool** | Whether the Service resource&#39;s properties and subresources can be edited via the UI. The default value is &#x60;false&#x60;.
 
 ### Return type
 
@@ -1710,22 +1710,22 @@ Update a specific Variable.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ServiceSid** | **string** | The SID of the Service to update the Variable resource under. | 
-**EnvironmentSid** | **string** | The SID of the Environment with the Variable resource to update. | 
-**Sid** | **string** | The SID of the Variable resource to update. | 
+**ServiceSid** | **string** | The SID of the Service to update the Variable resource under.
+**EnvironmentSid** | **string** | The SID of the Environment with the Variable resource to update.
+**Sid** | **string** | The SID of the Variable resource to update.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateVariableParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Key** | **string** | A string by which the Variable resource can be referenced. It can be a maximum of 128 characters. | 
-**Value** | **string** | A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Key** | **string** | A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
+**Value** | **string** | A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
 
 ### Return type
 

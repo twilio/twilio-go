@@ -49,7 +49,7 @@ func (c *DefaultApiService) CreateCredentialList(TrunkSid string, params *Create
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CredentialListSid != nil {
 		data.Set("CredentialListSid", *params.CredentialListSid)
@@ -88,7 +88,7 @@ func (c *DefaultApiService) CreateIpAccessControlList(TrunkSid string, params *C
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.IpAccessControlListSid != nil {
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
@@ -134,7 +134,7 @@ func (c *DefaultApiService) CreateOriginationUrl(TrunkSid string, params *Create
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
@@ -184,7 +184,7 @@ func (c *DefaultApiService) CreatePhoneNumber(TrunkSid string, params *CreatePho
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PhoneNumberSid != nil {
 		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
@@ -232,7 +232,7 @@ func (c *DefaultApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1T
 	path := "/v1/Trunks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CnamLookupEnabled != nil {
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
@@ -282,7 +282,7 @@ func (c *DefaultApiService) DeleteCredentialList(TrunkSid string, Sid string) er
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -306,7 +306,7 @@ func (c *DefaultApiService) DeleteIpAccessControlList(TrunkSid string, Sid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -329,7 +329,7 @@ func (c *DefaultApiService) DeleteOriginationUrl(TrunkSid string, Sid string) er
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -352,7 +352,7 @@ func (c *DefaultApiService) DeletePhoneNumber(TrunkSid string, Sid string) error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -373,7 +373,7 @@ func (c *DefaultApiService) DeleteTrunk(Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -397,7 +397,7 @@ func (c *DefaultApiService) FetchCredentialList(TrunkSid string, Sid string) (*T
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -426,7 +426,7 @@ func (c *DefaultApiService) FetchIpAccessControlList(TrunkSid string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -455,7 +455,7 @@ func (c *DefaultApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*T
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -484,7 +484,7 @@ func (c *DefaultApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*Trun
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -511,7 +511,7 @@ func (c *DefaultApiService) FetchRecording(TrunkSid string) (*TrunkingV1TrunkRec
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -538,7 +538,7 @@ func (c *DefaultApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -572,7 +572,7 @@ func (c *DefaultApiService) ListCredentialList(TrunkSid string, params *ListCred
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -611,7 +611,7 @@ func (c *DefaultApiService) ListIpAccessControlList(TrunkSid string, params *Lis
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -649,7 +649,7 @@ func (c *DefaultApiService) ListOriginationUrl(TrunkSid string, params *ListOrig
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -687,7 +687,7 @@ func (c *DefaultApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNu
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -723,7 +723,7 @@ func (c *DefaultApiService) ListTrunk(params *ListTrunkParams) (*ListTrunkRespon
 	path := "/v1/Trunks"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -771,7 +771,7 @@ func (c *DefaultApiService) UpdateOriginationUrl(TrunkSid string, Sid string, pa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
@@ -823,7 +823,7 @@ func (c *DefaultApiService) UpdateRecording(TrunkSid string, params *UpdateRecor
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Mode != nil {
 		data.Set("Mode", *params.Mode)
@@ -876,7 +876,7 @@ func (c *DefaultApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CnamLookupEnabled != nil {
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))

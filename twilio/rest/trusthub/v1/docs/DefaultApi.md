@@ -72,12 +72,12 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateCustomerProfileParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
-**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource. | 
-**StatusCallback** | **string** | The URL we call to inform your application of status changes. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
+**StatusCallback** | **string** | The URL we call to inform your application of status changes.
 
 ### Return type
 
@@ -108,20 +108,20 @@ Create a new Assigned Item.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateCustomerProfileChannelEndpointAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ChannelEndpointSid** | **string** | The SID of an channel endpoint | 
-**ChannelEndpointType** | **string** | The type of channel endpoint. eg: phone-number | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ChannelEndpointSid** | **string** | The SID of an channel endpoint
+**ChannelEndpointType** | **string** | The type of channel endpoint. eg: phone-number
 
 ### Return type
 
@@ -152,19 +152,19 @@ Create a new Assigned Item.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateCustomerProfileEntityAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ObjectSid** | **string** | The SID of an object bag that holds information of the different items. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ObjectSid** | **string** | The SID of an object bag that holds information of the different items.
 
 ### Return type
 
@@ -195,19 +195,19 @@ Create a new Evaluation
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateCustomerProfileEvaluationParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PolicySid** | **string** | The unique string of a policy that is associated to the customer_profile resource. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PolicySid** | **string** | The unique string of a policy that is associated to the customer_profile resource.
 
 ### Return type
 
@@ -244,11 +244,11 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateEndUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
-**Type** | **string** | The type of end user of the Bundle resource - can be &#x60;individual&#x60; or &#x60;business&#x60;. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**Type** | **string** | The type of end user of the Bundle resource - can be &#x60;individual&#x60; or &#x60;business&#x60;.
 
 ### Return type
 
@@ -285,11 +285,11 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateSupportingDocumentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
-**Type** | **string** | The type of the Supporting Document. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**Type** | **string** | The type of the Supporting Document.
 
 ### Return type
 
@@ -326,12 +326,12 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateTrustProductParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
-**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource. | 
-**StatusCallback** | **string** | The URL we call to inform your application of status changes. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
+**StatusCallback** | **string** | The URL we call to inform your application of status changes.
 
 ### Return type
 
@@ -362,20 +362,20 @@ Create a new Assigned Item.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateTrustProductChannelEndpointAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ChannelEndpointSid** | **string** | The SID of an channel endpoint | 
-**ChannelEndpointType** | **string** | The type of channel endpoint. eg: phone-number | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ChannelEndpointSid** | **string** | The SID of an channel endpoint
+**ChannelEndpointType** | **string** | The type of channel endpoint. eg: phone-number
 
 ### Return type
 
@@ -406,19 +406,19 @@ Create a new Assigned Item.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the TrustProduct resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the TrustProduct resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateTrustProductEntityAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ObjectSid** | **string** | The SID of an object bag that holds information of the different items. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ObjectSid** | **string** | The SID of an object bag that holds information of the different items.
 
 ### Return type
 
@@ -449,19 +449,19 @@ Create a new Evaluation
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the trust_product resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the trust_product resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateTrustProductEvaluationParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PolicySid** | **string** | The unique string of a policy that is associated to the customer_profile resource. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PolicySid** | **string** | The unique string of a policy that is associated to the customer_profile resource.
 
 ### Return type
 
@@ -492,18 +492,18 @@ Delete a specific Customer-Profile.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource. | 
+**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCustomerProfileParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -534,19 +534,19 @@ Remove an Assignment Item Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
-**Sid** | **string** | The unique string that we created to identify the resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
+**Sid** | **string** | The unique string that we created to identify the resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCustomerProfileChannelEndpointAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -577,19 +577,19 @@ Remove an Assignment Item Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
-**Sid** | **string** | The unique string that we created to identify the Identity resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
+**Sid** | **string** | The unique string that we created to identify the Identity resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCustomerProfileEntityAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -620,18 +620,18 @@ Delete a specific End User.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string created by Twilio to identify the End User resource. | 
+**Sid** | **string** | The unique string created by Twilio to identify the End User resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteEndUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -662,18 +662,18 @@ Delete a specific Supporting Document.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string created by Twilio to identify the Supporting Document resource. | 
+**Sid** | **string** | The unique string created by Twilio to identify the Supporting Document resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSupportingDocumentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -704,18 +704,18 @@ Delete a specific Customer-Profile.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource. | 
+**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTrustProductParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -746,19 +746,19 @@ Remove an Assignment Item Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
-**Sid** | **string** | The unique string that we created to identify the resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
+**Sid** | **string** | The unique string that we created to identify the resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTrustProductChannelEndpointAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -789,19 +789,19 @@ Remove an Assignment Item Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the TrustProduct resource. | 
-**Sid** | **string** | The unique string that we created to identify the Identity resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the TrustProduct resource.
+**Sid** | **string** | The unique string that we created to identify the Identity resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTrustProductEntityAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -832,18 +832,18 @@ Fetch a specific Customer-Profile instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource. | 
+**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCustomerProfileParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -874,19 +874,19 @@ Fetch specific Assigned Item Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
-**Sid** | **string** | The unique string that we created to identify the resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
+**Sid** | **string** | The unique string that we created to identify the resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCustomerProfileChannelEndpointAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -917,19 +917,19 @@ Fetch specific Assigned Item Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
-**Sid** | **string** | The unique string that we created to identify the Identity resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
+**Sid** | **string** | The unique string that we created to identify the Identity resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCustomerProfileEntityAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -960,19 +960,19 @@ Fetch specific Evaluation Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the customer_profile resource. | 
-**Sid** | **string** | The unique string that identifies the Evaluation resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the customer_profile resource.
+**Sid** | **string** | The unique string that identifies the Evaluation resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCustomerProfileEvaluationParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1003,18 +1003,18 @@ Fetch specific End User Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string created by Twilio to identify the End User resource. | 
+**Sid** | **string** | The unique string created by Twilio to identify the End User resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchEndUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1045,18 +1045,18 @@ Fetch a specific End-User Type Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that identifies the End-User Type resource. | 
+**Sid** | **string** | The unique string that identifies the End-User Type resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchEndUserTypeParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1087,18 +1087,18 @@ Fetch specific Policy Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that identifies the Policy resource. | 
+**Sid** | **string** | The unique string that identifies the Policy resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchPoliciesParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1129,18 +1129,18 @@ Fetch specific Supporting Document Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string created by Twilio to identify the Supporting Document resource. | 
+**Sid** | **string** | The unique string created by Twilio to identify the Supporting Document resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchSupportingDocumentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1171,18 +1171,18 @@ Fetch a specific Supporting Document Type Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that identifies the Supporting Document Type resource. | 
+**Sid** | **string** | The unique string that identifies the Supporting Document Type resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchSupportingDocumentTypeParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1213,18 +1213,18 @@ Fetch a specific Customer-Profile instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource. | 
+**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTrustProductParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1255,19 +1255,19 @@ Fetch specific Assigned Item Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
-**Sid** | **string** | The unique string that we created to identify the resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
+**Sid** | **string** | The unique string that we created to identify the resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTrustProductChannelEndpointAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1298,19 +1298,19 @@ Fetch specific Assigned Item Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the TrustProduct resource. | 
-**Sid** | **string** | The unique string that we created to identify the Identity resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the TrustProduct resource.
+**Sid** | **string** | The unique string that we created to identify the Identity resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTrustProductEntityAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1341,19 +1341,19 @@ Fetch specific Evaluation Instance.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the trust_product resource. | 
-**Sid** | **string** | The unique string that identifies the Evaluation resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the trust_product resource.
+**Sid** | **string** | The unique string that identifies the Evaluation resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTrustProductEvaluationParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -1390,12 +1390,12 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListCustomerProfileParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Status** | **string** | The verification status of the Customer-Profile resource. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
-**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource. | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Status** | **string** | The verification status of the Customer-Profile resource.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1426,21 +1426,21 @@ Retrieve a list of all Assigned Items for an account.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCustomerProfileChannelEndpointAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ChannelEndpointSid** | **string** | The SID of an channel endpoint | 
-**ChannelEndpointSids** | **string** | comma separated list of channel endpoint sids | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ChannelEndpointSid** | **string** | The SID of an channel endpoint
+**ChannelEndpointSids** | **string** | comma separated list of channel endpoint sids
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1471,19 +1471,19 @@ Retrieve a list of all Assigned Items for an account.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCustomerProfileEntityAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1514,19 +1514,19 @@ Retrieve a list of Evaluations associated to the customer_profile resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
+**CustomerProfileSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCustomerProfileEvaluationParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1563,9 +1563,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListEndUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1602,9 +1602,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListEndUserTypeParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1641,9 +1641,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListPoliciesParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1680,9 +1680,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListSupportingDocumentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1719,9 +1719,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListSupportingDocumentTypeParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1758,12 +1758,12 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListTrustProductParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Status** | **string** | The verification status of the Customer-Profile resource. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
-**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource. | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Status** | **string** | The verification status of the Customer-Profile resource.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1794,21 +1794,21 @@ Retrieve a list of all Assigned Items for an account.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the CustomerProfile resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the CustomerProfile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListTrustProductChannelEndpointAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ChannelEndpointSid** | **string** | The SID of an channel endpoint | 
-**ChannelEndpointSids** | **string** | comma separated list of channel endpoint sids | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**ChannelEndpointSid** | **string** | The SID of an channel endpoint
+**ChannelEndpointSids** | **string** | comma separated list of channel endpoint sids
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1839,19 +1839,19 @@ Retrieve a list of all Assigned Items for an account.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the TrustProduct resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the TrustProduct resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListTrustProductEntityAssignmentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1882,19 +1882,19 @@ Retrieve a list of Evaluations associated to the trust_product resource.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**TrustProductSid** | **string** | The unique string that we created to identify the trust_product resource. | 
+**TrustProductSid** | **string** | The unique string that we created to identify the trust_product resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListTrustProductEvaluationParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1925,22 +1925,22 @@ Updates a Customer-Profile in an account.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource. | 
+**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateCustomerProfileParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
-**Status** | **string** | The verification status of the Customer-Profile resource. | 
-**StatusCallback** | **string** | The URL we call to inform your application of status changes. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**Status** | **string** | The verification status of the Customer-Profile resource.
+**StatusCallback** | **string** | The URL we call to inform your application of status changes.
 
 ### Return type
 
@@ -1971,20 +1971,20 @@ Update an existing End User.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string created by Twilio to identify the End User resource. | 
+**Sid** | **string** | The unique string created by Twilio to identify the End User resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateEndUserParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
 
 ### Return type
 
@@ -2015,20 +2015,20 @@ Update an existing Supporting Document.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string created by Twilio to identify the Supporting Document resource. | 
+**Sid** | **string** | The unique string created by Twilio to identify the Supporting Document resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateSupportingDocumentParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
 
 ### Return type
 
@@ -2059,22 +2059,22 @@ Updates a Customer-Profile in an account.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource. | 
+**Sid** | **string** | The unique string that we created to identify the Customer-Profile resource.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateTrustProductParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status. | 
-**FriendlyName** | **string** | The string that you assigned to describe the resource. | 
-**Status** | **string** | The verification status of the Customer-Profile resource. | 
-**StatusCallback** | **string** | The URL we call to inform your application of status changes. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
+**FriendlyName** | **string** | The string that you assigned to describe the resource.
+**Status** | **string** | The verification status of the Customer-Profile resource.
+**StatusCallback** | **string** | The URL we call to inform your application of status changes.
 
 ### Return type
 

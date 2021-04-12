@@ -11,10 +11,6 @@
 
 package openapi
 
-import (
-	"time"
-)
-
 // ApiV2010AccountUsageUsageRecordUsageRecordAllTime struct for ApiV2010AccountUsageUsageRecordUsageRecordAllTime
 type ApiV2010AccountUsageUsageRecordUsageRecordAllTime struct {
 	// The SID of the Account accrued the usage
@@ -32,13 +28,13 @@ type ApiV2010AccountUsageUsageRecordUsageRecordAllTime struct {
 	// A plain-language description of the usage category
 	Description *string `json:"description,omitempty"`
 	// The last date for which usage is included in the UsageRecord
-	EndDate *time.Time `json:"end_date,omitempty"`
+	EndDate *string `json:"end_date,omitempty"`
 	// The total price of the usage
 	Price *float32 `json:"price,omitempty"`
 	// The currency in which `price` is measured
 	PriceUnit *string `json:"price_unit,omitempty"`
 	// The first date for which usage is included in this UsageRecord
-	StartDate *time.Time `json:"start_date,omitempty"`
+	StartDate *string `json:"start_date,omitempty"`
 	// A list of related resources identified by their relative URIs
 	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`

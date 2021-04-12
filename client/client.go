@@ -3,6 +3,7 @@ package client
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -78,7 +79,8 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c Client) SendRequest(method string, rawURL string, queryParams interface{}, formData url.Values) (*http.Response, error) {
+func (c Client) SendRequest(method string, rawURL string, queryParams interface{}, formData url.Values,
+	headers map[string]interface{}) (*http.Response, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
 		return nil, err
@@ -109,23 +111,27 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	}
 
+	for k, v := range headers {
+		req.Header.Add(k, fmt.Sprint(v))
+	}
+
 	return c.doWithErr(req)
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
-func (c Client) Post(path string, bodyData url.Values, headers interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodPost, path, nil, bodyData)
+func (c Client) Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error) {
+	return c.SendRequest(http.MethodPost, path, nil, bodyData, headers)
 }
 
 // Get performs a GET request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
-func (c Client) Get(path string, queryData interface{}, headers interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodGet, path, queryData, nil)
+func (c Client) Get(path string, queryData interface{}, headers map[string]interface{}) (*http.Response, error) {
+	return c.SendRequest(http.MethodGet, path, queryData, nil, headers)
 }
 
 // Delete performs a DELETE request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
-func (c Client) Delete(path string, nothing interface{}, headers interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodDelete, path, nil, nil)
+func (c Client) Delete(path string, nothing interface{}, headers map[string]interface{}) (*http.Response, error) {
+	return c.SendRequest(http.MethodDelete, path, nil, nil, headers)
 }

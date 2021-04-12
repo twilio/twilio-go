@@ -42,7 +42,7 @@ func (c *DefaultApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -69,7 +69,7 @@ func (c *DefaultApiService) FetchPhoneNumberCountry(IsoCountry string) (*Pricing
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -96,7 +96,7 @@ func (c *DefaultApiService) FetchVoiceCountry(IsoCountry string) (*PricingV1Voic
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -123,7 +123,7 @@ func (c *DefaultApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceVoic
 	path = strings.Replace(path, "{"+"Number"+"}", Number, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -155,7 +155,7 @@ func (c *DefaultApiService) ListMessagingCountry(params *ListMessagingCountryPar
 	path := "/v1/Messaging/Countries"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -191,7 +191,7 @@ func (c *DefaultApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountr
 	path := "/v1/PhoneNumbers/Countries"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -227,7 +227,7 @@ func (c *DefaultApiService) ListVoiceCountry(params *ListVoiceCountryParams) (*L
 	path := "/v1/Voice/Countries"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

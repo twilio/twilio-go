@@ -49,7 +49,7 @@ func (c *DefaultApiService) CreateAccount(params *CreateAccountParams) (*ApiV201
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -103,7 +103,7 @@ func (c *DefaultApiService) CreateAddress(AccountSid string, params *CreateAddre
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AutoCorrectAddress != nil {
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
@@ -194,7 +194,7 @@ func (c *DefaultApiService) CreateApplication(AccountSid string, params *CreateA
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
@@ -341,7 +341,7 @@ func (c *DefaultApiService) CreateCall(AccountSid string, params *CreateCallPara
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApplicationSid != nil {
 		data.Set("ApplicationSid", *params.ApplicationSid)
@@ -463,11 +463,11 @@ func (c *DefaultApiService) CreateCall(AccountSid string, params *CreateCallPara
 
 // CreateCallFeedbackSummaryParams Optional parameters for the method 'CreateCallFeedbackSummary'
 type CreateCallFeedbackSummaryParams struct {
-	EndDate              *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts   *bool      `json:"IncludeSubaccounts,omitempty"`
-	StartDate            *time.Time `json:"StartDate,omitempty"`
-	StatusCallback       *string    `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod *string    `json:"StatusCallbackMethod,omitempty"`
+	EndDate              *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts   *bool   `json:"IncludeSubaccounts,omitempty"`
+	StartDate            *string `json:"StartDate,omitempty"`
+	StatusCallback       *string `json:"StatusCallback,omitempty"`
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
 /*
@@ -475,9 +475,9 @@ type CreateCallFeedbackSummaryParams struct {
 * Create a FeedbackSummary resource for a call
 * @param AccountSid The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 * @param optional nil or *CreateCallFeedbackSummaryParams - Optional Parameters:
-* @param "EndDate" (time.Time) - Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
+* @param "EndDate" (string) - Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
 * @param "IncludeSubaccounts" (bool) - Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
-* @param "StartDate" (time.Time) - Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
+* @param "StartDate" (string) - Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
 * @param "StatusCallback" (string) - The URL that we will request when the feedback summary is complete.
 * @param "StatusCallbackMethod" (string) - The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
 * @return ApiV2010AccountCallCallFeedbackSummary
@@ -487,7 +487,7 @@ func (c *DefaultApiService) CreateCallFeedbackSummary(AccountSid string, params 
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
 		data.Set("EndDate", fmt.Sprint(*params.EndDate))
@@ -550,7 +550,7 @@ func (c *DefaultApiService) CreateCallRecording(AccountSid string, CallSid strin
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.RecordingChannels != nil {
 		data.Set("RecordingChannels", *params.RecordingChannels)
@@ -650,7 +650,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumber(AccountSid string, params 
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
@@ -760,7 +760,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(AccountSid st
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.InstalledAddOnSid != nil {
 		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
@@ -842,7 +842,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(AccountSid string, pa
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
@@ -990,7 +990,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(AccountSid string, p
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
@@ -1138,7 +1138,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(AccountSid string,
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
@@ -1273,7 +1273,7 @@ func (c *DefaultApiService) CreateMessage(AccountSid string, params *CreateMessa
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AddressRetention != nil {
 		data.Set("AddressRetention", *params.AddressRetention)
@@ -1358,7 +1358,7 @@ func (c *DefaultApiService) CreateMessageFeedback(AccountSid string, MessageSid 
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Outcome != nil {
 		data.Set("Outcome", *params.Outcome)
@@ -1396,7 +1396,7 @@ func (c *DefaultApiService) CreateNewKey(AccountSid string, params *CreateNewKey
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1435,7 +1435,7 @@ func (c *DefaultApiService) CreateNewSigningKey(AccountSid string, params *Creat
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1549,7 +1549,7 @@ func (c *DefaultApiService) CreateParticipant(AccountSid string, ConferenceSid s
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Beep != nil {
 		data.Set("Beep", *params.Beep)
@@ -1731,7 +1731,7 @@ func (c *DefaultApiService) CreatePayments(AccountSid string, CallSid string, pa
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.BankAccountType != nil {
 		data.Set("BankAccountType", *params.BankAccountType)
@@ -1761,7 +1761,7 @@ func (c *DefaultApiService) CreatePayments(AccountSid string, CallSid string, pa
 			return nil, err
 		}
 
-		data.Set("Parameter", fmt.Sprint(v))
+		data.Set("Parameter", string(v))
 	}
 	if params != nil && params.PaymentConnector != nil {
 		data.Set("PaymentConnector", *params.PaymentConnector)
@@ -1823,7 +1823,7 @@ func (c *DefaultApiService) CreateQueue(AccountSid string, params *CreateQueuePa
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1867,7 +1867,7 @@ func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(AccountSid s
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CredentialListSid != nil {
 		data.Set("CredentialListSid", *params.CredentialListSid)
@@ -1908,7 +1908,7 @@ func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(Account
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.IpAccessControlListSid != nil {
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
@@ -1949,7 +1949,7 @@ func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(Acco
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CredentialListSid != nil {
 		data.Set("CredentialListSid", *params.CredentialListSid)
@@ -1992,7 +1992,7 @@ func (c *DefaultApiService) CreateSipCredential(AccountSid string, CredentialLis
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Password != nil {
 		data.Set("Password", *params.Password)
@@ -2034,7 +2034,7 @@ func (c *DefaultApiService) CreateSipCredentialList(AccountSid string, params *C
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -2075,7 +2075,7 @@ func (c *DefaultApiService) CreateSipCredentialListMapping(AccountSid string, Do
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CredentialListSid != nil {
 		data.Set("CredentialListSid", *params.CredentialListSid)
@@ -2138,7 +2138,7 @@ func (c *DefaultApiService) CreateSipDomain(AccountSid string, params *CreateSip
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ByocTrunkSid != nil {
 		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
@@ -2213,7 +2213,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlList(AccountSid string, para
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -2254,7 +2254,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlListMapping(AccountSid strin
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.IpAccessControlListSid != nil {
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
@@ -2299,7 +2299,7 @@ func (c *DefaultApiService) CreateSipIpAddress(AccountSid string, IpAccessContro
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CidrPrefixLength != nil {
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
@@ -2344,7 +2344,7 @@ func (c *DefaultApiService) CreateToken(AccountSid string, params *CreateTokenPa
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
@@ -2395,7 +2395,7 @@ func (c *DefaultApiService) CreateUsageTrigger(AccountSid string, params *Create
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
@@ -2461,7 +2461,7 @@ func (c *DefaultApiService) CreateValidationRequest(AccountSid string, params *C
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallDelay != nil {
 		data.Set("CallDelay", fmt.Sprint(*params.CallDelay))
@@ -2508,7 +2508,7 @@ func (c *DefaultApiService) DeleteAddress(AccountSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2532,7 +2532,7 @@ func (c *DefaultApiService) DeleteApplication(AccountSid string, Sid string) err
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2556,7 +2556,7 @@ func (c *DefaultApiService) DeleteCall(AccountSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2580,7 +2580,7 @@ func (c *DefaultApiService) DeleteCallFeedbackSummary(AccountSid string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2606,7 +2606,7 @@ func (c *DefaultApiService) DeleteCallRecording(AccountSid string, CallSid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2632,7 +2632,7 @@ func (c *DefaultApiService) DeleteConferenceRecording(AccountSid string, Confere
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2656,7 +2656,7 @@ func (c *DefaultApiService) DeleteConnectApp(AccountSid string, Sid string) erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2680,7 +2680,7 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumber(AccountSid string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2706,7 +2706,7 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumberAssignedAddOn(AccountSid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2729,7 +2729,7 @@ func (c *DefaultApiService) DeleteKey(AccountSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2755,7 +2755,7 @@ func (c *DefaultApiService) DeleteMedia(AccountSid string, MessageSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2779,7 +2779,7 @@ func (c *DefaultApiService) DeleteMessage(AccountSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2803,7 +2803,7 @@ func (c *DefaultApiService) DeleteOutgoingCallerId(AccountSid string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2829,7 +2829,7 @@ func (c *DefaultApiService) DeleteParticipant(AccountSid string, ConferenceSid s
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2853,7 +2853,7 @@ func (c *DefaultApiService) DeleteQueue(AccountSid string, Sid string) error {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2877,7 +2877,7 @@ func (c *DefaultApiService) DeleteRecording(AccountSid string, Sid string) error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2903,7 +2903,7 @@ func (c *DefaultApiService) DeleteRecordingAddOnResult(AccountSid string, Refere
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2931,7 +2931,7 @@ func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(AccountSid string,
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2956,7 +2956,7 @@ func (c *DefaultApiService) DeleteRecordingTranscription(AccountSid string, Reco
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2979,7 +2979,7 @@ func (c *DefaultApiService) DeleteSigningKey(AccountSid string, Sid string) erro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3005,7 +3005,7 @@ func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(AccountSid s
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3031,7 +3031,7 @@ func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(Account
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3057,7 +3057,7 @@ func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(Acco
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3083,7 +3083,7 @@ func (c *DefaultApiService) DeleteSipCredential(AccountSid string, CredentialLis
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3107,7 +3107,7 @@ func (c *DefaultApiService) DeleteSipCredentialList(AccountSid string, Sid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3133,7 +3133,7 @@ func (c *DefaultApiService) DeleteSipCredentialListMapping(AccountSid string, Do
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3157,7 +3157,7 @@ func (c *DefaultApiService) DeleteSipDomain(AccountSid string, Sid string) error
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3181,7 +3181,7 @@ func (c *DefaultApiService) DeleteSipIpAccessControlList(AccountSid string, Sid 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3207,7 +3207,7 @@ func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(AccountSid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3233,7 +3233,7 @@ func (c *DefaultApiService) DeleteSipIpAddress(AccountSid string, IpAccessContro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3257,7 +3257,7 @@ func (c *DefaultApiService) DeleteTranscription(AccountSid string, Sid string) e
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3280,7 +3280,7 @@ func (c *DefaultApiService) DeleteUsageTrigger(AccountSid string, Sid string) er
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3303,7 +3303,7 @@ func (c *DefaultApiService) FetchAccount(Sid string) (*ApiV2010Account, error) {
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3332,7 +3332,7 @@ func (c *DefaultApiService) FetchAddress(AccountSid string, Sid string) (*ApiV20
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3362,7 +3362,7 @@ func (c *DefaultApiService) FetchApplication(AccountSid string, Sid string) (*Ap
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3392,7 +3392,7 @@ func (c *DefaultApiService) FetchAuthorizedConnectApp(AccountSid string, Connect
 	path = strings.Replace(path, "{"+"ConnectAppSid"+"}", ConnectAppSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3421,7 +3421,7 @@ func (c *DefaultApiService) FetchAvailablePhoneNumberCountry(AccountSid string, 
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3449,7 +3449,7 @@ func (c *DefaultApiService) FetchBalance(AccountSid string) (*ApiV2010AccountBal
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3479,7 +3479,7 @@ func (c *DefaultApiService) FetchCall(AccountSid string, Sid string) (*ApiV2010A
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3509,7 +3509,7 @@ func (c *DefaultApiService) FetchCallFeedback(AccountSid string, CallSid string)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3539,7 +3539,7 @@ func (c *DefaultApiService) FetchCallFeedbackSummary(AccountSid string, Sid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3570,7 +3570,7 @@ func (c *DefaultApiService) FetchCallNotification(AccountSid string, CallSid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3602,7 +3602,7 @@ func (c *DefaultApiService) FetchCallRecording(AccountSid string, CallSid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3632,7 +3632,7 @@ func (c *DefaultApiService) FetchConference(AccountSid string, Sid string) (*Api
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3664,7 +3664,7 @@ func (c *DefaultApiService) FetchConferenceRecording(AccountSid string, Conferen
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3694,7 +3694,7 @@ func (c *DefaultApiService) FetchConnectApp(AccountSid string, Sid string) (*Api
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3724,7 +3724,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumber(AccountSid string, Sid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3756,7 +3756,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(AccountSid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3790,7 +3790,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(Accou
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3819,7 +3819,7 @@ func (c *DefaultApiService) FetchKey(AccountSid string, Sid string) (*ApiV2010Ac
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3851,7 +3851,7 @@ func (c *DefaultApiService) FetchMedia(AccountSid string, MessageSid string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3883,7 +3883,7 @@ func (c *DefaultApiService) FetchMember(AccountSid string, QueueSid string, Call
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3913,7 +3913,7 @@ func (c *DefaultApiService) FetchMessage(AccountSid string, Sid string) (*ApiV20
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3943,7 +3943,7 @@ func (c *DefaultApiService) FetchNotification(AccountSid string, Sid string) (*A
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3973,7 +3973,7 @@ func (c *DefaultApiService) FetchOutgoingCallerId(AccountSid string, Sid string)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4005,7 +4005,7 @@ func (c *DefaultApiService) FetchParticipant(AccountSid string, ConferenceSid st
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4035,7 +4035,7 @@ func (c *DefaultApiService) FetchQueue(AccountSid string, Sid string) (*ApiV2010
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4065,7 +4065,7 @@ func (c *DefaultApiService) FetchRecording(AccountSid string, Sid string) (*ApiV
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4097,7 +4097,7 @@ func (c *DefaultApiService) FetchRecordingAddOnResult(AccountSid string, Referen
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4131,7 +4131,7 @@ func (c *DefaultApiService) FetchRecordingAddOnResultPayload(AccountSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4162,7 +4162,7 @@ func (c *DefaultApiService) FetchRecordingTranscription(AccountSid string, Recor
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4192,7 +4192,7 @@ func (c *DefaultApiService) FetchShortCode(AccountSid string, Sid string) (*ApiV
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4221,7 +4221,7 @@ func (c *DefaultApiService) FetchSigningKey(AccountSid string, Sid string) (*Api
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4253,7 +4253,7 @@ func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(AccountSid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4285,7 +4285,7 @@ func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(AccountS
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4317,7 +4317,7 @@ func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(Accou
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4349,7 +4349,7 @@ func (c *DefaultApiService) FetchSipCredential(AccountSid string, CredentialList
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4379,7 +4379,7 @@ func (c *DefaultApiService) FetchSipCredentialList(AccountSid string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4411,7 +4411,7 @@ func (c *DefaultApiService) FetchSipCredentialListMapping(AccountSid string, Dom
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4441,7 +4441,7 @@ func (c *DefaultApiService) FetchSipDomain(AccountSid string, Sid string) (*ApiV
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4471,7 +4471,7 @@ func (c *DefaultApiService) FetchSipIpAccessControlList(AccountSid string, Sid s
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4503,7 +4503,7 @@ func (c *DefaultApiService) FetchSipIpAccessControlListMapping(AccountSid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4535,7 +4535,7 @@ func (c *DefaultApiService) FetchSipIpAddress(AccountSid string, IpAccessControl
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4565,7 +4565,7 @@ func (c *DefaultApiService) FetchTranscription(AccountSid string, Sid string) (*
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4595,7 +4595,7 @@ func (c *DefaultApiService) FetchUsageTrigger(AccountSid string, Sid string) (*A
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4632,7 +4632,7 @@ func (c *DefaultApiService) ListAccount(params *ListAccountParams) (*ListAccount
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -4682,7 +4682,7 @@ func (c *DefaultApiService) ListAddress(AccountSid string, params *ListAddressPa
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CustomerName != nil {
 		data.Set("CustomerName", *params.CustomerName)
@@ -4732,7 +4732,7 @@ func (c *DefaultApiService) ListApplication(AccountSid string, params *ListAppli
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -4774,7 +4774,7 @@ func (c *DefaultApiService) ListAuthorizedConnectApp(AccountSid string, params *
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -4812,7 +4812,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberCountry(AccountSid string, p
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -4888,7 +4888,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberLocal(AccountSid string, Cou
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
@@ -5018,7 +5018,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(AccountSid 
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
@@ -5148,7 +5148,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMobile(AccountSid string, Co
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
@@ -5278,7 +5278,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberNational(AccountSid string, 
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
@@ -5408,7 +5408,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(AccountSid string
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
@@ -5538,7 +5538,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(AccountSid string, 
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
@@ -5668,7 +5668,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberVoip(AccountSid string, Coun
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
@@ -5781,7 +5781,7 @@ func (c *DefaultApiService) ListCall(AccountSid string, params *ListCallParams) 
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
@@ -5796,22 +5796,22 @@ func (c *DefaultApiService) ListCall(AccountSid string, params *ListCallParams) 
 		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.StartTime != nil {
-		data.Set("StartTime", fmt.Sprint(*params.StartTime))
+		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.StartTimeBefore != nil {
-		data.Set("StartTimeBefore", fmt.Sprint(*params.StartTimeBefore))
+		data.Set("StartTimeBefore", fmt.Sprint((*params.StartTimeBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.StartTimeAfter != nil {
-		data.Set("StartTimeAfter", fmt.Sprint(*params.StartTimeAfter))
+		data.Set("StartTimeAfter", fmt.Sprint((*params.StartTimeAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTime != nil {
-		data.Set("EndTime", fmt.Sprint(*params.EndTime))
+		data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTimeBefore != nil {
-		data.Set("EndTimeBefore", fmt.Sprint(*params.EndTimeBefore))
+		data.Set("EndTimeBefore", fmt.Sprint((*params.EndTimeBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTimeAfter != nil {
-		data.Set("EndTimeAfter", fmt.Sprint(*params.EndTimeAfter))
+		data.Set("EndTimeAfter", fmt.Sprint((*params.EndTimeAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -5852,7 +5852,7 @@ func (c *DefaultApiService) ListCallEvent(AccountSid string, CallSid string, par
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -5875,11 +5875,11 @@ func (c *DefaultApiService) ListCallEvent(AccountSid string, CallSid string, par
 
 // ListCallNotificationParams Optional parameters for the method 'ListCallNotification'
 type ListCallNotificationParams struct {
-	Log               *int32     `json:"Log,omitempty"`
-	MessageDate       *time.Time `json:"MessageDate,omitempty"`
-	MessageDateBefore *time.Time `json:"MessageDate&lt;,omitempty"`
-	MessageDateAfter  *time.Time `json:"MessageDate&gt;,omitempty"`
-	PageSize          *int32     `json:"PageSize,omitempty"`
+	Log               *int32  `json:"Log,omitempty"`
+	MessageDate       *string `json:"MessageDate,omitempty"`
+	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
+	MessageDateAfter  *string `json:"MessageDate&gt;,omitempty"`
+	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5888,9 +5888,9 @@ type ListCallNotificationParams struct {
 * @param CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resources to read.
 * @param optional nil or *ListCallNotificationParams - Optional Parameters:
 * @param "Log" (int32) - Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
-* @param "MessageDate" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-* @param "MessageDateBefore" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-* @param "MessageDateAfter" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+* @param "MessageDate" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+* @param "MessageDateBefore" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+* @param "MessageDateAfter" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListCallNotificationResponse
  */
@@ -5900,7 +5900,7 @@ func (c *DefaultApiService) ListCallNotification(AccountSid string, CallSid stri
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Log != nil {
 		data.Set("Log", fmt.Sprint(*params.Log))
@@ -5935,10 +5935,10 @@ func (c *DefaultApiService) ListCallNotification(AccountSid string, CallSid stri
 
 // ListCallRecordingParams Optional parameters for the method 'ListCallRecording'
 type ListCallRecordingParams struct {
-	DateCreated       *time.Time `json:"DateCreated,omitempty"`
-	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
-	DateCreatedAfter  *time.Time `json:"DateCreated&gt;,omitempty"`
-	PageSize          *int32     `json:"PageSize,omitempty"`
+	DateCreated       *string `json:"DateCreated,omitempty"`
+	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
+	DateCreatedAfter  *string `json:"DateCreated&gt;,omitempty"`
+	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -5947,9 +5947,9 @@ type ListCallRecordingParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
 * @param CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
 * @param optional nil or *ListCallRecordingParams - Optional Parameters:
-* @param "DateCreated" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-* @param "DateCreatedBefore" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-* @param "DateCreatedAfter" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+* @param "DateCreated" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+* @param "DateCreatedBefore" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+* @param "DateCreatedAfter" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListCallRecordingResponse
  */
@@ -5959,7 +5959,7 @@ func (c *DefaultApiService) ListCallRecording(AccountSid string, CallSid string,
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
@@ -5991,15 +5991,15 @@ func (c *DefaultApiService) ListCallRecording(AccountSid string, CallSid string,
 
 // ListConferenceParams Optional parameters for the method 'ListConference'
 type ListConferenceParams struct {
-	DateCreated       *time.Time `json:"DateCreated,omitempty"`
-	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
-	DateCreatedAfter  *time.Time `json:"DateCreated&gt;,omitempty"`
-	DateUpdated       *time.Time `json:"DateUpdated,omitempty"`
-	DateUpdatedBefore *time.Time `json:"DateUpdated&lt;,omitempty"`
-	DateUpdatedAfter  *time.Time `json:"DateUpdated&gt;,omitempty"`
-	FriendlyName      *string    `json:"FriendlyName,omitempty"`
-	Status            *string    `json:"Status,omitempty"`
-	PageSize          *int32     `json:"PageSize,omitempty"`
+	DateCreated       *string `json:"DateCreated,omitempty"`
+	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
+	DateCreatedAfter  *string `json:"DateCreated&gt;,omitempty"`
+	DateUpdated       *string `json:"DateUpdated,omitempty"`
+	DateUpdatedBefore *string `json:"DateUpdated&lt;,omitempty"`
+	DateUpdatedAfter  *string `json:"DateUpdated&gt;,omitempty"`
+	FriendlyName      *string `json:"FriendlyName,omitempty"`
+	Status            *string `json:"Status,omitempty"`
+	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6007,12 +6007,12 @@ type ListConferenceParams struct {
 * Retrieve a list of conferences belonging to the account used to make the request
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read.
 * @param optional nil or *ListConferenceParams - Optional Parameters:
-* @param "DateCreated" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-* @param "DateCreatedBefore" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-* @param "DateCreatedAfter" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-* @param "DateUpdated" (time.Time) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-* @param "DateUpdatedBefore" (time.Time) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-* @param "DateUpdatedAfter" (time.Time) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+* @param "DateCreated" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+* @param "DateCreatedBefore" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+* @param "DateCreatedAfter" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+* @param "DateUpdated" (string) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+* @param "DateUpdatedBefore" (string) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+* @param "DateUpdatedAfter" (string) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
 * @param "FriendlyName" (string) - The string that identifies the Conference resources to read.
 * @param "Status" (string) - The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6023,7 +6023,7 @@ func (c *DefaultApiService) ListConference(AccountSid string, params *ListConfer
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
@@ -6070,10 +6070,10 @@ func (c *DefaultApiService) ListConference(AccountSid string, params *ListConfer
 
 // ListConferenceRecordingParams Optional parameters for the method 'ListConferenceRecording'
 type ListConferenceRecordingParams struct {
-	DateCreated       *time.Time `json:"DateCreated,omitempty"`
-	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
-	DateCreatedAfter  *time.Time `json:"DateCreated&gt;,omitempty"`
-	PageSize          *int32     `json:"PageSize,omitempty"`
+	DateCreated       *string `json:"DateCreated,omitempty"`
+	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
+	DateCreatedAfter  *string `json:"DateCreated&gt;,omitempty"`
+	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6082,9 +6082,9 @@ type ListConferenceRecordingParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to read.
 * @param ConferenceSid The Conference SID that identifies the conference associated with the recording to read.
 * @param optional nil or *ListConferenceRecordingParams - Optional Parameters:
-* @param "DateCreated" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-* @param "DateCreatedBefore" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-* @param "DateCreatedAfter" (time.Time) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+* @param "DateCreated" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+* @param "DateCreatedBefore" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+* @param "DateCreatedAfter" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListConferenceRecordingResponse
  */
@@ -6094,7 +6094,7 @@ func (c *DefaultApiService) ListConferenceRecording(AccountSid string, Conferenc
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
@@ -6142,7 +6142,7 @@ func (c *DefaultApiService) ListConnectApp(AccountSid string, params *ListConnec
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6182,7 +6182,7 @@ func (c *DefaultApiService) ListDependentPhoneNumber(AccountSid string, AddressS
 	path = strings.Replace(path, "{"+"AddressSid"+"}", AddressSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6229,7 +6229,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumber(AccountSid string, params *L
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))
@@ -6282,7 +6282,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(AccountSid stri
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6325,7 +6325,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(Accoun
 	path = strings.Replace(path, "{"+"AssignedAddOnSid"+"}", AssignedAddOnSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6371,7 +6371,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberLocal(AccountSid string, para
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))
@@ -6429,7 +6429,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberMobile(AccountSid string, par
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))
@@ -6487,7 +6487,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(AccountSid string, p
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))
@@ -6537,7 +6537,7 @@ func (c *DefaultApiService) ListKey(AccountSid string, params *ListKeyParams) (*
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6584,16 +6584,16 @@ func (c *DefaultApiService) ListMedia(AccountSid string, MessageSid string, para
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6634,7 +6634,7 @@ func (c *DefaultApiService) ListMember(AccountSid string, QueueSid string, param
 	path = strings.Replace(path, "{"+"QueueSid"+"}", QueueSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6683,7 +6683,7 @@ func (c *DefaultApiService) ListMessage(AccountSid string, params *ListMessagePa
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
@@ -6692,13 +6692,13 @@ func (c *DefaultApiService) ListMessage(AccountSid string, params *ListMessagePa
 		data.Set("From", *params.From)
 	}
 	if params != nil && params.DateSent != nil {
-		data.Set("DateSent", fmt.Sprint(*params.DateSent))
+		data.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateSentBefore != nil {
-		data.Set("DateSentBefore", fmt.Sprint(*params.DateSentBefore))
+		data.Set("DateSentBefore", fmt.Sprint((*params.DateSentBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateSentAfter != nil {
-		data.Set("DateSentAfter", fmt.Sprint(*params.DateSentAfter))
+		data.Set("DateSentAfter", fmt.Sprint((*params.DateSentAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6721,11 +6721,11 @@ func (c *DefaultApiService) ListMessage(AccountSid string, params *ListMessagePa
 
 // ListNotificationParams Optional parameters for the method 'ListNotification'
 type ListNotificationParams struct {
-	Log               *int32     `json:"Log,omitempty"`
-	MessageDate       *time.Time `json:"MessageDate,omitempty"`
-	MessageDateBefore *time.Time `json:"MessageDate&lt;,omitempty"`
-	MessageDateAfter  *time.Time `json:"MessageDate&gt;,omitempty"`
-	PageSize          *int32     `json:"PageSize,omitempty"`
+	Log               *int32  `json:"Log,omitempty"`
+	MessageDate       *string `json:"MessageDate,omitempty"`
+	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
+	MessageDateAfter  *string `json:"MessageDate&gt;,omitempty"`
+	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -6734,9 +6734,9 @@ type ListNotificationParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resources to read.
 * @param optional nil or *ListNotificationParams - Optional Parameters:
 * @param "Log" (int32) - Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
-* @param "MessageDate" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-* @param "MessageDateBefore" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-* @param "MessageDateAfter" (time.Time) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+* @param "MessageDate" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+* @param "MessageDateBefore" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+* @param "MessageDateAfter" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListNotificationResponse
  */
@@ -6745,7 +6745,7 @@ func (c *DefaultApiService) ListNotification(AccountSid string, params *ListNoti
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Log != nil {
 		data.Set("Log", fmt.Sprint(*params.Log))
@@ -6800,7 +6800,7 @@ func (c *DefaultApiService) ListOutgoingCallerId(AccountSid string, params *List
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
@@ -6853,7 +6853,7 @@ func (c *DefaultApiService) ListParticipant(AccountSid string, ConferenceSid str
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Muted != nil {
 		data.Set("Muted", fmt.Sprint(*params.Muted))
@@ -6901,7 +6901,7 @@ func (c *DefaultApiService) ListQueue(AccountSid string, params *ListQueueParams
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6950,16 +6950,16 @@ func (c *DefaultApiService) ListRecording(AccountSid string, params *ListRecordi
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.CallSid != nil {
 		data.Set("CallSid", *params.CallSid)
@@ -7006,7 +7006,7 @@ func (c *DefaultApiService) ListRecordingAddOnResult(AccountSid string, Referenc
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7049,7 +7049,7 @@ func (c *DefaultApiService) ListRecordingAddOnResultPayload(AccountSid string, R
 	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", AddOnResultSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7089,7 +7089,7 @@ func (c *DefaultApiService) ListRecordingTranscription(AccountSid string, Record
 	path = strings.Replace(path, "{"+"RecordingSid"+"}", RecordingSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7132,7 +7132,7 @@ func (c *DefaultApiService) ListShortCode(AccountSid string, params *ListShortCo
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -7176,7 +7176,7 @@ func (c *DefaultApiService) ListSigningKey(AccountSid string, params *ListSignin
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7217,7 +7217,7 @@ func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(AccountSid str
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7258,7 +7258,7 @@ func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(AccountSi
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7299,7 +7299,7 @@ func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(Accoun
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7340,7 +7340,7 @@ func (c *DefaultApiService) ListSipCredential(AccountSid string, CredentialListS
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7379,7 +7379,7 @@ func (c *DefaultApiService) ListSipCredentialList(AccountSid string, params *Lis
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7420,7 +7420,7 @@ func (c *DefaultApiService) ListSipCredentialListMapping(AccountSid string, Doma
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7459,7 +7459,7 @@ func (c *DefaultApiService) ListSipDomain(AccountSid string, params *ListSipDoma
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7498,7 +7498,7 @@ func (c *DefaultApiService) ListSipIpAccessControlList(AccountSid string, params
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7539,7 +7539,7 @@ func (c *DefaultApiService) ListSipIpAccessControlListMapping(AccountSid string,
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7580,7 +7580,7 @@ func (c *DefaultApiService) ListSipIpAddress(AccountSid string, IpAccessControlL
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7619,7 +7619,7 @@ func (c *DefaultApiService) ListTranscription(AccountSid string, params *ListTra
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -7642,11 +7642,11 @@ func (c *DefaultApiService) ListTranscription(AccountSid string, params *ListTra
 
 // ListUsageRecordParams Optional parameters for the method 'ListUsageRecord'
 type ListUsageRecordParams struct {
-	Category           *string    `json:"Category,omitempty"`
-	StartDate          *time.Time `json:"StartDate,omitempty"`
-	EndDate            *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool      `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32     `json:"PageSize,omitempty"`
+	Category           *string `json:"Category,omitempty"`
+	StartDate          *string `json:"StartDate,omitempty"`
+	EndDate            *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
+	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7655,8 +7655,8 @@ type ListUsageRecordParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 * @param optional nil or *ListUsageRecordParams - Optional Parameters:
 * @param "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
 * @param "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListUsageRecordResponse
@@ -7666,7 +7666,7 @@ func (c *DefaultApiService) ListUsageRecord(AccountSid string, params *ListUsage
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
@@ -7701,11 +7701,11 @@ func (c *DefaultApiService) ListUsageRecord(AccountSid string, params *ListUsage
 
 // ListUsageRecordAllTimeParams Optional parameters for the method 'ListUsageRecordAllTime'
 type ListUsageRecordAllTimeParams struct {
-	Category           *string    `json:"Category,omitempty"`
-	StartDate          *time.Time `json:"StartDate,omitempty"`
-	EndDate            *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool      `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32     `json:"PageSize,omitempty"`
+	Category           *string `json:"Category,omitempty"`
+	StartDate          *string `json:"StartDate,omitempty"`
+	EndDate            *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
+	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7713,8 +7713,8 @@ type ListUsageRecordAllTimeParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 * @param optional nil or *ListUsageRecordAllTimeParams - Optional Parameters:
 * @param "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
 * @param "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListUsageRecordAllTimeResponse
@@ -7724,7 +7724,7 @@ func (c *DefaultApiService) ListUsageRecordAllTime(AccountSid string, params *Li
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
@@ -7759,11 +7759,11 @@ func (c *DefaultApiService) ListUsageRecordAllTime(AccountSid string, params *Li
 
 // ListUsageRecordDailyParams Optional parameters for the method 'ListUsageRecordDaily'
 type ListUsageRecordDailyParams struct {
-	Category           *string    `json:"Category,omitempty"`
-	StartDate          *time.Time `json:"StartDate,omitempty"`
-	EndDate            *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool      `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32     `json:"PageSize,omitempty"`
+	Category           *string `json:"Category,omitempty"`
+	StartDate          *string `json:"StartDate,omitempty"`
+	EndDate            *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
+	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7771,8 +7771,8 @@ type ListUsageRecordDailyParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 * @param optional nil or *ListUsageRecordDailyParams - Optional Parameters:
 * @param "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
 * @param "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListUsageRecordDailyResponse
@@ -7782,7 +7782,7 @@ func (c *DefaultApiService) ListUsageRecordDaily(AccountSid string, params *List
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
@@ -7817,11 +7817,11 @@ func (c *DefaultApiService) ListUsageRecordDaily(AccountSid string, params *List
 
 // ListUsageRecordLastMonthParams Optional parameters for the method 'ListUsageRecordLastMonth'
 type ListUsageRecordLastMonthParams struct {
-	Category           *string    `json:"Category,omitempty"`
-	StartDate          *time.Time `json:"StartDate,omitempty"`
-	EndDate            *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool      `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32     `json:"PageSize,omitempty"`
+	Category           *string `json:"Category,omitempty"`
+	StartDate          *string `json:"StartDate,omitempty"`
+	EndDate            *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
+	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7829,8 +7829,8 @@ type ListUsageRecordLastMonthParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 * @param optional nil or *ListUsageRecordLastMonthParams - Optional Parameters:
 * @param "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
 * @param "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListUsageRecordLastMonthResponse
@@ -7840,7 +7840,7 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(AccountSid string, params *
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
@@ -7875,11 +7875,11 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(AccountSid string, params *
 
 // ListUsageRecordMonthlyParams Optional parameters for the method 'ListUsageRecordMonthly'
 type ListUsageRecordMonthlyParams struct {
-	Category           *string    `json:"Category,omitempty"`
-	StartDate          *time.Time `json:"StartDate,omitempty"`
-	EndDate            *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool      `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32     `json:"PageSize,omitempty"`
+	Category           *string `json:"Category,omitempty"`
+	StartDate          *string `json:"StartDate,omitempty"`
+	EndDate            *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
+	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7887,8 +7887,8 @@ type ListUsageRecordMonthlyParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 * @param optional nil or *ListUsageRecordMonthlyParams - Optional Parameters:
 * @param "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
 * @param "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListUsageRecordMonthlyResponse
@@ -7898,7 +7898,7 @@ func (c *DefaultApiService) ListUsageRecordMonthly(AccountSid string, params *Li
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
@@ -7933,11 +7933,11 @@ func (c *DefaultApiService) ListUsageRecordMonthly(AccountSid string, params *Li
 
 // ListUsageRecordThisMonthParams Optional parameters for the method 'ListUsageRecordThisMonth'
 type ListUsageRecordThisMonthParams struct {
-	Category           *string    `json:"Category,omitempty"`
-	StartDate          *time.Time `json:"StartDate,omitempty"`
-	EndDate            *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool      `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32     `json:"PageSize,omitempty"`
+	Category           *string `json:"Category,omitempty"`
+	StartDate          *string `json:"StartDate,omitempty"`
+	EndDate            *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
+	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -7945,8 +7945,8 @@ type ListUsageRecordThisMonthParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 * @param optional nil or *ListUsageRecordThisMonthParams - Optional Parameters:
 * @param "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
 * @param "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListUsageRecordThisMonthResponse
@@ -7956,7 +7956,7 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(AccountSid string, params *
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
@@ -7991,11 +7991,11 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(AccountSid string, params *
 
 // ListUsageRecordTodayParams Optional parameters for the method 'ListUsageRecordToday'
 type ListUsageRecordTodayParams struct {
-	Category           *string    `json:"Category,omitempty"`
-	StartDate          *time.Time `json:"StartDate,omitempty"`
-	EndDate            *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool      `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32     `json:"PageSize,omitempty"`
+	Category           *string `json:"Category,omitempty"`
+	StartDate          *string `json:"StartDate,omitempty"`
+	EndDate            *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
+	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8003,8 +8003,8 @@ type ListUsageRecordTodayParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 * @param optional nil or *ListUsageRecordTodayParams - Optional Parameters:
 * @param "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
 * @param "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListUsageRecordTodayResponse
@@ -8014,7 +8014,7 @@ func (c *DefaultApiService) ListUsageRecordToday(AccountSid string, params *List
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
@@ -8049,11 +8049,11 @@ func (c *DefaultApiService) ListUsageRecordToday(AccountSid string, params *List
 
 // ListUsageRecordYearlyParams Optional parameters for the method 'ListUsageRecordYearly'
 type ListUsageRecordYearlyParams struct {
-	Category           *string    `json:"Category,omitempty"`
-	StartDate          *time.Time `json:"StartDate,omitempty"`
-	EndDate            *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool      `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32     `json:"PageSize,omitempty"`
+	Category           *string `json:"Category,omitempty"`
+	StartDate          *string `json:"StartDate,omitempty"`
+	EndDate            *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
+	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8061,8 +8061,8 @@ type ListUsageRecordYearlyParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 * @param optional nil or *ListUsageRecordYearlyParams - Optional Parameters:
 * @param "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
 * @param "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListUsageRecordYearlyResponse
@@ -8072,7 +8072,7 @@ func (c *DefaultApiService) ListUsageRecordYearly(AccountSid string, params *Lis
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
@@ -8107,11 +8107,11 @@ func (c *DefaultApiService) ListUsageRecordYearly(AccountSid string, params *Lis
 
 // ListUsageRecordYesterdayParams Optional parameters for the method 'ListUsageRecordYesterday'
 type ListUsageRecordYesterdayParams struct {
-	Category           *string    `json:"Category,omitempty"`
-	StartDate          *time.Time `json:"StartDate,omitempty"`
-	EndDate            *time.Time `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool      `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32     `json:"PageSize,omitempty"`
+	Category           *string `json:"Category,omitempty"`
+	StartDate          *string `json:"StartDate,omitempty"`
+	EndDate            *string `json:"EndDate,omitempty"`
+	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
+	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
 /*
@@ -8119,8 +8119,8 @@ type ListUsageRecordYesterdayParams struct {
 * @param AccountSid The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 * @param optional nil or *ListUsageRecordYesterdayParams - Optional Parameters:
 * @param "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-* @param "StartDate" (time.Time) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-* @param "EndDate" (time.Time) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+* @param "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+* @param "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
 * @param "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 * @return ListUsageRecordYesterdayResponse
@@ -8130,7 +8130,7 @@ func (c *DefaultApiService) ListUsageRecordYesterday(AccountSid string, params *
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
@@ -8187,7 +8187,7 @@ func (c *DefaultApiService) ListUsageTrigger(AccountSid string, params *ListUsag
 	path = strings.Replace(path, "{"+"AccountSid"+"}", AccountSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Recurring != nil {
 		data.Set("Recurring", *params.Recurring)
@@ -8237,7 +8237,7 @@ func (c *DefaultApiService) UpdateAccount(Sid string, params *UpdateAccountParam
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -8294,7 +8294,7 @@ func (c *DefaultApiService) UpdateAddress(AccountSid string, Sid string, params 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AutoCorrectAddress != nil {
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
@@ -8384,7 +8384,7 @@ func (c *DefaultApiService) UpdateApplication(AccountSid string, Sid string, par
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
@@ -8481,7 +8481,7 @@ func (c *DefaultApiService) UpdateCall(AccountSid string, Sid string, params *Up
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FallbackMethod != nil {
 		data.Set("FallbackMethod", *params.FallbackMethod)
@@ -8545,7 +8545,7 @@ func (c *DefaultApiService) UpdateCallFeedback(AccountSid string, CallSid string
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Issue != nil {
 		data.Set("Issue", strings.Join(*params.Issue, ","))
@@ -8593,7 +8593,7 @@ func (c *DefaultApiService) UpdateCallRecording(AccountSid string, CallSid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PauseBehavior != nil {
 		data.Set("PauseBehavior", *params.PauseBehavior)
@@ -8640,7 +8640,7 @@ func (c *DefaultApiService) UpdateConference(AccountSid string, Sid string, para
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AnnounceMethod != nil {
 		data.Set("AnnounceMethod", *params.AnnounceMethod)
@@ -8691,7 +8691,7 @@ func (c *DefaultApiService) UpdateConferenceRecording(AccountSid string, Confere
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.PauseBehavior != nil {
 		data.Set("PauseBehavior", *params.PauseBehavior)
@@ -8749,7 +8749,7 @@ func (c *DefaultApiService) UpdateConnectApp(AccountSid string, Sid string, para
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AuthorizeRedirectUrl != nil {
 		data.Set("AuthorizeRedirectUrl", *params.AuthorizeRedirectUrl)
@@ -8855,7 +8855,7 @@ func (c *DefaultApiService) UpdateIncomingPhoneNumber(AccountSid string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AccountSid2 != nil {
 		data.Set("AccountSid2", *params.AccountSid2)
@@ -8961,7 +8961,7 @@ func (c *DefaultApiService) UpdateKey(AccountSid string, Sid string, params *Upd
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -9006,7 +9006,7 @@ func (c *DefaultApiService) UpdateMember(AccountSid string, QueueSid string, Cal
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Method != nil {
 		data.Set("Method", *params.Method)
@@ -9050,7 +9050,7 @@ func (c *DefaultApiService) UpdateMessage(AccountSid string, Sid string, params 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
@@ -9091,7 +9091,7 @@ func (c *DefaultApiService) UpdateOutgoingCallerId(AccountSid string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -9156,7 +9156,7 @@ func (c *DefaultApiService) UpdateParticipant(AccountSid string, ConferenceSid s
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.AnnounceMethod != nil {
 		data.Set("AnnounceMethod", *params.AnnounceMethod)
@@ -9238,7 +9238,7 @@ func (c *DefaultApiService) UpdatePayments(AccountSid string, CallSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Capture != nil {
 		data.Set("Capture", *params.Capture)
@@ -9290,7 +9290,7 @@ func (c *DefaultApiService) UpdateQueue(AccountSid string, Sid string, params *U
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -9344,7 +9344,7 @@ func (c *DefaultApiService) UpdateShortCode(AccountSid string, Sid string, param
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
@@ -9399,7 +9399,7 @@ func (c *DefaultApiService) UpdateSigningKey(AccountSid string, Sid string, para
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -9442,7 +9442,7 @@ func (c *DefaultApiService) UpdateSipCredential(AccountSid string, CredentialLis
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.Password != nil {
 		data.Set("Password", *params.Password)
@@ -9483,7 +9483,7 @@ func (c *DefaultApiService) UpdateSipCredentialList(AccountSid string, Sid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -9548,7 +9548,7 @@ func (c *DefaultApiService) UpdateSipDomain(AccountSid string, Sid string, param
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.ByocTrunkSid != nil {
 		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
@@ -9625,7 +9625,7 @@ func (c *DefaultApiService) UpdateSipIpAccessControlList(AccountSid string, Sid 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -9672,7 +9672,7 @@ func (c *DefaultApiService) UpdateSipIpAddress(AccountSid string, IpAccessContro
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CidrPrefixLength != nil {
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
@@ -9723,7 +9723,7 @@ func (c *DefaultApiService) UpdateUsageTrigger(AccountSid string, Sid string, pa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := 0
+	headers := make(map[string]interface{})
 
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)

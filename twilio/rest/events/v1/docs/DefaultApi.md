@@ -45,11 +45,11 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateSinkParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Description** | **string** | A human readable description for the Sink **This value should not contain PII.** | 
-**SinkConfiguration** | [**map[string]interface{}**](map[string]interface{}.md) | The information required for Twilio to connect to the provided Sink encoded as JSON. | 
-**SinkType** | **string** | The Sink type. Can only be \\\&quot;kinesis\\\&quot; or \\\&quot;webhook\\\&quot; currently. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Description** | **string** | A human readable description for the Sink **This value should not contain PII.**
+**SinkConfiguration** | [**map[string]interface{}**](map[string]interface{}.md) | The information required for Twilio to connect to the provided Sink encoded as JSON.
+**SinkType** | **string** | The Sink type. Can only be \\\&quot;kinesis\\\&quot; or \\\&quot;webhook\\\&quot; currently.
 
 ### Return type
 
@@ -80,18 +80,18 @@ Create a new Sink Test Event for the given Sink.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies the Sink to be Tested. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the Sink to be Tested.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSinkTestParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -122,19 +122,19 @@ Validate that a test event for a Sink was received.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies the Sink being validated. | 
+**Sid** | **string** | A 34 character string that uniquely identifies the Sink being validated.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSinkValidateParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**TestId** | **string** | A 34 character string that uniquely identifies the test event for a Sink being validated. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**TestId** | **string** | A 34 character string that uniquely identifies the test event for a Sink being validated.
 
 ### Return type
 
@@ -165,20 +165,20 @@ Create a new Subscribed Event type for the subscription
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSubscribedEventParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Type** | **string** | Type of event being subscribed to. | 
-**Version** | **int32** | The schema version that the subscription should use. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Type** | **string** | Type of event being subscribed to.
+**Version** | **int32** | The schema version that the subscription should use.
 
 ### Return type
 
@@ -215,11 +215,11 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateSubscriptionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Description** | **string** | A human readable description for the Subscription **This value should not contain PII.** | 
-**SinkSid** | **string** | The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
-**Types** | **[]map[string]interface{}** | An array of objects containing the subscribed Event Types | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Description** | **string** | A human readable description for the Subscription **This value should not contain PII.**
+**SinkSid** | **string** | The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+**Types** | **[]map[string]interface{}** | An array of objects containing the subscribed Event Types
 
 ### Return type
 
@@ -250,18 +250,18 @@ Delete a specific Sink.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this Sink. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this Sink.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSinkParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -292,19 +292,19 @@ Remove an event type from a subscription.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
-**Type** | **string** | Type of event being subscribed to. | 
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription.
+**Type** | **string** | Type of event being subscribed to.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSubscribedEventParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -335,18 +335,18 @@ Delete a specific Subscription.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this Subscription. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this Subscription.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSubscriptionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -377,18 +377,18 @@ Fetch a specific Event Type.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Type** | **string** | A string that uniquely identifies this Event Type. | 
+**Type** | **string** | A string that uniquely identifies this Event Type.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchEventTypeParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -419,18 +419,18 @@ Fetch a specific schema with its nested versions.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
+**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchSchemaParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -461,18 +461,18 @@ Fetch a specific Sink.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this Sink. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this Sink.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchSinkParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -503,19 +503,19 @@ Read an Event for a Subscription.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
-**Type** | **string** | Type of event being subscribed to. | 
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription.
+**Type** | **string** | Type of event being subscribed to.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchSubscribedEventParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -546,18 +546,18 @@ Fetch a specific Subscription.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this Subscription. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this Subscription.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchSubscriptionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -588,19 +588,19 @@ Fetch a specific schema and version.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
-**SchemaVersion** | **int32** | The version of the schema | 
+**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+**SchemaVersion** | **int32** | The version of the schema
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchVersionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 
 ### Return type
 
@@ -637,9 +637,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListEventTypeParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -676,9 +676,9 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListSinkParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -709,19 +709,19 @@ Retrieve a list of all Subscribed Event types for a Subscription.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListSubscribedEventParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -758,10 +758,10 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a ListSubscriptionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**SinkSid** | **string** | The SID of the sink that the list of Subscriptions should be filtered by. | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**SinkSid** | **string** | The SID of the sink that the list of Subscriptions should be filtered by.
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -792,19 +792,19 @@ Retrieve a paginated list of versions of the schema.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id. | 
+**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListVersionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -835,20 +835,20 @@ Update an Event for a Subscription.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**SubscriptionSid** | **string** | The unique SID identifier of the Subscription. | 
-**Type** | **string** | Type of event being subscribed to. | 
+**SubscriptionSid** | **string** | The unique SID identifier of the Subscription.
+**Type** | **string** | Type of event being subscribed to.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateSubscribedEventParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Version** | **int32** | The schema version that the subscription should use. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Version** | **int32** | The schema version that the subscription should use.
 
 ### Return type
 
@@ -879,20 +879,20 @@ Update a Subscription.
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | A 34 character string that uniquely identifies this Subscription. | 
+**Sid** | **string** | A 34 character string that uniquely identifies this Subscription.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateSubscriptionParams struct
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**Description** | **string** | A human readable description for the Subscription. | 
-**SinkSid** | **string** | The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. | 
+Name | Type | Description
+------------- | ------------- | -------------
+**Description** | **string** | A human readable description for the Subscription.
+**SinkSid** | **string** | The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
 ### Return type
 
