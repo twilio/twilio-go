@@ -8,7 +8,7 @@ test:
 
 goimports:
 	go get golang.org/x/tools/cmd/goimports
-	goimports -w twilio
+	goimports -w .
 
 govet: goimports
 	go vet ./...

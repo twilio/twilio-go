@@ -2,13 +2,14 @@ package client_test
 
 import (
 	"encoding/json"
-	"github.com/stretchr/testify/assert"
-	twilio "github.com/twilio/twilio-go/client"
-	"github.com/twilio/twilio-go/framework/error"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
+	twilio "github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/framework/error"
 )
 
 func NewClient(accountSid string, authToken string) *twilio.Client {
