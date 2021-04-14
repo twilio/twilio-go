@@ -27,7 +27,7 @@ This library supports the following Go implementations:
 To use twilio-go in your project initialize go modules then run:
 
 ```bash
-go get github.com/twilio/twilio-go@latest
+go get github.com/twilio/twilio-go/twilio
 ```
 
 ## Getting Started
