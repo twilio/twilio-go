@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 	"time"
 
@@ -20,7 +21,8 @@ func NewClient(accountSid string, authToken string) *twilio.Client {
 	c := &twilio.Client{
 		Credentials: creds,
 		HTTPClient:  http.DefaultClient,
-		BaseURL:     "twilio.com",
+		Edge: 		 os.Getenv("TWILIO_EDGE"),
+		Region: 	 os.Getenv("TWILIO_REGION"),
 	}
 
 	return c
@@ -139,4 +141,54 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
+}
+
+func TestClient_BuildHostSetRegion(t *testing.T) {
+	// Region set via client
+	client := NewClient("user", "pass")
+	client.Region = "region"
+	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.twilio.com"))
+	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.urlRegion.twilio.com"))
+
+	// Region set via env vars
+	os.Setenv("TWILIO_REGION", "region")
+	client = NewClient("user", "pass")
+	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.twilio.com"))
+	os.Setenv("TWILIO_REGION", "")
+
+	// Region set via url
+	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.region.twilio.com"))
+}
+
+func TestClient_BuildHostSetEdgeDefaultRegion(t *testing.T) {
+	// Edge set via client
+	client := NewClient("user", "pass")
+	client.Edge = "edge"
+	assert.Equal(t, "https://api.edge.us1.twilio.com", client.BuildHost("https://api.twilio.com"))
+
+	// Edge set via env vars
+	os.Setenv("TWILIO_EDGE", "edge")
+	client = NewClient("user", "pass")
+	assert.Equal(t, "https://api.edge.us1.twilio.com", client.BuildHost("https://api.twilio.com"))
+	os.Setenv("TWILIO_EDGE", "")
+}
+
+func TestClient_BuildHostSetEdgeRegion(t *testing.T) {
+	// Edge and Region set via client
+	client := NewClient("user", "pass")
+	client.Edge = "edge"
+	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.region.twilio.com"))
+	client.Region = "region"
+	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.twilio.com"))
+	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.urlEdge.urlRegion.twilio.com"))
+
+	// Edge and Region set via env vars
+	os.Setenv("TWILIO_EDGE", "edge")
+	os.Setenv("TWILIO_REGION", "region")
+	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.twilio.com"))
+	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.urlEdge.urlRegion.twilio.com"))
+	os.Setenv("TWILIO_REGION", "")
+	os.Setenv("TWILIO_EDGE", "")
+
+	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.edge.region.twilio.com"))
 }

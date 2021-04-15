@@ -27,7 +27,9 @@ type Credentials struct {
 type Client struct {
 	*Credentials
 	HTTPClient *http.Client
-	BaseURL    string
+	BaseURL	   string
+	Edge       string
+	Region     string
 }
 
 // default http Client should not follow redirects and return the most recent response
@@ -42,6 +44,45 @@ func defaultHTTPClient() *http.Client {
 
 func (c *Client) basicAuth() (string, string) {
 	return c.Credentials.AccountSID, c.Credentials.AuthToken
+}
+
+func (c *Client) BuildHost(rawHost string) string {
+	pieces := strings.Split(rawHost, ".")
+	var edge string
+	var region string
+	product := pieces[0]
+	suffix := strings.Join(pieces[len(pieces) - 2:], ".")
+	if len(pieces) == 4 {
+		// product.region.twilio.com
+		region = pieces[1]
+	} else if len(pieces) == 5 {
+		// product.edge.region.twilio.com
+		edge = pieces[1]
+		region = pieces[2]
+	}
+
+	if c.Edge != "" {
+		edge = c.Edge
+	}
+
+	if c.Region != "" {
+		region = c.Region
+	} else if region == "" && edge != "" {
+		region = "us1"
+	}
+
+	if c.BaseURL != "" {
+		suffix = c.BaseURL
+	}
+
+	var result []string
+	for _, item := range []string{product, edge, region, suffix} {
+		if item != "" {
+			result = append(result, item)
+		}
+	}
+
+	return strings.Join(result, ".")
 }
 
 // SetTimeout sets the Timeout for HTTP requests.
@@ -102,6 +143,8 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 	if formData != nil {
 		valueReader = strings.NewReader(formData.Encode())
 	}
+
+	u.Host = c.BuildHost(u.Host)
 
 	req, err := http.NewRequest(method, u.String(), valueReader)
 	if err != nil {
