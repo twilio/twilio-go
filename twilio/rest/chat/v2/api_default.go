@@ -89,7 +89,7 @@ func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChann
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -141,22 +141,22 @@ func (c *DefaultApiService) CreateChannelWebhook(ServiceSid string, ChannelSid s
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
+		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid)
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("ConfigurationMethod", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
 	if params != nil && params.ConfigurationRetryCount != nil {
-		data.Set("ConfigurationRetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
+		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("ConfigurationTriggers", strings.Join(*params.ConfigurationTriggers, ","))
+		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
 	}
 	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("ConfigurationUrl", *params.ConfigurationUrl)
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
@@ -346,7 +346,7 @@ func (c *DefaultApiService) CreateMember(ServiceSid string, ChannelSid string, p
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -422,7 +422,7 @@ func (c *DefaultApiService) CreateMessage(ServiceSid string, ChannelSid string, 
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -565,7 +565,7 @@ func (c *DefaultApiService) CreateUser(ServiceSid string, params *CreateUserPara
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -627,7 +627,7 @@ func (c *DefaultApiService) DeleteChannel(ServiceSid string, Sid string, params 
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -734,7 +734,7 @@ func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, S
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -770,7 +770,7 @@ func (c *DefaultApiService) DeleteMessage(ServiceSid string, ChannelSid string, 
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1810,7 +1810,7 @@ func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params 
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -1862,22 +1862,22 @@ func (c *DefaultApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid s
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
+		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid)
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("ConfigurationMethod", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
 	if params != nil && params.ConfigurationRetryCount != nil {
-		data.Set("ConfigurationRetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
+		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("ConfigurationTriggers", strings.Join(*params.ConfigurationTriggers, ","))
+		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
 	}
 	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("ConfigurationUrl", *params.ConfigurationUrl)
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -2013,7 +2013,7 @@ func (c *DefaultApiService) UpdateMember(ServiceSid string, ChannelSid string, S
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -2086,7 +2086,7 @@ func (c *DefaultApiService) UpdateMessage(ServiceSid string, ChannelSid string, 
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -2239,55 +2239,55 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.LimitsChannelMembers != nil {
-		data.Set("LimitsChannelMembers", fmt.Sprint(*params.LimitsChannelMembers))
+		data.Set("Limits.ChannelMembers", fmt.Sprint(*params.LimitsChannelMembers))
 	}
 	if params != nil && params.LimitsUserChannels != nil {
-		data.Set("LimitsUserChannels", fmt.Sprint(*params.LimitsUserChannels))
+		data.Set("Limits.UserChannels", fmt.Sprint(*params.LimitsUserChannels))
 	}
 	if params != nil && params.MediaCompatibilityMessage != nil {
-		data.Set("MediaCompatibilityMessage", *params.MediaCompatibilityMessage)
+		data.Set("Media.CompatibilityMessage", *params.MediaCompatibilityMessage)
 	}
 	if params != nil && params.NotificationsAddedToChannelEnabled != nil {
-		data.Set("NotificationsAddedToChannelEnabled", fmt.Sprint(*params.NotificationsAddedToChannelEnabled))
+		data.Set("Notifications.AddedToChannel.Enabled", fmt.Sprint(*params.NotificationsAddedToChannelEnabled))
 	}
 	if params != nil && params.NotificationsAddedToChannelSound != nil {
-		data.Set("NotificationsAddedToChannelSound", *params.NotificationsAddedToChannelSound)
+		data.Set("Notifications.AddedToChannel.Sound", *params.NotificationsAddedToChannelSound)
 	}
 	if params != nil && params.NotificationsAddedToChannelTemplate != nil {
-		data.Set("NotificationsAddedToChannelTemplate", *params.NotificationsAddedToChannelTemplate)
+		data.Set("Notifications.AddedToChannel.Template", *params.NotificationsAddedToChannelTemplate)
 	}
 	if params != nil && params.NotificationsInvitedToChannelEnabled != nil {
-		data.Set("NotificationsInvitedToChannelEnabled", fmt.Sprint(*params.NotificationsInvitedToChannelEnabled))
+		data.Set("Notifications.InvitedToChannel.Enabled", fmt.Sprint(*params.NotificationsInvitedToChannelEnabled))
 	}
 	if params != nil && params.NotificationsInvitedToChannelSound != nil {
-		data.Set("NotificationsInvitedToChannelSound", *params.NotificationsInvitedToChannelSound)
+		data.Set("Notifications.InvitedToChannel.Sound", *params.NotificationsInvitedToChannelSound)
 	}
 	if params != nil && params.NotificationsInvitedToChannelTemplate != nil {
-		data.Set("NotificationsInvitedToChannelTemplate", *params.NotificationsInvitedToChannelTemplate)
+		data.Set("Notifications.InvitedToChannel.Template", *params.NotificationsInvitedToChannelTemplate)
 	}
 	if params != nil && params.NotificationsLogEnabled != nil {
-		data.Set("NotificationsLogEnabled", fmt.Sprint(*params.NotificationsLogEnabled))
+		data.Set("Notifications.LogEnabled", fmt.Sprint(*params.NotificationsLogEnabled))
 	}
 	if params != nil && params.NotificationsNewMessageBadgeCountEnabled != nil {
-		data.Set("NotificationsNewMessageBadgeCountEnabled", fmt.Sprint(*params.NotificationsNewMessageBadgeCountEnabled))
+		data.Set("Notifications.NewMessage.BadgeCountEnabled", fmt.Sprint(*params.NotificationsNewMessageBadgeCountEnabled))
 	}
 	if params != nil && params.NotificationsNewMessageEnabled != nil {
-		data.Set("NotificationsNewMessageEnabled", fmt.Sprint(*params.NotificationsNewMessageEnabled))
+		data.Set("Notifications.NewMessage.Enabled", fmt.Sprint(*params.NotificationsNewMessageEnabled))
 	}
 	if params != nil && params.NotificationsNewMessageSound != nil {
-		data.Set("NotificationsNewMessageSound", *params.NotificationsNewMessageSound)
+		data.Set("Notifications.NewMessage.Sound", *params.NotificationsNewMessageSound)
 	}
 	if params != nil && params.NotificationsNewMessageTemplate != nil {
-		data.Set("NotificationsNewMessageTemplate", *params.NotificationsNewMessageTemplate)
+		data.Set("Notifications.NewMessage.Template", *params.NotificationsNewMessageTemplate)
 	}
 	if params != nil && params.NotificationsRemovedFromChannelEnabled != nil {
-		data.Set("NotificationsRemovedFromChannelEnabled", fmt.Sprint(*params.NotificationsRemovedFromChannelEnabled))
+		data.Set("Notifications.RemovedFromChannel.Enabled", fmt.Sprint(*params.NotificationsRemovedFromChannelEnabled))
 	}
 	if params != nil && params.NotificationsRemovedFromChannelSound != nil {
-		data.Set("NotificationsRemovedFromChannelSound", *params.NotificationsRemovedFromChannelSound)
+		data.Set("Notifications.RemovedFromChannel.Sound", *params.NotificationsRemovedFromChannelSound)
 	}
 	if params != nil && params.NotificationsRemovedFromChannelTemplate != nil {
-		data.Set("NotificationsRemovedFromChannelTemplate", *params.NotificationsRemovedFromChannelTemplate)
+		data.Set("Notifications.RemovedFromChannel.Template", *params.NotificationsRemovedFromChannelTemplate)
 	}
 	if params != nil && params.PostWebhookRetryCount != nil {
 		data.Set("PostWebhookRetryCount", fmt.Sprint(*params.PostWebhookRetryCount))
@@ -2370,7 +2370,7 @@ func (c *DefaultApiService) UpdateUser(ServiceSid string, Sid string, params *Up
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
