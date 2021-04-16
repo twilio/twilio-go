@@ -48,8 +48,10 @@ func (c *Client) basicAuth() (string, string) {
 
 func (c *Client) BuildHost(rawHost string) string {
 	pieces := strings.Split(rawHost, ".")
-	var edge string
-	var region string
+	var (
+		edge   = ""
+		region = ""
+	)
 	product := pieces[0]
 	suffix := strings.Join(pieces[len(pieces)-2:], ".")
 	if len(pieces) == 4 {
