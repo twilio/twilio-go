@@ -2340,7 +2340,7 @@ func (c *DefaultApiService) UpdateTask(WorkspaceSid string, Sid string, params *
 	}
 
 	if params != nil && params.IfMatch != nil {
-		headers["IfMatch"] = *params.IfMatch
+		headers["If-Match"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
