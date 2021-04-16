@@ -164,4 +164,3 @@ func (c *Twilio) SetEdge(edge string) {
 func (c *Twilio) SetRegion(region string) {
 	c.Client.Region = region
 }
-

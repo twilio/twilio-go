@@ -27,7 +27,7 @@ type Credentials struct {
 type Client struct {
 	*Credentials
 	HTTPClient *http.Client
-	BaseURL	   string
+	BaseURL    string
 	Edge       string
 	Region     string
 }
@@ -51,7 +51,7 @@ func (c *Client) BuildHost(rawHost string) string {
 	var edge string
 	var region string
 	product := pieces[0]
-	suffix := strings.Join(pieces[len(pieces) - 2:], ".")
+	suffix := strings.Join(pieces[len(pieces)-2:], ".")
 	if len(pieces) == 4 {
 		// product.region.twilio.com
 		region = pieces[1]

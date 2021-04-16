@@ -21,8 +21,8 @@ func NewClient(accountSid string, authToken string) *twilio.Client {
 	c := &twilio.Client{
 		Credentials: creds,
 		HTTPClient:  http.DefaultClient,
-		Edge: 		 os.Getenv("TWILIO_EDGE"),
-		Region: 	 os.Getenv("TWILIO_REGION"),
+		Edge:        os.Getenv("TWILIO_EDGE"),
+		Region:      os.Getenv("TWILIO_REGION"),
 	}
 
 	return c
