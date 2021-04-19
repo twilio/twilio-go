@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that is responsible for the resource | [optional] 
 **City** | Pointer to **NullableString** | The city in which the address is located | [optional] 
 **CustomerName** | Pointer to **NullableString** | The name associated with the address | [optional] 

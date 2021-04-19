@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **BrandRegistrationSid** | Pointer to **NullableString** | A2P Brand Registration SID | [optional] 
 **CampaignId** | Pointer to **NullableString** | The Campaign Registry (TCR) Campaign ID. | [optional] 

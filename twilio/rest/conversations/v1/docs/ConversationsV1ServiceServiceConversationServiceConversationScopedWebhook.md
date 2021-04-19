@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique ID of the Account responsible for this conversation. | [optional] 
 **ChatServiceSid** | Pointer to **NullableString** | The SID of the Conversation Service that the resource is associated with. | [optional] 
 **Configuration** | Pointer to **map[string]interface{}** | The configuration of this webhook. | [optional] 

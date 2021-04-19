@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Result** | Pointer to **NullableString** | Feedback indicating whether the test event was generated. | [optional] 
 
 ## Methods

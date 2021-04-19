@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AudioSources** | Pointer to **[]string** | The array of track names to include in the compositions created by the composition hook | [optional] 
 **AudioSourcesExcluded** | Pointer to **[]string** | The array of track names to exclude from the compositions created by the composition hook | [optional] 

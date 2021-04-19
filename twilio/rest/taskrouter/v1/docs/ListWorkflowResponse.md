@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListWorkspaceResponseMeta**](ListWorkspaceResponse_meta.md) |  | [optional] 
 **Workflows** | Pointer to [**[]TaskrouterV1WorkspaceWorkflow**](TaskrouterV1WorkspaceWorkflow.md) |  | [optional] 
 

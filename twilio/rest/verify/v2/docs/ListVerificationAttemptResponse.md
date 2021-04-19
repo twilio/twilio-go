@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Attempts** | Pointer to [**[]VerifyV2VerificationAttempt**](VerifyV2VerificationAttempt.md) |  | [optional] 
 **Meta** | Pointer to [**ListVerificationAttemptResponseMeta**](ListVerificationAttemptResponse_meta.md) |  | [optional] 
 

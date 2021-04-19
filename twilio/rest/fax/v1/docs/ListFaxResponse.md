@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Faxes** | Pointer to [**[]FaxV1Fax**](FaxV1Fax.md) |  | [optional] 
 **Meta** | Pointer to [**ListFaxResponseMeta**](ListFaxResponse_meta.md) |  | [optional] 
 

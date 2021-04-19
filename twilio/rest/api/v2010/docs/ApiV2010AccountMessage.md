@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ApiVersion** | Pointer to **NullableString** | The API version used to process the message | [optional] 
 **Body** | Pointer to **NullableString** | The message text | [optional] 

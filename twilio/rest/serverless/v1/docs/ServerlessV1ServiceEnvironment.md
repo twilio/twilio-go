@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the Environment resource | [optional] 
 **BuildSid** | Pointer to **NullableString** | The SID of the build deployed in the environment | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The ISO 8601 date and time in GMT when the Environment resource was created | [optional] 

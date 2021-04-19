@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AssignmentActivityName** | Pointer to **NullableString** | The name of the Activity to assign Workers when a task is assigned for them | [optional] 
 **AssignmentActivitySid** | Pointer to **NullableString** | The SID of the Activity to assign Workers when a task is assigned for them | [optional] 

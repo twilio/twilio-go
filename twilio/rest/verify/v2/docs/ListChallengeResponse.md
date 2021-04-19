@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Challenges** | Pointer to [**[]VerifyV2ServiceEntityChallenge**](VerifyV2ServiceEntityChallenge.md) |  | [optional] 
 **Meta** | Pointer to [**ListVerificationAttemptResponseMeta**](ListVerificationAttemptResponse_meta.md) |  | [optional] 
 

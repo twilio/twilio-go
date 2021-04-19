@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Links** | Pointer to **map[string]interface{}** | The URLs of the related Countries and Numbers resources | [optional] 
 **Name** | Pointer to **NullableString** | The resource name | [optional] 
 **Url** | Pointer to **NullableString** | The absolute URL of the resource | [optional] 

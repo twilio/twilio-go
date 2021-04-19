@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Channels** | Pointer to [**[]IpMessagingV2ServiceChannel**](IpMessagingV2ServiceChannel.md) |  | [optional] 
 **Meta** | Pointer to [**ListCredentialResponseMeta**](ListCredentialResponse_meta.md) |  | [optional] 
 

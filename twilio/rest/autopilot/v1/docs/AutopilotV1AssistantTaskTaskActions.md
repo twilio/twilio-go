@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AssistantSid** | Pointer to **NullableString** | The SID of the Assistant that is the parent of the Task associated with the resource | [optional] 
 **Data** | Pointer to **map[string]interface{}** | The JSON string that specifies the actions that instruct the Assistant on how to perform the task | [optional] 

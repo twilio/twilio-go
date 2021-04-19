@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListServiceResponseMeta**](ListServiceResponse_meta.md) |  | [optional] 
 **Streams** | Pointer to [**[]SyncV1ServiceSyncStream**](SyncV1ServiceSyncStream.md) |  | [optional] 
 

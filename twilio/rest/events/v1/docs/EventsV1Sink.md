@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **DateCreated** | Pointer to **NullableTime** | The date this Sink was created | [optional] 
 **DateUpdated** | Pointer to **NullableTime** | The date this Sink was updated | [optional] 
 **Description** | Pointer to **NullableString** | Sink Description | [optional] 

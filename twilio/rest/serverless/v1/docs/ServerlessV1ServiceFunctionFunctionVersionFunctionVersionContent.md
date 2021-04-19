@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the Function Version resource | [optional] 
 **Content** | Pointer to **NullableString** | The content of the Function Version resource | [optional] 
 **FunctionSid** | Pointer to **NullableString** | The SID of the Function that is the parent of the Function Version | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AddressRequirements** | Pointer to **NullableString** | The type of Address resource the phone number requires | [optional] 
 **Beta** | Pointer to **NullableBool** | Whether the phone number is new to the Twilio platform | [optional] 
 **Capabilities** | Pointer to [**NullableApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities**](api_v2010_account_available_phone_number_country_available_phone_number_local_capabilities.md) |  | [optional] 

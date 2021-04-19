@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Beta** | Pointer to **NullableBool** | Whether all phone numbers available in the country are new to the Twilio platform. | [optional] 
 **Country** | Pointer to **NullableString** | The name of the country | [optional] 
 **CountryCode** | Pointer to **NullableString** | The ISO-3166-1 country code of the country. | [optional] 

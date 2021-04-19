@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListVideoRoomSummaryResponseMeta**](ListVideoRoomSummaryResponse_meta.md) |  | [optional] 
 **Metrics** | Pointer to [**[]InsightsV1CallMetric**](InsightsV1CallMetric.md) |  | [optional] 
 

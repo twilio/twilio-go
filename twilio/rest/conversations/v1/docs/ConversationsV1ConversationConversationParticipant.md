@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique ID of the Account responsible for this participant. | [optional] 
 **Attributes** | Pointer to **NullableString** | An optional string metadata field you can use to store any data you wish. | [optional] 
 **ConversationSid** | Pointer to **NullableString** | The unique ID of the Conversation for this participant. | [optional] 

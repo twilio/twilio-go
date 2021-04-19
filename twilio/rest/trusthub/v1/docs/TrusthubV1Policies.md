@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **FriendlyName** | Pointer to **NullableString** | A human-readable description of the Policy resource | [optional] 
 **Requirements** | Pointer to **map[string]interface{}** | The sid of a Policy object that dictates requirements | [optional] 
 **Sid** | Pointer to **NullableString** | The unique string that identifies the Policy resource | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AddOnConfigurationSid** | Pointer to **NullableString** | The SID of the Add-on configuration | [optional] 
 **AddOnResultSid** | Pointer to **NullableString** | The SID of the AddOnResult to which the payload belongs | [optional] 

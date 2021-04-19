@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListServiceResponseMeta**](ListServiceResponse_meta.md) |  | [optional] 
 **Variables** | Pointer to [**[]ServerlessV1ServiceEnvironmentVariable**](ServerlessV1ServiceEnvironmentVariable.md) |  | [optional] 
 

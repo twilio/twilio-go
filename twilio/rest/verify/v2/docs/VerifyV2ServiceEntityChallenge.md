@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account Sid. | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The date this Challenge was created | [optional] 
 **DateResponded** | Pointer to **NullableTime** | The date this Challenge was responded | [optional] 

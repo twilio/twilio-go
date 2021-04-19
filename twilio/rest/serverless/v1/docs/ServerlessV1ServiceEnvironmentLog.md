@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the Log resource | [optional] 
 **BuildSid** | Pointer to **NullableString** | The SID of the build that corresponds to the log | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The ISO 8601 date and time in GMT when the Log resource was created | [optional] 

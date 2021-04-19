@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Credentials** | Pointer to [**[]AccountsV1CredentialCredentialPublicKey**](AccountsV1CredentialCredentialPublicKey.md) |  | [optional] 
 **Meta** | Pointer to [**ListCredentialAwsResponseMeta**](ListCredentialAwsResponse_meta.md) |  | [optional] 
 

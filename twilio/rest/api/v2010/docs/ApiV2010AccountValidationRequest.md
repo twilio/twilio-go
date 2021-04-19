@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **CallSid** | Pointer to **NullableString** | The SID of the Call the resource is associated with | [optional] 
 **FriendlyName** | Pointer to **NullableString** | The string that you assigned to describe the resource | [optional] 

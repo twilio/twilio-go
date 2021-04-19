@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account SID. | [optional] 
 **SubscriptionSid** | Pointer to **NullableString** | Subscription SID. | [optional] 
 **Type** | Pointer to **NullableString** | Type of event being subscribed to. | [optional] 

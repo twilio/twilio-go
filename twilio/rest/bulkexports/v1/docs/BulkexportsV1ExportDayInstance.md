@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **RedirectTo** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods

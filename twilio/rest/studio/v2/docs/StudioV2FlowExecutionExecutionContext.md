@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Context** | Pointer to **map[string]interface{}** | The current state of the flow | [optional] 
 **ExecutionSid** | Pointer to **NullableString** | The SID of the Execution | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the Asset Version resource | [optional] 
 **AssetSid** | Pointer to **NullableString** | The SID of the Asset resource that is the parent of the Asset Version | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The ISO 8601 date and time in GMT when the Asset Version resource was created | [optional] 

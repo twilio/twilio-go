@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListAssistantResponseMeta**](ListAssistantResponse_meta.md) |  | [optional] 
 **Queries** | Pointer to [**[]AutopilotV1AssistantQuery**](AutopilotV1AssistantQuery.md) |  | [optional] 
 

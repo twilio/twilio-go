@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the Build resource | [optional] 
 **ServiceSid** | Pointer to **NullableString** | The SID of the Service that the Build resource is associated with | [optional] 
 **Sid** | Pointer to **NullableString** | The unique string that identifies the Build resource | [optional] 

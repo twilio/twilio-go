@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Attributes** | Pointer to **map[string]interface{}** | An object that contains application-specific data | [optional] 
 **CallRecordingEnabled** | Pointer to **NullableBool** | Whether call recording is enabled | [optional] 

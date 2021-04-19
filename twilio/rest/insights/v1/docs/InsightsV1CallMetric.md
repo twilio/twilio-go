@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** |  | [optional] 
 **CallSid** | Pointer to **NullableString** |  | [optional] 
 **CarrierEdge** | Pointer to **map[string]interface{}** |  | [optional] 

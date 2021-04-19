@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Events** | Pointer to [**[]TaskrouterV1WorkspaceEvent**](TaskrouterV1WorkspaceEvent.md) |  | [optional] 
 **Meta** | Pointer to [**ListWorkspaceResponseMeta**](ListWorkspaceResponse_meta.md) |  | [optional] 
 

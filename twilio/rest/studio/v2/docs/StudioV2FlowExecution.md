@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ContactChannelAddress** | Pointer to **NullableString** | The phone number, SIP address or Client identifier that triggered the Execution | [optional] 
 **Context** | Pointer to **map[string]interface{}** | The current state of the flow | [optional] 

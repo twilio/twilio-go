@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique ID of the Account responsible for this participant. | [optional] 
 **ChannelMessageSid** | Pointer to **NullableString** | A messaging channel-specific identifier for the message delivered to participant | [optional] 
 **ConversationSid** | Pointer to **NullableString** | The unique ID of the Conversation for this message. | [optional] 

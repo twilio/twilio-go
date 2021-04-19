@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Valid** | Pointer to **NullableBool** | Boolean if the flow definition is valid | [optional] 
 
 ## Methods

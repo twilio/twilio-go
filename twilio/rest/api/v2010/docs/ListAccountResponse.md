@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Accounts** | Pointer to [**[]ApiV2010Account**](ApiV2010Account.md) |  | [optional] 
 **End** | Pointer to **int32** |  | [optional] 
 **FirstPageUri** | Pointer to **string** |  | [optional] 

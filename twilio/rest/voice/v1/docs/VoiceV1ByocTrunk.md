@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **CnamLookupEnabled** | Pointer to **NullableBool** | Whether Caller ID Name (CNAM) lookup is enabled for the trunk | [optional] 
 **ConnectionPolicySid** | Pointer to **NullableString** | Origination Connection Policy (to your Carrier) | [optional] 

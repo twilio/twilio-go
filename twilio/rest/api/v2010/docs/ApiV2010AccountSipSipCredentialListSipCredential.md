@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique id of the Account that is responsible for this resource. | [optional] 
 **CredentialListSid** | Pointer to **NullableString** | The unique id that identifies the credential list that includes this credential | [optional] 
 **DateCreated** | Pointer to **NullableString** | The date that this resource was created, given as GMT in RFC 2822 format. | [optional] 

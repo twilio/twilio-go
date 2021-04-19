@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListVersionResponseMeta**](ListVersionResponse_meta.md) |  | [optional] 
 **SchemaVersions** | Pointer to [**[]EventsV1SchemaVersion**](EventsV1SchemaVersion.md) |  | [optional] 
 

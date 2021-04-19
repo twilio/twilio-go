@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **A2pProfileBundleSid** | Pointer to **NullableString** | A2P Messaging Profile Bundle BundleSid | [optional] 
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **CustomerProfileBundleSid** | Pointer to **NullableString** | A2P Messaging Profile Bundle BundleSid | [optional] 

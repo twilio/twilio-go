@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListTrunkResponseMeta**](ListTrunkResponse_meta.md) |  | [optional] 
 **PhoneNumbers** | Pointer to [**[]TrunkingV1TrunkPhoneNumber**](TrunkingV1TrunkPhoneNumber.md) |  | [optional] 
 

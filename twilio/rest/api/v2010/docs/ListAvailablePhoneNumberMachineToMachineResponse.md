@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AvailablePhoneNumbers** | Pointer to [**[]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine**](ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine.md) |  | [optional] 
 **End** | Pointer to **int32** |  | [optional] 
 **FirstPageUri** | Pointer to **string** |  | [optional] 

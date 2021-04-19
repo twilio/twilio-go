@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AuthType** | Pointer to **NullableString** | The types of authentication mapped to the domain | [optional] 
 **AuthTypeSet** | Pointer to **[]string** | Reserved | [optional] 

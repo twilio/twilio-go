@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ActivityDurations** | Pointer to **[]map[string]interface{}** | The minimum, average, maximum, and total time that Workers spent in each Activity | [optional] 
 **EndTime** | Pointer to **NullableTime** | The end of the interval during which these statistics were calculated | [optional] 

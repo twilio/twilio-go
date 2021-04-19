@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Attributes** | Pointer to **NullableString** | The JSON string that stores application-specific data | [optional] 
 **Body** | Pointer to **NullableString** | The content of the message | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account SID associated with this room. | [optional] 
 **Codecs** | Pointer to **[]string** | Codecs used by participants in the room. | [optional] 
 **ConcurrentParticipants** | Pointer to **NullableInt32** | Actual number of concurrent participants. | [optional] 

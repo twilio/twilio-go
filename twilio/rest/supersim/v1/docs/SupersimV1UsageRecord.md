@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that incurred the usage. | [optional] 
 **DataDownload** | Pointer to **NullableInt32** | Total data downloaded in bytes, aggregated by the query parameters. | [optional] 
 **DataTotal** | Pointer to **NullableInt32** | Total of data_upload and data_download. | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Action** | Pointer to **NullableString** | The actions to display for the notification | [optional] 
 **Alexa** | Pointer to **map[string]interface{}** | Deprecated | [optional] 

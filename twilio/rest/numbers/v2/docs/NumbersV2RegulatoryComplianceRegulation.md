@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **EndUserType** | Pointer to **NullableString** | The type of End User of the Regulation resource | [optional] 
 **FriendlyName** | Pointer to **NullableString** | A human-readable description of the Regulation resource | [optional] 
 **IsoCountry** | Pointer to **NullableString** | The ISO country code of the phone number&#39;s country | [optional] 

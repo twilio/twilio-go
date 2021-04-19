@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Days** | Pointer to [**[]BulkexportsV1ExportDay**](BulkexportsV1ExportDay.md) |  | [optional] 
 **Meta** | Pointer to [**ListDayResponseMeta**](ListDayResponse_meta.md) |  | [optional] 
 

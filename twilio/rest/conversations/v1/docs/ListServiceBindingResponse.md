@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Bindings** | Pointer to [**[]ConversationsV1ServiceServiceBinding**](ConversationsV1ServiceServiceBinding.md) |  | [optional] 
 **Meta** | Pointer to [**ListConversationResponseMeta**](ListConversationResponse_meta.md) |  | [optional] 
 

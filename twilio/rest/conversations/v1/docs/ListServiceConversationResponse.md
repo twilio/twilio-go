@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Conversations** | Pointer to [**[]ConversationsV1ServiceServiceConversation**](ConversationsV1ServiceServiceConversation.md) |  | [optional] 
 **Meta** | Pointer to [**ListConversationResponseMeta**](ListConversationResponse_meta.md) |  | [optional] 
 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AddOns** | Pointer to **map[string]interface{}** | A JSON string with the results of the Add-ons you specified | [optional] 
 **CallerName** | Pointer to **map[string]interface{}** | The name of the phone number&#39;s owner | [optional] 
 **Carrier** | Pointer to **map[string]interface{}** | The telecom company that provides the phone number | [optional] 

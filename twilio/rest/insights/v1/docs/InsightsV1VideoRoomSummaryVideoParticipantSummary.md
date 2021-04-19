@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account SID associated with the room. | [optional] 
 **Codecs** | Pointer to **[]string** | Codecs detected from the participant. | [optional] 
 **DurationSec** | Pointer to **NullableInt32** | Amount of time in seconds the participant was in the room. | [optional] 

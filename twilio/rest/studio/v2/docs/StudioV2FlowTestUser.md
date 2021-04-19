@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Sid** | Pointer to **NullableString** | Unique identifier of the flow. | [optional] 
 **TestUsers** | Pointer to **[]string** | List of test user identities that can test draft versions of the flow. | [optional] 
 **Url** | Pointer to **NullableString** | The URL of this resource. | [optional] 

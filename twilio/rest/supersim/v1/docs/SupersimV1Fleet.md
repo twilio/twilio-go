@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **CommandsEnabled** | Pointer to **NullableBool** | Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands | [optional] 
 **CommandsMethod** | Pointer to **NullableString** | A string representing the HTTP method to use when making a request to &#x60;commands_url&#x60; | [optional] 

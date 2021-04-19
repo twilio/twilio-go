@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **DataSessions** | Pointer to [**[]WirelessV1SimDataSession**](WirelessV1SimDataSession.md) |  | [optional] 
 **Meta** | Pointer to [**ListCommandResponseMeta**](ListCommandResponse_meta.md) |  | [optional] 
 

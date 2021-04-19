@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account accrued the usage | [optional] 
 **ApiVersion** | Pointer to **NullableString** | The API version used to create the resource | [optional] 
 **AsOf** | Pointer to **NullableString** | Usage records up to date as of this timestamp | [optional] 

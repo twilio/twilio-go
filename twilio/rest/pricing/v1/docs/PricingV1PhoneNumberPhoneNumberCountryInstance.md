@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Country** | Pointer to **NullableString** | The name of the country | [optional] 
 **IsoCountry** | Pointer to **NullableString** | The ISO country code  | [optional] 
 **PhoneNumberPrices** | Pointer to [**[]PricingV1MessagingMessagingCountryInstanceInboundSmsPrices**](PricingV1MessagingMessagingCountryInstanceInboundSmsPrices.md) | The list of PhoneNumberPrices records | [optional] 

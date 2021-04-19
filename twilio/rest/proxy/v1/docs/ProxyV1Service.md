@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **CallbackUrl** | Pointer to **NullableString** | The URL we call when the interaction status changes | [optional] 
 **ChatInstanceSid** | Pointer to **NullableString** | The SID of the Chat Service Instance | [optional] 

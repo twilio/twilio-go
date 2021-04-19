@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Country** | Pointer to **NullableString** | The name of the country | [optional] 
 **IsoCountry** | Pointer to **NullableString** | The ISO country code | [optional] 
 **Url** | Pointer to **NullableString** | The absolute URL of the resource | [optional] 

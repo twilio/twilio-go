@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Command** | Pointer to **NullableString** | The message being sent to or from the SIM | [optional] 
 **CommandMode** | Pointer to **NullableString** | The mode used to send the SMS message | [optional] 

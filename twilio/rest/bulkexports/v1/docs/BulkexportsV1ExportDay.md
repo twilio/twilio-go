@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **CreateDate** | Pointer to **NullableString** | The date when resource is created | [optional] 
 **Day** | Pointer to **NullableString** | The date of the data in the file | [optional] 
 **FriendlyName** | Pointer to **NullableString** | The friendly name specified when creating the job | [optional] 

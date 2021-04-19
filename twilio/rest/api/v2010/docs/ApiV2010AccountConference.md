@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created this resource | [optional] 
 **ApiVersion** | Pointer to **NullableString** | The API version used to create this conference | [optional] 
 **CallSidEndingConference** | Pointer to **NullableString** | The call SID that caused the conference to end | [optional] 

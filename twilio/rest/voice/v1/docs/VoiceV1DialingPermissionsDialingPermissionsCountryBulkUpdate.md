@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **UpdateCount** | Pointer to **NullableInt32** | The number of countries updated | [optional] 
 **UpdateRequest** | Pointer to **NullableString** | A URL encoded JSON array of update objects | [optional] 
 

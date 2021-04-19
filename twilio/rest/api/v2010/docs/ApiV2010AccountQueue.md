@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created this resource | [optional] 
 **AverageWaitTime** | Pointer to **NullableInt32** | Average wait time of members in the queue | [optional] 
 **CurrentSize** | Pointer to **NullableInt32** | The number of calls currently in the queue. | [optional] 

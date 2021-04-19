@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **RedirectTo** | Pointer to **NullableString** | Redirect url to the list of deactivated numbers. | [optional] 
 
 ## Methods

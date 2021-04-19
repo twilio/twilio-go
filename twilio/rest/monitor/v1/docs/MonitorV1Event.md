@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ActorSid** | Pointer to **NullableString** | The SID of the actor that caused the event, if available | [optional] 
 **ActorType** | Pointer to **NullableString** | The type of actor that caused the event | [optional] 

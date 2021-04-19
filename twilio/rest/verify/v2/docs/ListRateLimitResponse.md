@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListVerificationAttemptResponseMeta**](ListVerificationAttemptResponse_meta.md) |  | [optional] 
 **RateLimits** | Pointer to [**[]VerifyV2ServiceRateLimit**](VerifyV2ServiceRateLimit.md) |  | [optional] 
 

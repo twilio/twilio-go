@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Content** | Pointer to [**[]VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes**](VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes.md) |  | [optional] 
 **Meta** | Pointer to [**ListByocTrunkResponseMeta**](ListByocTrunkResponse_meta.md) |  | [optional] 
 

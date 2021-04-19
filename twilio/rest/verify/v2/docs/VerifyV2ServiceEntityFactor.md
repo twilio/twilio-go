@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account Sid. | [optional] 
 **Config** | Pointer to **map[string]interface{}** | Configurations for a &#x60;factor_type&#x60;. | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The date this Factor was created | [optional] 

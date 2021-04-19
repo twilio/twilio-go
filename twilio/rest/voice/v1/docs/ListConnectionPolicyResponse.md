@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **ConnectionPolicies** | Pointer to [**[]VoiceV1ConnectionPolicy**](VoiceV1ConnectionPolicy.md) |  | [optional] 
 **Meta** | Pointer to [**ListByocTrunkResponseMeta**](ListByocTrunkResponse_meta.md) |  | [optional] 
 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **ConnectApps** | Pointer to [**[]ApiV2010AccountConnectApp**](ApiV2010AccountConnectApp.md) |  | [optional] 
 **End** | Pointer to **int32** |  | [optional] 
 **FirstPageUri** | Pointer to **string** |  | [optional] 

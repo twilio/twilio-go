@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ChannelSid** | Pointer to **NullableString** | The SID of the Channel the Channel Webhook resource belongs to | [optional] 
 **Configuration** | Pointer to **map[string]interface{}** | The JSON string that describes the configuration object for the channel webhook | [optional] 

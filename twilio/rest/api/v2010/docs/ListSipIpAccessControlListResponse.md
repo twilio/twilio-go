@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **End** | Pointer to **int32** |  | [optional] 
 **FirstPageUri** | Pointer to **string** |  | [optional] 
 **IpAccessControlLists** | Pointer to [**[]ApiV2010AccountSipSipIpAccessControlList**](ApiV2010AccountSipSipIpAccessControlList.md) |  | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **FirstPageUrl** | Pointer to **string** |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
 **NextPageUrl** | Pointer to **string** |  | [optional] 

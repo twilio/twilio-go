@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListServiceResponseMeta**](ListServiceResponse_meta.md) |  | [optional] 
 **PhoneNumbers** | Pointer to [**[]MessagingV1ServicePhoneNumber**](MessagingV1ServicePhoneNumber.md) |  | [optional] 
 

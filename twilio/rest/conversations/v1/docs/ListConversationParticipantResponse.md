@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListConversationResponseMeta**](ListConversationResponse_meta.md) |  | [optional] 
 **Participants** | Pointer to [**[]ConversationsV1ConversationConversationParticipant**](ConversationsV1ConversationConversationParticipant.md) |  | [optional] 
 

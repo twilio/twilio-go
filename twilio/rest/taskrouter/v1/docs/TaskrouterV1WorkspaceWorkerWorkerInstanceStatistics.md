@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Cumulative** | Pointer to **map[string]interface{}** | An object that contains the cumulative statistics for the Worker | [optional] 
 **Url** | Pointer to **NullableString** | The absolute URL of the WorkerChannel statistics resource | [optional] 

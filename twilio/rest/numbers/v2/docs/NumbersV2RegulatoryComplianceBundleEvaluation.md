@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **BundleSid** | Pointer to **NullableString** | The unique string that identifies the resource | [optional] 
 **DateCreated** | Pointer to **NullableTime** |  | [optional] 

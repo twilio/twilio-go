@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListVersionResponseMeta**](ListVersionResponse_meta.md) |  | [optional] 
 **Types** | Pointer to [**[]EventsV1SubscriptionSubscribedEvent**](EventsV1SubscriptionSubscribedEvent.md) |  | [optional] 
 

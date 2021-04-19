@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **CredentialLists** | Pointer to [**[]TrunkingV1TrunkCredentialList**](TrunkingV1TrunkCredentialList.md) |  | [optional] 
 **Meta** | Pointer to [**ListTrunkResponseMeta**](ListTrunkResponse_meta.md) |  | [optional] 
 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique ID of the Account responsible for this message. | [optional] 
 **Attributes** | Pointer to **NullableString** | A string metadata field you can use to store any data you wish. | [optional] 
 **Author** | Pointer to **NullableString** | The channel specific identifier of the message&#39;s author. | [optional] 

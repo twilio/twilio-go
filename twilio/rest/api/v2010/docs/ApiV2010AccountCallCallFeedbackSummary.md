@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique sid that identifies this account | [optional] 
 **CallCount** | Pointer to **NullableInt32** | The total number of calls | [optional] 
 **CallFeedbackCount** | Pointer to **NullableInt32** | The total number of calls with a feedback entry | [optional] 

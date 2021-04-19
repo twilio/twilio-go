@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account Sid. | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The date this Entity was created | [optional] 
 **DateUpdated** | Pointer to **NullableTime** | The date this Entity was updated | [optional] 

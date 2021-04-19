@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the Build resource | [optional] 
 **AssetVersions** | Pointer to **[]map[string]interface{}** | The list of Asset Version resource SIDs that are included in the Build | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The ISO 8601 date and time in GMT when the Build resource was created | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **BasePrice** | Pointer to **float32** |  | [optional] 
 **CurrentPrice** | Pointer to **float32** |  | [optional] 
 **NumberType** | Pointer to **string** |  | [optional] 

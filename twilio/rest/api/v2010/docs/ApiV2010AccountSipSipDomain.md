@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ApiVersion** | Pointer to **NullableString** | The API version used to process the call | [optional] 
 **AuthType** | Pointer to **NullableString** | The types of authentication mapped to the domain | [optional] 

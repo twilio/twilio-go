@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **FlexChatChannels** | Pointer to [**[]FlexV1WebChannel**](FlexV1WebChannel.md) |  | [optional] 
 **Meta** | Pointer to [**ListChannelResponseMeta**](ListChannelResponse_meta.md) |  | [optional] 
 

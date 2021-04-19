@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Codec** | Pointer to **NullableString** | The codec used for the recording | [optional] 
 **ContainerFormat** | Pointer to **NullableString** | The file format for the recording | [optional] 

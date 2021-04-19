@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListByocTrunkResponseMeta**](ListByocTrunkResponse_meta.md) |  | [optional] 
 **SourceIpMappings** | Pointer to [**[]VoiceV1SourceIpMapping**](VoiceV1SourceIpMapping.md) |  | [optional] 
 

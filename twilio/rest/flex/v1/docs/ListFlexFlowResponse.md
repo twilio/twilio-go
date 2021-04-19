@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **FlexFlows** | Pointer to [**[]FlexV1FlexFlow**](FlexV1FlexFlow.md) |  | [optional] 
 **Meta** | Pointer to [**ListChannelResponseMeta**](ListChannelResponse_meta.md) |  | [optional] 
 

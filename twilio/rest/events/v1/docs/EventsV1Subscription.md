@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account SID. | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The date this Subscription was created | [optional] 
 **DateUpdated** | Pointer to **NullableTime** | The date this Subscription was updated | [optional] 

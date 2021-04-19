@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **All** | Pointer to **bool** |  | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
 **Publisher** | Pointer to **string** |  | [optional] 

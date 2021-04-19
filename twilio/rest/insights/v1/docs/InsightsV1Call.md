@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Links** | Pointer to **map[string]interface{}** |  | [optional] 
 **Sid** | Pointer to **NullableString** |  | [optional] 
 **Url** | Pointer to **NullableString** |  | [optional] 

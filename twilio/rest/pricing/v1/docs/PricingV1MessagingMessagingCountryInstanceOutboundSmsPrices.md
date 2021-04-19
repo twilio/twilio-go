@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Carrier** | Pointer to **string** |  | [optional] 
 **Mcc** | Pointer to **string** |  | [optional] 
 **Mnc** | Pointer to **string** |  | [optional] 

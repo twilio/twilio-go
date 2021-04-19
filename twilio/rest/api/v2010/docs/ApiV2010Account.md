@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AuthToken** | Pointer to **NullableString** | The authorization token for this account | [optional] 
 **DateCreated** | Pointer to **NullableString** | The date this account was created | [optional] 
 **DateUpdated** | Pointer to **NullableString** | The date this account was last updated | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Commands** | Pointer to **map[string]interface{}** | An object that describes the SIM&#39;s usage of Commands during the specified period | [optional] 
 **Data** | Pointer to **map[string]interface{}** | An object that describes the SIM&#39;s data usage during the specified period | [optional] 

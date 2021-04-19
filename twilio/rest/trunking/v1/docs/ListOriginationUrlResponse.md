@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListTrunkResponseMeta**](ListTrunkResponse_meta.md) |  | [optional] 
 **OriginationUrls** | Pointer to [**[]TrunkingV1TrunkOriginationUrl**](TrunkingV1TrunkOriginationUrl.md) |  | [optional] 
 

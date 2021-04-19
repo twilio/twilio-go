@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** |  | [optional] 
 **BindingType** | Pointer to **NullableString** |  | [optional] 
 **CredentialSid** | Pointer to **NullableString** |  | [optional] 

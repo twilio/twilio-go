@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Data** | Pointer to **map[string]interface{}** | Stream Message body | [optional] 
 **Sid** | Pointer to **NullableString** | The unique string that identifies the resource | [optional] 
 

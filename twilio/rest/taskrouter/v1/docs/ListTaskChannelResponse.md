@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Channels** | Pointer to [**[]TaskrouterV1WorkspaceTaskChannel**](TaskrouterV1WorkspaceTaskChannel.md) |  | [optional] 
 **Meta** | Pointer to [**ListWorkspaceResponseMeta**](ListWorkspaceResponse_meta.md) |  | [optional] 
 

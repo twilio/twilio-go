@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AuthorizeRedirectUrl** | Pointer to **NullableString** | The URL to redirect the user to after authorization | [optional] 
 **CompanyName** | Pointer to **NullableString** | The company name set for the Connect App | [optional] 

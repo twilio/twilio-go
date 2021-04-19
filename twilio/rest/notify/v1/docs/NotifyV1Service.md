@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AlexaSkillId** | Pointer to **NullableString** | Deprecated | [optional] 
 **ApnCredentialSid** | Pointer to **NullableString** | The SID of the Credential to use for APN Bindings | [optional] 

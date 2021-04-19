@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **ByocTrunks** | Pointer to [**[]VoiceV1ByocTrunk**](VoiceV1ByocTrunk.md) |  | [optional] 
 **Meta** | Pointer to [**ListByocTrunkResponseMeta**](ListByocTrunkResponse_meta.md) |  | [optional] 
 

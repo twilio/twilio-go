@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Media** | Pointer to [**[]FaxV1FaxFaxMedia**](FaxV1FaxFaxMedia.md) |  | [optional] 
 **Meta** | Pointer to [**ListFaxResponseMeta**](ListFaxResponse_meta.md) |  | [optional] 
 

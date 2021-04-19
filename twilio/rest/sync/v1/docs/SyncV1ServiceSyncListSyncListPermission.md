@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Identity** | Pointer to **NullableString** | The identity of the user to whom the Sync List Permission applies | [optional] 
 **ListSid** | Pointer to **NullableString** | The SID of the Sync List to which the Permission applies | [optional] 

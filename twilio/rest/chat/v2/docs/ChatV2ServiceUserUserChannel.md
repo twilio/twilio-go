@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ChannelSid** | Pointer to **NullableString** | The SID of the Channel the resource belongs to | [optional] 
 **LastConsumedMessageIndex** | Pointer to **NullableInt32** | The index of the last Message in the Channel the Member has read | [optional] 

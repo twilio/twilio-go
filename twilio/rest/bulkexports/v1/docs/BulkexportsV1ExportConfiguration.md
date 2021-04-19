@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Enabled** | Pointer to **NullableBool** | Whether files are automatically generated | [optional] 
 **ResourceType** | Pointer to **NullableString** | The type of communication – Messages, Calls, Conferences, and Participants | [optional] 
 **Url** | Pointer to **NullableString** | The URL of this resource. | [optional] 

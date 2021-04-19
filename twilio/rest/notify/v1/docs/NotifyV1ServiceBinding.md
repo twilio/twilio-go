@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Address** | Pointer to **NullableString** | The channel-specific address | [optional] 
 **BindingType** | Pointer to **NullableString** | The type of the Binding | [optional] 

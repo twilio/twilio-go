@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **DependentPhoneNumbers** | Pointer to [**[]ApiV2010AccountAddressDependentPhoneNumber**](ApiV2010AccountAddressDependentPhoneNumber.md) |  | [optional] 
 **End** | Pointer to **int32** |  | [optional] 
 **FirstPageUri** | Pointer to **string** |  | [optional] 

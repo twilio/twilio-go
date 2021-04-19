@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Usecases** | Pointer to **[]map[string]interface{}** | Human readable Messaging Service Use Case details | [optional] 
 
 ## Methods

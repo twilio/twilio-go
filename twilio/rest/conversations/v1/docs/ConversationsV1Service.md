@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique ID of the Account responsible for this service. | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The date that this resource was created. | [optional] 
 **DateUpdated** | Pointer to **NullableTime** | The date that this resource was last updated. | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ChannelEndpointSid** | Pointer to **NullableString** | The sid of an channel endpoint | [optional] 
 **ChannelEndpointType** | Pointer to **NullableString** | The type of channel endpoint | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListFlowResponseMeta**](ListFlowResponse_meta.md) |  | [optional] 
 **Steps** | Pointer to [**[]StudioV1FlowExecutionExecutionStep**](StudioV1FlowExecutionExecutionStep.md) |  | [optional] 
 

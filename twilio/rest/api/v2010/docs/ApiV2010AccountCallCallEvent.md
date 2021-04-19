@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Request** | Pointer to **map[string]interface{}** | Call Request. | [optional] 
 **Response** | Pointer to **map[string]interface{}** | Call Response with Events. | [optional] 
 

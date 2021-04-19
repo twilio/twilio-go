@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AddressRequirements** | Pointer to **NullableString** | Whether the phone number requires an Address registered with Twilio. | [optional] 
 **AddressSid** | Pointer to **NullableString** | The SID of the Address resource associated with the phone number | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AwsCredentialsSid** | Pointer to **NullableString** | The SID of the stored Credential resource | [optional] 
 **AwsS3Url** | Pointer to **NullableString** | The URL of the AWS S3 bucket where the compositions are stored | [optional] 

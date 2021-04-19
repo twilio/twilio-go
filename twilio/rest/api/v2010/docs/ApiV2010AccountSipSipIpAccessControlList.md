@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique sid that identifies this account | [optional] 
 **DateCreated** | Pointer to **NullableString** | The date this resource was created | [optional] 
 **DateUpdated** | Pointer to **NullableString** | The date this resource was last updated | [optional] 

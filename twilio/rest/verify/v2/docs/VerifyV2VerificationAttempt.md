@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account Sid | [optional] 
 **Channel** | Pointer to **NullableString** | Channel used for the attempt | [optional] 
 **ChannelData** | Pointer to **map[string]interface{}** | Object with the channel information for an attempt | [optional] 

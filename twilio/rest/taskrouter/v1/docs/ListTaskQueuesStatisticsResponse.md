@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListWorkspaceResponseMeta**](ListWorkspaceResponse_meta.md) |  | [optional] 
 **TaskQueuesStatistics** | Pointer to [**[]TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics**](TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics.md) |  | [optional] 
 

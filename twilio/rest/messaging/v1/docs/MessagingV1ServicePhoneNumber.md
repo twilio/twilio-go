@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Capabilities** | Pointer to **[]string** | An array of values that describe whether the number can receive calls or messages | [optional] 
 **CountryCode** | Pointer to **NullableString** | The 2-character ISO Country Code of the number | [optional] 

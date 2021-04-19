@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique ID of the Account responsible for this configuration. | [optional] 
 **AddedToConversation** | Pointer to **map[string]interface{}** | The Push Notification configuration for being added to a Conversation. | [optional] 
 **ChatServiceSid** | Pointer to **NullableString** | The SID of the Conversation Service that the Configuration applies to. | [optional] 

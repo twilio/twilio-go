@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Mode** | Pointer to **NullableString** | The recording mode for the trunk. | [optional] 
 **Trim** | Pointer to **NullableString** | The recording trim setting for the trunk. | [optional] 
 

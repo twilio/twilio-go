@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListCommandResponseMeta**](ListCommandResponse_meta.md) |  | [optional] 
 **SmsCommands** | Pointer to [**[]SupersimV1SmsCommand**](SupersimV1SmsCommand.md) |  | [optional] 
 

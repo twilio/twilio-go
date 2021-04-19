@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Countries** | Pointer to [**[]PricingV1VoiceVoiceCountry**](PricingV1VoiceVoiceCountry.md) |  | [optional] 
 **Meta** | Pointer to [**ListMessagingCountryResponseMeta**](ListMessagingCountryResponse_meta.md) |  | [optional] 
 

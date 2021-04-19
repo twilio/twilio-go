@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Country** | Pointer to **NullableString** | The name of the country | [optional] 
 **InboundCallPrice** | Pointer to [**NullablePricingV1VoiceVoiceNumberInboundCallPrice**](pricing_v1_voice_voice_number_inbound_call_price.md) |  | [optional] 
 **IsoCountry** | Pointer to **NullableString** | The ISO country code | [optional] 

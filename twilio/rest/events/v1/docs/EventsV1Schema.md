@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Id** | Pointer to **NullableString** | Schema Identifier. | [optional] 
 **LastCreated** | Pointer to **NullableTime** | The date that the last schema version was created. | [optional] 
 **LastVersion** | Pointer to **NullableInt32** | Last schema version. | [optional] 

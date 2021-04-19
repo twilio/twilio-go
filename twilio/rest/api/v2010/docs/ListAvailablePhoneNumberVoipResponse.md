@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AvailablePhoneNumbers** | Pointer to [**[]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoip**](ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoip.md) |  | [optional] 
 **End** | Pointer to **int32** |  | [optional] 
 **FirstPageUri** | Pointer to **string** |  | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created this resource | [optional] 
 **Annotation** | Pointer to **NullableString** | The annotation provided for the call | [optional] 
 **AnsweredBy** | Pointer to **NullableString** | Either &#x60;human&#x60; or &#x60;machine&#x60; if this call was initiated with answering machine detection. Empty otherwise. | [optional] 

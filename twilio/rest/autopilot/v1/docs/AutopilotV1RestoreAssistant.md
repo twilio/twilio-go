@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **CallbackEvents** | Pointer to **NullableString** | Reserved | [optional] 
 **CallbackUrl** | Pointer to **NullableString** | Reserved | [optional] 

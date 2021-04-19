@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account SID | [optional] 
 **Context** | Pointer to **map[string]interface{}** | Flow state | [optional] 
 **EngagementSid** | Pointer to **NullableString** | Engagement SID | [optional] 

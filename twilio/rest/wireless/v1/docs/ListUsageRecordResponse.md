@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListCommandResponseMeta**](ListCommandResponse_meta.md) |  | [optional] 
 **UsageRecords** | Pointer to [**[]WirelessV1SimUsageRecord**](WirelessV1SimUsageRecord.md) |  | [optional] 
 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AddOnConfigurationSid** | Pointer to **NullableString** | The SID of the Add-on configuration | [optional] 
 **AddOnSid** | Pointer to **NullableString** | The SID of the Add-on to which the result belongs | [optional] 

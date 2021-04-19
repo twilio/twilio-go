@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | Account Sid. | [optional] 
 **Binding** | Pointer to **map[string]interface{}** | Unique external identifier of the Entity | [optional] 
 **Config** | Pointer to **map[string]interface{}** | Binding for a &#x60;factor_type&#x60;. | [optional] 

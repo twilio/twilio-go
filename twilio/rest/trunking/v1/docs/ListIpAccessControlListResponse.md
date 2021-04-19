@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **IpAccessControlLists** | Pointer to [**[]TrunkingV1TrunkIpAccessControlList**](TrunkingV1TrunkIpAccessControlList.md) |  | [optional] 
 **Meta** | Pointer to [**ListTrunkResponseMeta**](ListTrunkResponse_meta.md) |  | [optional] 
 

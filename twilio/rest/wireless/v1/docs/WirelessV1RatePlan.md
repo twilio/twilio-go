@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **DataEnabled** | Pointer to **NullableBool** | Whether SIMs can use GPRS/3G/4G/LTE data connectivity | [optional] 
 **DataLimit** | Pointer to **NullableInt32** | The total data usage in Megabytes that the Network allows during one month on the home network | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **CallSid** | Pointer to **NullableString** | The SID of the Call the resource is associated with | [optional] 
 **CallSidToCoach** | Pointer to **NullableString** | The SID of the participant who is being &#x60;coached&#x60; | [optional] 

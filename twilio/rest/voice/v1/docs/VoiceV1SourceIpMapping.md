@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **DateCreated** | Pointer to **NullableTime** | The RFC 2822 date and time in GMT that the resource was created | [optional] 
 **DateUpdated** | Pointer to **NullableTime** | The RFC 2822 date and time in GMT that the resource was last updated | [optional] 
 **IpRecordSid** | Pointer to **NullableString** | The unique string that identifies an IP Record | [optional] 

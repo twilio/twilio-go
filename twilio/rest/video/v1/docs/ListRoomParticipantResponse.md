@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListCompositionHookResponseMeta**](ListCompositionHookResponse_meta.md) |  | [optional] 
 **Participants** | Pointer to [**[]VideoV1RoomRoomParticipant**](VideoV1RoomRoomParticipant.md) |  | [optional] 
 

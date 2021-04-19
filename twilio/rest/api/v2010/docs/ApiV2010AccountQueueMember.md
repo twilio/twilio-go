@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **CallSid** | Pointer to **NullableString** | The SID of the Call the resource is associated with | [optional] 
 **DateEnqueued** | Pointer to **NullableString** | The date the member was enqueued | [optional] 
 **Position** | Pointer to **NullableInt32** | This member&#39;s current position in the queue. | [optional] 

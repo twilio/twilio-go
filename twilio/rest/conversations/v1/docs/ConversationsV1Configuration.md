@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account responsible for this configuration. | [optional] 
 **DefaultChatServiceSid** | Pointer to **NullableString** | The SID of the default Conversation Service that every new conversation is associated with. | [optional] 
 **DefaultClosedTimer** | Pointer to **NullableString** | Default ISO8601 duration when conversation will be switched to &#x60;closed&#x60; state. | [optional] 

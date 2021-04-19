@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that this trigger monitors | [optional] 
 **ApiVersion** | Pointer to **NullableString** | The API version used to create the resource | [optional] 
 **CallbackMethod** | Pointer to **NullableString** | The HTTP method we use to call callback_url | [optional] 

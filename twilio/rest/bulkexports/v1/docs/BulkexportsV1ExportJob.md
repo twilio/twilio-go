@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Details** | Pointer to **map[string]interface{}** | This is a list of the completed, pending, or errored dates within the export time range, with one entry for each status with more than one day in that status | [optional] 
 **Email** | Pointer to **NullableString** | The optional email to send the completion notification to | [optional] 
 **EndDay** | Pointer to **NullableString** | The end time for the export specified when creating the job | [optional] 

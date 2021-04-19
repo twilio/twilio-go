@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Attributes** | Pointer to **NullableString** | The JSON Object string that stores application-specific data | [optional] 
 **ChatServiceSid** | Pointer to **NullableString** | The SID of the Conversation Service that the resource is associated with | [optional] 

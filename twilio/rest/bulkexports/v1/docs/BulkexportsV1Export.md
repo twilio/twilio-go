@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Links** | Pointer to **map[string]interface{}** | Nested resource URLs. | [optional] 
 **ResourceType** | Pointer to **NullableString** | The type of communication – Messages, Calls, Conferences, and Participants | [optional] 
 **Url** | Pointer to **NullableString** | The URL of this resource. | [optional] 

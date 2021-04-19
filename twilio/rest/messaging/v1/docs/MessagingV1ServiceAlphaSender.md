@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AlphaSender** | Pointer to **NullableString** | The Alphanumeric Sender ID string | [optional] 
 **Capabilities** | Pointer to **[]string** | An array of values that describe whether the number can receive calls or messages | [optional] 

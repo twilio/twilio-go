@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Fields** | Pointer to **[]map[string]interface{}** | The required information for creating a Supporting Document | [optional] 
 **FriendlyName** | Pointer to **NullableString** | A human-readable description of the Supporting Document Type resource | [optional] 
 **MachineName** | Pointer to **NullableString** | The machine-readable description of the Supporting Document Type resource | [optional] 

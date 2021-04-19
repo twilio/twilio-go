@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the Function resource | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The ISO 8601 date and time in GMT when the Function resource was created | [optional] 
 **DateUpdated** | Pointer to **NullableTime** | The ISO 8601 date and time in GMT when the Function resource was last updated | [optional] 

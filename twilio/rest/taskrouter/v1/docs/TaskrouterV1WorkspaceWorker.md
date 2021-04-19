@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ActivityName** | Pointer to **NullableString** | The friendly_name of the Worker&#39;s current Activity | [optional] 
 **ActivitySid** | Pointer to **NullableString** | The SID of the Worker&#39;s current Activity | [optional] 

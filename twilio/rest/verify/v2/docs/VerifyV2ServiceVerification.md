@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Amount** | Pointer to **NullableString** | The amount of the associated PSD2 compliant transaction. | [optional] 
 **Channel** | Pointer to **NullableString** | The verification method used. | [optional] 

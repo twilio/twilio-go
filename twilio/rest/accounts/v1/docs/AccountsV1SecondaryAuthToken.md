@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that the secondary Auth Token was created for | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The ISO 8601 formatted date and time in UTC when the resource was created | [optional] 
 **DateUpdated** | Pointer to **NullableTime** | The ISO 8601 formatted date and time in UTC when the resource was last updated | [optional] 

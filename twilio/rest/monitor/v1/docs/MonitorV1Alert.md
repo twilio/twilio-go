@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AlertText** | Pointer to **NullableString** | The text of the alert | [optional] 
 **ApiVersion** | Pointer to **NullableString** | The API version used when the alert was generated | [optional] 

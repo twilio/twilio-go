@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListServiceResponseMeta**](ListServiceResponse_meta.md) |  | [optional] 
 **Participants** | Pointer to [**[]ProxyV1ServiceSessionParticipant**](ProxyV1ServiceSessionParticipant.md) |  | [optional] 
 

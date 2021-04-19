@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **FormMeta** | Pointer to **map[string]interface{}** | Additional information for the available forms for this type. | [optional] 
 **FormType** | Pointer to **NullableString** | The Type of this Form | [optional] 
 **Forms** | Pointer to **map[string]interface{}** | Object that contains the available forms for this type. | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListServiceResponseMeta**](ListServiceResponse_meta.md) |  | [optional] 
 **Permissions** | Pointer to [**[]SyncV1ServiceDocumentDocumentPermission**](SyncV1ServiceDocumentDocumentPermission.md) |  | [optional] 
 

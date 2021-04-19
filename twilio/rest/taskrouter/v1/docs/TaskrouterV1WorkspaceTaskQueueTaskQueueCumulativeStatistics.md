@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AvgTaskAcceptanceTime** | Pointer to **NullableInt32** | The average time in seconds between Task creation and acceptance | [optional] 
 **EndTime** | Pointer to **NullableTime** | The end of the interval during which these statistics were calculated | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListCommandResponseMeta**](ListCommandResponse_meta.md) |  | [optional] 
 **NetworkAccessProfiles** | Pointer to [**[]SupersimV1NetworkAccessProfile**](SupersimV1NetworkAccessProfile.md) |  | [optional] 
 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account to which the Sim resource belongs | [optional] 
 **CommandsCallbackMethod** | Pointer to **NullableString** | The HTTP method we use to call commands_callback_url | [optional] 
 **CommandsCallbackUrl** | Pointer to **NullableString** | The URL we call when the SIM originates a machine-to-machine Command | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **FriendlyName** | Pointer to **NullableString** | A human readable identifier of this resource | [optional] 
 **Identifiers** | Pointer to **[]map[string]interface{}** | The MCC/MNCs included in the Network resource | [optional] 
 **IsoCountry** | Pointer to **NullableString** | The ISO country code of the Network resource | [optional] 

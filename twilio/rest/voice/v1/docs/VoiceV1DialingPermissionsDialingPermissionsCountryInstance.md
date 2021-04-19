@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Continent** | Pointer to **NullableString** | The name of the continent in which the country is located | [optional] 
 **CountryCodes** | Pointer to **[]string** | The E.164 assigned country codes(s) | [optional] 
 **HighRiskSpecialNumbersEnabled** | Pointer to **NullableBool** | Whether dialing to high-risk special services numbers is enabled | [optional] 

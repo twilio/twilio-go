@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **MessagingConfigurations** | Pointer to [**[]VerifyV2ServiceMessagingConfiguration**](VerifyV2ServiceMessagingConfiguration.md) |  | [optional] 
 **Meta** | Pointer to [**ListVerificationAttemptResponseMeta**](ListVerificationAttemptResponse_meta.md) |  | [optional] 
 

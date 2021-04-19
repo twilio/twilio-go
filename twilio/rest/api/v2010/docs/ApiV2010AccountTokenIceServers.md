@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Credential** | Pointer to **string** |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
 **Urls** | Pointer to **string** |  | [optional] 

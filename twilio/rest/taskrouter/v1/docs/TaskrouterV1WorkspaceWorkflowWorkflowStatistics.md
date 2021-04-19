@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **Cumulative** | Pointer to **map[string]interface{}** | An object that contains the cumulative statistics for the Workflow | [optional] 
 **Realtime** | Pointer to **map[string]interface{}** | An object that contains the real-time statistics for the Workflow | [optional] 

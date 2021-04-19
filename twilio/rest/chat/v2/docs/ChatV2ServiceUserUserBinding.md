@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **BindingType** | Pointer to **NullableString** | The push technology to use for the binding | [optional] 
 **CredentialSid** | Pointer to **NullableString** | The SID of the Credential for the binding | [optional] 

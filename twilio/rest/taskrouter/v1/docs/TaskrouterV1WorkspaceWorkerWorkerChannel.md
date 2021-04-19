@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AssignedTasks** | Pointer to **NullableInt32** | The total number of Tasks assigned to Worker for the TaskChannel type | [optional] 
 **Available** | Pointer to **NullableBool** | Whether the Worker should receive Tasks of the TaskChannel type | [optional] 

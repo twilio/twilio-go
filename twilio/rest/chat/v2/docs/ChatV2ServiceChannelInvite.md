@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ChannelSid** | Pointer to **NullableString** | The SID of the Channel the new resource belongs to | [optional] 
 **CreatedBy** | Pointer to **NullableString** | The identity of the User that created the invite | [optional] 

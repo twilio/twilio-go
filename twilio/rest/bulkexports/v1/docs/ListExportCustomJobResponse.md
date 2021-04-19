@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Jobs** | Pointer to [**[]BulkexportsV1ExportExportCustomJob**](BulkexportsV1ExportExportCustomJob.md) |  | [optional] 
 **Meta** | Pointer to [**ListDayResponseMeta**](ListDayResponse_meta.md) |  | [optional] 
 

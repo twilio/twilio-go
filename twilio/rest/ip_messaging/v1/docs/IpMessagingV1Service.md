@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** |  | [optional] 
 **ConsumptionReportInterval** | Pointer to **NullableInt32** |  | [optional] 
 **DateCreated** | Pointer to **NullableTime** |  | [optional] 

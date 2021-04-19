@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **AssignmentCallbackUrl** | Pointer to **NullableString** | The URL that we call when a task managed by the Workflow is assigned to a Worker | [optional] 
 **Configuration** | Pointer to **NullableString** | A JSON string that contains the Workflow&#39;s configuration | [optional] 

@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **CellId** | Pointer to **NullableString** | The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated | [optional] 
 **CellLocationEstimate** | Pointer to **map[string]interface{}** | An object with the estimated location where the device&#39;s Data Session took place | [optional] 

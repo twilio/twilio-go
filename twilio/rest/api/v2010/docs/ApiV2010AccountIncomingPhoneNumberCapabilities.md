@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Fax** | Pointer to **bool** |  | [optional] 
 **Mms** | Pointer to **bool** |  | [optional] 
 **Sms** | Pointer to **bool** |  | [optional] 

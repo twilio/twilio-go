@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ApiVersion** | Pointer to **NullableString** | The API version used to transmit the fax | [optional] 
 **DateCreated** | Pointer to **NullableTime** | The ISO 8601 formatted date and time in GMT when the resource was created | [optional] 

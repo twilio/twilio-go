@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The unique ID of the Account responsible for this conversation. | [optional] 
 **Filters** | Pointer to **[]string** | The list of webhook event triggers that are enabled for this Service. | [optional] 
 **Method** | Pointer to **NullableString** | The HTTP method to be used when sending a webhook request. | [optional] 

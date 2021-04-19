@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **End** | Pointer to **int32** |  | [optional] 
 **Events** | Pointer to [**[]ApiV2010AccountCallCallEvent**](ApiV2010AccountCallCallEvent.md) |  | [optional] 
 **FirstPageUri** | Pointer to **string** |  | [optional] 

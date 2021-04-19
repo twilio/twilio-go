@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Prefix** | Pointer to **NullableString** | A prefix that includes the E.164 assigned country code | [optional] 
 
 ## Methods

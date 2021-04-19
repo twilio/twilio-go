@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ConnectAppCompanyName** | Pointer to **NullableString** | The company name set for the Connect App | [optional] 
 **ConnectAppDescription** | Pointer to **NullableString** | A detailed description of the app | [optional] 

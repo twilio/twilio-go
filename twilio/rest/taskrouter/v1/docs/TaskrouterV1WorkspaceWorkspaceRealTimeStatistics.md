@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **ActivityStatistics** | Pointer to **[]map[string]interface{}** | The number of current Workers by Activity | [optional] 
 **LongestTaskWaitingAge** | Pointer to **NullableInt32** | The age of the longest waiting Task | [optional] 

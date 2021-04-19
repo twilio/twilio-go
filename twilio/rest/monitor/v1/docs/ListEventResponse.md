@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Events** | Pointer to [**[]MonitorV1Event**](MonitorV1Event.md) |  | [optional] 
 **Meta** | Pointer to [**ListAlertResponseMeta**](ListAlertResponse_meta.md) |  | [optional] 
 

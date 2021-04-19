@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **ChatServiceSid** | Pointer to **NullableString** | The unique string that identifies the resource | [optional] 
 **DefaultChatServiceRoleSid** | Pointer to **NullableString** | The service role assigned to users when they are added to the service | [optional] 
 **DefaultConversationCreatorRoleSid** | Pointer to **NullableString** | The role assigned to a conversation creator user when they join a new conversation | [optional] 

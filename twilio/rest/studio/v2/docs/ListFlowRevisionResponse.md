@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListFlowResponseMeta**](ListFlowResponse_meta.md) |  | [optional] 
 **Revisions** | Pointer to [**[]StudioV2FlowFlowRevision**](StudioV2FlowFlowRevision.md) |  | [optional] 
 

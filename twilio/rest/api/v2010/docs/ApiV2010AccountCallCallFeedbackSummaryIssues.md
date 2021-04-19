@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Count** | Pointer to **float32** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **PercentageOfTotalCalls** | Pointer to **string** |  | [optional] 

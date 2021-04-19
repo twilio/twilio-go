@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Meta** | Pointer to [**ListCustomerProfileResponseMeta**](ListCustomerProfileResponse_meta.md) |  | [optional] 
 **Results** | Pointer to [**[]TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment**](TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment.md) |  | [optional] 
 

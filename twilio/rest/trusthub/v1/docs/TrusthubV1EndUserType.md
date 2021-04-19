@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **Fields** | Pointer to **[]map[string]interface{}** | The required information for creating an End-User. | [optional] 
 **FriendlyName** | Pointer to **NullableString** | A human-readable description of the End-User Type resource | [optional] 
 **MachineName** | Pointer to **NullableString** | A machine-readable description of the End-User Type resource | [optional] 

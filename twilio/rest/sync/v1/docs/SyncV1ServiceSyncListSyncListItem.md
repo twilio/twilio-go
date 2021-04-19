@@ -2,8 +2,8 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+Name | Type | Description
+------------ | ------------- | -------------
 **AccountSid** | Pointer to **NullableString** | The SID of the Account that created the resource | [optional] 
 **CreatedBy** | Pointer to **NullableString** | The identity of the List Item&#39;s creator | [optional] 
 **Data** | Pointer to **map[string]interface{}** | An arbitrary, schema-less object that the List Item stores | [optional] 
