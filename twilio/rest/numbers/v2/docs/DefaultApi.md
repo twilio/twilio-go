@@ -1,4 +1,4 @@
-# DefaultApi
+# \DefaultApi
 
 All URIs are relative to *https://numbers.twilio.com*
 
@@ -37,11 +37,44 @@ Method | HTTP request | Description
 
 ## CreateBundle
 
-> NumbersV2RegulatoryComplianceBundle CreateBundle(ctx, optional)
+> NumbersV2RegulatoryComplianceBundle CreateBundle(ctx).Email(Email).EndUserType(EndUserType).FriendlyName(FriendlyName).IsoCountry(IsoCountry).NumberType(NumberType).RegulationSid(RegulationSid).StatusCallback(StatusCallback).Execute()
 
 
 
-Create a new Bundle.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Email := "Email_example" // string | The email address that will receive updates when the Bundle resource changes status. (optional)
+    EndUserType := "EndUserType_example" // string | The type of End User of the Bundle resource. (optional)
+    FriendlyName := "FriendlyName_example" // string | The string that you assigned to describe the resource. (optional)
+    IsoCountry := "IsoCountry_example" // string | The ISO country code of the Bundle's phone number country ownership request. (optional)
+    NumberType := "NumberType_example" // string | The type of phone number of the Bundle's ownership request. (optional)
+    RegulationSid := "RegulationSid_example" // string | The unique string of a regulation that is associated to the Bundle resource. (optional)
+    StatusCallback := "StatusCallback_example" // string | The URL we call to inform your application of status changes. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateBundle(context.Background()).Email(Email).EndUserType(EndUserType).FriendlyName(FriendlyName).IsoCountry(IsoCountry).NumberType(NumberType).RegulationSid(RegulationSid).StatusCallback(StatusCallback).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateBundle``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateBundle`: NumbersV2RegulatoryComplianceBundle
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateBundle`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -49,18 +82,18 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateBundleParams struct
+Other parameters are passed through a pointer to a CreateBundleParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Bundle resource changes status.
-**EndUserType** | **string** | The type of End User of the Bundle resource.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
-**IsoCountry** | **string** | The ISO country code of the Bundle&#39;s phone number country ownership request.
-**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request.
-**RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
-**StatusCallback** | **string** | The URL we call to inform your application of status changes.
+ **Email** | **string** | The email address that will receive updates when the Bundle resource changes status.
+ **EndUserType** | **string** | The type of End User of the Bundle resource.
+ **FriendlyName** | **string** | The string that you assigned to describe the resource.
+ **IsoCountry** | **string** | The ISO country code of the Bundle&#39;s phone number country ownership request.
+ **NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request.
+ **RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
+ **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 
 ### Return type
 
@@ -72,8 +105,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -82,11 +115,40 @@ Name | Type | Description
 
 ## CreateEndUser
 
-> NumbersV2RegulatoryComplianceEndUser CreateEndUser(ctx, optional)
+> NumbersV2RegulatoryComplianceEndUser CreateEndUser(ctx).Attributes(Attributes).FriendlyName(FriendlyName).Type(Type).Execute()
 
 
 
-Create a new End User.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Attributes := TODO // map[string]interface{} | The set of parameters that are the attributes of the End User resource which are derived End User Types. (optional)
+    FriendlyName := "FriendlyName_example" // string | The string that you assigned to describe the resource. (optional)
+    Type := "Type_example" // string | The type of end user of the Bundle resource - can be `individual` or `business`. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateEndUser(context.Background()).Attributes(Attributes).FriendlyName(FriendlyName).Type(Type).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateEndUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateEndUser`: NumbersV2RegulatoryComplianceEndUser
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateEndUser`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -94,14 +156,14 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateEndUserParams struct
+Other parameters are passed through a pointer to a CreateEndUserParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Type** | **string** | The type of end user of the Bundle resource - can be &#x60;individual&#x60; or &#x60;business&#x60;.
+ **Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
+ **FriendlyName** | **string** | The string that you assigned to describe the resource.
+ **Type** | **string** | The type of end user of the Bundle resource - can be &#x60;individual&#x60; or &#x60;business&#x60;.
 
 ### Return type
 
@@ -113,8 +175,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -123,11 +185,38 @@ Name | Type | Description
 
 ## CreateEvaluation
 
-> NumbersV2RegulatoryComplianceBundleEvaluation CreateEvaluation(ctx, BundleSid)
+> NumbersV2RegulatoryComplianceBundleEvaluation CreateEvaluation(ctx, BundleSid).Execute()
 
 
 
-Creates an evaluation for a bundle
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    BundleSid := "BundleSid_example" // string | The unique string that identifies the Bundle resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateEvaluation(context.Background(), BundleSid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateEvaluation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateEvaluation`: NumbersV2RegulatoryComplianceBundleEvaluation
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateEvaluation`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -139,11 +228,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateEvaluationParams struct
+Other parameters are passed through a pointer to a CreateEvaluationParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -156,7 +246,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -165,11 +255,39 @@ Name | Type | Description
 
 ## CreateItemAssignment
 
-> NumbersV2RegulatoryComplianceBundleItemAssignment CreateItemAssignment(ctx, BundleSidoptional)
+> NumbersV2RegulatoryComplianceBundleItemAssignment CreateItemAssignment(ctx, BundleSid).ObjectSid(ObjectSid).Execute()
 
 
 
-Create a new Assigned Item.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    BundleSid := "BundleSid_example" // string | The unique string that we created to identify the Bundle resource.
+    ObjectSid := "ObjectSid_example" // string | The SID of an object bag that holds information of the different items. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateItemAssignment(context.Background(), BundleSid).ObjectSid(ObjectSid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateItemAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateItemAssignment`: NumbersV2RegulatoryComplianceBundleItemAssignment
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateItemAssignment`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -181,12 +299,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateItemAssignmentParams struct
+Other parameters are passed through a pointer to a CreateItemAssignmentParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ObjectSid** | **string** | The SID of an object bag that holds information of the different items.
+
+ **ObjectSid** | **string** | The SID of an object bag that holds information of the different items.
 
 ### Return type
 
@@ -198,8 +317,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -208,11 +327,40 @@ Name | Type | Description
 
 ## CreateSupportingDocument
 
-> NumbersV2RegulatoryComplianceSupportingDocument CreateSupportingDocument(ctx, optional)
+> NumbersV2RegulatoryComplianceSupportingDocument CreateSupportingDocument(ctx).Attributes(Attributes).FriendlyName(FriendlyName).Type(Type).Execute()
 
 
 
-Create a new Supporting Document.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Attributes := TODO // map[string]interface{} | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types. (optional)
+    FriendlyName := "FriendlyName_example" // string | The string that you assigned to describe the resource. (optional)
+    Type := "Type_example" // string | The type of the Supporting Document. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateSupportingDocument(context.Background()).Attributes(Attributes).FriendlyName(FriendlyName).Type(Type).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateSupportingDocument``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateSupportingDocument`: NumbersV2RegulatoryComplianceSupportingDocument
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateSupportingDocument`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -220,14 +368,14 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSupportingDocumentParams struct
+Other parameters are passed through a pointer to a CreateSupportingDocumentParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Type** | **string** | The type of the Supporting Document.
+ **Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
+ **FriendlyName** | **string** | The string that you assigned to describe the resource.
+ **Type** | **string** | The type of the Supporting Document.
 
 ### Return type
 
@@ -239,8 +387,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -249,11 +397,36 @@ Name | Type | Description
 
 ## DeleteBundle
 
-> DeleteBundle(ctx, Sid)
+> DeleteBundle(ctx, Sid).Execute()
 
 
 
-Delete a specific Bundle.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string that we created to identify the Bundle resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteBundle(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteBundle``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -265,11 +438,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteBundleParams struct
+Other parameters are passed through a pointer to a DeleteBundleParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -291,11 +465,36 @@ Name | Type | Description
 
 ## DeleteEndUser
 
-> DeleteEndUser(ctx, Sid)
+> DeleteEndUser(ctx, Sid).Execute()
 
 
 
-Delete a specific End User.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string created by Twilio to identify the End User resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteEndUser(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteEndUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -307,11 +506,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteEndUserParams struct
+Other parameters are passed through a pointer to a DeleteEndUserParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -333,11 +533,37 @@ Name | Type | Description
 
 ## DeleteItemAssignment
 
-> DeleteItemAssignment(ctx, BundleSidSid)
+> DeleteItemAssignment(ctx, BundleSid, Sid).Execute()
 
 
 
-Remove an Assignment Item Instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    BundleSid := "BundleSid_example" // string | The unique string that we created to identify the Bundle resource.
+    Sid := "Sid_example" // string | The unique string that we created to identify the Identity resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteItemAssignment(context.Background(), BundleSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteItemAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -350,11 +576,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteItemAssignmentParams struct
+Other parameters are passed through a pointer to a DeleteItemAssignmentParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -376,11 +604,36 @@ Name | Type | Description
 
 ## DeleteSupportingDocument
 
-> DeleteSupportingDocument(ctx, Sid)
+> DeleteSupportingDocument(ctx, Sid).Execute()
 
 
 
-Delete a specific Supporting Document.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string created by Twilio to identify the Supporting Document resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteSupportingDocument(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteSupportingDocument``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -392,11 +645,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSupportingDocumentParams struct
+Other parameters are passed through a pointer to a DeleteSupportingDocumentParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -418,11 +672,38 @@ Name | Type | Description
 
 ## FetchBundle
 
-> NumbersV2RegulatoryComplianceBundle FetchBundle(ctx, Sid)
+> NumbersV2RegulatoryComplianceBundle FetchBundle(ctx, Sid).Execute()
 
 
 
-Fetch a specific Bundle instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string that we created to identify the Bundle resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchBundle(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchBundle``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchBundle`: NumbersV2RegulatoryComplianceBundle
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchBundle`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -434,11 +715,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchBundleParams struct
+Other parameters are passed through a pointer to a FetchBundleParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -451,7 +733,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -460,11 +742,38 @@ Name | Type | Description
 
 ## FetchEndUser
 
-> NumbersV2RegulatoryComplianceEndUser FetchEndUser(ctx, Sid)
+> NumbersV2RegulatoryComplianceEndUser FetchEndUser(ctx, Sid).Execute()
 
 
 
-Fetch specific End User Instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string created by Twilio to identify the End User resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchEndUser(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchEndUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchEndUser`: NumbersV2RegulatoryComplianceEndUser
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchEndUser`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -476,11 +785,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEndUserParams struct
+Other parameters are passed through a pointer to a FetchEndUserParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -493,7 +803,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -502,11 +812,38 @@ Name | Type | Description
 
 ## FetchEndUserType
 
-> NumbersV2RegulatoryComplianceEndUserType FetchEndUserType(ctx, Sid)
+> NumbersV2RegulatoryComplianceEndUserType FetchEndUserType(ctx, Sid).Execute()
 
 
 
-Fetch a specific End-User Type Instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string that identifies the End-User Type resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchEndUserType(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchEndUserType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchEndUserType`: NumbersV2RegulatoryComplianceEndUserType
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchEndUserType`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -518,11 +855,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEndUserTypeParams struct
+Other parameters are passed through a pointer to a FetchEndUserTypeParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -535,7 +873,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -544,11 +882,39 @@ Name | Type | Description
 
 ## FetchEvaluation
 
-> NumbersV2RegulatoryComplianceBundleEvaluation FetchEvaluation(ctx, BundleSidSid)
+> NumbersV2RegulatoryComplianceBundleEvaluation FetchEvaluation(ctx, BundleSid, Sid).Execute()
 
 
 
-Fetch specific Evaluation Instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    BundleSid := "BundleSid_example" // string | The unique string that we created to identify the Bundle resource.
+    Sid := "Sid_example" // string | The unique string that identifies the Evaluation resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchEvaluation(context.Background(), BundleSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchEvaluation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchEvaluation`: NumbersV2RegulatoryComplianceBundleEvaluation
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchEvaluation`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -561,11 +927,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEvaluationParams struct
+Other parameters are passed through a pointer to a FetchEvaluationParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -578,7 +946,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -587,11 +955,39 @@ Name | Type | Description
 
 ## FetchItemAssignment
 
-> NumbersV2RegulatoryComplianceBundleItemAssignment FetchItemAssignment(ctx, BundleSidSid)
+> NumbersV2RegulatoryComplianceBundleItemAssignment FetchItemAssignment(ctx, BundleSid, Sid).Execute()
 
 
 
-Fetch specific Assigned Item Instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    BundleSid := "BundleSid_example" // string | The unique string that we created to identify the Bundle resource.
+    Sid := "Sid_example" // string | The unique string that we created to identify the Identity resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchItemAssignment(context.Background(), BundleSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchItemAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchItemAssignment`: NumbersV2RegulatoryComplianceBundleItemAssignment
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchItemAssignment`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -604,11 +1000,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchItemAssignmentParams struct
+Other parameters are passed through a pointer to a FetchItemAssignmentParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -621,7 +1019,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -630,11 +1028,38 @@ Name | Type | Description
 
 ## FetchRegulation
 
-> NumbersV2RegulatoryComplianceRegulation FetchRegulation(ctx, Sid)
+> NumbersV2RegulatoryComplianceRegulation FetchRegulation(ctx, Sid).Execute()
 
 
 
-Fetch specific Regulation Instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string that identifies the Regulation resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchRegulation(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchRegulation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchRegulation`: NumbersV2RegulatoryComplianceRegulation
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchRegulation`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -646,11 +1071,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRegulationParams struct
+Other parameters are passed through a pointer to a FetchRegulationParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -663,7 +1089,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -672,11 +1098,38 @@ Name | Type | Description
 
 ## FetchSupportingDocument
 
-> NumbersV2RegulatoryComplianceSupportingDocument FetchSupportingDocument(ctx, Sid)
+> NumbersV2RegulatoryComplianceSupportingDocument FetchSupportingDocument(ctx, Sid).Execute()
 
 
 
-Fetch specific Supporting Document Instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string created by Twilio to identify the Supporting Document resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchSupportingDocument(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchSupportingDocument``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchSupportingDocument`: NumbersV2RegulatoryComplianceSupportingDocument
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchSupportingDocument`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -688,11 +1141,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSupportingDocumentParams struct
+Other parameters are passed through a pointer to a FetchSupportingDocumentParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -705,7 +1159,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -714,11 +1168,38 @@ Name | Type | Description
 
 ## FetchSupportingDocumentType
 
-> NumbersV2RegulatoryComplianceSupportingDocumentType FetchSupportingDocumentType(ctx, Sid)
+> NumbersV2RegulatoryComplianceSupportingDocumentType FetchSupportingDocumentType(ctx, Sid).Execute()
 
 
 
-Fetch a specific Supporting Document Type Instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string that identifies the Supporting Document Type resource.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchSupportingDocumentType(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchSupportingDocumentType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchSupportingDocumentType`: NumbersV2RegulatoryComplianceSupportingDocumentType
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchSupportingDocumentType`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -730,11 +1211,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSupportingDocumentTypeParams struct
+Other parameters are passed through a pointer to a FetchSupportingDocumentTypeParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -747,7 +1229,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -756,11 +1238,43 @@ Name | Type | Description
 
 ## ListBundle
 
-> ListBundleResponse ListBundle(ctx, optional)
+> ListBundleResponse ListBundle(ctx).Status(Status).FriendlyName(FriendlyName).RegulationSid(RegulationSid).IsoCountry(IsoCountry).NumberType(NumberType).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of all Bundles for an account.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Status := "Status_example" // string | The verification status of the Bundle resource. (optional)
+    FriendlyName := "FriendlyName_example" // string | The string that you assigned to describe the resource. (optional)
+    RegulationSid := "RegulationSid_example" // string | The unique string of a regulation that is associated to the Bundle resource. (optional)
+    IsoCountry := "IsoCountry_example" // string | The ISO country code of the Bundle's phone number country ownership request. (optional)
+    NumberType := "NumberType_example" // string | The type of phone number of the Bundle's ownership request. (optional)
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListBundle(context.Background()).Status(Status).FriendlyName(FriendlyName).RegulationSid(RegulationSid).IsoCountry(IsoCountry).NumberType(NumberType).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListBundle``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListBundle`: ListBundleResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListBundle`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -768,17 +1282,17 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListBundleParams struct
+Other parameters are passed through a pointer to a ListBundleParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The verification status of the Bundle resource.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
-**RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
-**IsoCountry** | **string** | The ISO country code of the Bundle&#39;s phone number country ownership request.
-**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **Status** | **string** | The verification status of the Bundle resource.
+ **FriendlyName** | **string** | The string that you assigned to describe the resource.
+ **RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
+ **IsoCountry** | **string** | The ISO country code of the Bundle&#39;s phone number country ownership request.
+ **NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -791,7 +1305,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -800,11 +1314,38 @@ Name | Type | Description
 
 ## ListEndUser
 
-> ListEndUserResponse ListEndUser(ctx, optional)
+> ListEndUserResponse ListEndUser(ctx).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of all End User for an account.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListEndUser(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListEndUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListEndUser`: ListEndUserResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListEndUser`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -812,12 +1353,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEndUserParams struct
+Other parameters are passed through a pointer to a ListEndUserParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -830,7 +1371,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -839,11 +1380,38 @@ Name | Type | Description
 
 ## ListEndUserType
 
-> ListEndUserTypeResponse ListEndUserType(ctx, optional)
+> ListEndUserTypeResponse ListEndUserType(ctx).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of all End-User Types.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListEndUserType(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListEndUserType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListEndUserType`: ListEndUserTypeResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListEndUserType`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -851,12 +1419,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEndUserTypeParams struct
+Other parameters are passed through a pointer to a ListEndUserTypeParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -869,7 +1437,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -878,11 +1446,39 @@ Name | Type | Description
 
 ## ListEvaluation
 
-> ListEvaluationResponse ListEvaluation(ctx, BundleSidoptional)
+> ListEvaluationResponse ListEvaluation(ctx, BundleSid).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of Evaluations associated to the Bundle resource.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    BundleSid := "BundleSid_example" // string | The unique string that identifies the Bundle resource.
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListEvaluation(context.Background(), BundleSid).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListEvaluation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListEvaluation`: ListEvaluationResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListEvaluation`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -894,12 +1490,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEvaluationParams struct
+Other parameters are passed through a pointer to a ListEvaluationParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -912,7 +1509,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -921,11 +1518,39 @@ Name | Type | Description
 
 ## ListItemAssignment
 
-> ListItemAssignmentResponse ListItemAssignment(ctx, BundleSidoptional)
+> ListItemAssignmentResponse ListItemAssignment(ctx, BundleSid).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of all Assigned Items for an account.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    BundleSid := "BundleSid_example" // string | The unique string that we created to identify the Bundle resource.
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListItemAssignment(context.Background(), BundleSid).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListItemAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListItemAssignment`: ListItemAssignmentResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListItemAssignment`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -937,12 +1562,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListItemAssignmentParams struct
+Other parameters are passed through a pointer to a ListItemAssignmentParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -955,7 +1581,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -964,11 +1590,41 @@ Name | Type | Description
 
 ## ListRegulation
 
-> ListRegulationResponse ListRegulation(ctx, optional)
+> ListRegulationResponse ListRegulation(ctx).EndUserType(EndUserType).IsoCountry(IsoCountry).NumberType(NumberType).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of all Regulations.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    EndUserType := "EndUserType_example" // string | The type of End User the regulation requires - can be `individual` or `business`. (optional)
+    IsoCountry := "IsoCountry_example" // string | The ISO country code of the phone number's country. (optional)
+    NumberType := "NumberType_example" // string | The type of phone number that the regulatory requiremnt is restricting. (optional)
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListRegulation(context.Background()).EndUserType(EndUserType).IsoCountry(IsoCountry).NumberType(NumberType).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListRegulation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListRegulation`: ListRegulationResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListRegulation`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -976,15 +1632,15 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRegulationParams struct
+Other parameters are passed through a pointer to a ListRegulationParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**EndUserType** | **string** | The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
-**IsoCountry** | **string** | The ISO country code of the phone number&#39;s country.
-**NumberType** | **string** | The type of phone number that the regulatory requiremnt is restricting.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **EndUserType** | **string** | The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
+ **IsoCountry** | **string** | The ISO country code of the phone number&#39;s country.
+ **NumberType** | **string** | The type of phone number that the regulatory requiremnt is restricting.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -997,7 +1653,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1006,11 +1662,38 @@ Name | Type | Description
 
 ## ListSupportingDocument
 
-> ListSupportingDocumentResponse ListSupportingDocument(ctx, optional)
+> ListSupportingDocumentResponse ListSupportingDocument(ctx).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of all Supporting Document for an account.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListSupportingDocument(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListSupportingDocument``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListSupportingDocument`: ListSupportingDocumentResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListSupportingDocument`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -1018,12 +1701,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSupportingDocumentParams struct
+Other parameters are passed through a pointer to a ListSupportingDocumentParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1036,7 +1719,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1045,11 +1728,38 @@ Name | Type | Description
 
 ## ListSupportingDocumentType
 
-> ListSupportingDocumentTypeResponse ListSupportingDocumentType(ctx, optional)
+> ListSupportingDocumentTypeResponse ListSupportingDocumentType(ctx).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of all Supporting Document Types.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListSupportingDocumentType(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListSupportingDocumentType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListSupportingDocumentType`: ListSupportingDocumentTypeResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListSupportingDocumentType`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -1057,12 +1767,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSupportingDocumentTypeParams struct
+Other parameters are passed through a pointer to a ListSupportingDocumentTypeParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1075,7 +1785,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1084,11 +1794,42 @@ Name | Type | Description
 
 ## UpdateBundle
 
-> NumbersV2RegulatoryComplianceBundle UpdateBundle(ctx, Sidoptional)
+> NumbersV2RegulatoryComplianceBundle UpdateBundle(ctx, Sid).Email(Email).FriendlyName(FriendlyName).Status(Status).StatusCallback(StatusCallback).Execute()
 
 
 
-Updates a Bundle in an account.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string that we created to identify the Bundle resource.
+    Email := "Email_example" // string | The email address that will receive updates when the Bundle resource changes status. (optional)
+    FriendlyName := "FriendlyName_example" // string | The string that you assigned to describe the resource. (optional)
+    Status := "Status_example" // string | The verification status of the Bundle resource. (optional)
+    StatusCallback := "StatusCallback_example" // string | The URL we call to inform your application of status changes. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateBundle(context.Background(), Sid).Email(Email).FriendlyName(FriendlyName).Status(Status).StatusCallback(StatusCallback).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateBundle``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateBundle`: NumbersV2RegulatoryComplianceBundle
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateBundle`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -1100,15 +1841,16 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateBundleParams struct
+Other parameters are passed through a pointer to a UpdateBundleParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Email** | **string** | The email address that will receive updates when the Bundle resource changes status.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
-**Status** | **string** | The verification status of the Bundle resource.
-**StatusCallback** | **string** | The URL we call to inform your application of status changes.
+
+ **Email** | **string** | The email address that will receive updates when the Bundle resource changes status.
+ **FriendlyName** | **string** | The string that you assigned to describe the resource.
+ **Status** | **string** | The verification status of the Bundle resource.
+ **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 
 ### Return type
 
@@ -1120,8 +1862,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1130,11 +1872,40 @@ Name | Type | Description
 
 ## UpdateEndUser
 
-> NumbersV2RegulatoryComplianceEndUser UpdateEndUser(ctx, Sidoptional)
+> NumbersV2RegulatoryComplianceEndUser UpdateEndUser(ctx, Sid).Attributes(Attributes).FriendlyName(FriendlyName).Execute()
 
 
 
-Update an existing End User.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string created by Twilio to identify the End User resource.
+    Attributes := TODO // map[string]interface{} | The set of parameters that are the attributes of the End User resource which are derived End User Types. (optional)
+    FriendlyName := "FriendlyName_example" // string | The string that you assigned to describe the resource. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateEndUser(context.Background(), Sid).Attributes(Attributes).FriendlyName(FriendlyName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateEndUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateEndUser`: NumbersV2RegulatoryComplianceEndUser
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateEndUser`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -1146,13 +1917,14 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateEndUserParams struct
+Other parameters are passed through a pointer to a UpdateEndUserParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
+
+ **Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
+ **FriendlyName** | **string** | The string that you assigned to describe the resource.
 
 ### Return type
 
@@ -1164,8 +1936,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1174,11 +1946,40 @@ Name | Type | Description
 
 ## UpdateSupportingDocument
 
-> NumbersV2RegulatoryComplianceSupportingDocument UpdateSupportingDocument(ctx, Sidoptional)
+> NumbersV2RegulatoryComplianceSupportingDocument UpdateSupportingDocument(ctx, Sid).Attributes(Attributes).FriendlyName(FriendlyName).Execute()
 
 
 
-Update an existing Supporting Document.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string created by Twilio to identify the Supporting Document resource.
+    Attributes := TODO // map[string]interface{} | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types. (optional)
+    FriendlyName := "FriendlyName_example" // string | The string that you assigned to describe the resource. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateSupportingDocument(context.Background(), Sid).Attributes(Attributes).FriendlyName(FriendlyName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateSupportingDocument``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateSupportingDocument`: NumbersV2RegulatoryComplianceSupportingDocument
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateSupportingDocument`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -1190,13 +1991,14 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSupportingDocumentParams struct
+Other parameters are passed through a pointer to a UpdateSupportingDocumentParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
+
+ **Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
+ **FriendlyName** | **string** | The string that you assigned to describe the resource.
 
 ### Return type
 
@@ -1208,8 +2010,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

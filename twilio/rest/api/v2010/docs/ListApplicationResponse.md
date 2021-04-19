@@ -1,17 +1,263 @@
 # ListApplicationResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Applications** | [**[]ApiV2010AccountApplication**](api.v2010.account.application.md) |  |[optional] 
-**End** | **int32** |  |[optional] 
-**FirstPageUri** | **string** |  |[optional] 
-**NextPageUri** | **string** |  |[optional] 
-**Page** | **int32** |  |[optional] 
-**PageSize** | **int32** |  |[optional] 
-**PreviousPageUri** | **string** |  |[optional] 
-**Start** | **int32** |  |[optional] 
-**Uri** | **string** |  |[optional] 
+**Applications** | Pointer to [**[]ApiV2010AccountApplication**](ApiV2010AccountApplication.md) |  | [optional] 
+**End** | Pointer to **int32** |  | [optional] 
+**FirstPageUri** | Pointer to **string** |  | [optional] 
+**NextPageUri** | Pointer to **string** |  | [optional] 
+**Page** | Pointer to **int32** |  | [optional] 
+**PageSize** | Pointer to **int32** |  | [optional] 
+**PreviousPageUri** | Pointer to **string** |  | [optional] 
+**Start** | Pointer to **int32** |  | [optional] 
+**Uri** | Pointer to **string** |  | [optional] 
+
+## Methods
+
+### NewListApplicationResponse
+
+`func NewListApplicationResponse() *ListApplicationResponse`
+
+NewListApplicationResponse instantiates a new ListApplicationResponse object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewListApplicationResponseWithDefaults
+
+`func NewListApplicationResponseWithDefaults() *ListApplicationResponse`
+
+NewListApplicationResponseWithDefaults instantiates a new ListApplicationResponse object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetApplications
+
+`func (o *ListApplicationResponse) GetApplications() []ApiV2010AccountApplication`
+
+GetApplications returns the Applications field if non-nil, zero value otherwise.
+
+### GetApplicationsOk
+
+`func (o *ListApplicationResponse) GetApplicationsOk() (*[]ApiV2010AccountApplication, bool)`
+
+GetApplicationsOk returns a tuple with the Applications field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApplications
+
+`func (o *ListApplicationResponse) SetApplications(v []ApiV2010AccountApplication)`
+
+SetApplications sets Applications field to given value.
+
+### HasApplications
+
+`func (o *ListApplicationResponse) HasApplications() bool`
+
+HasApplications returns a boolean if a field has been set.
+
+### GetEnd
+
+`func (o *ListApplicationResponse) GetEnd() int32`
+
+GetEnd returns the End field if non-nil, zero value otherwise.
+
+### GetEndOk
+
+`func (o *ListApplicationResponse) GetEndOk() (*int32, bool)`
+
+GetEndOk returns a tuple with the End field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnd
+
+`func (o *ListApplicationResponse) SetEnd(v int32)`
+
+SetEnd sets End field to given value.
+
+### HasEnd
+
+`func (o *ListApplicationResponse) HasEnd() bool`
+
+HasEnd returns a boolean if a field has been set.
+
+### GetFirstPageUri
+
+`func (o *ListApplicationResponse) GetFirstPageUri() string`
+
+GetFirstPageUri returns the FirstPageUri field if non-nil, zero value otherwise.
+
+### GetFirstPageUriOk
+
+`func (o *ListApplicationResponse) GetFirstPageUriOk() (*string, bool)`
+
+GetFirstPageUriOk returns a tuple with the FirstPageUri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFirstPageUri
+
+`func (o *ListApplicationResponse) SetFirstPageUri(v string)`
+
+SetFirstPageUri sets FirstPageUri field to given value.
+
+### HasFirstPageUri
+
+`func (o *ListApplicationResponse) HasFirstPageUri() bool`
+
+HasFirstPageUri returns a boolean if a field has been set.
+
+### GetNextPageUri
+
+`func (o *ListApplicationResponse) GetNextPageUri() string`
+
+GetNextPageUri returns the NextPageUri field if non-nil, zero value otherwise.
+
+### GetNextPageUriOk
+
+`func (o *ListApplicationResponse) GetNextPageUriOk() (*string, bool)`
+
+GetNextPageUriOk returns a tuple with the NextPageUri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextPageUri
+
+`func (o *ListApplicationResponse) SetNextPageUri(v string)`
+
+SetNextPageUri sets NextPageUri field to given value.
+
+### HasNextPageUri
+
+`func (o *ListApplicationResponse) HasNextPageUri() bool`
+
+HasNextPageUri returns a boolean if a field has been set.
+
+### GetPage
+
+`func (o *ListApplicationResponse) GetPage() int32`
+
+GetPage returns the Page field if non-nil, zero value otherwise.
+
+### GetPageOk
+
+`func (o *ListApplicationResponse) GetPageOk() (*int32, bool)`
+
+GetPageOk returns a tuple with the Page field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPage
+
+`func (o *ListApplicationResponse) SetPage(v int32)`
+
+SetPage sets Page field to given value.
+
+### HasPage
+
+`func (o *ListApplicationResponse) HasPage() bool`
+
+HasPage returns a boolean if a field has been set.
+
+### GetPageSize
+
+`func (o *ListApplicationResponse) GetPageSize() int32`
+
+GetPageSize returns the PageSize field if non-nil, zero value otherwise.
+
+### GetPageSizeOk
+
+`func (o *ListApplicationResponse) GetPageSizeOk() (*int32, bool)`
+
+GetPageSizeOk returns a tuple with the PageSize field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPageSize
+
+`func (o *ListApplicationResponse) SetPageSize(v int32)`
+
+SetPageSize sets PageSize field to given value.
+
+### HasPageSize
+
+`func (o *ListApplicationResponse) HasPageSize() bool`
+
+HasPageSize returns a boolean if a field has been set.
+
+### GetPreviousPageUri
+
+`func (o *ListApplicationResponse) GetPreviousPageUri() string`
+
+GetPreviousPageUri returns the PreviousPageUri field if non-nil, zero value otherwise.
+
+### GetPreviousPageUriOk
+
+`func (o *ListApplicationResponse) GetPreviousPageUriOk() (*string, bool)`
+
+GetPreviousPageUriOk returns a tuple with the PreviousPageUri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPreviousPageUri
+
+`func (o *ListApplicationResponse) SetPreviousPageUri(v string)`
+
+SetPreviousPageUri sets PreviousPageUri field to given value.
+
+### HasPreviousPageUri
+
+`func (o *ListApplicationResponse) HasPreviousPageUri() bool`
+
+HasPreviousPageUri returns a boolean if a field has been set.
+
+### GetStart
+
+`func (o *ListApplicationResponse) GetStart() int32`
+
+GetStart returns the Start field if non-nil, zero value otherwise.
+
+### GetStartOk
+
+`func (o *ListApplicationResponse) GetStartOk() (*int32, bool)`
+
+GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStart
+
+`func (o *ListApplicationResponse) SetStart(v int32)`
+
+SetStart sets Start field to given value.
+
+### HasStart
+
+`func (o *ListApplicationResponse) HasStart() bool`
+
+HasStart returns a boolean if a field has been set.
+
+### GetUri
+
+`func (o *ListApplicationResponse) GetUri() string`
+
+GetUri returns the Uri field if non-nil, zero value otherwise.
+
+### GetUriOk
+
+`func (o *ListApplicationResponse) GetUriOk() (*string, bool)`
+
+GetUriOk returns a tuple with the Uri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUri
+
+`func (o *ListApplicationResponse) SetUri(v string)`
+
+SetUri sets Uri field to given value.
+
+### HasUri
+
+`func (o *ListApplicationResponse) HasUri() bool`
+
+HasUri returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

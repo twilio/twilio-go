@@ -1,4 +1,4 @@
-# DefaultApi
+# \DefaultApi
 
 All URIs are relative to *https://fax.twilio.com*
 
@@ -17,11 +17,46 @@ Method | HTTP request | Description
 
 ## CreateFax
 
-> FaxV1Fax CreateFax(ctx, optional)
+> FaxV1Fax CreateFax(ctx).From(From).MediaUrl(MediaUrl).Quality(Quality).SipAuthPassword(SipAuthPassword).SipAuthUsername(SipAuthUsername).StatusCallback(StatusCallback).StoreMedia(StoreMedia).To(To).Ttl(Ttl).Execute()
 
 
 
-Create a new fax to send to a phone number or SIP endpoint.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    From := "From_example" // string | The number the fax was sent from. Can be the phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the SIP `from` value. The caller ID displayed to the recipient uses this value. If this is a phone number, it must be a Twilio number or a verified outgoing caller id from your account. If `to` is a SIP address, this can be any alphanumeric string (and also the characters `+`, `_`, `.`, and `-`), which will be used in the `from` header of the SIP request. (optional)
+    MediaUrl := "MediaUrl_example" // string | The URL of the PDF that contains the fax. See our [security](https://www.twilio.com/docs/usage/security) page for information on how to ensure the request for your media comes from Twilio. (optional)
+    Quality := "Quality_example" // string | The [Fax Quality value](https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values) that describes the fax quality. Can be: `standard`, `fine`, or `superfine` and defaults to `fine`. (optional)
+    SipAuthPassword := "SipAuthPassword_example" // string | The password to use with `sip_auth_username` to authenticate faxes sent to a SIP address. (optional)
+    SipAuthUsername := "SipAuthUsername_example" // string | The username to use with the `sip_auth_password` to authenticate faxes sent to a SIP address. (optional)
+    StatusCallback := "StatusCallback_example" // string | The URL we should call using the `POST` method to send [status information](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback) to your application when the status of the fax changes. (optional)
+    StoreMedia := true // bool | Whether to store a copy of the sent media on our servers for later retrieval. Can be: `true` or `false` and the default is `true`. (optional)
+    To := "To_example" // string | The phone number to receive the fax in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the recipient's SIP URI. (optional)
+    Ttl := int32(56) // int32 | How long in minutes from when the fax is initiated that we should try to send the fax. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateFax(context.Background()).From(From).MediaUrl(MediaUrl).Quality(Quality).SipAuthPassword(SipAuthPassword).SipAuthUsername(SipAuthUsername).StatusCallback(StatusCallback).StoreMedia(StoreMedia).To(To).Ttl(Ttl).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateFax``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateFax`: FaxV1Fax
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateFax`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -29,20 +64,20 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateFaxParams struct
+Other parameters are passed through a pointer to a CreateFaxParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**From** | **string** | The number the fax was sent from. Can be the phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the SIP &#x60;from&#x60; value. The caller ID displayed to the recipient uses this value. If this is a phone number, it must be a Twilio number or a verified outgoing caller id from your account. If &#x60;to&#x60; is a SIP address, this can be any alphanumeric string (and also the characters &#x60;+&#x60;, &#x60;_&#x60;, &#x60;.&#x60;, and &#x60;-&#x60;), which will be used in the &#x60;from&#x60; header of the SIP request.
-**MediaUrl** | **string** | The URL of the PDF that contains the fax. See our [security](https://www.twilio.com/docs/usage/security) page for information on how to ensure the request for your media comes from Twilio.
-**Quality** | **string** | The [Fax Quality value](https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values) that describes the fax quality. Can be: &#x60;standard&#x60;, &#x60;fine&#x60;, or &#x60;superfine&#x60; and defaults to &#x60;fine&#x60;.
-**SipAuthPassword** | **string** | The password to use with &#x60;sip_auth_username&#x60; to authenticate faxes sent to a SIP address.
-**SipAuthUsername** | **string** | The username to use with the &#x60;sip_auth_password&#x60; to authenticate faxes sent to a SIP address.
-**StatusCallback** | **string** | The URL we should call using the &#x60;POST&#x60; method to send [status information](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback) to your application when the status of the fax changes.
-**StoreMedia** | **bool** | Whether to store a copy of the sent media on our servers for later retrieval. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
-**To** | **string** | The phone number to receive the fax in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the recipient&#39;s SIP URI.
-**Ttl** | **int32** | How long in minutes from when the fax is initiated that we should try to send the fax.
+ **From** | **string** | The number the fax was sent from. Can be the phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the SIP &#x60;from&#x60; value. The caller ID displayed to the recipient uses this value. If this is a phone number, it must be a Twilio number or a verified outgoing caller id from your account. If &#x60;to&#x60; is a SIP address, this can be any alphanumeric string (and also the characters &#x60;+&#x60;, &#x60;_&#x60;, &#x60;.&#x60;, and &#x60;-&#x60;), which will be used in the &#x60;from&#x60; header of the SIP request.
+ **MediaUrl** | **string** | The URL of the PDF that contains the fax. See our [security](https://www.twilio.com/docs/usage/security) page for information on how to ensure the request for your media comes from Twilio.
+ **Quality** | **string** | The [Fax Quality value](https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values) that describes the fax quality. Can be: &#x60;standard&#x60;, &#x60;fine&#x60;, or &#x60;superfine&#x60; and defaults to &#x60;fine&#x60;.
+ **SipAuthPassword** | **string** | The password to use with &#x60;sip_auth_username&#x60; to authenticate faxes sent to a SIP address.
+ **SipAuthUsername** | **string** | The username to use with the &#x60;sip_auth_password&#x60; to authenticate faxes sent to a SIP address.
+ **StatusCallback** | **string** | The URL we should call using the &#x60;POST&#x60; method to send [status information](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback) to your application when the status of the fax changes.
+ **StoreMedia** | **bool** | Whether to store a copy of the sent media on our servers for later retrieval. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
+ **To** | **string** | The phone number to receive the fax in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the recipient&#39;s SIP URI.
+ **Ttl** | **int32** | How long in minutes from when the fax is initiated that we should try to send the fax.
 
 ### Return type
 
@@ -54,8 +89,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -64,11 +99,36 @@ Name | Type | Description
 
 ## DeleteFax
 
-> DeleteFax(ctx, Sid)
+> DeleteFax(ctx, Sid).Execute()
 
 
 
-Delete a specific fax and its associated media.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Fax resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteFax(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteFax``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -80,11 +140,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFaxParams struct
+Other parameters are passed through a pointer to a DeleteFaxParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -106,11 +167,37 @@ Name | Type | Description
 
 ## DeleteFaxMedia
 
-> DeleteFaxMedia(ctx, FaxSidSid)
+> DeleteFaxMedia(ctx, FaxSid, Sid).Execute()
 
 
 
-Delete a specific fax media instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    FaxSid := "FaxSid_example" // string | The SID of the fax with the FaxMedia resource to delete.
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the FaxMedia resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteFaxMedia(context.Background(), FaxSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteFaxMedia``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -123,11 +210,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFaxMediaParams struct
+Other parameters are passed through a pointer to a DeleteFaxMediaParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -149,11 +238,38 @@ Name | Type | Description
 
 ## FetchFax
 
-> FaxV1Fax FetchFax(ctx, Sid)
+> FaxV1Fax FetchFax(ctx, Sid).Execute()
 
 
 
-Fetch a specific fax.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Fax resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchFax(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchFax``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchFax`: FaxV1Fax
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchFax`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -165,11 +281,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFaxParams struct
+Other parameters are passed through a pointer to a FetchFaxParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -182,7 +299,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -191,11 +308,39 @@ Name | Type | Description
 
 ## FetchFaxMedia
 
-> FaxV1FaxFaxMedia FetchFaxMedia(ctx, FaxSidSid)
+> FaxV1FaxFaxMedia FetchFaxMedia(ctx, FaxSid, Sid).Execute()
 
 
 
-Fetch a specific fax media instance.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    FaxSid := "FaxSid_example" // string | The SID of the fax with the FaxMedia resource to fetch.
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the FaxMedia resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchFaxMedia(context.Background(), FaxSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchFaxMedia``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchFaxMedia`: FaxV1FaxFaxMedia
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchFaxMedia`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -208,11 +353,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFaxMediaParams struct
+Other parameters are passed through a pointer to a FetchFaxMediaParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -225,7 +372,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -234,11 +381,43 @@ Name | Type | Description
 
 ## ListFax
 
-> ListFaxResponse ListFax(ctx, optional)
+> ListFaxResponse ListFax(ctx).From(From).To(To).DateCreatedOnOrBefore(DateCreatedOnOrBefore).DateCreatedAfter(DateCreatedAfter).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of all faxes.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    From := "From_example" // string | Retrieve only those faxes sent from this phone number, specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format. (optional)
+    To := "To_example" // string | Retrieve only those faxes sent to this phone number, specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format. (optional)
+    DateCreatedOnOrBefore := time.Now() // time.Time | Retrieve only those faxes with a `date_created` that is before or equal to this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. (optional)
+    DateCreatedAfter := time.Now() // time.Time | Retrieve only those faxes with a `date_created` that is later than this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. (optional)
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListFax(context.Background()).From(From).To(To).DateCreatedOnOrBefore(DateCreatedOnOrBefore).DateCreatedAfter(DateCreatedAfter).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListFax``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListFax`: ListFaxResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListFax`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -246,16 +425,16 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFaxParams struct
+Other parameters are passed through a pointer to a ListFaxParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**From** | **string** | Retrieve only those faxes sent from this phone number, specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.
-**To** | **string** | Retrieve only those faxes sent to this phone number, specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.
-**DateCreatedOnOrBefore** | **time.Time** | Retrieve only those faxes with a &#x60;date_created&#x60; that is before or equal to this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-**DateCreatedAfter** | **time.Time** | Retrieve only those faxes with a &#x60;date_created&#x60; that is later than this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **From** | **string** | Retrieve only those faxes sent from this phone number, specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.
+ **To** | **string** | Retrieve only those faxes sent to this phone number, specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.
+ **DateCreatedOnOrBefore** | **time.Time** | Retrieve only those faxes with a &#x60;date_created&#x60; that is before or equal to this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+ **DateCreatedAfter** | **time.Time** | Retrieve only those faxes with a &#x60;date_created&#x60; that is later than this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -268,7 +447,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -277,11 +456,39 @@ Name | Type | Description
 
 ## ListFaxMedia
 
-> ListFaxMediaResponse ListFaxMedia(ctx, FaxSidoptional)
+> ListFaxMediaResponse ListFaxMedia(ctx, FaxSid).PageSize(PageSize).Execute()
 
 
 
-Retrieve a list of all fax media instances for the specified fax.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    FaxSid := "FaxSid_example" // string | The SID of the fax with the FaxMedia resources to read.
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListFaxMedia(context.Background(), FaxSid).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListFaxMedia``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListFaxMedia`: ListFaxMediaResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListFaxMedia`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -293,12 +500,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFaxMediaParams struct
+Other parameters are passed through a pointer to a ListFaxMediaParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -311,7 +519,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -320,11 +528,39 @@ Name | Type | Description
 
 ## UpdateFax
 
-> FaxV1Fax UpdateFax(ctx, Sidoptional)
+> FaxV1Fax UpdateFax(ctx, Sid).Status(Status).Execute()
 
 
 
-Update a specific fax.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Fax resource to update.
+    Status := "Status_example" // string | The new [status](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-values) of the resource. Can be only `canceled`. This may fail if transmission has already started. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateFax(context.Background(), Sid).Status(Status).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateFax``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateFax`: FaxV1Fax
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateFax`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -336,12 +572,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateFaxParams struct
+Other parameters are passed through a pointer to a UpdateFaxParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The new [status](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-values) of the resource. Can be only &#x60;canceled&#x60;. This may fail if transmission has already started.
+
+ **Status** | **string** | The new [status](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-values) of the resource. Can be only &#x60;canceled&#x60;. This may fail if transmission has already started.
 
 ### Return type
 
@@ -353,8 +590,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

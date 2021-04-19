@@ -1,4 +1,4 @@
-# DefaultApi
+# \DefaultApi
 
 All URIs are relative to *https://pricing.twilio.com*
 
@@ -16,9 +16,36 @@ Method | HTTP request | Description
 
 ## FetchMessagingCountry
 
-> PricingV1MessagingMessagingCountryInstance FetchMessagingCountry(ctx, IsoCountry)
+> PricingV1MessagingMessagingCountryInstance FetchMessagingCountry(ctx, IsoCountry).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    IsoCountry := "IsoCountry_example" // string | The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchMessagingCountry(context.Background(), IsoCountry).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchMessagingCountry``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchMessagingCountry`: PricingV1MessagingMessagingCountryInstance
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchMessagingCountry`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -30,11 +57,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchMessagingCountryParams struct
+Other parameters are passed through a pointer to a FetchMessagingCountryParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -47,7 +75,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -56,9 +84,36 @@ Name | Type | Description
 
 ## FetchPhoneNumberCountry
 
-> PricingV1PhoneNumberPhoneNumberCountryInstance FetchPhoneNumberCountry(ctx, IsoCountry)
+> PricingV1PhoneNumberPhoneNumberCountryInstance FetchPhoneNumberCountry(ctx, IsoCountry).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    IsoCountry := "IsoCountry_example" // string | The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchPhoneNumberCountry(context.Background(), IsoCountry).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchPhoneNumberCountry``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchPhoneNumberCountry`: PricingV1PhoneNumberPhoneNumberCountryInstance
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchPhoneNumberCountry`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -70,11 +125,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchPhoneNumberCountryParams struct
+Other parameters are passed through a pointer to a FetchPhoneNumberCountryParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -87,7 +143,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -96,9 +152,36 @@ Name | Type | Description
 
 ## FetchVoiceCountry
 
-> PricingV1VoiceVoiceCountryInstance FetchVoiceCountry(ctx, IsoCountry)
+> PricingV1VoiceVoiceCountryInstance FetchVoiceCountry(ctx, IsoCountry).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    IsoCountry := "IsoCountry_example" // string | The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchVoiceCountry(context.Background(), IsoCountry).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchVoiceCountry``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchVoiceCountry`: PricingV1VoiceVoiceCountryInstance
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchVoiceCountry`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -110,11 +193,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVoiceCountryParams struct
+Other parameters are passed through a pointer to a FetchVoiceCountryParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -127,7 +211,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -136,9 +220,36 @@ Name | Type | Description
 
 ## FetchVoiceNumber
 
-> PricingV1VoiceVoiceNumber FetchVoiceNumber(ctx, Number)
+> PricingV1VoiceVoiceNumber FetchVoiceNumber(ctx, Number).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Number := "Number_example" // string | The phone number to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchVoiceNumber(context.Background(), Number).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchVoiceNumber``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchVoiceNumber`: PricingV1VoiceVoiceNumber
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchVoiceNumber`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -150,11 +261,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVoiceNumberParams struct
+Other parameters are passed through a pointer to a FetchVoiceNumberParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -167,7 +279,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -176,9 +288,36 @@ Name | Type | Description
 
 ## ListMessagingCountry
 
-> ListMessagingCountryResponse ListMessagingCountry(ctx, optional)
+> ListMessagingCountryResponse ListMessagingCountry(ctx).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListMessagingCountry(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListMessagingCountry``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListMessagingCountry`: ListMessagingCountryResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListMessagingCountry`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -186,12 +325,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListMessagingCountryParams struct
+Other parameters are passed through a pointer to a ListMessagingCountryParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -204,7 +343,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -213,9 +352,36 @@ Name | Type | Description
 
 ## ListPhoneNumberCountry
 
-> ListPhoneNumberCountryResponse ListPhoneNumberCountry(ctx, optional)
+> ListPhoneNumberCountryResponse ListPhoneNumberCountry(ctx).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListPhoneNumberCountry(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListPhoneNumberCountry``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListPhoneNumberCountry`: ListPhoneNumberCountryResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListPhoneNumberCountry`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -223,12 +389,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListPhoneNumberCountryParams struct
+Other parameters are passed through a pointer to a ListPhoneNumberCountryParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -241,7 +407,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -250,9 +416,36 @@ Name | Type | Description
 
 ## ListVoiceCountry
 
-> ListVoiceCountryResponse ListVoiceCountry(ctx, optional)
+> ListVoiceCountryResponse ListVoiceCountry(ctx).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListVoiceCountry(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListVoiceCountry``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListVoiceCountry`: ListVoiceCountryResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListVoiceCountry`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -260,12 +453,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListVoiceCountryParams struct
+Other parameters are passed through a pointer to a ListVoiceCountryParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -278,7 +471,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

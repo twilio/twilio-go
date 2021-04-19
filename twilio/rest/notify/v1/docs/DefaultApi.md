@@ -1,4 +1,4 @@
-# DefaultApi
+# \DefaultApi
 
 All URIs are relative to *https://notify.twilio.com*
 
@@ -24,9 +24,43 @@ Method | HTTP request | Description
 
 ## CreateBinding
 
-> NotifyV1ServiceBinding CreateBinding(ctx, ServiceSidoptional)
+> NotifyV1ServiceBinding CreateBinding(ctx, ServiceSid).Address(Address).BindingType(BindingType).CredentialSid(CredentialSid).Endpoint(Endpoint).Identity(Identity).NotificationProtocolVersion(NotificationProtocolVersion).Tag(Tag).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ServiceSid := "ServiceSid_example" // string | The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under.
+    Address := "Address_example" // string | The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format. (optional)
+    BindingType := "BindingType_example" // string | The transport technology to use for the Binding. Can be: `apn`, `fcm`, `gcm`, `sms`, or `facebook-messenger`. (optional)
+    CredentialSid := "CredentialSid_example" // string | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings. (optional)
+    Endpoint := "Endpoint_example" // string | Deprecated. (optional)
+    Identity := "Identity_example" // string | The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service. (optional)
+    NotificationProtocolVersion := "NotificationProtocolVersion_example" // string | The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\\\"3\\\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed. (optional)
+    Tag := []string{"Inner_example"} // []string | A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateBinding(context.Background(), ServiceSid).Address(Address).BindingType(BindingType).CredentialSid(CredentialSid).Endpoint(Endpoint).Identity(Identity).NotificationProtocolVersion(NotificationProtocolVersion).Tag(Tag).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateBinding``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateBinding`: NotifyV1ServiceBinding
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateBinding`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -38,18 +72,19 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateBindingParams struct
+Other parameters are passed through a pointer to a CreateBindingParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Address** | **string** | The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
-**BindingType** | **string** | The transport technology to use for the Binding. Can be: &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60;, or &#x60;facebook-messenger&#x60;.
-**CredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only &#x60;apn&#x60;, &#x60;fcm&#x60;, and &#x60;gcm&#x60; type Bindings.
-**Endpoint** | **string** | Deprecated.
-**Identity** | **string** | The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
-**NotificationProtocolVersion** | **string** | The protocol version to use to send the notification. This defaults to the value of &#x60;default_xxxx_notification_protocol_version&#x60; for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is &#x60;\\\&quot;3\\\&quot;&#x60; for &#x60;apn&#x60;, &#x60;fcm&#x60;, and &#x60;gcm&#x60; type Bindings. The parameter is not applicable to &#x60;sms&#x60; and &#x60;facebook-messenger&#x60; type Bindings as the data format is fixed.
-**Tag** | **[]string** | A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
+
+ **Address** | **string** | The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
+ **BindingType** | **string** | The transport technology to use for the Binding. Can be: &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60;, or &#x60;facebook-messenger&#x60;.
+ **CredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only &#x60;apn&#x60;, &#x60;fcm&#x60;, and &#x60;gcm&#x60; type Bindings.
+ **Endpoint** | **string** | Deprecated.
+ **Identity** | **string** | The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
+ **NotificationProtocolVersion** | **string** | The protocol version to use to send the notification. This defaults to the value of &#x60;default_xxxx_notification_protocol_version&#x60; for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is &#x60;\\\&quot;3\\\&quot;&#x60; for &#x60;apn&#x60;, &#x60;fcm&#x60;, and &#x60;gcm&#x60; type Bindings. The parameter is not applicable to &#x60;sms&#x60; and &#x60;facebook-messenger&#x60; type Bindings as the data format is fixed.
+ **Tag** | **[]string** | A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
 
 ### Return type
 
@@ -61,8 +96,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -71,9 +106,42 @@ Name | Type | Description
 
 ## CreateCredential
 
-> NotifyV1Credential CreateCredential(ctx, optional)
+> NotifyV1Credential CreateCredential(ctx).ApiKey(ApiKey).Certificate(Certificate).FriendlyName(FriendlyName).PrivateKey(PrivateKey).Sandbox(Sandbox).Secret(Secret).Type(Type).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ApiKey := "ApiKey_example" // string | [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging. (optional)
+    Certificate := "Certificate_example" // string | [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----` (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+    PrivateKey := "PrivateKey_example" // string | [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----` (optional)
+    Sandbox := true // bool | [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production. (optional)
+    Secret := "Secret_example" // string | [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging. (optional)
+    Type := "Type_example" // string | The Credential type. Can be: `gcm`, `fcm`, or `apn`. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateCredential(context.Background()).ApiKey(ApiKey).Certificate(Certificate).FriendlyName(FriendlyName).PrivateKey(PrivateKey).Sandbox(Sandbox).Secret(Secret).Type(Type).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateCredential``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateCredential`: NotifyV1Credential
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateCredential`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -81,18 +149,18 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialParams struct
+Other parameters are passed through a pointer to a CreateCredentialParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ApiKey** | **string** | [GCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
-**Certificate** | **string** | [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. &#x60;-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D;-----END CERTIFICATE-----&#x60;
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**PrivateKey** | **string** | [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. &#x60;-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----&#x60;
-**Sandbox** | **bool** | [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production.
-**Secret** | **string** | [FCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
-**Type** | **string** | The Credential type. Can be: &#x60;gcm&#x60;, &#x60;fcm&#x60;, or &#x60;apn&#x60;.
+ **ApiKey** | **string** | [GCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
+ **Certificate** | **string** | [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. &#x60;-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D;-----END CERTIFICATE-----&#x60;
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **PrivateKey** | **string** | [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. &#x60;-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----&#x60;
+ **Sandbox** | **bool** | [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production.
+ **Secret** | **string** | [FCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
+ **Type** | **string** | The Credential type. Can be: &#x60;gcm&#x60;, &#x60;fcm&#x60;, or &#x60;apn&#x60;.
 
 ### Return type
 
@@ -104,8 +172,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -114,9 +182,54 @@ Name | Type | Description
 
 ## CreateNotification
 
-> NotifyV1ServiceNotification CreateNotification(ctx, ServiceSidoptional)
+> NotifyV1ServiceNotification CreateNotification(ctx, ServiceSid).Action(Action).Alexa(Alexa).Apn(Apn).Body(Body).Data(Data).DeliveryCallbackUrl(DeliveryCallbackUrl).FacebookMessenger(FacebookMessenger).Fcm(Fcm).Gcm(Gcm).Identity(Identity).Priority(Priority).Segment(Segment).Sms(Sms).Sound(Sound).Tag(Tag).Title(Title).ToBinding(ToBinding).Ttl(Ttl).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ServiceSid := "ServiceSid_example" // string | The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under.
+    Action := "Action_example" // string | The actions to display for the notification. For APNS, translates to the `aps.category` value. For GCM, translates to the `data.twi_action` value. For SMS, this parameter is not supported and is omitted from deliveries to those channels. (optional)
+    Alexa := TODO // map[string]interface{} | Deprecated. (optional)
+    Apn := TODO // map[string]interface{} | The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS `Payload` item, therefore the `aps` key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. (optional)
+    Body := "Body_example" // string | The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification. (optional)
+    Data := TODO // map[string]interface{} | The custom key-value pairs of the notification's payload. For FCM and GCM, this value translates to `data` in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of `data` are inserted into the APNS payload as custom properties outside of the `aps` dictionary. In all channels, we reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels. (optional)
+    DeliveryCallbackUrl := "DeliveryCallbackUrl_example" // string | URL to send webhooks. (optional)
+    FacebookMessenger := TODO // map[string]interface{} | Deprecated. (optional)
+    Fcm := TODO // map[string]interface{} | The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel. (optional)
+    Gcm := TODO // map[string]interface{} | The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. See the [GCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref) for more details. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. GCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref). (optional)
+    Identity := []string{"Inner_example"} // []string | The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list. (optional)
+    Priority := "Priority_example" // string | The priority of the notification. Can be: `low` or `high` and the default is `high`. A value of `low` optimizes the client app's battery consumption; however, notifications may be delivered with unspecified delay. For FCM and GCM, `low` priority is the same as `Normal` priority. For APNS `low` priority is the same as `5`. A value of `high` sends the notification immediately, and can wake up a sleeping device. For FCM and GCM, `high` is the same as `High` priority. For APNS, `high` is a priority `10`. SMS does not support this property. (optional)
+    Segment := []string{"Inner_example"} // []string | The Segment resource is deprecated. Use the `tag` parameter, instead. (optional)
+    Sms := TODO // map[string]interface{} | The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/send-messages) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array. (optional)
+    Sound := "Sound_example" // string | The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property. (optional)
+    Tag := []string{"Inner_example"} // []string | A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel. (optional)
+    Title := "Title_example" // string | The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices. (optional)
+    ToBinding := []string{"Inner_example"} // []string | The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers. (optional)
+    Ttl := int32(56) // int32 | How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateNotification(context.Background(), ServiceSid).Action(Action).Alexa(Alexa).Apn(Apn).Body(Body).Data(Data).DeliveryCallbackUrl(DeliveryCallbackUrl).FacebookMessenger(FacebookMessenger).Fcm(Fcm).Gcm(Gcm).Identity(Identity).Priority(Priority).Segment(Segment).Sms(Sms).Sound(Sound).Tag(Tag).Title(Title).ToBinding(ToBinding).Ttl(Ttl).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateNotification``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateNotification`: NotifyV1ServiceNotification
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateNotification`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -128,29 +241,30 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateNotificationParams struct
+Other parameters are passed through a pointer to a CreateNotificationParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Action** | **string** | The actions to display for the notification. For APNS, translates to the &#x60;aps.category&#x60; value. For GCM, translates to the &#x60;data.twi_action&#x60; value. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
-**Alexa** | [**map[string]interface{}**](map[string]interface{}.md) | Deprecated.
-**Apn** | [**map[string]interface{}**](map[string]interface{}.md) | The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS &#x60;Payload&#x60; item, therefore the &#x60;aps&#x60; key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with &#x60;twi_&#x60; for future use. Custom keys that start with &#x60;twi_&#x60; are not allowed.
-**Body** | **string** | The notification text. For FCM and GCM, translates to &#x60;data.twi_body&#x60;. For APNS, translates to &#x60;aps.alert.body&#x60;. For SMS, translates to &#x60;body&#x60;. SMS requires either this &#x60;body&#x60; value, or &#x60;media_urls&#x60; attribute defined in the &#x60;sms&#x60; parameter of the notification.
-**Data** | [**map[string]interface{}**](map[string]interface{}.md) | The custom key-value pairs of the notification&#39;s payload. For FCM and GCM, this value translates to &#x60;data&#x60; in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of &#x60;data&#x60; are inserted into the APNS payload as custom properties outside of the &#x60;aps&#x60; dictionary. In all channels, we reserve keys that start with &#x60;twi_&#x60; for future use. Custom keys that start with &#x60;twi_&#x60; are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
-**DeliveryCallbackUrl** | **string** | URL to send webhooks.
-**FacebookMessenger** | [**map[string]interface{}**](map[string]interface{}.md) | Deprecated.
-**Fcm** | [**map[string]interface{}**](map[string]interface{}.md) | The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters &#x60;to&#x60;, &#x60;registration_ids&#x60;, &#x60;condition&#x60;, and &#x60;notification_key&#x60; are not allowed in this parameter. We reserve keys that start with &#x60;twi_&#x60; for future use. Custom keys that start with &#x60;twi_&#x60; are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
-**Gcm** | [**map[string]interface{}**](map[string]interface{}.md) | The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. See the [GCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref) for more details. Target parameters &#x60;to&#x60;, &#x60;registration_ids&#x60;, and &#x60;notification_key&#x60; are not allowed. We reserve keys that start with &#x60;twi_&#x60; for future use. Custom keys that start with &#x60;twi_&#x60; are not allowed. GCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref).
-**Identity** | **[]string** | The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
-**Priority** | **string** | The priority of the notification. Can be: &#x60;low&#x60; or &#x60;high&#x60; and the default is &#x60;high&#x60;. A value of &#x60;low&#x60; optimizes the client app&#39;s battery consumption; however, notifications may be delivered with unspecified delay. For FCM and GCM, &#x60;low&#x60; priority is the same as &#x60;Normal&#x60; priority. For APNS &#x60;low&#x60; priority is the same as &#x60;5&#x60;. A value of &#x60;high&#x60; sends the notification immediately, and can wake up a sleeping device. For FCM and GCM, &#x60;high&#x60; is the same as &#x60;High&#x60; priority. For APNS, &#x60;high&#x60; is a priority &#x60;10&#x60;. SMS does not support this property.
-**Segment** | **[]string** | The Segment resource is deprecated. Use the &#x60;tag&#x60; parameter, instead.
-**Sms** | [**map[string]interface{}**](map[string]interface{}.md) | The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding &#x60;form&#x60; parameter of the Twilio [Message](https://www.twilio.com/docs/sms/send-messages) resource.  These parameters of the Message resource are supported in snake case format: &#x60;body&#x60;, &#x60;media_urls&#x60;, &#x60;status_callback&#x60;, and &#x60;max_price&#x60;.  The &#x60;status_callback&#x60; parameter overrides the corresponding parameter in the messaging service, if configured. The &#x60;media_urls&#x60; property expects a JSON array.
-**Sound** | **string** | The name of the sound to be played for the notification. For FCM and GCM, this Translates to &#x60;data.twi_sound&#x60;.  For APNS, this translates to &#x60;aps.sound&#x60;.  SMS does not support this property.
-**Tag** | **[]string** | A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag &#x60;all&#x60; is available to notify all Bindings in a Service instance. Similarly, the implicit tags &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60; and &#x60;facebook-messenger&#x60; are available to notify all Bindings in a specific channel.
-**Title** | **string** | The notification title. For FCM and GCM, this translates to the &#x60;data.twi_title&#x60; value. For APNS, this translates to the &#x60;aps.alert.title&#x60; value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
-**ToBinding** | **[]string** | The destination address specified as a JSON string.  Multiple &#x60;to_binding&#x60; parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
-**Ttl** | **int32** | How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
+
+ **Action** | **string** | The actions to display for the notification. For APNS, translates to the &#x60;aps.category&#x60; value. For GCM, translates to the &#x60;data.twi_action&#x60; value. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
+ **Alexa** | [**map[string]interface{}**](map[string]interface{}.md) | Deprecated.
+ **Apn** | [**map[string]interface{}**](map[string]interface{}.md) | The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS &#x60;Payload&#x60; item, therefore the &#x60;aps&#x60; key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with &#x60;twi_&#x60; for future use. Custom keys that start with &#x60;twi_&#x60; are not allowed.
+ **Body** | **string** | The notification text. For FCM and GCM, translates to &#x60;data.twi_body&#x60;. For APNS, translates to &#x60;aps.alert.body&#x60;. For SMS, translates to &#x60;body&#x60;. SMS requires either this &#x60;body&#x60; value, or &#x60;media_urls&#x60; attribute defined in the &#x60;sms&#x60; parameter of the notification.
+ **Data** | [**map[string]interface{}**](map[string]interface{}.md) | The custom key-value pairs of the notification&#39;s payload. For FCM and GCM, this value translates to &#x60;data&#x60; in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of &#x60;data&#x60; are inserted into the APNS payload as custom properties outside of the &#x60;aps&#x60; dictionary. In all channels, we reserve keys that start with &#x60;twi_&#x60; for future use. Custom keys that start with &#x60;twi_&#x60; are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
+ **DeliveryCallbackUrl** | **string** | URL to send webhooks.
+ **FacebookMessenger** | [**map[string]interface{}**](map[string]interface{}.md) | Deprecated.
+ **Fcm** | [**map[string]interface{}**](map[string]interface{}.md) | The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters &#x60;to&#x60;, &#x60;registration_ids&#x60;, &#x60;condition&#x60;, and &#x60;notification_key&#x60; are not allowed in this parameter. We reserve keys that start with &#x60;twi_&#x60; for future use. Custom keys that start with &#x60;twi_&#x60; are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
+ **Gcm** | [**map[string]interface{}**](map[string]interface{}.md) | The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. See the [GCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref) for more details. Target parameters &#x60;to&#x60;, &#x60;registration_ids&#x60;, and &#x60;notification_key&#x60; are not allowed. We reserve keys that start with &#x60;twi_&#x60; for future use. Custom keys that start with &#x60;twi_&#x60; are not allowed. GCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref).
+ **Identity** | **[]string** | The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
+ **Priority** | **string** | The priority of the notification. Can be: &#x60;low&#x60; or &#x60;high&#x60; and the default is &#x60;high&#x60;. A value of &#x60;low&#x60; optimizes the client app&#39;s battery consumption; however, notifications may be delivered with unspecified delay. For FCM and GCM, &#x60;low&#x60; priority is the same as &#x60;Normal&#x60; priority. For APNS &#x60;low&#x60; priority is the same as &#x60;5&#x60;. A value of &#x60;high&#x60; sends the notification immediately, and can wake up a sleeping device. For FCM and GCM, &#x60;high&#x60; is the same as &#x60;High&#x60; priority. For APNS, &#x60;high&#x60; is a priority &#x60;10&#x60;. SMS does not support this property.
+ **Segment** | **[]string** | The Segment resource is deprecated. Use the &#x60;tag&#x60; parameter, instead.
+ **Sms** | [**map[string]interface{}**](map[string]interface{}.md) | The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding &#x60;form&#x60; parameter of the Twilio [Message](https://www.twilio.com/docs/sms/send-messages) resource.  These parameters of the Message resource are supported in snake case format: &#x60;body&#x60;, &#x60;media_urls&#x60;, &#x60;status_callback&#x60;, and &#x60;max_price&#x60;.  The &#x60;status_callback&#x60; parameter overrides the corresponding parameter in the messaging service, if configured. The &#x60;media_urls&#x60; property expects a JSON array.
+ **Sound** | **string** | The name of the sound to be played for the notification. For FCM and GCM, this Translates to &#x60;data.twi_sound&#x60;.  For APNS, this translates to &#x60;aps.sound&#x60;.  SMS does not support this property.
+ **Tag** | **[]string** | A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag &#x60;all&#x60; is available to notify all Bindings in a Service instance. Similarly, the implicit tags &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60; and &#x60;facebook-messenger&#x60; are available to notify all Bindings in a specific channel.
+ **Title** | **string** | The notification title. For FCM and GCM, this translates to the &#x60;data.twi_title&#x60; value. For APNS, this translates to the &#x60;aps.alert.title&#x60; value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
+ **ToBinding** | **[]string** | The destination address specified as a JSON string.  Multiple &#x60;to_binding&#x60; parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
+ **Ttl** | **int32** | How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
 
 ### Return type
 
@@ -162,8 +276,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -172,9 +286,49 @@ Name | Type | Description
 
 ## CreateService
 
-> NotifyV1Service CreateService(ctx, optional)
+> NotifyV1Service CreateService(ctx).AlexaSkillId(AlexaSkillId).ApnCredentialSid(ApnCredentialSid).DefaultAlexaNotificationProtocolVersion(DefaultAlexaNotificationProtocolVersion).DefaultApnNotificationProtocolVersion(DefaultApnNotificationProtocolVersion).DefaultFcmNotificationProtocolVersion(DefaultFcmNotificationProtocolVersion).DefaultGcmNotificationProtocolVersion(DefaultGcmNotificationProtocolVersion).DeliveryCallbackEnabled(DeliveryCallbackEnabled).DeliveryCallbackUrl(DeliveryCallbackUrl).FacebookMessengerPageId(FacebookMessengerPageId).FcmCredentialSid(FcmCredentialSid).FriendlyName(FriendlyName).GcmCredentialSid(GcmCredentialSid).LogEnabled(LogEnabled).MessagingServiceSid(MessagingServiceSid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    AlexaSkillId := "AlexaSkillId_example" // string | Deprecated. (optional)
+    ApnCredentialSid := "ApnCredentialSid_example" // string | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings. (optional)
+    DefaultAlexaNotificationProtocolVersion := "DefaultAlexaNotificationProtocolVersion_example" // string | Deprecated. (optional)
+    DefaultApnNotificationProtocolVersion := "DefaultApnNotificationProtocolVersion_example" // string | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. (optional)
+    DefaultFcmNotificationProtocolVersion := "DefaultFcmNotificationProtocolVersion_example" // string | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. (optional)
+    DefaultGcmNotificationProtocolVersion := "DefaultGcmNotificationProtocolVersion_example" // string | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. (optional)
+    DeliveryCallbackEnabled := true // bool | Callback configuration that enables delivery callbacks, default false (optional)
+    DeliveryCallbackUrl := "DeliveryCallbackUrl_example" // string | URL to send delivery status callback. (optional)
+    FacebookMessengerPageId := "FacebookMessengerPageId_example" // string | Deprecated. (optional)
+    FcmCredentialSid := "FcmCredentialSid_example" // string | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings. (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+    GcmCredentialSid := "GcmCredentialSid_example" // string | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings. (optional)
+    LogEnabled := true // bool | Whether to log notifications. Can be: `true` or `false` and the default is `true`. (optional)
+    MessagingServiceSid := "MessagingServiceSid_example" // string | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateService(context.Background()).AlexaSkillId(AlexaSkillId).ApnCredentialSid(ApnCredentialSid).DefaultAlexaNotificationProtocolVersion(DefaultAlexaNotificationProtocolVersion).DefaultApnNotificationProtocolVersion(DefaultApnNotificationProtocolVersion).DefaultFcmNotificationProtocolVersion(DefaultFcmNotificationProtocolVersion).DefaultGcmNotificationProtocolVersion(DefaultGcmNotificationProtocolVersion).DeliveryCallbackEnabled(DeliveryCallbackEnabled).DeliveryCallbackUrl(DeliveryCallbackUrl).FacebookMessengerPageId(FacebookMessengerPageId).FcmCredentialSid(FcmCredentialSid).FriendlyName(FriendlyName).GcmCredentialSid(GcmCredentialSid).LogEnabled(LogEnabled).MessagingServiceSid(MessagingServiceSid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateService``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateService`: NotifyV1Service
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateService`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -182,25 +336,25 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceParams struct
+Other parameters are passed through a pointer to a CreateServiceParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AlexaSkillId** | **string** | Deprecated.
-**ApnCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-**DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
-**DefaultApnNotificationProtocolVersion** | **string** | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DeliveryCallbackEnabled** | **bool** | Callback configuration that enables delivery callbacks, default false
-**DeliveryCallbackUrl** | **string** | URL to send delivery status callback.
-**FacebookMessengerPageId** | **string** | Deprecated.
-**FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**GcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-**LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
-**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+ **AlexaSkillId** | **string** | Deprecated.
+ **ApnCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+ **DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
+ **DefaultApnNotificationProtocolVersion** | **string** | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+ **DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+ **DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+ **DeliveryCallbackEnabled** | **bool** | Callback configuration that enables delivery callbacks, default false
+ **DeliveryCallbackUrl** | **string** | URL to send delivery status callback.
+ **FacebookMessengerPageId** | **string** | Deprecated.
+ **FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **GcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+ **LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
+ **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
 
 ### Return type
 
@@ -212,8 +366,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -222,9 +376,35 @@ Name | Type | Description
 
 ## DeleteBinding
 
-> DeleteBinding(ctx, ServiceSidSid)
+> DeleteBinding(ctx, ServiceSid, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ServiceSid := "ServiceSid_example" // string | The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to delete the resource from.
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Binding resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteBinding(context.Background(), ServiceSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteBinding``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -237,11 +417,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteBindingParams struct
+Other parameters are passed through a pointer to a DeleteBindingParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -263,9 +445,34 @@ Name | Type | Description
 
 ## DeleteCredential
 
-> DeleteCredential(ctx, Sid)
+> DeleteCredential(ctx, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Credential resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteCredential(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteCredential``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -277,11 +484,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialParams struct
+Other parameters are passed through a pointer to a DeleteCredentialParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -303,9 +511,34 @@ Name | Type | Description
 
 ## DeleteService
 
-> DeleteService(ctx, Sid)
+> DeleteService(ctx, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Service resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteService(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteService``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -317,11 +550,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceParams struct
+Other parameters are passed through a pointer to a DeleteServiceParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -343,9 +577,37 @@ Name | Type | Description
 
 ## FetchBinding
 
-> NotifyV1ServiceBinding FetchBinding(ctx, ServiceSidSid)
+> NotifyV1ServiceBinding FetchBinding(ctx, ServiceSid, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ServiceSid := "ServiceSid_example" // string | The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to fetch the resource from.
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Binding resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchBinding(context.Background(), ServiceSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchBinding``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchBinding`: NotifyV1ServiceBinding
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchBinding`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -358,11 +620,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchBindingParams struct
+Other parameters are passed through a pointer to a FetchBindingParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -375,7 +639,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -384,9 +648,36 @@ Name | Type | Description
 
 ## FetchCredential
 
-> NotifyV1Credential FetchCredential(ctx, Sid)
+> NotifyV1Credential FetchCredential(ctx, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Credential resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchCredential(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchCredential``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchCredential`: NotifyV1Credential
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchCredential`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -398,11 +689,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialParams struct
+Other parameters are passed through a pointer to a FetchCredentialParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -415,7 +707,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -424,9 +716,36 @@ Name | Type | Description
 
 ## FetchService
 
-> NotifyV1Service FetchService(ctx, Sid)
+> NotifyV1Service FetchService(ctx, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Service resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchService(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchService``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchService`: NotifyV1Service
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchService`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -438,11 +757,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceParams struct
+Other parameters are passed through a pointer to a FetchServiceParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -455,7 +775,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -464,9 +784,42 @@ Name | Type | Description
 
 ## ListBinding
 
-> ListBindingResponse ListBinding(ctx, ServiceSidoptional)
+> ListBindingResponse ListBinding(ctx, ServiceSid).StartDate(StartDate).EndDate(EndDate).Identity(Identity).Tag(Tag).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ServiceSid := "ServiceSid_example" // string | The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to read the resource from.
+    StartDate := time.Now() // string | Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. (optional)
+    EndDate := time.Now() // string | Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`. (optional)
+    Identity := []string{"Inner_example"} // []string | The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read. (optional)
+    Tag := []string{"Inner_example"} // []string | Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed. (optional)
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListBinding(context.Background(), ServiceSid).StartDate(StartDate).EndDate(EndDate).Identity(Identity).Tag(Tag).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListBinding``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListBinding`: ListBindingResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListBinding`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -478,16 +831,17 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListBindingParams struct
+Other parameters are passed through a pointer to a ListBindingParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**StartDate** | **string** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
-**EndDate** | **string** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
-**Identity** | **[]string** | The [User](https://www.twilio.com/docs/chat/rest/user-resource)&#39;s &#x60;identity&#x60; value of the resources to read.
-**Tag** | **[]string** | Only list Bindings that have all of the specified Tags. The following implicit tags are available: &#x60;all&#x60;, &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60;, &#x60;facebook-messenger&#x60;. Up to 5 tags are allowed.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+ **StartDate** | **string** | Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
+ **EndDate** | **string** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
+ **Identity** | **[]string** | The [User](https://www.twilio.com/docs/chat/rest/user-resource)&#39;s &#x60;identity&#x60; value of the resources to read.
+ **Tag** | **[]string** | Only list Bindings that have all of the specified Tags. The following implicit tags are available: &#x60;all&#x60;, &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60;, &#x60;facebook-messenger&#x60;. Up to 5 tags are allowed.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -500,7 +854,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -509,9 +863,36 @@ Name | Type | Description
 
 ## ListCredential
 
-> ListCredentialResponse ListCredential(ctx, optional)
+> ListCredentialResponse ListCredential(ctx).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListCredential(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListCredential``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListCredential`: ListCredentialResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListCredential`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -519,12 +900,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialParams struct
+Other parameters are passed through a pointer to a ListCredentialParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -537,7 +918,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -546,9 +927,37 @@ Name | Type | Description
 
 ## ListService
 
-> ListServiceResponse ListService(ctx, optional)
+> ListServiceResponse ListService(ctx).FriendlyName(FriendlyName).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    FriendlyName := "FriendlyName_example" // string | The string that identifies the Service resources to read. (optional)
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListService(context.Background()).FriendlyName(FriendlyName).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListService``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListService`: ListServiceResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListService`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -556,13 +965,13 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceParams struct
+Other parameters are passed through a pointer to a ListServiceParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | The string that identifies the Service resources to read.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **FriendlyName** | **string** | The string that identifies the Service resources to read.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -575,7 +984,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -584,9 +993,42 @@ Name | Type | Description
 
 ## UpdateCredential
 
-> NotifyV1Credential UpdateCredential(ctx, Sidoptional)
+> NotifyV1Credential UpdateCredential(ctx, Sid).ApiKey(ApiKey).Certificate(Certificate).FriendlyName(FriendlyName).PrivateKey(PrivateKey).Sandbox(Sandbox).Secret(Secret).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Credential resource to update.
+    ApiKey := "ApiKey_example" // string | [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging. (optional)
+    Certificate := "Certificate_example" // string | [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----` (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+    PrivateKey := "PrivateKey_example" // string | [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----` (optional)
+    Sandbox := true // bool | [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production. (optional)
+    Secret := "Secret_example" // string | [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateCredential(context.Background(), Sid).ApiKey(ApiKey).Certificate(Certificate).FriendlyName(FriendlyName).PrivateKey(PrivateKey).Sandbox(Sandbox).Secret(Secret).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateCredential``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateCredential`: NotifyV1Credential
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateCredential`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -598,17 +1040,18 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCredentialParams struct
+Other parameters are passed through a pointer to a UpdateCredentialParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ApiKey** | **string** | [GCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
-**Certificate** | **string** | [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. &#x60;-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D;-----END CERTIFICATE-----&#x60;
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**PrivateKey** | **string** | [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. &#x60;-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----&#x60;
-**Sandbox** | **bool** | [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production.
-**Secret** | **string** | [FCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
+
+ **ApiKey** | **string** | [GCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
+ **Certificate** | **string** | [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. &#x60;-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D;-----END CERTIFICATE-----&#x60;
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **PrivateKey** | **string** | [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. &#x60;-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----&#x60;
+ **Sandbox** | **bool** | [APN only] Whether to send the credential to sandbox APNs. Can be &#x60;true&#x60; to send to sandbox APNs or &#x60;false&#x60; to send to production.
+ **Secret** | **string** | [FCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
 
 ### Return type
 
@@ -620,8 +1063,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -630,9 +1073,50 @@ Name | Type | Description
 
 ## UpdateService
 
-> NotifyV1Service UpdateService(ctx, Sidoptional)
+> NotifyV1Service UpdateService(ctx, Sid).AlexaSkillId(AlexaSkillId).ApnCredentialSid(ApnCredentialSid).DefaultAlexaNotificationProtocolVersion(DefaultAlexaNotificationProtocolVersion).DefaultApnNotificationProtocolVersion(DefaultApnNotificationProtocolVersion).DefaultFcmNotificationProtocolVersion(DefaultFcmNotificationProtocolVersion).DefaultGcmNotificationProtocolVersion(DefaultGcmNotificationProtocolVersion).DeliveryCallbackEnabled(DeliveryCallbackEnabled).DeliveryCallbackUrl(DeliveryCallbackUrl).FacebookMessengerPageId(FacebookMessengerPageId).FcmCredentialSid(FcmCredentialSid).FriendlyName(FriendlyName).GcmCredentialSid(GcmCredentialSid).LogEnabled(LogEnabled).MessagingServiceSid(MessagingServiceSid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the Service resource to update.
+    AlexaSkillId := "AlexaSkillId_example" // string | Deprecated. (optional)
+    ApnCredentialSid := "ApnCredentialSid_example" // string | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings. (optional)
+    DefaultAlexaNotificationProtocolVersion := "DefaultAlexaNotificationProtocolVersion_example" // string | Deprecated. (optional)
+    DefaultApnNotificationProtocolVersion := "DefaultApnNotificationProtocolVersion_example" // string | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. (optional)
+    DefaultFcmNotificationProtocolVersion := "DefaultFcmNotificationProtocolVersion_example" // string | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. (optional)
+    DefaultGcmNotificationProtocolVersion := "DefaultGcmNotificationProtocolVersion_example" // string | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource. (optional)
+    DeliveryCallbackEnabled := true // bool | Callback configuration that enables delivery callbacks, default false (optional)
+    DeliveryCallbackUrl := "DeliveryCallbackUrl_example" // string | URL to send delivery status callback. (optional)
+    FacebookMessengerPageId := "FacebookMessengerPageId_example" // string | Deprecated. (optional)
+    FcmCredentialSid := "FcmCredentialSid_example" // string | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings. (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+    GcmCredentialSid := "GcmCredentialSid_example" // string | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings. (optional)
+    LogEnabled := true // bool | Whether to log notifications. Can be: `true` or `false` and the default is `true`. (optional)
+    MessagingServiceSid := "MessagingServiceSid_example" // string | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateService(context.Background(), Sid).AlexaSkillId(AlexaSkillId).ApnCredentialSid(ApnCredentialSid).DefaultAlexaNotificationProtocolVersion(DefaultAlexaNotificationProtocolVersion).DefaultApnNotificationProtocolVersion(DefaultApnNotificationProtocolVersion).DefaultFcmNotificationProtocolVersion(DefaultFcmNotificationProtocolVersion).DefaultGcmNotificationProtocolVersion(DefaultGcmNotificationProtocolVersion).DeliveryCallbackEnabled(DeliveryCallbackEnabled).DeliveryCallbackUrl(DeliveryCallbackUrl).FacebookMessengerPageId(FacebookMessengerPageId).FcmCredentialSid(FcmCredentialSid).FriendlyName(FriendlyName).GcmCredentialSid(GcmCredentialSid).LogEnabled(LogEnabled).MessagingServiceSid(MessagingServiceSid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateService``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateService`: NotifyV1Service
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateService`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -644,25 +1128,26 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceParams struct
+Other parameters are passed through a pointer to a UpdateServiceParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AlexaSkillId** | **string** | Deprecated.
-**ApnCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-**DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
-**DefaultApnNotificationProtocolVersion** | **string** | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-**DeliveryCallbackEnabled** | **bool** | Callback configuration that enables delivery callbacks, default false
-**DeliveryCallbackUrl** | **string** | URL to send delivery status callback.
-**FacebookMessengerPageId** | **string** | Deprecated.
-**FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**GcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-**LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
-**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+
+ **AlexaSkillId** | **string** | Deprecated.
+ **ApnCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+ **DefaultAlexaNotificationProtocolVersion** | **string** | Deprecated.
+ **DefaultApnNotificationProtocolVersion** | **string** | The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+ **DefaultFcmNotificationProtocolVersion** | **string** | The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+ **DefaultGcmNotificationProtocolVersion** | **string** | The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+ **DeliveryCallbackEnabled** | **bool** | Callback configuration that enables delivery callbacks, default false
+ **DeliveryCallbackUrl** | **string** | URL to send delivery status callback.
+ **FacebookMessengerPageId** | **string** | Deprecated.
+ **FcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **GcmCredentialSid** | **string** | The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+ **LogEnabled** | **bool** | Whether to log notifications. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
+ **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
 
 ### Return type
 
@@ -674,8 +1159,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

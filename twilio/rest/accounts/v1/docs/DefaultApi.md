@@ -1,4 +1,4 @@
-# DefaultApi
+# \DefaultApi
 
 All URIs are relative to *https://accounts.twilio.com*
 
@@ -22,11 +22,40 @@ Method | HTTP request | Description
 
 ## CreateCredentialAws
 
-> AccountsV1CredentialCredentialAws CreateCredentialAws(ctx, optional)
+> AccountsV1CredentialCredentialAws CreateCredentialAws(ctx).AccountSid(AccountSid).Credentials(Credentials).FriendlyName(FriendlyName).Execute()
 
 
 
-Create a new AWS Credential
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    AccountSid := "AccountSid_example" // string | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request. (optional)
+    Credentials := "Credentials_example" // string | A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY` (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateCredentialAws(context.Background()).AccountSid(AccountSid).Credentials(Credentials).FriendlyName(FriendlyName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateCredentialAws``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateCredentialAws`: AccountsV1CredentialCredentialAws
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateCredentialAws`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -34,14 +63,14 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialAwsParams struct
+Other parameters are passed through a pointer to a CreateCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
-**Credentials** | **string** | A string that contains the AWS access credentials in the format &#x60;&lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;&#x60;. For example, &#x60;AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#x60;
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
+ **Credentials** | **string** | A string that contains the AWS access credentials in the format &#x60;&lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;&#x60;. For example, &#x60;AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#x60;
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
 ### Return type
 
@@ -53,8 +82,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -63,11 +92,40 @@ Name | Type | Description
 
 ## CreateCredentialPublicKey
 
-> AccountsV1CredentialCredentialPublicKey CreateCredentialPublicKey(ctx, optional)
+> AccountsV1CredentialCredentialPublicKey CreateCredentialPublicKey(ctx).AccountSid(AccountSid).FriendlyName(FriendlyName).PublicKey(PublicKey).Execute()
 
 
 
-Create a new Public Key Credential
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    AccountSid := "AccountSid_example" // string | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+    PublicKey := "PublicKey_example" // string | A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----` (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateCredentialPublicKey(context.Background()).AccountSid(AccountSid).FriendlyName(FriendlyName).PublicKey(PublicKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateCredentialPublicKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateCredentialPublicKey`: AccountsV1CredentialCredentialPublicKey
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateCredentialPublicKey`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -75,14 +133,14 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a CreateCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**PublicKey** | **string** | A URL encoded representation of the public key. For example, &#x60;-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----&#x60;
+ **AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **PublicKey** | **string** | A URL encoded representation of the public key. For example, &#x60;-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----&#x60;
 
 ### Return type
 
@@ -94,8 +152,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -104,11 +162,37 @@ Name | Type | Description
 
 ## CreateSecondaryAuthToken
 
-> AccountsV1SecondaryAuthToken CreateSecondaryAuthToken(ctx, )
+> AccountsV1SecondaryAuthToken CreateSecondaryAuthToken(ctx).Execute()
 
 
 
-Create a new secondary Auth Token
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateSecondaryAuthToken(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateSecondaryAuthToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateSecondaryAuthToken`: AccountsV1SecondaryAuthToken
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateSecondaryAuthToken`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -116,7 +200,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParams struct
+Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParams struct via the builder pattern
 
 
 ### Return type
@@ -130,7 +214,7 @@ Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParam
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -139,11 +223,36 @@ Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParam
 
 ## DeleteCredentialAws
 
-> DeleteCredentialAws(ctx, Sid)
+> DeleteCredentialAws(ctx, Sid).Execute()
 
 
 
-Delete a Credential from your account
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the AWS resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteCredentialAws(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteCredentialAws``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -155,11 +264,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialAwsParams struct
+Other parameters are passed through a pointer to a DeleteCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -181,11 +291,36 @@ Name | Type | Description
 
 ## DeleteCredentialPublicKey
 
-> DeleteCredentialPublicKey(ctx, Sid)
+> DeleteCredentialPublicKey(ctx, Sid).Execute()
 
 
 
-Delete a Credential from your account
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the PublicKey resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteCredentialPublicKey(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteCredentialPublicKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -197,11 +332,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a DeleteCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -223,11 +359,35 @@ Name | Type | Description
 
 ## DeleteSecondaryAuthToken
 
-> DeleteSecondaryAuthToken(ctx, )
+> DeleteSecondaryAuthToken(ctx).Execute()
 
 
 
-Delete the secondary Auth Token from your account
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteSecondaryAuthToken(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteSecondaryAuthToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -235,7 +395,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSecondaryAuthTokenParams struct
+Other parameters are passed through a pointer to a DeleteSecondaryAuthTokenParams struct via the builder pattern
 
 
 ### Return type
@@ -258,11 +418,38 @@ Other parameters are passed through a pointer to a DeleteSecondaryAuthTokenParam
 
 ## FetchCredentialAws
 
-> AccountsV1CredentialCredentialAws FetchCredentialAws(ctx, Sid)
+> AccountsV1CredentialCredentialAws FetchCredentialAws(ctx, Sid).Execute()
 
 
 
-Fetch the AWS credentials specified by the provided Credential Sid
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the AWS resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchCredentialAws(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchCredentialAws``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchCredentialAws`: AccountsV1CredentialCredentialAws
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchCredentialAws`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -274,11 +461,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialAwsParams struct
+Other parameters are passed through a pointer to a FetchCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -291,7 +479,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -300,11 +488,38 @@ Name | Type | Description
 
 ## FetchCredentialPublicKey
 
-> AccountsV1CredentialCredentialPublicKey FetchCredentialPublicKey(ctx, Sid)
+> AccountsV1CredentialCredentialPublicKey FetchCredentialPublicKey(ctx, Sid).Execute()
 
 
 
-Fetch the public key specified by the provided Credential Sid
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the PublicKey resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchCredentialPublicKey(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchCredentialPublicKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchCredentialPublicKey`: AccountsV1CredentialCredentialPublicKey
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchCredentialPublicKey`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -316,11 +531,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a FetchCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -333,7 +549,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -342,11 +558,38 @@ Name | Type | Description
 
 ## ListCredentialAws
 
-> ListCredentialAwsResponse ListCredentialAws(ctx, optional)
+> ListCredentialAwsResponse ListCredentialAws(ctx).PageSize(PageSize).Execute()
 
 
 
-Retrieves a collection of AWS Credentials belonging to the account used to make the request
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListCredentialAws(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListCredentialAws``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListCredentialAws`: ListCredentialAwsResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListCredentialAws`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -354,12 +597,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialAwsParams struct
+Other parameters are passed through a pointer to a ListCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -372,7 +615,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -381,11 +624,38 @@ Name | Type | Description
 
 ## ListCredentialPublicKey
 
-> ListCredentialPublicKeyResponse ListCredentialPublicKey(ctx, optional)
+> ListCredentialPublicKeyResponse ListCredentialPublicKey(ctx).PageSize(PageSize).Execute()
 
 
 
-Retrieves a collection of Public Key Credentials belonging to the account used to make the request
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListCredentialPublicKey(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListCredentialPublicKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListCredentialPublicKey`: ListCredentialPublicKeyResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListCredentialPublicKey`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -393,12 +663,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a ListCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -411,7 +681,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -420,11 +690,37 @@ Name | Type | Description
 
 ## UpdateAuthTokenPromotion
 
-> AccountsV1AuthTokenPromotion UpdateAuthTokenPromotion(ctx, )
+> AccountsV1AuthTokenPromotion UpdateAuthTokenPromotion(ctx).Execute()
 
 
 
-Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateAuthTokenPromotion(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateAuthTokenPromotion``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateAuthTokenPromotion`: AccountsV1AuthTokenPromotion
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateAuthTokenPromotion`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -432,7 +728,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParams struct
+Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParams struct via the builder pattern
 
 
 ### Return type
@@ -446,7 +742,7 @@ Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParam
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -455,11 +751,39 @@ Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParam
 
 ## UpdateCredentialAws
 
-> AccountsV1CredentialCredentialAws UpdateCredentialAws(ctx, Sidoptional)
+> AccountsV1CredentialCredentialAws UpdateCredentialAws(ctx, Sid).FriendlyName(FriendlyName).Execute()
 
 
 
-Modify the properties of a given Account
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the AWS resource to update.
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateCredentialAws(context.Background(), Sid).FriendlyName(FriendlyName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateCredentialAws``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateCredentialAws`: AccountsV1CredentialCredentialAws
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateCredentialAws`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -471,12 +795,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCredentialAwsParams struct
+Other parameters are passed through a pointer to a UpdateCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
 ### Return type
 
@@ -488,8 +813,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -498,11 +823,39 @@ Name | Type | Description
 
 ## UpdateCredentialPublicKey
 
-> AccountsV1CredentialCredentialPublicKey UpdateCredentialPublicKey(ctx, Sidoptional)
+> AccountsV1CredentialCredentialPublicKey UpdateCredentialPublicKey(ctx, Sid).FriendlyName(FriendlyName).Execute()
 
 
 
-Modify the properties of a given Account
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The Twilio-provided string that uniquely identifies the PublicKey resource to update.
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateCredentialPublicKey(context.Background(), Sid).FriendlyName(FriendlyName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateCredentialPublicKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateCredentialPublicKey`: AccountsV1CredentialCredentialPublicKey
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateCredentialPublicKey`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -514,12 +867,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a UpdateCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
 ### Return type
 
@@ -531,8 +885,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

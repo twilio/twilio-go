@@ -1,4 +1,4 @@
-# DefaultApi
+# \DefaultApi
 
 All URIs are relative to *https://monitor.twilio.com*
 
@@ -13,9 +13,36 @@ Method | HTTP request | Description
 
 ## FetchAlert
 
-> MonitorV1AlertInstance FetchAlert(ctx, Sid)
+> MonitorV1AlertInstance FetchAlert(ctx, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The SID of the Alert resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchAlert(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchAlert``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchAlert`: MonitorV1AlertInstance
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchAlert`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -27,11 +54,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchAlertParams struct
+Other parameters are passed through a pointer to a FetchAlertParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -44,7 +72,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -53,9 +81,36 @@ Name | Type | Description
 
 ## FetchEvent
 
-> MonitorV1Event FetchEvent(ctx, Sid)
+> MonitorV1Event FetchEvent(ctx, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The SID of the Event resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchEvent(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchEvent``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchEvent`: MonitorV1Event
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchEvent`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -67,11 +122,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEventParams struct
+Other parameters are passed through a pointer to a FetchEventParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -84,7 +140,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -93,9 +149,40 @@ Name | Type | Description
 
 ## ListAlert
 
-> ListAlertResponse ListAlert(ctx, optional)
+> ListAlertResponse ListAlert(ctx).LogLevel(LogLevel).StartDate(StartDate).EndDate(EndDate).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    LogLevel := "LogLevel_example" // string | Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`. (optional)
+    StartDate := time.Now() // time.Time | Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. (optional)
+    EndDate := time.Now() // time.Time | Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. (optional)
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListAlert(context.Background()).LogLevel(LogLevel).StartDate(StartDate).EndDate(EndDate).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListAlert``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAlert`: ListAlertResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListAlert`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -103,15 +190,15 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListAlertParams struct
+Other parameters are passed through a pointer to a ListAlertParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**LogLevel** | **string** | Only show alerts for this log-level.  Can be: &#x60;error&#x60;, &#x60;warning&#x60;, &#x60;notice&#x60;, or &#x60;debug&#x60;.
-**StartDate** | **time.Time** | Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as &#x60;YYYY-MM-DD&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;. Queries for alerts older than 30 days are not supported.
-**EndDate** | **time.Time** | Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as &#x60;YYYY-MM-DD&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;. Queries for alerts older than 30 days are not supported.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **LogLevel** | **string** | Only show alerts for this log-level.  Can be: &#x60;error&#x60;, &#x60;warning&#x60;, &#x60;notice&#x60;, or &#x60;debug&#x60;.
+ **StartDate** | **time.Time** | Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as &#x60;YYYY-MM-DD&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;. Queries for alerts older than 30 days are not supported.
+ **EndDate** | **time.Time** | Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as &#x60;YYYY-MM-DD&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;. Queries for alerts older than 30 days are not supported.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -124,7 +211,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -133,11 +220,45 @@ Name | Type | Description
 
 ## ListEvent
 
-> ListEventResponse ListEvent(ctx, optional)
+> ListEventResponse ListEvent(ctx).ActorSid(ActorSid).EventType(EventType).ResourceSid(ResourceSid).SourceIpAddress(SourceIpAddress).StartDate(StartDate).EndDate(EndDate).PageSize(PageSize).Execute()
 
 
 
-Returns a list of events in the account, sorted by event-date.
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ActorSid := "ActorSid_example" // string | Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. (optional)
+    EventType := "EventType_example" // string | Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). (optional)
+    ResourceSid := "ResourceSid_example" // string | Only include events that refer to this resource. Useful for discovering the history of a specific resource. (optional)
+    SourceIpAddress := "SourceIpAddress_example" // string | Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console. (optional)
+    StartDate := time.Now() // time.Time | Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. (optional)
+    EndDate := time.Now() // time.Time | Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. (optional)
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListEvent(context.Background()).ActorSid(ActorSid).EventType(EventType).ResourceSid(ResourceSid).SourceIpAddress(SourceIpAddress).StartDate(StartDate).EndDate(EndDate).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListEvent``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListEvent`: ListEventResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListEvent`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -145,18 +266,18 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEventParams struct
+Other parameters are passed through a pointer to a ListEventParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ActorSid** | **string** | Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
-**EventType** | **string** | Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
-**ResourceSid** | **string** | Only include events that refer to this resource. Useful for discovering the history of a specific resource.
-**SourceIpAddress** | **string** | Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
-**StartDate** | **time.Time** | Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-**EndDate** | **time.Time** | Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **ActorSid** | **string** | Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+ **EventType** | **string** | Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+ **ResourceSid** | **string** | Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+ **SourceIpAddress** | **string** | Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+ **StartDate** | **time.Time** | Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+ **EndDate** | **time.Time** | Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -169,7 +290,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

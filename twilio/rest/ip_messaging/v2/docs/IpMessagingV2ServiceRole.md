@@ -1,17 +1,353 @@
 # IpMessagingV2ServiceRole
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** |  |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
-**FriendlyName** | Pointer to **string** |  |
-**Permissions** | Pointer to **[]string** |  |
-**ServiceSid** | Pointer to **string** |  |
-**Sid** | Pointer to **string** |  |
-**Type** | Pointer to **string** |  |
-**Url** | Pointer to **string** |  |
+**AccountSid** | Pointer to **NullableString** |  | [optional] 
+**DateCreated** | Pointer to **NullableTime** |  | [optional] 
+**DateUpdated** | Pointer to **NullableTime** |  | [optional] 
+**FriendlyName** | Pointer to **NullableString** |  | [optional] 
+**Permissions** | Pointer to **[]string** |  | [optional] 
+**ServiceSid** | Pointer to **NullableString** |  | [optional] 
+**Sid** | Pointer to **NullableString** |  | [optional] 
+**Type** | Pointer to **NullableString** |  | [optional] 
+**Url** | Pointer to **NullableString** |  | [optional] 
+
+## Methods
+
+### NewIpMessagingV2ServiceRole
+
+`func NewIpMessagingV2ServiceRole() *IpMessagingV2ServiceRole`
+
+NewIpMessagingV2ServiceRole instantiates a new IpMessagingV2ServiceRole object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewIpMessagingV2ServiceRoleWithDefaults
+
+`func NewIpMessagingV2ServiceRoleWithDefaults() *IpMessagingV2ServiceRole`
+
+NewIpMessagingV2ServiceRoleWithDefaults instantiates a new IpMessagingV2ServiceRole object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetAccountSid
+
+`func (o *IpMessagingV2ServiceRole) GetAccountSid() string`
+
+GetAccountSid returns the AccountSid field if non-nil, zero value otherwise.
+
+### GetAccountSidOk
+
+`func (o *IpMessagingV2ServiceRole) GetAccountSidOk() (*string, bool)`
+
+GetAccountSidOk returns a tuple with the AccountSid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccountSid
+
+`func (o *IpMessagingV2ServiceRole) SetAccountSid(v string)`
+
+SetAccountSid sets AccountSid field to given value.
+
+### HasAccountSid
+
+`func (o *IpMessagingV2ServiceRole) HasAccountSid() bool`
+
+HasAccountSid returns a boolean if a field has been set.
+
+### SetAccountSidNil
+
+`func (o *IpMessagingV2ServiceRole) SetAccountSidNil(b bool)`
+
+ SetAccountSidNil sets the value for AccountSid to be an explicit nil
+
+### UnsetAccountSid
+`func (o *IpMessagingV2ServiceRole) UnsetAccountSid()`
+
+UnsetAccountSid ensures that no value is present for AccountSid, not even an explicit nil
+### GetDateCreated
+
+`func (o *IpMessagingV2ServiceRole) GetDateCreated() time.Time`
+
+GetDateCreated returns the DateCreated field if non-nil, zero value otherwise.
+
+### GetDateCreatedOk
+
+`func (o *IpMessagingV2ServiceRole) GetDateCreatedOk() (*time.Time, bool)`
+
+GetDateCreatedOk returns a tuple with the DateCreated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDateCreated
+
+`func (o *IpMessagingV2ServiceRole) SetDateCreated(v time.Time)`
+
+SetDateCreated sets DateCreated field to given value.
+
+### HasDateCreated
+
+`func (o *IpMessagingV2ServiceRole) HasDateCreated() bool`
+
+HasDateCreated returns a boolean if a field has been set.
+
+### SetDateCreatedNil
+
+`func (o *IpMessagingV2ServiceRole) SetDateCreatedNil(b bool)`
+
+ SetDateCreatedNil sets the value for DateCreated to be an explicit nil
+
+### UnsetDateCreated
+`func (o *IpMessagingV2ServiceRole) UnsetDateCreated()`
+
+UnsetDateCreated ensures that no value is present for DateCreated, not even an explicit nil
+### GetDateUpdated
+
+`func (o *IpMessagingV2ServiceRole) GetDateUpdated() time.Time`
+
+GetDateUpdated returns the DateUpdated field if non-nil, zero value otherwise.
+
+### GetDateUpdatedOk
+
+`func (o *IpMessagingV2ServiceRole) GetDateUpdatedOk() (*time.Time, bool)`
+
+GetDateUpdatedOk returns a tuple with the DateUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDateUpdated
+
+`func (o *IpMessagingV2ServiceRole) SetDateUpdated(v time.Time)`
+
+SetDateUpdated sets DateUpdated field to given value.
+
+### HasDateUpdated
+
+`func (o *IpMessagingV2ServiceRole) HasDateUpdated() bool`
+
+HasDateUpdated returns a boolean if a field has been set.
+
+### SetDateUpdatedNil
+
+`func (o *IpMessagingV2ServiceRole) SetDateUpdatedNil(b bool)`
+
+ SetDateUpdatedNil sets the value for DateUpdated to be an explicit nil
+
+### UnsetDateUpdated
+`func (o *IpMessagingV2ServiceRole) UnsetDateUpdated()`
+
+UnsetDateUpdated ensures that no value is present for DateUpdated, not even an explicit nil
+### GetFriendlyName
+
+`func (o *IpMessagingV2ServiceRole) GetFriendlyName() string`
+
+GetFriendlyName returns the FriendlyName field if non-nil, zero value otherwise.
+
+### GetFriendlyNameOk
+
+`func (o *IpMessagingV2ServiceRole) GetFriendlyNameOk() (*string, bool)`
+
+GetFriendlyNameOk returns a tuple with the FriendlyName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFriendlyName
+
+`func (o *IpMessagingV2ServiceRole) SetFriendlyName(v string)`
+
+SetFriendlyName sets FriendlyName field to given value.
+
+### HasFriendlyName
+
+`func (o *IpMessagingV2ServiceRole) HasFriendlyName() bool`
+
+HasFriendlyName returns a boolean if a field has been set.
+
+### SetFriendlyNameNil
+
+`func (o *IpMessagingV2ServiceRole) SetFriendlyNameNil(b bool)`
+
+ SetFriendlyNameNil sets the value for FriendlyName to be an explicit nil
+
+### UnsetFriendlyName
+`func (o *IpMessagingV2ServiceRole) UnsetFriendlyName()`
+
+UnsetFriendlyName ensures that no value is present for FriendlyName, not even an explicit nil
+### GetPermissions
+
+`func (o *IpMessagingV2ServiceRole) GetPermissions() []string`
+
+GetPermissions returns the Permissions field if non-nil, zero value otherwise.
+
+### GetPermissionsOk
+
+`func (o *IpMessagingV2ServiceRole) GetPermissionsOk() (*[]string, bool)`
+
+GetPermissionsOk returns a tuple with the Permissions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPermissions
+
+`func (o *IpMessagingV2ServiceRole) SetPermissions(v []string)`
+
+SetPermissions sets Permissions field to given value.
+
+### HasPermissions
+
+`func (o *IpMessagingV2ServiceRole) HasPermissions() bool`
+
+HasPermissions returns a boolean if a field has been set.
+
+### SetPermissionsNil
+
+`func (o *IpMessagingV2ServiceRole) SetPermissionsNil(b bool)`
+
+ SetPermissionsNil sets the value for Permissions to be an explicit nil
+
+### UnsetPermissions
+`func (o *IpMessagingV2ServiceRole) UnsetPermissions()`
+
+UnsetPermissions ensures that no value is present for Permissions, not even an explicit nil
+### GetServiceSid
+
+`func (o *IpMessagingV2ServiceRole) GetServiceSid() string`
+
+GetServiceSid returns the ServiceSid field if non-nil, zero value otherwise.
+
+### GetServiceSidOk
+
+`func (o *IpMessagingV2ServiceRole) GetServiceSidOk() (*string, bool)`
+
+GetServiceSidOk returns a tuple with the ServiceSid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetServiceSid
+
+`func (o *IpMessagingV2ServiceRole) SetServiceSid(v string)`
+
+SetServiceSid sets ServiceSid field to given value.
+
+### HasServiceSid
+
+`func (o *IpMessagingV2ServiceRole) HasServiceSid() bool`
+
+HasServiceSid returns a boolean if a field has been set.
+
+### SetServiceSidNil
+
+`func (o *IpMessagingV2ServiceRole) SetServiceSidNil(b bool)`
+
+ SetServiceSidNil sets the value for ServiceSid to be an explicit nil
+
+### UnsetServiceSid
+`func (o *IpMessagingV2ServiceRole) UnsetServiceSid()`
+
+UnsetServiceSid ensures that no value is present for ServiceSid, not even an explicit nil
+### GetSid
+
+`func (o *IpMessagingV2ServiceRole) GetSid() string`
+
+GetSid returns the Sid field if non-nil, zero value otherwise.
+
+### GetSidOk
+
+`func (o *IpMessagingV2ServiceRole) GetSidOk() (*string, bool)`
+
+GetSidOk returns a tuple with the Sid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSid
+
+`func (o *IpMessagingV2ServiceRole) SetSid(v string)`
+
+SetSid sets Sid field to given value.
+
+### HasSid
+
+`func (o *IpMessagingV2ServiceRole) HasSid() bool`
+
+HasSid returns a boolean if a field has been set.
+
+### SetSidNil
+
+`func (o *IpMessagingV2ServiceRole) SetSidNil(b bool)`
+
+ SetSidNil sets the value for Sid to be an explicit nil
+
+### UnsetSid
+`func (o *IpMessagingV2ServiceRole) UnsetSid()`
+
+UnsetSid ensures that no value is present for Sid, not even an explicit nil
+### GetType
+
+`func (o *IpMessagingV2ServiceRole) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *IpMessagingV2ServiceRole) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *IpMessagingV2ServiceRole) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *IpMessagingV2ServiceRole) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### SetTypeNil
+
+`func (o *IpMessagingV2ServiceRole) SetTypeNil(b bool)`
+
+ SetTypeNil sets the value for Type to be an explicit nil
+
+### UnsetType
+`func (o *IpMessagingV2ServiceRole) UnsetType()`
+
+UnsetType ensures that no value is present for Type, not even an explicit nil
+### GetUrl
+
+`func (o *IpMessagingV2ServiceRole) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *IpMessagingV2ServiceRole) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *IpMessagingV2ServiceRole) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
+
+### HasUrl
+
+`func (o *IpMessagingV2ServiceRole) HasUrl() bool`
+
+HasUrl returns a boolean if a field has been set.
+
+### SetUrlNil
+
+`func (o *IpMessagingV2ServiceRole) SetUrlNil(b bool)`
+
+ SetUrlNil sets the value for Url to be an explicit nil
+
+### UnsetUrl
+`func (o *IpMessagingV2ServiceRole) UnsetUrl()`
+
+UnsetUrl ensures that no value is present for Url, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -1,4 +1,4 @@
-# DefaultApi
+# \DefaultApi
 
 All URIs are relative to *https://trunking.twilio.com*
 
@@ -33,9 +33,37 @@ Method | HTTP request | Description
 
 ## CreateCredentialList
 
-> TrunkingV1TrunkCredentialList CreateCredentialList(ctx, TrunkSidoptional)
+> TrunkingV1TrunkCredentialList CreateCredentialList(ctx, TrunkSid).CredentialListSid(CredentialListSid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk to associate the credential list with.
+    CredentialListSid := "CredentialListSid_example" // string | The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateCredentialList(context.Background(), TrunkSid).CredentialListSid(CredentialListSid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateCredentialList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateCredentialList`: TrunkingV1TrunkCredentialList
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateCredentialList`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -47,12 +75,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialListParams struct
+Other parameters are passed through a pointer to a CreateCredentialListParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CredentialListSid** | **string** | The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
+
+ **CredentialListSid** | **string** | The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
 
 ### Return type
 
@@ -64,8 +93,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -74,11 +103,39 @@ Name | Type | Description
 
 ## CreateIpAccessControlList
 
-> TrunkingV1TrunkIpAccessControlList CreateIpAccessControlList(ctx, TrunkSidoptional)
+> TrunkingV1TrunkIpAccessControlList CreateIpAccessControlList(ctx, TrunkSid).IpAccessControlListSid(IpAccessControlListSid).Execute()
 
 
 
-Associate an IP Access Control List with a Trunk
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk to associate the IP Access Control List with.
+    IpAccessControlListSid := "IpAccessControlListSid_example" // string | The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateIpAccessControlList(context.Background(), TrunkSid).IpAccessControlListSid(IpAccessControlListSid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateIpAccessControlList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateIpAccessControlList`: TrunkingV1TrunkIpAccessControlList
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateIpAccessControlList`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -90,12 +147,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateIpAccessControlListParams struct
+Other parameters are passed through a pointer to a CreateIpAccessControlListParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**IpAccessControlListSid** | **string** | The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.
+
+ **IpAccessControlListSid** | **string** | The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.
 
 ### Return type
 
@@ -107,8 +165,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -117,9 +175,41 @@ Name | Type | Description
 
 ## CreateOriginationUrl
 
-> TrunkingV1TrunkOriginationUrl CreateOriginationUrl(ctx, TrunkSidoptional)
+> TrunkingV1TrunkOriginationUrl CreateOriginationUrl(ctx, TrunkSid).Enabled(Enabled).FriendlyName(FriendlyName).Priority(Priority).SipUrl(SipUrl).Weight(Weight).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk to associate the resource with.
+    Enabled := true // bool | Whether the URL is enabled. The default is `true`. (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+    Priority := int32(56) // int32 | The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. (optional)
+    SipUrl := "SipUrl_example" // string | The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. (optional)
+    Weight := int32(56) // int32 | The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateOriginationUrl(context.Background(), TrunkSid).Enabled(Enabled).FriendlyName(FriendlyName).Priority(Priority).SipUrl(SipUrl).Weight(Weight).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateOriginationUrl``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateOriginationUrl`: TrunkingV1TrunkOriginationUrl
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateOriginationUrl`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -131,16 +221,17 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateOriginationUrlParams struct
+Other parameters are passed through a pointer to a CreateOriginationUrlParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Enabled** | **bool** | Whether the URL is enabled. The default is &#x60;true&#x60;.
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**Priority** | **int32** | The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-**SipUrl** | **string** | The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema.
-**Weight** | **int32** | The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+
+ **Enabled** | **bool** | Whether the URL is enabled. The default is &#x60;true&#x60;.
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **Priority** | **int32** | The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+ **SipUrl** | **string** | The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema.
+ **Weight** | **int32** | The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
 
 ### Return type
 
@@ -152,8 +243,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -162,9 +253,37 @@ Name | Type | Description
 
 ## CreatePhoneNumber
 
-> TrunkingV1TrunkPhoneNumber CreatePhoneNumber(ctx, TrunkSidoptional)
+> TrunkingV1TrunkPhoneNumber CreatePhoneNumber(ctx, TrunkSid).PhoneNumberSid(PhoneNumberSid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk to associate the phone number with.
+    PhoneNumberSid := "PhoneNumberSid_example" // string | The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreatePhoneNumber(context.Background(), TrunkSid).PhoneNumberSid(PhoneNumberSid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreatePhoneNumber``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreatePhoneNumber`: TrunkingV1TrunkPhoneNumber
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreatePhoneNumber`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -176,12 +295,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreatePhoneNumberParams struct
+Other parameters are passed through a pointer to a CreatePhoneNumberParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PhoneNumberSid** | **string** | The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
+
+ **PhoneNumberSid** | **string** | The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
 
 ### Return type
 
@@ -193,8 +313,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -203,9 +323,42 @@ Name | Type | Description
 
 ## CreateTrunk
 
-> TrunkingV1Trunk CreateTrunk(ctx, optional)
+> TrunkingV1Trunk CreateTrunk(ctx).CnamLookupEnabled(CnamLookupEnabled).DisasterRecoveryMethod(DisasterRecoveryMethod).DisasterRecoveryUrl(DisasterRecoveryUrl).DomainName(DomainName).FriendlyName(FriendlyName).Secure(Secure).TransferMode(TransferMode).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    CnamLookupEnabled := true // bool | Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. (optional)
+    DisasterRecoveryMethod := "DisasterRecoveryMethod_example" // string | The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`. (optional)
+    DisasterRecoveryUrl := "DisasterRecoveryUrl_example" // string | The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. (optional)
+    DomainName := "DomainName_example" // string | The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+    Secure := true // bool | Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. (optional)
+    TransferMode := "TransferMode_example" // string | The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.CreateTrunk(context.Background()).CnamLookupEnabled(CnamLookupEnabled).DisasterRecoveryMethod(DisasterRecoveryMethod).DisasterRecoveryUrl(DisasterRecoveryUrl).DomainName(DomainName).FriendlyName(FriendlyName).Secure(Secure).TransferMode(TransferMode).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateTrunk``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateTrunk`: TrunkingV1Trunk
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateTrunk`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -213,18 +366,18 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTrunkParams struct
+Other parameters are passed through a pointer to a CreateTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CnamLookupEnabled** | **bool** | Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-**DisasterRecoveryMethod** | **string** | The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
-**DisasterRecoveryUrl** | **string** | The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-**DomainName** | **string** | The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**Secure** | **bool** | Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-**TransferMode** | **string** | The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
+ **CnamLookupEnabled** | **bool** | Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+ **DisasterRecoveryMethod** | **string** | The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
+ **DisasterRecoveryUrl** | **string** | The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+ **DomainName** | **string** | The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **Secure** | **bool** | Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+ **TransferMode** | **string** | The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
 
 ### Return type
 
@@ -236,8 +389,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -246,9 +399,35 @@ Name | Type | Description
 
 ## DeleteCredentialList
 
-> DeleteCredentialList(ctx, TrunkSidSid)
+> DeleteCredentialList(ctx, TrunkSid, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to delete the credential list.
+    Sid := "Sid_example" // string | The unique string that we created to identify the CredentialList resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteCredentialList(context.Background(), TrunkSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteCredentialList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -261,11 +440,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialListParams struct
+Other parameters are passed through a pointer to a DeleteCredentialListParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -287,11 +468,37 @@ Name | Type | Description
 
 ## DeleteIpAccessControlList
 
-> DeleteIpAccessControlList(ctx, TrunkSidSid)
+> DeleteIpAccessControlList(ctx, TrunkSid, Sid).Execute()
 
 
 
-Remove an associated IP Access Control List from a Trunk
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to delete the IP Access Control List.
+    Sid := "Sid_example" // string | The unique string that we created to identify the IpAccessControlList resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteIpAccessControlList(context.Background(), TrunkSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteIpAccessControlList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -304,11 +511,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteIpAccessControlListParams struct
+Other parameters are passed through a pointer to a DeleteIpAccessControlListParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -330,9 +539,35 @@ Name | Type | Description
 
 ## DeleteOriginationUrl
 
-> DeleteOriginationUrl(ctx, TrunkSidSid)
+> DeleteOriginationUrl(ctx, TrunkSid, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to delete the OriginationUrl.
+    Sid := "Sid_example" // string | The unique string that we created to identify the OriginationUrl resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteOriginationUrl(context.Background(), TrunkSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteOriginationUrl``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -345,11 +580,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteOriginationUrlParams struct
+Other parameters are passed through a pointer to a DeleteOriginationUrlParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -371,9 +608,35 @@ Name | Type | Description
 
 ## DeletePhoneNumber
 
-> DeletePhoneNumber(ctx, TrunkSidSid)
+> DeletePhoneNumber(ctx, TrunkSid, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to delete the PhoneNumber resource.
+    Sid := "Sid_example" // string | The unique string that we created to identify the PhoneNumber resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeletePhoneNumber(context.Background(), TrunkSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeletePhoneNumber``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -386,11 +649,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeletePhoneNumberParams struct
+Other parameters are passed through a pointer to a DeletePhoneNumberParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -412,9 +677,34 @@ Name | Type | Description
 
 ## DeleteTrunk
 
-> DeleteTrunk(ctx, Sid)
+> DeleteTrunk(ctx, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string that we created to identify the Trunk resource to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteTrunk(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteTrunk``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
 ### Path Parameters
 
@@ -426,11 +716,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteTrunkParams struct
+Other parameters are passed through a pointer to a DeleteTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -452,9 +743,37 @@ Name | Type | Description
 
 ## FetchCredentialList
 
-> TrunkingV1TrunkCredentialList FetchCredentialList(ctx, TrunkSidSid)
+> TrunkingV1TrunkCredentialList FetchCredentialList(ctx, TrunkSid, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to fetch the credential list.
+    Sid := "Sid_example" // string | The unique string that we created to identify the CredentialList resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchCredentialList(context.Background(), TrunkSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchCredentialList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchCredentialList`: TrunkingV1TrunkCredentialList
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchCredentialList`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -467,11 +786,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialListParams struct
+Other parameters are passed through a pointer to a FetchCredentialListParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -484,7 +805,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -493,9 +814,37 @@ Name | Type | Description
 
 ## FetchIpAccessControlList
 
-> TrunkingV1TrunkIpAccessControlList FetchIpAccessControlList(ctx, TrunkSidSid)
+> TrunkingV1TrunkIpAccessControlList FetchIpAccessControlList(ctx, TrunkSid, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to fetch the IP Access Control List.
+    Sid := "Sid_example" // string | The unique string that we created to identify the IpAccessControlList resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchIpAccessControlList(context.Background(), TrunkSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchIpAccessControlList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchIpAccessControlList`: TrunkingV1TrunkIpAccessControlList
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchIpAccessControlList`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -508,11 +857,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchIpAccessControlListParams struct
+Other parameters are passed through a pointer to a FetchIpAccessControlListParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -525,7 +876,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -534,9 +885,37 @@ Name | Type | Description
 
 ## FetchOriginationUrl
 
-> TrunkingV1TrunkOriginationUrl FetchOriginationUrl(ctx, TrunkSidSid)
+> TrunkingV1TrunkOriginationUrl FetchOriginationUrl(ctx, TrunkSid, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to fetch the OriginationUrl.
+    Sid := "Sid_example" // string | The unique string that we created to identify the OriginationUrl resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchOriginationUrl(context.Background(), TrunkSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchOriginationUrl``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchOriginationUrl`: TrunkingV1TrunkOriginationUrl
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchOriginationUrl`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -549,11 +928,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchOriginationUrlParams struct
+Other parameters are passed through a pointer to a FetchOriginationUrlParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -566,7 +947,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -575,9 +956,37 @@ Name | Type | Description
 
 ## FetchPhoneNumber
 
-> TrunkingV1TrunkPhoneNumber FetchPhoneNumber(ctx, TrunkSidSid)
+> TrunkingV1TrunkPhoneNumber FetchPhoneNumber(ctx, TrunkSid, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to fetch the PhoneNumber resource.
+    Sid := "Sid_example" // string | The unique string that we created to identify the PhoneNumber resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchPhoneNumber(context.Background(), TrunkSid, Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchPhoneNumber``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchPhoneNumber`: TrunkingV1TrunkPhoneNumber
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchPhoneNumber`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -590,11 +999,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
+Other parameters are passed through a pointer to a FetchPhoneNumberParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -607,7 +1018,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -616,9 +1027,36 @@ Name | Type | Description
 
 ## FetchRecording
 
-> TrunkingV1TrunkRecording FetchRecording(ctx, TrunkSid)
+> TrunkingV1TrunkRecording FetchRecording(ctx, TrunkSid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to fetch the recording settings.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchRecording(context.Background(), TrunkSid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchRecording``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchRecording`: TrunkingV1TrunkRecording
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchRecording`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -630,11 +1068,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRecordingParams struct
+Other parameters are passed through a pointer to a FetchRecordingParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -647,7 +1086,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -656,9 +1095,36 @@ Name | Type | Description
 
 ## FetchTrunk
 
-> TrunkingV1Trunk FetchTrunk(ctx, Sid)
+> TrunkingV1Trunk FetchTrunk(ctx, Sid).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string that we created to identify the Trunk resource to fetch.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.FetchTrunk(context.Background(), Sid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.FetchTrunk``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FetchTrunk`: TrunkingV1Trunk
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.FetchTrunk`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -670,11 +1136,12 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTrunkParams struct
+Other parameters are passed through a pointer to a FetchTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -687,7 +1154,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -696,9 +1163,37 @@ Name | Type | Description
 
 ## ListCredentialList
 
-> ListCredentialListResponse ListCredentialList(ctx, TrunkSidoptional)
+> ListCredentialListResponse ListCredentialList(ctx, TrunkSid).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to read the credential lists.
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListCredentialList(context.Background(), TrunkSid).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListCredentialList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListCredentialList`: ListCredentialListResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListCredentialList`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -710,12 +1205,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialListParams struct
+Other parameters are passed through a pointer to a ListCredentialListParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -728,7 +1224,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -737,11 +1233,39 @@ Name | Type | Description
 
 ## ListIpAccessControlList
 
-> ListIpAccessControlListResponse ListIpAccessControlList(ctx, TrunkSidoptional)
+> ListIpAccessControlListResponse ListIpAccessControlList(ctx, TrunkSid).PageSize(PageSize).Execute()
 
 
 
-List all IP Access Control Lists for a Trunk
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to read the IP Access Control Lists.
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListIpAccessControlList(context.Background(), TrunkSid).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListIpAccessControlList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListIpAccessControlList`: ListIpAccessControlListResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListIpAccessControlList`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -753,12 +1277,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListIpAccessControlListParams struct
+Other parameters are passed through a pointer to a ListIpAccessControlListParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -771,7 +1296,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -780,9 +1305,37 @@ Name | Type | Description
 
 ## ListOriginationUrl
 
-> ListOriginationUrlResponse ListOriginationUrl(ctx, TrunkSidoptional)
+> ListOriginationUrlResponse ListOriginationUrl(ctx, TrunkSid).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to read the OriginationUrl.
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListOriginationUrl(context.Background(), TrunkSid).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListOriginationUrl``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListOriginationUrl`: ListOriginationUrlResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListOriginationUrl`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -794,12 +1347,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListOriginationUrlParams struct
+Other parameters are passed through a pointer to a ListOriginationUrlParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -812,7 +1366,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -821,9 +1375,37 @@ Name | Type | Description
 
 ## ListPhoneNumber
 
-> ListPhoneNumberResponse ListPhoneNumber(ctx, TrunkSidoptional)
+> ListPhoneNumberResponse ListPhoneNumber(ctx, TrunkSid).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to read the PhoneNumber resources.
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListPhoneNumber(context.Background(), TrunkSid).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListPhoneNumber``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListPhoneNumber`: ListPhoneNumberResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListPhoneNumber`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -835,12 +1417,13 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListPhoneNumberParams struct
+Other parameters are passed through a pointer to a ListPhoneNumberParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -853,7 +1436,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -862,9 +1445,36 @@ Name | Type | Description
 
 ## ListTrunk
 
-> ListTrunkResponse ListTrunk(ctx, optional)
+> ListTrunkResponse ListTrunk(ctx).PageSize(PageSize).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    PageSize := int32(56) // int32 | How many resources to return in each list page. The default is 50, and the maximum is 1000. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListTrunk(context.Background()).PageSize(PageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListTrunk``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListTrunk`: ListTrunkResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListTrunk`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -872,12 +1482,12 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTrunkParams struct
+Other parameters are passed through a pointer to a ListTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -890,7 +1500,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -899,9 +1509,42 @@ Name | Type | Description
 
 ## UpdateOriginationUrl
 
-> TrunkingV1TrunkOriginationUrl UpdateOriginationUrl(ctx, TrunkSidSidoptional)
+> TrunkingV1TrunkOriginationUrl UpdateOriginationUrl(ctx, TrunkSid, Sid).Enabled(Enabled).FriendlyName(FriendlyName).Priority(Priority).SipUrl(SipUrl).Weight(Weight).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk from which to update the OriginationUrl.
+    Sid := "Sid_example" // string | The unique string that we created to identify the OriginationUrl resource to update.
+    Enabled := true // bool | Whether the URL is enabled. The default is `true`. (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+    Priority := int32(56) // int32 | The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI. (optional)
+    SipUrl := "SipUrl_example" // string | The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported. (optional)
+    Weight := int32(56) // int32 | The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateOriginationUrl(context.Background(), TrunkSid, Sid).Enabled(Enabled).FriendlyName(FriendlyName).Priority(Priority).SipUrl(SipUrl).Weight(Weight).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateOriginationUrl``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateOriginationUrl`: TrunkingV1TrunkOriginationUrl
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateOriginationUrl`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -914,16 +1557,18 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateOriginationUrlParams struct
+Other parameters are passed through a pointer to a UpdateOriginationUrlParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Enabled** | **bool** | Whether the URL is enabled. The default is &#x60;true&#x60;.
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**Priority** | **int32** | The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-**SipUrl** | **string** | The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
-**Weight** | **int32** | The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+
+
+ **Enabled** | **bool** | Whether the URL is enabled. The default is &#x60;true&#x60;.
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **Priority** | **int32** | The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+ **SipUrl** | **string** | The SIP address you want Twilio to route your Origination calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
+ **Weight** | **int32** | The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
 
 ### Return type
 
@@ -935,8 +1580,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -945,9 +1590,38 @@ Name | Type | Description
 
 ## UpdateRecording
 
-> TrunkingV1TrunkRecording UpdateRecording(ctx, TrunkSidoptional)
+> TrunkingV1TrunkRecording UpdateRecording(ctx, TrunkSid).Mode(Mode).Trim(Trim).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    TrunkSid := "TrunkSid_example" // string | The SID of the Trunk that will have its recording settings updated.
+    Mode := "Mode_example" // string | The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual. (optional)
+    Trim := "Trim_example" // string | The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateRecording(context.Background(), TrunkSid).Mode(Mode).Trim(Trim).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateRecording``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateRecording`: TrunkingV1TrunkRecording
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateRecording`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -959,13 +1633,14 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRecordingParams struct
+Other parameters are passed through a pointer to a UpdateRecordingParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Mode** | **string** | The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
-**Trim** | **string** | The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence.
+
+ **Mode** | **string** | The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
+ **Trim** | **string** | The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence.
 
 ### Return type
 
@@ -977,8 +1652,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -987,9 +1662,43 @@ Name | Type | Description
 
 ## UpdateTrunk
 
-> TrunkingV1Trunk UpdateTrunk(ctx, Sidoptional)
+> TrunkingV1Trunk UpdateTrunk(ctx, Sid).CnamLookupEnabled(CnamLookupEnabled).DisasterRecoveryMethod(DisasterRecoveryMethod).DisasterRecoveryUrl(DisasterRecoveryUrl).DomainName(DomainName).FriendlyName(FriendlyName).Secure(Secure).TransferMode(TransferMode).Execute()
 
 
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    Sid := "Sid_example" // string | The unique string that we created to identify the OriginationUrl resource to update.
+    CnamLookupEnabled := true // bool | Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information. (optional)
+    DisasterRecoveryMethod := "DisasterRecoveryMethod_example" // string | The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`. (optional)
+    DisasterRecoveryUrl := "DisasterRecoveryUrl_example" // string | The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information. (optional)
+    DomainName := "DomainName_example" // string | The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. (optional)
+    FriendlyName := "FriendlyName_example" // string | A descriptive string that you create to describe the resource. It can be up to 64 characters long. (optional)
+    Secure := true // bool | Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information. (optional)
+    TransferMode := "TransferMode_example" // string | The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateTrunk(context.Background(), Sid).CnamLookupEnabled(CnamLookupEnabled).DisasterRecoveryMethod(DisasterRecoveryMethod).DisasterRecoveryUrl(DisasterRecoveryUrl).DomainName(DomainName).FriendlyName(FriendlyName).Secure(Secure).TransferMode(TransferMode).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateTrunk``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateTrunk`: TrunkingV1Trunk
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateTrunk`: %v\n", resp)
+}
+```
 
 ### Path Parameters
 
@@ -1001,18 +1710,19 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateTrunkParams struct
+Other parameters are passed through a pointer to a UpdateTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CnamLookupEnabled** | **bool** | Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-**DisasterRecoveryMethod** | **string** | The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
-**DisasterRecoveryUrl** | **string** | The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-**DomainName** | **string** | The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-**Secure** | **bool** | Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-**TransferMode** | **string** | The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
+
+ **CnamLookupEnabled** | **bool** | Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+ **DisasterRecoveryMethod** | **string** | The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
+ **DisasterRecoveryUrl** | **string** | The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+ **DomainName** | **string** | The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+ **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ **Secure** | **bool** | Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+ **TransferMode** | **string** | The call transfer settings for the trunk. Can be: &#x60;enable-all&#x60;, &#x60;sip-only&#x60; and &#x60;disable-all&#x60;. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
 
 ### Return type
 
@@ -1024,8 +1734,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
