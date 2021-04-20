@@ -10,7 +10,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: golangci-lint
-        uses: golangci/golangcli-lint-action@v2
+        uses: golangci/golangci-lint-action@v2.5.2
         with:
           version: latest
           github_token: ${{ secrets.github_token }}
