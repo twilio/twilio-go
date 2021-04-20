@@ -5,6 +5,7 @@
 *.so
 *.dylib
 .idea
+*.iml
 
 **/.openapi-generator
 

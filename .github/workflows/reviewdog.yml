@@ -1,16 +1,18 @@
-name: reviewdog
+name: golangci-lint
 on: [pull_request]
 jobs:
   golangci-lint:
-    name: runner / golangci-lint
+    name: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out code into the Go module directory
-        uses: actions/checkout@v1
-      - name: golangci-lint
-        uses: docker://reviewdog/action-golangci-lint:v1
+        uses: actions/checkout@v2
         with:
+          fetch-depth: 0
+      - name: golangci-lint
+        uses: golangci/golangcli-lint-action@v2
+        with:
+          version: latest
           github_token: ${{ secrets.github_token }}
-          golangci_lint_flags: "--enable-all --exclude-use-default=false -D errcheck -D gomnd"
-          level: error
-          tool_name: golint
+          args: "--enable-all --exclude-use-default=false -D errcheck -D gomnd"
+          only-new-issues: true
