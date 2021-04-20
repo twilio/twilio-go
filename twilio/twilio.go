@@ -160,7 +160,7 @@ func (c *Twilio) SetEdge(edge string) {
 	c.Client.Edge = edge
 }
 
-// SetRegion sets the Region for the Twilio request. Defaults to "us1" if an edge is provided
+// SetRegion sets the Region for the Twilio request. Defaults to "us1" if an edge is provided.
 func (c *Twilio) SetRegion(region string) {
 	c.Client.Region = region
 }
