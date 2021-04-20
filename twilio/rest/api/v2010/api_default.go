@@ -5799,19 +5799,19 @@ func (c *DefaultApiService) ListCall(AccountSid string, params *ListCallParams) 
 		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.StartTimeBefore != nil {
-		data.Set("StartTimeBefore", fmt.Sprint((*params.StartTimeBefore).Format(time.RFC3339)))
+		data.Set("StartTime<", fmt.Sprint((*params.StartTimeBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.StartTimeAfter != nil {
-		data.Set("StartTimeAfter", fmt.Sprint((*params.StartTimeAfter).Format(time.RFC3339)))
+		data.Set("StartTime>", fmt.Sprint((*params.StartTimeAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTime != nil {
 		data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTimeBefore != nil {
-		data.Set("EndTimeBefore", fmt.Sprint((*params.EndTimeBefore).Format(time.RFC3339)))
+		data.Set("EndTime<", fmt.Sprint((*params.EndTimeBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndTimeAfter != nil {
-		data.Set("EndTimeAfter", fmt.Sprint((*params.EndTimeAfter).Format(time.RFC3339)))
+		data.Set("EndTime>", fmt.Sprint((*params.EndTimeAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -5909,10 +5909,10 @@ func (c *DefaultApiService) ListCallNotification(AccountSid string, CallSid stri
 		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
 	}
 	if params != nil && params.MessageDateBefore != nil {
-		data.Set("MessageDateBefore", fmt.Sprint(*params.MessageDateBefore))
+		data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
 	}
 	if params != nil && params.MessageDateAfter != nil {
-		data.Set("MessageDateAfter", fmt.Sprint(*params.MessageDateAfter))
+		data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -5965,10 +5965,10 @@ func (c *DefaultApiService) ListCallRecording(AccountSid string, CallSid string,
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6029,19 +6029,19 @@ func (c *DefaultApiService) ListConference(AccountSid string, params *ListConfer
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
 	}
 	if params != nil && params.DateUpdated != nil {
 		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
 	}
 	if params != nil && params.DateUpdatedBefore != nil {
-		data.Set("DateUpdatedBefore", fmt.Sprint(*params.DateUpdatedBefore))
+		data.Set("DateUpdated<", fmt.Sprint(*params.DateUpdatedBefore))
 	}
 	if params != nil && params.DateUpdatedAfter != nil {
-		data.Set("DateUpdatedAfter", fmt.Sprint(*params.DateUpdatedAfter))
+		data.Set("DateUpdated>", fmt.Sprint(*params.DateUpdatedAfter))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -6100,10 +6100,10 @@ func (c *DefaultApiService) ListConferenceRecording(AccountSid string, Conferenc
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6590,10 +6590,10 @@ func (c *DefaultApiService) ListMedia(AccountSid string, MessageSid string, para
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+		data.Set("DateCreated<", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+		data.Set("DateCreated>", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6695,10 +6695,10 @@ func (c *DefaultApiService) ListMessage(AccountSid string, params *ListMessagePa
 		data.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateSentBefore != nil {
-		data.Set("DateSentBefore", fmt.Sprint((*params.DateSentBefore).Format(time.RFC3339)))
+		data.Set("DateSent<", fmt.Sprint((*params.DateSentBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateSentAfter != nil {
-		data.Set("DateSentAfter", fmt.Sprint((*params.DateSentAfter).Format(time.RFC3339)))
+		data.Set("DateSent>", fmt.Sprint((*params.DateSentAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6754,10 +6754,10 @@ func (c *DefaultApiService) ListNotification(AccountSid string, params *ListNoti
 		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
 	}
 	if params != nil && params.MessageDateBefore != nil {
-		data.Set("MessageDateBefore", fmt.Sprint(*params.MessageDateBefore))
+		data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
 	}
 	if params != nil && params.MessageDateAfter != nil {
-		data.Set("MessageDateAfter", fmt.Sprint(*params.MessageDateAfter))
+		data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -6956,10 +6956,10 @@ func (c *DefaultApiService) ListRecording(AccountSid string, params *ListRecordi
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+		data.Set("DateCreated<", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+		data.Set("DateCreated>", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.CallSid != nil {
 		data.Set("CallSid", *params.CallSid)
@@ -8858,7 +8858,7 @@ func (c *DefaultApiService) UpdateIncomingPhoneNumber(AccountSid string, Sid str
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AccountSid2 != nil {
-		data.Set("AccountSid2", *params.AccountSid2)
+		data.Set("AccountSid", *params.AccountSid2)
 	}
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)

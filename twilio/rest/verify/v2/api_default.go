@@ -160,10 +160,10 @@ func (c *DefaultApiService) CreateChallenge(ServiceSid string, Identity string, 
 			return nil, err
 		}
 
-		data.Set("DetailsFields", string(v))
+		data.Set("Details.Fields", string(v))
 	}
 	if params != nil && params.DetailsMessage != nil {
-		data.Set("DetailsMessage", *params.DetailsMessage)
+		data.Set("Details.Message", *params.DetailsMessage)
 	}
 	if params != nil && params.ExpirationDate != nil {
 		data.Set("ExpirationDate", fmt.Sprint((*params.ExpirationDate).Format(time.RFC3339)))
@@ -326,37 +326,37 @@ func (c *DefaultApiService) CreateNewFactor(ServiceSid string, Identity string, 
 	headers := make(map[string]interface{})
 
 	if params != nil && params.BindingAlg != nil {
-		data.Set("BindingAlg", *params.BindingAlg)
+		data.Set("Binding.Alg", *params.BindingAlg)
 	}
 	if params != nil && params.BindingPublicKey != nil {
-		data.Set("BindingPublicKey", *params.BindingPublicKey)
+		data.Set("Binding.PublicKey", *params.BindingPublicKey)
 	}
 	if params != nil && params.BindingSecret != nil {
-		data.Set("BindingSecret", *params.BindingSecret)
+		data.Set("Binding.Secret", *params.BindingSecret)
 	}
 	if params != nil && params.ConfigAlg != nil {
-		data.Set("ConfigAlg", *params.ConfigAlg)
+		data.Set("Config.Alg", *params.ConfigAlg)
 	}
 	if params != nil && params.ConfigAppId != nil {
-		data.Set("ConfigAppId", *params.ConfigAppId)
+		data.Set("Config.AppId", *params.ConfigAppId)
 	}
 	if params != nil && params.ConfigCodeLength != nil {
-		data.Set("ConfigCodeLength", fmt.Sprint(*params.ConfigCodeLength))
+		data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
 	}
 	if params != nil && params.ConfigNotificationPlatform != nil {
-		data.Set("ConfigNotificationPlatform", *params.ConfigNotificationPlatform)
+		data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
 	}
 	if params != nil && params.ConfigNotificationToken != nil {
-		data.Set("ConfigNotificationToken", *params.ConfigNotificationToken)
+		data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
 	}
 	if params != nil && params.ConfigSdkVersion != nil {
-		data.Set("ConfigSdkVersion", *params.ConfigSdkVersion)
+		data.Set("Config.SdkVersion", *params.ConfigSdkVersion)
 	}
 	if params != nil && params.ConfigSkew != nil {
-		data.Set("ConfigSkew", fmt.Sprint(*params.ConfigSkew))
+		data.Set("Config.Skew", fmt.Sprint(*params.ConfigSkew))
 	}
 	if params != nil && params.ConfigTimeStep != nil {
-		data.Set("ConfigTimeStep", fmt.Sprint(*params.ConfigTimeStep))
+		data.Set("Config.TimeStep", fmt.Sprint(*params.ConfigTimeStep))
 	}
 	if params != nil && params.FactorType != nil {
 		data.Set("FactorType", *params.FactorType)
@@ -486,13 +486,13 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*VerifyV
 		data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
 	}
 	if params != nil && params.PushApnCredentialSid != nil {
-		data.Set("PushApnCredentialSid", *params.PushApnCredentialSid)
+		data.Set("Push.ApnCredentialSid", *params.PushApnCredentialSid)
 	}
 	if params != nil && params.PushFcmCredentialSid != nil {
-		data.Set("PushFcmCredentialSid", *params.PushFcmCredentialSid)
+		data.Set("Push.FcmCredentialSid", *params.PushFcmCredentialSid)
 	}
 	if params != nil && params.PushIncludeDate != nil {
-		data.Set("PushIncludeDate", fmt.Sprint(*params.PushIncludeDate))
+		data.Set("Push.IncludeDate", fmt.Sprint(*params.PushIncludeDate))
 	}
 	if params != nil && params.SkipSmsToLandlines != nil {
 		data.Set("SkipSmsToLandlines", fmt.Sprint(*params.SkipSmsToLandlines))
@@ -1553,7 +1553,7 @@ func (c *DefaultApiService) ListVerificationAttempt(params *ListVerificationAtte
 		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.ChannelDataTo != nil {
-		data.Set("ChannelDataTo", *params.ChannelDataTo)
+		data.Set("ChannelData.To", *params.ChannelDataTo)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1746,22 +1746,22 @@ func (c *DefaultApiService) UpdateFactor(ServiceSid string, Identity string, Sid
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
 	if params != nil && params.ConfigAlg != nil {
-		data.Set("ConfigAlg", *params.ConfigAlg)
+		data.Set("Config.Alg", *params.ConfigAlg)
 	}
 	if params != nil && params.ConfigCodeLength != nil {
-		data.Set("ConfigCodeLength", fmt.Sprint(*params.ConfigCodeLength))
+		data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
 	}
 	if params != nil && params.ConfigNotificationToken != nil {
-		data.Set("ConfigNotificationToken", *params.ConfigNotificationToken)
+		data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
 	}
 	if params != nil && params.ConfigSdkVersion != nil {
-		data.Set("ConfigSdkVersion", *params.ConfigSdkVersion)
+		data.Set("Config.SdkVersion", *params.ConfigSdkVersion)
 	}
 	if params != nil && params.ConfigSkew != nil {
-		data.Set("ConfigSkew", fmt.Sprint(*params.ConfigSkew))
+		data.Set("Config.Skew", fmt.Sprint(*params.ConfigSkew))
 	}
 	if params != nil && params.ConfigTimeStep != nil {
-		data.Set("ConfigTimeStep", fmt.Sprint(*params.ConfigTimeStep))
+		data.Set("Config.TimeStep", fmt.Sprint(*params.ConfigTimeStep))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -1928,13 +1928,13 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 		data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
 	}
 	if params != nil && params.PushApnCredentialSid != nil {
-		data.Set("PushApnCredentialSid", *params.PushApnCredentialSid)
+		data.Set("Push.ApnCredentialSid", *params.PushApnCredentialSid)
 	}
 	if params != nil && params.PushFcmCredentialSid != nil {
-		data.Set("PushFcmCredentialSid", *params.PushFcmCredentialSid)
+		data.Set("Push.FcmCredentialSid", *params.PushFcmCredentialSid)
 	}
 	if params != nil && params.PushIncludeDate != nil {
-		data.Set("PushIncludeDate", fmt.Sprint(*params.PushIncludeDate))
+		data.Set("Push.IncludeDate", fmt.Sprint(*params.PushIncludeDate))
 	}
 	if params != nil && params.SkipSmsToLandlines != nil {
 		data.Set("SkipSmsToLandlines", fmt.Sprint(*params.SkipSmsToLandlines))

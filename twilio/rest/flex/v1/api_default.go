@@ -178,31 +178,31 @@ func (c *DefaultApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.IntegrationChannel != nil {
-		data.Set("IntegrationChannel", *params.IntegrationChannel)
+		data.Set("Integration.Channel", *params.IntegrationChannel)
 	}
 	if params != nil && params.IntegrationCreationOnMessage != nil {
-		data.Set("IntegrationCreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
+		data.Set("Integration.CreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
 	}
 	if params != nil && params.IntegrationFlowSid != nil {
-		data.Set("IntegrationFlowSid", *params.IntegrationFlowSid)
+		data.Set("Integration.FlowSid", *params.IntegrationFlowSid)
 	}
 	if params != nil && params.IntegrationPriority != nil {
-		data.Set("IntegrationPriority", fmt.Sprint(*params.IntegrationPriority))
+		data.Set("Integration.Priority", fmt.Sprint(*params.IntegrationPriority))
 	}
 	if params != nil && params.IntegrationRetryCount != nil {
-		data.Set("IntegrationRetryCount", fmt.Sprint(*params.IntegrationRetryCount))
+		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
 	}
 	if params != nil && params.IntegrationTimeout != nil {
-		data.Set("IntegrationTimeout", fmt.Sprint(*params.IntegrationTimeout))
+		data.Set("Integration.Timeout", fmt.Sprint(*params.IntegrationTimeout))
 	}
 	if params != nil && params.IntegrationUrl != nil {
-		data.Set("IntegrationUrl", *params.IntegrationUrl)
+		data.Set("Integration.Url", *params.IntegrationUrl)
 	}
 	if params != nil && params.IntegrationWorkflowSid != nil {
-		data.Set("IntegrationWorkflowSid", *params.IntegrationWorkflowSid)
+		data.Set("Integration.WorkflowSid", *params.IntegrationWorkflowSid)
 	}
 	if params != nil && params.IntegrationWorkspaceSid != nil {
-		data.Set("IntegrationWorkspaceSid", *params.IntegrationWorkspaceSid)
+		data.Set("Integration.WorkspaceSid", *params.IntegrationWorkspaceSid)
 	}
 	if params != nil && params.IntegrationType != nil {
 		data.Set("IntegrationType", *params.IntegrationType)
@@ -675,31 +675,31 @@ func (c *DefaultApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowPar
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.IntegrationChannel != nil {
-		data.Set("IntegrationChannel", *params.IntegrationChannel)
+		data.Set("Integration.Channel", *params.IntegrationChannel)
 	}
 	if params != nil && params.IntegrationCreationOnMessage != nil {
-		data.Set("IntegrationCreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
+		data.Set("Integration.CreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
 	}
 	if params != nil && params.IntegrationFlowSid != nil {
-		data.Set("IntegrationFlowSid", *params.IntegrationFlowSid)
+		data.Set("Integration.FlowSid", *params.IntegrationFlowSid)
 	}
 	if params != nil && params.IntegrationPriority != nil {
-		data.Set("IntegrationPriority", fmt.Sprint(*params.IntegrationPriority))
+		data.Set("Integration.Priority", fmt.Sprint(*params.IntegrationPriority))
 	}
 	if params != nil && params.IntegrationRetryCount != nil {
-		data.Set("IntegrationRetryCount", fmt.Sprint(*params.IntegrationRetryCount))
+		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
 	}
 	if params != nil && params.IntegrationTimeout != nil {
-		data.Set("IntegrationTimeout", fmt.Sprint(*params.IntegrationTimeout))
+		data.Set("Integration.Timeout", fmt.Sprint(*params.IntegrationTimeout))
 	}
 	if params != nil && params.IntegrationUrl != nil {
-		data.Set("IntegrationUrl", *params.IntegrationUrl)
+		data.Set("Integration.Url", *params.IntegrationUrl)
 	}
 	if params != nil && params.IntegrationWorkflowSid != nil {
-		data.Set("IntegrationWorkflowSid", *params.IntegrationWorkflowSid)
+		data.Set("Integration.WorkflowSid", *params.IntegrationWorkflowSid)
 	}
 	if params != nil && params.IntegrationWorkspaceSid != nil {
-		data.Set("IntegrationWorkspaceSid", *params.IntegrationWorkspaceSid)
+		data.Set("Integration.WorkspaceSid", *params.IntegrationWorkspaceSid)
 	}
 	if params != nil && params.IntegrationType != nil {
 		data.Set("IntegrationType", *params.IntegrationType)

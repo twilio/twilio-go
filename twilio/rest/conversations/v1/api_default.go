@@ -88,17 +88,17 @@ func (c *DefaultApiService) CreateConversation(params *CreateConversationParams)
 		data.Set("State", *params.State)
 	}
 	if params != nil && params.TimersClosed != nil {
-		data.Set("TimersClosed", *params.TimersClosed)
+		data.Set("Timers.Closed", *params.TimersClosed)
 	}
 	if params != nil && params.TimersInactive != nil {
-		data.Set("TimersInactive", *params.TimersInactive)
+		data.Set("Timers.Inactive", *params.TimersInactive)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -168,7 +168,7 @@ func (c *DefaultApiService) CreateConversationMessage(ConversationSid string, pa
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -235,20 +235,20 @@ func (c *DefaultApiService) CreateConversationParticipant(ConversationSid string
 		data.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.MessagingBindingAddress != nil {
-		data.Set("MessagingBindingAddress", *params.MessagingBindingAddress)
+		data.Set("MessagingBinding.Address", *params.MessagingBindingAddress)
 	}
 	if params != nil && params.MessagingBindingProjectedAddress != nil {
-		data.Set("MessagingBindingProjectedAddress", *params.MessagingBindingProjectedAddress)
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
 	}
 	if params != nil && params.MessagingBindingProxyAddress != nil {
-		data.Set("MessagingBindingProxyAddress", *params.MessagingBindingProxyAddress)
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
 	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -299,22 +299,22 @@ func (c *DefaultApiService) CreateConversationScopedWebhook(ConversationSid stri
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
+		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid)
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("ConfigurationMethod", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
 	if params != nil && params.ConfigurationReplayAfter != nil {
-		data.Set("ConfigurationReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
+		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("ConfigurationTriggers", strings.Join(*params.ConfigurationTriggers, ","))
+		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
 	}
 	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("ConfigurationUrl", *params.ConfigurationUrl)
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.Target != nil {
 		data.Set("Target", *params.Target)
@@ -543,17 +543,17 @@ func (c *DefaultApiService) CreateServiceConversation(ChatServiceSid string, par
 		data.Set("State", *params.State)
 	}
 	if params != nil && params.TimersClosed != nil {
-		data.Set("TimersClosed", *params.TimersClosed)
+		data.Set("Timers.Closed", *params.TimersClosed)
 	}
 	if params != nil && params.TimersInactive != nil {
-		data.Set("TimersInactive", *params.TimersInactive)
+		data.Set("Timers.Inactive", *params.TimersInactive)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -625,7 +625,7 @@ func (c *DefaultApiService) CreateServiceConversationMessage(ChatServiceSid stri
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -694,20 +694,20 @@ func (c *DefaultApiService) CreateServiceConversationParticipant(ChatServiceSid 
 		data.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.MessagingBindingAddress != nil {
-		data.Set("MessagingBindingAddress", *params.MessagingBindingAddress)
+		data.Set("MessagingBinding.Address", *params.MessagingBindingAddress)
 	}
 	if params != nil && params.MessagingBindingProjectedAddress != nil {
-		data.Set("MessagingBindingProjectedAddress", *params.MessagingBindingProjectedAddress)
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
 	}
 	if params != nil && params.MessagingBindingProxyAddress != nil {
-		data.Set("MessagingBindingProxyAddress", *params.MessagingBindingProxyAddress)
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
 	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -760,22 +760,22 @@ func (c *DefaultApiService) CreateServiceConversationScopedWebhook(ChatServiceSi
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
+		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid)
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("ConfigurationMethod", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
 	if params != nil && params.ConfigurationReplayAfter != nil {
-		data.Set("ConfigurationReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
+		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("ConfigurationTriggers", strings.Join(*params.ConfigurationTriggers, ","))
+		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
 	}
 	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("ConfigurationUrl", *params.ConfigurationUrl)
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.Target != nil {
 		data.Set("Target", *params.Target)
@@ -887,7 +887,7 @@ func (c *DefaultApiService) CreateServiceUser(ChatServiceSid string, params *Cre
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -945,7 +945,7 @@ func (c *DefaultApiService) CreateUser(params *CreateUserParams) (*Conversations
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -983,7 +983,7 @@ func (c *DefaultApiService) DeleteConversation(Sid string, params *DeleteConvers
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1018,7 +1018,7 @@ func (c *DefaultApiService) DeleteConversationMessage(ConversationSid string, Si
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1053,7 +1053,7 @@ func (c *DefaultApiService) DeleteConversationParticipant(ConversationSid string
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1202,7 +1202,7 @@ func (c *DefaultApiService) DeleteServiceConversation(ChatServiceSid string, Sid
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1239,7 +1239,7 @@ func (c *DefaultApiService) DeleteServiceConversationMessage(ChatServiceSid stri
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1276,7 +1276,7 @@ func (c *DefaultApiService) DeleteServiceConversationParticipant(ChatServiceSid 
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1361,7 +1361,7 @@ func (c *DefaultApiService) DeleteServiceUser(ChatServiceSid string, Sid string,
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1394,7 +1394,7 @@ func (c *DefaultApiService) DeleteUser(Sid string, params *DeleteUserParams) err
 	headers := make(map[string]interface{})
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -2866,17 +2866,17 @@ func (c *DefaultApiService) UpdateConversation(Sid string, params *UpdateConvers
 		data.Set("State", *params.State)
 	}
 	if params != nil && params.TimersClosed != nil {
-		data.Set("TimersClosed", *params.TimersClosed)
+		data.Set("Timers.Closed", *params.TimersClosed)
 	}
 	if params != nil && params.TimersInactive != nil {
-		data.Set("TimersInactive", *params.TimersInactive)
+		data.Set("Timers.Inactive", *params.TimersInactive)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -2943,7 +2943,7 @@ func (c *DefaultApiService) UpdateConversationMessage(ConversationSid string, Si
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3020,17 +3020,17 @@ func (c *DefaultApiService) UpdateConversationParticipant(ConversationSid string
 		data.Set("LastReadTimestamp", *params.LastReadTimestamp)
 	}
 	if params != nil && params.MessagingBindingProjectedAddress != nil {
-		data.Set("MessagingBindingProjectedAddress", *params.MessagingBindingProjectedAddress)
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
 	}
 	if params != nil && params.MessagingBindingProxyAddress != nil {
-		data.Set("MessagingBindingProxyAddress", *params.MessagingBindingProxyAddress)
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
 	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3079,19 +3079,19 @@ func (c *DefaultApiService) UpdateConversationScopedWebhook(ConversationSid stri
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
+		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid)
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("ConfigurationMethod", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("ConfigurationTriggers", strings.Join(*params.ConfigurationTriggers, ","))
+		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
 	}
 	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("ConfigurationUrl", *params.ConfigurationUrl)
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3330,17 +3330,17 @@ func (c *DefaultApiService) UpdateServiceConversation(ChatServiceSid string, Sid
 		data.Set("State", *params.State)
 	}
 	if params != nil && params.TimersClosed != nil {
-		data.Set("TimersClosed", *params.TimersClosed)
+		data.Set("Timers.Closed", *params.TimersClosed)
 	}
 	if params != nil && params.TimersInactive != nil {
-		data.Set("TimersInactive", *params.TimersInactive)
+		data.Set("Timers.Inactive", *params.TimersInactive)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3409,7 +3409,7 @@ func (c *DefaultApiService) UpdateServiceConversationMessage(ChatServiceSid stri
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3488,17 +3488,17 @@ func (c *DefaultApiService) UpdateServiceConversationParticipant(ChatServiceSid 
 		data.Set("LastReadTimestamp", *params.LastReadTimestamp)
 	}
 	if params != nil && params.MessagingBindingProjectedAddress != nil {
-		data.Set("MessagingBindingProjectedAddress", *params.MessagingBindingProjectedAddress)
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
 	}
 	if params != nil && params.MessagingBindingProxyAddress != nil {
-		data.Set("MessagingBindingProxyAddress", *params.MessagingBindingProxyAddress)
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
 	}
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3549,19 +3549,19 @@ func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(ChatServiceSi
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("ConfigurationFilters", strings.Join(*params.ConfigurationFilters, ","))
+		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
-		data.Set("ConfigurationFlowSid", *params.ConfigurationFlowSid)
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("ConfigurationMethod", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("ConfigurationTriggers", strings.Join(*params.ConfigurationTriggers, ","))
+		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
 	}
 	if params != nil && params.ConfigurationUrl != nil {
-		data.Set("ConfigurationUrl", *params.ConfigurationUrl)
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3620,37 +3620,37 @@ func (c *DefaultApiService) UpdateServiceNotification(ChatServiceSid string, par
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AddedToConversationEnabled != nil {
-		data.Set("AddedToConversationEnabled", fmt.Sprint(*params.AddedToConversationEnabled))
+		data.Set("AddedToConversation.Enabled", fmt.Sprint(*params.AddedToConversationEnabled))
 	}
 	if params != nil && params.AddedToConversationSound != nil {
-		data.Set("AddedToConversationSound", *params.AddedToConversationSound)
+		data.Set("AddedToConversation.Sound", *params.AddedToConversationSound)
 	}
 	if params != nil && params.AddedToConversationTemplate != nil {
-		data.Set("AddedToConversationTemplate", *params.AddedToConversationTemplate)
+		data.Set("AddedToConversation.Template", *params.AddedToConversationTemplate)
 	}
 	if params != nil && params.LogEnabled != nil {
 		data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled))
 	}
 	if params != nil && params.NewMessageBadgeCountEnabled != nil {
-		data.Set("NewMessageBadgeCountEnabled", fmt.Sprint(*params.NewMessageBadgeCountEnabled))
+		data.Set("NewMessage.BadgeCountEnabled", fmt.Sprint(*params.NewMessageBadgeCountEnabled))
 	}
 	if params != nil && params.NewMessageEnabled != nil {
-		data.Set("NewMessageEnabled", fmt.Sprint(*params.NewMessageEnabled))
+		data.Set("NewMessage.Enabled", fmt.Sprint(*params.NewMessageEnabled))
 	}
 	if params != nil && params.NewMessageSound != nil {
-		data.Set("NewMessageSound", *params.NewMessageSound)
+		data.Set("NewMessage.Sound", *params.NewMessageSound)
 	}
 	if params != nil && params.NewMessageTemplate != nil {
-		data.Set("NewMessageTemplate", *params.NewMessageTemplate)
+		data.Set("NewMessage.Template", *params.NewMessageTemplate)
 	}
 	if params != nil && params.RemovedFromConversationEnabled != nil {
-		data.Set("RemovedFromConversationEnabled", fmt.Sprint(*params.RemovedFromConversationEnabled))
+		data.Set("RemovedFromConversation.Enabled", fmt.Sprint(*params.RemovedFromConversationEnabled))
 	}
 	if params != nil && params.RemovedFromConversationSound != nil {
-		data.Set("RemovedFromConversationSound", *params.RemovedFromConversationSound)
+		data.Set("RemovedFromConversation.Sound", *params.RemovedFromConversationSound)
 	}
 	if params != nil && params.RemovedFromConversationTemplate != nil {
-		data.Set("RemovedFromConversationTemplate", *params.RemovedFromConversationTemplate)
+		data.Set("RemovedFromConversation.Template", *params.RemovedFromConversationTemplate)
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3748,7 +3748,7 @@ func (c *DefaultApiService) UpdateServiceUser(ChatServiceSid string, Sid string,
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -3803,7 +3803,7 @@ func (c *DefaultApiService) UpdateUser(Sid string, params *UpdateUserParams) (*C
 	}
 
 	if params != nil && params.XTwilioWebhookEnabled != nil {
-		headers["XTwilioWebhookEnabled"] = *params.XTwilioWebhookEnabled
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)

@@ -582,7 +582,7 @@ func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IfMatch != nil {
-		headers["IfMatch"] = *params.IfMatch
+		headers["If-Match"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -667,7 +667,7 @@ func (c *DefaultApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, 
 	headers := make(map[string]interface{})
 
 	if params != nil && params.IfMatch != nil {
-		headers["IfMatch"] = *params.IfMatch
+		headers["If-Match"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
@@ -1493,7 +1493,7 @@ func (c *DefaultApiService) UpdateDocument(ServiceSid string, Sid string, params
 	}
 
 	if params != nil && params.IfMatch != nil {
-		headers["IfMatch"] = *params.IfMatch
+		headers["If-Match"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -1728,7 +1728,7 @@ func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string
 	}
 
 	if params != nil && params.IfMatch != nil {
-		headers["IfMatch"] = *params.IfMatch
+		headers["If-Match"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -1895,7 +1895,7 @@ func (c *DefaultApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, 
 	}
 
 	if params != nil && params.IfMatch != nil {
-		headers["IfMatch"] = *params.IfMatch
+		headers["If-Match"] = *params.IfMatch
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
