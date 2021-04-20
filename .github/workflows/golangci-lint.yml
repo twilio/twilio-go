@@ -13,6 +13,6 @@ jobs:
         uses: golangci/golangci-lint-action@v2.5.2
         with:
           version: latest
-          github_token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.github_token }}
           args: "--enable-all --exclude-use-default=false -D errcheck -D gomnd"
           only-new-issues: true
