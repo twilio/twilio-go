@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 	"time"
 
@@ -142,10 +141,10 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 //nolint:paralleltest
 func TestClient_BuildHostSetRegion(t *testing.T) {
 	// Region set via url
+	client := NewClient("user", "pass")
 	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.region.twilio.com"))
 
 	// Region set via client
-	client := NewClient("user", "pass")
 	client.Region = "region"
 	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.twilio.com"))
 	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.urlRegion.twilio.com"))
@@ -162,10 +161,10 @@ func TestClient_BuildHostSetEdgeDefaultRegion(t *testing.T) {
 //nolint:paralleltest
 func TestClient_BuildHostSetEdgeRegion(t *testing.T) {
 	//Edge and Region set via url
+	client := NewClient("user", "pass")
 	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.edge.region.twilio.com"))
 
 	// Edge and Region set via client
-	client := NewClient("user", "pass")
 	client.Edge = "edge"
 	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.region.twilio.com"))
 	client.Region = "region"
