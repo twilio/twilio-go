@@ -14,5 +14,4 @@ jobs:
         with:
           version: latest
           github-token: ${{ secrets.github_token }}
-          args: "--exclude-use-default=false -D errcheck -D gomnd"
           only-new-issues: true
