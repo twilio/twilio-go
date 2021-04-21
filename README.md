@@ -67,6 +67,29 @@ func main(){
 }
 ```
 
+### Specify a Region and/or Edge
+
+```go
+package main
+
+import (
+	"github.com/twilio/twilio-go/twilio"
+	"os"
+)
+
+func main() {
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	client := twilio.NewClient(accountSid, authToken)
+	client.SetRegion("au1")
+	client.SetEdge("sydney")
+}
+
+```
+This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
+
+A Twilio client constructed without these parameters will also look for `TWILIO_REGION` and `TWILIO_EDGE` variables inside the current environment.
+
 ### Buy a phone number
 
 ```go
@@ -136,7 +159,7 @@ func main() {
 ```
 
 ### Make a call
-``` go
+```go
 package main
 
 import (

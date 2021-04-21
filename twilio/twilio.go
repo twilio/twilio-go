@@ -2,6 +2,7 @@
 package twilio
 
 import (
+	"os"
 	"time"
 
 	"github.com/twilio/twilio-go/client"
@@ -105,6 +106,8 @@ func NewClient(accountSID string, authToken string) *Twilio {
 		Client: &client.Client{
 			Credentials: credentials,
 			BaseURL:     "twilio.com",
+			Edge:        os.Getenv("TWILIO_EDGE"),
+			Region:      os.Getenv("TWILIO_REGION"),
 		},
 	}
 
@@ -150,4 +153,14 @@ func NewClient(accountSID string, authToken string) *Twilio {
 // SetTimeout sets the Timeout for Twilio HTTP requests.
 func (c *Twilio) SetTimeout(timeout time.Duration) {
 	c.Client.SetTimeout(timeout)
+}
+
+// SetEdge sets the Edge for the Twilio request.
+func (c *Twilio) SetEdge(edge string) {
+	c.Client.Edge = edge
+}
+
+// SetRegion sets the Region for the Twilio request. Defaults to "us1" if an edge is provided.
+func (c *Twilio) SetRegion(region string) {
+	c.Client.Region = region
 }
